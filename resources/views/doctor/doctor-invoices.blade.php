@@ -6,8 +6,9 @@
 </head>
 
 <body>
- <div class="main-wrapper">
-@include('patients.include.header')
+
+    <div class="main-wrapper">
+    @include('doctor.include.header')
 
 <div class="breadcrumb-bar-two">
 <div class="container">
@@ -16,7 +17,7 @@
 <h2 class="breadcrumb-title">Invoices</h2>
 <nav aria-label="breadcrumb" class="page-breadcrumb">
 <ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="{{ route('patients.patient-dashboard.index') }}">Home</a></li>
+<li class="breadcrumb-item"><a href="{{ route('doctor.doctor-dashboard.index') }}">Home</a></li>
 <li class="breadcrumb-item" aria-current="page">Invoices</li>
 </ol>
 </nav>
@@ -29,12 +30,10 @@
 <div class="content doctor-content">
 <div class="container">
 <div class="row">
-
 <div class="col-lg-4 col-xl-3 theiaStickySidebar">
-@include('patients.include.sidebar')
+@include('doctor.include.sidebar')
 
 </div>
-
 
 <div class="col-lg-8 col-xl-9">
 <div class="dashboard-header">
@@ -52,7 +51,7 @@
 <thead>
 <tr>
 <th>ID</th>
-<th>Doctor</th>
+<th>Patient</th>
 <th>Appointment Date</th>
 <th>Booked on</th>
 <th>Amount</th>
@@ -64,10 +63,10 @@
 <td><a href="javascript:void(0);" class="text-blue-600" data-bs-toggle="modal" data-bs-target="#invoice_view">#Inv-2021</a></td>
 <td>
 <h2 class="table-avatar">
-<a href="#" class="avatar avatar-sm me-2">
-<img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-21.jpg" alt="User Image">
+<a href="{{ route('doctor.doctor-profile.index') }}" class="avatar avatar-sm me-2">
+<img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
 </a>
-<a href="#">Edalin Hendry</a>
+<a href="{{ route('doctor.doctor-profile.index') }}">Edalin Hendry</a>
 </h2>
 </td>
 <td>24 Mar 2024</td>
@@ -88,10 +87,10 @@
 <td><a href="javascript:void(0);" class="text-blue-600" data-bs-toggle="modal" data-bs-target="#invoice_view">#Inv-2021</a></td>
 <td>
 <h2 class="table-avatar">
-<a href="#" class="avatar avatar-sm me-2">
-<img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-13.jpg" alt="User Image">
+<a href="{{ route('doctor.doctor-profile.index') }}" class="avatar avatar-sm me-2">
+<img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-05.jpg" alt="User Image">
 </a>
-<a href="#">John Homes</a>
+<a href="{{ route('doctor.doctor-profile.index') }}">John Homes</a>
 </h2>
 </td>
 <td>17 Mar 2024</td>
@@ -112,10 +111,10 @@
 <td><a href="javascript:void(0);" class="text-blue-600" data-bs-toggle="modal" data-bs-target="#invoice_view">#Inv-2021</a></td>
 <td>
 <h2 class="table-avatar">
-<a href="#" class="avatar avatar-sm me-2">
+<a href="{{ route('doctor.doctor-profile.index') }}" class="avatar avatar-sm me-2">
 <img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-03.jpg" alt="User Image">
 </a>
-<a href="#">Shanta Neill</a>
+<a href="{{ route('doctor.doctor-profile.index') }}">Shanta Neill</a>
 </h2>
 </td>
 <td>11 Mar 2024</td>
@@ -136,10 +135,10 @@
 <td><a href="javascript:void(0);" class="text-blue-600" data-bs-toggle="modal" data-bs-target="#invoice_view">#Inv-2021</a></td>
 <td>
 <h2 class="table-avatar">
-<a href="#" class="avatar avatar-sm me-2">
+<a href="{{ route('doctor.doctor-profile.index') }}" class="avatar avatar-sm me-2">
 <img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-08.jpg" alt="User Image">
 </a>
-<a href="#">Anthony Tran</a>
+<a href="{{ route('doctor.doctor-profile.index') }}">Anthony Tran</a>
 </h2>
 </td>
 <td>26 Feb 2024</td>
@@ -160,10 +159,10 @@
 <td><a href="javascript:void(0);" class="text-blue-600" data-bs-toggle="modal" data-bs-target="#invoice_view">#Inv-2021</a></td>
 <td>
 <h2 class="table-avatar">
-<a href="#" class="avatar avatar-sm me-2">
+<a href="{{ route('doctor.doctor-profile.index') }}" class="avatar avatar-sm me-2">
 <img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-01.jpg" alt="User Image">
 </a>
-<a href="#">Susan Lingo</a>
+<a href="{{ route('doctor.doctor-profile.index') }}">Susan Lingo</a>
 </h2>
 </td>
 <td>18 Feb 2024</td>
@@ -181,13 +180,13 @@
 </td>
 </tr>
 <tr>
-<td><a href="javascript:void(0);" class="text-blue-600" data-bs-toggle="modal" data-bs-target="#invoice_view">#Apt123</a></td>
+<td><a href="javascript:void(0);" class="text-blue-600" data-bs-toggle="modal" data-bs-target="#invoice_view">#IApt123</a></td>
 <td>
 <h2 class="table-avatar">
-<a href="#" class="avatar avatar-sm me-2">
+<a href="{{ route('doctor.doctor-profile.index') }}" class="avatar avatar-sm me-2">
 <img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-09.jpg" alt="User Image">
 </a>
-<a href="#">Joseph Boyd</a>
+<a href="{{ route('doctor.doctor-profile.index') }}">Joseph Boyd</a>
 </h2>
 </td>
 <td>10 Feb 2024</td>
@@ -208,10 +207,10 @@
 <td><a href="javascript:void(0);" class="text-blue-600" data-bs-toggle="modal" data-bs-target="#invoice_view">#Inv-2021</a></td>
 <td>
 <h2 class="table-avatar">
-<a href="#" class="avatar avatar-sm me-2">
+<a href="{{ route('doctor.doctor-profile.index') }}" class="avatar avatar-sm me-2">
 <img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-07.jpg" alt="User Image">
 </a>
-<a href="#">Juliet Gabriel</a>
+<a href="{{ route('doctor.doctor-profile.index') }}">Juliet Gabriel</a>
 </h2>
 </td>
 <td>28 Jan 2024</td>
@@ -267,4 +266,5 @@
  
 
 </div>
+
 @include('include.footer')

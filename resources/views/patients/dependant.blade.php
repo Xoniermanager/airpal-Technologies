@@ -16,8 +16,8 @@
 <h2 class="breadcrumb-title">Dependants</h2>
 <nav aria-label="breadcrumb" class="page-breadcrumb">
 <ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-<li class="breadcrumb-item" aria-current="page">Dependants</li>
+<li class="breadcrumb-item"><a href="{{ route('patients.patient-dashboard.index') }}">Home</a></li> 
+<li class="breadcrumb-item" aria-current="page">Dependents</li>
 </ol>
 </nav>
 </div>
@@ -61,7 +61,7 @@
 <div class="dependent-wrap">
 <div class="dependent-info">
 <div class="patinet-information">
-<a href="patient-profile.html">
+<a href="{{ route('patients.patient-dependant.index') }}">
 <img src="../assets/img/dependent/dependent-01.jpg" alt="User Image">
 </a>
 <div class="patient-info">
@@ -93,7 +93,7 @@
 <div class="dependent-wrap">
 <div class="dependent-info">
 <div class="patinet-information">
-<a href="patient-profile.html">
+<a href="{{ route('patients.patient-dependant.index') }}">
 <img src="../assets/img/dependent/dependent-02.jpg" alt="User Image">
 </a>
 <div class="patient-info">
@@ -125,7 +125,7 @@
 <div class="dependent-wrap">
 <div class="dependent-info">
 <div class="patinet-information">
-<a href="patient-profile.html">
+<a href="{{ route('patients.patient-dependant.index') }}">
 <img src="../assets/img/dependent/dependent-03.jpg" alt="User Image">
 </a>
 <div class="patient-info">
@@ -157,7 +157,7 @@
 <div class="dependent-wrap">
 <div class="dependent-info">
 <div class="patinet-information">
-<a href="patient-profile.html">
+<a href="{{ route('patients.patient-dependant.index') }}">
 <img src="../assets/img/dependent/dependent-04.jpg" alt="User Image">
 </a>
 <div class="patient-info">

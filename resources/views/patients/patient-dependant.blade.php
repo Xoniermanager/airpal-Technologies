@@ -120,7 +120,7 @@
                                         </div>
                                     </div>
                                     <div class="onboarding-btn">
-                                        <a href="patient-email-otp.html">Continue</a>
+                                        <a href="#">Continue</a>
                                     </div>
                                 </div>
                             </div>
@@ -409,7 +409,7 @@
                                         </div>
                                     </div>
                                     <div class="onboarding-btn">
-                                        <a href="patient-family-details.html">Continue</a>
+                                        <a href="#">Continue</a>
                                     </div>
                                 </div>
                             </div>
@@ -485,7 +485,7 @@
                                         </div>
                                     </div>
                                     <div class="onboarding-btn">
-                                        <a href="patient-dependant-details.html">Continue</a>
+                                        <a href="#">Continue</a>
                                     </div>
                                 </div>
                             </div>
@@ -724,7 +724,7 @@
                                         </div>
                                     </div>
                                     <div class="onboarding-btn">
-                                        <a href="patient-other-details.html">Continue</a>
+                                        <a href="#">Continue</a>
                                     </div>
                                 </div>
                             </div>

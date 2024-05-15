@@ -15,7 +15,7 @@
 <h2 class="breadcrumb-title">Patient Appointments</h2>
 <nav aria-label="breadcrumb" class="page-breadcrumb">
 <ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+<li class="breadcrumb-item"><a href="{{ route('patients.patient-dashboard.index') }}">Home</a></li>
 <li class="breadcrumb-item" aria-current="page">Patient Appointments</li>
 </ol>
 </nav>
@@ -45,12 +45,12 @@
 </li>
 <li>
 <div class="view-icons">
-<a href="patient-appointments.html"><i class="fa-solid fa-list"></i></a>
+<a href="{{ route('patients.patient-appointment-details.index') }}"><i class="fa-solid fa-list"></i></a>
 </div>
 </li>
 <li>
 <div class="view-icons">
-<a href="patient-appointments-grid.html" class="active"><i class="fa-solid fa-th"></i></a>
+<a href="{{ route('patients.patient-appointment-details.index') }}" class="active"><i class="fa-solid fa-th"></i></a>
 </div>
 </li>
 </ul>
@@ -206,8 +206,8 @@
 </div>
 </div>
 <div class="filter-reset-btns">
-<a href="appointments.html" class="btn btn-light">Reset</a>
-<a href="appointments.html" class="btn btn-primary">Filter Now</a>
+<a href="{{ route('patients.patient-appointment-details.index') }}" class="btn btn-light">Reset</a>
+<a href="{{ route('patients.patient-appointment-details.index') }}" class="btn btn-primary">Filter Now</a>
 </div>
 </div>
 </div>
@@ -224,12 +224,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-upcoming-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-21.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0001</p>
-<h6><a href="patient-upcoming-appointment.html">Dr Edalin Hendry</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr Edalin Hendry</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -245,7 +245,7 @@
 <li class="appointment-action">
 <ul>
 <li>
-<a href="patient-upcoming-appointment.html"><i class="fa-solid fa-eye"></i></a>
+<a href="{{ route('patients.patient-appointment-details.index') }}"><i class="fa-solid fa-eye"></i></a>
 </li>
 <li>
 <a href="#"><i class="fa-solid fa-comments"></i></a>
@@ -269,12 +269,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-upcoming-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-13.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0002</p>
-<h6><a href="patient-upcoming-appointment.html">Dr.Shanta Nesmith</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr.Shanta Nesmith</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -290,7 +290,7 @@
 <li class="appointment-action">
 <ul>
 <li>
-<a href="patient-upcoming-appointment.html"><i class="fa-solid fa-eye"></i></a>
+<a href="{{ route('patients.patient-appointment-details.index') }}"><i class="fa-solid fa-eye"></i></a>
 </li>
 <li>
 <a href="#"><i class="fa-solid fa-comments"></i></a>
@@ -314,12 +314,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-upcoming-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-14.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0003</p>
-<h6><a href="patient-upcoming-appointment.html">Dr.John Ewel</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr.John Ewel</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -335,7 +335,7 @@
 <li class="appointment-action">
 <ul>
 <li>
-<a href="patient-upcoming-appointment.html"><i class="fa-solid fa-eye"></i></a>
+<a href="{{ route('patients.patient-appointment-details.index') }}"><i class="fa-solid fa-eye"></i></a>
 </li>
 <li>
 <a href="#"><i class="fa-solid fa-comments"></i></a>
@@ -359,12 +359,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-upcoming-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-15.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0004</p>
-<h6><a href="patient-upcoming-appointment.html">Dr.Susan Fenimore</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr.Susan Fenimore</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -380,7 +380,7 @@
 <li class="appointment-action">
 <ul>
 <li>
-<a href="patient-upcoming-appointment.html"><i class="fa-solid fa-eye"></i></a>
+<a href="{{ route('patients.patient-appointment-details.index') }}"><i class="fa-solid fa-eye"></i></a>
 </li>
 <li>
 <a href="#"><i class="fa-solid fa-comments"></i></a>
@@ -404,12 +404,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-upcoming-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-16.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0005</p>
-<h6><a href="patient-upcoming-appointment.html">Dr.Juliet Rios</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr.Juliet Rios</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -425,7 +425,7 @@
 <li class="appointment-action">
 <ul>
 <li>
-<a href="patient-upcoming-appointment.html"><i class="fa-solid fa-eye"></i></a>
+<a href="{{ route('patients.patient-appointment-details.index') }}"><i class="fa-solid fa-eye"></i></a>
 </li>
 <li>
 <a href="#"><i class="fa-solid fa-comments"></i></a>
@@ -449,12 +449,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-upcoming-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-17.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0006</p>
-<h6><a href="patient-upcoming-appointment.html">Dr.Joseph Engels</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr.Joseph Engels</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -470,7 +470,7 @@
 <li class="appointment-action">
 <ul>
 <li>
-<a href="patient-upcoming-appointment.html"><i class="fa-solid fa-eye"></i></a>
+<a href="{{ route('patients.patient-appointment-details.index') }}"><i class="fa-solid fa-eye"></i></a>
 </li>
 <li>
 <a href="#"><i class="fa-solid fa-comments"></i></a>
@@ -494,12 +494,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-upcoming-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-18.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0007</p>
-<h6><a href="patient-upcoming-appointment.html">Dr.Victoria Selzer</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr.Victoria Selzer</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -515,7 +515,7 @@
 <li class="appointment-action">
 <ul>
 <li>
-<a href="patient-upcoming-appointment.html"><i class="fa-solid fa-eye"></i></a>
+<a href="{{ route('patients.patient-appointment-details.index') }}"><i class="fa-solid fa-eye"></i></a>
 </li>
 <li>
 <a href="#"><i class="fa-solid fa-comments"></i></a>
@@ -539,12 +539,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-upcoming-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-19.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0008</p>
-<h6><a href="patient-upcoming-appointment.html">Dr.Benjamin Hedge</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr.Benjamin Hedge</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -560,7 +560,7 @@
 <li class="appointment-action">
 <ul>
 <li>
-<a href="patient-upcoming-appointment.html"><i class="fa-solid fa-eye"></i></a>
+<a href="{{ route('patients.patient-appointment-details.index') }}"><i class="fa-solid fa-eye"></i></a>
 </li>
 <li>
 <a href="#"><i class="fa-solid fa-comments"></i></a>
@@ -584,12 +584,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-upcoming-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-21.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0009</p>
-<h6><a href="patient-upcoming-appointment.html">Dr.Kristina Lepley</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr.Kristina Lepley</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -605,7 +605,7 @@
 <li class="appointment-action">
 <ul>
 <li>
-<a href="patient-upcoming-appointment.html"><i class="fa-solid fa-eye"></i></a>
+<a href="{{ route('patients.patient-appointment-details.index') }}"><i class="fa-solid fa-eye"></i></a>
 </li>
 <li>
 <a href="#"><i class="fa-solid fa-comments"></i></a>
@@ -638,12 +638,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-cancelled-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-21.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0001</p>
-<h6><a href="patient-cancelled-appointment.html">Dr Edalin Hendry</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr Edalin Hendry</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -657,7 +657,7 @@
 <p><i class="fa-solid fa-clock"></i>10.45 AM</p>
 </li>
 <li class="appointment-detail-btn">
-<a href="patient-cancelled-appointment.html" class="start-link w-100">View Details</a>
+<a href="{{ route('patients.patient-appointment-details.index') }}" class="start-link w-100">View Details</a>
 </li>
 </ul>
 </div>
@@ -670,12 +670,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-cancelled-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-13.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0002</p>
-<h6><a href="patient-cancelled-appointment.html">Dr.Shanta Nesmith</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr.Shanta Nesmith</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -689,7 +689,7 @@
 <p><i class="fa-solid fa-clock"></i>11.50 AM</p>
 </li>
 <li class="appointment-detail-btn">
-<a href="patient-cancelled-appointment.html" class="start-link w-100">View Details</a>
+<a href="{{ route('patients.patient-appointment-details.index') }}" class="start-link w-100">View Details</a>
 </li>
 </ul>
 </div>
@@ -702,12 +702,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-cancelled-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-14.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0003</p>
-<h6><a href="patient-cancelled-appointment.html">Dr.John Ewel</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr.John Ewel</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -721,7 +721,7 @@
 <p><i class="fa-solid fa-clock"></i>09.30 AM</p>
 </li>
 <li class="appointment-detail-btn">
-<a href="patient-cancelled-appointment.html" class="start-link w-100">View Details</a>
+<a href="{{ route('patients.patient-appointment-details.index') }}" class="start-link w-100">View Details</a>
 </li>
 </ul>
 </div>
@@ -734,12 +734,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-cancelled-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-15.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0004</p>
-<h6><a href="patient-cancelled-appointment.html">Dr.Susan Fenimore</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr.Susan Fenimore</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -753,7 +753,7 @@
 <p><i class="fa-solid fa-clock"></i>12.20 PM</p>
 </li>
 <li class="appointment-detail-btn">
-<a href="patient-cancelled-appointment.html" class="start-link w-100">View Details</a>
+<a href="{{ route('patients.patient-appointment-details.index') }}" class="start-link w-100">View Details</a>
 </li>
 </ul>
 </div>
@@ -766,12 +766,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-cancelled-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-16.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0005</p>
-<h6><a href="patient-cancelled-appointment.html">Dr.Juliet Rios</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr.Juliet Rios</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -785,7 +785,7 @@
 <p><i class="fa-solid fa-clock"></i>11.30 AM</p>
 </li>
 <li class="appointment-detail-btn">
-<a href="patient-cancelled-appointment.html" class="start-link w-100">View Details</a>
+<a href="{{ route('patients.patient-appointment-details.index') }}" class="start-link w-100">View Details</a>
 </li>
 </ul>
 </div>
@@ -798,12 +798,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-cancelled-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-17.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0006</p>
-<h6><a href="patient-cancelled-appointment.html">Dr.Joseph Engels</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr.Joseph Engels</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -817,7 +817,7 @@
 <p><i class="fa-solid fa-clock"></i>10.20 AM</p>
 </li>
 <li class="appointment-detail-btn">
-<a href="patient-cancelled-appointment.html" class="start-link w-100">View Details</a>
+<a href="{{ route('patients.patient-appointment-details.index') }}" class="start-link w-100">View Details</a>
 </li>
 </ul>
 </div>
@@ -839,12 +839,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-completed-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-21.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0001</p>
-<h6><a href="patient-completed-appointment.html">Dr Edalin Hendry</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr Edalin Hendry</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -858,7 +858,7 @@
 <p><i class="fa-solid fa-clock"></i>10.45 AM</p>
 </li>
 <li class="appointment-detail-btn">
-<a href="patient-completed-appointment.html" class="start-link w-100">View Details</a>
+<a href="{{ route('patients.patient-appointment-details.index') }}" class="start-link w-100">View Details</a>
 </li>
 </ul>
 </div>
@@ -871,12 +871,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-completed-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-13.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0002</p>
-<h6><a href="patient-completed-appointment.html">Dr.Shanta Nesmith</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr.Shanta Nesmith</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -890,7 +890,7 @@
 <p><i class="fa-solid fa-clock"></i>11.50 AM</p>
 </li>
 <li class="appointment-detail-btn">
-<a href="patient-completed-appointment.html" class="start-link w-100">View Details</a>
+<a href="{{ route('patients.patient-appointment-details.index') }}" class="start-link w-100">View Details</a>
 </li>
 </ul>
 </div>
@@ -903,12 +903,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-completed-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-14.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0003</p>
-<h6><a href="patient-completed-appointment.html">Dr.John Ewel</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr.John Ewel</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -922,7 +922,7 @@
 <p><i class="fa-solid fa-clock"></i>09.30 AM</p>
 </li>
 <li class="appointment-detail-btn">
-<a href="patient-completed-appointment.html" class="start-link w-100">View Details</a>
+<a href="{{ route('patients.patient-appointment-details.index') }}" class="start-link w-100">View Details</a>
 </li>
 </ul>
 </div>
@@ -935,12 +935,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-completed-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-15.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0004</p>
-<h6><a href="patient-completed-appointment.html">Dr.Susan Fenimore</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr.Susan Fenimore</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -954,7 +954,7 @@
 <p><i class="fa-solid fa-clock"></i>12.20 PM</p>
 </li>
 <li class="appointment-detail-btn">
-<a href="patient-completed-appointment.html" class="start-link w-100">View Details</a>
+<a href="{{ route('patients.patient-appointment-details.index') }}" class="start-link w-100">View Details</a>
 </li>
 </ul>
 </div>
@@ -967,12 +967,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-completed-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-16.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0005</p>
-<h6><a href="patient-completed-appointment.html">Dr.Juliet Rios</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr.Juliet Rios</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -986,7 +986,7 @@
 <p><i class="fa-solid fa-clock"></i>11.30 AM</p>
 </li>
 <li class="appointment-detail-btn">
-<a href="patient-completed-appointment.html" class="start-link w-100">View Details</a>
+<a href="{{ route('patients.patient-appointment-details.index') }}" class="start-link w-100">View Details</a>
 </li>
 </ul>
 </div>
@@ -999,12 +999,12 @@
 <li>
 <div class="appointment-grid-head">
 <div class="patinet-information">
-<a href="patient-completed-appointment.html">
+<a href="{{ route('patients.patient-appointment-details.index') }}">
 <img src="../assets/img/doctors/doctor-thumb-17.jpg" alt="User Image">
 </a>
 <div class="patient-info">
 <p>#Apt0006</p>
-<h6><a href="patient-completed-appointment.html">Dr.Joseph Engels</a></h6>
+<h6><a href="{{ route('patients.patient-appointment-details.index') }}">Dr.Joseph Engels</a></h6>
 <p class="visit">General Visit</p>
 </div>
 </div>
@@ -1018,7 +1018,7 @@
 <p><i class="fa-solid fa-clock"></i>10.20 AM</p>
 </li>
 <li class="appointment-detail-btn">
-<a href="patient-completed-appointment.html" class="start-link w-100">View Details</a>
+<a href="{{ route('patients.patient-appointment-details.index') }}" class="start-link w-100">View Details</a>
 </li>
 </ul>
 </div>

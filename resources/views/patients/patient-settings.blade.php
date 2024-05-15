@@ -15,7 +15,7 @@
 <h2 class="breadcrumb-title">Profile Settings</h2>
 <nav aria-label="breadcrumb" class="page-breadcrumb">
 <ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+<li class="breadcrumb-item"><a href="{{ route('patients.patient-dashboard.index') }}">Home</a></li>
 <li class="breadcrumb-item" aria-current="page">Profile Settings</li>
 </ol>
 </nav>
@@ -33,7 +33,7 @@
 
 </div>
 <div class="col-lg-8 col-xl-9">
-<form action="profile-settings.html">
+<form action="{{ route('patients.patient-settings.index') }}">
 <div class="setting-card">
 <div class="change-avatar img-upload">
 <div class="profile-img">

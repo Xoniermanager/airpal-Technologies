@@ -2,13 +2,13 @@
 <html lang="zxx">
 
 <head>
-    @include('include.head')
+@include('include.head')
 </head>
 
 <body>
-    <div class="main-wrapper">
-        @include('patients.include.header')
 
+    <div class="main-wrapper">
+    @include('doctor.include.header')
         <div class="breadcrumb-bar-two">
             <div class="container">
                 <div class="row align-items-center inner-banner">
@@ -16,7 +16,7 @@
                         <h2 class="breadcrumb-title">Change Password</h2>
                         <nav aria-label="breadcrumb" class="page-breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('doctor.doctor-dashboard.index') }}">Home</a></li>
                                 <li class="breadcrumb-item" aria-current="page">Change Password</li>
                             </ol>
                         </nav>
@@ -30,14 +30,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-xl-3 theiaStickySidebar">
-                    @include('patients.include.sidebar')
-                    </div>
+                    @include('doctor.include.sidebar')
 
+                    </div>
                     <div class="col-lg-8 col-xl-9">
                         <div class="dashboard-header">
                             <h3>Change Password</h3>
                         </div>
-                        <form action="change-password.html">
+                        <form action="#">
                             <div class="card pass-card">
                                 <div class="card-body">
                                     <div class="row">
@@ -70,12 +70,11 @@
                             </div>
                         </form>
                     </div>
-
                 </div>
             </div>
         </div>
 
+ 
 
     </div>
-
     @include('include.footer')

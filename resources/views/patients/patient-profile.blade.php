@@ -16,7 +16,7 @@
 <h2 class="breadcrumb-title">My Patient</h2>
 <nav aria-label="breadcrumb" class="page-breadcrumb">
 <ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+<li class="breadcrumb-item"><a href="{{ route('patients.patient-dashboard.index') }}">Home</a></li>
 <li class="breadcrumb-item" aria-current="page">My Patient</li>
 </ol>
 </nav>
@@ -36,7 +36,7 @@
 <div class="col-lg-8 col-xl-9">
 <div class="appointment-patient">
 <div class="dashboard-header">
-<h3><a href="my-patients.html"><i class="fa-solid fa-arrow-left"></i> Patient Details</a></h3>
+<h3><a href="#"><i class="fa-solid fa-arrow-left"></i> Patient Details</a></h3>
 </div>
 <div class="patient-wrap">
 <div class="patient-info">
@@ -99,13 +99,13 @@
 </thead>
 <tbody>
 <tr>
-<td><a class="text-blue-600" href="patient-upcoming-appointment.html">#Apt123</a></td>
+<td><a class="text-blue-600" href="{{ route('patients.patient-appointments.index') }}">#Apt123</a></td>
 <td>
 <h2 class="table-avatar">
-<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+<a href="#" class="avatar avatar-sm me-2">
 <img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
 </a>
-<a href="doctor-profile.html">Edalin Hendry</a>
+<a href="#">Edalin Hendry</a>
 </h2>
 </td>
 <td>24 Mar 2024</td>
@@ -114,20 +114,20 @@
 <td><span class="badge badge-yellow status-badge">Upcoming</span></td>
 <td>
 <div class="action-item">
-<a href="patient-upcoming-appointment.html">
+<a href="{{ route('patients.patient-appointments.index') }}">
 <i class="fa-solid fa-link"></i>
 </a>
 </div>
 </td>
 </tr>
 <tr>
-<td><a class="text-blue-600" href="patient-upcoming-appointment.html">#Apt124</a></td>
+<td><a class="text-blue-600" href="{{ route('patients.patient-appointments.index') }}">#Apt124</a></td>
 <td>
 <h2 class="table-avatar">
-<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+<a href="#" class="avatar avatar-sm me-2">
 <img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-05.jpg" alt="User Image">
 </a>
-<a href="doctor-profile.html">John Homes</a>
+<a href="#">John Homes</a>
 </h2>
 </td>
 <td>17 Mar 2024</td>
@@ -136,20 +136,20 @@
 <td><span class="badge badge-yellow status-badge">Upcoming</span></td>
 <td>
 <div class="action-item">
-<a href="patient-upcoming-appointment.html">
+<a href="{{ route('patients.patient-appointments.index') }}">
 <i class="fa-solid fa-link"></i>
 </a>
 </div>
 </td>
 </tr>
 <tr>
-<td><a class="text-blue-600" href="patient-upcoming-appointment.html">#Apt125</a></td>
+<td><a class="text-blue-600" href="{{ route('patients.patient-appointments.index') }}">#Apt125</a></td>
 <td>
 <h2 class="table-avatar">
-<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+<a href="#" class="avatar avatar-sm me-2">
 <img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-03.jpg" alt="User Image">
 </a>
-<a href="doctor-profile.html">Shanta Neill</a>
+<a href="#">Shanta Neill</a>
 </h2>
 </td>
 <td>11 Mar 2024</td>
@@ -158,20 +158,20 @@
 <td><span class="badge badge-yellow status-badge">Upcoming</span></td>
 <td>
 <div class="action-item">
-<a href="patient-upcoming-appointment.html">
+<a href="{{ route('patients.patient-appointments.index') }}">
 <i class="fa-solid fa-link"></i>
 </a>
 </div>
 </td>
 </tr>
 <tr>
-<td><a class="text-blue-600" href="patient-upcoming-appointment.html">#Apt126</a></td>
+<td><a class="text-blue-600" href="{{ route('patients.patient-appointments.index') }}">#Apt126</a></td>
 <td>
 <h2 class="table-avatar">
-<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+<a href="#" class="avatar avatar-sm me-2">
 <img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-08.jpg" alt="User Image">
 </a>
-<a href="doctor-profile.html">Anthony Tran</a>
+<a href="#">Anthony Tran</a>
 </h2>
 </td>
 <td>26 Feb 2024</td>
@@ -180,20 +180,20 @@
 <td><span class="badge badge-yellow status-badge">Upcoming</span></td>
 <td>
 <div class="action-item">
-<a href="patient-upcoming-appointment.html">
+<a href="{{ route('patients.patient-appointments.index') }}">
 <i class="fa-solid fa-link"></i>
 </a>
 </div>
 </td>
 </tr>
 <tr>
-<td><a class="text-blue-600" href="patient-upcoming-appointment.html">#Apt127</a></td>
+<td><a class="text-blue-600" href="{{ route('patients.patient-appointments.index') }}">#Apt127</a></td>
 <td>
 <h2 class="table-avatar">
-<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+<a href="#" class="avatar avatar-sm me-2">
 <img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-01.jpg" alt="User Image">
 </a>
-<a href="doctor-profile.html">Susan Lingo</a>
+<a href="#">Susan Lingo</a>
 </h2>
 </td>
 <td>18 Feb 2024</td>
@@ -202,20 +202,20 @@
 <td><span class="badge badge-yellow status-badge">Upcoming</span></td>
 <td>
 <div class="action-item">
-<a href="doctor-appointment-start.html">
+<a href="#">
 <i class="fa-solid fa-link"></i>
 </a>
 </div>
 </td>
 </tr>
 <tr>
-<td><a class="text-blue-600" href="patient-cancelled-appointment.html">#Apt128</a></td>
+<td><a class="text-blue-600" href="{{ route('patients.patient-appointments.index') }}">#Apt128</a></td>
 <td>
 <h2 class="table-avatar">
-<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+<a href="#" class="avatar avatar-sm me-2">
 <img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-09.jpg" alt="User Image">
 </a>
-<a href="doctor-profile.html">Joseph Boyd</a>
+<a href="#">Joseph Boyd</a>
 </h2>
 </td>
 <td>10 Feb 2024</td>
@@ -224,20 +224,20 @@
 <td><span class="badge badge-danger status-badge">Cancelled</span></td>
 <td>
 <div class="action-item">
-<a href="patient-cancelled-appointment.html">
+<a href="{{ route('patients.patient-appointments.index') }}">
 <i class="fa-solid fa-link"></i>
 </a>
 </div>
 </td>
 </tr>
 <tr>
-<td><a class="text-blue-600" href="patient-completed-appointment.html">#Apt129</a></td>
+<td><a class="text-blue-600" href="{{ route('patients.patient-appointments.index') }}">#Apt129</a></td>
 <td>
 <h2 class="table-avatar">
-<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+<a href="#" class="avatar avatar-sm me-2">
 <img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-07.jpg" alt="User Image">
 </a>
-<a href="doctor-profile.html">Juliet Gabriel</a>
+<a href="#">Juliet Gabriel</a>
 </h2>
 </td>
 <td>28 Jan 2024</td>
@@ -246,7 +246,7 @@
 <td><span class="badge badge-green status-badge">Completed</span></td>
 <td>
 <div class="action-item">
-<a href="patient-completed-appointment.html">
+<a href="{{ route('patients.patient-appointments.index') }}">
 <i class="fa-solid fa-link"></i>
 </a>
 </div>
@@ -313,10 +313,10 @@
 <td><a href="javascript:void(0);" class="text-blue-600" data-bs-toggle="modal" data-bs-target="#view_prescription">#Apt123</a></td>
 <td>
 <h2 class="table-avatar">
-<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+<a href="#" class="avatar avatar-sm me-2">
 <img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
 </a>
-<a href="doctor-profile.html">Edalin Hendry</a>
+<a href="#">Edalin Hendry</a>
 </h2>
 </td>
 <td>Visit</td>
@@ -333,10 +333,10 @@
 <td><a href="javascript:void(0);" class="text-blue-600" data-bs-toggle="modal" data-bs-target="#view_prescription">#Apt124</a></td>
 <td>
 <h2 class="table-avatar">
-<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+<a href="#" class="avatar avatar-sm me-2">
 <img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-05.jpg" alt="User Image">
 </a>
-<a href="doctor-profile.html">John Homes</a>
+<a href="#">John Homes</a>
 </h2>
 </td>
 <td>Visit</td>
@@ -353,10 +353,10 @@
 <td><a href="javascript:void(0);" class="text-blue-600" data-bs-toggle="modal" data-bs-target="#view_prescription">#Apt125</a></td>
 <td>
 <h2 class="table-avatar">
-<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+<a href="#" class="avatar avatar-sm me-2">
 <img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-03.jpg" alt="User Image">
 </a>
-<a href="doctor-profile.html">Shanta Neill</a>
+<a href="#">Shanta Neill</a>
 </h2>
 </td>
 <td>Visit</td>
@@ -373,10 +373,10 @@
 <td><a href="javascript:void(0);" class="text-blue-600" data-bs-toggle="modal" data-bs-target="#view_prescription">#Apt126</a></td>
 <td>
 <h2 class="table-avatar">
-<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+<a href="#" class="avatar avatar-sm me-2">
 <img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-08.jpg" alt="User Image">
 </a>
-<a href="doctor-profile.html">Anthony Tran</a>
+<a href="#">Anthony Tran</a>
 </h2>
 </td>
 <td>Visit</td>
@@ -393,10 +393,10 @@
 <td><a href="javascript:void(0);" class="text-blue-600" data-bs-toggle="modal" data-bs-target="#view_prescription">#Apt127</a></td>
 <td>
 <h2 class="table-avatar">
-<a href="doctor-profile.html" class="avatar avatar-sm me-2">
+<a href="#" class="avatar avatar-sm me-2">
 <img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-01.jpg" alt="User Image">
 </a>
-<a href="doctor-profile.html">Susan Lingo</a>
+<a href="#">Susan Lingo</a>
 </h2>
 </td>
 <td>Visit</td>

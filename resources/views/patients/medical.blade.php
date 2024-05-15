@@ -17,7 +17,7 @@
 <h2 class="breadcrumb-title">Medical Details</h2>
 <nav aria-label="breadcrumb" class="page-breadcrumb">
 <ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+<li class="breadcrumb-item"><a href="{{ route('patients.patient-dashboard.index') }}">Home</a></li>
 <li class="breadcrumb-item" aria-current="page">Medical Details</li>
 </ol>
 </nav>
@@ -125,10 +125,10 @@
 <td><a class="text-blue-600" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#med-detail">#MD-123</a></td>
 <td>
 <h2 class="table-avatar">
-<a href="patient-profile.html" class="avatar avatar-sm me-2">
+<a href="{{ route('patients.patient-dependant.index') }}" class="avatar avatar-sm me-2">
 <img class="avatar-img rounded-3" src="../assets/img/doctors-dashboard/profile-06.jpg" alt="User Image">
 </a>
-<a href="doctor-profile.html">Hendrita Kearns</a>
+<a href="{{ route('patients.patient-dependant.index') }}">Hendrita Kearns</a>
 </h2>
 </td>
 <td>23.5</td>

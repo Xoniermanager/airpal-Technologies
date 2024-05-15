@@ -29,19 +29,19 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="favourites.html">
+                                            <a href="{{ route('patients.favourites.index') }}">
                                                 <i class="fa-solid fa-user-doctor"></i>
                                                 <span>Favourites</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="dependent.html">
+                                            <a href="{{ route('patients.dependant.index') }}">
                                                 <i class="fa-solid fa-user-plus"></i>
-                                                <span>Dependants</span>
+                                                <span>Dependents</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="medical-records.html">
+                                            <a href="{{ route('patients.records.index') }}">
                                                 <i class="fa-solid fa-money-bill-1"></i>
                                                 <span>Add Medical Records</span>
                                             </a>
@@ -65,13 +65,13 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="medical-details.html">
+                                            <a href="{{ route('patients.medical.index') }}">
                                                 <i class="fa-solid fa-shield-halved"></i>
                                                 <span>Medical Details</span>
                                             </a>
                                         </li>
-                                        <li class="active">
-                                            <a href="change-password.html">
+                                        <li class="">
+                                            <a href="{{ route('patients.patient-password.index') }}">
                                                 <i class="fa-solid fa-key"></i>
                                                 <span>Change Password</span>
                                             </a>

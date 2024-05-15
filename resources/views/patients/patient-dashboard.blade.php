@@ -132,7 +132,7 @@
                                                         </div>
                                                     </div>
                                                     <span class="health-percentage">Your health is 95% Normal</span>
-                                                    <a href="medical-details.html" class="btn btn-dark w-100">View
+                                                    <a href="{{ route('patients.medical.index') }}" class="btn btn-dark w-100">View
                                                         Details<i class="fa-solid fa-chevron-right ms-2"></i></a>
                                                 </div>
                                             </div>
@@ -153,7 +153,7 @@
                                                 <h5>Favourites</h5>
                                             </div>
                                             <div class="card-view-link">
-                                                <a href="favourites.html">View All</a>
+                                                <a href="{{ route('patients.favourites.index') }}">View All</a>
                                             </div>
                                         </div>
                                         <div class="dashboard-card-body">
@@ -251,7 +251,7 @@
                                                     <div class="card-btns">
                                                         <a href="#" class="btn btn-gray"><i
                                                                 class="fa-solid fa-comment-dots"></i>Chat Now</a>
-                                                        <a href="patient-appointments.html"
+                                                        <a href="{{ route('patients.patient-appointments.index') }}"
                                                             class="btn btn-outline-primary"><i
                                                                 class="fa-solid fa-calendar-check"></i>Attend</a>
                                                     </div>
@@ -277,7 +277,7 @@
                                                     <div class="card-btns">
                                                         <a href="#" class="btn btn-gray"><i
                                                                 class="fa-solid fa-comment-dots"></i>Chat Now</a>
-                                                        <a href="patient-appointments.html"
+                                                        <a href="{{ route('patients.patient-appointments.index') }}"
                                                             class="btn btn-outline-primary"><i
                                                                 class="fa-solid fa-calendar-check"></i>Attend</a>
                                                     </div>
@@ -499,9 +499,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="card-btns">
-                                                        <a href="patient-appointments.html"
+                                                        <a href="{{ route('patients.patient-appointments.index') }}"
                                                             class="btn btn-outline-primary ms-0 me-3">Reschedule</a>
-                                                        <a href="patient-appointment-details.html"
+                                                        <a href="{{ route('patients.patient-appointment-details.index') }}"
                                                             class="btn btn-primary prime-btn">View Details</a>
                                                     </div>
                                                 </div>
@@ -533,9 +533,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="card-btns">
-                                                        <a href="patient-appointments.html"
+                                                        <a href="{{ route('patients.patient-appointments.index') }}"
                                                             class="btn btn-outline-primary ms-0 me-3">Reschedule</a>
-                                                        <a href="medical-details.html"
+                                                        <a href="{{ route('patients.medical.index') }}"
                                                             class="btn btn-primary prime-btn">View Details</a>
                                                     </div>
                                                 </div>
@@ -551,7 +551,7 @@
                                                 <a href="#" class="add-new" data-bs-toggle="modal"
                                                     data-bs-target="#add_dependent"><i
                                                         class="fa-solid fa-circle-plus me-2"></i>Add New</a>
-                                                <a href="dependent.html">View All</a>
+                                                <a href="{{ route('patients.patient-dependant.index') }}">View All</a>
                                             </div>
                                         </div>
                                         <div class="dashboard-card-body">
@@ -568,7 +568,7 @@
                                                 <div class="d-flex align-items-center">
                                                     <a href="#" class="cal-plus-icon me-2"><i
                                                             class="fa-solid fa-calendar-plus"></i></a>
-                                                    <a href="dependent.html" class="cal-plus-icon"><i
+                                                    <a href="{{ route('patients.patient-dependant.index') }}" class="cal-plus-icon"><i
                                                             class="fa-solid fa-eye"></i></a>
                                                 </div>
                                             </div>
@@ -585,7 +585,7 @@
                                                 <div class="d-flex align-items-center">
                                                     <a href="#" class="cal-plus-icon me-2"><i
                                                             class="fa-solid fa-calendar-plus"></i></a>
-                                                    <a href="dependent.html" class="cal-plus-icon"><i
+                                                    <a href="{{ route('patients.patient-dependant.index') }}" class="cal-plus-icon"><i
                                                             class="fa-solid fa-eye"></i></a>
                                                 </div>
                                             </div>
@@ -1060,13 +1060,13 @@
                                                                         <td>24 Mar 2024, 10:30 AM</td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="doctor-profile.html"
+                                                                                <a href="#"
                                                                                     class="avatar avatar-sm me-2">
                                                                                     <img class="avatar-img rounded-3"
                                                                                         src="../assets/img/doctors/doctor-thumb-02.jpg"
                                                                                         alt="User Image">
                                                                                 </a>
-                                                                                <a href="doctor-profile.html">Edalin
+                                                                                <a href="#">Edalin
                                                                                     Hendry</a>
                                                                             </h2>
                                                                         </td>
@@ -1102,13 +1102,13 @@
                                                                         <td>27 Mar 2024, 11:15 AM</td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="doctor-profile.html"
+                                                                                <a href="#"
                                                                                     class="avatar avatar-sm me-2">
                                                                                     <img class="avatar-img rounded-3"
                                                                                         src="../assets/img/doctors/doctor-thumb-05.jpg"
                                                                                         alt="User Image">
                                                                                 </a>
-                                                                                <a href="doctor-profile.html">John
+                                                                                <a href="#">John
                                                                                     Homes</a>
                                                                             </h2>
                                                                         </td>
@@ -1144,13 +1144,13 @@
                                                                         <td>11 Apr 2024, 09:00 AM</td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="doctor-profile.html"
+                                                                                <a href="#"
                                                                                     class="avatar avatar-sm me-2">
                                                                                     <img class="avatar-img rounded-3"
                                                                                         src="../assets/img/doctors/doctor-thumb-03.jpg"
                                                                                         alt="User Image">
                                                                                 </a>
-                                                                                <a href="doctor-profile.html">Shanta
+                                                                                <a href="#">Shanta
                                                                                     Neill</a>
                                                                             </h2>
                                                                         </td>
@@ -1186,13 +1186,13 @@
                                                                         <td>15 Apr 2024, 02:30 PM</td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="doctor-profile.html"
+                                                                                <a href="#"
                                                                                     class="avatar avatar-sm me-2">
                                                                                     <img class="avatar-img rounded-3"
                                                                                         src="../assets/img/doctors/doctor-thumb-08.jpg"
                                                                                         alt="User Image">
                                                                                 </a>
-                                                                                <a href="doctor-profile.html">Anthony
+                                                                                <a href="#">Anthony
                                                                                     Tran</a>
                                                                             </h2>
                                                                         </td>
@@ -1228,13 +1228,13 @@
                                                                         <td>23 Apr 2024, 06:40 PM</td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="doctor-profile.html"
+                                                                                <a href="#"
                                                                                     class="avatar avatar-sm me-2">
                                                                                     <img class="avatar-img rounded-3"
                                                                                         src="../assets/img/doctors/doctor-thumb-01.jpg"
                                                                                         alt="User Image">
                                                                                 </a>
-                                                                                <a href="doctor-profile.html">Susan
+                                                                                <a href="#">Susan
                                                                                     Lingo</a>
                                                                             </h2>
                                                                         </td>
@@ -1284,13 +1284,13 @@
                                                                         </td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="doctor-profile.html"
+                                                                                <a href="#"
                                                                                     class="avatar avatar-sm me-2">
                                                                                     <img class="avatar-img rounded-3"
                                                                                         src="../assets/img/doctors/doctor-thumb-21.jpg"
                                                                                         alt="User Image">
                                                                                 </a>
-                                                                                <a href="doctor-profile.html">Edalin
+                                                                                <a href="#">Edalin
                                                                                     Hendry</a>
                                                                             </h2>
                                                                         </td>
@@ -1317,13 +1317,13 @@
                                                                         </td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="doctor-profile.html"
+                                                                                <a href="#"
                                                                                     class="avatar avatar-sm me-2">
                                                                                     <img class="avatar-img rounded-3"
                                                                                         src="../assets/img/doctors/doctor-thumb-13.jpg"
                                                                                         alt="User Image">
                                                                                 </a>
-                                                                                <a href="doctor-profile.html">John
+                                                                                <a href="#">John
                                                                                     Homes</a>
                                                                             </h2>
                                                                         </td>
@@ -1350,13 +1350,13 @@
                                                                         </td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="doctor-profile.html"
+                                                                                <a href="#"
                                                                                     class="avatar avatar-sm me-2">
                                                                                     <img class="avatar-img rounded-3"
                                                                                         src="../assets/img/doctors/doctor-thumb-03.jpg"
                                                                                         alt="User Image">
                                                                                 </a>
-                                                                                <a href="doctor-profile.html">Shanta
+                                                                                <a href="#">Shanta
                                                                                     Neill</a>
                                                                             </h2>
                                                                         </td>
@@ -1383,13 +1383,13 @@
                                                                         </td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="doctor-profile.html"
+                                                                                <a href="#"
                                                                                     class="avatar avatar-sm me-2">
                                                                                     <img class="avatar-img rounded-3"
                                                                                         src="../assets/img/doctors/doctor-thumb-08.jpg"
                                                                                         alt="User Image">
                                                                                 </a>
-                                                                                <a href="doctor-profile.html">Anthony
+                                                                                <a href="#">Anthony
                                                                                     Tran</a>
                                                                             </h2>
                                                                         </td>
@@ -1416,13 +1416,13 @@
                                                                         </td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="doctor-profile.html"
+                                                                                <a href="#"
                                                                                     class="avatar avatar-sm me-2">
                                                                                     <img class="avatar-img rounded-3"
                                                                                         src="../assets/img/doctors/doctor-thumb-01.jpg"
                                                                                         alt="User Image">
                                                                                 </a>
-                                                                                <a href="doctor-profile.html">Susan
+                                                                                <a href="#">Susan
                                                                                     Lingo</a>
                                                                             </h2>
                                                                         </td>
@@ -1449,13 +1449,13 @@
                                                                         </td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="doctor-profile.html"
+                                                                                <a href="#"
                                                                                     class="avatar avatar-sm me-2">
                                                                                     <img class="avatar-img rounded-3"
                                                                                         src="../assets/img/doctors/doctor-thumb-09.jpg"
                                                                                         alt="User Image">
                                                                                 </a>
-                                                                                <a href="doctor-profile.html">Joseph
+                                                                                <a href="#">Joseph
                                                                                     Boyd</a>
                                                                             </h2>
                                                                         </td>
@@ -1482,13 +1482,13 @@
                                                                         </td>
                                                                         <td>
                                                                             <h2 class="table-avatar">
-                                                                                <a href="doctor-profile.html"
+                                                                                <a href="#"
                                                                                     class="avatar avatar-sm me-2">
                                                                                     <img class="avatar-img rounded-3"
                                                                                         src="../assets/img/doctors/doctor-thumb-07.jpg"
                                                                                         alt="User Image">
                                                                                 </a>
-                                                                                <a href="doctor-profile.html">Juliet
+                                                                                <a href="#">Juliet
                                                                                     Gabriel</a>
                                                                             </h2>
                                                                         </td>

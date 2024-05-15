@@ -18,7 +18,7 @@ var locations =[{
 	"lat":53.470692,
 	"lng":-2.220328,
 	"icons":"default",
-	"profile_link":"profile.html",
+	"profile_link":"#",
 	"total_review":"17",
 	"image":'assets/img/doctors/doctor-01.jpg'
 	}, {
@@ -32,7 +32,7 @@ var locations =[{
 	"lat":53.469189,
 	"lng":-2.199262,
 	"icons":"default",
-	"profile_link":"profile.html",
+	"profile_link":"#",
 	"total_review":"35",
 	"image":'assets/img/doctors/doctor-02.jpg'
 	}, {
@@ -45,7 +45,7 @@ var locations =[{
 	"lat":53.468665,
 	"lng":-2.189269,
 	"icons":"default",
-	"profile_link":"profile.html",
+	"profile_link":"#",
 	"total_review":"27",
 	"image":'assets/img/doctors/doctor-03.jpg'
 	}, {
@@ -58,7 +58,7 @@ var locations =[{
 	"lat":53.463894,
 	"lng":-2.177880,
 	"icons":"default",
-	"profile_link":"profile.html",
+	"profile_link":"#",
 	"total_review":"4",
 	"image":'assets/img/doctors/doctor-04.jpg'
 	}, {
@@ -71,7 +71,7 @@ var locations =[{
 	"lat":53.466359,
 	"lng":-2.213314,
 	"icons":"default",
-	"profile_link":"profile.html",
+	"profile_link":"#",
 	"total_review":"66",
 	"image":'assets/img/doctors/doctor-05.jpg'
 	}, {
@@ -84,7 +84,7 @@ var locations =[{
 	"lat":53.463906,
 	"lng":-2.213271,
 	"icons":"default",
-	"profile_link":"profile.html",
+	"profile_link":"#",
 	"total_review":"52",
 	"image":'assets/img/doctors/doctor-06.jpg'
 	}, {
@@ -97,7 +97,7 @@ var locations =[{
 	"lat":53.461974,
 	"lng":-2.210661,
 	"icons":"default",
-	"profile_link":"profile.html",
+	"profile_link":"#",
 	"total_review":"43",
 	"image":'assets/img/doctors/doctor-07.jpg'
 	}, {
@@ -110,7 +110,7 @@ var locations =[{
 	"lat":53.458785,
 	"lng":-2.188532,
 	"icons":"default",
-	"profile_link":"profile.html",
+	"profile_link":"#",
 	"total_review":"49",
 	"image":'assets/img/doctors/doctor-08.jpg'
 	}, {
@@ -123,7 +123,7 @@ var locations =[{
 	"lat":53.4558571,
 	"lng":-2.1950372,
 	"icons":"default",
-	"profile_link":"profile.html",
+	"profile_link":"#",
 	"total_review":"112",
 	"image":'assets/img/doctors/doctor-09.jpg'
 	}, {
@@ -136,7 +136,7 @@ var locations =[{
 	"lat":53.458850,
 	"lng":-2.194549,
 	"icons":"default",
-	"profile_link":"profile.html",
+	"profile_link":"#",
 	"total_review":"65",
 	"image":'assets/img/doctors/doctor-10.jpg'
 	}, {
@@ -149,7 +149,7 @@ var locations =[{
 	"lat":53.461733,
 	"lng":-2.194502,
 	"icons":"default",
-	"profile_link":"profile.html",
+	"profile_link":"#",
 	"total_review":"5",
 	"image":'assets/img/doctors/doctor-11.jpg'
 	}, {
@@ -162,7 +162,7 @@ var locations =[{
 	"lat":53.460548,
 	"lng":-2.190956,
 	"icons":"default",
-	"profile_link":"profile.html",
+	"profile_link":"#",
 	"total_review":"5",
 	"image":'assets/img/doctors/doctor-12.jpg'
 	}

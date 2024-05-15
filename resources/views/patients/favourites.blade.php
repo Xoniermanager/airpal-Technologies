@@ -15,7 +15,7 @@
 <h2 class="breadcrumb-title">Favourites</h2>
 <nav aria-label="breadcrumb" class="page-breadcrumb">
 <ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+<li class="breadcrumb-item"><a href="{{ route('patients.patient-dashboard.index') }}">Home</a></li>
 <li class="breadcrumb-item" aria-current="page">Favourites</li>
 </ol>
 </nav>
@@ -53,14 +53,13 @@
 <a href="javascript:void(0)" class="fav-btn favourite-btn">
 <span class="favourite-icon favourite"><i class="fa-solid fa-heart"></i></span>
 </a>
-<div class="doc-img">
-<a href="doctor-profile.html">
+<div class="doc-img"> 
 <img class="img-fluid" alt="User Image" src="../assets/img/doctors/doctor-thumb-21.jpg">
-</a>
+ 
 </div>
 <div class="pro-content">
 <h3 class="title">
-<a href="doctor-profile.html">Dr.Edalin Hendry</a>
+ Dr.Edalin Hendry 
 <i class="fas fa-check-circle verified"></i>
 </h3>
 <p class="speciality">MDS - Periodontology and Oral Implantology, BDS</p>
@@ -86,12 +85,9 @@
 </div>
 </div>
 <div class="fav-footer">
-<div class="row row-sm">
-<div class="col-6">
-<a href="doctor-profile.html" class="btn view-btn">View Details</a>
-</div>
-<div class="col-6">
-<a href="booking.html" class="btn book-btn">Book Now</a>
+<div class="row row-sm"> 
+<div class="col-md-12">
+<a href="#" class="btn book-btn">Book Now</a>
 </div>
 </div>
 </div>
@@ -103,14 +99,13 @@
 <a href="javascript:void(0)" class="fav-btn favourite-btn">
 <span class="favourite-icon favourite"><i class="fa-solid fa-heart"></i></span>
 </a>
-<div class="doc-img">
-<a href="doctor-profile.html">
+<div class="doc-img"> 
 <img class="img-fluid" alt="User Image" src="../assets/img/doctors/doctor-thumb-13.jpg">
-</a>
+ 
 </div>
 <div class="pro-content">
 <h3 class="title">
-<a href="doctor-profile.html">Dr.Shanta Nesmith</a>
+ Dr.Shanta Nesmith
 <i class="fas fa-check-circle verified"></i>
 </h3>
 <p class="speciality">DO - Doctor of Osteopathic Medicine</p>
@@ -136,12 +131,9 @@
 </div>
 </div>
 <div class="fav-footer">
-<div class="row row-sm">
-<div class="col-6">
-<a href="doctor-profile.html" class="btn view-btn">View Profile</a>
-</div>
-<div class="col-6">
-<a href="booking.html" class="btn book-btn">Book Now</a>
+<div class="row row-sm"> 
+<div class="col-md-12">
+<a href="#" class="btn book-btn">Book Now</a>
 </div>
 </div>
 </div>
@@ -153,14 +145,13 @@
 <a href="javascript:void(0)" class="fav-btn favourite-btn">
 <span class="favourite-icon favourite"><i class="fa-solid fa-heart"></i></span>
 </a>
-<div class="doc-img">
-<a href="doctor-profile.html">
+<div class="doc-img"> 
 <img class="img-fluid" alt="User Image" src="../assets/img/doctors/doctor-thumb-14.jpg">
-</a>
+ 
 </div>
 <div class="pro-content">
 <h3 class="title">
-<a href="doctor-profile.html">Dr.John Ewel</a>
+ Dr.John Ewel 
 <i class="fas fa-check-circle verified"></i>
 </h3>
 <p class="speciality">DPM - Doctor of Podiatric Medicine</p>
@@ -186,12 +177,9 @@
 </div>
 </div>
 <div class="fav-footer">
-<div class="row row-sm">
-<div class="col-6">
-<a href="doctor-profile.html" class="btn view-btn">View Profile</a>
-</div>
-<div class="col-6">
-<a href="booking.html" class="btn book-btn">Book Now</a>
+<div class="row row-sm"> 
+<div class="col-md-12">
+<a href="#" class="btn book-btn">Book Now</a>
 </div>
 </div>
 </div>
@@ -203,14 +191,13 @@
 <a href="javascript:void(0)" class="fav-btn favourite-btn">
 <span class="favourite-icon favourite"><i class="fa-solid fa-heart"></i></span>
 </a>
-<div class="doc-img">
-<a href="doctor-profile.html">
+<div class="doc-img"> 
 <img class="img-fluid" alt="User Image" src="../assets/img/doctors/doctor-thumb-15.jpg">
-</a>
+ 
 </div>
 <div class="pro-content">
 <h3 class="title">
-<a href="doctor-profile.html">Dr.Susan Fenimore</a>
+ Dr.Susan Fenimore 
 <i class="fas fa-check-circle verified"></i>
 </h3>
 <p class="speciality">BSG - Bachelor of Science in Genetic Counseling</p>
@@ -236,12 +223,9 @@
 </div>
 </div>
 <div class="fav-footer">
-<div class="row row-sm">
-<div class="col-6">
-<a href="doctor-profile.html" class="btn view-btn">View Profile</a>
-</div>
-<div class="col-6">
-<a href="booking.html" class="btn book-btn">Book Now</a>
+<div class="row row-sm"> 
+<div class="col-md-12">
+<a href="#" class="btn book-btn">Book Now</a>
 </div>
 </div>
 </div>
@@ -253,14 +237,13 @@
 <a href="javascript:void(0)" class="fav-btn favourite-btn">
 <span class="favourite-icon favourite"><i class="fa-solid fa-heart"></i></span>
 </a>
-<div class="doc-img">
-<a href="doctor-profile.html">
+<div class="doc-img"> 
 <img class="img-fluid" alt="User Image" src="../assets/img/doctors/doctor-thumb-16.jpg">
-</a>
+ 
 </div>
 <div class="pro-content">
 <h3 class="title">
-<a href="doctor-profile.html">Dr.Juliet Rios</a>
+ Dr.Juliet Rios
 <i class="fas fa-check-circle verified"></i>
 </h3>
 <p class="speciality">ND - Doctor of Naturopathic Medicine</p>
@@ -286,12 +269,9 @@
 </div>
 </div>
 <div class="fav-footer">
-<div class="row row-sm">
-<div class="col-6">
-<a href="doctor-profile.html" class="btn view-btn">View Profile</a>
-</div>
-<div class="col-6">
-<a href="booking.html" class="btn book-btn">Book Now</a>
+<div class="row row-sm"> 
+<div class="col-md-12">
+<a href="#" class="btn book-btn">Book Now</a>
 </div>
 </div>
 </div>
@@ -303,14 +283,13 @@
 <a href="javascript:void(0)" class="fav-btn favourite-btn">
 <span class="favourite-icon favourite"><i class="fa-solid fa-heart"></i></span>
 </a>
-<div class="doc-img">
-<a href="doctor-profile.html">
+<div class="doc-img"> 
 <img class="img-fluid" alt="User Image" src="../assets/img/doctors/doctor-thumb-17.jpg">
-</a>
+ 
 </div>
 <div class="pro-content">
 <h3 class="title">
-<a href="doctor-profile.html">Dr.Joseph Engels</a>
+ Dr.Joseph Engels 
 <i class="fas fa-check-circle verified"></i>
 </h3>
 <p class="speciality">BSPT - Bachelor of Science in Physical Therapy</p>
@@ -336,174 +315,19 @@
 </div>
 </div>
 <div class="fav-footer">
-<div class="row row-sm">
-<div class="col-6">
-<a href="doctor-profile.html" class="btn view-btn">View Profile</a>
-</div>
-<div class="col-6">
-<a href="booking.html" class="btn book-btn">Book Now</a>
+<div class="row row-sm"> 
+<div class="col-md-12">
+<a href="#" class="btn book-btn">Book Now</a>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div class="col-md-6 col-lg-4">
-<div class="profile-widget patient-favour">
-<div class="fav-head">
-<a href="javascript:void(0)" class="fav-btn favourite-btn">
-<span class="favourite-icon favourite"><i class="fa-solid fa-heart"></i></span>
-</a>
-<div class="doc-img">
-<a href="doctor-profile.html">
-<img class="img-fluid" alt="User Image" src="../assets/img/doctors/doctor-thumb-18.jpg">
-</a>
-</div>
-<div class="pro-content">
-<h3 class="title">
-<a href="doctor-profile.html">Dr.Victoria Selzer</a>
-<i class="fas fa-check-circle verified"></i>
-</h3>
-<p class="speciality">MDS - Periodontology and Oral Implantology, BDS</p>
-<div class="rating">
-<i class="fas fa-star filled"></i>
-<i class="fas fa-star filled"></i>
-<i class="fas fa-star filled"></i>
-<i class="fas fa-star filled"></i>
-<i class="fas fa-star"></i>
-<span class="d-inline-block average-rating">5.0</span>
-</div>
-<ul class="available-info">
-<li>
-<span><i class="fa-solid fa-calendar-day"></i></span>Next Availability : 20 May 2024
-</li>
-<li>
-<span><i class="fas fa-map-marker-alt"></i></span>Location : Denver, USA
-</li>
-</ul>
-<div class="last-book">
-<p>Last Book on 18 Mar 2023</p>
-</div>
-</div>
-</div>
-<div class="fav-footer">
-<div class="row row-sm">
-<div class="col-6">
-<a href="doctor-profile.html" class="btn view-btn">View Profile</a>
-</div>
-<div class="col-6">
-<a href="booking.html" class="btn book-btn">Book Now</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="col-md-6 col-lg-4">
-<div class="profile-widget patient-favour">
-<div class="fav-head">
-<a href="javascript:void(0)" class="fav-btn favourite-btn">
-<span class="favourite-icon favourite"><i class="fa-solid fa-heart"></i></span>
-</a>
-<div class="doc-img">
-<a href="doctor-profile.html">
-<img class="img-fluid" alt="User Image" src="../assets/img/doctors/doctor-thumb-19.jpg">
-</a>
-</div>
-<div class="pro-content">
-<h3 class="title">
-<a href="doctor-profile.html">Dr.Benjamin Hedge</a>
-<i class="fas fa-check-circle verified"></i>
-</h3>
-<p class="speciality">BSND - Bachelor of Science in Nutrition and Dieteticsantology, BDS</p>
-<div class="rating">
-<i class="fas fa-star filled"></i>
-<i class="fas fa-star filled"></i>
-<i class="fas fa-star filled"></i>
-<i class="fas fa-star filled"></i>
-<i class="fas fa-star"></i>
-<span class="d-inline-block average-rating">4.0</span>
-</div>
-<ul class="available-info">
-<li>
-<span><i class="fa-solid fa-calendar-day"></i></span>Next Availability : 24 May 2024
-</li>
-<li>
-<span><i class="fas fa-map-marker-alt"></i></span>Location : Miami, USA
-</li>
-</ul>
-<div class="last-book">
-<p>Last Book on 21 Mar 2023</p>
-</div>
-</div>
-</div>
-<div class="fav-footer">
-<div class="row row-sm">
-<div class="col-6">
-<a href="doctor-profile.html" class="btn view-btn">View Profile</a>
-</div>
-<div class="col-6">
-<a href="booking.html" class="btn book-btn">Book Now</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="col-md-6 col-lg-4">
-<div class="profile-widget patient-favour">
-<div class="fav-head">
-<a href="javascript:void(0)" class="fav-btn favourite-btn">
-<span class="favourite-icon favourite"><i class="fa-solid fa-heart"></i></span>
-</a>
-<div class="doc-img">
-<a href="doctor-profile.html">
-<img class="img-fluid" alt="User Image" src="../assets/img/doctors/doctor-thumb-20.jpg">
-</a>
-</div>
-<div class="pro-content">
-<h3 class="title">
-<a href="doctor-profile.html">Dr.Kristina Lepley</a>
-<i class="fas fa-check-circle verified"></i>
-</h3>
-<p class="speciality">MDS - Bachelor of Science in Health Informaticsc</p>
-<div class="rating">
-<i class="fas fa-star filled"></i>
-<i class="fas fa-star filled"></i>
-<i class="fas fa-star filled"></i>
-<i class="fas fa-star filled"></i>
-<i class="fas fa-star"></i>
-<span class="d-inline-block average-rating">5.0</span>
-</div>
-<ul class="available-info">
-<li>
-<span><i class="fa-solid fa-calendar-day"></i></span>Next Availability : 13 Jun 2024
-</li>
-<li>
-<span><i class="fas fa-map-marker-alt"></i></span>Location : San Jose, USA
-</li>
-</ul>
-<div class="last-book">
-<p>Last Book on 10 Apr 2023</p>
-</div>
-</div>
-</div>
-<div class="fav-footer">
-<div class="row row-sm">
-<div class="col-6">
-<a href="doctor-profile.html" class="btn view-btn">View Profile</a>
-</div>
-<div class="col-6">
-<a href="booking.html" class="btn book-btn">Book Now</a>
-</div>
-</div>
-</div>
-</div>
-</div>
+</div> 
+
+ 
 </div>
 
-<div class="col-md-12">
-<div class="loader-item text-center">
-<a href="javascript:void(0);" class="btn btn-load">Load More</a>
-</div>
-</div>
+ 
 </div>
 </div>
 </div>

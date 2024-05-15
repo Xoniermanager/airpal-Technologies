@@ -16,7 +16,7 @@
 <h2 class="breadcrumb-title">Patient Appointments</h2>
 <nav aria-label="breadcrumb" class="page-breadcrumb">
 <ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+<li class="breadcrumb-item"><a href="{{ route('patients.patient-dashboard.index') }}">Home</a></li>
 <li class="breadcrumb-item" aria-current="page">Patient Appointments</li>
 </ol>
 </nav>
@@ -37,7 +37,7 @@
 <div class="col-lg-8 col-xl-9">
 <div class="dashboard-header">
 <div class="header-back">
-<a href="appointments.html" class="back-arrow"><i class="fa-solid fa-arrow-left"></i></a>
+<a href="{{ route('patients.patient-appointments.index') }}" class="back-arrow"><i class="fa-solid fa-arrow-left"></i></a>
 <h3>Appointment Details</h3>
 </div>
 </div>
@@ -173,7 +173,7 @@
 <li>
 <div class="detail-badge-info">
 <span class="badge bg-soft-red me-2">Status : Reschedule</span>
-<a href="booking-2.html" class="reschedule-btn btn-primary-border">Reschedule Appointment</a>
+<a href="{{ route('patients.patient-appointments.index') }}" class="reschedule-btn btn-primary-border">Reschedule Appointment</a>
 </div>
 </li>
 </ul>

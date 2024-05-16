@@ -23,6 +23,10 @@ use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\InvoicereportController; 
 use App\Http\Controllers\Patient\PatientdashboardController; 
 
+Route::group(['middleware'=>['guest']],function(){
+
+});
+
 Route::get('/',[HomeController::class,'home'])->name('home.index');
 Route::get('/about',[AboutController::class,'about'])->name('about.index');
 Route::get('/contact',[ContactController::class,'contact'])->name('contact.index');
@@ -30,8 +34,11 @@ Route::get('/doctors',[DoctorController::class,'doctors'])->name('doctors.index'
 Route::get('/health_monitoring',[HealthmonitoringController::class,'health_monitoring'])->name('health_monitoring.index');
 Route::get('/instant',[InstantController::class,'instant'])->name('instant.index');
 Route::get('/login',[LoginController::class,'login'])->name('login.index');
+Route::post('/login',[LoginController::class,'userLogin'])->name('login.userLogin');
 Route::get('/forgot-password',[LoginController::class,'forgotPassword'])->name('forgot-password.index');  
+Route::post('/forgot-password',[LoginController::class,'sendForgetPasswordOtp'])->name('forgot-password.sendOtp');  
 Route::get('/register',[RegisterController::class,'register'])->name('register.index'); 
+Route::post('/register',[RegisterController::class,'userRegister'])->name('register.userRegister'); 
 Route::get('/privacy',[FrontController::class,'privacy'])->name('privacy.index');  
 Route::get('/term',[FrontController::class,'term'])->name('term.index'); 
 Route::get('/appointment',[DoctorController::class,'appointment'])->name('appointment.index');

@@ -27,3 +27,4 @@
 <link rel="stylesheet" href="assets/plugins/datatables/datatables.min.css">
 
 <link rel="stylesheet" href="assets/css/custom.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">

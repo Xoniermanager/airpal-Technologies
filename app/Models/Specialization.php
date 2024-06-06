@@ -9,8 +9,11 @@ use App\Models\User;
 class Specialization extends Model
 {
     use HasFactory;
+    protected $fillable = ['id','name','description','status','image_url'];
+
     public function users()
     {
-        return $this->belongsToMany(User::class,'doctor_specializations');
+        return $this->belongsToMany(User::class);
     }
+
 }

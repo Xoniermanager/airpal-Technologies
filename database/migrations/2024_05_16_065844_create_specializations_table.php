@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->text('description')->nullable();
-            $table->boolean('status');
+            $table->string('image_url');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

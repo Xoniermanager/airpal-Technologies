@@ -8,7 +8,10 @@ use App\Models\State;
 class Country extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','status'];
+
+    protected $fillable = [
+        'name',
+    ];
     public function states(){
         return $this->hasMany(State::class);
      }

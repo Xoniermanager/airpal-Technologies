@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('states', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->boolean('status');
+            $table->boolean('status')->default(1);
             $table->unsignedBigInteger('country_id');
             $table->foreign('country_id')->references('id')->on('countries');
             $table->timestamps();

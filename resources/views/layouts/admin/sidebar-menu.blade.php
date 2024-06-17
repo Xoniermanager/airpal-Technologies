@@ -131,7 +131,7 @@
                     </div>
                     <a class="dropdown-item" href="{{ route('admin.profile.index') }}">My Profile</a>
                     <a class="dropdown-item" href="{{ route('admin.settings.index') }}">Settings</a>
-                    <a class="dropdown-item" href="{{ route('login.index') }}">Logout</a>
+                    <a class="dropdown-item" href="">Logout</a>
                 </div>
             </li>
 
@@ -142,56 +142,81 @@
         <div class="sidebar-inner slimscroll">
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
-                    <li>
-                        <a href="{{ route('admin.index.country') }}"><i class="fe fe-users"></i>
-                            <span>Country</span></a>
+                    <li class=" ">
+                        <a href="{{ route('admin.dashboard.index') }}"><i class="fe fe-home"></i>
+                            <span>Dashboard</span></a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.index.state') }}"><i class="fe fe-users"></i> <span>State</span></a>
+                        <a href="{{ route('admin.appointment-list.index') }}"><i class="fe fe-layout"></i>
+                            <span>Appointments</span></a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.speciality.index') }}"><i class="fe fe-users"></i>
+                            <span>Specialities</span></a>
                     </li>
                     <li>
                         <a href="{{ route('admin.index.doctors') }}"><i class="fe fe-user-plus"></i>
                             <span>Doctors</span></a>
                     </li>
-                    {{-- <li class=" ">
-                            <a href="{{ route('admin.dashboard.index') }}"><i class="fe fe-home"></i>
-                                <span>Dashboard</span></a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.appointment-list.index') }}"><i class="fe fe-layout"></i>
-                                <span>Appointments</span></a>
-                        </li> --}}
-                        <li>
-                            <a href="{{ route('admin.speciality.index') }}"><i class="fe fe-users"></i>
-                                <span>Specialities</span></a>
-                        </li>
-                       <li>
-                            <a href="{{ route('admin.service.index') }}"><i class="fe fe-user-plus"></i>
-                                <span>Services</span></a>
-                        </li>
-                        {{--  <li>
-                            <a href="{{ route('admin.patient-list.index') }}"><i class="fe fe-user"></i>
-                                <span>Patients</span></a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.reviews.index') }}"><i class="fe fe-star-o"></i>
-                                <span>Reviews</span></a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.transactions-list.index') }}"><i class="fe fe-activity"></i>
-                                <span>Transactions</span></a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.settings.index') }}"><i class="fe fe-vector"></i>
-                                <span>Settings</span></a>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="fe fe-document"></i> <span> Reports</span> <span
-                                    class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a href="{{ route('admin.invoice-report.index') }}">Invoice Reports</a></li>
-                            </ul>
-                        </li> --}}
+
+                    <li>
+                        <a href="{{ route('admin.patient-list.index') }}"><i class="fe fe-user"></i>
+                            <span>Patients</span></a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('admin.reviews.index') }}"><i class="fe fe-star-o"></i>
+                            <span>Reviews</span></a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('admin.transactions-list.index') }}"><i class="fe fe-activity"></i>
+                            <span>Transactions</span></a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('admin.settings.index') }}"><i class="fe fe-vector"></i>
+                            <span>Settings</span></a>
+                    </li>
+                
+                    <li>
+                        <a href="{{ route('admin.service.index') }}"><i class="fe fe-user-plus"></i>
+                        <span>Services</span></a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('admin.faqs.index') }}"><i class="fe fe-user-plus"></i>
+                        <span>FaQs</span></a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.index.country') }}"><i class="fe fe-flag"></i>
+                            <span>Country</span></a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.index.state') }}"><i class="fe fe-flag"></i> <span>State</span></a>
+                    </li>
+{{-- 
+                    <li class="submenu">
+                        <a href="#"><i class="fe fe-flag"></i> <span> Country & State</span> <span
+                                class="menu-arrow"></span></a>
+                        <ul style="display: none;">
+                            <li>
+                                <a href="{{ route('admin.index.country') }}"><i class="fe fe-flag"></i>
+                                    <span>Country</span></a>
+                            </li>
+                            <li>
+                                <a href="{{ route('admin.index.state') }}"><i class="fe fe-flag"></i> <span>State</span></a>
+                            </li>
+                        </ul>
+                    </li> --}}
+  
+                    <li class="submenu">
+                        <a href="#"><i class="fe fe-document"></i> <span> Reports</span> <span
+                                class="menu-arrow"></span></a>
+                        <ul style="display: none;">
+                            <li><a href="{{ route('admin.invoice-report.index') }}">Invoice Reports</a></li>
+                        </ul>
+                    </li>
 
                 </ul>
             </div>

@@ -144,7 +144,7 @@
         </div>
         <a class="dropdown-item" href="{{ route('doctor.doctor-dashboard.index') }}">Dashboard</a>
         <a class="dropdown-item" href="{{ route('doctor.doctor-profile.index') }}">Profile Settings</a>
-        <a class="dropdown-item" href="{{ route('login.index') }}">Logout</a>
+        <a class="dropdown-item" href="{{ route('doctor.logout') }}">Logout</a>
     </div>
 </li>
 

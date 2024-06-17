@@ -32,7 +32,7 @@
                                 <ul>
                                     <li><a href="{{ url('appointment') }}">Appointments</a></li>
                                     <li><a href="{{ route('register.index') }}">Register</a></li>
-                                    <li><a href="{{ route('login.index') }}">Login</a></li>
+                                    <li><a href="">Login</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -125,7 +125,7 @@
     </svg>
 </div>
 
-<script src="{{asset('assets/js/jquery-3.7.1.min.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
+{{-- <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script> --}}
 
 <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
 

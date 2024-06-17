@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-@include('admin.include.head')
-</head>
-
-<body>
-
-    <div class="main-wrapper">
-    @include('admin.include.header')
+@extends('layouts.admin.main')
+@section('content')
+ 
         <div class="page-wrapper">
             <div class="content container-fluid">
                 <div class="page-header">
@@ -255,4 +247,4 @@
         </div>
 
     </div>
-    @include('admin.include.footer')
+    @endsection

@@ -22,7 +22,7 @@ class StoreDoctorWorkingHourRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'day'               => 'required|array|max:7',
+            // 'day'               => 'required|array|max:7',
             'day.*'             => 'required|array',
             'day.*.available'   => 'required|in:1',
             'day.*.start_time'  => 'required|date_format:H:i',
@@ -33,7 +33,7 @@ class StoreDoctorWorkingHourRequest extends FormRequest
     public function messages()
     {
         return [
-            'day.required'                => 'Please select at least one day.',
+            // 'day.required'                => 'Please select at least one day.',
             'day.max'                     => 'You can select maximum 7 days.',
             'day.*.available.required'    => 'The availability for all days must be specified.',
             'day.*.available.in'          => 'Invalid availability value. Please provide a valid value.',

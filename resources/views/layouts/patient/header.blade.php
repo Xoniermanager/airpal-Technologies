@@ -158,7 +158,7 @@
                                 href="{{ route('patients.patient-dashboard.index') }}">Dashboard</a>
                             <a class="dropdown-item" href="{{ route('patients.patient-settings.index') }}">Profile
                                 Settings</a>
-                            <a class="dropdown-item" href="{{ route('login.index') }}">Logout</a>
+                            <a class="dropdown-item" href="">Logout</a>
                         </div>
                     </li>
 

@@ -21,23 +21,28 @@ class StoreDoctorEducationRequest extends FormRequest
      */
     public function rules(): array
     {
-
-        // return [
-        //     'day'               => 'required|array|max:7',
-        //     'day.*'             => 'required|array',
-        //     'day.*.available'   => 'required|in:1',
-        //     'day.*.start_time'  => 'required|date_format:H:i',
-        //     'day.*.end_time'    => 'required|date_format:H:i|after:day.*.start_time'
-        // ];
-
         return 
         [
-            "education.*"               => 'required|array',
-            'education.name.*'          => 'required|string',
-            'education.course.*'        => 'required|string',
-            'education.start_date.*'    => 'required|date_format:y/m/d',
-            'education.end_date.*'      => 'required|date_format:y/m/d',
-            // 'user_id'                   => 'required'
+            'education' => 'required|array',
+            'education.*.name' => 'required|string|max:255',
+            'education.*.course' => 'required|string|max:255',
+            'education.*.start_date' => 'required|date',
+            'education.*.end_date' => 'required|date|after_or_equal:education.*.start_date',
+            'user_id' => 'required'
         ];
     }
+    public function messages()
+    {
+        return [
+            'education.required'                => 'Please select at least one education.',
+            'education.*.name.required'         => 'Institute name is required.',
+            'education.*.course.required'       => 'Please select course.',
+            'education.*.start_date.required'   => 'Start time is required for all selected educations.',
+            'education.*.start_time.date_format'=> 'Invalid start time format. Please provide time in HH:MM format.',
+            'education.*.end_date.required'     => 'End time is required for all selected educations.',
+            'education.*.end_date.date_format'  => 'Invalid end time format. Please provide time in HH:MM format.',
+            'education.*.end_date.after'        => 'End time must be after the start time for all selected days.'
+        ];
+    }
+
 }

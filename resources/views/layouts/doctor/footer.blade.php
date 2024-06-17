@@ -32,7 +32,7 @@
                                 <ul>
                                     <li><a href="{{ url('appointment') }}">Appointments</a></li>
                                     <li><a href="{{ route('register.index') }}">Register</a></li>
-                                    <li><a href="{{ route('login.index') }}">Login</a></li>
+                                    <li><a href="">Login</a></li>
                                 </ul>
                             </div>
                         </div>

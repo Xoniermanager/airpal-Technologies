@@ -16,9 +16,9 @@ class DoctorWorkingHourServices {
         $this->day_of_week_repository = $day_of_week_repository;
      }
 
-     public function addDoctorWorkingHour($data)
+     public function addDoctorWorkingHour($data,  $userId)
      {
-      $user_id = $data['user_id'];
+      $user_id =  $userId;
       try
        {
          foreach ($data['day'] as $day_id => $value)

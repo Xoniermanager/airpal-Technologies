@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
- <head>
- @include('include.head')
-</head>
-<body>
+@extends('layouts.admin.main')
+@section('content')
+ 
 
 <div class="main-wrapper login-body">
 <div class="login-wrapper">
@@ -18,7 +14,7 @@
 <h1>Register</h1>
 <p class="account-subtitle">Access to our dashboard</p>
 
-<form action="{{ route('login.index') }}">
+<form action="">
 <div class="mb-3">
 <input class="form-control" type="text" placeholder="Name">
 </div>
@@ -46,7 +42,7 @@
 <a href="#" class="facebook"><i class="fa-brands fa-facebook-f"></i></a><a href="#" class="google"><i class="fa-brands fa-google"></i></a>
 </div>
 
-<div class="text-center dont-have">Already have an account? <a href="{{ route('login.index') }}">Login</a></div>
+<div class="text-center dont-have">Already have an account? <a href="">Login</a></div>
 </div>
 </div>
 </div>
@@ -54,4 +50,4 @@
 </div>
 </div>
 
-@include('include.footer')
+@endsection

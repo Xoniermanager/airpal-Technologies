@@ -1,6 +1,4 @@
 
-<script src="{{asset('/assets/js/jquery-3.7.1.min.js')}}"></script>
-
 <script src="{{asset('/assets/js/bootstrap.bundle.min.js')}}" type="cd1ed460c5054330c2effc78-text/javascript"></script>
 
 <script src="{{asset('admin/assets/plugins/slimscroll/jquery.slimscroll.min.js')}}"

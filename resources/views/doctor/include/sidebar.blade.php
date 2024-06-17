@@ -6,9 +6,16 @@
                                             alt="User Image">
                                     </a>
                                     <div class="profile-det-info">
-                                        <h3><a href="{{ route('doctor.doctor-profile.index') }}">Dr Edalin Hendry</a></h3>
+                                        <h3><a href="{{ route('doctor.doctor-profile.index') }}"> {{$doctorDetails->first_name ?? "" }} {{$doctorDetails->last_name ?? "" }}</a></h3>
                                         <div class="patient-details">
-                                            <h5 class="mb-0">BDS, MDS - Oral & Maxillofacial Surgery</h5>
+                                            <h5 class="mb-0">
+                                                @forelse ($doctorDetails->educations as $education)
+                                                {{$education->course->name}}
+                                                @if( !$loop->last),@endif
+                                                @empty
+                                                <p>N/A</p>
+                                                @endforelse
+                                            </h5>
                                         </div>
                                         <span class="badge doctor-role-badge"><i
                                                 class="fa-solid fa-circle"></i>Dentist</span>
@@ -103,7 +110,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('login.index') }}">
+                                            <a href="">
                                                 <i class="fa-solid fa-calendar-check"></i>
                                                 <span>Logout</span>
                                             </a>

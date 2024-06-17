@@ -1,48 +1,35 @@
 @extends('layouts.admin.main')
 @section('content')
-@php
-$userEducationDetails        = [];
-$userExperiencesDetails      = [];
-$userWorkingHourDetails      = [];
-$userSpecializaionsDetails   = [];
-$userServicesDetails         = [];
-$userLanguageDetails         = [];
-$userLanguageIds             = [];
-$userCourse                  = [];
-$userSpeciality              = [];
-if(isset($singleDoctorDetails) && !empty($singleDoctorDetails))
-{
-    $userEducationDetails       =  $singleDoctorDetails['educations'];
-    $userExperiencesDetails     =  $singleDoctorDetails['experiences'];
-    $userWorkingHourDetails     =  $singleDoctorDetails['workingHour'];
-    $userSpecializaionsDetails  =  $singleDoctorDetails['specializaions'];
-    $userServicesDetails        =  $singleDoctorDetails['services'];
-    $userLanguageDetails        =  $singleDoctorDetails['language'];
+    @php
+        $userEducationDetails   = [];
+        $userExperiencesDetails = [];
+        $userWorkingHourDetails = [];
+        $userAddressDetails     = [];
+        $userAwardsDetails = [];
+        $userLanguageIds   = [];
+        $userCourse     = [];
+        $userSpeciality = [];
 
-    foreach ($userLanguageDetails as $languag) {
-            $userLanguageIds[] = $languag['id'];
-    }
-    foreach ($userEducationDetails as  $education) {
-         $userCourse[] = $education['course']['id'];
-    }
-    foreach ($userSpecializaionsDetails as  $speciality) {
-         $userSpeciality[] = $speciality['id'];
-    }
-    // dd($userSpeciality);
-}
-@endphp
+        if (isset($singleDoctorDetails) && !empty($singleDoctorDetails)) {
+            $userEducationDetails = $singleDoctorDetails['educations'];
+            $userExperiencesDetails = $singleDoctorDetails['experiences'];
+            $userWorkingHourDetails = $singleDoctorDetails['workingHour'];
+            $userAddressDetails = $singleDoctorDetails->address;
+            $userAwardsDetails = $singleDoctorDetails['awards'];
+        }
+
+    @endphp
     <div class="breadcrumb-bar-two">
         <div class="container">
             <div class="row align-items-center inner-banner">
                 <div class="col-md-12 col-12 text-center">
-                    <h2 class="breadcrumb-title">Doctor Profile</h2>
+                    <h2 class="breadcrumb-title">Doctor Profile </h2>
                     <nav aria-label="breadcrumb" class="page-breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                {{-- <a
-                                href="{{ route('doctor.doctor-dashboard.index') }}">Home</a> --}}
+
                             </li>
-                            <li class="breadcrumb-item" aria-current="page">Doctor Profile</li>
+                            <li class="breadcrumb-item" aria-current="page">Doctor Profile </li>
                         </ol>
                     </nav>
                 </div>
@@ -63,7 +50,11 @@ if(isset($singleDoctorDetails) && !empty($singleDoctorDetails))
                         <div class="appointment-tabs">
                             <ul class="nav  nav-dynamic">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="#personal_details_tab" data-bs-toggle="tab" >Personal Details</a>
+                                    <a class="nav-link active" href="#personal_details_tab" data-bs-toggle="tab">Personal
+                                        Details</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#address_tab" data-bs-toggle="tab">Address</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#education_tab" data-bs-toggle="tab">Education</a>
@@ -72,7 +63,7 @@ if(isset($singleDoctorDetails) && !empty($singleDoctorDetails))
                                     <a class="nav-link" href="#experience_tab" data-bs-toggle="tab">Experience</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#awards" data-bs-toggle="tab" >Awards</a>
+                                    <a class="nav-link" href="#awards" data-bs-toggle="tab">Awards</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#working_hours_tab" data-bs-toggle="tab">Working Hours</a>
@@ -82,6 +73,7 @@ if(isset($singleDoctorDetails) && !empty($singleDoctorDetails))
                     </div>
                     <div class="tab-content">
                         @include('admin.doctor-profile.tabs.personal_detail')
+                        @include('admin.doctor-profile.tabs.address')
                         @include('admin.doctor-profile.tabs.experience')
                         @include('admin.doctor-profile.tabs.education')
                         @include('admin.doctor-profile.tabs.working-hour')
@@ -93,26 +85,46 @@ if(isset($singleDoctorDetails) && !empty($singleDoctorDetails))
     </div>
 @endsection
 @section('javascript')
-<script src="{{asset('admin/assets/custom-js/add_doctor.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('admin/assets/custom-js/add_doctor.js') }}"></script>
     <script>
         $(document).ready(function() {
-            // $('.nav-dynamic a[href="#education_tab"]').addClass('show active');
-            // $('.nav-dynamic a[href="#personal_details_tab"]').removeClass('show active');
-            $("#datepicker").datepicker({
-                format: "yyyy-mm-dd",
-                startView: 'decade',
-                minView: 'decade',
-                viewSelect: 'decade',
-                autoclose: true
-            });
-            
+
+            var skillId = jQuery('#doctorlanguageID').text();
+            if (skillId.length > 1) {
+                var arraySkillId = JSON.parse(skillId);
+                var skillValue = "" + arraySkillId.join(",") + "";
+                var arrs = skillValue.split(',');
+            }
+            var specialityID = jQuery('#doctorspecialitiesID').text();
+            if (specialityID.length > 1) {
+                var arrayspecialityID = JSON.parse(specialityID);
+                var specialityValue = "" + arrayspecialityID.join(",") + "";
+                var specialityArrs = specialityValue.split(',');
+            }
+            var servicesIds = jQuery('#doctorServicesID').text();
+            if (servicesIds.length > 1) {
+                var arrayservicesIds = JSON.parse(servicesIds);
+                var servicesValue = "" + arrayservicesIds.join(",") + "";
+                var servicesArrs = servicesValue.split(',');
+            }
+
+            var hospitalIds = jQuery('#doctorhospitalID').text();
+            var doctorAwardsIds = jQuery('#doctorAwardsIds').text();
+            if (doctorAwardsIds.length > 1) {
+                var arraydoctorAwardsIds = JSON.parse(doctorAwardsIds);
+                var awardValue = "" + arraydoctorAwardsIds.join(",") + "";
+                var awardArrs = awardValue.split(',');
+            }
+
             $(".flat-picker").flatpickr({
                 enableTime: false,
-                // maxDate: "today",
                 dateFormat: "Y-m-d",
             });
 
-            // insert personal details 
+
+            // Insert personal details 
             jQuery("#personalDetailsForm").validate({
                 rules: {
                     first_name: "required",
@@ -120,7 +132,7 @@ if(isset($singleDoctorDetails) && !empty($singleDoctorDetails))
                     display_name: "required",
                     phone: "required",
                     email: "required",
-                    name : "required"
+                    name: "required"
                 },
                 messages: {
                     first_name: "Please enter first name!",
@@ -128,48 +140,74 @@ if(isset($singleDoctorDetails) && !empty($singleDoctorDetails))
                     display_name: "Please enter display name!",
                     phone: "Please enter phone number!",
                     email: "Please enter email address!",
-                    name : "Please select language!"
+                    name: "Please select language!"
                 },
                 submitHandler: function(form) {
-                    var formData     = new FormData(form);
+                    var formData = new FormData(form);
                     $.ajax({
                         url: "<?= route('admin.add-personal-details') ?>",
                         type: 'post',
                         data: formData,
                         dataType: 'json',
                         processData: false,
-                        contentType: false, 
+                        contentType: false,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                                'content') // Add CSRF token
+                        },
                         success: function(response) {
-                            if (response) {
-                                window.location.href = "{{route('admin.index.doctors')}}/edit/" + response;
-                                $('#personal_details_tab').removeClass('active show');
-                                $('#education_tab').addClass('active show');
-                                $('#user_id').val(response);
+                            console.log('hello', response);
+                            if (response.status === 'created') {
+                                swal.fire("Done!", response.message, "success");
+                                setTimeout(function() {
+                                    window.location.href =
+                                        "{{ route('admin.index.doctors') }}/edit/" +
+                                        response.id;
+                                    switchTab('#personal_details_tab',
+                                        '#address_tab');
+                                }, 1500);
+                            } else {
+                                swal.fire("Done!", response.message, "success");
+                                setTimeout(function() {
+                                    switchTab('#personal_details_tab',
+                                        '#address_tab');
+                                }, 1500);
                             }
                         },
                         error: function(error_messages) {
                             var errors = error_messages.responseJSON;
                             $.each(errors.errors, function(key, value) {
-                                // Display error message below each input field
-                                // console.log(key);
                                 console.log(value);
                                 $('#' + key + '_error').html(value);
-
-                                // remove_error_div(key)
-                            })
-
+                            });
                         }
                     });
                 }
             });
 
+            function switchTab(fromTab, toTab) {
+                $(fromTab).removeClass('active').attr('aria-selected', 'false').removeClass('show active');
+                var tabLink = document.querySelector('a[href="' + fromTab + '"]');
+                if (tabLink) {
+                    tabLink.classList.remove('active');
+                    tabLink.setAttribute('aria-selected', 'false');
+                }
+                var newTabLink = document.querySelector('a[href="' + toTab + '"]');
+                if (newTabLink) {
+                    newTabLink.classList.add('active');
+                    newTabLink.setAttribute('aria-selected', 'true');
+                }
+                $(toTab).addClass('active').attr('aria-selected', 'true').addClass('show active');
+            }
+
+
             // insert doctor education
             jQuery("#doctorEducationform").validate({
                 rules: {
-                    "name[]"       : "required",
-                    "course[]"     : "required",
-                    "start_date[]" : "required",
-                    "end_date[]"   : "required",
+                    "name[]": "required",
+                    "course[]": "required",
+                    "start_date[]": "required",
+                    "end_date[]": "required",
                 },
                 messages: {
                     "name[]": "Please enter institue name!",
@@ -180,16 +218,30 @@ if(isset($singleDoctorDetails) && !empty($singleDoctorDetails))
                 submitHandler: function(form) {
                     var formData = $(form).serialize();
                     $.ajax({
-                        url : "{{route('admin.add-doctor-education')}}",
+                        url: "{{ route('admin.add-doctor-education') }}",
                         type: 'post',
                         data: formData,
                         dataType: 'json',
                         success: function(response) {
-                            if (response.success) {
-                                $('#tabthree').removeClass('active show');
-                                $('#tabtwo').addClass('active show');
-                                $('#li_tabtwo').removeClass('active');
-                                $('#li_tabthree').addClass('active');
+                            if (response.status == 'success') {
+                                swal.fire("Done!", response.message, "success");
+                                $('#education-tab').removeClass('active').attr(
+                                    'aria-selected', 'false');
+                                $('#education_tab').removeClass('show active');
+
+                                var tabLink = document.querySelector(
+                                    'a[href="#education_tab"]');
+                                if (tabLink) {
+                                    tabLink.classList.remove('active');
+                                    tabLink.setAttribute('aria-selected', 'false');
+                                }
+
+                                exTabLink = document.querySelector(
+                                    'a[href="#experience_tab"]');
+                                exTabLink.classList.add('active');
+                                $('#experience_tab').addClass('active').attr(
+                                    'aria-selected', 'true');
+                                $('#experience_tab').addClass('show active');
                             }
                         },
                         error: function(error_messages) {
@@ -197,131 +249,219 @@ if(isset($singleDoctorDetails) && !empty($singleDoctorDetails))
                             if (errors) {
                                 // Display validation errors
                                 $.each(errors, function(key, value) {
-                                    var id = key.replace('.', '_')
-                                    console.log("#" + id + "_error")
+                                    // var id = key.replace('.', '_')
+                                    var id = key.replace(/\./g, '_');
                                     $("#" + id + "_error").html(value[0]);
+                                    console.log("#" + id + "_error")
                                 });
                             }
                         }
                     });
                 }
             });
+
+            // insert doctor education
+            jQuery("#doctorAddressform").validate({
+                rules: {
+                    "street": "required",
+                    "country": "required",
+                    "states": "required",
+                    "city": "required",
+                    "pincode": "required",
+                },
+                messages: {
+                    "street": "Please enter street",
+                    "country": "Please select country!",
+                    "states": "Please select state",
+                    "city": "Please enter city",
+                    "pincode": "Please enter end pincode",
+                },
+                submitHandler: function(form) {
+                    var formData = $(form).serialize();
+                    console.log(formData);
+                    $.ajax({
+                        url: "{{ route('admin.add-doctor-address') }}",
+                        type: 'post',
+                        data: formData,
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.status == 'success') {
+                                swal.fire("Done!", response.message, "success");
+                                $('#address_tab').removeClass('active').attr(
+                                    'aria-selected', 'false');
+                                $('#address_tab').removeClass('show active');
+
+                                var tabLink = document.querySelector(
+                                    'a[href="#address_tab"]');
+                                if (tabLink) {
+                                    tabLink.classList.remove('active');
+                                    tabLink.setAttribute('aria-selected', 'false');
+                                }
+
+                                exTabLink = document.querySelector(
+                                    'a[href="#education_tab"]');
+                                exTabLink.classList.add('active');
+                                $('#education_tab').addClass('active').attr('aria-selected',
+                                    'true');
+                                $('#education_tab').addClass('show active');
+                            }
+                        },
+                        error: function(error_messages) {
+                            var errors = error_messages.responseJSON.errors;
+                            if (errors) {
+                                // Display validation errors
+                                $.each(errors, function(key, value) {
+                                    // var id = key.replace('.', '_')
+                                    var id = key.replace(/\./g, '_');
+                                    $("#" + id + "_error").html(value[0]);
+                                    console.log("#" + id + "_error")
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+
+
+
+
             // insert doctor experience
             jQuery("#doctorExperienceForm").validate({
-                 rules : {
+                rules: {
                     //   "name[]" : "required",
-                 },
-                 messages : {
-                      "name[]": "Please s",
-                 },
-                 submitHandler : function(form){
+                },
+                messages: {
+                    "name[]": "Please ",
+                },
+                submitHandler: function(form) {
                     var formData = $(form).serialize();
                     $.ajax({
-                       url      : "{{route('admin.add-doctor-experience')}}",
-                       type     : 'post',
-                       data     : formData,
-                       dataType : 'json',
-                       success  : function(response){
-                            if (response.success) {
-                                $('#tabtwo').removeClass('active show');
-                                $('#tabsix').addClass('active show');
-                                $('#li_tabthree').removeClass('active');
-                                $('#li_tabfour').addClass('active');
-                                                        } 
-                       },
-                       error: function(error_messages) {
+                        url: "{{ route('admin.add-doctor-experience') }}",
+                        type: 'post',
+                        data: formData,
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.success == true) {
+                                swal.fire("Done!", response.message, "success");
+                                $('#experience_tab').removeClass('active').attr(
+                                    'aria-selected', 'false');
+                                $('#experience_tab').removeClass('show active');
+
+                                var tabLink = document.querySelector(
+                                    'a[href="#experience_tab"]');
+                                if (tabLink) {
+                                    tabLink.classList.remove('active');
+                                    tabLink.setAttribute('aria-selected', 'false');
+                                }
+
+                                exTabLink = document.querySelector('a[href="#awards"]');
+                                exTabLink.classList.add('active');
+                                $('#awards').addClass('active').attr('aria-selected',
+                                    'true');
+                                $('#awards').addClass('show active');
+                            }
+                        },
+                        error: function(error_messages) {
                             var errors = error_messages.responseJSON;
                             // console.log(errors)
                             $.each(errors.errors, function(key, value) {
-                                var id = key.replace('.', '_')
+                                // var id = key.replace('.', '_')
+                                var id = key.replace(/\./g, '_');
                                 $('#' + id + '_error').html(value);
                                 remove_error_div(id)
                             })
 
                         }
                     });
-                 }
+                }
             });
             // insert doctor award data
             jQuery("#doctorAwardForm").validate({
-                rules : {
-
-                },
-                messages : {
-
-                },
-                submitHandler : function(form){
-                    var formData = $(form).serialize();
-                    $.ajax({
-                       url      : "{{route('admin.add-doctor-award')}}",
-                       type     : 'post',
-                       data     : formData,
-                       dataType : 'json',
-                       success  : function(response){
-                            if (response.success) {
-                                $('#tabtwo').removeClass('active show');
-                                $('#tabsix').addClass('active show');
-                                $('#li_tabfour').removeClass('active');
-                                $('#li_tabfour').addClass('active');
-                            } else {
-
-                            }
-                       },
-                    });
-                 }
-            });
-
-            // insert doctor working hour details
-            // jQuery("#doctorWorkingHourFormData").validate({
-            //     rules: {
-                    
-            //     },
-            //     messages: {
-                   
-            //     },
-
-
-            //     submitHandler : function(form){
-            //         var formData = $(form).serialize();
-            //         $.ajax({
-            //            url      : "{{route('admin.add-doctor-working-hour')}}",
-            //            type     : 'post',
-            //            data     : formData,
-            //            dataType : 'json',
-            //            success  : function(response){
-            //                 if (response.success) {
-            //                     $('#tabsix').removeClass('active show');
-            //                     $('#tabfive').addClass('active show');
-            //                     $('#li_tabfour').removeClass('active');
-            //                     $('#li_tabfive').addClass('active');
-            //                     $('#doctor_award_user_id').val(response.user_id);
-            //                 } 
-            //            },
-            //            error: function(error_messages) {
-            //             var errors = error_messages.responseJSON;
-
-            //             console.log(error_messages.responseJSON)
-            //             $.each(errors.errors, function(key, value) {
-            //                     $('#' + key + '_error').html(value); 
-            //                 });
-            //                                     // Open the accordion
-            //                 // $('#day-tuesday').collapse('show'); // Adjust the selector as per your HTML structure
-            //               }
-            //             });
-            //      }
-
-
-            // });
-            jQuery("#doctorWorkingHourFormData").validate({
                 rules: {
-                   //   monday_start_time : "required",
-                   // monday_end_time   : "required",   
+
                 },
                 messages: {
 
-                    monday_start_time : "Please enter start time for monday!",
-                    monday_end_time   : "Please enter end time for monday!",
-                    
+                },
+                submitHandler: function(form) {
+                    var formData = $(form).serialize();
+                    $.ajax({
+                        url: "{{ route('admin.add-doctor-award') }}",
+                        type: 'post',
+                        data: formData,
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.success == true) {
+                                swal.fire("Done!", response.message, "success");
+                                $('#awards').removeClass('active').attr('aria-selected',
+                                    'false');
+                                $('#awards').removeClass('show active');
+
+                                var tabLink = document.querySelector('a[href="#awards"]');
+                                if (tabLink) {
+                                    tabLink.classList.remove('active');
+                                    tabLink.setAttribute('aria-selected', 'false');
+                                }
+
+                                exTabLink = document.querySelector(
+                                    'a[href="#working_hours_tab"]');
+                                exTabLink.classList.add('active');
+                                $('#working_hours_tab').addClass('active').attr(
+                                    'aria-selected', 'true');
+                                $('#working_hours_tab').addClass('show active');
+                            }
+                        },
+                        error: function(error_messages) {
+                            var errors = error_messages.responseJSON;
+                            // console.log(errors)
+                            $.each(errors.errors, function(key, value) {
+                                // var id = key.replace('.', '_')
+                                var id = key.replace(/\./g, '_');
+                                $('#' + id + '_error').html(value);
+                                remove_error_div(id)
+                            })
+
+                        }
+                    });
+                }
+            });
+
+            $('#country').on('change', function() {
+                let countyId = this.value
+                $.ajax({
+                    url: "{{ route('get.state.by.country.id') }}",
+                    type: 'get',
+                    data: {
+                        'country_id': countyId
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        var states = response.data;
+                        var options = '';
+                        //options += "<option>Select State</option>";
+                        $.each(states, function(index, item) {
+
+                            options += "<option value='" + item.id + "'>" + item.name +
+                                "</option>";
+                        });
+                        $("#states").html(options);
+
+                    },
+                    error: function(error) {
+                        console.log("Error fetching data:", error);
+                    }
+                });
+            })
+
+            jQuery("#doctorWorkingHourFormData").validate({
+                rules: {
+
+                },
+                messages: {
+
+                    monday_start_time: "Please enter start time for monday!",
+                    monday_end_time: "Please enter end time for monday!",
+
                 },
                 submitHandler: function(form) {
                     var formData = $(form).serialize();
@@ -331,32 +471,52 @@ if(isset($singleDoctorDetails) && !empty($singleDoctorDetails))
                         data: formData,
                         dataType: 'json',
                         success: function(response) {
-                            if (response) {
-                              
+                            if (response.success == true) {
+                                swal.fire("Done!", response.message, "success");
+                                setTimeout(function() {
+                                    window.location.href =
+                                        "{{ route('admin.index.doctors') }}"
+                                }, 1500);
                             }
+
+
                         },
                         error: function(error_messages) {
-                            for (let [key, value] of Object.entries(error_messages.responseJSON.errors)) {
-                            let split_arr = key.split('.');
-                            let error_key = 'input[name="' + split_arr[0] +'['+split_arr[1]+']'+'['+split_arr[2]+']"]';
-                            $(document).find(error_key).after(
-                                '<span class="_error'+split_arr[1]+' text text-danger">' + value[0].replace(split_arr[0]+'.'+split_arr[1]+'.',' ') + '</span>');
-                            setTimeout(function() {
-                                jQuery('._error'+split_arr[1]).remove();
-                            }, 5000);
-                        }
+                            for (let [key, value] of Object.entries(error_messages
+                                    .responseJSON.errors)) {
+                                let split_arr = key.split('.');
+                                let error_key = 'input[name="' + split_arr[0] + '[' +
+                                    split_arr[1] + ']' + '[' + split_arr[2] + ']"]';
+                                $(document).find(error_key).after(
+                                    '<span class="_error' + split_arr[1] +
+                                    ' text text-danger">' + value[0].replace(split_arr[
+                                        0] + '.' + split_arr[1] + '.', ' ') + '</span>');
+                                setTimeout(function() {
+                                    jQuery('._error' + split_arr[1]).remove();
+                                }, 5000);
+                            }
                         }
                     });
                 }
-             });
+            });
 
             function remove_error_div(error_ele_id) {
-                setTimeout(function() {
-                    jQuery("#" + error_ele_id + "_error").remove();
-                }, 5000);
+                var errorElement = jQuery("#" + error_ele_id + "_error");
+                if (errorElement.is(":visible")) {
+                    setTimeout(function() {
+                        errorElement.hide();
+                    }, 3000);
+                } else {
+                    errorElement.show(); // Ensure the error message is shown
+                    setTimeout(function() {
+                        errorElement.hide();
+                    }, 5000);
+                }
             }
+
             // for language  
             var site_admin_base_url = 'http://127.0.0.1:8000/admin/';
+
             var languageDataSource = new kendo.data.DataSource({
                 batch: true,
                 transport: {
@@ -391,16 +551,50 @@ if(isset($singleDoctorDetails) && !empty($singleDoctorDetails))
                 }
             });
 
-            // for course
-            courseDataSource   = new kendo.data.DataSource({
+
+
+            var specialitiesDataSource = new kendo.data.DataSource({
                 batch: true,
                 transport: {
                     read: {
-                        url: site_admin_base_url + "course",
+                        url: site_admin_base_url + "specialities/get-speciality",
                         dataType: "json"
                     },
                     create: {
-                        url: site_admin_base_url + "course/ajax-create",
+                        url: site_admin_base_url + "specialities/create-speciality",
+                        dataType: "json"
+                    },
+                    parameterMap: function(options, operation) {
+                        if (operation !== "read" && options.models) {
+                            return {
+                                models: kendo.stringify(options.models)
+                            };
+                        }
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "id",
+                        fields: {
+                            id: {
+                                type: "number"
+                            },
+                            name: {
+                                type: "string"
+                            }
+                        }
+                    }
+                }
+            });
+            var ServicesDataSource = new kendo.data.DataSource({
+                batch: true,
+                transport: {
+                    read: {
+                        url: site_admin_base_url + "service/get-service",
+                        dataType: "json"
+                    },
+                    create: {
+                        url: site_admin_base_url + "service/ajax-create",
                         dataType: "json"
                     },
                     parameterMap: function(options, operation) {
@@ -426,89 +620,21 @@ if(isset($singleDoctorDetails) && !empty($singleDoctorDetails))
                 }
             });
 
-            // for hospital
-            hospitalDataSource = new kendo.data.DataSource({
-                batch: true,
-                transport: {
-                    read: {
-                        url: site_admin_base_url + "hospital",
-                        dataType: "json"
-                    },
-                    create: {
-                        url: site_admin_base_url + "hospital/ajax-create",
-                        dataType: "json"
-                    },
-                    parameterMap: function(options, operation) {
-                        if (operation !== "read" && options.models) {
-                            return {
-                                models: kendo.stringify(options.models)
-                            };
-                        }
-                    }
-                },
-                schema: {
-                    model: {
-                        id: "id",
-                        fields: {
-                            id: {
-                                type: "number"
-                            },
-                            name: {
-                                type: "string"
-                            }
-                        }
-                    }
-                }
-            });
-
-            // for award
-            awardDataSource    = new kendo.data.DataSource({
-                batch: true,
-                transport: {
-                    read: {
-                        url: site_admin_base_url + "award",
-                        dataType: "json"
-                    },
-                    create: {
-                        url: site_admin_base_url + "award/ajax-create",
-                        dataType: "json"
-                    },
-                    parameterMap: function(options, operation) {
-                        if (operation !== "read" && options.models) {
-                            return {
-                                models: kendo.stringify(options.models)
-                            };
-                        }
-                    }
-                },
-                schema: {
-                    model: {
-                        id: "id",
-                        fields: {
-                            id: {
-                                type: "number"
-                            },
-                            name: {
-                                type: "string"
-                            }
-                        }
-                    }
-                }
-            });
-
-            jQuery("#award").kendoMultiSelect({
+            jQuery("#award").kendoDropDownList({
                 filter: "contains",
                 dataTextField: "name",
                 dataValueField: "id",
                 dataSource: awardDataSource,
-                noDataTemplate: jQuery("#noAwardTemplate1").html()
+                value: awardArrs ?? '',
+                noDataTemplate: jQuery("#noAwardTemplate").html()
             });
 
-            jQuery("#hospital").kendoMultiSelect({
-                filter: "contains",
+            jQuery("#hospital").kendoDropDownList({
+                filter: "startswith",
                 dataTextField: "name",
                 dataValueField: "id",
                 dataSource: hospitalDataSource,
+                value: hospitalIds ?? '',
                 noDataTemplate: jQuery("#noHospitalTemplate").html()
             });
 
@@ -517,105 +643,69 @@ if(isset($singleDoctorDetails) && !empty($singleDoctorDetails))
                 dataTextField: "name",
                 dataValueField: "id",
                 dataSource: languageDataSource,
+                value: arrs ?? '',
                 noDataTemplate: jQuery("#nolanguageTemplate").html()
             });
-            jQuery("#course").kendoDropDownList({
-                filter: "startswith",
+
+            jQuery("#specialities").kendoMultiSelect({
+                filter: "contains",
                 dataTextField: "name",
                 dataValueField: "id",
-                dataSource: courseDataSource,
-                noDataTemplate: jQuery("#noCourseTemplate").html()
+                dataSource: specialitiesDataSource,
+                value: specialityArrs ?? '',
+                noDataTemplate: jQuery("#nospecialitiesTemplate").html()
+            });
+            jQuery("#Services").kendoMultiSelect({
+                filter: "contains",
+                dataTextField: "name",
+                dataValueField: "id",
+                dataSource: ServicesDataSource,
+                value: servicesArrs ?? '',
+                noDataTemplate: jQuery("#noServicesTemplate").html()
             });
 
-             /*
-                 code for selected language for update 
-             */
-            //     function populateLanguageForUpdate(selectedLanguageIds) {
-            //        $("#language").data("kendoMultiSelect").value(selectedLanguageIds);
-            //     }
-            //    var selectedLanguageIds  = <?php echo json_encode($userLanguageIds); ?>; 
-            //    populateLanguageForUpdate(selectedLanguageIds);
-
-               /*
-                  code for course allready selected and show  
-               */
-            //    function populateCourseForUpdate(selectedLanguageIds) {
-            //      $("#course").data("kendoMultiSelect").value(selectedLanguageIds);
-            //    }
-            //    var selectedCourseIds  = <?php echo json_encode($userCourse); ?>; 
-            //       populateCourseForUpdate(selectedCourseIds);
-
-            });
-
-  /*
- * Working Hours
- * Scroll to selected day
- */
-jQuery('.tab-link').on('click',function(){
-    day_div_id = jQuery(this).attr('day-id');
-    
-    // Adding active class to clicked tab
-    // var checkboxes = document.querySelectorAll(".user-accordion-item input[type='checkbox']");
-    // checkboxes.forEach(function(checkbox) {
-    //     jQuery(checkbox).removeClass('active');
-    // });
-    // jQuery(this).addClass('active');
-
-    jQuery('html, body').animate({
-        scrollTop: jQuery('#'+ day_div_id).offset().top - 100 
-    },100);
-});
-
-/**
- * Makefrom and to inputs disabled on clicking unavailable for the selected day 
- * */
-function unavailable_for_the_day(this_ele,day_name)
-{
-    let checked_status = jQuery(`#${this_ele}`).is(':checked');
-    let tab_id = this_ele.replace('checkbox','tab');
-    if(!checked_status)
-    {
-        jQuery('#'+day_name+'_start_time').prop('disabled',true);
-        jQuery('#'+day_name+'_end_time').prop('disabled',true);
-        jQuery(`#${tab_id}`).removeClass('active');
-    }
-    else
-    {
-        jQuery('#'+day_name+'_start_time').prop('disabled',false);
-        jQuery('#'+day_name+'_end_time').prop('disabled',false);
-        jQuery(`#${tab_id}`).addClass('active');
-    }
-    // let test = 
-    // console.log(day_name +'_start_time : ' + test);
-}
-
-/*
-   disabled end time for doctor experience when doctor currently working
-*/
-
-function disabled_end_time(){
-    let check_status = jQuery("#is_cuurently_working").is(':checked');
-   if(check_status)
-   {
-       jQuery('#experience_end_time').prop('disabled',true);
-   }
-   else
-   {
-    jQuery('#experience_end_time').prop('disabled',false);
-   }
-}
-
-function addCourse(widgetId, value) {
-    var widget = jQuery("#" + widgetId).getKendoDropDownList();
-    var dataSource = widget.dataSource;
-        dataSource.add({
-            name: value
         });
-        dataSource.one("sync", function() {
-            widget.select(dataSource.view().length - 1);
-        });
-        dataSource.sync();
-    }
 
+        /*
+         * Working Hours
+         * Scroll to selected day
+         */
+        jQuery('.tab-link').on('click', function() {
+            day_div_id = jQuery(this).attr('day-id');
+
+            jQuery('html, body').animate({
+                scrollTop: jQuery('#' + day_div_id).offset().top - 100
+            }, 100);
+        });
+
+        /**
+         * Makefrom and to inputs disabled on clicking unavailable for the selected day 
+         * */
+        function unavailable_for_the_day(this_ele, day_name) {
+            let checked_status = jQuery(`#${this_ele}`).is(':checked');
+            let tab_id = this_ele.replace('checkbox', 'tab');
+            if (!checked_status) {
+                jQuery('#' + day_name + '_start_time').prop('disabled', true);
+                jQuery('#' + day_name + '_end_time').prop('disabled', true);
+                jQuery(`#${tab_id}`).removeClass('active');
+            } else {
+                jQuery('#' + day_name + '_start_time').prop('disabled', false);
+                jQuery('#' + day_name + '_end_time').prop('disabled', false);
+                jQuery(`#${tab_id}`).addClass('active');
+            }
+        }
+
+        /*
+           disabled end time for doctor experience when doctor currently working
+        */
+
+        function disabled_end_time() {
+            let check_status = jQuery("#is_cuurently_working").is(':checked');
+            if (check_status) {
+                jQuery('#experience_end_time').prop('disabled', true);
+            } else {
+                jQuery('#experience_end_time').prop('disabled', false);
+            }
+        }
     </script>
 @endsection

@@ -25,19 +25,27 @@
                     <div class="doctor-widget">
                         <div class="doc-info-left">
                             <div class="doctor-img">
-                                <img src="{{ URL::asset('assets/img/doctors/doctor-thumb-02.jpg') }}" class="img-fluid"
+                                <img src="{{asset('images/').'/'.$doctor->image_url}}" class="img-fluid"
                                     alt="User Image">
                             </div>
                             <div class="doc-info-cont">
                                 <h4 class="doc-name">{{$doctor->first_name}} {{$doctor->last_name}}</h4>
-                                <p class="doc-speciality">{{$specialityString}}</p>
-                                    
+                                {{-- <p class="doc-speciality">{{$specializationsString}}</p> --}}
+                                <p class="doc-speciality"  style="font-weight:600"> 
+                                @forelse ($doctor->educations as $education)
+                                {{$education->course->name}}
+                                @if( !$loop->last)
+                                    ,
+                                @endif
+                                @empty
+                                <p>N/A</p>
+                                @endforelse
+                            </p>
                                 @php
                                 $slicedSpecializationsArray = $doctor->specializations;
-                                print_r($slicedSpecializationsArray);
-                                // $Specialities = implode(',' , $slicedSpecializationsArray);
                                 @endphp
-                                {{-- <p class="doc-speciality">{{$Specialities}}</p> --}}
+
+                                
                                 <p class="doc-department"><img
                                         src="{{ URL::asset('assets/img/specialities/specialities-05.png') }}"
                                         class="img-fluid" alt="Speciality">Dentist</p>
@@ -50,13 +58,21 @@
                                     <span class="d-inline-block average-rating">(35)</span>
                                 </div>
                                 <div class="clinic-details">
-                                    <p class="doc-location"><i class="fas fa-map-marker-alt"></i> Newyork, USA - <a
-                                            href="javascript:void(0);">Get Directions</a></p>
+                                    @if (isset($doctor->doctorAddress))
+                                    <p class="doc-location"><i class="fas fa-map-marker-alt"></i> {{ $doctor->doctorAddress->address ?? ''}} {{','.$doctor->doctorAddress->city ?? ''}}  {{','.$doctor->doctorAddress->states->name ??''}} {{','. $doctor->doctorAddress->states->country->name ??'' }} - 
+                                        <a href="javascript:void(0);">Get Directions</a></p>  
+                                    @else
+                                    <p class="doc-location"><i class="fas fa-map-marker-alt"></i> - <a href="javascript:void(0);">Get Directions</a></p>
+                                    @endif
+        
 
                                 </div>
                                 <div class="clinic-services">
-                                    <span>Dental Fillings</span>
-                                    <span>Teeth Whitneing</span>
+                                    @forelse ($doctor->specializations as $specializaion)
+                                    <span>{{$specializaion->name}}</span>
+                                    @empty
+                                    <span>No Specialization available</span>
+                                    @endforelse
                                 </div>
                             </div>
                         </div>
@@ -65,7 +81,12 @@
                                 <ul>
                                     <li><i class="far fa-thumbs-up"></i> 99%</li>
                                     <li><i class="far fa-comment"></i> 35 Feedback</li>
-                                    <li><i class="fas fa-map-marker-alt"></i> Newyork, USA</li>
+                                    @if (isset($doctor->doctorAddress))
+                                    <li><i class="fas fa-map-marker-alt"></i> {{ $doctor->doctorAddress->address ??'' }} {{','.$doctor->doctorAddress->city ??'' }}  {{','.$doctor->doctorAddress->states->name ??'' }} {{','. $doctor->doctorAddress->states->country->name ??'' }} </li>
+                                    @else
+                                    <li><i class="fas fa-map-marker-alt"></i></li>
+                                    @endif
+
                                     <li><i class="far fa-money-bill-alt"></i> $100 per hour </li>
                                 </ul>
                             </div>
@@ -123,12 +144,7 @@
 
                                     <div class="widget about-widget">
                                         <h4 class="widget-title">About Me</h4>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                                            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                                            culpa qui officia deserunt mollit anim id est laborum.</p>
+                                        <p>{{$doctor->description}}</p>
                                     </div>
 
 
@@ -199,6 +215,20 @@
                                         <h4 class="widget-title">Awards</h4>
                                         <div class="experience-box">
                                             <ul class="experience-list">
+                                                @forelse ($doctor->awards as $award)
+                                                <li>
+                                                    <div class="experience-user">
+                                                        <div class="before-circle"></div>
+                                                    </div>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <p class="exp-year">{{  $startYear =  date('M Y', strtotime($award->year)) }}</p>
+                                                            <h4 class="exp-title">{{ $award->award->name }}</h4>
+                                                            <p>{{ $award->description}}</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                @empty
                                                 <li>
                                                     <div class="experience-user">
                                                         <div class="before-circle"></div>
@@ -206,43 +236,15 @@
                                                     <div class="experience-content">
                                                         <div class="timeline-content">
                                                             <p class="exp-year">July 2024</p>
-                                                            <h4 class="exp-title">Humanitarian Award</h4>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                            <h4 class="exp-title">Not Found</h4>
+                                                            {{-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                                                 Proin a ipsum tellus. Interdum et malesuada fames ac ante
-                                                                ipsum primis in faucibus.</p>
+                                                                ipsum primis in faucibus.</p> --}}
                                                         </div>
                                                     </div>
                                                 </li>
-                                                <li>
-                                                    <div class="experience-user">
-                                                        <div class="before-circle"></div>
-                                                    </div>
-                                                    <div class="experience-content">
-                                                        <div class="timeline-content">
-                                                            <p class="exp-year">March 2011</p>
-                                                            <h4 class="exp-title">Certificate for International Volunteer
-                                                                Service</h4>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                                Proin a ipsum tellus. Interdum et malesuada fames ac ante
-                                                                ipsum primis in faucibus.</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="experience-user">
-                                                        <div class="before-circle"></div>
-                                                    </div>
-                                                    <div class="experience-content">
-                                                        <div class="timeline-content">
-                                                            <p class="exp-year">May 2008</p>
-                                                            <h4 class="exp-title">The Dental Professional of The Year Award
-                                                            </h4>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                                Proin a ipsum tellus. Interdum et malesuada fames ac ante
-                                                                ipsum primis in faucibus.</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
+                                                @endforelse
+
                                             </ul>
                                         </div>
                                     </div>
@@ -265,7 +267,7 @@
                                     <div class="service-list">
                                         <h4>Specializations</h4>
                                         <ul class="clearfix">
-                                              @forelse ($doctor->specializaions as $specializaion)
+                                              @forelse ($doctor->specializations as $specializaion)
                                               <li>{{$specializaion->name}}</li>
                                               @empty
                                               <li>No Specialization available</li>

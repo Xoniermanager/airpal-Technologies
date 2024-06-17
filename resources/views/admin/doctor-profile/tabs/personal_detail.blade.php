@@ -7,7 +7,11 @@
         <div class="setting-card">
             <div class="change-avatar img-upload">
                 <div class="profile-img">
+                    @if (isset($singleDoctorDetails->image_url))
+                        <img src="{{ asset('images').'/'.$singleDoctorDetails->image_url}}">
+                    @else
                     <i class="fa-solid fa-file-image"></i>
+                    @endif
                 </div>
                 <div class="upload-img">
                     <h5>Profile Image</h5>
@@ -21,12 +25,14 @@
                     <p class="form-text">Your Image should Below 4 MB, Accepted format
                         jpg,png,svg
                     </p>
+                    <span class="text-danger" id="image_error"></span>
                 </div>
             </div>
         </div>
         <div class="setting-title">
             <h5>Information</h5>
         </div>
+    
         <div class="setting-card">
             <div class="row">
                 <div class="col-lg-4 col-md-6">
@@ -66,25 +72,37 @@
                     <div class="form-wrap">
                         <label class="col-form-label">Email Address <span
                                 class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="email"value="{{$singleDoctorDetails->email ?? " "}}">
+                        <input type="text" class="form-control" name="email" value="{{$singleDoctorDetails->email ?? " "}}">
                         <span class="text-danger" id="email_error"></span>
                     </div>
                 </div>
+                @if (!isset($singleDoctorDetails))
+                <div class="col-lg-4 col-md-6">
+                    <div class="form-wrap">
+                        <label class="col-form-label">Password <span
+                                class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="password">
+                        <span class="text-danger" id="password_error"></span>
+                    </div>
+                </div>
+                @endif
+
                 <div class="col-lg-12">
                     <div class="form-wrap">
-                        <label class="col-form-label">Known Languages <span
+                        <label class="col-form-label" >Known Languages <span
                                 class="text-danger">*</span></label>
-                        <select id="language" class="form-control" name="name[]"> </select>
+                        <select id="language" class="form-control" name="name[]" > </select>
+                        <p id="doctorlanguageID" style="display: none"> {{$languagesIds ?? ''}}</p>
                         <script id="nolanguageTemplate" type="text/x-kendo-tmpl">
                             <div>
-                                                    No data found. Do you want to add new item - '#: instance.filterInput.val() #' ?
-                                                </div>
-                                                <br />
-                                                # var value = instance.input.val(); #
-                                                # var id = instance.element[0].id; #
-                                                <button class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md" onclick="addLanguage('#: id #', '#: value #')">Add new item</button>
-                                            </script>
-                                            <span class="text-danger" id="name_error"></span>
+                                No data found. Do you want to add new item - '#: instance.filterInput.val() #' ?
+                            </div>
+                            <br />
+                            # var value = instance.input.val(); #
+                            # var id = instance.element[0].id; #
+                            <button class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md" onclick="addItemToMultiSelect('#: id #', '#: value #')">Add new item</button>
+                        </script>
+                         <span class="text-danger" id="name_error"></span>
                     </div>
                 </div>
             </div>
@@ -97,55 +115,71 @@
                 <div class="row membership-content">
                     <div class="col-lg-6 col-md-6">
                         <div class="form-wrap">
-                            <label class="col-form-label">Speciality <span
+                            <label class="col-form-label" >Speciality<span
                                     class="text-danger">*</span></label>
-                            <div class="position-relative form-control dropdown">
-                                <a href="#" class="dropdown-toggle nav-link"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    Select
-                                </a>
-                                <div class="w-100 dropdown-menu dropdown-menu-end">
-                                    @foreach ($specialities as $speciality)
-                                        <li class="dropdown-item"><input type="checkbox"
-                                                value="{{ $speciality->id }}"
-                                                name="specialities[]"> {{ $speciality->name }}
-                                        </li>
-                                    @endforeach
+                            <select id="specialities" class="form-control" name="specialities[]" > </select>
+                            <p id="doctorspecialitiesID"  style="display: none"> {{$specialitiesIds ?? ''}}</p>
+                            <script id="nospecialitiesTemplate" type="text/x-kendo-tmpl">
+                                <div>
+                                    No data found. Do you want to add new item - '#: instance.filterInput.val() #' ?
                                 </div>
-                            </div>
-
+                                <br />
+                                # var value = instance.input.val(); #
+                                # var id = instance.element[0].id; #
+                                <button class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md" onclick="addItemToMultiSelect('#: id #', '#: value #')">Add new item</button>
+                            </script>
+                             <span class="text-danger" id="specialities_error"></span>
                         </div>
+
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="d-flex align-items-center">
                             <div class="form-wrap w-100">
-                                <label class="col-form-label">Services</label>
-                                <div class="position-relative form-control dropdown">
-                                    <a href="#" class="dropdown-toggle nav-link"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        Select
-                                    </a>
-                                    <div class="w-100 dropdown-menu dropdown-menu-end">
-                                        @foreach ($services as $service)
-                                            <li class="dropdown-item"><input type="checkbox"
-                                                    value="{{ $service->id }}"
-                                                    name="service[]">{{ $service->name }}</li>
-                                        @endforeach
-                                    </div>
+                                <label class="col-form-label" >Services<span
+                                    class="text-danger">*</span></label>
+                            <select id="Services" class="form-control" name="services[]" > </select>
+                            <p id="doctorServicesID"  style="display: none"> {{$servicesIds ?? ''}}</p>
+                            <script id="noServicesTemplate" type="text/x-kendo-tmpl">
+                                <div>
+                                    No data found. Do you want to add new item - '#: instance.filterInput.val() #' ?
                                 </div>
+                                <br />
+                                # var value = instance.input.val(); #
+                                # var id = instance.element[0].id; #
+                                <button class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md" onclick="addItemToMultiSelect('#: id #', '#: value #')">Add new item</button>
+                            </script>
+                             <span class="text-danger" id="services_error"></span>
                             </div>
-                            {{-- <div class="form-wrap ms-2">
-                                <label class="col-form-label d-block">&nbsp;</label>
-                                <a href="javascript:void(0);" class="trash-icon trash">Delete</a>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
             </div>
-            {{-- <div class="text-end">
-                <a href="#" class="add-membership-info more-item">Add New</a>
-            </div> --}}
+
         </div>
+
+
+        <div class="setting-title">
+            <h5>About Me </h5>
+        </div>
+
+        <div class="setting-card">
+            <div class="add-info membership-infos">
+                <div class="row membership-content">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="form-wrap">
+                            <label class="col-form-label" >Description</label>
+                                    <textarea class="form-control" rows="4" name="description"> {{ $singleDoctorDetails->description ?? '' }}</textarea>
+
+                             <span class="text-danger" id="name_error"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        
+        
         <div class="modal-btn text-end">
             <a href="#" class="btn btn-gray">Cancel</a>
             <button type="submit" class="btn btn-primary prime-btn">Save Changes</button>

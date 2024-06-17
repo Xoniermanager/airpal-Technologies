@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
- <head>
- @include('include.head')
-</head>
-<body>
+@extends('layouts.admin.main')
+@section('content')
+ 
 
 <div class="main-wrapper login-body">
 <div class="login-wrapper">
@@ -18,7 +14,7 @@
 <h1>Forgot Password?</h1>
 <p class="account-subtitle">Enter your email to get a password reset link</p>
 
-<form action="{{ route('login.index') }}">
+<form action="">
 <div class="mb-3">
 <input class="form-control" type="text" placeholder="Email">
 </div>
@@ -27,11 +23,11 @@
 </div>
 </form>
 
-<div class="text-center dont-have">Remember your password? <a href="{{ route('login.index') }}">Login</a></div>
+<div class="text-center dont-have">Remember your password? <a href="">Login</a></div>
 </div>
 </div>
 </div>
 </div>
 </div>
 </div>
-@include('include.footer')
+@endsection

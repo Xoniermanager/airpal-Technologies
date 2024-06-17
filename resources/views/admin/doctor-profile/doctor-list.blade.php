@@ -41,7 +41,7 @@
                         </div>
                     </td>
                     <td>
-                        <a href=""><button class="btn btn-secondary">Edit</button></a>
+                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}"><button class="btn btn-secondary">Edit</button></a>
                     </td>
                 </tr>
                 @endforeach

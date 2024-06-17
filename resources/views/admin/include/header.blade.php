@@ -130,7 +130,7 @@
             </div>
             <a class="dropdown-item" href="{{ route('admin.profile.index') }}">My Profile</a>
             <a class="dropdown-item" href="{{ route('admin.settings.index') }}">Settings</a>
-            <a class="dropdown-item" href="{{ route('login.index') }}">Logout</a>
+            <a class="dropdown-item" href="{{ route('doctor.logout') }}">Logout</a>
         </div>
     </li>
 
@@ -152,7 +152,10 @@
                             <a href="{{ route('admin.speciality.index') }}"><i class="fe fe-users"></i> <span>Specialities</span></a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.doctors.index') }}"><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
+                            <a href="{{ route('admin.index.doctors') }}"><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.faqs.index') }}"><i class="fe fe-user-plus"></i> <span>Faqs</span></a>
                         </li>
                         <li>
                             <a href="{{ route('admin.patient-list.index') }}"><i class="fe fe-user"></i> <span>Patients</span></a>

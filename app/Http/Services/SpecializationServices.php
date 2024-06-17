@@ -27,8 +27,6 @@ class SpecializationServices
       } catch (\Throwable $th) {
         //throw $th;
       }
-      
-
     }
     public function updateSpeciality($updateSpecialitiesRequest){
         // dd($updateSpecialitiesRequest);
@@ -61,12 +59,24 @@ class SpecializationServices
       } 
       return $this->SpeciliazationRepository->delete($id);
     }
-
    
     public function getSpecialityPaginated()
     {
         return $this->SpeciliazationRepository->paginate(10)->setPath(route('admin.speciality.index'));
     } 
+    public function all()
+    {
+        return $this->SpeciliazationRepository->all();
+    } 
+
+    public function getSpecialitiesAjaxCall()
+    {
+        return $this->SpeciliazationRepository->all();
+    } 
+    public function StoreSpecialitiesByAjaxCall($data)
+    {
+        return  $this->SpeciliazationRepository->create($data);
+    } 
+
 }
 
-?>

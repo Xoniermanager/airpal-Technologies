@@ -60,7 +60,7 @@
 </div>
 </div>
 </div>
-<div class="exist-customer">Existing Customer? <a href="{{ route('login.index') }}">Click here to login</a></div>
+<div class="exist-customer">Existing Customer? <a href="">Click here to login</a></div>
 </div>
 
 <div class="payment-widget"> 

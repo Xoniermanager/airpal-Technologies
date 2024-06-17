@@ -1,5 +1,7 @@
 <?php
-    namespace App\Http\Repositories;
+
+namespace App\Http\Repositories;
+
     use App\Models\Specialization;
     use Prettus\Repository\Eloquent\BaseRepository;
     use Prettus\Repository\Criteria\RequestCriteria;
@@ -19,7 +21,7 @@
 
         public function doctorDetails()
         {
-            return $this->specializaions();
+            return $this->specializations();
         }
         /**
          * Boot up the repository, pushing criteria

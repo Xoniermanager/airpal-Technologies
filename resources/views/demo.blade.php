@@ -3,9 +3,7 @@
 <div class="row">
     <div class="col-sm-6">
         <div class="form-wrap">
-            <label class="col-form-label">Course</label>
-            {{-- <input type="text" class="form-control" name="course[]"> --}}
-        
+            <label class="col-form-label">Course</label>   
             <select id="course" class="form-control" name="course"> </select>
             <script id="noCourseTemplate" type="text/x-kendo-tmpl">
                 <div>
@@ -14,16 +12,7 @@
                 <br />
                 <button class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md" onclick="addCourse('#: instance.element[0].id #', '#: instance.filterInput.val() #')">Add new item</button>
             </script>
-                {{-- <script id="noCourseTemplate" type="text/x-kendo-tmpl">
-                    <div>
-                        No data found. Do you want to add new item - '#: instance.filterInput.val() #' ?
-                    </div>
-                    <br />
-                    # var value = instance.input.val(); #
-                    # var id = instance.element[0].id; #
-                    <button class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md" onclick="addCourse('#: id #', '#: value #')">Add new item</button>
-                </script> --}}
-                <span class="text-danger" id="course_error"></span>
+            <span class="text-danger" id="course_error"></span>
         </div>
     </div>
 </div>
@@ -72,20 +61,24 @@
             }
         });
         
+        function addCourse(widgetId, value) {
+        var widget = jQuery("#" + widgetId).getKendoDropDownList();
+        var dataSource = widget.dataSource;
+            dataSource.add({
+            name: value
+        });
+        dataSource.one("sync", function() {
+            widget.select(dataSource.view().length - 1);
+        });
+        dataSource.sync();
+    }
+
         jQuery("#course").kendoDropDownList({
             filter: "startswith",
             dataTextField: "name",
             dataValueField: "id",
             dataSource: courseDataSource,
             noDataTemplate: jQuery("#noCourseTemplate").html()
-
-
-            // filter: "startswith",
-            // dataTextField: "name",
-            // dataValueField: "id",
-            // dataSource: courseDataSource,
-            // noDataTemplate: jQuery("#noCourseTemplate").html()
-
 
         });
 

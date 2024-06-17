@@ -22,13 +22,19 @@ class StoreDoctorAwardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|array',
-            'name.*' => 'required|string|max:255',
-            'year' => 'required|array',
-            'year.*' => 'required|date_format:m/d/Y',
-            'description' => 'required|array',
-            'description.*' => 'required|string',
-            // 'user_id'       => 'required|integer',
+            'awards' => 'required|array',
+            'awards.*.name' => 'required|string|max:255',
+            'awards.*.year' => 'required|date',
+            'awards.*.description' => 'required|string',
+            'user_id'              => 'required'
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'awards.*.name.required'  => 'Please select award name.',
+            'awards.*.year.required'  => 'Please provide year.',
+            'awards.*.description.required'=> 'Please provide description.',
         ];
     }
 }

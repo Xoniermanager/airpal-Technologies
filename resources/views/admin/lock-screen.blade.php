@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    @include('include.head')
-</head>
-
-<body>
+@extends('layouts.admin.main')
+@section('content')
+ 
 
     <div class="main-wrapper login-body">
         <div class="login-wrapper">
@@ -31,11 +26,11 @@
                             </form>
 
                             <div class="text-center dont-have">Sign in as a different user? <a
-                                    href="{{ route('login.index') }}">Login</a></div>
+                                    href="">Login</a></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @include('include.footer')
+    @endsection

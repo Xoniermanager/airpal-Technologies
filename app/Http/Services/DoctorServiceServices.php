@@ -24,9 +24,10 @@ class DoctorServiceServices {
      {
          return $this->servicesRepository->paginate(10)->setPath(route('admin.service.index'));
      } 
+
+     public function getServiceAjaxCall()
+     {
+         return $this->servicesRepository->all();
+     } 
 }
 
-
-
-
-?>

@@ -34,7 +34,17 @@
     <link href="https://kendo.cdn.telerik.com/themes/7.2.1/default/default-main.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
+    <script src="{{asset('/assets/js/jquery-3.7.1.min.js')}}"></script>
+<style>
+    .k-list-item.k-selected, .k-selected.k-list-optionlabel {
+    color: #ffffff;
+    background-color: #1b5a90;
+}
+.error {
+    color: red;
+    font-weight: 600;
+}
+    </style>
 
 </head>
 <body>

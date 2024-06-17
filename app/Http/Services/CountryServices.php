@@ -22,6 +22,9 @@ class CountryServices {
      public function getPaginateData(){
       return $this->CountryRepository->paginate(10)->setPath(route('admin.index.country'));
      }
+     public function all(){
+      return $this->CountryRepository->all();
+     }
 }
 
 

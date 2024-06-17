@@ -1,8 +1,9 @@
 <?php
 namespace App\Http\Services;
-use App\Models\Country;
-use App\Http\Repositories\DoctorEducationRepository;
 use Carbon\Carbon;
+use App\Models\Country;
+use Illuminate\Support\Arr;
+use App\Http\Repositories\DoctorEducationRepository;
 
 class DoctorEducationServices {
     private  $doctor_education_repository;
@@ -10,9 +11,8 @@ class DoctorEducationServices {
         $this->doctor_education_repository = $doctor_education_repository;
      }
      public function addDoctorEducation($data){
-      // $user_id = $data['user_id'];
-      // dd($data);
-      $user_id = 2;
+
+      $userId = $data['user_id'];
       $payload = [];
       foreach ($data['education'] as $education) 
       {
@@ -23,10 +23,17 @@ class DoctorEducationServices {
           'start_date'       => $education['start_date'],
           'end_date'         => $education['end_date']
         ];
-        $this->doctor_education_repository->updateOrCreate(['user_id' => $user_id,'course_id' => $education['course']],$payload);
+        $this->doctor_education_repository->updateOrCreate(['user_id'   => $userId,
+                                                            'course_id' => $education['course']],
+                                                            $payload );
       }
 
-      // return true;
+       return true;
      }
+
+
+   public function deleteDetails($id)
+   {
+    return $this->doctor_education_repository->find($id)->delete();
+   }
 }
-?>

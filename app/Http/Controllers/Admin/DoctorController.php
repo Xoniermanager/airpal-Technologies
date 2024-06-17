@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Specialization;
+use App\Http\Controllers\Controller;
 use App\Models\{Service, DayOfWeek};
-use App\Http\Requests\StoreDoctorPersonalDetailRequest;
-use App\Http\Requests\{StoreDoctorExperienceRequest, StoreDoctorAwardRequest};
-use App\Http\Services\{UserServices, DoctorLanguageServices, SpecializationServices, DoctorSpecialityServices, DoctorServiceAddServices};
 use Illuminate\Support\Facades\Redis;
+use App\Http\Requests\StoreDoctorPersonalDetailRequest;
+use App\Http\Services\{CountryServices, UserServices, DoctorLanguageServices, SpecializationServices, DoctorSpecialityServices, DoctorServiceAddServices, StateServices};
 
 class DoctorController extends Controller
 {
@@ -19,14 +18,22 @@ class DoctorController extends Controller
     private $doctor_speciality_services;
     private $doctor_service_add_services;
 
+    private $countryServices;
+    private $stateServices; 
+
     public function __construct(
         UserServices $user_services,
         DoctorLanguageServices $doctor_language_services,
         SpecializationServices $specialization_services,
         DoctorSpecialityServices $doctor_speciality_services,
         DoctorServiceAddServices $doctor_service_add_services,
+        CountryServices $countryServices,
+        StateServices $stateServices,
+        
     ) {
         $this->user_services                = $user_services;
+        $this->countryServices              = $countryServices;
+        $this->stateServices               = $stateServices; 
         $this->doctor_language_services     = $doctor_language_services;
         $this->specialization_services      = $specialization_services;
         $this->doctor_speciality_services   = $doctor_speciality_services;
@@ -35,36 +42,47 @@ class DoctorController extends Controller
     public function index()
     {
         $doctors = $this->user_services->getDoctorDataForAdmin();
-        // dd($doctors);
         return view('admin.doctor-profile.index')->with('doctors', $doctors);
     }
 
 
     public function addDoctor()
     {
-        $speciality = Specialization::all();
-        $services   = Service::all();
-        $dayOfWeeks = DayOfWeek::all();
-        return view('admin.doctor-profile.add-doctor')
-            ->with('specialities', $speciality)
-            ->with('services', $services)
-            ->with('dayOfWeeks', $dayOfWeeks);
+        $speciality  =  Specialization::all();
+        $services    =  Service::all();
+        $dayOfWeeks  =  DayOfWeek::all();
+        $countries   =  $this->countryServices->all();
+        $states      =  $this->stateServices->all();
+        
+        return view('admin.doctor-profile.add-doctor',[
+                        'specialities'=> $speciality,
+                        'services'    => $services,
+                        'countries'   => $countries,
+                        'states'      => $states,
+                        'dayOfWeeks'  => $dayOfWeeks ]);
     }
     public function addPersonalDetails(StoreDoctorPersonalDetailRequest $request)
     {
-        // dd($request->all());
-        try {
-            if ($userId = $this->user_services->addDoctorPersonalDetails($request->validated())) {
-                $languagesAdded = $this->doctor_language_services->addDoctorLanguage($userId, $request->name);
-                $specialitiesAdded = $this->doctor_speciality_services->addDoctorSpecialities($userId, $request->specialities);
-                $servicesAdded = $this->doctor_service_add_services->addDoctorServices($userId, $request->service);
 
-                if ($languagesAdded && $specialitiesAdded && $servicesAdded) {
-                    return $userId;
-                } else {
-                    return 0;
+        try {
+                $userData = $request->validated();
+
+                $userEmail = $userData['email'];
+                $user = $this->user_services->updateOrCreateDoctor($userEmail, $userData);
+
+                if ($user) {
+                    $userId = json_decode($user->content())->id;
+                    $languagesAdded    = $this->doctor_language_services->addOrUpdateDoctorLanguage($userId, $request->name);
+                    $specialitiesAdded = $this->doctor_speciality_services->addOrUpdateDoctorSpecialities($userId, $request->specialities);
+                    $servicesAdded = $this->doctor_service_add_services->addOrUpdateDoctorServices($userId, $request->services);
+                    $servicesAdded = true;
+                    if ($languagesAdded && $specialitiesAdded && $servicesAdded) {
+                       
+                        return  json_decode($user->content());
+                    } else {
+                        return 0;
+                    }
                 }
-            }
         } catch (\Exception $e) {
             return  $e->getMessage();
         }
@@ -72,16 +90,30 @@ class DoctorController extends Controller
 
     public function editDoctor(Request $request ,$id)
     {
+     
 
         $singleDoctorDetails = $this->user_services->getDoctorDataById($id);
-        // dd($singleDoctorDetails);
+        $languagesIds = $singleDoctorDetails->language->pluck('id');
+        $specialitiesIds = $singleDoctorDetails->specializations->pluck('id');
+        $servicesIds = $singleDoctorDetails->services->pluck('id');
+
+        $countries = $this->countryServices->all();
+        $states = $this->stateServices->all();
+        
         $speciality = Specialization::all();
         $services   = Service::all();
         $dayOfWeeks = DayOfWeek::all();
-        return view('admin.doctor-profile.add-doctor')
-            ->with('specialities', $speciality)
-            ->with('services', $services)
-            ->with('dayOfWeeks', $dayOfWeeks)
-            ->with('singleDoctorDetails', $singleDoctorDetails);
+
+        return view('admin.doctor-profile.add-doctor', [
+            'specialities'    => $speciality,
+            'languagesIds'    => $languagesIds,
+            'specialitiesIds' => $specialitiesIds,
+            'servicesIds' => $servicesIds,
+            'services'    => $services,
+            'countries'   => $countries,
+            'states'      => $states,
+            'dayOfWeeks'  => $dayOfWeeks,
+            'singleDoctorDetails' => $singleDoctorDetails,
+        ]);
     }
 }

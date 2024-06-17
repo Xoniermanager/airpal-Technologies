@@ -23,25 +23,22 @@ class DoctorController extends Controller
 
   public function doctorProfile(User $user)
   {       
-      $doctor = $user->load('specializaions','services','educations','experiences','workingHour.daysOfWeek');
-      $data = ($doctor->specializaions);
-      $datas = $data->toArray();
-      $specialityArray = [];
-      foreach ($datas as  $name) {
-        $specialityArray[] = $name['name'];
+
+      $doctor = $user->load('specializations', 'services', 'educations.course', 'experiences', 'workingHour.daysOfWeek','awards.award','doctorAddress.states.country');
+      $doctorSpecializations = ($doctor->specializations)->toArray();
+      $specializationNames = [];
+
+      foreach ($doctorSpecializations as $specialization) {
+          $specializationNames[] = $specialization['name'];
       }
-      $specialityArray1 = array_slice($specialityArray, 0, 2);
-      $specialityString = implode(', ',$specialityArray1);
-      // dd($arr);
-      return view('frontend.doctor.doctor-profile')->with('doctor', $doctor)->with('specialityString',$specialityString);
+
+      $topSpecializations = array_slice($specializationNames, 0, 2);
+      $specializationsString = implode(', ', $topSpecializations);
+
+      return view('frontend.doctor.doctor-profile')
+          ->with('doctor', $doctor)
+          ->with('specializationsString', $specializationsString);
   }
-
-
-
-
-
-
-
 
 
   public function doctor_profile()

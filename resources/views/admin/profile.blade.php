@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
- <head>
- @include('admin.include.head')
-</head>
-<body>
-
+@extends('layouts.admin.main')
+@section('content')
+ 
 <div class="main-wrapper">
 @include('admin.include.header')
 <div class="page-wrapper">
@@ -216,4 +211,4 @@ United States.</p>
 </div>
 
 </div>
-@include('admin.include.footer')
+@endsection

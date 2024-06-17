@@ -55,4 +55,18 @@ class ServiceController extends Controller
             ]);
         }
     }
+
+    public function getServiceAjaxCall()
+    {
+    $service = $this->doctor_service_services->getServiceAjaxCall();
+    return json_encode($service);
+    }
+
+    public function storeServiceByAjaxCall(Request $request)
+    {
+        $data =  json_decode($request->all()['models'])[0];
+       return $this->doctor_service_services->addService(['name'=> $data->name ]);
+
+
+    }
 }

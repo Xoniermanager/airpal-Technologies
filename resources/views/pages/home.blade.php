@@ -78,23 +78,28 @@
                         <div class="owl-nav slide-nav-2 text-end nav-control"></div>
                     </div>
                 </div>
+            
                 <div class="owl-carousel doctor-slider-one owl-theme aos" data-aos="fade-up">
-
+                    @foreach ( $doctorList as $doctor )
                     <div class="item">
                         <div class="doctor-profile-widget">
                             <div class="doc-pro-img">
                                 <a href="#">
                                     <div class="doctor-profile-img">
-                                        <img src="{{URL::asset('assets/img/doctors/doctor-03.jpg')}}" class="img-fluid" alt="Ruby Perrin">
+                                        <a href="{{route('frontend.doctor.profile',['user'=> $doctor->id])}}">
+                                        <img src="{{asset('images/').'/'.$doctor->image_url}}" class="img-fluid" alt="Ruby Perrin" 
+                                        onerror="this.onerror=null; this.src='{{asset('images/blank-profile-picture.webp')}}'"
+                                        >
+                                        </a>
                                     </div>
                                 </a>
 
-                            </div>
+                            </div>  
                             <div class="doc-content">
                                 <div class="doc-pro-info">
                                     <div class="doc-pro-name">
-                                        <a href="#">Dr. Ruby Perrin</a>
-                                        <p>Cardiology</p>
+                                        <a href="#">{{ $doctor->first_name ?? '' }} {{ $doctor->last_name ?? '' }}</a>
+                                        <p>{{ $doctor->first_name ?? '' }}</p>
                                     </div>
                                     <div class="reviews-ratings">
                                         <p>
@@ -103,134 +108,19 @@
                                     </div>
                                 </div>
                                 <div class="doc-pro-location">
-                                    <p><i class="feather-map-pin"></i> Newyork, USA</p>
+                                    @if (isset($doctor->doctorAddress))
+                                    <p class="doc-location"><i class="feather-map-pin"></i>{{$doctor->doctorAddress->city ?? ''}} {{','. $doctor->doctorAddress->states->country->name ??'' }} - 
+                                        <a href="javascript:void(0);">Get Directions</a></p>  
+                                    @else
+                                    <p class="doc-location"><i class="feather-map-pin"></i> - <a href="javascript:void(0);">Get Directions</a></p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @endforeach
 
 
-                    <div class="item">
-                        <div class="doctor-profile-widget">
-                            <div class="doc-pro-img">
-                                <a href="#">
-                                    <div class="doctor-profile-img">
-                                        <img src="{{URL::asset('assets/img/doctors/doctor-04.jpg')}}" class="img-fluid"
-                                            alt="Darren Elder">
-                                    </div>
-                                </a>
-
-                            </div>
-                            <div class="doc-content">
-                                <div class="doc-pro-info">
-                                    <div class="doc-pro-name">
-                                        <a href="#">Dr. Darren Elder</a>
-                                        <p>Neurology</p>
-                                    </div>
-                                    <div class="reviews-ratings">
-                                        <p>
-                                            <span><i class="fas fa-star"></i> 4.0</span> (20)
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="doc-pro-location">
-                                    <p><i class="feather-map-pin"></i> Florida, USA</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="item">
-                        <div class="doctor-profile-widget">
-                            <div class="doc-pro-img">
-                                <a href="#">
-                                    <div class="doctor-profile-img">
-                                        <img src="{{URL::asset('assets/img/doctors/doctor-05.jpg')}}" class="img-fluid"
-                                            alt="Sofia Brient">
-                                    </div>
-                                </a>
-
-                            </div>
-                            <div class="doc-content">
-                                <div class="doc-pro-info">
-                                    <div class="doc-pro-name">
-                                        <a href="#">Dr. Sofia Brient</a>
-                                        <p>Urology</p>
-                                    </div>
-                                    <div class="reviews-ratings">
-                                        <p>
-                                            <span><i class="fas fa-star"></i> 4.5</span> (30)
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="doc-pro-location">
-                                    <p><i class="feather-map-pin"></i> Georgia, USA</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="item">
-                        <div class="doctor-profile-widget">
-                            <div class="doc-pro-img">
-                                <a href="#">
-                                    <div class="doctor-profile-img">
-                                        <img src="{{URL::asset('assets/img/doctors/doctor-02.jpg')}}" class="img-fluid"
-                                            alt="Paul Richard">
-                                    </div>
-                                </a>
-
-                            </div>
-                            <div class="doc-content">
-                                <div class="doc-pro-info">
-                                    <div class="doc-pro-name">
-                                        <a href="#">Dr. Paul Richard</a>
-                                        <p>Orthopedic</p>
-                                    </div>
-                                    <div class="reviews-ratings">
-                                        <p>
-                                            <span><i class="fas fa-star"></i> 4.3</span> (45)
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="doc-pro-location">
-                                    <p><i class="feather-map-pin"></i> Michigan, USA</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="item">
-                        <div class="doctor-profile-widget">
-                            <div class="doc-pro-img">
-                                <a href="#">
-                                    <div class="doctor-profile-img">
-                                        <img src="{{URL::asset('assets/img/doctors/doctor-01.jpg')}}" class="img-fluid" alt="John Doe">
-                                    </div>
-                                </a>
-
-                            </div>
-                            <div class="doc-content">
-                                <div class="doc-pro-info">
-                                    <div class="doc-pro-name">
-                                        <a href="#">Dr. John Doe</a>
-                                        <p>Dentist</p>
-                                    </div>
-                                    <div class="reviews-ratings">
-                                        <p>
-                                            <span><i class="fas fa-star"></i> 4.4</span> (50)
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="doc-pro-location">
-                                    <p><i class="feather-map-pin"></i> California, USA</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
             </div>
@@ -250,6 +140,9 @@
                     </div>
                 </div>
                 <div class="row">
+
+                    @foreach($specialties as $speciality)
+
                     <div class="col-xl-3 col-lg-4 col-md-6 aos aos-init aos-animate" data-aos="fade-up">
                         <div class="specialist-card d-flex">
                             <div class="specialist-img">
@@ -257,127 +150,17 @@
                             </div>
                             <div class="specialist-info">
                                 <a href="#">
-                                    <h4>Urology</h4>
+                                    <h4>{{ $speciality->speciality_name ??  ''}}</h4>
                                 </a>
-                                <p>21 Doctors</p>
+                                <p>{{$speciality->doctor_count}} Doctors</p>
                             </div>
                             <div class="specialist-nav ms-auto">
                                 <a href="#"><i class="fas fa-long-arrow-alt-right"></i></a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 aos aos-init aos-animate" data-aos="fade-up">
-                        <div class="specialist-card d-flex">
-                            <div class="specialist-img">
-                                <img src="{{URL::asset('assets/img/category/3.png')}}" alt="brain-image" class="img-fluid">
-                            </div>
-                            <div class="specialist-info">
-                                <a href="#">
-                                    <h4>Neurology</h4>
-                                </a>
-                                <p>21 Doctors</p>
-                            </div>
-                            <div class="specialist-nav ms-auto">
-                                <a href="#"><i class="fas fa-long-arrow-alt-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 aos aos-init aos-animate" data-aos="fade-up">
-                        <div class="specialist-card d-flex">
-                            <div class="specialist-img">
-                                <img src="{{URL::asset('assets/img/category/2.png')}}" alt="bone-image" class="img-fluid">
-                            </div>
-                            <div class="specialist-info">
-                                <a href="#">
-                                    <h4>Orthopedic</h4>
-                                </a>
-                                <p>21 Doctors</p>
-                            </div>
-                            <div class="specialist-nav ms-auto">
-                                <a href="#"><i class="fas fa-long-arrow-alt-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 aos aos-init aos-animate" data-aos="fade-up">
-                        <div class="specialist-card d-flex">
-                            <div class="specialist-img">
-                                <img src="{{URL::asset('assets/img/category/4.png')}}" alt="heart-image" class="img-fluid">
-                            </div>
-                            <div class="specialist-info">
-                                <a href="#">
-                                    <h4>Cardiologist</h4>
-                                </a>
-                                <p>21 Doctors</p>
-                            </div>
-                            <div class="specialist-nav ms-auto">
-                                <a href="#"><i class="fas fa-long-arrow-alt-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 aos aos-init aos-animate" data-aos="fade-up">
-                        <div class="specialist-card d-flex">
-                            <div class="specialist-img">
-                                <img src="{{URL::asset('assets/img/category/1.png')}}" alt="kidney-image" class="img-fluid">
-                            </div>
-                            <div class="specialist-info">
-                                <a href="#">
-                                    <h4>Urology</h4>
-                                </a>
-                                <p>21 Doctors</p>
-                            </div>
-                            <div class="specialist-nav ms-auto">
-                                <a href="#"><i class="fas fa-long-arrow-alt-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 aos aos-init aos-animate" data-aos="fade-up">
-                        <div class="specialist-card d-flex">
-                            <div class="specialist-img">
-                                <img src="{{URL::asset('assets/img/category/3.png')}}" alt="brain-image" class="img-fluid">
-                            </div>
-                            <div class="specialist-info">
-                                <a href="#">
-                                    <h4>Neurology</h4>
-                                </a>
-                                <p>21 Doctors</p>
-                            </div>
-                            <div class="specialist-nav ms-auto">
-                                <a href="#"><i class="fas fa-long-arrow-alt-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 aos aos-init aos-animate" data-aos="fade-up">
-                        <div class="specialist-card d-flex">
-                            <div class="specialist-img">
-                                <img src="{{URL::asset('assets/img/category/2.png')}}" alt="bone-image" class="img-fluid">
-                            </div>
-                            <div class="specialist-info">
-                                <a href="#">
-                                    <h4>Orthopedic</h4>
-                                </a>
-                                <p>21 Doctors</p>
-                            </div>
-                            <div class="specialist-nav ms-auto">
-                                <a href="#"><i class="fas fa-long-arrow-alt-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 aos aos-init aos-animate" data-aos="fade-up">
-                        <div class="specialist-card d-flex">
-                            <div class="specialist-img">
-                                <img src="{{URL::asset('assets/img/category/4.png')}}" alt="heart-image" class="img-fluid">
-                            </div>
-                            <div class="specialist-info">
-                                <a href="#">
-                                    <h4>Cardiologist</h4>
-                                </a>
-                                <p>21 Doctors</p>
-                            </div>
-                            <div class="specialist-nav ms-auto">
-                                <a href="#"><i class="fas fa-long-arrow-alt-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                @endforeach
+    
                 </div>
             </div>
         </section>
@@ -581,109 +364,28 @@
                         <div class="faq-info aos" data-aos="fade-up">
                             <div class="accordion" id="faq-details">
 
+                                @foreach ( $allFaqs->slice(0, 6) as  $key => $allFaq)
+                                    
                                 <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingOne">
+                                    <h2 class="accordion-header" id="heading{{$key}}">
                                         <a href="javascript:void(0);" class="accordion-button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseOne" aria-expanded="true"
-                                            aria-controls="collapseOne">
-                                            Can i make an Appointment Online with White Plains Hospital Kendi?
+                                            data-bs-target="#collapse{{$key}}" aria-expanded="true"
+                                            aria-controls="collapse{{$key}}">
+                                           {{ $allFaq->name }}
                                         </a>
                                     </h2>
-                                    <div id="collapseOne" class="accordion-collapse collapse show"
-                                        aria-labelledby="headingOne" data-bs-parent="#faq-details">
+                                    <div id="collapse{{$key}}" class="accordion-collapse collapse {{ $key==0 ? 'show' : '' }}"
+                                        aria-labelledby="heading{{$key}}" data-bs-parent="#faq-details">
                                         <div class="accordion-body">
                                             <div class="accordion-content">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                                    ad minim veniam, </p>
+                                                <p>{{  $allFaq->description}}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
 
-
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingTwo">
-                                        <a href="javascript:void(0);" class="accordion-button collapsed"
-                                            data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-                                            aria-expanded="false" aria-controls="collapseTwo">
-                                            Can i make an Appointment Online with White Plains Hospital Kendi?
-                                        </a>
-                                    </h2>
-                                    <div id="collapseTwo" class="accordion-collapse collapse"
-                                        aria-labelledby="headingTwo" data-bs-parent="#faq-details">
-                                        <div class="accordion-body">
-                                            <div class="accordion-content">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                                    ad minim veniam, </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingThree">
-                                        <a href="javascript:void(0);" class="accordion-button collapsed"
-                                            data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                                            aria-expanded="false" aria-controls="collapseThree">
-                                            Can i make an Appointment Online with White Plains Hospital Kendi?
-                                        </a>
-                                    </h2>
-                                    <div id="collapseThree" class="accordion-collapse collapse"
-                                        aria-labelledby="headingThree" data-bs-parent="#faq-details">
-                                        <div class="accordion-body">
-                                            <div class="accordion-content">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                                    ad minim veniam, </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingFour">
-                                        <a href="javascript:void(0);" class="accordion-button collapsed"
-                                            data-bs-toggle="collapse" data-bs-target="#collapseFour"
-                                            aria-expanded="false" aria-controls="collapseFour">
-                                            Can i make an Appointment Online with White Plains Hospital Kendi?
-                                        </a>
-                                    </h2>
-                                    <div id="collapseFour" class="accordion-collapse collapse"
-                                        aria-labelledby="headingFour" data-bs-parent="#faq-details">
-                                        <div class="accordion-body">
-                                            <div class="accordion-content">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                                    ad minim veniam, </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingFive">
-                                        <a href="javascript:void(0);" class="accordion-button collapsed"
-                                            data-bs-toggle="collapse" data-bs-target="#collapseFive"
-                                            aria-expanded="false" aria-controls="collapseFive">
-                                            Can i make an Appointment Online with White Plains Hospital Kendi?
-                                        </a>
-                                    </h2>
-                                    <div id="collapseFive" class="accordion-collapse collapse"
-                                        aria-labelledby="headingFive" data-bs-parent="#faq-details">
-                                        <div class="accordion-body">
-                                            <div class="accordion-content">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                                    ad minim veniam, </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+         
 
                             </div>
                         </div>

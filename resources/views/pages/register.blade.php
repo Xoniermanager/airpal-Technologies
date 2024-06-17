@@ -57,7 +57,7 @@
 <label class="focus-label">Create Password</label>
 </div>
 <div class="text-end">
-<a class="forgot-link" href="{{ route('login.index') }}">Already have an account?</a>
+<a class="forgot-link" href="">Already have an account?</a>
 </div>
 <button class="btn btn-primary w-100 btn-lg login-btn" type="submit">Signup</button>
 <div class="login-or">

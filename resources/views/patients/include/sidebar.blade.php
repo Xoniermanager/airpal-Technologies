@@ -77,7 +77,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('login.index') }}">
+                                            <a href="">
                                                 <i class="fa-solid fa-calendar-check"></i>
                                                 <span>Logout</span>
                                             </a>

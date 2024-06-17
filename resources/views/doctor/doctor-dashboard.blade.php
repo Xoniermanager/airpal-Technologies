@@ -14,7 +14,7 @@
             <div class="container">
                 <div class="row align-items-center inner-banner">
                     <div class="col-md-12 col-12 text-center">
-                        <h2 class="breadcrumb-title">Dashboard</h2>
+                        <h2 class="breadcrumb-title">Dashboard </h2>
                         <nav aria-label="breadcrumb" class="page-breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('doctor.doctor-dashboard.index') }}">Home</a></li>
@@ -40,7 +40,7 @@
                                 <div class="dashboard-box-col w-100">
                                     <div class="dashboard-widget-box">
                                         <div class="dashboard-content-info">
-                                            <h6>Total Patient</h6>
+                                            <h6>Total Patient        </h6>
                                             <h4>978</h4>
                                             <span class="text-success"><i class="fa-solid fa-arrow-up"></i>15% From Last
                                                 Week</span>

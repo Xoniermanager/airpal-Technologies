@@ -30,7 +30,7 @@
 <label class="focus-label">Email</label>
 </div>
 <div class="text-end">
-<a class="forgot-link" href="{{ route('login.index') }}">Remember your password?</a>
+<a class="forgot-link" href="">Remember your password?</a>
 </div>
 <button class="btn btn-primary w-100 btn-lg login-btn" type="submit">Reset Password</button>
 </form>

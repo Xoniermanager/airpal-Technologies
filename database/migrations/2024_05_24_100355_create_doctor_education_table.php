@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('doctor_education', function (Blueprint $table) {
             $table->id();
             $table->string('institute_name');
+            $table->string('certificates');
             $table->unsignedBigInteger('course_id');
             $table->unsignedBigInteger('user_id');
             $table->date('start_date');

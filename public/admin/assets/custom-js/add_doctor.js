@@ -466,6 +466,17 @@ const addAward = (function() {
                                                                     <span class="text-danger" id="awards_${awardCount}_description_error"></span>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-lg-6 col-md-6">
+                                                            <div class="form-wrap">
+                                                                <label class="col-form-label">Education Certificates</label>
+                                                                <input type="file" class="form-control" id="certificatesID"
+                                                                    name="awards[${awardCount}][certificates]"
+                                                                    >
+                                                                <small class="text-secondary">Recommended image size is <b> pdf, image
+                                                                    </b></small>
+                                                                <span class="text-danger" id="awards_${awardCount}_certificates_error"></span>
+                                                            </div>
+                                                        </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -679,10 +690,16 @@ const addEducation = (function() {
                                                                 <div class="form-icon">
                                                                     <input type="text"
                                                                         class="form-control flat-picker" name="education[${educationCount}][end_date]" autocomplete="off">
-                                                <span class="text-danger" id="education_${educationCount}_end_date_error"></span>
+                                                                        <span class="text-danger" id="education_${educationCount}_end_date_error"></span>
                                                                         
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6">
+                                                            <div class="form-wrap">
+                                                            <label class="mb-2">Education Certificates</label>
+                                                            <input type="file" class="form-control"   name="education[0][certificates]">
+                                                            <small class="text-secondary">Recommended image size is <b>pdf, image</b></small>
                                                         </div>
     
                                                     </div>
@@ -942,6 +959,21 @@ const addExperience = (function() {
                                                 <span class="text-danger" id="_end_date_${experienceCount}_description_error"></span>
                                             </div>
                                         </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="form-wrap">
+                                            <label class="col-form-label">Education Certificates</label>
+                                            <input type="file" class="form-control" id="certificatesID"
+                                                name="experience[${experienceCount}][certificates]"
+                                                >
+                                            <small class="text-secondary">Recommended image size is <b> pdf, image
+                                                </b></small>
+                                            <span class="text-danger" id="education_${experienceCount}_certificates_error"></span>
+                                        </div>
+                                        <div>
+                                        </div>
+                                    </div>
+
+                                    
                                     </div>
                                 </div>
                             </div>

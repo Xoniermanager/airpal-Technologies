@@ -74,4 +74,5 @@ public function storeSpecialityByAjaxCall(Request $request)
 
 }
 
+
 }

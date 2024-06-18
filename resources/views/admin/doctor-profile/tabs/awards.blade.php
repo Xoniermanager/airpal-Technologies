@@ -67,6 +67,40 @@
                                                 <textarea class="form-control" rows="3" name="awards[{{ $key }}][description]"> {{ $singleAwardDetail->description }}</textarea>
                                             </div>
                                         </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-wrap">
+                                                <label class="col-form-label">Award Certificates</label>
+                                                <input type="file" class="form-control" id="certificatesID"
+                                                    name="awards[{{ $key }}][certificates]"
+                                                    value= "{{ $singleAwardDetail->certificates ?? ' ' }}">
+                                                <small class="text-secondary">Recommended image size is <b> pdf, image
+                                                    </b></small>
+                                                <span class="text-danger" id="awards_{{ $key }}_certificates_error"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            @php
+                                                $filePath =
+                                                    asset('images') . '/' . $singleAwardDetail->certificates;
+                                                $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
+                                            @endphp
+                                            @if ($fileExtension === 'pdf')
+                                                <div class="form-wrap">
+                                                    <object data="{{ $filePath }}" type="application/pdf"
+                                                        width="300" height="200" id="certificates">
+                                                    </object>
+                                                </div>
+                                                <a href="{{$filePath}}" target="_blank"
+                                                    class="btn btn-primary prime-btn"> click to download pdf</a>
+                                            @else
+                                                <div class="form-wrap">
+                                                    <img src="{{ $filePath }}" alt="certificate image"
+                                                        width="300" height="200" class="certificates">
+                                                </div>
+                                            @endif
+                                            {{-- </div> --}}
+                                        
+                                        </div>
                                     </div>
                                 </div>
                             </div>

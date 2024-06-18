@@ -27,6 +27,7 @@ class StoreDoctorExperienceRequest extends FormRequest
              'experience.*.location'    => 'required|string',
              'experience.*.hospital'    => 'required',
              'experience.*.description' => 'string',
+             'experience.*.certificates' =>'mimes:jpeg,bmp,png,gif,svg,pdf|max:2048',
              'experience.*.start_date'  => 'required|date_format:Y-m-d',
              'experience.*.end_date'    => 'required|date_format:Y-m-d|after_or_equal:experience.*.start_date',
              'user_id'                  => 'required'
@@ -39,6 +40,8 @@ class StoreDoctorExperienceRequest extends FormRequest
             'experience.*.job_title.required'     => 'Please provide job title.',
             'experience.*.location.required'      => 'Location is required for all selected experiences.',
             'experience.*.start_date.required'    => 'Please provide start date.',
+            'education.*.certificates.mimes'      => 'The certificate must be a file of type: jpeg, bmp, png, gif, svg, or pdf.',
+            'education.*.certificates.max'        => 'The certificate may not be greater than 2048 kilobytes.',
             'experience.*.start_date.date_format' => 'Invalid start Date format. Please provide date in : Y-m-d format.',
             'experience.*.hospital.required'      => 'End date is required for all selected experiences.',
             'experience.*.end_date.date_format'   => 'Invalid end Date format. Please provide date in Y-m-d format.',

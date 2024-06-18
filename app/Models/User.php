@@ -56,10 +56,6 @@ class User extends Authenticatable
         ];
     }
 
-    // public function specializations()
-    // {
-    //     return $this->belongsToMany(Specialization::class,'doctor_specialities');
-    // }
     public function specializations()
     {
         return $this->belongsToMany(Specialization::class, 'doctor_specialities', 'user_id', 'speciality_id');
@@ -69,10 +65,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Service::class,'doctor_services');
     }
-
     public function educations()
     {
-        return $this->hasMany(DoctorEducation::class)->with("course");
+        return $this->hasMany(DoctorEducation::class);
     }
     public function experiences()
     {
@@ -90,7 +85,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(DoctorAward::class,'user_id');
     }
-
     public function doctorAddress()
     {
         return $this->hasOne(UserAddress::class,'user_id');

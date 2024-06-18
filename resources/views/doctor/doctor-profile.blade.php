@@ -26,1135 +26,750 @@
         </div>
 
 
-        <div class="content doctor-content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-xl-3 theiaStickySidebar">
+    <div class="content doctor-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-xl-3 theiaStickySidebar">
 
-                        @include('doctor.include.sidebar')
+                </div>
+                <div class="col-lg-8 col-xl-9">
+                    <div class="dashboard-header">
+                        <h3>Profile Settings</h3>
                     </div>
-                    <div class="col-lg-8 col-xl-9">
-
-                        <div class="dashboard-header">
-                            <h3>Profile Settings</h3>
+                    <div class="setting-tab">
+                        <div class="appointment-tabs">
+                            <ul class="nav  nav-dynamic">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#personal_details_tab" data-bs-toggle="tab">Personal
+                                        Details</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#address_tab" data-bs-toggle="tab">Address</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#education_tab" data-bs-toggle="tab">Education</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#experience_tab" data-bs-toggle="tab">Experience</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#awards" data-bs-toggle="tab">Awards</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#working_hours_tab" data-bs-toggle="tab">Working Hours</a>
+                                </li>
+                            </ul>
                         </div>
-
-                        <div class="setting-tab">
-                            <div class="appointment-tabs">
-                                <ul class="nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" href="#" data-bs-toggle="tab"
-                                            data-bs-target="#tabone" aria-selected="true" role="tab">Basic Details</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#" data-bs-toggle="tab" data-bs-target="#tabtwo"
-                                            aria-selected="true" role="tab">Experience</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#" data-bs-toggle="tab" data-bs-target="#tabthree"
-                                            aria-selected="true" role="tab">Education</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#" data-bs-toggle="tab" data-bs-target="#tabfour"
-                                            aria-selected="true" role="tab">Clinics</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#" data-bs-toggle="tab" data-bs-target="#tabfive"
-                                            aria-selected="true" role="tab">Business Hours</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="tab-content">
-
-                            <div class="tab-pane active show" id="tabone" role="tabpanel">
-                                <div class="setting-title">
-                                    <h5>Profile</h5>
-                                </div>
-                                <form action="#">
-                                    <div class="setting-card">
-                                        <div class="change-avatar img-upload">
-                                            <div class="profile-img">
-                                                <i class="fa-solid fa-file-image"></i>
-                                            </div>
-                                            <div class="upload-img">
-                                                <h5>Profile Image</h5>
-                                                <div class="imgs-load d-flex align-items-center">
-                                                    <div class="change-photo">
-                                                        Upload New
-                                                        <input type="file" class="upload">
-                                                    </div>
-                                                    <a href="#" class="upload-remove">Remove</a>
-                                                </div>
-                                                <p class="form-text">Your Image should Below 4 MB, Accepted format
-                                                    jpg,png,svg
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="setting-title">
-                                        <h5>Information</h5>
-                                    </div>
-                                    <div class="setting-card">
-                                        <div class="row">
-                                            <div class="col-lg-4 col-md-6">
-                                                <div class="form-wrap">
-                                                    <label class="col-form-label">First Name <span
-                                                            class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-md-6">
-                                                <div class="form-wrap">
-                                                    <label class="col-form-label">Last Name <span
-                                                            class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-md-6">
-                                                <div class="form-wrap">
-                                                    <label class="col-form-label">Display Name <span
-                                                            class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-md-6">
-                                                <div class="form-wrap">
-                                                    <label class="col-form-label">Designation <span
-                                                            class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-md-6">
-                                                <div class="form-wrap">
-                                                    <label class="col-form-label">Phone Numbers <span
-                                                            class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-md-6">
-                                                <div class="form-wrap">
-                                                    <label class="col-form-label">Email Address <span
-                                                            class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <div class="form-wrap">
-                                                    <label class="col-form-label">Known Languages <span
-                                                            class="text-danger">*</span></label>
-                                                    <div class="input-block input-block-new mb-0">
-                                                        <input class="input-tags form-control" id="inputBox3"
-                                                            type="text" data-role="tagsinput" placeholder="Type New"
-                                                            name="Label" value="English German,Portugese">
-                                                        <a href="#" class="input-text save-btn">Save</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="setting-title">
-                                        <h5>Memberships</h5>
-                                    </div>
-                                    <div class="setting-card">
-                                        <div class="add-info membership-infos">
-                                            <div class="row membership-content">
-                                                <div class="col-lg-3 col-md-6">
-                                                    <div class="form-wrap">
-                                                        <label class="col-form-label">Title <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Add Title">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-9 col-md-6">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="form-wrap w-100">
-                                                            <label class="col-form-label">About Membership</label>
-                                                            <input type="text" class="form-control">
-                                                        </div>
-                                                        <div class="form-wrap ms-2">
-                                                            <label class="col-form-label d-block">&nbsp;</label>
-                                                            <a href="javascript:void(0);"
-                                                                class="trash-icon trash">Delete</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="text-end">
-                                            <a href="#" class="add-membership-info more-item">Add New</a>
-                                        </div>
-                                    </div>
-                                    <div class="modal-btn text-end">
-                                        <a href="#" class="btn btn-gray">Cancel</a>
-                                        <button type="submit" class="btn btn-primary prime-btn">Save Changes</button>
-                                    </div>
-                                </form>
-                            </div>
-
-
-                            <div class="tab-pane fade" id="tabtwo" role="tabpanel">
-                                <div class="dashboard-header border-0 mb-0">
-                                    <h3>Experience</h3>
-                                    <ul>
-                                        <li>
-                                            <a href="#" class="btn btn-primary prime-btn add-experiences">Add New
-                                                Experience</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <form action="#">
-                                    <div class="accordions experience-infos" id="list-accord">
-
-                                        <div class="user-accordion-item">
-                                            <a href="#" class="accordion-wrap" data-bs-toggle="collapse"
-                                                data-bs-target="#experience1">Experience<span>Delete</span></a>
-                                            <div class="accordion-collapse collapse show" id="experience1"
-                                                data-bs-parent="#list-accord">
-                                                <div class="content-collapse">
-                                                    <div class="add-service-info">
-                                                        <div class="add-info">
-                                                            <div class="row align-items-center">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-wrap mb-2">
-                                                                        <div class="change-avatar img-upload">
-                                                                            <div class="profile-img">
-                                                                                <i class="fa-solid fa-file-image"></i>
-                                                                            </div>
-                                                                            <div class="upload-img">
-                                                                                <h5>Hospital Logo</h5>
-                                                                                <div
-                                                                                    class="imgs-load d-flex align-items-center">
-                                                                                    <div class="change-photo">
-                                                                                        Upload New
-                                                                                        <input type="file"
-                                                                                            class="upload">
-                                                                                    </div>
-                                                                                    <a href="#"
-                                                                                        class="upload-remove">Remove</a>
-                                                                                </div>
-                                                                                <p class="form-text">Your Image should
-                                                                                    Below 4
-                                                                                    MB, Accepted format jpg,png,svg</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Title</label>
-                                                                        <input type="text" class="form-control">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Hospital <span
-                                                                                class="text-danger">*</span></label>
-                                                                        <input type="text" class="form-control">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Year of Experience
-                                                                            <span class="text-danger">*</span></label>
-                                                                        <input type="text" class="form-control">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Location <span
-                                                                                class="text-danger">*</span></label>
-                                                                        <input type="text" class="form-control">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Employement
-                                                                        </label>
-                                                                        <select class="select">
-                                                                            <option>Full Time</option>
-                                                                            <option>Part Time</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-12">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Job Description
-                                                                            <span class="text-danger">*</span></label>
-                                                                        <textarea class="form-control"
-                                                                            rows="3"></textarea>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Start Date <span
-                                                                                class="text-danger">*</span></label>
-                                                                        <div class="form-icon">
-                                                                            <input type="text"
-                                                                                class="form-control datetimepicker">
-                                                                            <span class="icon"><i
-                                                                                    class="fa-regular fa-calendar-days"></i></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">End Date <span
-                                                                                class="text-danger">*</span></label>
-                                                                        <div class="form-icon">
-                                                                            <input type="text"
-                                                                                class="form-control datetimepicker">
-                                                                            <span class="icon"><i
-                                                                                    class="fa-regular fa-calendar-days"></i></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">&nbsp;</label>
-                                                                        <div class="form-check">
-                                                                            <label class="form-check-label">
-                                                                                <input class="form-check-input"
-                                                                                    type="checkbox">
-                                                                                I Currently Working Here
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="text-end">
-                                                            <a href="#" class="reset more-item">Reset</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="user-accordion-item">
-                                            <a href="#" class="collapsed accordion-wrap" data-bs-toggle="collapse"
-                                                data-bs-target="#experience2">Hill Medical Hospital, Newcastle (15 Mar
-                                                2021 - 24
-                                                Jan 2023 )<span>Delete</span></a>
-                                            <div class="accordion-collapse collapse" id="experience2"
-                                                data-bs-parent="#list-accord">
-                                                <div class="content-collapse">
-                                                    <div class="add-service-info">
-                                                        <div class="add-info">
-                                                            <div class="row align-items-center">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-wrap mb-2">
-                                                                        <div class="change-avatar img-upload">
-                                                                            <div class="profile-img">
-                                                                                <i class="fa-solid fa-file-image"></i>
-                                                                            </div>
-                                                                            <div class="upload-img">
-                                                                                <h5>Hospital Logo</h5>
-                                                                                <div
-                                                                                    class="imgs-load d-flex align-items-center">
-                                                                                    <div class="change-photo">
-                                                                                        Upload New
-                                                                                        <input type="file"
-                                                                                            class="upload">
-                                                                                    </div>
-                                                                                    <a href="#"
-                                                                                        class="upload-remove">Remove</a>
-                                                                                </div>
-                                                                                <p class="form-text">Your Image should
-                                                                                    Below 4
-                                                                                    MB, Accepted format jpg,png,svg</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Title</label>
-                                                                        <input type="text" class="form-control">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Hospital <span
-                                                                                class="text-danger">*</span></label>
-                                                                        <input type="text" class="form-control">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Year of Experience
-                                                                            <span class="text-danger">*</span></label>
-                                                                        <input type="text" class="form-control">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Location <span
-                                                                                class="text-danger">*</span></label>
-                                                                        <input type="text" class="form-control">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Employement
-                                                                        </label>
-                                                                        <select class="select">
-                                                                            <option>Full Time</option>
-                                                                            <option>Part Time</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-12">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Job Description
-                                                                            <span class="text-danger">*</span></label>
-                                                                        <textarea class="form-control"
-                                                                            rows="3"></textarea>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Start Date <span
-                                                                                class="text-danger">*</span></label>
-                                                                        <div class="form-icon">
-                                                                            <input type="text"
-                                                                                class="form-control datetimepicker">
-                                                                            <span class="icon"><i
-                                                                                    class="fa-regular fa-calendar-days"></i></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">End Date <span
-                                                                                class="text-danger">*</span></label>
-                                                                        <div class="form-icon">
-                                                                            <input type="text"
-                                                                                class="form-control datetimepicker">
-                                                                            <span class="icon"><i
-                                                                                    class="fa-regular fa-calendar-days"></i></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">&nbsp;</label>
-                                                                        <div class="form-check">
-                                                                            <label class="form-check-label">
-                                                                                <input class="form-check-input"
-                                                                                    type="checkbox">
-                                                                                I Currently Working Here
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="text-end">
-                                                            <a href="#" class="reset more-item">Reset</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="modal-btn text-end">
-                                        <a href="#" class="btn btn-gray">Cancel</a>
-                                        <button type="submit" class="btn btn-primary prime-btn">Save Changes</button>
-                                    </div>
-                                </form>
-                            </div>
-
-
-                            <div class="tab-pane fade" id="tabthree" role="tabpanel">
-                                <div class="dashboard-header border-0 mb-0">
-                                    <h3>Education</h3>
-                                    <ul>
-                                        <li>
-                                            <a href="#" class="btn btn-primary prime-btn add-educations">Add New
-                                                Education</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <form action="#">
-                                    <div class="accordions education-infos" id="list-accord">
-
-                                        <div class="user-accordion-item">
-                                            <a href="#" class="accordion-wrap" data-bs-toggle="collapse"
-                                                data-bs-target="#education1">Education<span>Delete</span></a>
-                                            <div class="accordion-collapse collapse show" id="education1"
-                                                data-bs-parent="#list-accord">
-                                                <div class="content-collapse">
-                                                    <div class="add-service-info">
-                                                        <div class="add-info">
-                                                            <div class="row align-items-center">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-wrap mb-2">
-                                                                        <div class="change-avatar img-upload">
-                                                                            <div class="profile-img">
-                                                                                <i class="fa-solid fa-file-image"></i>
-                                                                            </div>
-                                                                            <div class="upload-img">
-                                                                                <h5>Logo</h5>
-                                                                                <div
-                                                                                    class="imgs-load d-flex align-items-center">
-                                                                                    <div class="change-photo">
-                                                                                        Upload New
-                                                                                        <input type="file"
-                                                                                            class="upload">
-                                                                                    </div>
-                                                                                    <a href="#"
-                                                                                        class="upload-remove">Remove</a>
-                                                                                </div>
-                                                                                <p class="form-text">Your Image should
-                                                                                    Below 4
-                                                                                    MB, Accepted format jpg,png,svg</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Name of the
-                                                                            institution</label>
-                                                                        <input type="text" class="form-control">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Course</label>
-                                                                        <input type="text" class="form-control">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Start Date <span
-                                                                                class="text-danger">*</span></label>
-                                                                        <div class="form-icon">
-                                                                            <input type="text"
-                                                                                class="form-control datetimepicker">
-                                                                            <span class="icon"><i
-                                                                                    class="fa-regular fa-calendar-days"></i></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">End Date <span
-                                                                                class="text-danger">*</span></label>
-                                                                        <div class="form-icon">
-                                                                            <input type="text"
-                                                                                class="form-control datetimepicker">
-                                                                            <span class="icon"><i
-                                                                                    class="fa-regular fa-calendar-days"></i></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">No of Years <span
-                                                                                class="text-danger">*</span></label>
-                                                                        <input type="text" class="form-control">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-12">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Description <span
-                                                                                class="text-danger">*</span></label>
-                                                                        <textarea class="form-control"
-                                                                            rows="3"></textarea>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="text-end">
-                                                            <a href="#" class="reset more-item">Reset</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="user-accordion-item">
-                                            <a href="#" class="collapsed accordion-wrap" data-bs-toggle="collapse"
-                                                data-bs-target="#education2">Cambridge (MBBS)<span>Delete</span></a>
-                                            <div class="accordion-collapse collapse" id="education2"
-                                                data-bs-parent="#list-accord">
-                                                <div class="content-collapse">
-                                                    <div class="add-service-info">
-                                                        <div class="add-info">
-                                                            <div class="row align-items-center">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-wrap mb-2">
-                                                                        <div class="change-avatar img-upload">
-                                                                            <div class="profile-img">
-                                                                                <i class="fa-solid fa-file-image"></i>
-                                                                            </div>
-                                                                            <div class="upload-img">
-                                                                                <h5>Logo</h5>
-                                                                                <div
-                                                                                    class="imgs-load d-flex align-items-center">
-                                                                                    <div class="change-photo">
-                                                                                        Upload New
-                                                                                        <input type="file"
-                                                                                            class="upload">
-                                                                                    </div>
-                                                                                    <a href="#"
-                                                                                        class="upload-remove">Remove</a>
-                                                                                </div>
-                                                                                <p class="form-text">Your Image should
-                                                                                    Below 4
-                                                                                    MB, Accepted format jpg,png,svg</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Name of the
-                                                                            institution</label>
-                                                                        <input type="text" class="form-control"
-                                                                            value="Cambridge">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Course</label>
-                                                                        <input type="text" class="form-control"
-                                                                            value="MBBS">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Start Date <span
-                                                                                class="text-danger">*</span></label>
-                                                                        <div class="form-icon">
-                                                                            <input type="text"
-                                                                                class="form-control datetimepicker"
-                                                                                value="12-6-2000">
-                                                                            <span class="icon"><i
-                                                                                    class="fa-regular fa-calendar-days"></i></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">End Date <span
-                                                                                class="text-danger">*</span></label>
-                                                                        <div class="form-icon">
-                                                                            <input type="text"
-                                                                                class="form-control datetimepicker"
-                                                                                value="09-05-2005">
-                                                                            <span class="icon"><i
-                                                                                    class="fa-regular fa-calendar-days"></i></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4 col-md-6">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">No of Years <span
-                                                                                class="text-danger">*</span></label>
-                                                                        <input type="text" class="form-control"
-                                                                            value="5">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-12">
-                                                                    <div class="form-wrap">
-                                                                        <label class="col-form-label">Description <span
-                                                                                class="text-danger">*</span></label>
-                                                                        <textarea class="form-control"
-                                                                            rows="3"></textarea>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="text-end">
-                                                            <a href="#" class="reset more-item">Reset</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="modal-btn text-end">
-                                        <a href="#" class="btn btn-gray">Cancel</a>
-                                        <button class="btn btn-primary prime-btn">Save Changes</button>
-                                    </div>
-                                </form>
-
-                            </div>
-
-
-                            <div class="tab-pane fade" id="tabfour" role="tabpanel">
-                                <div class="dashboard-header">
-                                    <div class="header-back">
-                                       
-                                        <h3>Appointment Details</h3>
-                                    </div>
-                                </div>
-                                <div class="appointment-details-wrap">
-
-                                    <div class="appointment-wrap appointment-detail-card">
-                                        <ul>
-                                            <li>
-                                                <div class="patinet-information">
-                                                    <a href="#">
-                                                        <img src="../assets/img/doctors-dashboard/profile-02.jpg"
-                                                            alt="User Image">
-                                                    </a>
-                                                    <div class="patient-info">
-                                                        <p>#Apt0001</p>
-                                                        <h6><a href="#">Kelly Joseph </a><span
-                                                                class="badge new-tag">New</span>
-                                                        </h6>
-                                                        <div class="mail-info-patient">
-                                                            <ul>
-                                                                <li><i class="fa-solid fa-envelope"></i><a href="#"
-                                                                        class="__cf_email__"
-                                                                        data-cfemail="d7bcb2bbbbae97b2afb6baa7bbb2f9b4b8ba">[email&#160;protected]</a>
-                                                                </li>
-                                                                <li><i class="fa-solid fa-phone"></i>+1 504 368 6874
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="appointment-info">
-                                                <div class="person-info">
-                                                    <p>Person with patient</p>
-                                                    <ul class="d-flex apponitment-types">
-                                                        <li>Andrew</li>
-                                                    </ul>
-                                                </div>
-                                                <div class="person-info">
-                                                    <p>Type of Appointment</p>
-                                                    <ul class="d-flex apponitment-types">
-                                                        <li><i class="fa-solid fa-video text-indigo"></i>Video Call</li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                            <li class="appointment-action">
-                                                <div class="detail-badge-info">
-                                                    <span class="badge bg-green">Completed</span>
-                                                </div>
-                                                <div class="consult-fees">
-                                                    <h6>Consultation Fees : $200</h6>
-                                                </div>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#"><i class="fa-solid fa-comments"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#"><i class="fa-solid fa-xmark"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                        <ul class="detail-card-bottom-info">
-                                            <li>
-                                                <h6>Appointment Date & Time</h6>
-                                                <span>22 Jul 2023 - 12:00 pm</span>
-                                            </li>
-                                            <li>
-                                                <h6>Visit Type</h6>
-                                                <span>General</span>
-                                            </li>
-                                            <li class="appointment-detail-btn">
-                                                <a href="#view_prescription" data-bs-toggle="modal">View Details</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="recent-appointments">
-                                        <h5 class="head-text">Recent Appointments</h5>
-
-                                        <div class="appointment-wrap">
-                                            <ul>
-                                                <li>
-                                                    <div class="patinet-information">
-                                                        <a href="#">
-                                                            <img src="../assets/img/doctors-dashboard/profile-01.jpg"
-                                                                alt="User Image">
-                                                        </a>
-                                                        <div class="patient-info">
-                                                            <p>#Apt0001</p>
-                                                            <h6><a href="#">Adrian</a></h6>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="appointment-info">
-                                                    <p><i class="fa-solid fa-clock"></i>11 Nov 2024 10.45 AM</p>
-                                                    <ul class="d-flex apponitment-types">
-                                                        <li>General Visit</li>
-                                                        <li>Chat</li>
-                                                    </ul>
-                                                </li>
-                                                <li class="mail-info-patient">
-                                                    <ul>
-                                                        <li><i class="fa-solid fa-envelope"></i><a href="#"
-                                                                class="__cf_email__"
-                                                                data-cfemail="60010412010e200518010d100c054e030f0d">[email&#160;protected]</a>
-                                                        </li>
-                                                        <li><i class="fa-solid fa-phone"></i>+1 504 368 6874</li>
-                                                    </ul>
-                                                </li>
-                                                <li class="appointment-action">
-                                                    <ul>
-                                                        <li>
-                                                            <a href="#"><i class="fa-solid fa-eye"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-
-                                        <div class="appointment-wrap">
-                                            <ul>
-                                                <li>
-                                                    <div class="patinet-information">
-                                                        <a href="#">
-                                                            <img src="../assets/img/doctors-dashboard/profile-03.jpg"
-                                                                alt="User Image">
-                                                        </a>
-                                                        <div class="patient-info">
-                                                            <p>#Apt0003</p>
-                                                            <h6><a href="#">Samuel</a></h6>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="appointment-info">
-                                                    <p><i class="fa-solid fa-clock"></i>27 Oct 2024 09.30 AM</p>
-                                                    <ul class="d-flex apponitment-types">
-                                                        <li>General Visit</li>
-                                                        <li>Video Call</li>
-                                                    </ul>
-                                                </li>
-                                                <li class="mail-info-patient">
-                                                    <ul>
-                                                        <li><i class="fa-solid fa-envelope"></i><a href="#"
-                                                                class="__cf_email__"
-                                                                data-cfemail="0370626e76666f43667b626e736f662d606c6e">[email&#160;protected]</a>
-                                                        </li>
-                                                        <li><i class="fa-solid fa-phone"></i> +1 749 104 6291</li>
-                                                    </ul>
-                                                </li>
-                                                <li class="appointment-action">
-                                                    <ul>
-                                                        <li>
-                                                            <a href="#"><i class="fa-solid fa-eye"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="tab-pane fade" id="tabfive" role="tabpanel">
-                                <div class="dashboard-header border-0 mb-0">
-                                    <h3>Business Hours</h3>
-                                </div>
-                                <form action="#">
-                                    <div class="business-wrap">
-                                        <h4>Select Business days</h4>
-                                        <ul class="business-nav">
-                                            <li>
-                                                <a class="tab-link active" data-tab="day-monday">Monday</a>
-                                            </li>
-                                            <li>
-                                                <a class="tab-link active" data-tab="day-tuesday">Tuesday</a>
-                                            </li>
-                                            <li>
-                                                <a class="tab-link active" data-tab="day-wednesday">Wednesday</a>
-                                            </li>
-                                            <li>
-                                                <a class="tab-link active" data-tab="day-thursday">Thursday</a>
-                                            </li>
-                                            <li>
-                                                <a class="tab-link active" data-tab="day-friday">Friday</a>
-                                            </li>
-                                            <li>
-                                                <a class="tab-link" data-tab="day-saturday">Saturday</a>
-                                            </li>
-                                            <li>
-                                                <a class="tab-link" data-tab="day-sunday">Sunday</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="accordions business-info" id="list-accord">
-
-                                        <div class="user-accordion-item tab-items active" id="day-monday">
-                                            <a href="#" class="accordion-wrap" data-bs-toggle="collapse"
-                                                data-bs-target="#monday">Monday<span class="edit">Edit</span></a>
-                                            <div class="accordion-collapse collapse show" id="monday"
-                                                data-bs-parent="#list-accord">
-                                                <div class="content-collapse pb-0">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-6">
-                                                            <div class="form-wrap">
-                                                                <label class="col-form-label">From <span
-                                                                        class="text-danger">*</span></label>
-                                                                <div class="form-icon">
-                                                                    <input type="text" class="form-control timepicker1">
-                                                                    <span class="icon"><i
-                                                                            class="fa-solid fa-clock"></i></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-wrap">
-                                                                <label class="col-form-label">To <span
-                                                                        class="text-danger">*</span></label>
-                                                                <div class="form-icon">
-                                                                    <input type="text" class="form-control timepicker1">
-                                                                    <span class="icon"><i
-                                                                            class="fa-solid fa-clock"></i></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="user-accordion-item tab-items active" id="day-tuesday">
-                                            <a href="#" class="accordion-wrap collapsed" data-bs-toggle="collapse"
-                                                data-bs-target="#tuesday">Tuesday<span class="edit">Edit</span></a>
-                                            <div class="accordion-collapse collapse" id="tuesday"
-                                                data-bs-parent="#list-accord">
-                                                <div class="content-collapse pb-0">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-6">
-                                                            <div class="form-wrap">
-                                                                <label class="col-form-label">From <span
-                                                                        class="text-danger">*</span></label>
-                                                                <div class="form-icon">
-                                                                    <input type="text" class="form-control timepicker1">
-                                                                    <span class="icon"><i
-                                                                            class="fa-solid fa-clock"></i></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-wrap">
-                                                                <label class="col-form-label">To <span
-                                                                        class="text-danger">*</span></label>
-                                                                <div class="form-icon">
-                                                                    <input type="text" class="form-control timepicker1">
-                                                                    <span class="icon"><i
-                                                                            class="fa-solid fa-clock"></i></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="user-accordion-item tab-items active" id="day-wednesday">
-                                            <a href="#" class="accordion-wrap collapsed" data-bs-toggle="collapse"
-                                                data-bs-target="#wednesday">Wednesday<span class="edit">Edit</span></a>
-                                            <div class="accordion-collapse collapse" id="wednesday"
-                                                data-bs-parent="#list-accord">
-                                                <div class="content-collapse pb-0">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-6">
-                                                            <div class="form-wrap">
-                                                                <label class="col-form-label">From <span
-                                                                        class="text-danger">*</span></label>
-                                                                <div class="form-icon">
-                                                                    <input type="text" class="form-control timepicker1">
-                                                                    <span class="icon"><i
-                                                                            class="fa-solid fa-clock"></i></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-wrap">
-                                                                <label class="col-form-label">To <span
-                                                                        class="text-danger">*</span></label>
-                                                                <div class="form-icon">
-                                                                    <input type="text" class="form-control timepicker1">
-                                                                    <span class="icon"><i
-                                                                            class="fa-solid fa-clock"></i></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="user-accordion-item tab-items active" id="day-thursday">
-                                            <a href="#" class="accordion-wrap collapsed" data-bs-toggle="collapse"
-                                                data-bs-target="#thursday">Thursday<span class="edit">Edit</span></a>
-                                            <div class="accordion-collapse collapse" id="thursday"
-                                                data-bs-parent="#list-accord">
-                                                <div class="content-collapse pb-0">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-6">
-                                                            <div class="form-wrap">
-                                                                <label class="col-form-label">From <span
-                                                                        class="text-danger">*</span></label>
-                                                                <div class="form-icon">
-                                                                    <input type="text" class="form-control timepicker1">
-                                                                    <span class="icon"><i
-                                                                            class="fa-solid fa-clock"></i></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-wrap">
-                                                                <label class="col-form-label">To <span
-                                                                        class="text-danger">*</span></label>
-                                                                <div class="form-icon">
-                                                                    <input type="text" class="form-control timepicker1">
-                                                                    <span class="icon"><i
-                                                                            class="fa-solid fa-clock"></i></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="user-accordion-item tab-items active" id="day-friday">
-                                            <a href="#" class="accordion-wrap collapsed" data-bs-toggle="collapse"
-                                                data-bs-target="#friday">Friday<span class="edit">Edit</span></a>
-                                            <div class="accordion-collapse collapse" id="friday"
-                                                data-bs-parent="#list-accord">
-                                                <div class="content-collapse pb-0">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-6">
-                                                            <div class="form-wrap">
-                                                                <label class="col-form-label">From <span
-                                                                        class="text-danger">*</span></label>
-                                                                <div class="form-icon">
-                                                                    <input type="text" class="form-control timepicker1">
-                                                                    <span class="icon"><i
-                                                                            class="fa-solid fa-clock"></i></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-wrap">
-                                                                <label class="col-form-label">To <span
-                                                                        class="text-danger">*</span></label>
-                                                                <div class="form-icon">
-                                                                    <input type="text" class="form-control timepicker1">
-                                                                    <span class="icon"><i
-                                                                            class="fa-solid fa-clock"></i></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="user-accordion-item tab-items" id="day-saturday">
-                                            <a href="#" class="accordion-wrap collapsed" data-bs-toggle="collapse"
-                                                data-bs-target="#saturday">Saturday<span class="edit">Edit</span></a>
-                                            <div class="accordion-collapse collapse" id="saturday"
-                                                data-bs-parent="#list-accord">
-                                                <div class="content-collapse pb-0">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-6">
-                                                            <div class="form-wrap">
-                                                                <label class="col-form-label">From <span
-                                                                        class="text-danger">*</span></label>
-                                                                <div class="form-icon">
-                                                                    <input type="text" class="form-control timepicker1">
-                                                                    <span class="icon"><i
-                                                                            class="fa-solid fa-clock"></i></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-wrap">
-                                                                <label class="col-form-label">To <span
-                                                                        class="text-danger">*</span></label>
-                                                                <div class="form-icon">
-                                                                    <input type="text" class="form-control timepicker1">
-                                                                    <span class="icon"><i
-                                                                            class="fa-solid fa-clock"></i></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="user-accordion-item tab-items" id="day-sunday">
-                                            <a href="#" class="accordion-wrap collapsed" data-bs-toggle="collapse"
-                                                data-bs-target="#sunday">Sunday<span class="edit">Edit</span></a>
-                                            <div class="accordion-collapse collapse" id="sunday"
-                                                data-bs-parent="#list-accord">
-                                                <div class="content-collapse pb-0">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-6">
-                                                            <div class="form-wrap">
-                                                                <label class="col-form-label">From <span
-                                                                        class="text-danger">*</span></label>
-                                                                <div class="form-icon">
-                                                                    <input type="text" class="form-control timepicker1">
-                                                                    <span class="icon"><i
-                                                                            class="fa-solid fa-clock"></i></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-wrap">
-                                                                <label class="col-form-label">To <span
-                                                                        class="text-danger">*</span></label>
-                                                                <div class="form-icon">
-                                                                    <input type="text" class="form-control timepicker1">
-                                                                    <span class="icon"><i
-                                                                            class="fa-solid fa-clock"></i></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="modal-btn text-end">
-                                        <a href="#" class="btn btn-gray">Cancel</a>
-                                        <button type="submit" class="btn btn-primary prime-btn">Save Changes</button>
-                                    </div>
-                                </form>
-                            </div>
-
-
-
-                        </div>
-
-
+                    </div>
+                    <div class="tab-content">
+                        @include('doctor.doctor-profile.tabs.personal_detail')
+                        @include('doctor.doctor-profile.tabs.address')
+                        @include('doctor.doctor-profile.tabs.experience')
+                        @include('doctor.doctor-profile.tabs.education')
+                        @include('doctor.doctor-profile.tabs.working-hour')
+                        @include('doctor.doctor-profile.tabs.awards')
                     </div>
                 </div>
             </div>
         </div>
-
-
-
     </div>
+@endsection
+
+@section('javascript')
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{ asset('admin/assets/custom-js/add_doctor.js') }}"></script>
+<script>
+    $(document).ready(function() {
+
+        var skillId = jQuery('#doctorlanguageID').text();
+        if (skillId.length > 1) {
+            var arraySkillId = JSON.parse(skillId);
+            var skillValue = "" + arraySkillId.join(",") + "";
+            var arrs = skillValue.split(',');
+        }
+        var specialityID = jQuery('#doctorspecialitiesID').text();
+        if (specialityID.length > 1) {
+            var arrayspecialityID = JSON.parse(specialityID);
+            var specialityValue = "" + arrayspecialityID.join(",") + "";
+            var specialityArrs = specialityValue.split(',');
+        }
+        var servicesIds = jQuery('#doctorServicesID').text();
+        if (servicesIds.length > 1) {
+            var arrayservicesIds = JSON.parse(servicesIds);
+            var servicesValue = "" + arrayservicesIds.join(",") + "";
+            var servicesArrs = servicesValue.split(',');
+        }
+
+        var hospitalIds = jQuery('#doctorhospitalID').text();
+        var doctorAwardsIds = jQuery('#doctorAwardsIds').text();
+        if (doctorAwardsIds.length > 1) {
+            var arraydoctorAwardsIds = JSON.parse(doctorAwardsIds);
+            var awardValue = "" + arraydoctorAwardsIds.join(",") + "";
+            var awardArrs = awardValue.split(',');
+        }
+
+        $(".flat-picker").flatpickr({
+            enableTime: false,
+            dateFormat: "Y-m-d",
+        });
+
+
+        // Insert personal details 
+        jQuery("#personalDetailsForm").validate({
+            rules: {
+                first_name: "required",
+                last_name: "required",
+                display_name: "required",
+                phone: "required",
+                email: "required",
+                name: "required"
+            },
+            messages: {
+                first_name: "Please enter first name!",
+                last_name: "Please enter last name!",
+                display_name: "Please enter display name!",
+                phone: "Please enter phone number!",
+                email: "Please enter email address!",
+                name: "Please select language!"
+            },
+            submitHandler: function(form) {
+                var formData = new FormData(form);
+                $.ajax({
+                    url: "<?= route('admin.add-personal-details') ?>",
+                    type: 'post',
+                    data: formData,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                            'content') // Add CSRF token
+                    },
+                    success: function(response) {
+                        console.log('hello', response);
+                        if (response.status === 'created') {
+                            swal.fire("Done!", response.message, "success");
+                            setTimeout(function() {
+                                window.location.href =
+                                    "{{ route('admin.index.doctors') }}/edit/" +
+                                    response.id;
+                                switchTab('#personal_details_tab',
+                                    '#address_tab');
+                            }, 1500);
+                        } else {
+                            swal.fire("Done!", response.message, "success");
+                            setTimeout(function() {
+                                switchTab('#personal_details_tab',
+                                    '#address_tab');
+                            }, 1500);
+                        }
+                    },
+                    error: function(error_messages) {
+                        var errors = error_messages.responseJSON;
+                        $.each(errors.errors, function(key, value) {
+                            console.log(value);
+                            $('#' + key + '_error').html(value);
+                        });
+                    }
+                });
+            }
+        });
+
+        function switchTab(fromTab, toTab) {
+            $(fromTab).removeClass('active').attr('aria-selected', 'false').removeClass('show active');
+            var tabLink = document.querySelector('a[href="' + fromTab + '"]');
+            if (tabLink) {
+                tabLink.classList.remove('active');
+                tabLink.setAttribute('aria-selected', 'false');
+            }
+            var newTabLink = document.querySelector('a[href="' + toTab + '"]');
+            if (newTabLink) {
+                newTabLink.classList.add('active');
+                newTabLink.setAttribute('aria-selected', 'true');
+            }
+            $(toTab).addClass('active').attr('aria-selected', 'true').addClass('show active');
+        }
+
+
+        // // insert doctor education
+        // jQuery("#doctorEducationform").validate({
+        //     rules: {
+        //         "name[]": "required",
+        //         "course[]": "required",
+        //         "start_date[]": "required",
+        //         "end_date[]": "required",
+        //     },
+        //     messages: {
+        //         "name[]": "Please enter institue name!",
+        //         "course[]": "Please enter course!",
+        //         "start_date[]": "Please enter start date!",
+        //         "end_date[]": "Please enter end date!",
+        //     },
+        //     submitHandler: function(form) {
+
+        //         formData = new formData(form);
+        //         var formData = $(form).serialize();
+                
+        //         $.ajax({
+        //             url: "{{ route('admin.add-doctor-education') }}",
+        //             type: 'post',
+        //             data: formData,
+        //             dataType: 'json',
+        //             success: function(response) {
+        //                 if (response.status == 'success') {
+        //                     swal.fire("Done!", response.message, "success");
+        //                     $('#education-tab').removeClass('active').attr(
+        //                         'aria-selected', 'false');
+        //                     $('#education_tab').removeClass('show active');
+
+        //                     var tabLink = document.querySelector(
+        //                         'a[href="#education_tab"]');
+        //                     if (tabLink) {
+        //                         tabLink.classList.remove('active');
+        //                         tabLink.setAttribute('aria-selected', 'false');
+        //                     }
+
+        //                     exTabLink = document.querySelector(
+        //                         'a[href="#experience_tab"]');
+        //                     exTabLink.classList.add('active');
+        //                     $('#experience_tab').addClass('active').attr(
+        //                         'aria-selected', 'true');
+        //                     $('#experience_tab').addClass('show active');
+        //                 }
+        //             },
+        //             error: function(error_messages) {
+        //                 var errors = error_messages.responseJSON.errors;
+        //                 if (errors) {
+        //                     // Display validation errors
+        //                     $.each(errors, function(key, value) {
+        //                         // var id = key.replace('.', '_')
+        //                         var id = key.replace(/\./g, '_');
+        //                         $("#" + id + "_error").html(value[0]);
+        //                         console.log("#" + id + "_error")
+        //                     });
+        //                 }
+        //             }
+        //         });
+        //     }
+        // });
+
+        jQuery("#doctorEducationform").validate({
+            rules: {
+                "name[]": "required",
+                "course[]": "required",
+                "start_date[]": "required",
+                "end_date[]": "required",
+            },
+            messages: {
+                "name[]": "Please enter institute name!",
+                "course[]": "Please enter course!",
+                "start_date[]": "Please enter start date!",
+                "end_date[]": "Please enter end date!",
+            },
+            submitHandler: function(form) {
+                event.preventDefault();
+
+                var formData = new FormData(form);
+
+                $.ajax({
+                    url: "{{ route('admin.add-doctor-education') }}",
+                    type: 'post',
+                    data: formData,
+                    dataType: 'json',
+                    processData: false, // Important!
+                    contentType: false, // Important!
+                    success: function(response) {
+                        if (response.status == 'success') {
+                            swal.fire("Done!", response.message, "success");
+                            $('#education-tab').removeClass('active').attr('aria-selected', 'false');
+                            $('#education_tab').removeClass('show active');
+
+                            var tabLink = document.querySelector('a[href="#education_tab"]');
+                            if (tabLink) {
+                                tabLink.classList.remove('active');
+                                tabLink.setAttribute('aria-selected', 'false');
+                            }
+
+                            var exTabLink = document.querySelector('a[href="#experience_tab"]');
+                            exTabLink.classList.add('active');
+                            $('#experience_tab').addClass('active').attr('aria-selected', 'true');
+                            $('#experience_tab').addClass('show active');
+                        }
+                    },
+                    error: function(error_messages) {
+                        console.log(error_messages);
+                        var errors = error_messages.responseJSON.errors;
+                        if (errors) {
+                            // Display validation errors
+                            $.each(errors, function(key, value) {
+                                var id = key.replace(/\./g, '_');
+                                $("#" + id + "_error").html(value[0]);
+                                console.log("#" + id + "_error")
+                            });
+                        }
+                    }
+                });
+            }
+        });
+
+        jQuery("#doctorAddressform").validate({
+            rules: {
+                "street": "required",
+                "country": "required",
+                "states": "required",
+                "city": "required",
+                "pincode": "required",
+            },
+            messages: {
+                "street": "Please enter street",
+                "country": "Please select country!",
+                "states": "Please select state",
+                "city": "Please enter city",
+                "pincode": "Please enter end pincode",
+            },
+            submitHandler: function(form) {
+                var formData = $(form).serialize();
+                console.log(formData);
+                $.ajax({
+                    url: "{{ route('admin.add-doctor-address') }}",
+                    type: 'post',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status == 'success') {
+                            swal.fire("Done!", response.message, "success");
+                            $('#address_tab').removeClass('active').attr(
+                                'aria-selected', 'false');
+                            $('#address_tab').removeClass('show active');
+
+                            var tabLink = document.querySelector(
+                                'a[href="#address_tab"]');
+                            if (tabLink) {
+                                tabLink.classList.remove('active');
+                                tabLink.setAttribute('aria-selected', 'false');
+                            }
+
+                            exTabLink = document.querySelector(
+                                'a[href="#education_tab"]');
+                            exTabLink.classList.add('active');
+                            $('#education_tab').addClass('active').attr('aria-selected',
+                                'true');
+                            $('#education_tab').addClass('show active');
+                        }
+                    },
+                    error: function(error_messages) {
+                        var errors = error_messages.responseJSON.errors;
+                        if (errors) {
+                            // Display validation errors
+                            $.each(errors, function(key, value) {
+                                // var id = key.replace('.', '_')
+                                var id = key.replace(/\./g, '_');
+                                $("#" + id + "_error").html(value[0]);
+                                console.log("#" + id + "_error")
+                            });
+                        }
+                    }
+                });
+            }
+        });
+
+
+
+
+        // insert doctor experience
+        jQuery("#doctorExperienceForm").validate({
+            rules: {
+                //   "name[]" : "required",
+            },
+            messages: {
+                "name[]": "Please ",
+            },
+            submitHandler: function(form) {
+                event.preventDefault();
+
+                var formData = new FormData(form);
+
+                $.ajax({
+                    url: "{{ route('admin.add-doctor-experience') }}",
+                    type: 'post',
+                    data: formData,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false, 
+                    success: function(response) {
+                        if (response.success == true) {
+                            swal.fire("Done!", response.message, "success");
+                            $('#experience_tab').removeClass('active').attr(
+                                'aria-selected', 'false');
+                            $('#experience_tab').removeClass('show active');
+
+                            var tabLink = document.querySelector(
+                                'a[href="#experience_tab"]');
+                            if (tabLink) {
+                                tabLink.classList.remove('active');
+                                tabLink.setAttribute('aria-selected', 'false');
+                            }
+
+                            exTabLink = document.querySelector('a[href="#awards"]');
+                            exTabLink.classList.add('active');
+                            $('#awards').addClass('active').attr('aria-selected',
+                                'true');
+                            $('#awards').addClass('show active');
+                        }
+                    },
+                    error: function(error_messages) {
+                        var errors = error_messages.responseJSON;
+                        // console.log(errors)
+                        $.each(errors.errors, function(key, value) {
+                            // var id = key.replace('.', '_')
+                            var id = key.replace(/\./g, '_');
+                            $('#' + id + '_error').html(value);
+                            remove_error_div(id)
+                        })
+
+                    }
+                });
+            }
+        });
+        // insert doctor award data
+        jQuery("#doctorAwardForm").validate({
+            rules: {
+
+            },
+            messages: {
+
+            },
+            submitHandler: function(form) {
+                event.preventDefault();
+                // var formData = $(form).serialize();
+                var formData = new FormData(form);
+
+                $.ajax({
+                    url: "{{ route('admin.add-doctor-award') }}",
+                    type: 'post',
+                    data: formData,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false, 
+                    success: function(response) {
+                        if (response.success == true) {
+                            swal.fire("Done!", response.message, "success");
+                            $('#awards').removeClass('active').attr('aria-selected',
+                                'false');
+                            $('#awards').removeClass('show active');
+
+                            var tabLink = document.querySelector('a[href="#awards"]');
+                            if (tabLink) {
+                                tabLink.classList.remove('active');
+                                tabLink.setAttribute('aria-selected', 'false');
+                            }
+
+                            exTabLink = document.querySelector(
+                                'a[href="#working_hours_tab"]');
+                            exTabLink.classList.add('active');
+                            $('#working_hours_tab').addClass('active').attr(
+                                'aria-selected', 'true');
+                            $('#working_hours_tab').addClass('show active');
+                        }
+                    },
+                    error: function(error_messages) {
+                        var errors = error_messages.responseJSON;
+                        // console.log(errors)
+                        $.each(errors.errors, function(key, value) {
+                            // var id = key.replace('.', '_')
+                            var id = key.replace(/\./g, '_');
+                            $('#' + id + '_error').html(value);
+                            remove_error_div(id)
+                        })
+
+                    }
+                });
+            }
+        });
+
+        $('#country').on('change', function() {
+            let countyId = this.value
+            $.ajax({
+                url: "{{ route('get.state.by.country.id') }}",
+                type: 'get',
+                data: {
+                    'country_id': countyId
+                },
+                dataType: 'json',
+                success: function(response) {
+                    var states = response.data;
+                    var options = '';
+                    //options += "<option>Select State</option>";
+                    $.each(states, function(index, item) {
+
+                        options += "<option value='" + item.id + "'>" + item.name +
+                            "</option>";
+                    });
+                    $("#states").html(options);
+
+                },
+                error: function(error) {
+                    console.log("Error fetching data:", error);
+                }
+            });
+        })
+
+        jQuery("#doctorWorkingHourFormData").validate({
+            rules: {
+
+            },
+            messages: {
+
+                monday_start_time: "Please enter start time for monday!",
+                monday_end_time: "Please enter end time for monday!",
+
+            },
+            submitHandler: function(form) {
+                var formData = $(form).serialize();
+                $.ajax({
+                    url: "<?= route('admin.add-doctor-working-hour') ?>",
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.success == true) {
+                            swal.fire("Done!", response.message, "success");
+                            setTimeout(function() {
+                                window.location.href =
+                                    "{{ route('admin.index.doctors') }}"
+                            }, 1500);
+                        }
+
+
+                    },
+                    error: function(error_messages) {
+                        for (let [key, value] of Object.entries(error_messages
+                                .responseJSON.errors)) {
+                            let split_arr = key.split('.');
+                            let error_key = 'input[name="' + split_arr[0] + '[' +
+                                split_arr[1] + ']' + '[' + split_arr[2] + ']"]';
+                            $(document).find(error_key).after(
+                                '<span class="_error' + split_arr[1] +
+                                ' text text-danger">' + value[0].replace(split_arr[
+                                    0] + '.' + split_arr[1] + '.', ' ') + '</span>');
+                            setTimeout(function() {
+                                jQuery('._error' + split_arr[1]).remove();
+                            }, 5000);
+                        }
+                    }
+                });
+            }
+        });
+
+        function remove_error_div(error_ele_id) {
+            var errorElement = jQuery("#" + error_ele_id + "_error");
+            if (errorElement.is(":visible")) {
+                setTimeout(function() {
+                    errorElement.hide();
+                }, 3000);
+            } else {
+                errorElement.show(); // Ensure the error message is shown
+                setTimeout(function() {
+                    errorElement.hide();
+                }, 5000);
+            }
+        }
+
+        // for language  
+        var site_admin_base_url = 'http://127.0.0.1:8000/admin/';
+
+        var languageDataSource = new kendo.data.DataSource({
+            batch: true,
+            transport: {
+                read: {
+                    url: site_admin_base_url + "language",
+                    dataType: "json"
+                },
+                create: {
+                    url: site_admin_base_url + "language/ajax-create",
+                    dataType: "json"
+                },
+                parameterMap: function(options, operation) {
+                    if (operation !== "read" && options.models) {
+                        return {
+                            models: kendo.stringify(options.models)
+                        };
+                    }
+                }
+            },
+            schema: {
+                model: {
+                    id: "id",
+                    fields: {
+                        id: {
+                            type: "number"
+                        },
+                        name: {
+                            type: "string"
+                        }
+                    }
+                }
+            }
+        });
+
+
+
+        var specialitiesDataSource = new kendo.data.DataSource({
+            batch: true,
+            transport: {
+                read: {
+                    url: site_admin_base_url + "specialities/get-speciality",
+                    dataType: "json"
+                },
+                create: {
+                    url: site_admin_base_url + "specialities/create-speciality",
+                    dataType: "json"
+                },
+                parameterMap: function(options, operation) {
+                    if (operation !== "read" && options.models) {
+                        return {
+                            models: kendo.stringify(options.models)
+                        };
+                    }
+                }
+            },
+            schema: {
+                model: {
+                    id: "id",
+                    fields: {
+                        id: {
+                            type: "number"
+                        },
+                        name: {
+                            type: "string"
+                        }
+                    }
+                }
+            }
+        });
+        var ServicesDataSource = new kendo.data.DataSource({
+            batch: true,
+            transport: {
+                read: {
+                    url: site_admin_base_url + "service/get-service",
+                    dataType: "json"
+                },
+                create: {
+                    url: site_admin_base_url + "service/ajax-create",
+                    dataType: "json"
+                },
+                parameterMap: function(options, operation) {
+                    if (operation !== "read" && options.models) {
+                        return {
+                            models: kendo.stringify(options.models)
+                        };
+                    }
+                }
+            },
+            schema: {
+                model: {
+                    id: "id",
+                    fields: {
+                        id: {
+                            type: "number"
+                        },
+                        name: {
+                            type: "string"
+                        }
+                    }
+                }
+            }
+        });
+
+        jQuery("#award").kendoDropDownList({
+            filter: "contains",
+            dataTextField: "name",
+            dataValueField: "id",
+            dataSource: awardDataSource,
+            value: awardArrs ?? '',
+            noDataTemplate: jQuery("#noAwardTemplate").html()
+        });
+
+        jQuery("#hospital").kendoDropDownList({
+            filter: "startswith",
+            dataTextField: "name",
+            dataValueField: "id",
+            dataSource: hospitalDataSource,
+            value: hospitalIds ?? '',
+            noDataTemplate: jQuery("#noHospitalTemplate").html()
+        });
+
+        jQuery("#language").kendoMultiSelect({
+            filter: "contains",
+            dataTextField: "name",
+            dataValueField: "id",
+            dataSource: languageDataSource,
+            value: arrs ?? '',
+            noDataTemplate: jQuery("#nolanguageTemplate").html()
+        });
+
+        jQuery("#specialities").kendoMultiSelect({
+            filter: "contains",
+            dataTextField: "name",
+            dataValueField: "id",
+            dataSource: specialitiesDataSource,
+            value: specialityArrs ?? '',
+            noDataTemplate: jQuery("#nospecialitiesTemplate").html()
+        });
+        jQuery("#Services").kendoMultiSelect({
+            filter: "contains",
+            dataTextField: "name",
+            dataValueField: "id",
+            dataSource: ServicesDataSource,
+            value: servicesArrs ?? '',
+            noDataTemplate: jQuery("#noServicesTemplate").html()
+        });
+
+    });
+
+    /*
+     * Working Hours
+     * Scroll to selected day
+     */
+    jQuery('.tab-link').on('click', function() {
+        day_div_id = jQuery(this).attr('day-id');
+
+        jQuery('html, body').animate({
+            scrollTop: jQuery('#' + day_div_id).offset().top - 100
+        }, 100);
+    });
+
+    /**
+     * Makefrom and to inputs disabled on clicking unavailable for the selected day 
+     * */
+    function unavailable_for_the_day(this_ele, day_name) {
+        let checked_status = jQuery(`#${this_ele}`).is(':checked');
+        let tab_id = this_ele.replace('checkbox', 'tab');
+        if (!checked_status) {
+            jQuery('#' + day_name + '_start_time').prop('disabled', true);
+            jQuery('#' + day_name + '_end_time').prop('disabled', true);
+            jQuery(`#${tab_id}`).removeClass('active');
+        } else {
+            jQuery('#' + day_name + '_start_time').prop('disabled', false);
+            jQuery('#' + day_name + '_end_time').prop('disabled', false);
+            jQuery(`#${tab_id}`).addClass('active');
+        }
+    }
+
+    /*
+       disabled end time for doctor experience when doctor currently working
+    */
+
+    function disabled_end_time() {
+        let check_status = jQuery("#is_cuurently_working").is(':checked');
+        if (check_status) {
+            jQuery('#experience_end_time').prop('disabled', true);
+        } else {
+            jQuery('#experience_end_time').prop('disabled', false);
+        }
+    }
+</script>
+@endsection
+
     @include('include.footer')

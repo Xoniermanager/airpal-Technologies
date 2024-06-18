@@ -119,10 +119,47 @@
                                             <label class="col-form-label">Job Description
                                                 <span class="text-danger">*</span></label>
                                             <textarea class="form-control" rows="3" name="experience[{{$key}}][description]">{{$singleExperiencesDetails->job_desription ?? " "}}</textarea>
-                                            <span class="text-danger" id="description_0_error"></span>
+                                            <span class="text-danger" id="description_{{$key}}_error"></span>
                                         </div>
                                     </div>
-                                </div>
+
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="form-wrap">
+                                            <label class="col-form-label">Education Certificates</label>
+                                            <input type="file" class="form-control" id="certificatesID"
+                                                name="experience[{{ $key }}][certificates]"
+                                                value= "{{ $singleExperiencesDetails->certificates ?? ' ' }}">
+                                            <small class="text-secondary">Recommended image size is <b> pdf, image
+                                                </b></small>
+                                            <span class="text-danger" id="education_0_certificates_error"></span>
+                                        </div>
+                                        <div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+
+                                        @php
+                                            $filePath =
+                                                asset('images') . '/' . $singleExperiencesDetails->certificates;
+                                            $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
+                                        @endphp
+                                        @if ($fileExtension === 'pdf')
+                                            <div class="form-wrap">
+                                                <object data="{{ $filePath }}" type="application/pdf"
+                                                    width="300" height="200" id="certificates">
+                                                </object>
+                                            </div>
+                                            <a href="{{$filePath}}" target="_blank"
+                                                class="btn btn-primary prime-btn"> click to download pdf</a>
+                                        @else
+                                            <div class="form-wrap">
+                                                <img src="{{ $filePath }}" alt="certificate image"
+                                                    width="300" height="200" class="certificates">
+                                            </div>
+                                        @endif
+                                        </div>
+                                    
+                                    </div>
                             </div>
                         </div>
                     </div>

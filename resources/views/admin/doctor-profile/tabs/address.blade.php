@@ -32,7 +32,7 @@
                                                     @if(isset($singleDoctorDetails) && isset($singleDoctorDetails->doctorAddress) && $singleDoctorDetails->doctorAddress->country_id == $country->id)
                                                         selected
                                                     @endif>
-                                                    {{ $country->name }}
+                                                    {{ $countryName = $country->name }}
                                                 </option>
                                                 @empty
                                                 <option>Not avaiable please create it first</option>  
@@ -87,6 +87,18 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    @php
+                                        $address = $singleDoctorDetails->doctorAddress->address ?? '';
+                                        $city = $singleDoctorDetails->doctorAddress->city ?? '';
+                                        $fullAddress = $address . ' ' . $city . ' india';
+                                        $encodedAddress = str_replace(' ', '+', $fullAddress);
+                                    @endphp
+
+                                    <a href="https://www.google.com/maps?q={{ $encodedAddress }}" target="_blank">
+                                        <p><i class="fas fa-map-marker-alt"></i> Click Here Google Map Address</p>  
+                                    </a>
+                                    <iframe src="https://www.google.com/maps?q={{ $encodedAddress }}&output=embed" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 
                                 </div>
                             </div>

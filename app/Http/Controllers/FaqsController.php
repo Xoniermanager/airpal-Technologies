@@ -86,5 +86,12 @@ public function destroy(Request $request){
     }
   }
 
+  public function faqPageIndex()
+  {
+
+    $allFaqs =    $this->faqsServices->all();
+    return view("pages.faq", ['allFaqs' => $allFaqs]);
+  }
+
 }
 

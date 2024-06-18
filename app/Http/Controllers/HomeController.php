@@ -30,6 +30,7 @@ class HomeController extends Controller
   {
 
     $doctors = $this->user_services->all();
+   // dd(   $doctors);
     $specialtiesByDoctorsCount =  $this->doctor_specialty->getSpecialtyGroupByDoctor();
     $allFaqs =  $this->faqsServices->all();
 

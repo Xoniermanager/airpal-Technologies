@@ -2,21 +2,36 @@
 
 namespace App\Http\Controllers\Doctor;
 
+use App\Models\Service;
+use App\Models\DayOfWeek;
 use Illuminate\Http\Request;
+use App\Models\Specialization;
 use App\Http\Services\UserServices;
 use App\Http\Controllers\Controller;
+use App\Http\Services\StateServices;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Services\CountryServices;
 
 class DoctordashboardController extends Controller
 {
 
     private $user_services;
     private $doctorDetails;
-    public function __construct(UserServices $user_services)
-    {
+    private $countryServices;
+    private $stateServices; 
+    public function __construct(UserServices $user_services,
+    CountryServices $countryServices,
+    StateServices $stateServices,)
+    {    
+         $this->countryServices= $countryServices;
+         $this->stateServices = $stateServices; 
          $this->user_services = $user_services;
          $this->doctorDetails = $this->user_services->getDoctorDataById(Auth::user()->id);
     }
+
+
+
+
     public function doctorDashboard()
     { 
  
@@ -48,7 +63,22 @@ class DoctordashboardController extends Controller
 
     public function doctorProfile()
     {
-    return view('doctor.doctor-profile',['doctorDetails' => $this->doctorDetails ]);
+      $speciality  =  Specialization::all();
+      $services    =  Service::all();
+      $dayOfWeeks  =  DayOfWeek::all();
+      $countries   =  $this->countryServices->all();
+      $states      =  $this->stateServices->all();
+
+              
+      return view('doctor.doctor-profile.add-doctor',[
+        'specialities'=> $speciality,
+        'services'    => $services,
+        'countries'   => $countries,
+        'states'      => $states,
+        'dayOfWeeks'  => $dayOfWeeks ]);
+
+
+   // return view('doctor.doctor-profile.add-doctor',['doctorDetails' => $this->doctorDetails ]);
     } 
     public function doctorChangepass()
     {

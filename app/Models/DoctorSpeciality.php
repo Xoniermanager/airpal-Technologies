@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Specialization;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class DoctorSpeciality extends Model
 {
     use HasFactory;
@@ -17,5 +19,10 @@ class DoctorSpeciality extends Model
     public function course()
     {
         return $this->belongsToMany(Course::class,'speciality_id');
+    }
+
+    public function specialty()
+    {        
+        return $this->belongsTo(Specialization::class, 'speciality_id');
     }
 }

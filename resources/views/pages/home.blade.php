@@ -88,7 +88,7 @@
                                     <div class="doctor-profile-img">
                                         <a href="{{route('frontend.doctor.profile',['user'=> $doctor->id])}}">
                                         <img src="{{asset('images/').'/'.$doctor->image_url}}" class="img-fluid" alt="Ruby Perrin" 
-                                        onerror="this.onerror=null; this.src='{{asset('images/blank-profile-picture.webp')}}'"
+                                        onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" 
                                         >
                                         </a>
                                     </div>
@@ -99,7 +99,12 @@
                                 <div class="doc-pro-info">
                                     <div class="doc-pro-name">
                                         <a href="#">{{ $doctor->first_name ?? '' }} {{ $doctor->last_name ?? '' }}</a>
-                                        <p>{{ $doctor->first_name ?? '' }}</p>
+                                        @forelse ($doctor->specializations as $specializaion)
+                                        <span>,{{$specializaion->name}}</span>
+                                        @empty
+                                        <span>No Specialization available</span>
+                                        @endforelse
+                                        {{-- <p><span>{{$doctor->specializations[0]->name ?? ''}}</span></p> --}}
                                     </div>
                                     <div class="reviews-ratings">
                                         <p>
@@ -109,8 +114,26 @@
                                 </div>
                                 <div class="doc-pro-location">
                                     @if (isset($doctor->doctorAddress))
-                                    <p class="doc-location"><i class="feather-map-pin"></i>{{$doctor->doctorAddress->city ?? ''}} {{','. $doctor->doctorAddress->states->country->name ??'' }} - 
-                                        <a href="javascript:void(0);">Get Directions</a></p>  
+                                    @php
+                                    $address = $doctor->doctorAddress->address ?? '';
+                                    $city = $doctor->doctorAddress->city ?? '';
+                                    $fullAddress = $address . ' ' . $city . ' india';
+                                    $encodedAddress = str_replace(' ', '+', $fullAddress);
+                                    @endphp
+
+                                    <a href="https://www.google.com/maps?q={{ $encodedAddress }}" target="_blank">
+                                        <span>
+                                            <i class="fas fa-map-marker-alt"></i><strong>
+                                            {{ isset($doctor->doctorAddress->address ) ? $doctor->doctorAddress->address  : '' }}
+                                            {{ isset($doctor->doctorAddress->city) ? ', '.$doctor->doctorAddress->city : '' }}
+                                            {{ isset($doctor->doctorAddress->states->name) ? ', '.$doctor->doctorAddress->states->name : '' }}
+                                            {{ isset($doctor->doctorAddress->states->country->name) ? ', '.$doctor->doctorAddress->states->country->name : '' }}
+                                        </strong>
+                                        </span> 
+                                    </a>
+
+                                    {{-- <p class="doc-location"><i class="feather-map-pin"></i>{{$doctor->doctorAddress->city ?? ''}} {{','. $doctor->doctorAddress->states->country->name ??'' }} - 
+                                        <a href="javascript:void(0);">Get Directions</a></p>   --}}
                                     @else
                                     <p class="doc-location"><i class="feather-map-pin"></i> - <a href="javascript:void(0);">Get Directions</a></p>
                                     @endif
@@ -138,6 +161,9 @@
                             <p>Find experienced doctors across all specialties</p>
                         </div>
                     </div>
+                    <div class="col-md-6 text-right">
+                        <a href="{{ route('specialty.list') }}" class="btn btn-primary prime-btn">Show More</a>
+                    </div>
                 </div>
                 <div class="row">
 
@@ -149,18 +175,19 @@
                                 <img src="{{URL::asset('assets/img/category/1.png')}}" alt="kidney-image" class="img-fluid">
                             </div>
                             <div class="specialist-info">
-                                <a href="#">
+                                <a href="{{ route('specialty.detail', ['id' => $speciality->id]) }}">
                                     <h4>{{ $speciality->speciality_name ??  ''}}</h4>
                                 </a>
                                 <p>{{$speciality->doctor_count}} Doctors</p>
                             </div>
                             <div class="specialist-nav ms-auto">
-                                <a href="#"><i class="fas fa-long-arrow-alt-right"></i></a>
+                                <a href="{{ route('specialty.detail', ['id' => $speciality->id]) }}"><i class="fas fa-long-arrow-alt-right"></i></a>
                             </div>
                         </div>
                     </div>
                 @endforeach
     
+               
                 </div>
             </div>
         </section>
@@ -368,7 +395,7 @@
                                     
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="heading{{$key}}">
-                                        <a href="javascript:void(0);" class="accordion-button" data-bs-toggle="collapse"
+                                        <a href="javascript:void(0);" class="accordion-button {{ $key != 0 ? 'collapsed' : '' }}" data-bs-toggle="collapse"
                                             data-bs-target="#collapse{{$key}}" aria-expanded="true"
                                             aria-controls="collapse{{$key}}">
                                            {{ $allFaq->name }}

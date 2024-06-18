@@ -16,12 +16,10 @@ class UserServices
   }
   public function all()
   {
-    return  $this->UserRepository->with('doctorAddress.states.country')->get();
+    return  $this->UserRepository->with(['doctorAddress.states.country','specializations','educations'])->get();
   }
   public function addDoctorPersonalDetails($data)
   {
-    // dd($data["name"]);
-    // dd($data);
     $filename = null;
     if (isset($data["image"])) {
       $image = $data["image"];

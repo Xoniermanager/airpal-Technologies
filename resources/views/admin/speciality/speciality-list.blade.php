@@ -18,6 +18,7 @@
                             <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2">
                                 <img class="avatar-img"
                                     src="{{ asset('admin/specialization_image/' . $data->image_url) }}"
+                                    onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" 
                                     alt="img">
                             </a>
                             {{$data->name}}

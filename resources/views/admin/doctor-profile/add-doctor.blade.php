@@ -201,7 +201,68 @@
             }
 
 
-            // insert doctor education
+            // // insert doctor education
+            // jQuery("#doctorEducationform").validate({
+            //     rules: {
+            //         "name[]": "required",
+            //         "course[]": "required",
+            //         "start_date[]": "required",
+            //         "end_date[]": "required",
+            //     },
+            //     messages: {
+            //         "name[]": "Please enter institue name!",
+            //         "course[]": "Please enter course!",
+            //         "start_date[]": "Please enter start date!",
+            //         "end_date[]": "Please enter end date!",
+            //     },
+            //     submitHandler: function(form) {
+
+            //         formData = new formData(form);
+            //         var formData = $(form).serialize();
+                    
+            //         $.ajax({
+            //             url: "{{ route('admin.add-doctor-education') }}",
+            //             type: 'post',
+            //             data: formData,
+            //             dataType: 'json',
+            //             success: function(response) {
+            //                 if (response.status == 'success') {
+            //                     swal.fire("Done!", response.message, "success");
+            //                     $('#education-tab').removeClass('active').attr(
+            //                         'aria-selected', 'false');
+            //                     $('#education_tab').removeClass('show active');
+
+            //                     var tabLink = document.querySelector(
+            //                         'a[href="#education_tab"]');
+            //                     if (tabLink) {
+            //                         tabLink.classList.remove('active');
+            //                         tabLink.setAttribute('aria-selected', 'false');
+            //                     }
+
+            //                     exTabLink = document.querySelector(
+            //                         'a[href="#experience_tab"]');
+            //                     exTabLink.classList.add('active');
+            //                     $('#experience_tab').addClass('active').attr(
+            //                         'aria-selected', 'true');
+            //                     $('#experience_tab').addClass('show active');
+            //                 }
+            //             },
+            //             error: function(error_messages) {
+            //                 var errors = error_messages.responseJSON.errors;
+            //                 if (errors) {
+            //                     // Display validation errors
+            //                     $.each(errors, function(key, value) {
+            //                         // var id = key.replace('.', '_')
+            //                         var id = key.replace(/\./g, '_');
+            //                         $("#" + id + "_error").html(value[0]);
+            //                         console.log("#" + id + "_error")
+            //                     });
+            //                 }
+            //             }
+            //         });
+            //     }
+            // });
+
             jQuery("#doctorEducationform").validate({
                 rules: {
                     "name[]": "required",
@@ -210,46 +271,47 @@
                     "end_date[]": "required",
                 },
                 messages: {
-                    "name[]": "Please enter institue name!",
+                    "name[]": "Please enter institute name!",
                     "course[]": "Please enter course!",
                     "start_date[]": "Please enter start date!",
                     "end_date[]": "Please enter end date!",
                 },
                 submitHandler: function(form) {
-                    var formData = $(form).serialize();
+                    event.preventDefault();
+
+                    var formData = new FormData(form);
+
                     $.ajax({
                         url: "{{ route('admin.add-doctor-education') }}",
                         type: 'post',
                         data: formData,
                         dataType: 'json',
+                        processData: false, // Important!
+                        contentType: false, // Important!
                         success: function(response) {
                             if (response.status == 'success') {
                                 swal.fire("Done!", response.message, "success");
-                                $('#education-tab').removeClass('active').attr(
-                                    'aria-selected', 'false');
+                                $('#education-tab').removeClass('active').attr('aria-selected', 'false');
                                 $('#education_tab').removeClass('show active');
 
-                                var tabLink = document.querySelector(
-                                    'a[href="#education_tab"]');
+                                var tabLink = document.querySelector('a[href="#education_tab"]');
                                 if (tabLink) {
                                     tabLink.classList.remove('active');
                                     tabLink.setAttribute('aria-selected', 'false');
                                 }
 
-                                exTabLink = document.querySelector(
-                                    'a[href="#experience_tab"]');
+                                var exTabLink = document.querySelector('a[href="#experience_tab"]');
                                 exTabLink.classList.add('active');
-                                $('#experience_tab').addClass('active').attr(
-                                    'aria-selected', 'true');
+                                $('#experience_tab').addClass('active').attr('aria-selected', 'true');
                                 $('#experience_tab').addClass('show active');
                             }
                         },
                         error: function(error_messages) {
+                            console.log(error_messages);
                             var errors = error_messages.responseJSON.errors;
                             if (errors) {
                                 // Display validation errors
                                 $.each(errors, function(key, value) {
-                                    // var id = key.replace('.', '_')
                                     var id = key.replace(/\./g, '_');
                                     $("#" + id + "_error").html(value[0]);
                                     console.log("#" + id + "_error")
@@ -260,7 +322,6 @@
                 }
             });
 
-            // insert doctor education
             jQuery("#doctorAddressform").validate({
                 rules: {
                     "street": "required",
@@ -334,12 +395,17 @@
                     "name[]": "Please ",
                 },
                 submitHandler: function(form) {
-                    var formData = $(form).serialize();
+                    event.preventDefault();
+
+                    var formData = new FormData(form);
+
                     $.ajax({
                         url: "{{ route('admin.add-doctor-experience') }}",
                         type: 'post',
                         data: formData,
                         dataType: 'json',
+                        processData: false,
+                        contentType: false, 
                         success: function(response) {
                             if (response.success == true) {
                                 swal.fire("Done!", response.message, "success");
@@ -384,12 +450,17 @@
 
                 },
                 submitHandler: function(form) {
-                    var formData = $(form).serialize();
+                    event.preventDefault();
+                    // var formData = $(form).serialize();
+                    var formData = new FormData(form);
+
                     $.ajax({
                         url: "{{ route('admin.add-doctor-award') }}",
                         type: 'post',
                         data: formData,
                         dataType: 'json',
+                        processData: false,
+                        contentType: false, 
                         success: function(response) {
                             if (response.success == true) {
                                 swal.fire("Done!", response.message, "success");

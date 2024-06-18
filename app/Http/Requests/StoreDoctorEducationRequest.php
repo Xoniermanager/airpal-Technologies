@@ -27,7 +27,8 @@ class StoreDoctorEducationRequest extends FormRequest
             'education.*.name' => 'required|string|max:255',
             'education.*.course' => 'required|string|max:255',
             'education.*.start_date' => 'required|date',
-            'education.*.end_date' => 'required|date|after_or_equal:education.*.start_date',
+            'education.*.end_date'   => 'required|date|after_or_equal:education.*.start_date',
+            'education.*.certificates' =>'mimes:jpeg,bmp,png,gif,svg,pdf|max:2048',
             'user_id' => 'required'
         ];
     }
@@ -37,6 +38,8 @@ class StoreDoctorEducationRequest extends FormRequest
             'education.required'                => 'Please select at least one education.',
             'education.*.name.required'         => 'Institute name is required.',
             'education.*.course.required'       => 'Please select course.',
+            'education.*.certificates.mimes' => 'The certificate must be a file of type: jpeg, bmp, png, gif, svg, or pdf.',
+            'education.*.certificates.max' => 'The certificate may not be greater than 2048 kilobytes.',
             'education.*.start_date.required'   => 'Start time is required for all selected educations.',
             'education.*.start_time.date_format'=> 'Invalid start time format. Please provide time in HH:MM format.',
             'education.*.end_date.required'     => 'End time is required for all selected educations.',

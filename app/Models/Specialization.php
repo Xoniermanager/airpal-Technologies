@@ -15,6 +15,11 @@ class Specialization extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function doctor()
+    {
+        return $this->hasOne(DoctorSpeciality::class);
+    }
     
 
 }

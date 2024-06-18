@@ -9,12 +9,16 @@
                                         <h3><a href="{{ route('doctor.doctor-profile.index') }}"> {{$doctorDetails->first_name ?? "" }} {{$doctorDetails->last_name ?? "" }}</a></h3>
                                         <div class="patient-details">
                                             <h5 class="mb-0">
+                                                @isset($doctorDetails)
+                                                  
                                                 @forelse ($doctorDetails->educations as $education)
                                                 {{$education->course->name}}
                                                 @if( !$loop->last),@endif
                                                 @empty
                                                 <p>N/A</p>
                                                 @endforelse
+                                                @endisset
+           
                                             </h5>
                                         </div>
                                         <span class="badge doctor-role-badge"><i

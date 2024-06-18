@@ -78,5 +78,9 @@ class SpecializationServices
         return  $this->SpeciliazationRepository->create($data);
     } 
 
+    public function getSpecialtyByID($id)
+    {
+      return $this->SpeciliazationRepository->find($id);
+    }
 }
 

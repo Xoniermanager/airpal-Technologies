@@ -25,7 +25,7 @@ class StoreDoctorAwardRequest extends FormRequest
             'awards' => 'required|array',
             'awards.*.name' => 'required|string|max:255',
             'awards.*.year' => 'required|date',
-            'awards.*.certificates' =>'mimes:jpeg,bmp,png,gif,svg,pdf|max:2048',
+            'awards.*.certificates' =>'mimes:jpg,jpeg,bmp,png,gif,svg,pdf|max:2048',
             'awards.*.description' => 'required|string',
             'user_id'              => 'required'
         ];
@@ -36,7 +36,7 @@ class StoreDoctorAwardRequest extends FormRequest
             'awards.*.name.required'  => 'Please select award name.',
             'awards.*.year.required'  => 'Please provide year.',
             'awards.*.description.required'=> 'Please provide description.',
-            'awards.*.certificates.mimes'      => 'The certificate must be a file of type: jpeg, bmp, png, gif, svg, or pdf.',
+            'awards.*.certificates.mimes'      => 'The certificate must be a file of type: jpeg, jpg , bmp, png, gif, svg, or pdf.',
             'awards.*.certificates.max'        => 'The certificate may not be greater than 2048 kilobytes.',
             
         ];

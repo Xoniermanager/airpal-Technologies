@@ -29,8 +29,10 @@ class User extends Authenticatable
         'email',
         'password',
         'display_name',
+        'gender',
         'image_url',
-        'description'
+        'description',
+        'experience_years'
     ];
 
     /**
@@ -88,7 +90,17 @@ class User extends Authenticatable
     public function doctorAddress()
     {
         return $this->hasOne(UserAddress::class,'user_id');
-    }
+    }  
     
-   
+    public function doctorSlots()
+    {
+        return $this->hasMany(DoctorSlots::class,'user_id');
+    }  
+
+    public function doctorExceptionDays()
+    {
+        return $this->hasMany(ExceptionDays::class,'doctor_id');
+    }  
+    
+
 }

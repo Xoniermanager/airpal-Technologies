@@ -17,12 +17,12 @@ class LoginController extends Controller
     //     
   public function login()
   {
-    return view('pages.login');
+    return view('frontend.pages.login');
   }
       
   public function forgotPassword()
   {
-    return view('pages.forgot-password');
+    return view('frontend.pages.forgot-password');
   }
   public function userLogin(Request $request){
       $userCredential = $request->only('email','password');

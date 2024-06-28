@@ -25,7 +25,7 @@ class DoctorExperienceServices {
             'location'        =>  $experience['location'],
             'start_date'      =>  $experience['start_date'],
             'end_date'        =>  $experience['end_date'] ,
-            'job_desription'  =>  $experience['description']
+            'job_description'  =>  $experience['description']
         ];
 
         if(isset($experience['certificates'])) {

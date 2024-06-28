@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{{asset('assets/plugins/fontawesome/css/all.min.css')}}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     <link rel="stylesheet" href="{{asset('assets/css/feather.css')}}">
 

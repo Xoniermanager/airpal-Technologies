@@ -23,6 +23,7 @@
                 <div class="card">
                    @include('admin.doctor-profile.doctor-list')
                 </div>
+                {{ $doctors->links() }}
             </div>
         </div>
     </div>

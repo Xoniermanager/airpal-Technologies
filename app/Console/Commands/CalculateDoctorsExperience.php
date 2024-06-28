@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Console\Commands;
+
+use App\Jobs\CalculateDoctorsExperienceJob;
+use App\Models\User;
+use Illuminate\Console\Command;
+
+class CalculateDoctorsExperience extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'calculate-doctors-experience';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Command description';
+
+    /**
+     * Execute the console command.
+     */
+    public function handle()
+    {
+        CalculateDoctorsExperienceJob::dispatch();
+    }
+}

@@ -12,6 +12,7 @@
     </div>
     <form id="doctorAwardForm" method="post" enctype="multipart/form-data">
         @csrf
+        <div id="addNewAwardTabItem" ></div>
         @forelse ($userAwardsDetails as $key  => $singleAwardDetail)
             <div class="accordions awrad-infos" id="awardAccordion">
 
@@ -67,7 +68,42 @@
                                                 <textarea class="form-control" rows="3" name="awards[{{ $key }}][description]"> {{ $singleAwardDetail->description }}</textarea>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6">
+
+                   
+<div class="col-lg-6 col-md-6">
+    <div class="form-wrap">
+        <label class="col-form-label">Award Certificates</label>
+        <input type="file" class="form-control certificatesInput" 
+               id="certificatesID{{ $key }}"
+               name="awards[{{ $key }}][certificates]"
+               value="{{ $singleAwardDetail->certificates ?? '' }}"
+               data-preview-id="awards_preview{{ $key }}">
+        <small class="text-secondary">Recommended file types: PDF, image</small>
+        <span class="text-danger" id="awards_{{ $key }}_certificates_error"></span>
+    </div>
+</div>
+<div class="col-lg-6 col-md-6">
+    @php
+        $filePath = asset('images') . '/' . $singleAwardDetail->certificates;
+        $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
+    @endphp
+
+    <div class="form-wrap" id="awards_preview{{ $key }}">
+        @if ($fileExtension === 'pdf')
+            <object data="{{ $filePath }}" type="application/pdf" width="300" height="200">
+                <p>It appears you don't have a PDF plugin for this browser.
+                    <a href="{{ $filePath }}" target="_blank">Click here to download the PDF file.</a>
+                </p>
+            </object>
+            <a href="{{ $filePath }}" target="_blank" class="btn btn-primary prime-btn">Click to download PDF</a>
+        @else
+            <img src="{{ $filePath }}" alt="certificate image" width="300" height="200" style="border-radius:20px;">
+        @endif
+    </div>
+{{-- </div> --}}
+
+
+                                        {{-- <div class="col-lg-6 col-md-6">
                                             <div class="form-wrap">
                                                 <label class="col-form-label">Award Certificates</label>
                                                 <input type="file" class="form-control" id="certificatesID"
@@ -97,7 +133,7 @@
                                                     <img src="{{ $filePath }}" alt="certificate image"
                                                         width="300" height="200" class="certificates">
                                                 </div>
-                                            @endif
+                                            @endif --}}
                                             {{-- </div> --}}
                                         
                                         </div>
@@ -134,7 +170,7 @@
                                                         # var value = instance.filterInput.val(); #
                                                         # var id = instance.element[0].id; #
                                                         <button class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md" onclick="addAwardData('#: id #', '#: value #')">Add new item</button>
-                                                    </script>
+                                                </script>
                                                     <span class="text-danger" id="awards_0_name_error"></span>
 
                                             </div>
@@ -158,6 +194,18 @@
                                                 <textarea class="form-control" rows="3" name="awards[0][description]"></textarea>
                                                 <span class="text-danger" id="awards_0_description_error"></span>
 
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-wrap">
+                                                <label class="col-form-label">Award Certificates</label>
+                                                <input type="file" class="form-control" id="certificatesID"
+                                                    name="awards[0][certificates]"
+                                                    value= "{{ $singleAwardDetail->certificates ?? ' ' }}">
+                                                <small class="text-secondary">Recommended image size is <b> pdf, image
+                                                    </b></small>
+                                                <span class="text-danger" id="awards_0_certificates_error"></span>
                                             </div>
                                         </div>
                                     </div>

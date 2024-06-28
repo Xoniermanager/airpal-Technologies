@@ -22,7 +22,6 @@ class ServiceController extends Controller
     }
     public function store(StoreServiceRequest $request)
     {
-        // dd($request->all());
         if ($this->doctor_service_services->addService($request->validated())) {
             return response()->json([
                 'message' => 'Add Successfully!',

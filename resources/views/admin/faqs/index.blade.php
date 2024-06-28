@@ -46,11 +46,14 @@
                                     <div class="mb-3">
                                         <label class="mb-2">Name</label>
                                         <input type="text" name="name" class="form-control">
+                                        <span class="text-danger" id="name-error"></span>
 
                                     </div>
                                     <div class="mb-3" id="faqs-div">
                                         <label class="mb-2">Description</label>
                                         <textarea name="description"  name="description" class="form-control"></textarea>
+                                        <span class="text-danger" id="description-error"></span>
+
                                     </div>
                                 </div>
 
@@ -80,11 +83,14 @@
                                     <div class="mb-3">
                                         <label class="mb-2">Name</label>
                                         <input type="text" name="name" id="name" class="form-control">
+                                        <span class="text-danger" id="name-error"></span>
 
                                     </div>
                                     <div class="mb-3" id="faqs-div">
                                         <label class="mb-2">Description</label>
                                         <textarea name="description" id="description" class="form-control"></textarea>
+                                        <span class="text-danger" id="description-error"></span>
+
                                     </div>
                                 </div>
 

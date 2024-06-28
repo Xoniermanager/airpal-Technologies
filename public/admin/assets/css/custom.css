@@ -3808,3 +3808,15 @@ table.table-inbox tbody tr.checked {
 }
 
 /*# sourceMappingURL=custom.css.map */
+
+.mt-100 {
+  margin-top: 100px
+}
+label {
+font-size: 14px;
+}
+.k-chip.k-chip-md.k-rounded-md.k-chip-solid.k-chip-solid-base {
+  background: #0dd9f9;
+  color: white;
+  border-radius: 14px;
+}

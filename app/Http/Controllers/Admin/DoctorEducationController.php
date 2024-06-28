@@ -16,7 +16,6 @@ class DoctorEducationController extends Controller
     }
     public function addDoctorEducation(StoreDoctorEducationRequest $request)
     {
-
       $addedDoctorEducation = $this->doctor_education_service->addDoctorEducation($request->all());
 
             if ($addedDoctorEducation)

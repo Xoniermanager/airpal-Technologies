@@ -22,17 +22,18 @@ class StoreDoctorPersonalDetailRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name'     => 'required',
-            'last_name'      => 'required',  
-            'display_name'   => 'required',
-            'phone'          => 'required',
-            'email'          => 'required|email',
-            'name'           => 'required',
-            'password'       => 'sometimes|required|string',
-            'image'          => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'specialities'   => 'required',
-            'description'    => 'required|string',
-            'services'       => 'required',
+            'first_name'   => 'required',
+            'last_name'    => 'required',  
+            'display_name' => 'required',
+            'gender'       => 'required',
+            'phone'        => 'required',
+            'email'        => 'required|email',
+            'name'         => 'required',
+            'password'     => 'sometimes|required|string',
+            'image'        => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'specialities' => 'required',
+            'description'  => 'required|string',
+            'services'     => 'required',
         ];
     }
     

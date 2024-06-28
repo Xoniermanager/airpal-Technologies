@@ -35,6 +35,9 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="{{asset('/assets/js/jquery-3.7.1.min.js')}}"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
 <style>
     .k-list-item.k-selected, .k-selected.k-list-optionlabel {
     color: #ffffff;

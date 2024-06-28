@@ -407,9 +407,9 @@ const addAward = (function() {
     let awardCount;
     return function(userAwardCount) {
         if (awardCount === undefined && userAwardCount !== undefined) {
-            awardCount = userAwardCount;
+            awardCount = userAwardCount + 1;
         }
-        const accordion = document.getElementById('awardAccordion');
+        const accordion = document.getElementById('addNewAwardTabItem');
         const newEntry = document.createElement('div');
         newEntry.classList.add('accordion-item', 'award-entry');
         const headingId = `heading${awardCount}`;
@@ -629,19 +629,20 @@ const addEducation = (function() {
     return function(userEducationCount) {
         // If educationCount is not yet set and a user-provided count is given, set the educationCount to it
         if (educationCount === undefined && userEducationCount !== undefined) {
-            educationCount = userEducationCount;
+            educationCount = userEducationCount + 1;
         }
 
-        const accordion = document.getElementById('educationAccordion');
+        const accordion = document.getElementById('addNewEducationTabItem');
+        console.log(accordion);
         const newEntry  = document.createElement('div');
         newEntry.classList.add('accordion-item', 'education-entry');
         const headingId = `heading${educationCount}`;
         const collapseId = `collapse${educationCount}`;
         const courseSelectorId = `course${educationCount}`;
-        newEntry.innerHTML = `<div class="accordions education-infos" id="educationAccordion">
+        newEntry.innerHTML = `<div class="accordions education-infos" id="educationAccordion${educationCount}">
                                 <div class="user-accordion-item accordion-item education-entry">
                                     <a href="#" class="accordion-wrap" data-bs-toggle="collapse"
-                                        data-bs-target="#${collapseId}">Education ${educationCount + 1}<span onclick="deleteEducation('',this)" >Delete</span></a>
+                                        data-bs-target="#${collapseId}">Education<span onclick="deleteEducation('',this)" >Delete</span></a>
                                     <div class="accordion-collapse collapse show" id="${collapseId}"
                                         data-bs-parent="#educationAccordion">
                                         <div class="content-collapse">
@@ -698,10 +699,10 @@ const addEducation = (function() {
                                                         <div class="col-lg-6 col-md-6">
                                                             <div class="form-wrap">
                                                             <label class="mb-2">Education Certificates</label>
-                                                            <input type="file" class="form-control"   name="education[0][certificates]">
+                                                            <input type="file" class="form-control certificatesInput"   name="education[${educationCount}][certificates]">
                                                             <small class="text-secondary">Recommended image size is <b>pdf, image</b></small>
                                                         </div>
-    
+                                                        
                                                     </div>
                                                 </div>
                                                
@@ -850,17 +851,14 @@ var site_admin_base_url = 'http://127.0.0.1:8000/admin/';  // TODO : from env fi
 let experienceCount   = 1;
 
 const addExperience = (function() {
-    // Initialize the counter
     let experienceCount;
 
-    // Return the actual function that will be called
     return function(userExperienceCount) {
-        // If experienceCount is not yet set and a user-provided count is given, set the experienceCount to it
         if (experienceCount === undefined && userExperienceCount !== undefined) {
-            experienceCount = userExperienceCount;
+            experienceCount = userExperienceCount + 1;
         }
 
-        const accordion = document.getElementById('experienceAccordion');
+        const accordion = document.getElementById('addNewExperienceTabItem');
         const newEntry = document.createElement('div');
         newEntry.classList.add('accordion-item', 'experince-entry');
         const headingId = `heading${experienceCount}`;

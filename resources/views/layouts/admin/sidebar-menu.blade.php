@@ -158,6 +158,11 @@
                         <a href="{{ route('admin.index.doctors') }}"><i class="fe fe-user-plus"></i>
                             <span>Doctors</span></a>
                     </li>
+           
+                    <li>
+                        <a href="{{route('admin.slots.index')}}"><i class="fa-solid fa-calendar-week"></i>
+                            <span>Slots</span></a>
+                    </li>
 
                     <li>
                         <a href="{{ route('admin.patient-list.index') }}"><i class="fe fe-user"></i>

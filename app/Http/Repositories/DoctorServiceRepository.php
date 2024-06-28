@@ -24,5 +24,3 @@
             $this->pushCriteria(app(RequestCriteria::class));
         }
     }
-
-?>

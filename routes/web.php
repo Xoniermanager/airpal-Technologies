@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Admin\SlotsController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\InstantController;
@@ -17,13 +18,12 @@ use App\Http\Controllers\SpecialtyPageController;
 use App\Http\Controllers\Admin\CountryController; 
 use App\Http\Controllers\Admin\ProfileController; 
 use App\Http\Controllers\Admin\SettingsController; 
-// use App\Http\Controllers\Admin\AdmindoctorController; 
 use App\Http\Controllers\Admin\DashboardController; 
 use App\Http\Controllers\HealthmonitoringController;
 use App\Http\Controllers\Admin\SpecialityController; 
+
+
 use App\Http\Controllers\Admin\AppointmentController; 
-
-
 use App\Http\Controllers\Admin\PatientlistController; 
 use App\Http\Controllers\Admin\TransactionController; 
 use App\Http\Controllers\Admin\InvoicereportController; 
@@ -49,9 +49,7 @@ Route::prefix('doctor')->group(function () {
         Route::get('/doctor-timing', 'doctorTiming')->name('doctor.doctor-timing.index');
         Route::get('/doctor-appointment-details', 'doctorAppointmentDetails')->name('doctor.doctor-appointment-details.index');
         Route::get('/doctor-appointments', 'doctorAppointments')->name('doctor.doctor-appointments.index');
-        
         Route::get('/doctor-profile', 'doctorProfile')->name('doctor.doctor-profile.index');
-
         Route::get('/doctor-change-password', 'doctorChangepass')->name('doctor.doctor-change-password.index');
         Route::get('/doctor-request', 'doctorRequest')->name('doctor.doctor-request.index');
         Route::get('/doctor-specialities', 'doctorSpecialities')->name('doctor.doctor-specialities.index');
@@ -60,6 +58,7 @@ Route::prefix('doctor')->group(function () {
         Route::get('/doctor-social', 'doctorSocial')->name('doctor.doctor-social.index');
         Route::get('/doctor-patient', 'doctorPatient')->name('doctor.doctor-patients.index');
     });
+    
 });
 
 // =========================== Admin Routes ================================
@@ -70,6 +69,16 @@ Route::prefix('admin')->group(function()
         Route::post('create','store')->name('admin.add.faqs');
         Route::post('update','update')->name('admin.faqs.update');
         Route::post('delete','destroy')->name('admin.delete-faqs');
+    });
+
+    Route::prefix('slots')->controller(SlotsController::class)->group(function(){
+        Route::get('/','index')->name('admin.slots.index');
+        Route::post('create','store')->name('admin.add.slots');
+        Route::post('update','update')->name('admin.slots.update');
+        Route::post('delete','destroy')->name('admin.delete-slot');
+
+        Route::get('getWeekDays','getWeekDays');
+        
     });
 
     Route::prefix('specialities')->controller(SpecialityController::class)->group(function(){
@@ -170,21 +179,21 @@ Route::prefix('admin')->group(function()
 // =========================== End Admin ================================
 
 
+
+
 // ============================== Frontend =====================
 Route::controller(DoctorController::class)->group(function(){
     Route::get('doctor/{user:id}','doctorProfile')->name('frontend.doctor.profile');
 });
 Route::get('/doctors',[DoctorController::class,'index'])->name('doctors.index');
+Route::get('/search',[DoctorController::class,'search'])->name('doctors.search');
+
 
 
 
 Route::get('/',[HomeController::class,'home'])->name('home.index');
-
-
 Route::get('/specialty-list',[SpecialtyPageController::class,'specialty_list'])->name('specialty.list');
 Route::get('/specialty-detail/{id}',[SpecialtyPageController::class,'specialty_detail'])->name('specialty.detail');
-
-
 Route::get('/about',[AboutController::class,'about'])->name('about.index');
 Route::get('/faqs',[FaqsController::class,'faqPageIndex'])->name('faqs.index');
 Route::get('/contact',[ContactController::class,'contact'])->name('contact.index');
@@ -198,8 +207,7 @@ Route::get('/register',[RegisterController::class,'register'])->name('register.i
 Route::post('/register',[RegisterController::class,'userRegister'])->name('register.userRegister'); 
 Route::get('/privacy',[FrontController::class,'privacy'])->name('privacy.index');  
 Route::get('/term',[FrontController::class,'term'])->name('term.index'); 
-Route::get('/appointment',[DoctorController::class,'appointment'])->name('appointment.index');
-Route::get('/doctor_profile',[DoctorController::class,'doctor_profile'])->name('doctor_profile.index'); 
+Route::get('/appointment/doctor/{id}',[DoctorController::class,'appointment'])->name('appointment.index');
 Route::get('/invoice',[FrontController::class,'invoice'])->name('invoice.index'); 
 Route::get('/patient_details',[FrontController::class,'patient_details'])->name('patient_details.index'); 
 Route::get('/success',[FrontController::class,'success'])->name('success.index');  
@@ -211,6 +219,7 @@ Route::get('/checkout',[FrontController::class,'checkout'])->name('checkout.inde
 // Patients panel
 Route::prefix('patients')->group(function () {
 // Pages starts
+
     Route::get('/patient-dashboard',[PatientdashboardController::class,'patientDashboard'])->name('patients.patient-dashboard.index');   
     Route::get('/patient-accounts',[PatientdashboardController::class,'paitentAccounts'])->name('patients.patient-accounts.index');  
     Route::get('/patient-appointment-details',[PatientdashboardController::class,'paitentAppointmentDetails'])->name('patients.patient-appointment-details.index');  

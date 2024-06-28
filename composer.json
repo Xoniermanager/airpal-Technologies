@@ -31,7 +31,11 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "app/Helpers/CalculateExperience.php"
+        ]
+        
     },
     "scripts": {
         "post-autoload-dump": [

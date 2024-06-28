@@ -19,6 +19,7 @@
         }
 
     @endphp
+
     <div class="breadcrumb-bar-two">
         <div class="container">
             <div class="row align-items-center inner-banner">
@@ -29,7 +30,7 @@
                             <li class="breadcrumb-item">
 
                             </li>
-                            <li class="breadcrumb-item" aria-current="page">Doctor Profile </li>
+                            <li class="breadcrumb-item" aria-current="page">Doctor Profile   </li>
                         </ol>
                     </nav>
                 </div>
@@ -54,19 +55,19 @@
                                         Details</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#address_tab" data-bs-toggle="tab">Address</a>
+                                    <a class="nav-link" href="#address_tab" data-bs-toggle="tab" {{ (isset($singleDoctorDetails->id))?'':'disabled'}}>Address</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#education_tab" data-bs-toggle="tab">Education</a>
+                                    <a class="nav-link" href="#education_tab" data-bs-toggle="tab"  {{ (isset($singleDoctorDetails->id))?'':'disabled'}}>Education</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#experience_tab" data-bs-toggle="tab">Experience</a>
+                                    <a class="nav-link" href="#experience_tab" data-bs-toggle="tab"  {{ (isset($singleDoctorDetails->id))?'':'disabled'}}>Experience</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#awards" data-bs-toggle="tab">Awards</a>
+                                    <a class="nav-link" href="#awards" data-bs-toggle="tab" {{ (isset($singleDoctorDetails->id))?'':'disabled'}}>Awards</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#working_hours_tab" data-bs-toggle="tab">Working Hours</a>
+                                    <a class="nav-link" href="#working_hours_tab" data-bs-toggle="tab"  {{ (isset($singleDoctorDetails->id))?'':'disabled'}}>Working Hours</a>
                                 </li>
                             </ul>
                         </div>
@@ -200,68 +201,6 @@
                 $(toTab).addClass('active').attr('aria-selected', 'true').addClass('show active');
             }
 
-
-            // // insert doctor education
-            // jQuery("#doctorEducationform").validate({
-            //     rules: {
-            //         "name[]": "required",
-            //         "course[]": "required",
-            //         "start_date[]": "required",
-            //         "end_date[]": "required",
-            //     },
-            //     messages: {
-            //         "name[]": "Please enter institue name!",
-            //         "course[]": "Please enter course!",
-            //         "start_date[]": "Please enter start date!",
-            //         "end_date[]": "Please enter end date!",
-            //     },
-            //     submitHandler: function(form) {
-
-            //         formData = new formData(form);
-            //         var formData = $(form).serialize();
-                    
-            //         $.ajax({
-            //             url: "{{ route('admin.add-doctor-education') }}",
-            //             type: 'post',
-            //             data: formData,
-            //             dataType: 'json',
-            //             success: function(response) {
-            //                 if (response.status == 'success') {
-            //                     swal.fire("Done!", response.message, "success");
-            //                     $('#education-tab').removeClass('active').attr(
-            //                         'aria-selected', 'false');
-            //                     $('#education_tab').removeClass('show active');
-
-            //                     var tabLink = document.querySelector(
-            //                         'a[href="#education_tab"]');
-            //                     if (tabLink) {
-            //                         tabLink.classList.remove('active');
-            //                         tabLink.setAttribute('aria-selected', 'false');
-            //                     }
-
-            //                     exTabLink = document.querySelector(
-            //                         'a[href="#experience_tab"]');
-            //                     exTabLink.classList.add('active');
-            //                     $('#experience_tab').addClass('active').attr(
-            //                         'aria-selected', 'true');
-            //                     $('#experience_tab').addClass('show active');
-            //                 }
-            //             },
-            //             error: function(error_messages) {
-            //                 var errors = error_messages.responseJSON.errors;
-            //                 if (errors) {
-            //                     // Display validation errors
-            //                     $.each(errors, function(key, value) {
-            //                         // var id = key.replace('.', '_')
-            //                         var id = key.replace(/\./g, '_');
-            //                         $("#" + id + "_error").html(value[0]);
-            //                         console.log("#" + id + "_error")
-            //                     });
-            //                 }
-            //             }
-            //         });
-            //     }
-            // });
 
             jQuery("#doctorEducationform").validate({
                 rules: {
@@ -778,5 +717,57 @@
                 jQuery('#experience_end_time').prop('disabled', false);
             }
         }
+
+        imgInp.onchange = evt => {
+                    const [file] = imgInp.files
+                    if (file) {
+                        blah.src = URL.createObjectURL(file)
+                    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Function to handle file input change dynamically
+    const handleFileInputChange = () => {
+        const fileInputs = document.querySelectorAll('.certificatesInput');
+
+        fileInputs.forEach(input => {
+            input.addEventListener('change', function(evt) {
+                const file = this.files[0];
+                const previewId = this.getAttribute('data-preview-id');
+                const previewElement = document.getElementById(previewId);
+
+                if (file) {
+                    const fileType = file.type;
+                    let previewContent = '';
+
+                    if (fileType === 'application/pdf') {
+                        // Create object element for PDF preview
+                        previewContent = `
+                            <object data="${URL.createObjectURL(file)}" type="application/pdf" width="300" height="200">
+                                <p>It appears you don't have a PDF plugin for this browser.
+                                    <a href="${URL.createObjectURL(file)}" target="_blank">Click here to download the PDF file.</a>
+                                </p>
+                            </object>
+                            <a href="${URL.createObjectURL(file)}" target="_blank" class="btn btn-primary prime-btn">Click to download PDF</a>
+                        `;
+                    } else if (fileType.startsWith('image/')) {
+                        // Create img element for image preview
+                        previewContent = `<img src="${URL.createObjectURL(file)}" alt="certificate image" width="300" height="200">`;
+                    }
+
+                    // Update the preview element with the new content
+                    previewElement.innerHTML = previewContent;
+                    console.log(`File uploaded for ${this.id} and displayed in ${previewId}`);
+                }
+            });
+        });
+    };
+
+    // Call the function to set up event listeners
+    handleFileInputChange();
+});
+
+
+
     </script>
 @endsection

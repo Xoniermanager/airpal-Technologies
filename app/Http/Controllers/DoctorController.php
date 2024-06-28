@@ -2,22 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Country;
 use App\Http\Services\UserServices;
+use App\Models\User;
+use App\Models\Service;
+use App\Models\Language;
+use Illuminate\Http\Request;
+
+use App\Http\Services\DoctorSlotServices;
+use App\Http\Services\SpecializationServices;
+
 class DoctorController extends Controller
 {
   private $user_services;
-  public function __construct(UserServices $user_services)
+  private $doctorsFilterServices;
+  private $specializationServices;
+  private  $doctorSlotServices;
+
+  public function __construct(UserServices $user_services ,SpecializationServices $specializationServices,DoctorSlotServices $doctorSlotServices)
   {
        $this->user_services = $user_services;
+       $this->specializationServices = $specializationServices;  
+       $this->doctorSlotServices =  $doctorSlotServices;
   }
 
   public function index()
   {
-     $doctors = $this->user_services->getDoctorDataForFrontend();
-     return view('frontend.doctor.index')->with('doctors', $doctors);
+     $doctors     = $this->user_services->getDoctorDataForFrontend();
+     $specialties = $this->specializationServices->all();
+     $specialties = $this->specializationServices->all();
+     return view('frontend.doctor.index', ['doctors' =>  $doctors ,'languages' => Language::all(),'specialties' => $specialties,'services'=>Service::all()]);
   }
 
 
@@ -41,12 +54,36 @@ class DoctorController extends Controller
   }
 
 
-  public function doctor_profile()
+  public function appointment($id)
   {
-    return view('pages.doctor_profile');
-  } 
-  public function appointment()
-  {
-    return view('pages.appointment');
+    $doctor = $this->user_services->getDoctorDataById($id); // id is temp will do it later 
+    $doctorSlot = $this->doctorSlotServices->getSlotsByDoctorId($doctor->id);
+    if(isset($doctorSlot))
+    {
+      $doctorSlot->exception_days = $doctorSlot->user->doctorExceptionDays;
+      $returnedSlots = $this->doctorSlotServices->makeSlots($doctorSlot);
+    }else{
+      $returnedSlots = [];
+    }
+
+    // dd(   $returnedSlots);
+
+    return view('frontend.pages.appointment', ['allDaySlots' => $returnedSlots,'doctorDetails' => $doctor]);
+  }
+
+  public function search(Request $request)
+  {  
+    $searchedItems = $this->user_services->searchInDoctors($request->all());
+    // dd($searchedItems);
+      if ($searchedItems) {
+          return response()->json([
+              'success' => 'Searching',
+              'data'   =>  view("frontend.doctor.doctors_list", [
+              'doctors' =>  $searchedItems
+              ])->render()
+          ]);
+      } else {
+          return response()->json(['error' => 'Something Went Wrong!! Please try again']);
+      }
   }
 }

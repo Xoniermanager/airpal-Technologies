@@ -16,7 +16,6 @@
         </div>
     </div>
 
-
     <div class="content">
         <div class="container">
 
@@ -64,7 +63,7 @@
                                     $city = $doctor->doctorAddress->city ?? '';
                                     $fullAddress = $address . ' ' . $city . ' india';
                                     $encodedAddress = str_replace(' ', '+', $fullAddress);
-                                @endphp
+                                    @endphp
 
         
 
@@ -121,7 +120,7 @@
                                 </a>
                             </div>
                             <div class="clinic-booking">
-                                <a class="apt-btn" href="{{ route('appointment.index') }}">Book Appointment</a>
+                                <a class="apt-btn" href="#">Book Appointment</a>
                             </div>
                         </div>
                     </div>

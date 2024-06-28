@@ -39,14 +39,14 @@
                                             <ul>
                                                 <li>
                                                     <label class="custom_check d-inline-flex">
-                                                        <input type="checkbox" name="gender">
+                                                        <input type="checkbox" name="gender" value="Male" id="male">
                                                         <span class="checkmark"></span>
                                                         Male Gender
                                                     </label>
                                                 </li>
                                                 <li>
                                                     <label class="custom_check d-inline-flex">
-                                                        <input type="checkbox" name="gender">
+                                                        <input type="checkbox" name="gender" value="Female" id="female">
                                                         <span class="checkmark"></span>
                                                         Female Gender
                                                     </label>
@@ -130,27 +130,51 @@
                                     <div id="collapsefour" class="collapse show">
                                         <div class="filter-collapse">
                                             <ul>
+                                                @forelse ($specialties as $specialty)
                                                 <li>
                                                     <label class="custom_check d-inline-flex">
-                                                        <input type="checkbox" name="speciality">
+                                                        <input type="checkbox" name="speciality"  value="{{$specialty->id}}">
                                                         <span class="checkmark"></span>
-                                                        Urology
+                                                       {{ $specialty->name}}
                                                     </label>
-                                                </li>
+                                                </li>     
+                                                @empty
                                                 <li>
                                                     <label class="custom_check d-inline-flex">
-                                                        <input type="checkbox" name="speciality">
-                                                        <span class="checkmark"></span>
-                                                        Ophthalmology
+                                                        Specialty Not Found
                                                     </label>
-                                                </li>
+                                                </li>    
+                                                @endforelse
+            
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="filter-grid">
+                                    <h4>
+                                        <a href="" data-bs-toggle="collapse">Services</a>
+                                    </h4>
+                                    <div id="" class="collapse show">
+                                        <div class="filter-collapse">
+                                            <ul>
+                                                @forelse ($services as $service)
                                                 <li>
                                                     <label class="custom_check d-inline-flex">
-                                                        <input type="checkbox" name="speciality">
+                                                        <input type="checkbox" name="services"  value="{{$service->id}}">
                                                         <span class="checkmark"></span>
-                                                        Cardiology
+                                                       {{ $service->name}}
                                                     </label>
-                                                </li>
+                                                </li>     
+                                                @empty
+                                                <li>
+                                                    <label class="custom_check d-inline-flex">
+                                                        Service Not Found
+                                                    </label>
+                                                </li>    
+                                                @endforelse
+            
                                             </ul>
                                         </div>
                                     </div>
@@ -166,16 +190,16 @@
                                             <ul>
                                                 <li>
                                                     <label class="custom_check d-inline-flex">
-                                                        <input type="checkbox" name="experience">
+                                                        <input type="checkbox" name="experience" value="1-5">
                                                         <span class="checkmark"></span>
                                                         1-5 Years
                                                     </label>
                                                 </li>
                                                 <li>
                                                     <label class="custom_check d-inline-flex">
-                                                        <input type="checkbox" name="experience">
+                                                        <input type="checkbox" name="experience" value="5-10">
                                                         <span class="checkmark"></span>
-                                                        5+ Years
+                                                        5-10 Years
                                                     </label>
                                                 </li>
                                             </ul>
@@ -315,34 +339,18 @@
                                     <div id="collapseeight" class="collapse show">
                                         <div class="filter-collapse">
                                             <ul>
-                                                <li>
-                                                    <label class="custom_check d-inline-flex">
-                                                        <input type="checkbox" name="language">
-                                                        <span class="checkmark"></span>
-                                                        English
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="custom_check d-inline-flex">
-                                                        <input type="checkbox" name="language">
-                                                        <span class="checkmark"></span>
-                                                        French
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="custom_check d-inline-flex">
-                                                        <input type="checkbox" name="language">
-                                                        <span class="checkmark"></span>
-                                                        Spanish
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label class="custom_check d-inline-flex">
-                                                        <input type="checkbox" name="language">
-                                                        <span class="checkmark"></span>
-                                                        German
-                                                    </label>
-                                                </li>
+
+                                            @forelse ($languages as $language)
+                                            <li>
+                                                <label class="custom_check d-inline-flex">
+                                                    <input type="checkbox" name="langauges" value="{{$language->id}}"> 
+                                                    <span class="checkmark"></span>
+                                                    {{$language->name}}
+                                                </label>
+                                            </li> 
+                                            @empty
+                                            <li>Languages Not Avaiable</li>    
+                                            @endforelse
                                             </ul>
                                         </div>
                                     </div>
@@ -418,110 +426,15 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        @foreach ($doctors as $doctor)
-                            
-                        <div class="card doctor-card">
-                            <div class="card-body">
-                                <div class="doctor-widget-one">
-                                    <div class="doc-info-left">
-                                        <div class="doctor-img">
-                                            <a href="{{ route('doctor_profile.index') }}">
-                                                <img src="{{asset('images/'.$doctor->image_url)}}"
-                                                onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" 
-                                                    class="img-fluid" alt="John Doe">
-                                            </a>
-                                            <div class="favourite-btn">
-                                                <a href="javascript:void(0)" class="favourite-icon">
-                                                    <i class="fas fa-heart"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="doc-info-cont">
-                                            <h4 class="doc-name">
-                                                <a href="{{ route('frontend.doctor.profile',['user' => $doctor->id]) }}">{{$doctor->first_name}}</a>
-                                                <i class="fas fa-circle-check"></i>
-                                            </h4>
-                        
-                                            <p class="doc-speciality">MBBS, Dentist</p>
-                                            {{-- <p class="doc-speciality">{{$course}}</p> --}}
-                                            <div class="clinic-details">
-                                                <p class="doc-location">
-                                                    <i class="feather-map-pin"></i>
-                                                    <span>0.9</span> mi - Newyork, USA <a
-                                                        href="javascript:void(0);">Get Direction</a>
-                                                </p>
-                                                <p class="doc-location">
-                                                    <i class="feather-award"></i> <span>20</span> Years of Experience
-                                                </p>
-                                            </div>
-                                            <div class="reviews-ratings">
-                                                <p>
-                                                    <span><i class="fas fa-star"></i> 4.5</span> (35 Reviews)
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="doc-info-right">
-                                        <div class="clini-infos">
-                                            <ul>
-                                                <li>
-                                                    <i class="feather-clock available-icon"></i>
-                                                    <span class="available-date available-today">Available Today</span>
-                                                </li>
-                                                <li><i class="feather-thumbs-up available-icon"></i> 98% <span
-                                                        class="votes">(252 Votes)</span></li>
-                                                <li><i class="feather-dollar-sign available-icon"></i> $1500 <i
-                                                        class="feather-info available-info-icon"></i></li>
-                                            </ul>
-                                        </div>
-                                        <div class="clinic-booking book-appoint">
-                                            <a class="btn btn-primary" href="{{ route('appointment.index') }}">Book
-                                                Appointment</a>
-                                            <a class="btn btn-primary-light"
-                                                href="{{ route('appointment.index') }}">Book Online Consultation</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                    
-                        <div class="row">
-                            <div class="col-sm-12">
-                                {{-- <div class="blog-pagination rev-page"> --}}
-                                    {{-- <nav>
-                                        <ul class="pagination justify-content-center">
-                                            <li class="page-item disabled">
-                                                <a class="page-link page-prev" href="#" tabindex="-1"><i
-                                                        class="feather-chevrons-left me-1"></i> PREV</a>
-                                            </li>
-                                            <li class="page-item active">
-                                                <a class="page-link" href="#">1</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">2</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">...</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">10</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link page-next" href="#">NEXT <i
-                                                        class="feather-chevrons-right ms-1"></i></a>
-                                            </li>
-                                        </ul>
-                                    </nav> --}}
-
-                                    <div class="mt-3 d-flex justify-content-end">
-                                        {{{ $doctors->links() }}}
-                                    </div>
-                                {{-- </div> --}}
-                            </div>
-                        </div>
+                        @include('frontend.doctor.doctors_list')
                     </div>
+            <div class="row">
+            <div class="col-sm-12">
+                    <div class="mt-3 d-flex justify-content-end">
+                        {{{ $doctors->links() }}}
+                    </div>
+            </div>
+        </div>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-12 theiaStickySidebar map-right">
@@ -533,5 +446,66 @@
 </div>
 @endsection
 @section('javascript')
+<script src="http://127.0.0.1:8000/assets/js/jquery-3.7.1.min.js" type="text/javascript"></script>
+<script>
 
+
+$('input[name="gender"], input[name="langauges"], input[name="experience"] ,input[name="speciality"],input[name="services"]').on('change', function() {
+    search_doctors();
+});
+
+function search_doctors() {
+    
+    genderCheckedValue      = [];
+    languagesCheckedValue   = [];
+    experienceCheckedValue  = [];
+    specialityCheckedValue  = [];
+    servicesCheckedValue    = [];
+
+    $('input[name="gender"]:checkbox').each(function() {
+        if ($(this).is(':checked')) {
+            genderCheckedValue.push($(this).val());
+        }
+    });
+    $('input[name="langauges"]:checkbox').each(function() {
+        if ($(this).is(':checked')) {
+            languagesCheckedValue.push($(this).val());
+        }
+    });
+    $('input[name="experience"]:checkbox').each(function() {
+        if ($(this).is(':checked')) {
+            experienceCheckedValue.push($(this).val());
+        }
+    });
+    $('input[name="speciality"]:checkbox').each(function() {
+        if ($(this).is(':checked')) {
+            specialityCheckedValue.push($(this).val());
+        }
+    });
+
+    $('input[name="services"]:checkbox').each(function() {
+        if ($(this).is(':checked')) {
+            servicesCheckedValue.push($(this).val());
+        }
+    });
+
+    $.ajax({
+        url: "{{ route('doctors.search') }}",
+        type: 'get',
+        data: {
+            'gender'    : genderCheckedValue,
+            'languages' : languagesCheckedValue,
+            'experience': experienceCheckedValue,
+            'specialty' : specialityCheckedValue,
+            'services' : servicesCheckedValue,
+        },
+        success: function(res) {
+            if (res) {
+                jQuery('#doctors_list').replaceWith(res.data);
+            } 
+        }
+    })
+}
+</script>
 @endsection
+

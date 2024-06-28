@@ -6,11 +6,13 @@
         @csrf
         <div class="setting-card">
             <div class="change-avatar img-upload">
+
                 <div class="profile-img">
                     @if (isset($singleDoctorDetails->image_url))
-                        <img src="{{ asset('images').'/'.$singleDoctorDetails->image_url}}">
+                        <img src="{{ asset('images').'/'.$singleDoctorDetails->image_url}}" id="blah">
                     @else
-                    <i class="fa-solid fa-file-image"></i>
+                    <img src="" id="blah">
+                    {{-- <i class="fa-solid fa-file-image"></i> --}}
                     @endif
                 </div>
                 <div class="upload-img">
@@ -18,7 +20,7 @@
                     <div class="imgs-load d-flex align-items-center">
                         <div class="change-photo">
                             Upload New
-                            <input type="file" class="upload" name="image">
+                            <input type="file" class="upload" name="image"  id="imgInp">
                         </div>
                         {{-- <a href="#" class="upload-remove">Remove</a> --}}
                     </div>
@@ -57,6 +59,17 @@
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="display_name" value="{{$singleDoctorDetails->display_name ?? " "}}">
                         <span class="text-danger" id="display_name_error"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-wrap">
+                        <label class="col-form-label">Gender<span
+                                class="text-danger">*</span></label>
+                        <select class="form-control select" name="gender" >
+                            <option value="">Select Gender</option>
+                            <option value="Male"   {{ isset($singleDoctorDetails->gender) ? ($singleDoctorDetails->gender == 'Male'? 'selected':'')   : ''}}>Male</option>
+                            <option value="Female" {{ isset($singleDoctorDetails->gender) ? ($singleDoctorDetails->gender == 'Female'? 'selected':'') : ''}}>Female</option>
+                        </select>
                     </div>
                 </div>
 

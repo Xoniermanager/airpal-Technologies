@@ -26,7 +26,12 @@
                             <a href="{{ route('admin.profile.index') }}">{{$doctor->first_name}} {{$doctor->last_name}}</a>
                         </h2>
                     </td>
-                    <td>Dental</td>
+                    <td>
+                        @forelse ($doctor->specializations as $specializaion)
+                        <span>{{$specializaion->name}},</span>
+                        @empty
+                        <span>No Specialization available</span>
+                        @endforelse</td>
                     <?php
                         $createdAt =  $doctor->created_at;
                         $date = new DateTime($createdAt);

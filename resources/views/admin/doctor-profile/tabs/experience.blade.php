@@ -19,9 +19,8 @@
     </div>
     <form id="doctorExperienceForm" method="post" enctype="multipart/form-data">
         @csrf
+        <div id="addNewExperienceTabItem" ></div>
         @forelse ($userExperiencesDetails as $key => $singleExperiencesDetails)
-
-
 
         <div class="accordions experience-infos" id="experienceAccordion">
             <div class="user-accordion-item accordion-item experince-entry">
@@ -40,7 +39,7 @@
    
                                             </label>
                                             <input type="text" class="form-control" name="experience[{{$key}}][job_title]" value="{{$singleExperiencesDetails->job_title ?? " "}}">
-                                            <span class="text-danger" id="job_title_0_error"></span>
+                                            <span class="text-danger" id="experience_{{$key}}_job_title_error"></span>
                                         </div>
                                     </div>
                                     <script>
@@ -52,7 +51,6 @@
                                         <div class="form-wrap">
                                             <label class="col-form-label">Hospital <span
                                                     class="text-danger">*</span></label>
-                                                    {{-- <p id="hospital-id-{{$singleExperiencesDetails->hospital_id ?? ' '}}"> {{$singleExperiencesDetails->hospital_id ?? " "}}</p> --}}
                                             <select id="hospital-id-{{$singleExperiencesDetails->hospital_id ?? ' '}}" class="form-control" name="experience[{{$key}}][hospital]"> </select>
                                             <script id="noHospitalTemplate" type="text/x-kendo-tmpl">
                                                 <div>
@@ -63,7 +61,7 @@
                                                         # var id = instance.element[0].id; #
                                                         <button class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md" onclick="addHospital('#: id #', '#: value #')">Add new item</button>                             
                                             </script>
-                                                    <span class="text-danger" id="hospital_0_error"></span>
+                                                    <span class="text-danger" id="experience_{{$key}}_hospital_error"></span>
                                         </div>
                                     </div>
 
@@ -72,7 +70,7 @@
                                             <label class="col-form-label">Location <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" class="form-control" name="experience[{{$key}}][location]" value="{{$singleExperiencesDetails->location ?? " "}}">
-                                            <span class="text-danger" id="location_0_error"></span>
+                                            <span class="text-danger" id="experience_{{$key}}_location_error"></span>
 
                                         </div>
                                     </div>
@@ -85,7 +83,7 @@
                                                 <input type="text"
                                                     class="form-control flat-picker" name="experience[{{$key}}][start_date]"autocomplete="off" value="{{$singleExperiencesDetails->start_date ?? " "}}">
                                                     <span class="icon"><i class="fa-regular fa-calendar-days"></i></span>
-                                                    <span class="text-danger" id="start_date_0_error"></span>
+                                                    <span class="text-danger" id="experience_{{$key}}_start_date_error"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -97,7 +95,7 @@
                                                 <input type="text"
                                                     class="form-control flat-picker" name="experience[{{$key}}][end_date]"autocomplete="off" value="{{$singleExperiencesDetails->end_date ?? " "}}">
                                                     <span class="icon"><i class="fa-regular fa-calendar-days"></i></span>
-                                                    <span class="text-danger" id="end_date_0_error"></span>
+                                                    <span class="text-danger" id="experience_{{$key}}_end_date_error"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -118,12 +116,12 @@
                                         <div class="form-wrap">
                                             <label class="col-form-label">Job Description
                                                 <span class="text-danger">*</span></label>
-                                            <textarea class="form-control" rows="3" name="experience[{{$key}}][description]">{{$singleExperiencesDetails->job_desription ?? " "}}</textarea>
-                                            <span class="text-danger" id="description_{{$key}}_error"></span>
+                                            <textarea class="form-control" rows="3" name="experience[{{$key}}][description]">{{$singleExperiencesDetails->job_description ?? " "}}</textarea>
+                                            <span class="text-danger" id="experience_{{$key}}_description_error "></span>
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-6 col-md-6">
+                                    {{-- <div class="col-lg-6 col-md-6">
                                         <div class="form-wrap">
                                             <label class="col-form-label">Education Certificates</label>
                                             <input type="file" class="form-control" id="certificatesID"
@@ -131,7 +129,7 @@
                                                 value= "{{ $singleExperiencesDetails->certificates ?? ' ' }}">
                                             <small class="text-secondary">Recommended image size is <b> pdf, image
                                                 </b></small>
-                                            <span class="text-danger" id="education_0_certificates_error"></span>
+                                            <span class="text-danger" id="education_{{ $key }}_certificates_error"></span>
                                         </div>
                                         <div>
                                         </div>
@@ -157,8 +155,40 @@
                                                     width="300" height="200" class="certificates">
                                             </div>
                                         @endif
-                                        </div>
+                                        </div> --}}
                                     
+
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-wrap">
+                                                <label class="col-form-label">Experience Certificates</label>
+                                                <input type="file" class="form-control certificatesInput" 
+                                                       id="experience_certificatesID{{ $key }}"
+                                                       name="experience[{{ $key }}][certificates]"
+                                                       value="{{ $singleExperiencesDetails->certificates ?? '' }}"
+                                                       data-preview-id="experience_preview{{ $key }}">
+                                                <small class="text-secondary">Recommended file types: PDF, image</small>
+                                                <span class="text-danger" id="experience_{{ $key }}_certificates_error"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            @php
+                                                $filePath = asset('images') . '/' . $singleExperiencesDetails->certificates;
+                                                $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
+                                            @endphp
+                                        
+                                            <div class="form-wrap" id="experience_preview{{ $key }}">
+                                                @if ($fileExtension === 'pdf')
+                                                    <object data="{{ $filePath }}" type="application/pdf" width="300" height="200">
+                                                        <p>It appears you don't have a PDF plugin for this browser.
+                                                            <a href="{{ $filePath }}" target="_blank">Click here to download the PDF file.</a>
+                                                        </p>
+                                                    </object>
+                                                    <a href="{{ $filePath }}" target="_blank" class="btn btn-primary prime-btn">Click to download PDF</a>
+                                                @else
+                                                    <img src="{{ $filePath }}" alt="certificate image" width="300" height="200" style="border-radius:20px;">
+                                                @endif
+                                            </div>
+                                        </div>
                                     </div>
                             </div>
                         </div>
@@ -260,6 +290,21 @@
                                             <span class="text-danger" id="experience_0_description_error"></span>
                                         </div>
                                     </div>
+
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="form-wrap">
+                                            <label class="col-form-label">Education Certificates</label>
+                                            <input type="file" class="form-control" id="certificatesID"
+                                                name="experience[0][certificates]"
+                                                value= "{{ $singleExperiencesDetails->certificates ?? ' ' }}">
+                                            <small class="text-secondary">Recommended image size is <b> pdf, image
+                                                </b></small>
+                                            <span class="text-danger" id="education_0_certificates_error"></span>
+                                        </div>
+                                        <div>
+                                        </div>
+                                    </div>
+                            
                                 </div>
                             </div>
                         </div>

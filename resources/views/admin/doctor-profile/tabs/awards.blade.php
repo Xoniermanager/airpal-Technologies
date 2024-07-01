@@ -39,7 +39,7 @@
                                                 <select id="award-id-{{ $singleAwardDetail->award_id ?? ' ' }}"
                                                     class="form-control" name="awards[{{ $key }}][name]">
                                                 </select>
-                                                <script id="noAwardTemplate{{ $singleAwardDetail->award_id ?? ' ' }}" type="text/x-kendo-tmpl">
+                                                <script id="noAwardTemplate" type="text/x-kendo-tmpl">
                                                        <div>
                                                             No data found. Do you want to add new item - '#: instance.filterInput.val() #' ?
                                                         </div>
@@ -50,6 +50,10 @@
                                                 </script>
                                             </div>
                                         </div>
+                                        <span class="text-danger" id="awards_{{ $key }}_name_error"></span>
+
+                                        <input type="hidden"  name="awards[{{ $key }}][id]" value= {{ $singleAwardDetail->id ?? ' ' }}>
+
                                         <div class="col-md-6">
                                             <div class="form-wrap">
                                                 <label class="col-form-label">Year <span
@@ -162,7 +166,7 @@
                                                 {{-- <input type="text" class="form-control" name="name[]"> --}}
                                                 <select id="award" class="form-control" name="awards[0][name]">
                                                 </select>
-                                                <script id="noAwardTemplate{{ $singleAwardDetail->award_id ?? ' ' }}" type="text/x-kendo-tmpl">
+                                                <script id="noAwardTemplate" type="text/x-kendo-tmpl">
                                                        <div>
                                                             No data found. Do you want to add new item - '#: instance.filterInput.val() #' ?
                                                         </div>

@@ -128,7 +128,7 @@
                     <p class="text-muted mb-0">Administrator</p>
                 </div>
             </div>
-            <a class="dropdown-item" href="{{ route('admin.profile.index') }}">My Profile</a>
+            <a class="dropdown-item" href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">My Profile</a>
             <a class="dropdown-item" href="{{ route('admin.settings.index') }}">Settings</a>
             <a class="dropdown-item" href="{{ route('doctor.logout') }}">Logout</a>
         </div>

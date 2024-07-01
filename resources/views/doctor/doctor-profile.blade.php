@@ -1,9 +1,31 @@
+@php
+$userEducationDetails = [];
+$userExperiencesDetails = [];
+$userWorkingHourDetails = [];
+$userAddressDetails = [];
+$userAwardsDetails = [];
+$userLanguageIds = [];
+$userCourse = [];
+$userSpeciality = [];
+
+if (isset($singleDoctorDetails) && !empty($singleDoctorDetails)) {
+    $userEducationDetails = $singleDoctorDetails['educations'];
+    $userExperiencesDetails = $singleDoctorDetails['experiences'];
+    $userWorkingHourDetails = $singleDoctorDetails['workingHour'];
+    $userAddressDetails = $singleDoctorDetails->address;
+    $userAwardsDetails = $singleDoctorDetails['awards'];
+}
+
+@endphp
+
 <!DOCTYPE html>
 <html lang="zxx">
 
 <head>
     @include('include.head')
 </head>
+
+
 
 <body>
 
@@ -30,7 +52,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-xl-3 theiaStickySidebar">
-
+                    @include('doctor.include.sidebar')
                 </div>
                 <div class="col-lg-8 col-xl-9">
                     <div class="dashboard-header">
@@ -62,18 +84,18 @@
                         </div>
                     </div>
                     <div class="tab-content">
-                        @include('doctor.doctor-profile.tabs.personal_detail')
-                        @include('doctor.doctor-profile.tabs.address')
-                        @include('doctor.doctor-profile.tabs.experience')
-                        @include('doctor.doctor-profile.tabs.education')
-                        @include('doctor.doctor-profile.tabs.working-hour')
-                        @include('doctor.doctor-profile.tabs.awards')
+                        @include('admin.doctor-profile.tabs.personal_detail')
+                        @include('admin.doctor-profile.tabs.address')
+                        {{-- @include('admin.doctor-profile.tabs.experience') --}}
+                        {{-- @include('admin.doctor-profile.tabs.education') --}}
+                        {{-- @include('admin.doctor-profile.tabs.working-hour') --}}
+                        {{-- @include('admin.doctor-profile.tabs.awards') --}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-@endsection
+{{-- @endsection --}}
 
 @section('javascript')
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>

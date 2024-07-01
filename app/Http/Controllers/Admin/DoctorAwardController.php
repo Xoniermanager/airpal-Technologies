@@ -16,7 +16,7 @@ class DoctorAwardController extends Controller
     }
     public function addDoctorAward(StoreDoctorAwardRequest $request)
     {
-        $userId = $this->doctor_award_services->addDoctorAward($request->validated());
+        $userId = $this->doctor_award_services->addDoctorAward($request->all());
 
         if ($userId) {
             return response()->json([

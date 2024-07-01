@@ -42,7 +42,7 @@
                                                                 src="assets/img/specialities/specialities-01.png"
                                                                 alt="Speciality">
                                                         </a>
-                                                        <a href="{{ route('admin.profile.index') }}">Urology</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Urology</a>
                                                     </h2>
                                                 </td>
                                                 <td>
@@ -67,7 +67,7 @@
                                                                 src="assets/img/specialities/specialities-02.png"
                                                                 alt="Speciality">
                                                         </a>
-                                                        <a href="{{ route('admin.profile.index') }}">Neurology</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Neurology</a>
                                                     </h2>
                                                 </td>
                                                 <td>
@@ -92,7 +92,7 @@
                                                                 src="assets/img/specialities/specialities-03.png"
                                                                 alt="Speciality">
                                                         </a>
-                                                        <a href="{{ route('admin.profile.index') }}">Orthopedic</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Orthopedic</a>
                                                     </h2>
                                                 </td>
                                                 <td>
@@ -117,7 +117,7 @@
                                                                 src="assets/img/specialities/specialities-04.png"
                                                                 alt="Speciality">
                                                         </a>
-                                                        <a href="{{ route('admin.profile.index') }}">Cardiologist</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Cardiologist</a>
                                                     </h2>
                                                 </td>
                                                 <td>
@@ -142,7 +142,7 @@
                                                                 src="assets/img/specialities/specialities-05.png"
                                                                 alt="Speciality">
                                                         </a>
-                                                        <a href="{{ route('admin.profile.index') }}">Dentist</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dentist</a>
                                                     </h2>
                                                 </td>
                                                 <td>

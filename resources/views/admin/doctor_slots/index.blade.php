@@ -265,8 +265,6 @@
 
     </div>
 @endsection
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-{{-- <script src="{{ asset('admin/assets/custom-js/add_doctor.js') }}"></script> --}}
 @section('javascript')
     <script>
         // script for applying custom validation on jquery ui plugin 

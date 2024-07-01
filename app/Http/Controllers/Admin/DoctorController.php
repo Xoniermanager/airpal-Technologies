@@ -31,13 +31,13 @@ class DoctorController extends Controller
         StateServices $stateServices,
         
     ) {
-        $this->user_services                = $user_services;
-        $this->countryServices              = $countryServices;
+        $this->user_services               = $user_services;
+        $this->countryServices             = $countryServices;
         $this->stateServices               = $stateServices; 
-        $this->doctor_language_services     = $doctor_language_services;
-        $this->specialization_services      = $specialization_services;
-        $this->doctor_speciality_services   = $doctor_speciality_services;
-        $this->doctor_service_add_services  = $doctor_service_add_services;
+        $this->doctor_language_services    = $doctor_language_services;
+        $this->specialization_services     = $specialization_services;
+        $this->doctor_speciality_services  = $doctor_speciality_services;
+        $this->doctor_service_add_services = $doctor_service_add_services;
     }
     public function index()
     {

@@ -16,14 +16,14 @@
                 <tr>
                     <td>
                         <h2 class="table-avatar">
-                            <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                            <a href="{{ route('admin.profile.index',['user' => $doctor->id]) }}" class="avatar avatar-sm me-2"><img
                                     class="avatar-img rounded-circle"
                                     src="{{asset('images/'.$doctor->image_url)}}"
                                     alt="User Image"
                                     onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" 
                                     >
                                 </a>
-                            <a href="{{ route('admin.profile.index') }}">{{$doctor->first_name}} {{$doctor->last_name}}</a>
+                            <a href="{{ route('admin.profile.index',['user' => $doctor->id]) }}">{{$doctor->first_name}} {{$doctor->last_name}}</a>
                         </h2>
                     </td>
                     <td>

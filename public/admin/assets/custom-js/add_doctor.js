@@ -1,294 +1,4 @@
 
-// document.getElementById('addEducationBtn').addEventListener('click', addEducation);
-// document.getElementById('addExperienceBtn').addEventListener('click', addExperience);
-//document.getElementById('addAwardBtn').addEventListener('click', addNewAwardAccordion);
-
-// function addAward(userAwardCount){
-
-//     if(userAwardCount)
-//         {
-//             awardCount = userAwardCount;
-//         }
-
-// alert(awardCount);
-//     const accordion = document.getElementById('awardAccordion');
-//     const newEntry = document.createElement('div');
-//     newEntry.classList.add('accordion-item', 'award-entry');
-//     const headingId = `heading${awardCount}`;
-//     const collapseId = `collapse${awardCount}`;
-//     const awardSelectorId = `award${awardCount}`;
-
-//     const awardNoAwardTemplate = `noAwardTemplate${awardCount}`;
-
-//     newEntry.innerHTML = `<div class="accordions award-infos" id="${headingId}">
-//                             <div class="user-accordion-item accordion-item award-entry">
-//                                     <a href="#" class="accordion-wrap" data-bs-toggle="collapse"
-//                                     data-bs-target="#${collapseId}">Awards<span onclick="deleteAwards('',this)">Delete</span></a>
-//                                     <div class="accordion-collapse collapse show" id="${collapseId}"
-//                                         data-bs-parent="#awardAccordion" aria-labelledby="${headingId}">
-//                                         <div class="content-collapse">
-//                                             <div class="add-service-info">
-//                                                 <div class="add-info">
-//                                                     <div class="row align-items-center">
-//                                                         <div class="col-md-6">
-//                                                             <div class="form-wrap">
-//                                                                 <label class="col-form-label">Award Name</label>
-//                                                                 <select id="${awardSelectorId}" class="form-control" name="awards[${awardCount}][name]"> </select>
-//                                                                 <script id="noAwardTemplate" type="text/x-kendo-tmpl">
-//                                                                     <div>
-//                                                                             No data found. Do you want to add new item - '#: instance.filterInput.val() #' ?
-//                                                                             </div>
-//                                                                             <br />
-//                                                                             # var value = instance.filterInput.val(); #
-//                                                                             # var id = instance.element[0].id; #
-//                                                                             <button class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md" onclick="addAwardData('#: id #', '#: value #')">Add new item</button>
-//                                                                         </script>
-
-//                                                                         <span class="text-danger" id="awards_${experienceCount}_name_error"></span>
-//                                                             </div>
-//                                                         </div>
-//                                                         <div class="col-md-6">
-//                                                             <div class="form-wrap">
-//                                                                 <label class="col-form-label">Year <span
-//                                                                         class="text-danger">*</span></label>
-//                                                                 <div class="form-icon">
-//                                                                     <input type="text"
-//                                                                         class="form-control flat-picker" name = "awards[${awardCount}][year]" >
-//                                                                     <span class="icon"><i
-//                                                                             class="fa-regular fa-calendar-days"></i></span>
-//                                                                 </div>
-//                                                                 <span class="text-danger" id="awards_${experienceCount}_year_error"></span>
-//                                                             </div>
-//                                                         </div>
-//                                                         <div class="col-lg-12">
-//                                                             <div class="form-wrap">
-//                                                                 <label class="col-form-label">Description <span
-//                                                                         class="text-danger">*</span></label>
-//                                                                 <textarea class="form-control" rows="3" name = "awards[${awardCount}][description]"></textarea>
-//                                                                 <span class="text-danger" id="awards_${experienceCount}_description_error"></span>
-//                                                             </div>
-//                                                         </div>
-//                                                     </div>
-//                                                 </div>
-//                                             </div>
-//                                         </div>
-//                                     </div>
-//                                 </div>
-//                             </div>`;
-//                             awardCount++;
-//                             accordion.appendChild(newEntry);
-//                             initializeKendoDropdownSelectForAward(`#${awardSelectorId}`);
-//                             initializeFlatDatePicker();
-                    
-
-// }
-// function addExperience(experienceCount){
-
-
-//     if (experienceCount) {
-//         experienceCount = experienceCount;  
-//     } 
-
-
-//     const accordion = document.getElementById('experienceAccordion');
-//     const newEntry = document.createElement('div');
-//     newEntry.classList.add('accordion-item', 'experince-entry');
-//     const headingId = `heading${experienceCount}`;
-//     const collapseId = `collapse${experienceCount}`;
-//     const hospitalSelectorId = `hospital${experienceCount}`;
-
-
-//     newEntry.innerHTML = `<div class="accordions experience-infos" id="experienceAccordion">
-//             <div class="user-accordion-item accordion-item experince-entry">
-//                 <a href="#" class="accordion-wrap" data-bs-toggle="collapse"
-//                     data-bs-target="#experience1">Experience<span onclick="deleteExperience('',this)">Delete</span></a>
-//                 <div class="accordion-collapse collapse show" id="experience1"
-//                     data-bs-parent="#experienceAccordion">
-//                     <div class="content-collapse">
-//                         <div class="add-service-info">
-//                             <div class="add-info">
-//                                 <div class="row align-items-center">
-
-//                                     <div class="col-lg-4 col-md-6">
-//                                         <div class="form-wrap">
-//                                             <label class="col-form-label">Title</label>
-//                                             <input type="text" class="form-control" name="experience[${experienceCount}][job_title]">
-//                                             <span class="text-danger" id="experience_${experienceCount}_job_title_error"></span>
-//                                         </div>
-//                                     </div>
-//                                     <div class="col-lg-4 col-md-6">
-//                                         <div class="form-wrap">
-//                                             <label class="col-form-label">Hospital <span
-//                                                     class="text-danger">*</span></label>
-//                                                     <select id="${hospitalSelectorId}" class="form-control" name="experience[${experienceCount}][hospital]"> </select>
-//                                                     <script  id="noHospitalTemplate" type="text/x-kendo-tmpl">
-//                                                         <div>
-//                                                                     No data found. Do you want to add new item - '#: instance.filterInput.val() #' ?
-//                                                                 </div>
-//                                                                 <br />
-//                                                                 # var value = instance.filterInput.val(); #
-//                                                                 # var id = instance.element[0].id; #
-//                                                                 <button class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md" onclick="addHospital('#: id #', '#: value #')">Add new item</button>
-//                                                             </script>
-//                                                             <span class="text-danger" id="experience_${experienceCount}_hospital_error"></span>
-//                                         </div>
-//                                     </div>
-
-//                                     <div class="col-md-4">
-//                                         <div class="form-wrap">
-//                                             <label class="col-form-label">Location <span
-//                                                     class="text-danger">*</span></label>
-//                                             <input type="text" class="form-control" name="experience[${experienceCount}][location]">
-//                                             <span class="text-danger" id="experience_${experienceCount}_location_error"></span>
-//                                         </div>
-//                                     </div>
-
-//                                     <div class="col-lg-4 col-md-6">
-//                                         <div class="form-wrap">
-//                                             <label class="col-form-label">Start Date <span
-//                                                     class="text-danger">*</span></label>
-//                                             <div class="form-icon">
-//                                                 <input type="text"
-//                                                     class="form-control flat-picker" name="experience[${experienceCount}][start_date]" autocomplete="off">
-//                                                 <span class="icon"><i
-//                                                         class="fa-regular fa-calendar-days"></i></span>
-//                                                         <span class="text-danger" id="experience_${experienceCount}_start_date_error"></span>
-//                                             </div>
-//                                         </div>
-//                                     </div>
-//                                     <div class="col-lg-4 col-md-6">
-//                                         <div class="form-wrap">
-//                                             <label class="col-form-label">End Date <span
-//                                                     class="text-danger">*</span></label>
-//                                             <div class="form-icon">
-//                                                 <input type="text"
-//                                                     class="form-control flat-picker" name="experience[${experienceCount}][end_date]" autocomplete="off">
-//                                                 <span class="icon"><i
-//                                                         class="fa-regular fa-calendar-days"></i></span>
-//                                                         <span class="text-danger" id="experience_${experienceCount}_end_date_error"></span>
-//                                             </div>
-//                                         </div>
-//                                     </div>
-//                                     <div class="col-lg-4 col-md-6">
-//                                         <div class="form-wrap">
-//                                             <label class="col-form-label">&nbsp;</label>
-//                                             <div class="form-check">
-//                                                 <label class="form-check-label">
-//                                                     <input class="form-check-input"
-//                                                         type="checkbox" name="working_status[]">
-//                                                     I Currently Working Here
-//                                                 </label>
-//                                             </div>
-//                                         </div>
-//                                     </div>
-
-//                                     <div class="col-lg-12">
-//                                         <div class="form-wrap">
-//                                             <label class="col-form-label">Job Description
-//                                                 <span class="text-danger">*</span></label>
-//                                             <textarea class="form-control" rows="3" name="experience[${experienceCount}][description]"></textarea>
-//                                             <span class="text-danger" id="_end_date_${experienceCount}_description_error"></span>
-//                                         </div>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>`;
-//         experienceCount++;
-//         accordion.appendChild(newEntry);
-//         initializeKendoMultiSelectForExperience(`#${hospitalSelectorId}`);
-//         initializeFlatDatePicker();
-     
-
-// }
-// function addEducation(userEducationCount) {
-//     if (userEducationCount) {
-//         educationCount = userEducationCount;  
-//     } 
-//     const accordion = document.getElementById('educationAccordion');
-//     const newEntry  = document.createElement('div');
-//     newEntry.classList.add('accordion-item', 'education-entry');
-//     const headingId = `heading${educationCount}`;
-//     const collapseId = `collapse${educationCount}`;
-//     const courseSelectorId = `course${educationCount}`;
-//     newEntry.innerHTML = `<div class="accordions education-infos" id="educationAccordion">
-//                             <div class="user-accordion-item accordion-item education-entry">
-//                                 <a href="#" class="accordion-wrap" data-bs-toggle="collapse"
-//                                     data-bs-target="#education-1">Education ${educationCount + 1}<span onclick="deleteEducation('',this)" >Delete</span></a>
-//                                 <div class="accordion-collapse collapse show" id="education-1"
-//                                     data-bs-parent="#educationAccordion">
-//                                     <div class="content-collapse">
-//                                         <div class="add-service-info">
-//                                             <div class="add-info">
-//                                                 <div class="row align-items-center">
-//                                                     <div class="col-md-6">
-//                                                         <div class="form-wrap">
-//                                                             <label class="col-form-label">Name of the
-//                                                                 institution</label>
-//                                                             <input type="text" class="form-control" name="education[${educationCount}][name]">
-//                                                             <span class="text-danger" id="education_${educationCount}_name_error"></span>
-//                                                         </div>
-//                                                     </div>
-//                                                     <div class="col-md-6">
-//                                                         <div class="form-wrap">
-//                                                                 <label for="${courseSelectorId}" class="form-label" >Course:</label>
-                                               
-//                                             <select id="${courseSelectorId}" class="form-control" name="education[${educationCount}][course]"> </select>
-//                                             <script id="noCourseTemplate" type="text/x-kendo-tmpl">
-//                                                 <div>
-//                                                     No data found. Do you want to add new item - '#: instance.filterInput.val() #' ?
-//                                                 </div>
-//                                                 <br />
-//                                                 <button class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md" onclick="addCourse('#: instance.element[0].id #', '#: instance.filterInput.val() #')">Add new item</button>
-//                                             </script>
-//                                                             </select>
-//                                                             <span class="text-danger" id="education_${educationCount}_course_error"></span>
-//                                                         </div>
-//                                                     </div>
-//                                                     <div class="col-lg-6 col-md-6">
-//                                                         <div class="form-wrap">
-//                                                             <label class="col-form-label">Start Date <span
-//                                                                     class="text-danger">*</span></label>
-//                                                             <div class="form-icon">
-//                                                                 <input type="text"
-//                                                                     class="form-control flat-picker" name="education[${educationCount}][start_date]" autocomplete="off">
-//                                                                     <span class="text-danger" id="education_${educationCount}_start_date_error"></span>
-//                                                             </div>
-//                                                         </div>
-//                                                     </div>
-//                                                     <div class="col-lg-6 col-md-6">
-//                                                         <div class="form-wrap">
-//                                                             <label class="col-form-label">End Date <span
-//                                                                     class="text-danger">*</span></label>
-//                                                             <div class="form-icon">
-//                                                                 <input type="text"
-//                                                                     class="form-control flat-picker" name="education[${educationCount}][end_date]" autocomplete="off">
-//                                             <span class="text-danger" id="education_${educationCount}_end_date_error"></span>
-                                                                    
-//                                                             </div>
-//                                                         </div>
-//                                                     </div>
-
-//                                                 </div>
-//                                             </div>
-                                           
-                                            
-//                                         </div>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                         </div>`;
-//     educationCount++;
-//     accordion.appendChild(newEntry);
-//     initializeKendoDropdownSelectForEducation(`#${courseSelectorId}`);
-//     initializeFlatDatePicker();
-
-// }
-
-
 /*
 ================================================================================
                     Start : Manage Doctor Personal Profiles Details From Kendo 
@@ -501,13 +211,23 @@ function initializeKendoDropdownSelectForAward(selector,selectedAward = '',award
         filter: "startswith",
         dataTextField: "name",
         dataValueField: "id",
-        dataSource: awardDataSource,
+        dataSource: createAwardDataSource(),
         value: selectedAward , 
         noDataTemplate: jQuery("#noAwardTemplate").html(),
     });
 }
 
-    awardDataSource    = new kendo.data.DataSource({
+jQuery("#award").kendoDropDownList({
+    filter: "contains",
+    dataTextField: "name",
+    dataValueField: "id",
+    dataSource: createAwardDataSource(),
+    noDataTemplate: jQuery("#noAwardTemplate").html()
+});
+
+
+function createAwardDataSource() {
+    return new kendo.data.DataSource({
         batch: true,
         transport: {
             read: {
@@ -540,9 +260,11 @@ function initializeKendoDropdownSelectForAward(selector,selectedAward = '',award
             }
         }
     });
+}
 
 // Add new Awards using kendo ajax
     function addAwardData(widgetId, value) {
+        
         var widget = jQuery("#" + widgetId).getKendoDropDownList();
         var dataSource = widget.dataSource;
         dataSource.add({
@@ -660,15 +382,14 @@ const addEducation = (function() {
                                                         <div class="col-md-6">
                                                             <div class="form-wrap">
                                                                     <label for="${courseSelectorId}" class="form-label" >Course:</label>
-                                                   
-                                                <select id="${courseSelectorId}" class="form-control" name="education[${educationCount}][course]"> </select>
-                                                <script id="noCourseTemplate" type="text/x-kendo-tmpl">
-                                                    <div>
-                                                        No data found. Do you want to add new item - '#: instance.filterInput.val() #' ?
-                                                    </div>
-                                                    <br />
-                                                    <button class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md" onclick="addCourse('#: instance.element[0].id #', '#: instance.filterInput.val() #')">Add new item</button>
-                                                </script>
+                                                                    <select id="${courseSelectorId}" class="form-control" name="education[${educationCount}][course]"> </select>
+                                                                    <script id="noCourseTemplate" type="text/x-kendo-tmpl">
+                                                                        <div>
+                                                                            No data found. Do you want to add new item - '#: instance.filterInput.val() #' ?
+                                                                        </div>
+                                                                        <br />
+                                                                        <button class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md" onclick="addCourse('#: instance.element[0].id #', '#: instance.filterInput.val() #')">Add new item</button>
+                                                                    </script>
                                                                 </select>
                                                                 <span class="text-danger" id="education_${educationCount}_course_error"></span>
                                                             </div>
@@ -728,12 +449,15 @@ var site_admin_base_url = 'http://127.0.0.1:8000/admin/';  // TODO : from env fi
             filter: "startswith",
             dataTextField: "name",
             dataValueField: "id",
-            dataSource: courseDataSource,
+            dataSource: createCourseDataSource(),
             value: selectedEducation ,
             noDataTemplate: $("#noCourseTemplate").html()
         });
     }
-    courseDataSource   = new kendo.data.DataSource({
+
+    function createCourseDataSource() {
+        return new kendo.data.DataSource({
+
         batch: true,
         transport: {
             read: {
@@ -760,6 +484,9 @@ var site_admin_base_url = 'http://127.0.0.1:8000/admin/';  // TODO : from env fi
             }
         }
     });
+}
+
+
 
 
 // Add new Education using kendo ajax
@@ -778,16 +505,14 @@ var site_admin_base_url = 'http://127.0.0.1:8000/admin/';  // TODO : from env fi
             name: value
         });
         dataSource.sync();
-    
     };
 
     jQuery("#course").kendoDropDownList({
         filter: "startswith",
         dataTextField: "name",
         dataValueField: "id",
-        dataSource: courseDataSource,
+        dataSource: createCourseDataSource(),
         noDataTemplate: jQuery("#noCourseTemplate").html()
-
     });
 
     // Delete Experience 
@@ -991,7 +716,10 @@ const addExperience = (function() {
 
 
 // Initialize hospitals list
-hospitalDataSource = new kendo.data.DataSource({
+// hospitalDataSource = new kendo.data.DataSource({
+
+    function hospitalDataSource() {
+        return new kendo.data.DataSource({
     batch: true,
     transport: {
         read: {
@@ -1024,16 +752,35 @@ hospitalDataSource = new kendo.data.DataSource({
         }
     }
 });
+    }
 function initializeKendoMultiSelectForExperience(selector,selectedHospital='') {
     jQuery(selector).kendoDropDownList({
         filter: "startswith",
         dataTextField: "name",
         dataValueField: "id",
-        dataSource: hospitalDataSource,
+        dataSource: hospitalDataSource(),
         value: selectedHospital,
         noDataTemplate: jQuery("#noHospitalTemplate").html()
     });
 }
+
+var hospitalIds = jQuery('#doctorhospitalID').text();
+var doctorAwardsIds = jQuery('#doctorAwardsIds').text();
+if (doctorAwardsIds.length > 1) {
+    var arraydoctorAwardsIds = JSON.parse(doctorAwardsIds);
+    var awardValue = "" + arraydoctorAwardsIds.join(",") + "";
+    var awardArrs = awardValue.split(',');
+}
+
+jQuery("#hospital").kendoDropDownList({
+    filter: "startswith",
+    dataTextField: "name",
+    dataValueField: "id",
+    dataSource: hospitalDataSource(),
+    value: hospitalIds ?? '',
+    noDataTemplate: jQuery("#noHospitalTemplate").html()
+});
+
 
 // Add new hospital using kendo ajax
 function addHospital(widgetId, value) {
@@ -1100,3 +847,9 @@ function addHospital(widgetId, value) {
                     End : Manage Hospitals/Experience in kendo list
 ============================================================================
 */
+
+
+
+
+
+

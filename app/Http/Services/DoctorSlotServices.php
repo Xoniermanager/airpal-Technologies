@@ -124,8 +124,6 @@ class DoctorSlotServices
             } else {
                 $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])->delete();
             }
-
-
             DB::commit();
             return true;
         } catch (\Exception $e) {
@@ -137,13 +135,6 @@ class DoctorSlotServices
     public function makeSlots($data)
     {
     
-    $currentDate = Carbon::today()->toDateString();
-
-
-
-    //Step 1:  Here we are verifying that the selected start date is in the past.
-    if ($currentDate <= $data->start_slots_from_date) {
-
         $startDate = date_create($data->start_slots_from_date);
         $endDate = clone $startDate;
         date_modify($endDate, '+'.$data->slots_in_advance.' days');
@@ -227,16 +218,11 @@ class DoctorSlotServices
                 'day' => $dayName,
                 'slotsTime' => $daySlots
             ];
-            // Adding the day's slots to the allDaySlots array
-            // $allDaySlots[$date->format('Y-m-d')] = $daySlots;
-
-            //  $allDaySlots[$dayName] = $daySlots;
-           //  $allDaySlots[] = $daySlots;
             
         }
 
         return $allDaySlots;
-    }
+
 }
 }
 

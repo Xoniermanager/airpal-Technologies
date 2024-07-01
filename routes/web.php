@@ -7,26 +7,28 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\Admin\SlotsController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\InstantController;
 use App\Http\Controllers\RegisterController; 
+use App\Http\Controllers\Admin\SlotsController;
 use App\Http\Controllers\Admin\AdminController; 
 use App\Http\Controllers\Admin\StateController; 
 use App\Http\Controllers\SpecialtyPageController;
 use App\Http\Controllers\Admin\CountryController; 
 use App\Http\Controllers\Admin\ProfileController; 
+use App\Http\Controllers\Admin\QuestionsController;
 use App\Http\Controllers\Admin\SettingsController; 
+
+
 use App\Http\Controllers\Admin\DashboardController; 
 use App\Http\Controllers\HealthmonitoringController;
 use App\Http\Controllers\Admin\SpecialityController; 
-
-
 use App\Http\Controllers\Admin\AppointmentController; 
 use App\Http\Controllers\Admin\PatientlistController; 
 use App\Http\Controllers\Admin\TransactionController; 
 use App\Http\Controllers\Admin\InvoicereportController; 
+use App\Http\Controllers\Admin\QuestionsOptionsController;
 use App\Http\Controllers\Doctor\DoctordashboardController;
 use App\Http\Controllers\Patient\PatientdashboardController; 
 use App\Http\Controllers\Doctor\DoctorAuthenticationController;
@@ -71,12 +73,25 @@ Route::prefix('admin')->group(function()
         Route::post('delete','destroy')->name('admin.delete-faqs');
     });
 
+    Route::prefix('questions')->controller(QuestionsController::class)->group(function(){
+        Route::get('/','index')->name('admin.questions.index');
+        Route::post('create','store')->name('admin.add.questions');
+        Route::post('update','update')->name('admin.questions.update');
+        Route::post('delete','destroy')->name('admin.delete-questions');
+    });
+
+    Route::prefix('questions-options')->controller(QuestionsOptionsController::class)->group(function(){
+        Route::get('/','index')->name('admin.questions-options.index');
+        Route::post('create','store')->name('admin.add.questions-options');
+        Route::post('update','update')->name('admin.questions-options.update');
+        Route::post('delete','destroy')->name('admin.delete-questions-options');
+    });
+
     Route::prefix('slots')->controller(SlotsController::class)->group(function(){
         Route::get('/','index')->name('admin.slots.index');
         Route::post('create','store')->name('admin.add.slots');
         Route::post('update','update')->name('admin.slots.update');
         Route::post('delete','destroy')->name('admin.delete-slot');
-
         Route::get('getWeekDays','getWeekDays');
         
     });
@@ -166,7 +181,8 @@ Route::prefix('admin')->group(function()
 
     Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('admin.dashboard.index');   
     Route::get('/appointment-list',[AppointmentController::class,'appointmentList'])->name('admin.appointment-list.index'); 
-    Route::get('/profile',[ProfileController::class,'profile'])->name('admin.profile.index'); 
+    
+    Route::get('/profile/{user:id}',[ProfileController::class,'profile'])->name('admin.profile.index'); 
     Route::get('/settings',[SettingsController::class,'settings'])->name('admin.settings.index');   
 
     Route::get('/doctors',[AdmindoctorController::class,'doctors'])->name('admin.doctors.index');   

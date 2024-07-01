@@ -149,7 +149,7 @@
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/doctors/doctor-thumb-01.jpg"
                                                                 alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Dr. Ruby Perrin</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dr. Ruby Perrin</a>
                                                     </h2>
                                                 </td>
                                                 <td>Dental</td>
@@ -169,7 +169,7 @@
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/doctors/doctor-thumb-02.jpg"
                                                                 alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Dr. Darren Elder</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dr. Darren Elder</a>
                                                     </h2>
                                                 </td>
                                                 <td>Dental</td>
@@ -189,7 +189,7 @@
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/doctors/doctor-thumb-03.jpg"
                                                                 alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Dr. Deborah Angel</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dr. Deborah Angel</a>
                                                     </h2>
                                                 </td>
                                                 <td>Cardiology</td>
@@ -209,7 +209,7 @@
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/doctors/doctor-thumb-04.jpg"
                                                                 alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Dr. Sofia Brient</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dr. Sofia Brient</a>
                                                     </h2>
                                                 </td>
                                                 <td>Urology</td>
@@ -229,7 +229,7 @@
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/doctors/doctor-thumb-05.jpg"
                                                                 alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Dr. Marvin Campbell</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dr. Marvin Campbell</a>
                                                     </h2>
                                                 </td>
                                                 <td>Orthopaedics</td>
@@ -274,7 +274,7 @@
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/patients/patient1.jpg"
                                                                 alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Charlene Reed </a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Charlene Reed </a>
                                                     </h2>
                                                 </td>
                                                 <td>8286329170</td>
@@ -288,7 +288,7 @@
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/patients/patient2.jpg"
                                                                 alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Travis Trimble </a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Travis Trimble </a>
                                                     </h2>
                                                 </td>
                                                 <td>2077299974</td>
@@ -302,7 +302,7 @@
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/patients/patient3.jpg"
                                                                 alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Carl Kelly</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Carl Kelly</a>
                                                     </h2>
                                                 </td>
                                                 <td>2607247769</td>
@@ -316,7 +316,7 @@
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/patients/patient4.jpg"
                                                                 alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}"> Michelle Fairfax</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}"> Michelle Fairfax</a>
                                                     </h2>
                                                 </td>
                                                 <td>5043686874</td>
@@ -330,7 +330,7 @@
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/patients/patient5.jpg"
                                                                 alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Gina Moore</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Gina Moore</a>
                                                     </h2>
                                                 </td>
                                                 <td>9548207887</td>
@@ -373,7 +373,7 @@
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/doctors/doctor-thumb-01.jpg"
                                                                 alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Dr. Ruby Perrin</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dr. Ruby Perrin</a>
                                                     </h2>
                                                 </td>
                                                 <td>Dental</td>
@@ -383,7 +383,7 @@
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/patients/patient1.jpg"
                                                                 alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Charlene Reed </a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Charlene Reed </a>
                                                     </h2>
                                                 </td>
                                                 <td>9 Nov 2023 <span class="text-primary d-block">11.00 AM - 11.15
@@ -405,7 +405,7 @@
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/doctors/doctor-thumb-02.jpg"
                                                                 alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Dr. Darren Elder</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dr. Darren Elder</a>
                                                     </h2>
                                                 </td>
                                                 <td>Dental</td>
@@ -415,7 +415,7 @@
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/patients/patient2.jpg"
                                                                 alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Travis Trimble </a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Travis Trimble </a>
                                                     </h2>
                                                 </td>
                                                 <td>5 Nov 2023 <span class="text-primary d-block">11.00 AM - 11.35
@@ -437,7 +437,7 @@
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/doctors/doctor-thumb-03.jpg"
                                                                 alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Dr. Deborah Angel</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dr. Deborah Angel</a>
                                                     </h2>
                                                 </td>
                                                 <td>Cardiology</td>
@@ -447,7 +447,7 @@
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/patients/patient3.jpg"
                                                                 alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Carl Kelly</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Carl Kelly</a>
                                                     </h2>
                                                 </td>
                                                 <td>11 Nov 2023 <span class="text-primary d-block">12.00 PM - 12.15
@@ -469,7 +469,7 @@
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/doctors/doctor-thumb-04.jpg"
                                                                 alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Dr. Sofia Brient</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dr. Sofia Brient</a>
                                                     </h2>
                                                 </td>
                                                 <td>Urology</td>
@@ -479,7 +479,7 @@
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/patients/patient4.jpg"
                                                                 alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}"> Michelle Fairfax</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}"> Michelle Fairfax</a>
                                                     </h2>
                                                 </td>
                                                 <td>7 Nov 2023<span class="text-primary d-block">1.00 PM - 1.20
@@ -501,7 +501,7 @@
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/doctors/doctor-thumb-05.jpg"
                                                                 alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Dr. Marvin Campbell</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dr. Marvin Campbell</a>
                                                     </h2>
                                                 </td>
                                                 <td>Orthopaedics</td>
@@ -511,7 +511,7 @@
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/patients/patient5.jpg"
                                                                 alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Gina Moore</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Gina Moore</a>
                                                     </h2>
                                                 </td>
                                                 <td>15 Nov 2023 <span class="text-primary d-block">1.00 PM - 1.15

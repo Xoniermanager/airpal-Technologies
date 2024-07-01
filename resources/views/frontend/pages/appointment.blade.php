@@ -63,7 +63,13 @@
                                     <ul class="date-slider slick nav nav-tabs nav-tabs-bottom nav-justified">
                                         @foreach ($allDaySlots as $date => $slots)
                                             @php
-                                                $isActive = (date('Y-m-d') == $date) ? 'active' : '';
+                                             if ($date === array_key_first($allDaySlots)) {
+                                                    $isActive = 'active show';
+                                                    }
+                                                    else {
+                                                      $isActive ='';
+                                                    }
+                                                
                                             @endphp
                                             <li class="nav-item">
                                                 <a class="nav-link {{ $isActive }}" href="#{{ $date }}" data-bs-toggle="tab"
@@ -76,8 +82,15 @@
                                     </ul>
                                     <div class="tab-content">
                                         @foreach ($allDaySlots as $date => $slots)
+                                        
                                             @php
-                                                $isActive = (date('Y-m-d') == $date) ? 'active show' : '';
+                                             if ($date === array_key_first($allDaySlots)) {
+                                                    $isActive = 'active show';
+                                                    }
+                                                    else {
+                                                      $isActive ='';
+                                                    }
+                                                
                                             @endphp
                                             <div role="tabpanel" id="{{ $date }}" class="tab-pane fade {{ $isActive }}">
                                                 <div class="row">

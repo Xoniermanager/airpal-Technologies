@@ -67,6 +67,7 @@
                                                 <span class="text-danger" id="education_0_course_error"></span>
                                             </div>
                                         </div>
+                                        <input type="hidden"  name="education[{{ $key }}][id]" value= {{ $singleEducationDetail->id ?? ' ' }}>
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-wrap">
                                                 <label class="col-form-label">Start Date <span

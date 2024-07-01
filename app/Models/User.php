@@ -10,6 +10,7 @@ use App\Models\DoctorEducation;
 use App\Models\DoctorExperience;
 use App\Models\DoctorWorkingHours;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -58,6 +59,13 @@ class User extends Authenticatable
         ];
     }
 
+    protected function fullName(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->first_name .' ' . $this->last_name
+        );
+    }
+
     public function specializations()
     {
         return $this->belongsToMany(Specialization::class, 'doctor_specialities', 'user_id', 'speciality_id');
@@ -100,7 +108,11 @@ class User extends Authenticatable
     public function doctorExceptionDays()
     {
         return $this->hasMany(ExceptionDays::class,'doctor_id');
-    }  
+    } 
+    // public function doctorQuestions()
+    // {
+    //     return $this->hasOne(DoctorQuestions::class,'doctor_id');
+    // } 
     
 
 }

@@ -30,14 +30,18 @@
 
     <link rel="stylesheet" href="{{ asset('admin/assets/css/custom.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('/assets/css/custom.css') }}" type="text/css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    
+    {{-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> --}}
     <link href="https://kendo.cdn.telerik.com/themes/7.2.1/default/default-main.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="{{asset('/assets/js/jquery-3.7.1.min.js')}}"></script>
+    <script src="{{asset('admin/assets/js/jquery-ui.js')}}"></script>
+    <script src="{{asset('admin/assets/js/jquery-ui.css')}}"></script>
+    <script src="{{asset('admin/assets/jquery-validation/dist/jquery.validate.min.js')}}"></script>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
-<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
     .k-list-item.k-selected, .k-selected.k-list-optionlabel {
     color: #ffffff;
@@ -48,6 +52,20 @@
     font-weight: 600;
 }
     </style>
+            <script>
+                // for active menu script 
+        $(document).ready(function () {
+            var currentUrl = window.location.pathname;
+            var fullUrl = window.location.origin + currentUrl;
+            $('.menu-item').each(function () {
+                var url = $(this).data('url');
+                if (fullUrl == url) {
+                    $(this).addClass('active');
+                }
+            });
+        });
+        
+            </script>
 
 </head>
 <body>

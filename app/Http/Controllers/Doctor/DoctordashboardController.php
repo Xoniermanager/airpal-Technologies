@@ -26,7 +26,7 @@ class DoctordashboardController extends Controller
          $this->countryServices= $countryServices;
          $this->stateServices = $stateServices; 
          $this->user_services = $user_services;
-         $this->doctorDetails = $this->user_services->getDoctorDataById(Auth::user()->id);
+         $this->doctorDetails = $this->user_services->getDoctorDataById(1);
     }
 
 
@@ -63,19 +63,48 @@ class DoctordashboardController extends Controller
 
     public function doctorProfile()
     {
-      $speciality  =  Specialization::all();
-      $services    =  Service::all();
-      $dayOfWeeks  =  DayOfWeek::all();
-      $countries   =  $this->countryServices->all();
-      $states      =  $this->stateServices->all();
+      // $specialty   =  Specialization::all();
+      // $services    =  Service::all();
+      // $dayOfWeeks  =  DayOfWeek::all();
+      // $countries   =  $this->countryServices->all();
+      // $states      =  $this->stateServices->all();
 
               
-      return view('doctor.doctor-profile.add-doctor',[
-        'specialities'=> $speciality,
-        'services'    => $services,
-        'countries'   => $countries,
-        'states'      => $states,
-        'dayOfWeeks'  => $dayOfWeeks ]);
+      // return view('doctor.doctor-profile ',[
+      //   'specialties' => $specialty,
+      //   'services'    => $services,
+      //   'countries'   => $countries,
+      //   'states'      => $states,
+      //   'dayOfWeeks'  => $dayOfWeeks,
+      //   'doctors'      => $this->doctorDetails 
+      // ]);
+
+
+        $singleDoctorDetails = $this->user_services->getDoctorDataById(1);
+        $languagesIds = $singleDoctorDetails->language->pluck('id');
+        $specialitiesIds = $singleDoctorDetails->specializations->pluck('id');
+        $servicesIds = $singleDoctorDetails->services->pluck('id');
+
+        $countries = $this->countryServices->all();
+        $states = $this->stateServices->all();
+        
+        $specialty  = Specialization::all();
+        $services   = Service::all();
+        $dayOfWeeks = DayOfWeek::all();
+
+        return view('doctor.doctor-profile', [
+            'specialities'    => $specialty,
+            'languagesIds'    => $languagesIds,
+            'specialitiesIds' => $specialitiesIds,
+            'servicesIds' => $servicesIds,
+            'services'    => $services,
+            'countries'   => $countries,
+            'states'      => $states,
+            'dayOfWeeks'  => $dayOfWeeks,
+            'singleDoctorDetails' => $singleDoctorDetails,
+        ]);
+
+
 
 
    // return view('doctor.doctor-profile.add-doctor',['doctorDetails' => $this->doctorDetails ]);

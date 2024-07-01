@@ -65,9 +65,6 @@ class DoctorController extends Controller
     }else{
       $returnedSlots = [];
     }
-
-    // dd(   $returnedSlots);
-
     return view('frontend.pages.appointment', ['allDaySlots' => $returnedSlots,'doctorDetails' => $doctor]);
   }
 

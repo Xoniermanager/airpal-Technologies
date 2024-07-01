@@ -21,16 +21,33 @@ class StoreDoctorEducationRequest extends FormRequest
      */
     public function rules(): array
     {
-        return 
-        [
+        $userId = $this->input('user_id');
+        $rules = [
             'education' => 'required|array',
             'education.*.name' => 'required|string|max:255',
-            'education.*.course' => 'required|string|max:255',
+            'education.*.course' => [
+                'required',
+                'string',
+                'max:255',
+                function ($attribute, $value, $fail) use ($userId) {
+                    foreach ($this->input('education', []) as $index => $education) {
+                        $existingEntry = \App\Models\DoctorEducation::where('user_id', $userId)
+                            ->where('course_id', $education['course'])
+                            ->where('id', '!=', $education['id'] ?? null)
+                            ->first();
+                        if ($existingEntry) {
+                            $fail('The course has already been taken for this user.');
+                        }
+                    }
+                }
+            ],
             'education.*.start_date' => 'required|date',
-            'education.*.end_date'   => 'required|date|after_or_equal:education.*.start_date',
-            'education.*.certificates' =>'mimes:jpeg,jpg,bmp,png,gif,svg,pdf|max:2048',
+            'education.*.end_date' => 'required|date|after_or_equal:education.*.start_date',
+            'education.*.certificates' => 'nullable|mimes:jpeg,jpg,bmp,png,gif,svg,pdf|max:2048',
             'user_id' => 'required'
         ];
+
+        return $rules;
     }
     public function messages()
     {
@@ -38,6 +55,7 @@ class StoreDoctorEducationRequest extends FormRequest
             'education.required'                => 'Please select at least one education.',
             'education.*.name.required'         => 'Institute name is required.',
             'education.*.course.required'       => 'Please select course.',
+            'education.*.course.unique' => 'This course has already been taken for this user.',
             'education.*.certificates.mimes'    => 'The certificate must be a file of type: jpeg, bmp, png, gif, svg, or pdf.',
             'education.*.certificates.max'      => 'The certificate may not be greater than 2048 kilobytes.',
             'education.*.start_date.required'   => 'Start time is required for all selected educations.',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreDoctorAwardRequest extends FormRequest
@@ -21,18 +22,33 @@ class StoreDoctorAwardRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $userId = $this->input('user_id');
+        $awardId = $this->input('award_id');
+        
+        $rules = [
             'awards' => 'required|array',
-            'awards.*.name' => 'required|string|max:255',
-            'awards.*.year' => 'required|date',
-            'awards.*.certificates' =>'mimes:jpg,jpeg,bmp,png,gif,svg,pdf|max:2048',
-            'awards.*.description' => 'required|string',
-            'user_id'              => 'required'
+            'awards.*.year' => 'required',
+            'awards.*.description' => 'nullable|string',
+            'awards.*.certificates' => 'nullable|file|mimes:jpg,jpeg,png,pdf',
         ];
+
+        foreach ($this->input('awards', []) as $index => $award) {
+            $rules["awards.$index.name"] = [
+                'required',
+                Rule::unique('doctor_awards', 'award_id')
+                    ->where(function ($query) use ($userId) {
+                        return $query->where('user_id', $userId);
+                    })
+                    ->ignore($award['id'] ?? null),
+            ];
+        }
+
+        return $rules;
     }
     public function messages()
     {
         return [
+            'awards.*.name.unique' => 'This award has already been added for this user.',
             'awards.*.name.required'  => 'Please select award name.',
             'awards.*.year.required'  => 'Please provide year.',
             'awards.*.description.required'=> 'Please provide description.',

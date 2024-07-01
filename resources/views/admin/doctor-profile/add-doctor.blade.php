@@ -1,13 +1,13 @@
 @extends('layouts.admin.main')
 @section('content')
     @php
-        $userEducationDetails   = [];
+        $userEducationDetails = [];
         $userExperiencesDetails = [];
         $userWorkingHourDetails = [];
-        $userAddressDetails     = [];
+        $userAddressDetails = [];
         $userAwardsDetails = [];
-        $userLanguageIds   = [];
-        $userCourse     = [];
+        $userLanguageIds = [];
+        $userCourse = [];
         $userSpeciality = [];
 
         if (isset($singleDoctorDetails) && !empty($singleDoctorDetails)) {
@@ -30,7 +30,7 @@
                             <li class="breadcrumb-item">
 
                             </li>
-                            <li class="breadcrumb-item" aria-current="page">Doctor Profile   </li>
+                            <li class="breadcrumb-item" aria-current="page">Doctor Profile </li>
                         </ol>
                     </nav>
                 </div>
@@ -55,19 +55,24 @@
                                         Details</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#address_tab" data-bs-toggle="tab" {{ (isset($singleDoctorDetails->id))?'':'disabled'}}>Address</a>
+                                    <a class="nav-link" href="#address_tab" data-bs-toggle="tab"
+                                        {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Address</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#education_tab" data-bs-toggle="tab"  {{ (isset($singleDoctorDetails->id))?'':'disabled'}}>Education</a>
+                                    <a class="nav-link" href="#education_tab" data-bs-toggle="tab"
+                                        {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Education</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#experience_tab" data-bs-toggle="tab"  {{ (isset($singleDoctorDetails->id))?'':'disabled'}}>Experience</a>
+                                    <a class="nav-link" href="#experience_tab" data-bs-toggle="tab"
+                                        {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Experience</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#awards" data-bs-toggle="tab" {{ (isset($singleDoctorDetails->id))?'':'disabled'}}>Awards</a>
+                                    <a class="nav-link" href="#awards" data-bs-toggle="tab"
+                                        {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Awards</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#working_hours_tab" data-bs-toggle="tab"  {{ (isset($singleDoctorDetails->id))?'':'disabled'}}>Working Hours</a>
+                                    <a class="nav-link" href="#working_hours_tab" data-bs-toggle="tab"
+                                        {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Working Hours</a>
                                 </li>
                             </ul>
                         </div>
@@ -111,13 +116,7 @@
                 var servicesArrs = servicesValue.split(',');
             }
 
-            var hospitalIds = jQuery('#doctorhospitalID').text();
-            var doctorAwardsIds = jQuery('#doctorAwardsIds').text();
-            if (doctorAwardsIds.length > 1) {
-                var arraydoctorAwardsIds = JSON.parse(doctorAwardsIds);
-                var awardValue = "" + arraydoctorAwardsIds.join(",") + "";
-                var awardArrs = awardValue.split(',');
-            }
+
 
             $(".flat-picker").flatpickr({
                 enableTime: false,
@@ -157,7 +156,6 @@
                                 'content') // Add CSRF token
                         },
                         success: function(response) {
-                            console.log('hello', response);
                             if (response.status === 'created') {
                                 swal.fire("Done!", response.message, "success");
                                 setTimeout(function() {
@@ -178,7 +176,6 @@
                         error: function(error_messages) {
                             var errors = error_messages.responseJSON;
                             $.each(errors.errors, function(key, value) {
-                                console.log(value);
                                 $('#' + key + '_error').html(value);
                             });
                         }
@@ -230,30 +227,32 @@
                         success: function(response) {
                             if (response.status == 'success') {
                                 swal.fire("Done!", response.message, "success");
-                                $('#education-tab').removeClass('active').attr('aria-selected', 'false');
+                                $('#education-tab').removeClass('active').attr(
+                                    'aria-selected', 'false');
                                 $('#education_tab').removeClass('show active');
 
-                                var tabLink = document.querySelector('a[href="#education_tab"]');
+                                var tabLink = document.querySelector(
+                                    'a[href="#education_tab"]');
                                 if (tabLink) {
                                     tabLink.classList.remove('active');
                                     tabLink.setAttribute('aria-selected', 'false');
                                 }
 
-                                var exTabLink = document.querySelector('a[href="#experience_tab"]');
+                                var exTabLink = document.querySelector(
+                                    'a[href="#experience_tab"]');
                                 exTabLink.classList.add('active');
-                                $('#experience_tab').addClass('active').attr('aria-selected', 'true');
+                                $('#experience_tab').addClass('active').attr(
+                                    'aria-selected', 'true');
                                 $('#experience_tab').addClass('show active');
                             }
                         },
                         error: function(error_messages) {
-                            console.log(error_messages);
                             var errors = error_messages.responseJSON.errors;
                             if (errors) {
                                 // Display validation errors
                                 $.each(errors, function(key, value) {
                                     var id = key.replace(/\./g, '_');
                                     $("#" + id + "_error").html(value[0]);
-                                    console.log("#" + id + "_error")
                                 });
                             }
                         }
@@ -278,7 +277,6 @@
                 },
                 submitHandler: function(form) {
                     var formData = $(form).serialize();
-                    console.log(formData);
                     $.ajax({
                         url: "{{ route('admin.add-doctor-address') }}",
                         type: 'post',
@@ -314,7 +312,6 @@
                                     // var id = key.replace('.', '_')
                                     var id = key.replace(/\./g, '_');
                                     $("#" + id + "_error").html(value[0]);
-                                    console.log("#" + id + "_error")
                                 });
                             }
                         }
@@ -344,7 +341,7 @@
                         data: formData,
                         dataType: 'json',
                         processData: false,
-                        contentType: false, 
+                        contentType: false,
                         success: function(response) {
                             if (response.success == true) {
                                 swal.fire("Done!", response.message, "success");
@@ -368,9 +365,7 @@
                         },
                         error: function(error_messages) {
                             var errors = error_messages.responseJSON;
-                            // console.log(errors)
                             $.each(errors.errors, function(key, value) {
-                                // var id = key.replace('.', '_')
                                 var id = key.replace(/\./g, '_');
                                 $('#' + id + '_error').html(value);
                                 remove_error_div(id)
@@ -399,12 +394,12 @@
                         data: formData,
                         dataType: 'json',
                         processData: false,
-                        contentType: false, 
+                        contentType: false,
                         success: function(response) {
+                            console.log(response.success);
                             if (response.success == true) {
                                 swal.fire("Done!", response.message, "success");
-                                $('#awards').removeClass('active').attr('aria-selected',
-                                    'false');
+                                $('#awards').removeClass('active').attr('aria-selected', 'false');
                                 $('#awards').removeClass('show active');
 
                                 var tabLink = document.querySelector('a[href="#awards"]');
@@ -413,19 +408,19 @@
                                     tabLink.setAttribute('aria-selected', 'false');
                                 }
 
-                                exTabLink = document.querySelector(
-                                    'a[href="#working_hours_tab"]');
+                                var exTabLink = document.querySelector('a[href="#working_hours_tab"]');
                                 exTabLink.classList.add('active');
-                                $('#working_hours_tab').addClass('active').attr(
-                                    'aria-selected', 'true');
+                                $('#working_hours_tab').addClass('active').attr('aria-selected', 'true');
                                 $('#working_hours_tab').addClass('show active');
+                            } else { 
+                                Swal.fire("Error!", "Error deleting experience.", "error");
                             }
+
+
                         },
                         error: function(error_messages) {
                             var errors = error_messages.responseJSON;
-                            // console.log(errors)
                             $.each(errors.errors, function(key, value) {
-                                // var id = key.replace('.', '_')
                                 var id = key.replace(/\./g, '_');
                                 $('#' + id + '_error').html(value);
                                 remove_error_div(id)
@@ -630,27 +625,11 @@
                 }
             });
 
-            jQuery("#award").kendoDropDownList({
-                filter: "contains",
-                dataTextField: "name",
-                dataValueField: "id",
-                dataSource: awardDataSource,
-                value: awardArrs ?? '',
-                noDataTemplate: jQuery("#noAwardTemplate").html()
-            });
 
-            jQuery("#hospital").kendoDropDownList({
-                filter: "startswith",
-                dataTextField: "name",
-                dataValueField: "id",
-                dataSource: hospitalDataSource,
-                value: hospitalIds ?? '',
-                noDataTemplate: jQuery("#noHospitalTemplate").html()
-            });
 
             jQuery("#language").kendoMultiSelect({
                 filter: "contains",
-                dataTextField: "name",
+                dataTextField: "name", 
                 dataValueField: "id",
                 dataSource: languageDataSource,
                 value: arrs ?? '',
@@ -719,30 +698,30 @@
         }
 
         imgInp.onchange = evt => {
-                    const [file] = imgInp.files
-                    if (file) {
-                        blah.src = URL.createObjectURL(file)
-                    }
-}
+            const [file] = imgInp.files
+            if (file) {
+                blah.src = URL.createObjectURL(file)
+            }
+        }
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Function to handle file input change dynamically
-    const handleFileInputChange = () => {
-        const fileInputs = document.querySelectorAll('.certificatesInput');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to handle file input change dynamically
+            const handleFileInputChange = () => {
+                const fileInputs = document.querySelectorAll('.certificatesInput');
 
-        fileInputs.forEach(input => {
-            input.addEventListener('change', function(evt) {
-                const file = this.files[0];
-                const previewId = this.getAttribute('data-preview-id');
-                const previewElement = document.getElementById(previewId);
+                fileInputs.forEach(input => {
+                    input.addEventListener('change', function(evt) {
+                        const file = this.files[0];
+                        const previewId = this.getAttribute('data-preview-id');
+                        const previewElement = document.getElementById(previewId);
 
-                if (file) {
-                    const fileType = file.type;
-                    let previewContent = '';
+                        if (file) {
+                            const fileType = file.type;
+                            let previewContent = '';
 
-                    if (fileType === 'application/pdf') {
-                        // Create object element for PDF preview
-                        previewContent = `
+                            if (fileType === 'application/pdf') {
+                                // Create object element for PDF preview
+                                previewContent = `
                             <object data="${URL.createObjectURL(file)}" type="application/pdf" width="300" height="200">
                                 <p>It appears you don't have a PDF plugin for this browser.
                                     <a href="${URL.createObjectURL(file)}" target="_blank">Click here to download the PDF file.</a>
@@ -750,24 +729,24 @@ document.addEventListener('DOMContentLoaded', function () {
                             </object>
                             <a href="${URL.createObjectURL(file)}" target="_blank" class="btn btn-primary prime-btn">Click to download PDF</a>
                         `;
-                    } else if (fileType.startsWith('image/')) {
-                        // Create img element for image preview
-                        previewContent = `<img src="${URL.createObjectURL(file)}" alt="certificate image" width="300" height="200">`;
-                    }
+                            } else if (fileType.startsWith('image/')) {
+                                // Create img element for image preview
+                                previewContent =
+                                    `<img src="${URL.createObjectURL(file)}" alt="certificate image" width="300" height="200">`;
+                            }
 
-                    // Update the preview element with the new content
-                    previewElement.innerHTML = previewContent;
-                    console.log(`File uploaded for ${this.id} and displayed in ${previewId}`);
-                }
-            });
+                            // Update the preview element with the new content
+                            previewElement.innerHTML = previewContent;
+                            console.log(
+                                `File uploaded for ${this.id} and displayed in ${previewId}`
+                                );
+                        }
+                    });
+                });
+            };
+
+            // Call the function to set up event listeners
+            handleFileInputChange();
         });
-    };
-
-    // Call the function to set up event listeners
-    handleFileInputChange();
-});
-
-
-
     </script>
 @endsection

@@ -64,7 +64,7 @@
                                                     <span class="text-danger" id="experience_{{$key}}_hospital_error"></span>
                                         </div>
                                     </div>
-
+                                    <input type="hidden"  name="experience[{{ $key }}][id]" value= {{ $singleExperiencesDetails->id ?? ' ' }}>
                                     <div class="col-md-4">
                                         <div class="form-wrap">
                                             <label class="col-form-label">Location <span

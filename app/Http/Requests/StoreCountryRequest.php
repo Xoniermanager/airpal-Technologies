@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCountryRequest extends FormRequest
@@ -22,7 +23,11 @@ class StoreCountryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'          =>  ['required','string','unique:countries'],
+            'name' => [
+                'required',
+                'string',
+                Rule::unique('countries')->ignore($this->country_id),
+            ],
         ];
     }
 }

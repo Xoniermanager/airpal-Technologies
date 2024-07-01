@@ -6,6 +6,7 @@
                     <th>#</th>
                     <th>name</th>
                     <th>description</th>
+                    <th>created_at</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -15,7 +16,7 @@
                     <td>{{ $faqs['id'] }}</td>
                     <td>{{ $faqs['name'] }}</td>
                     <td>{{ $faqs['description'] }}</td>
-   
+                    <td>{{ $faqs['created_at']->format('d/m/Y') }}</td>
                     <td>
                         <div class="actions">
                             <a class="btn btn-sm bg-success-light" data-id ="{{$faqs['name']}}" data-bs-toggle="modal"href="#edit_faqs" onclick="edit_faqs('{{ $faqs['id'] }}','{{ $faqs['name']}}','{{ $faqs['description'] }}')">

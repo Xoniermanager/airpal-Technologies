@@ -126,7 +126,7 @@
 <td>
 <h2 class="table-avatar">
 <a href="{{ route('patients.patient-dependant.index') }}" class="avatar avatar-sm me-2">
-<img class="avatar-img rounded-3" src="../assets/img/doctors-dashboard/profile-06.jpg" alt="User Image">
+<img class="avatar-img rounded-3" src="../assets/img/doctors-dashboard/profile-06.jpg" alt="">
 </a>
 <a href="{{ route('patients.patient-dependant.index') }}">Hendrita Kearns</a>
 </h2>

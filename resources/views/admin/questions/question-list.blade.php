@@ -25,7 +25,7 @@
                         <td>
                             <div class="actions">
                                 <a class="btn btn-sm bg-success-light" data-id ="{{ $question['name'] }}"
-                                    data-bs-toggle="modal"href="#edit_question"
+                                    data-bs-toggle="modal" href="#edit_question"
                                     onclick="edit_question('{{ $question }}')">
                                     <i class="fe fe-pencil"></i> Edit
                                 </a>

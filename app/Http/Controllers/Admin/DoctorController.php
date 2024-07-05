@@ -66,16 +66,14 @@ class DoctorController extends Controller
 
         try {
                 $userData = $request->validated();
-
-                $userEmail = $userData['email'];
-                $user = $this->user_services->updateOrCreateDoctor($userEmail, $userData);
+                $user = $this->user_services->updateOrCreateDoctor($userData);
 
                 if ($user) {
                     $userId = json_decode($user->content())->id;
-                    $languagesAdded    = $this->doctor_language_services->addOrUpdateDoctorLanguage($userId, $request->name);
-                    $specialitiesAdded = $this->doctor_speciality_services->addOrUpdateDoctorSpecialities($userId, $request->specialities);
-                    $servicesAdded     = $this->doctor_service_add_services->addOrUpdateDoctorServices($userId, $request->services);
-                    if ($languagesAdded && $specialitiesAdded && $servicesAdded) {
+                    $addedLanguages    = $this->doctor_language_services->addOrUpdateDoctorLanguage($userId, $request->languages);
+                    $addedSpecialties  = $this->doctor_speciality_services->addOrUpdateDoctorSpecialities($userId, $request->specialities);
+                    $addedServices     = $this->doctor_service_add_services->addOrUpdateDoctorServices($userId, $request->services);
+                    if ($addedLanguages && $addedSpecialties && $addedServices) {
                         return  json_decode($user->content());
                     } else {
                         return 0;

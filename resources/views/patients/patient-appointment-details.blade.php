@@ -48,7 +48,7 @@
 <li>
 <div class="patinet-information">
 <a href="#">
-<img src="../assets/img/doctors-dashboard/doctor-profile-img.jpg" alt="User Image">
+<img src="../assets/img/doctors-dashboard/doctor-profile-img.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0001</p>
@@ -118,7 +118,7 @@
 <li>
 <div class="patinet-information">
 <a href="#">
-<img src="../assets/img/doctors-dashboard/doctor-profile-img.jpg" alt="User Image">
+<img src="../assets/img/doctors-dashboard/doctor-profile-img.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0001</p>
@@ -185,7 +185,7 @@
 <li>
 <div class="patinet-information">
 <a href="#">
-<img src="../assets/img/doctors-dashboard/doctor-profile-img.jpg" alt="User Image">
+<img src="../assets/img/doctors-dashboard/doctor-profile-img.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0001</p>
@@ -251,7 +251,7 @@
 <li>
 <div class="patinet-information">
 <a href="#">
-<img src="../assets/img/doctors/doctor-15.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-15.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0002</p>
@@ -288,7 +288,7 @@
 <li>
 <div class="patinet-information">
 <a href="#">
-<img src="../assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-02.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0003</p>

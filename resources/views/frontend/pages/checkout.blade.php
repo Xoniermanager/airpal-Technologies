@@ -93,7 +93,7 @@
 
 <div class="booking-doc-info">
 <a href="#" class="booking-doc-img">
-<img src="{{URL::asset('assets/img/doctors/doctor-thumb-02.jpg')}}" alt="User Image">
+<img src="{{URL::asset('assets/img/doctors/doctor-thumb-02.jpg')}}" alt="">
 </a>
 <div class="booking-info">
 <h4><a href="#">Dr. Darren Elder</a></h4>

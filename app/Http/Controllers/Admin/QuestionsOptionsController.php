@@ -92,13 +92,9 @@ class QuestionsOptionsController extends Controller
 
   public function destroy(Request $request)
   {
-
     if ($this->questionOptionServices->destroy($request->id)) {
       return response()->json([
-        'message'  =>  'Delete Successfully!',
-        'data'     =>  view('admin.questions.options-list', [
-          'allQuestionOptions' =>  $this->questionOptionServices->all()
-        ])->render()
+        'message'  =>  'Delete Successfully!'
       ]);
     }
   }

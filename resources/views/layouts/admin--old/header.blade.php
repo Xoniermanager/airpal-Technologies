@@ -35,7 +35,7 @@
                 <img src="{{asset('assets/img/logo.png')}}" alt="Logo">
             </a>
             <a href="{{ route('admin.dashboard.index') }}" class="logo logo-small">
-                <img src="{{asset('assets/img/logo-small.png')}}" alt="Logo" width="30" height="30">
+                <img src="{{asset('assets/img/favicon.png')}}" alt="Logo" width="30" height="30">
             </a>
         </div>
         
@@ -71,7 +71,7 @@
                                 <a href="#">
                                     <div class="notify-block d-flex">
                                         <span class="avatar avatar-sm flex-shrink-0">
-                                            <img class="avatar-img rounded-circle" alt="User Image"
+                                            <img class="avatar-img rounded-circle" alt=""
                                                 src="{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}">
                                         </span>
                                         <div class="media-body flex-grow-1">
@@ -87,7 +87,7 @@
                                 <a href="#">
                                     <div class="notify-block d-flex">
                                         <span class="avatar avatar-sm flex-shrink-0">
-                                            <img class="avatar-img rounded-circle" alt="User Image"
+                                            <img class="avatar-img rounded-circle" alt=""
                                                 src="{{asset('assets/img/patients/patient1.jpg')}}">
                                         </span>
                                         <div class="media-body flex-grow-1">
@@ -104,7 +104,7 @@
                                 <a href="#">
                                     <div class="notify-block d-flex">
                                         <span class="avatar avatar-sm flex-shrink-0">
-                                            <img class="avatar-img rounded-circle" alt="User Image"
+                                            <img class="avatar-img rounded-circle" alt=""
                                                 src="{{asset('assets/img/patients/patient2.jpg')}}">
                                         </span>
                                         <div class="media-body flex-grow-1">
@@ -121,7 +121,7 @@
                                 <a href="#">
                                     <div class="notify-block d-flex">
                                         <span class="avatar avatar-sm flex-shrink-0">
-                                            <img class="avatar-img rounded-circle" alt="User Image"
+                                            <img class="avatar-img rounded-circle" alt=""
                                                 src="assets/img/patients/patient3.jpg">
                                         </span>
                                         <div class="media-body flex-grow-1">
@@ -150,7 +150,7 @@
                 <div class="dropdown-menu">
                     <div class="user-header">
                         <div class="avatar avatar-sm">
-                            <img src="assets/img/profiles/avatar-01.jpg" alt="User Image"
+                            <img src="assets/img/profiles/avatar-01.jpg" alt=""
                                 class="avatar-img rounded-circle">
                         </div>
                         <div class="user-text">

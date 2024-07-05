@@ -146,7 +146,7 @@
                 <div class="doctor-widget">
                 <div class="doc-info-left">
                 <div class="doctor-img1">
-                <img src="{{URL::asset('assets/img/service/apps.webp')}}" class="img-fluid" alt="User Image">
+                <img src="{{URL::asset('assets/img/service/apps.webp')}}" class="img-fluid" alt="">
                 </div>
                 <div class="doc-info-cont product-cont">
                 <h4 class="doc-name mb-2">Health Monitoring Device</h4>

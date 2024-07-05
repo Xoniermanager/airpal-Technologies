@@ -32,7 +32,7 @@
 <div class="doctor-widget">
 <div class="doc-info-left">
 <div class="doctor-img">
-<img src="{{URL::asset('assets/img/doctors/doctor-thumb-02.jpg')}}" class="img-fluid" alt="User Image">
+<img src="{{URL::asset('assets/img/doctors/doctor-thumb-02.jpg')}}" class="img-fluid" alt="">
 </div>
 <div class="doc-info-cont">
 <h4 class="doc-name">Dr. Darren Elder</h4>
@@ -391,7 +391,7 @@ $350
 
 <li>
 <div class="comment">
-<img class="avatar avatar-sm rounded-circle" alt="User Image" src="{{URL::asset('assets/img/patients/patient.jpg')}}">
+<img class="avatar avatar-sm rounded-circle" alt="" src="{{URL::asset('assets/img/patients/patient.jpg')}}">
 <div class="comment-body">
 <div class="meta-data">
 <span class="comment-author">Richard Wilson</span>
@@ -431,7 +431,7 @@ Curabitur non nulla sit amet nisl tempus
 <ul class="comments-reply">
 <li>
 <div class="comment">
-<img class="avatar avatar-sm rounded-circle" alt="User Image" src="{{URL::asset('assets/img/patients/patient1.jpg')}}">
+<img class="avatar avatar-sm rounded-circle" alt="" src="{{URL::asset('assets/img/patients/patient1.jpg')}}">
 <div class="comment-body">
 <div class="meta-data">
 <span class="comment-author">Charlene Reed</span>
@@ -474,7 +474,7 @@ Curabitur non nulla sit amet nisl tempus
 
 <li>
 <div class="comment">
-<img class="avatar avatar-sm rounded-circle" alt="User Image" src="{{URL::asset('assets/img/patients/patient2.jpg')}}">
+<img class="avatar avatar-sm rounded-circle" alt="" src="{{URL::asset('assets/img/patients/patient2.jpg')}}">
 <div class="comment-body">
 <div class="meta-data">
 <span class="comment-author">Travis Trimble</span>

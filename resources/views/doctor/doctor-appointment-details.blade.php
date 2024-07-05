@@ -51,7 +51,7 @@
                                         <div class="patinet-information">
                                             <a href="#">
                                                 <img src="../assets/img/doctors-dashboard/profile-02.jpg"
-                                                    alt="User Image">
+                                                    alt="">
                                             </a>
                                             <div class="patient-info">
                                                 <p>#Apt0001</p>
@@ -128,7 +128,7 @@
                                         <div class="patinet-information">
                                             <a href="#">
                                                 <img src="../assets/img/doctors-dashboard/profile-02.jpg"
-                                                    alt="User Image">
+                                                    alt="">
                                             </a>
                                             <div class="patient-info">
                                                 <p>#Apt0001</p>
@@ -205,7 +205,7 @@
                                         <div class="patinet-information">
                                             <a href="#">
                                                 <img src="../assets/img/doctors-dashboard/profile-02.jpg"
-                                                    alt="User Image">
+                                                    alt="">
                                             </a>
                                             <div class="patient-info">
                                                 <p>#Apt0001</p>
@@ -279,7 +279,7 @@
                                             <div class="patinet-information">
                                                 <a href="#">
                                                     <img src="../assets/img/doctors-dashboard/profile-01.jpg"
-                                                        alt="User Image">
+                                                        alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0001</p>
@@ -321,7 +321,7 @@
                                             <div class="patinet-information">
                                                 <a href="#">
                                                     <img src="../assets/img/doctors-dashboard/profile-03.jpg"
-                                                        alt="User Image">
+                                                        alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0003</p>

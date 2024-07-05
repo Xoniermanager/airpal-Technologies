@@ -16,9 +16,9 @@ class LanguageController extends Controller
     public function store(Request $request)
     {
         $data =  json_decode($request->all()['models'])[0];
-        Language::create([
+        return Language::create([
             'name'=> $data->name
         ]);
-        return Language::all();
+         
     }
 }

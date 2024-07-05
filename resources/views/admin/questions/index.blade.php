@@ -45,50 +45,37 @@
                                 <div class="col-6 col-sm-6">
                                     <div class="mb-3">
                                         <label class="mb-2">Doctor</label>
-                                        <div >
+                                        <div>
                                             <select class="form-control select" name="doctor">
-                                            <option value="">Select Doctor</option>
-                                            @forelse ($doctors as  $doctor)
-                                            <option value="{{ $doctor->id }}">{{ $doctor->fullName }}</option>
-                                            @empty
-                                            <option>Not found</option>  
-                                            @endforelse
+                                                <option value="">Select Doctor</option>
+                                                @forelse ($doctors as  $doctor)
+                                                    <option value="{{ $doctor->id }}">{{ $doctor->fullName }}</option>
+                                                @empty
+                                                    <option>Not found</option>
+                                                @endforelse
                                             </select>
-                                            </div>
+                                        </div>
                                         <span class="text-danger" id="doctor-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-6 col-sm-6">
                                     <div class="mb-3">
                                         <label class="mb-2">Specialty</label>
-                                        <div >
-                                            <select class="form-control select"  name="specialty">
+                                        <div>
+                                            <select class="form-control select" name="specialty">
                                                 <option value="">Select Specialty</option>
                                                 @forelse ($specialties as $specialty)
-                                                <option value="{{$specialty->id}}">{{$specialty->name}}</option>  
+                                                    <option value="{{ $specialty->id }}">{{ $specialty->name }}</option>
                                                 @empty
-                                                <option>Not found</option>  
+                                                    <option>Not found</option>
                                                 @endforelse
-                            
+
                                             </select>
-                                            </div>
+                                        </div>
                                         <span class="text-danger" id="specialty-error"></span>
 
                                     </div>
                                 </div>
-                                <div class="col-12 col-sm-12">
-                                    <div class="mb-3" id="answer-type-div">
-                                        <label class="mb-2">Answer Type</label>
-                                        <select class="form-control select" name="answer_type">
-                                            <option value="">Select Answer Type</option>
-                                            <option>text</option>  
-                                            <option>optional</option> 
-                                            <option>multiple</option>  
-                                        </select>
-                                        <span class="text-danger" id="anser-type-error"></span>
-                                    </div>
-                                </div>
-
                                 <div class="col-12 col-sm-12">
                                     <div class="mb-3" id="question-div">
                                         <label class="mb-2">Question</label>
@@ -97,8 +84,42 @@
                                     </div>
                                 </div>
 
+                                <div class="col-12 col-sm-12">
+                                    <div class="mb-3" id="answer-type-div">
+                                        <label class="mb-2">Answer Type</label>
+                                        <select class="form-control select answer_type" name="answer_type">
+                                            <option value="">Select Answer Type</option>
+                                            <option value="text">text</option>
+                                            <option value="optional">optional</option>
+                                            <option value="multiple">multiple</option>
+                                        </select>
+                                        <span class="text-danger" id="anser-type-error"></span>
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="text box">
+                                    <div class="col-12 col-sm-12">
+                                        <div class="mb-3" id="question-div">
+                                            <label class="mb-2">Answer</label>
+                                            {{-- <textarea type="text" name="answer" class="form-control" id="answer"></textarea> --}}
+                                            <span class="text-danger" id="answer-error"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="optional box">
+                                    <a class="btn btn-primary btn-sm addMoreBtn" onclick="add_options()"><i
+                                            class="fa fa-plus fs-5"></i> Add Option</a>
+                                </div>
+                                <div class="multiple box">
+                                    <a class="btn btn-primary btn-sm addMoreBtn" onclick="add_options()"><i
+                                        class="fa fa-plus fs-5"></i> Add Option</a>
+                                </div>
+                                <div>        
+                                <div class="addMoreOptionsEdit">
+                                </div></div>
+                                <button type="submit" class="btn btn-primary w-100">Save</button>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">Save</button>
                         </form>
                     </div>
                 </div>
@@ -122,47 +143,35 @@
                                 <div class="col-6 col-sm-6">
                                     <div class="mb-3">
                                         <label class="mb-2">Doctor</label>
-                                        <div >
+                                        <div>
                                             <select class="form-control select" name="doctor" id="doctor">
-                                            <option value="">Select Doctor</option>
-                                            @forelse ($doctors as  $doctor)
-                                            <option value="{{ $doctor->id }}">{{ $doctor->fullName }}</option>
-                                            @empty
-                                            <option>Not found</option>  
-                                            @endforelse
+                                                <option value="">Select Doctor</option>
+                                                @forelse ($doctors as  $doctor)
+                                                    <option value="{{ $doctor->id }}">{{ $doctor->fullName }}</option>
+                                                @empty
+                                                    <option>Not found</option>
+                                                @endforelse
                                             </select>
-                                            </div>
+                                        </div>
                                         <span class="text-danger" id="doctor-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-6 col-sm-6">
                                     <div class="mb-3">
                                         <label class="mb-2">Specialty</label>
-                                        <div >
-                                            <select class="form-control select"  name="specialty" id="specialty">
+                                        <div>
+                                            <select class="form-control select" name="specialty" id="specialty">
                                                 <option value="">Select Specialty</option>
                                                 @forelse ($specialties as $specialty)
-                                                <option value="{{$specialty->id}}">{{$specialty->name}}</option>  
+                                                    <option value="{{ $specialty->id }}">{{ $specialty->name }}</option>
                                                 @empty
-                                                <option>Not found</option>  
+                                                    <option>Not found</option>
                                                 @endforelse
-                            
+
                                             </select>
-                                            </div>
+                                        </div>
                                         <span class="text-danger" id="specialty-error"></span>
 
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-12">
-                                    <div class="mb-3" id="answer-type-div">
-                                        <label class="mb-2">Answer Type</label>
-                                        <select class="form-control select" name="answer_type" id="answer_type">
-                                            <option value="">Select Answer Type</option>
-                                            <option>text</option>  
-                                            <option>optional</option> 
-                                            <option>multiple</option>  
-                                        </select>
-                                        <span class="text-danger" id="anser-type-error"></span>
                                     </div>
                                 </div>
 
@@ -172,6 +181,41 @@
                                         <textarea type="text" name="questions" class="form-control" id="questions"></textarea>
                                         <span class="text-danger" id="questions-error"></span>
                                     </div>
+                                </div>
+
+                                <div class="col-12 col-sm-12">
+                                    <div class="mb-3" id="answer-type-div">
+                                        <label class="mb-2">Answer Type</label>
+                                        <select class="form-control select answer_type" name="answer_type">
+                                            <option value="">Select Answer Type</option>
+                                            <option value="text">text</option>
+                                            <option value="optional">optional</option>
+                                            <option value="multiple">multiple</option>
+                                        </select>
+                                        <span class="text-danger" id="anser-type-error"></span>
+                                    </div>
+                                </div>
+
+                                <div class="text box">
+                                    <div class="col-12 col-sm-12">
+                                        <div class="mb-3" id="question-div">
+                                            <label class="mb-2">Answer</label>
+                                            {{-- <textarea type="text" name="answer" class="form-control" id="answer"></textarea> --}}
+                                            <span class="text-danger" id="questions-error"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="optional box">
+                                    <a class="btn btn-primary btn-sm addMoreBtn" onclick="add_options()"><i
+                                            class="fa fa-plus fs-5"></i> Add Option</a>
+                                </div>
+                                <div class="multiple box">
+                                    <a class="btn btn-primary btn-sm addMoreBtn"
+                                        onclick="add_options()"><i class="fa fa-plus fs-5"></i> Add Option
+                                    </a>
+                                </div>
+                                <div>
+                                    <div class="addMoreOptionsEdit"></div>
                                 </div>
 
                             </div>
@@ -209,70 +253,67 @@
 @section('javascript')
     <script>
         $(document).ready(function() {
-            jQuery("#addQuestionForm").validate({
+            $(".answer_type").change(function() {
+                $(this).find("option:selected").each(function() {
+                    var optionValue = $(this).attr("value");
+                    if (optionValue) {
+                        $(".box").not("." + optionValue).hide();
+                        $("." + optionValue).show();
+                    } else {
+                        $(".box").hide();
+                    }
+                });
+            }).change();
+
+            $("#addQuestionForm").validate({
                 rules: {
-                    doctor   : "required",
+                    doctor: "required",
                     specialty: "required",
-                    answer_type : "required",
-                    questions    : "required",
+                    answer_type: "required",
+                    questions: "required",
                 },
                 messages: {
-                    doctor: "Please select doctor!",
-                    specialty: "Please select specialty!",
-                    answer_type: "Please select answer type!",
-                    questions: "Please enter question question!",
+                    doctor: "Please select a doctor!",
+                    specialty: "Please select a specialty!",
+                    answer_type: "Please select an answer type!",
+                    questions: "Please enter a question!",
                 },
                 submitHandler: function(form) {
                     var formData = $(form).serialize();
                     $.ajax({
-                        url: "<?= route('admin.add.questions') ?>",
+                        url: "{{ route('admin.add.questions') }}",
                         type: 'post',
                         data: formData,
                         success: function(response) {
                             swal.fire("Done!", response.message, "success");
-                            jQuery('#add_question').modal('hide');
+                            $('#add_question').modal('hide');
                             $('#addQuestionForm')[0].reset();
-                            jQuery('#question_list').replaceWith(response.data);
+                            $('#question_list').replaceWith(response.data);
                         },
                         error: function(error_messages) {
-                            let errors = JSON.parse(error_messages.responseText).errors;
-                            let randon_number = Math.floor((Math.random() * 100)+1);
-                            for (var error_key in errors) {
-                                random_id = error_key + '_' + randon_number
-                                jQuery('.' + error_key + '_error').remove();
-                                jQuery(document).find('#add_question [name=' + error_key + ']')
-                                    .after(
-                                        '<span id="' + random_id +
-                                        '_error" class="text text-danger '+ error_key +'_error">' + errors[
-                                            error_key] + '</span>');
-                                remove_error_div(random_id);
-                            }
+                            var errors = error_messages.responseJSON;
+                            $.each(errors.errors, function(key, value) {
+                                var id = key.replace(/\./g, '_');
+                                $('#' + id + '_error').html(value);
+                                remove_error_div(id);
+                            });
                         }
                     });
                 }
             });
 
-            /* Remove server erorr messge div */
-            function remove_error_div(error_ele_id) 
-            {
-                setTimeout(function() {
-                    jQuery("#" + error_ele_id + "_error").remove();
-                }, 5000);
-            }
-
-
-            jQuery("#editQuestionForm").validate({
+            $("#editQuestionForm").validate({
                 rules: {
-                    doctor   : "required",
+                    doctor: "required",
                     specialty: "required",
-                    answer_type : "required",
-                    questions    : "required",
+                    answer_type: "required",
+                    questions: "required",
                 },
                 messages: {
-                    doctor: "Please select doctor!",
-                    specialty: "Please select specialty!",
-                    answer_type: "Please select answer type!",
-                    questions: "Please enter question question!",
+                    doctor: "Please select a doctor!",
+                    specialty: "Please select a specialty!",
+                    answer_type: "Please select an answer type!",
+                    questions: "Please enter a question!",
                 },
                 submitHandler: function(form) {
                     var formData = $(form).serialize();
@@ -282,20 +323,20 @@
                         data: formData,
                         success: function(response) {
                             swal.fire("Done!", response.message, "success");
-                            jQuery('#edit_question').modal('hide');
-                            jQuery('#question_list').replaceWith(response.data);
+                            $('#edit_question').modal('hide');
+                            $('#question_list').replaceWith(response.data);
                         },
                         error: function(error_messages) {
                             let errors = JSON.parse(error_messages.responseText).errors;
-                            let randon_number = Math.floor((Math.random() * 100)+1);
+                            let random_number = Math.floor((Math.random() * 100) + 1);
                             for (var error_key in errors) {
-                                random_id = error_key + '_' + randon_number
-                                jQuery('.' + error_key + '_error').remove();
-                                $(document).find('#edit_question [name=' + error_key + ']').after(
-                                    '<span id="' + random_id +
-                                    '_error" class="text text-danger ' + error_key + '_error">' + errors[
-                                        error_key] + '</span>');
-                                    remove_error_div(random_id);
+                                var random_id = error_key + '_' + random_number;
+                                $('.' + error_key + '_error').remove();
+                                $('#edit_question [name=' + error_key + ']')
+                                    .after('<span id="' + random_id +
+                                        '_error" class="text text-danger ' + error_key +
+                                        '_error">' + errors[error_key] + '</span>');
+                                remove_error_div(random_id);
                             }
                         }
                     });
@@ -303,47 +344,181 @@
             });
 
             $(document).on('click', '.delete-question', function() {
-                const id = $(this).attr('data-id');
+                var id = $(this).attr('data-id');
                 $("#delete-question-id").val(id);
             });
 
-
             $(document).on('click', '.confirm-delete', function(e) {
-                    e.preventDefault();
-                    const id = $("#delete-question-id").val();
-                    if (id != '') {
-                        $.ajax({
-                            method:'post',
-                            type: 'delete',
-                            data : {'_token':'{{ csrf_token() }}','id':id},
-                            url: "{{ route('admin.delete-questions') }}",
-                            success: function(response) {
-                                swal.fire("Done!", response.message, "success");
-                                jQuery('#delete-question').modal('hide');
-                                jQuery('#question_list').replaceWith(response.data);
-                            }
-                        });
-                    }
-                });
-
-
-            $(document).on('click', '.close-form-add', function() {
-                $('#addCountryForm')[0].reset();
+                e.preventDefault();
+                var id = $("#delete-question-id").val();
+                if (id != '') {
+                    $.ajax({
+                        method: 'post',
+                        type: 'delete',
+                        data: {
+                            '_token': '{{ csrf_token() }}',
+                            'id': id
+                        },
+                        url: "{{ route('admin.delete-questions') }}",
+                        success: function(response) {
+                            swal.fire("Done!", response.message, "success");
+                            $('#delete-question').modal('hide');
+                            $('#question_list').replaceWith(response.data);
+                        }
+                    });
+                }
             });
 
-        }); // ready function end
+            $(document).on('click', '.close-form-add', function() {
+                $('#editQuestionForm')[0].reset();
+                $('#addQuestionForm')[0].reset();
+            });
 
-        function edit_question(doctorQuestionDetails) {
-          var doctorQuestionDetails = JSON.parse(doctorQuestionDetails);
-          console.log(doctorQuestionDetails);
-            $('#id').val(doctorQuestionDetails.id);
-            $('#doctor').val(doctorQuestionDetails.doctor_id);
-            $('#specialty').val(doctorQuestionDetails.specialty_id);
-            $('#answer_type').val(doctorQuestionDetails.answer_type);
-            $('#questions').val(doctorQuestionDetails.questions);
+            // Function to remove server error message div after 5 seconds
+            function remove_error_div(error_ele_id) {
+                setTimeout(function() {
+                    $("#" + error_ele_id + "_error").html('');
+                }, 5000);
+            }
+        });
+
+        // Global counter for dynamically adding options
+        var counter = 0;
+
+
+function edit_question(doctorQuestionDetails) {
+    var doctorQuestionDetails = JSON.parse(doctorQuestionDetails);
+    console.log(doctorQuestionDetails);
+    $('.addMoreOptionsEdit').empty();
+    $('#id').val(doctorQuestionDetails.id);
+    $('#doctor').val(doctorQuestionDetails.doctor_id);
+    $('#specialty').val(doctorQuestionDetails.specialty_id);
+    $('.answer_type').val(doctorQuestionDetails.answer_type);
+    $('#questions').val(doctorQuestionDetails.questions);
+
+    // Reset counter
+    counter = 0;
+
+    doctorQuestionDetails.options.forEach(function(option, index) {
+        var options_html =
+            '<div class="option-details"><div class="row panel panel-body"><div class="col-md-6 form-group"><label for="">Answers ' +
+            (index + 1) +
+            '</label><input class="form-control" type="text" name="options[' +
+            index +
+            '][value]" value="' + option.options + '" ><span class="text-danger" id="options_' + index +
+            '_value_error"></span><div><input type="hidden" name="options[' + index +
+            '][option_id]" value="' + option.id + '"></div></div><div class="col-md-2 form-group mt-4"><a onclick="remove_options(this, ' + option.id + ')" class="btn btn-danger btn-sm float-right"> <i class="fa fa-minus"></i></a></div></div></div>';
+        
+        $('.addMoreOptionsEdit').append(options_html);
+        counter = index + 1; // Update counter to the latest index
+    });
+    
+    $(".optional").show();
+}
+
+
+        // Function to handle adding options dynamically
+        function add_options() {
+            var options_html =
+                '<div class="option-details"><div class="row panel panel-body"><div class="col-md-6 form-group"><label for="">Answers ' +
+                (counter + 1) +
+                '</label><input class="form-control" type="text" name="options[' +
+                counter +
+                '][value]"><span class="text-danger" id="options_' + counter +
+                '_options_error"></span></div><div class="col-md-2 form-group mt-4"><a onclick="remove_options(this)" class="btn btn-danger btn-sm float-right"> <i class="fa fa-minus"></i></a></div></div></div>';
+            $('.addMoreOptionsEdit').append(options_html);
+            counter += 1;
+            if (counter >= 4) {
+                $('.addMoreBtn').addClass('disabled');
+            }
+        }
+
+
+function remove_options(this_ele, id) {
+    console.log(id);
+
+    if (id != null) {
+        event.preventDefault();
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: 'http://127.0.0.1:8000/admin/questions-options/delete',
+                    type: "post",
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'id': id
+                    },
+                    success: function(res) {
+                        Swal.fire("Done!", "It was successfully deleted!", "success");
+                        $(this_ele).closest('.option-details').remove();
+                        reindex_options();
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        Swal.fire("Error deleting!", "Please try again", "error");
+                    }
+                });
+            }
+        });
+    } else {
+        $(this_ele).closest('.option-details').remove();
+        reindex_options();
     }
+}
+
+function reindex_options() {
+    $('.option-details').each(function(index, element) {
+        console.log(index);
+        var newIndex = index + 1; // Calculate the new index starting from 1
+
+        // Update label
+        $(element).find('label').text('Answers ' + newIndex);
+
+        // Update input names
+        $(element).find('input[type="text"]').attr('name', 'options[' + index + '][value]');
+        $(element).find('span').attr('id', 'options_' + index + '_value_error');
+        $(element).find('input[type="hidden"]').attr('name', 'options[' + index + '][option_id]');
+    });
+
+    // Update counter to the number of options
+    counter = $('.option-details').length;
+
+    // Enable or disable "Add More" button based on the number of options
+    if (counter >= 4) {
+        $('.addMoreBtn').addClass('disabled');
+    } else {
+        $('.addMoreBtn').removeClass('disabled');
+    }
+}
 
 
+
+        // // Function to handle removing options dynamically
+        // function remove_options(this_ele) {
+        //     $(this_ele).closest('.option-details').remove();
+        //     counter -= 1;
+        //     if (counter < 4) {
+        //         $('.addMoreBtn').removeClass('disabled');
+        //     }
+        // }
     </script>
 @endsection
 
+
+
+
+<style>
+    .box {
+        color: #fff;
+        padding: 20px;
+        display: none;
+        margin-top: 20px;
+    }
+</style>

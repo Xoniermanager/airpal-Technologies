@@ -45871,3 +45871,193 @@ select {
 i.fas.fa-map-marker-alt {
 color: blue;
 }
+
+
+fs-40 {
+  font-size: 40px;
+}
+.border-radius50px {
+  border-radius: 50px;
+}
+.title-text {
+    background: #DDF6FA;
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+.doctors-sidebar .form-widget {
+  position: relative;
+  display: block;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.appointment-section .title-box {
+  position: relative;
+  display: block;
+  padding: 30px 40px 28px 40px;
+}
+.appointment-section .title-box {
+  background: #009786;
+}
+.appointment-section .title-box h3 {
+  font-size: 26px;
+  line-height: 32px;
+  color: #fff;
+  font-weight: 700;
+  margin: 0px;
+}
+.doctors-sidebar .form-widget .appointment-time {
+  position: relative;
+}
+ button#button1 {
+  display: inline-block;
+  font-weight: 400;
+  color: #fff;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background: #000;
+  border: 1px solid transparent;
+  padding: 7px 20px;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  width:49%;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+ button#button2 {
+  display: inline-block;
+  font-weight: 400;
+  color: #fff;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background: #004CD4;
+  border: 1px solid transparent;
+  padding: 7px 20px;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  width:49%;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+#myDIV {
+  display: none;
+  transition: visibility 0s, opacity 0.5s linear;
+ }
+ .hidden {
+  display: none;
+}
+#content2 {
+  position: absolute;
+  top: 0;
+  background: #fff;
+  margin: auto;
+  width: 100%;
+  padding-left: 15px;
+  z-index: 9;
+  padding: 100px 0;
+}
+.hidden-content {
+  display: none;
+}
+.calendar {
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+button#prevBtn {
+  border: none;
+  outline: none;
+}
+button#nextBtn {
+  border: none;
+  outline: none;
+}
+h1#monthYear {
+  font-size: 20px;
+}
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 0px;
+    background-color: #F2F2F2;
+}
+.day {
+  padding: 5px;
+  font-weight: bold;
+}
+.dates {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: 50px 50px 50px 50px 50px;
+}
+.date {
+  padding: 5px;
+  cursor: pointer;
+    border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc; /* Add this line */
+  border-bottom: 1px solid #ccc; /* Add this line */
+    border-top: 1px solid #ccc;
+      display: flex; /* Add this line */
+  align-items: flex-start; /* Add this line */
+  justify-content: flex-start; /* Add this line */
+    position: relative; /* Add this line */
+}
+.date:hover {
+  background-color: #F2F2F2;
+}
+.current-month {
+  font-weight: bold;
+  background: #F2F2F2;
+}
+.event {
+  background-color: #F2F2F2;
+  color: black;
+  padding: 20px 5px 60px 5px;
+  border-radius: 3px;
+  font-size: 22px;
+  cursor: pointer;
+  align-content: center;
+}
+.has-event::after {
+  content: '\2022'; /* Unicode for a bullet point */
+  color: #FF5733; /* Choose a color for the indicator */
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+.area {
+    width: 100%
+}
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  background-position-y: 5px;
+  border: 1px solid #DFDFDF;
+  border-radius: 2px;
+  margin-right: 2rem;
+  padding: 1rem;
+  padding-right: 2rem;
+}

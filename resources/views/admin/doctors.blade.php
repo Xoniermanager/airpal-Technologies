@@ -37,10 +37,10 @@
                                             <tr>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                                                        <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/doctors/doctor-thumb-01.jpg"
-                                                                alt="User Image"></a>
+                                                                alt=""></a>
                                                         <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dr. Ruby Perrin</a>
                                                     </h2>
                                                 </td>
@@ -57,10 +57,10 @@
                                             <tr>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                                                        <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/doctors/doctor-thumb-02.jpg"
-                                                                alt="User Image"></a>
+                                                                alt=""></a>
                                                         <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dr. Darren Elder</a>
                                                     </h2>
                                                 </td>
@@ -77,10 +77,10 @@
                                             <tr>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                                                        <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/doctors/doctor-thumb-03.jpg"
-                                                                alt="User Image"></a>
+                                                                alt=""></a>
                                                         <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dr. Deborah Angel</a>
                                                     </h2>
                                                 </td>
@@ -97,10 +97,10 @@
                                             <tr>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                                                        <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/doctors/doctor-thumb-04.jpg"
-                                                                alt="User Image"></a>
+                                                                alt=""></a>
                                                         <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dr. Sofia Brient</a>
                                                     </h2>
                                                 </td>
@@ -117,10 +117,10 @@
                                             <tr>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                                                        <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/doctors/doctor-thumb-05.jpg"
-                                                                alt="User Image"></a>
+                                                                alt=""></a>
                                                         <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dr. Marvin Campbell</a>
                                                     </h2>
                                                 </td>
@@ -137,10 +137,10 @@
                                             <tr>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                                                        <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/doctors/doctor-thumb-06.jpg"
-                                                                alt="User Image"></a>
+                                                                alt=""></a>
                                                         <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dr. Katharine Berthold</a>
                                                     </h2>
                                                 </td>
@@ -157,10 +157,10 @@
                                             <tr>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                                                        <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/doctors/doctor-thumb-07.jpg"
-                                                                alt="User Image"></a>
+                                                                alt=""></a>
                                                         <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dr. Linda Tobin</a>
                                                     </h2>
                                                 </td>
@@ -177,10 +177,10 @@
                                             <tr>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                                                        <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/doctors/doctor-thumb-08.jpg"
-                                                                alt="User Image"></a>
+                                                                alt=""></a>
                                                         <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dr. Paul Richard</a>
                                                     </h2>
                                                 </td>
@@ -197,10 +197,10 @@
                                             <tr>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                                                        <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/doctors/doctor-thumb-09.jpg"
-                                                                alt="User Image"></a>
+                                                                alt=""></a>
                                                         <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dr. John Gibbs</a>
                                                     </h2>
                                                 </td>
@@ -217,10 +217,10 @@
                                             <tr>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                                                        <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/doctors/doctor-thumb-10.jpg"
-                                                                alt="User Image"></a>
+                                                                alt=""></a>
                                                         <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dr. Olga Barlow</a>
                                                     </h2>
                                                 </td>

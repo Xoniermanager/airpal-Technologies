@@ -20,4 +20,10 @@ class DoctorQuestions extends Model
     {
         return $this->belongsTo(Specialization::class,'specialty_id');
     }
+
+    public function options()
+    {
+        return $this->hasMany(DoctorQuestionOptions::class,'question_id');
+    }
+
 }

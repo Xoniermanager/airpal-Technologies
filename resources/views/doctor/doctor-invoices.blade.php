@@ -64,7 +64,7 @@
 <td>
 <h2 class="table-avatar">
 <a href="{{ route('doctor.doctor-profile.index') }}" class="avatar avatar-sm me-2">
-<img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+<img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-02.jpg" alt="">
 </a>
 <a href="{{ route('doctor.doctor-profile.index') }}">Edalin Hendry</a>
 </h2>
@@ -88,7 +88,7 @@
 <td>
 <h2 class="table-avatar">
 <a href="{{ route('doctor.doctor-profile.index') }}" class="avatar avatar-sm me-2">
-<img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-05.jpg" alt="User Image">
+<img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-05.jpg" alt="">
 </a>
 <a href="{{ route('doctor.doctor-profile.index') }}">John Homes</a>
 </h2>
@@ -112,7 +112,7 @@
 <td>
 <h2 class="table-avatar">
 <a href="{{ route('doctor.doctor-profile.index') }}" class="avatar avatar-sm me-2">
-<img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-03.jpg" alt="User Image">
+<img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-03.jpg" alt="">
 </a>
 <a href="{{ route('doctor.doctor-profile.index') }}">Shanta Neill</a>
 </h2>
@@ -136,7 +136,7 @@
 <td>
 <h2 class="table-avatar">
 <a href="{{ route('doctor.doctor-profile.index') }}" class="avatar avatar-sm me-2">
-<img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-08.jpg" alt="User Image">
+<img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-08.jpg" alt="">
 </a>
 <a href="{{ route('doctor.doctor-profile.index') }}">Anthony Tran</a>
 </h2>
@@ -160,7 +160,7 @@
 <td>
 <h2 class="table-avatar">
 <a href="{{ route('doctor.doctor-profile.index') }}" class="avatar avatar-sm me-2">
-<img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-01.jpg" alt="User Image">
+<img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-01.jpg" alt="">
 </a>
 <a href="{{ route('doctor.doctor-profile.index') }}">Susan Lingo</a>
 </h2>
@@ -184,7 +184,7 @@
 <td>
 <h2 class="table-avatar">
 <a href="{{ route('doctor.doctor-profile.index') }}" class="avatar avatar-sm me-2">
-<img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-09.jpg" alt="User Image">
+<img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-09.jpg" alt="">
 </a>
 <a href="{{ route('doctor.doctor-profile.index') }}">Joseph Boyd</a>
 </h2>
@@ -208,7 +208,7 @@
 <td>
 <h2 class="table-avatar">
 <a href="{{ route('doctor.doctor-profile.index') }}" class="avatar avatar-sm me-2">
-<img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-07.jpg" alt="User Image">
+<img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-07.jpg" alt="">
 </a>
 <a href="{{ route('doctor.doctor-profile.index') }}">Juliet Gabriel</a>
 </h2>

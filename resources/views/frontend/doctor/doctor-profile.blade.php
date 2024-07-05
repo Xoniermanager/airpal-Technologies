@@ -23,9 +23,9 @@
                 <div class="card-body">
                     <div class="doctor-widget">
                         <div class="doc-info-left">
-                            <div class="doctor-img">
+                            <div class="doctor-img"> 
                                 <img src="{{asset('images/').'/'.$doctor->image_url}}" class="img-fluid"
-                                    alt="User Image"   onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" >
+                                    alt=""   onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" >
                             </div>
                             <div class="doc-info-cont">
                                 <h4 class="doc-name">{{$doctor->first_name}} {{$doctor->last_name}}</h4>
@@ -313,7 +313,7 @@
 
                                     <li>
                                         <div class="comment">
-                                            <img class="avatar avatar-sm rounded-circle" alt="User Image"
+                                            <img class="avatar avatar-sm rounded-circle" alt=""
                                                 src="{{ URL::asset('assets/img/patients/patient.jpg') }}">
                                             <div class="comment-body">
                                                 <div class="meta-data">
@@ -355,7 +355,7 @@
                                         <ul class="comments-reply">
                                             <li>
                                                 <div class="comment">
-                                                    <img class="avatar avatar-sm rounded-circle" alt="User Image"
+                                                    <img class="avatar avatar-sm rounded-circle" alt=""
                                                         src="{{ URL::asset('assets/img/patients/patient1.jpg') }}">
                                                     <div class="comment-body">
                                                         <div class="meta-data">
@@ -400,7 +400,7 @@
 
                                     <li>
                                         <div class="comment">
-                                            <img class="avatar avatar-sm rounded-circle" alt="User Image"
+                                            <img class="avatar avatar-sm rounded-circle" alt=""
                                                 src="{{ URL::asset('assets/img/patients/patient2.jpg') }}">
                                             <div class="comment-body">
                                                 <div class="meta-data">

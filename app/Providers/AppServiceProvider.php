@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use Laravel\Sanctum\Sanctum;
 use App\Models\DoctorExperience;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Sanctum\PersonalAccessToken;
 use App\Observers\ExperienceYearsObserver;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
         Paginator::useBootstrapFour();
         DoctorExperience::observe(ExperienceYearsObserver::class);
+        Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
     }
 }

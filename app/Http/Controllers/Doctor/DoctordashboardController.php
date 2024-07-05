@@ -26,7 +26,7 @@ class DoctordashboardController extends Controller
          $this->countryServices= $countryServices;
          $this->stateServices = $stateServices; 
          $this->user_services = $user_services;
-         $this->doctorDetails = $this->user_services->getDoctorDataById(1);
+         $this->doctorDetails = $this->user_services->getDoctorDataById(auth::id()); // todo this set by auth
     }
 
 
@@ -34,7 +34,7 @@ class DoctordashboardController extends Controller
 
     public function doctorDashboard()
     { 
- 
+
     return view('doctor.doctor-dashboard',['doctorDetails' => $this->doctorDetails ]);
       
     } 
@@ -63,24 +63,7 @@ class DoctordashboardController extends Controller
 
     public function doctorProfile()
     {
-      // $specialty   =  Specialization::all();
-      // $services    =  Service::all();
-      // $dayOfWeeks  =  DayOfWeek::all();
-      // $countries   =  $this->countryServices->all();
-      // $states      =  $this->stateServices->all();
-
-              
-      // return view('doctor.doctor-profile ',[
-      //   'specialties' => $specialty,
-      //   'services'    => $services,
-      //   'countries'   => $countries,
-      //   'states'      => $states,
-      //   'dayOfWeeks'  => $dayOfWeeks,
-      //   'doctors'      => $this->doctorDetails 
-      // ]);
-
-
-        $singleDoctorDetails = $this->user_services->getDoctorDataById(1);
+        $singleDoctorDetails = $this->user_services->getDoctorDataById(auth::id());
         $languagesIds = $singleDoctorDetails->language->pluck('id');
         $specialitiesIds = $singleDoctorDetails->specializations->pluck('id');
         $servicesIds = $singleDoctorDetails->services->pluck('id');
@@ -102,12 +85,8 @@ class DoctordashboardController extends Controller
             'states'      => $states,
             'dayOfWeeks'  => $dayOfWeeks,
             'singleDoctorDetails' => $singleDoctorDetails,
+            'doctorDetails' => $this->doctorDetails
         ]);
-
-
-
-
-   // return view('doctor.doctor-profile.add-doctor',['doctorDetails' => $this->doctorDetails ]);
     } 
     public function doctorChangepass()
     {

@@ -62,10 +62,11 @@ class DoctorAwardServices
                               ->where('user_id', $userId)
                               ->where('id', '!=', $award['id'] ?? null)
                               ->first();
-
         if ($existingEntry) 
         {
-          $existingEntry->update($payload);
+          $this->doctor_award_repository
+                             ->where('id', $award['id'])
+                             ->where('user_id', $userId)->update($payload);
         } 
         else if ($duplicateEntry) 
         {

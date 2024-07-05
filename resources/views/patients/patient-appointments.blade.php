@@ -225,7 +225,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-upcoming-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-21.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-21.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0001</p>
@@ -270,7 +270,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-upcoming-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-13.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-13.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0002</p>
@@ -315,7 +315,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-upcoming-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-14.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-14.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0003</p>
@@ -360,7 +360,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-upcoming-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-15.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-15.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0004</p>
@@ -405,7 +405,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-upcoming-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-16.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-16.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0005</p>
@@ -450,7 +450,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-upcoming-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-17.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-17.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0006</p>
@@ -495,7 +495,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-upcoming-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-18.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-18.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0007</p>
@@ -540,7 +540,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-upcoming-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-19.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-19.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0008</p>
@@ -585,7 +585,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-upcoming-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-21.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-21.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0009</p>
@@ -639,7 +639,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-cancelled-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-21.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-21.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0001</p>
@@ -671,7 +671,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-cancelled-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-13.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-13.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0002</p>
@@ -703,7 +703,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-cancelled-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-14.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-14.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0003</p>
@@ -735,7 +735,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-cancelled-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-15.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-15.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0004</p>
@@ -767,7 +767,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-cancelled-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-16.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-16.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0005</p>
@@ -799,7 +799,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-cancelled-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-17.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-17.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0006</p>
@@ -840,7 +840,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-completed-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-21.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-21.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0001</p>
@@ -872,7 +872,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-completed-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-13.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-13.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0002</p>
@@ -904,7 +904,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-completed-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-14.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-14.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0003</p>
@@ -936,7 +936,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-completed-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-15.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-15.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0004</p>
@@ -968,7 +968,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-completed-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-16.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-16.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0005</p>
@@ -1000,7 +1000,7 @@
 <div class="appointment-grid-head">
 <div class="patinet-information">
 <a href="patient-completed-appointment.html">
-<img src="../assets/img/doctors/doctor-thumb-17.jpg" alt="User Image">
+<img src="../assets/img/doctors/doctor-thumb-17.jpg" alt="">
 </a>
 <div class="patient-info">
 <p>#Apt0006</p>

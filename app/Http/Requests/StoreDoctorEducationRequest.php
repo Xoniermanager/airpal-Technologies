@@ -25,22 +25,32 @@ class StoreDoctorEducationRequest extends FormRequest
         $rules = [
             'education' => 'required|array',
             'education.*.name' => 'required|string|max:255',
-            'education.*.course' => [
-                'required',
-                'string',
-                'max:255',
-                function ($attribute, $value, $fail) use ($userId) {
-                    foreach ($this->input('education', []) as $index => $education) {
-                        $existingEntry = \App\Models\DoctorEducation::where('user_id', $userId)
-                            ->where('course_id', $education['course'])
-                            ->where('id', '!=', $education['id'] ?? null)
-                            ->first();
-                        if ($existingEntry) {
-                            $fail('The course has already been taken for this user.');
-                        }
-                    }
+'education.*.course' => [
+        'required',
+        'string',
+        'max:255',
+        function ($attribute, $value, $fail) use ($userId) {
+            // Check for duplicates in the submitted data
+            $courseIds = array_map(function($education) {
+                return $education['course'];
+            }, $this->input('education', []));
+            
+            if (count($courseIds) !== count(array_unique($courseIds))) {
+                $fail('Duplicate courses are not allowed in the submitted data.');
+            }
+
+            // Check for duplicates in the database
+            foreach ($this->input('education', []) as $index => $education) {
+                $existingEntry = \App\Models\DoctorEducation::where('user_id', $userId)
+                    ->where('course_id', $education['course'])
+                    ->where('id', '!=', $education['id'] ?? null)
+                    ->first();
+                if ($existingEntry) {
+                    $fail('The course has already been taken for this user.');
                 }
-            ],
+            }
+        }
+    ],
             'education.*.start_date' => 'required|date',
             'education.*.end_date' => 'required|date|after_or_equal:education.*.start_date',
             'education.*.certificates' => 'nullable|mimes:jpeg,jpg,bmp,png,gif,svg,pdf|max:2048',
@@ -65,5 +75,16 @@ class StoreDoctorEducationRequest extends FormRequest
             'education.*.end_date.after'        => 'End time must be after the start time for all selected days.'
         ];
     }
-
+    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    {
+        $response = $this->expectsJson()
+            ? response()->json([
+                'status' => 'error',
+                'message' => $validator->errors()->first()
+            ], 422)
+            : redirect()->back()->withErrors($validator)->withInput();
+    
+        throw new \Illuminate\Validation\ValidationException($validator, $response);
+    }
+    
 }

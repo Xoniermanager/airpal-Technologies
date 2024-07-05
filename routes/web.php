@@ -10,6 +10,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\InstantController;
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\RegisterController; 
 use App\Http\Controllers\Admin\SlotsController;
 use App\Http\Controllers\Admin\AdminController; 
@@ -18,9 +19,9 @@ use App\Http\Controllers\SpecialtyPageController;
 use App\Http\Controllers\Admin\CountryController; 
 use App\Http\Controllers\Admin\ProfileController; 
 use App\Http\Controllers\Admin\QuestionsController;
+
+
 use App\Http\Controllers\Admin\SettingsController; 
-
-
 use App\Http\Controllers\Admin\DashboardController; 
 use App\Http\Controllers\HealthmonitoringController;
 use App\Http\Controllers\Admin\SpecialityController; 
@@ -251,6 +252,10 @@ Route::prefix('patients')->group(function () {
 
 
 
+
+// Route::get('/calendar', [CalendarController::class, 'showCalendar'])->name('calendar');
+
+Route::get('/calendar/{month}/{year}/{slot_div_id}/{advertisement_id}', [CalendarController::class, 'showCalendar'])->name('calendar');
 
 
 

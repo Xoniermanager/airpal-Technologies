@@ -62,6 +62,8 @@ class DoctorController extends Controller
     {
       $doctorSlot->exception_days = $doctorSlot->user->doctorExceptionDays;
       $returnedSlots = $this->doctorSlotServices->makeSlots($doctorSlot);
+      // $returnedSlots = $this->doctorSlotServices->buildCalender($doctorSlot);
+
     }else{
       $returnedSlots = [];
     }
@@ -71,7 +73,7 @@ class DoctorController extends Controller
   public function search(Request $request)
   {  
     $searchedItems = $this->user_services->searchInDoctors($request->all());
-    // dd($searchedItems);
+
       if ($searchedItems) {
           return response()->json([
               'success' => 'Searching',

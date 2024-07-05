@@ -6,6 +6,7 @@
                 <tr>
                     <th>#</th>
                     <th>Country</th>
+                    <th>Created at</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -15,7 +16,7 @@
                     <td>{{ $country->id }}</td>
                     <td>
                         <h2 class="table-avatar">
-                            {{-- <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2">
+                            {{-- <a href="" class="avatar avatar-sm me-2">
                                 <img class="avatar-img"
                                     src="{{ asset('admin/specialization_image/' . $data->image_url) }}"
                                     alt="img">
@@ -23,6 +24,7 @@
                             {{$country->name}}
                         </h2>
                     </td>
+                    <td>{{ $country->created_at->format('d/m/Y') }}</td>
                     <td>
                         <div class="actions">
                             <a class="btn btn-sm bg-success-light" data-id ="{{$country->id}}" data-bs-toggle="modal"href="#edit_country" onclick="edit_country('{{$country->name}}','{{$country->id}}')">

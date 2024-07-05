@@ -62,7 +62,7 @@
 <div class="dependent-info">
 <div class="patinet-information">
 <a href="{{ route('patients.patient-dependant.index') }}">
-<img src="../assets/img/dependent/dependent-01.jpg" alt="User Image">
+<img src="../assets/img/dependent/dependent-01.jpg" alt="">
 </a>
 <div class="patient-info">
 <h5>Laura</h5>
@@ -94,7 +94,7 @@
 <div class="dependent-info">
 <div class="patinet-information">
 <a href="{{ route('patients.patient-dependant.index') }}">
-<img src="../assets/img/dependent/dependent-02.jpg" alt="User Image">
+<img src="../assets/img/dependent/dependent-02.jpg" alt="">
 </a>
 <div class="patient-info">
 <h5>Mathew</h5>
@@ -126,7 +126,7 @@
 <div class="dependent-info">
 <div class="patinet-information">
 <a href="{{ route('patients.patient-dependant.index') }}">
-<img src="../assets/img/dependent/dependent-03.jpg" alt="User Image">
+<img src="../assets/img/dependent/dependent-03.jpg" alt="">
 </a>
 <div class="patient-info">
 <h5>Christopher</h5>
@@ -158,7 +158,7 @@
 <div class="dependent-info">
 <div class="patinet-information">
 <a href="{{ route('patients.patient-dependant.index') }}">
-<img src="../assets/img/dependent/dependent-04.jpg" alt="User Image">
+<img src="../assets/img/dependent/dependent-04.jpg" alt="">
 </a>
 <div class="patient-info">
 <h5>Elisa</h5>

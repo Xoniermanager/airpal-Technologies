@@ -135,7 +135,7 @@
         <div class="user-header">
             <div class="avatar avatar-sm">
                 <img src="{{asset('assets/img/doctors-dashboard/doctor-profile-img.jpg')}}"
-                    alt="User Image" class="avatar-img rounded-circle">
+                    alt="" class="avatar-img rounded-circle">
             </div>
             <div class="user-text">
                 <h6>Dr Edalin Hendry</h6>

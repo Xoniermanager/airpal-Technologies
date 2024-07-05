@@ -11,7 +11,7 @@
                     @if (isset($singleDoctorDetails->image_url))
                         <img src="{{ asset('images').'/'.$singleDoctorDetails->image_url}}" id="blah">
                     @else
-                    <img src="" id="blah">
+                    <img src="" id="blah"  onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" >
                     {{-- <i class="fa-solid fa-file-image"></i> --}}
                     @endif
                 </div>
@@ -24,7 +24,7 @@
                         </div>
                         {{-- <a href="#" class="upload-remove">Remove</a> --}}
                     </div>
-                    <p class="form-text">Your Image should Below 4 MB, Accepted format
+                    <p class="form-text">Your Image should Below 2 MB, Accepted format
                         jpg,png,svg
                     </p>
                     <span class="text-danger" id="image_error"></span>
@@ -41,7 +41,8 @@
                     <div class="form-wrap">
                         <label class="col-form-label">First Name <span
                                 class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="first_name" value="{{$singleDoctorDetails->first_name ?? " "}}">
+                                <input type="text" class="form-control" name="first_name" value="{{ $singleDoctorDetails->first_name ?? '' }}">
+                        {{-- <input type="text" class="form-control" name="first_name" value="{{$singleDoctorDetails->first_name ?? " "}}"> --}}
                         <span class="text-danger" id="first_name_error"></span>
                     </div>
                 </div>
@@ -49,7 +50,7 @@
                     <div class="form-wrap">
                         <label class="col-form-label">Last Name <span
                                 class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="last_name" value="{{$singleDoctorDetails->last_name ?? " "}}">
+                        <input type="text" class="form-control" name="last_name" value="{{ $singleDoctorDetails->last_name ?? '' }}">
                         <span class="text-danger" id="last_name_error"></span>
                     </div>
                 </div>
@@ -57,7 +58,7 @@
                     <div class="form-wrap">
                         <label class="col-form-label">Display Name <span
                                 class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="display_name" value="{{$singleDoctorDetails->display_name ?? " "}}">
+                        <input type="text" class="form-control" name="display_name" value="{{ $singleDoctorDetails->display_name ?? '' }}">
                         <span class="text-danger" id="display_name_error"></span>
                     </div>
                 </div>
@@ -65,11 +66,12 @@
                     <div class="form-wrap">
                         <label class="col-form-label">Gender<span
                                 class="text-danger">*</span></label>
-                        <select class="form-control select" name="gender" >
+                        <select class="form-control select" name="gender">
                             <option value="">Select Gender</option>
                             <option value="Male"   {{ isset($singleDoctorDetails->gender) ? ($singleDoctorDetails->gender == 'Male'? 'selected':'')   : ''}}>Male</option>
                             <option value="Female" {{ isset($singleDoctorDetails->gender) ? ($singleDoctorDetails->gender == 'Female'? 'selected':'') : ''}}>Female</option>
                         </select>
+                        <span class="text-danger" id="gender_error"></span>
                     </div>
                 </div>
 
@@ -77,7 +79,7 @@
                     <div class="form-wrap">
                         <label class="col-form-label">Phone Number <span
                                 class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="phone" value="{{$singleDoctorDetails->phone ?? " "}}">
+                        <input type="text" class="form-control" name="phone" value="{{ $singleDoctorDetails->phone ?? '' }}">
                         <span class="text-danger" id="phone_error"></span>
                     </div>
                 </div>
@@ -85,7 +87,7 @@
                     <div class="form-wrap">
                         <label class="col-form-label">Email Address <span
                                 class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="email" value="{{$singleDoctorDetails->email ?? " "}}">
+                        <input type="text" class="form-control" name="email" value="{{$singleDoctorDetails->email ?? '' }}">
                         <span class="text-danger" id="email_error"></span>
                     </div>
                 </div>
@@ -104,7 +106,9 @@
                     <div class="form-wrap">
                         <label class="col-form-label" >Known Languages <span
                                 class="text-danger">*</span></label>
-                        <select id="language" class="form-control" name="name[]" > </select>
+                        <input type="hidden" name="languages" id="hiddenLanguage">
+                        <select id="language" class="form-control" name="languages[]" >
+                        </select>
                         <p id="doctorlanguageID" style="display: none"> {{$languagesIds ?? ''}}</p>
                         <script id="nolanguageTemplate" type="text/x-kendo-tmpl">
                             <div>
@@ -115,7 +119,7 @@
                             # var id = instance.element[0].id; #
                             <button class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md" onclick="addItemToMultiSelect('#: id #', '#: value #')">Add new item</button>
                         </script>
-                         <span class="text-danger" id="name_error"></span>
+                         <span class="text-danger" id="languages_error"></span>
                     </div>
                 </div>
             </div>
@@ -128,10 +132,11 @@
                 <div class="row membership-content">
                     <div class="col-lg-6 col-md-6">
                         <div class="form-wrap">
-                            <label class="col-form-label" >Speciality<span
-                                    class="text-danger">*</span></label>
+                            <label class="col-form-label" >Speciality<span class="text-danger">*</span></label>
+                            <input type="hidden" name="specialities" id="hiddenspecialities">
                             <select id="specialities" class="form-control" name="specialities[]" > </select>
                             <p id="doctorspecialitiesID"  style="display: none"> {{$specialitiesIds ?? ''}}</p>
+    
                             <script id="nospecialitiesTemplate" type="text/x-kendo-tmpl">
                                 <div>
                                     No data found. Do you want to add new item - '#: instance.filterInput.val() #' ?
@@ -150,8 +155,9 @@
                             <div class="form-wrap w-100">
                                 <label class="col-form-label" >Services<span
                                     class="text-danger">*</span></label>
+                                    <input type="hidden" name="services" id="hiddenservices">
                             <select id="Services" class="form-control" name="services[]" > </select>
-                            <p id="doctorServicesID"  style="display: none"> {{$servicesIds ?? ''}}</p>
+                            <p id="doctorServicesID"  style="display: none"> {{ $servicesIds ?? ''}}</p>
                             <script id="noServicesTemplate" type="text/x-kendo-tmpl">
                                 <div>
                                     No data found. Do you want to add new item - '#: instance.filterInput.val() #' ?
@@ -178,12 +184,12 @@
         <div class="setting-card">
             <div class="add-info membership-infos">
                 <div class="row membership-content">
-                    <div class="col-lg-12 col-md-12">
+                    <div class="col-lg-12">
                         <div class="form-wrap">
-                            <label class="col-form-label" >Description</label>
-                                    <textarea class="form-control" rows="4" name="description"> {{ $singleDoctorDetails->description ?? '' }}</textarea>
-
-                             <span class="text-danger" id="name_error"></span>
+                            <label class="col-form-label">Description</label>
+                            <textarea class="form-control" name="description" id="description">{{ $singleDoctorDetails->description ?? "" }}</textarea>
+                            <span class="text-danger" id="description_error"></span>
+                            <span id="charCount">0/1000</span>
                         </div>
                     </div>
                 </div>

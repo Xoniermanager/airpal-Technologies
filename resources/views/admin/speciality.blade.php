@@ -37,7 +37,7 @@
                                                 <td>#SP001</td>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2">
+                                                        <a href="" class="avatar avatar-sm me-2">
                                                             <img class="avatar-img"
                                                                 src="assets/img/specialities/specialities-01.png"
                                                                 alt="Speciality">
@@ -62,7 +62,7 @@
                                                 <td>#SP002</td>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2">
+                                                        <a href="" class="avatar avatar-sm me-2">
                                                             <img class="avatar-img"
                                                                 src="assets/img/specialities/specialities-02.png"
                                                                 alt="Speciality">
@@ -87,7 +87,7 @@
                                                 <td>#SP003</td>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2">
+                                                        <a href="" class="avatar avatar-sm me-2">
                                                             <img class="avatar-img"
                                                                 src="assets/img/specialities/specialities-03.png"
                                                                 alt="Speciality">
@@ -112,7 +112,7 @@
                                                 <td>#SP004</td>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2">
+                                                        <a href="" class="avatar avatar-sm me-2">
                                                             <img class="avatar-img"
                                                                 src="assets/img/specialities/specialities-04.png"
                                                                 alt="Speciality">
@@ -137,7 +137,7 @@
                                                 <td>#SP005</td>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2">
+                                                        <a href="" class="avatar avatar-sm me-2">
                                                             <img class="avatar-img"
                                                                 src="assets/img/specialities/specialities-05.png"
                                                                 alt="Speciality">

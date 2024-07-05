@@ -12,7 +12,7 @@
                     <div class="login-right">
                         <div class="login-right-wrap">
                             <div class="lock-user">
-                                <img class="rounded-circle" src="assets/img/profiles/avatar-02.jpg" alt="User Image">
+                                <img class="rounded-circle" src="assets/img/profiles/avatar-02.jpg" alt="">
                                 <h4>John Doe</h4>
                             </div>
 

@@ -101,7 +101,7 @@
                             <div class="row mb-4">
                                 <div class="col-12">
                                     <label class="mb-2" for="desc">Decription</label>
-                                    <textarea class="form-control" name="edit_description" id="edit_description" style="height: 65px"></textarea>
+                                    <textarea class="form-control" name="description" id="description" style="height: 65px"></textarea>
                                 </div>
                             </div>
                             <input type="hidden" id="edit_speciality_id" name="id" value="">
@@ -251,7 +251,7 @@
 
         function edit_speciality(name, description, image, id) {
             $("#edit_name").val(name);
-            $("#edit_description").val(description);
+            $("#description").val(description);
             $("#edit_image").attr("src", image);
             $("#edit_speciality_id").val(id);
         }

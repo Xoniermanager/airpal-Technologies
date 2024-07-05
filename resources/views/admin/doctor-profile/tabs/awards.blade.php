@@ -50,9 +50,9 @@
                                                 </script>
                                             </div>
                                         </div>
-                                        <span class="text-danger" id="awards_{{ $key }}_name_error"></span>
+                                        {{-- <span class="text-danger" id="awards_{{ $key }}_name_error"></span> --}}
 
-                                        <input type="hidden"  name="awards[{{ $key }}][id]" value= {{ $singleAwardDetail->id ?? ' ' }}>
+                                        <input type="hidden"  name="awards[{{ $key }}][id]" value="{{ $singleAwardDetail->id ?? ' ' }}">
 
                                         <div class="col-md-6">
                                             <div class="form-wrap">
@@ -60,8 +60,8 @@
                                                         class="text-danger">*</span></label>
                                                 <div class="form-icon">
                                                     <input type="text" class="form-control flat-picker"
-                                                        name="awards[{{ $key}}][year]" id="datepicker"
-                                                        value="{{ $singleAwardDetail->year }}">
+                                                        name="awards[{{$key}}][year]" id="datepicker"
+                                                        value="{{ $singleAwardDetail->year ?? '' }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -69,7 +69,7 @@
                                             <div class="form-wrap">
                                                 <label class="col-form-label">Description <span
                                                         class="text-danger">*</span></label>
-                                                <textarea class="form-control" rows="3" name="awards[{{ $key }}][description]"> {{ $singleAwardDetail->description }}</textarea>
+                                                <textarea class="form-control" rows="3" name="awards[{{ $key }}][description]"> {{ $singleAwardDetail->description ?? '' }}</textarea>
                                             </div>
                                         </div>
 
@@ -221,7 +221,7 @@
             </div>
         @endforelse
         <div class="modal-btn text-end">
-            <input type="hidden" value="{{ Request::segment(4) ?? ' ' }}" name="user_id" id="doctor_user_id">
+            <input type="hidden" value="{{Request::segment(4)}}" name="user_id" id="doctor_user_id">
             <button type="submit" class="btn btn-primary prime-btn">Save
                 Changes</button>
         </div>

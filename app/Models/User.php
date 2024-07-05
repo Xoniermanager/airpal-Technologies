@@ -8,6 +8,7 @@ use App\Models\UserAddress;
 use App\Models\Specialization;
 use App\Models\DoctorEducation;
 use App\Models\DoctorExperience;
+use Laravel\Sanctum\HasApiTokens;
 use App\Models\DoctorWorkingHours;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -16,7 +17,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens,HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -31,6 +32,7 @@ class User extends Authenticatable
         'password',
         'display_name',
         'gender',
+        'role',
         'image_url',
         'description',
         'experience_years'
@@ -113,6 +115,7 @@ class User extends Authenticatable
     // {
     //     return $this->hasOne(DoctorQuestions::class,'doctor_id');
     // } 
-    
+
+
 
 }

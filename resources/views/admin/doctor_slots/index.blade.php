@@ -541,7 +541,7 @@ jQuery(document).ready(function() {
         //     });
         // });
 
-    var site_admin_base_url = 'http://127.0.0.1:8000/admin/';
+    var site_admin_base_url = "{{ env('SITE_ADMIN_BASE_URL') }}";
     var exceptionDaysDataSource = new kendo.data.DataSource({
     batch: true,
     transport: {

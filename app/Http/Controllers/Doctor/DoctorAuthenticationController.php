@@ -22,6 +22,7 @@ class DoctorAuthenticationController extends Controller
         try {
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
+
                 return response()->json([
                     "success"   => true,
                     "message" => "Doctor logged in successfully!"

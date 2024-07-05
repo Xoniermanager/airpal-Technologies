@@ -222,8 +222,63 @@ class DoctorSlotServices
         }
 
         return $allDaySlots;
-
-}
 }
 
+// public function buildCalender($data)
+// {
+//     $startDate = date_create($data->start_slots_from_date);
+//     $endDate = clone $startDate;
+//     date_modify($endDate, '+'.$data->slots_in_advance.' days');
 
+//     $formattedStartDate = date_create(date_format($startDate, 'Y-m-d'));
+//     $formattedEndDate   = date_create(date_format($endDate, 'Y-m-d'));
+//     $interval = new DateInterval('P1D');
+
+//     //Step 2 :Getting exception days name and making an array so that we will pass in_array function and if exist
+//     if (isset($data->exception_days) && !empty($data->exception_days->toArray())) {
+//         foreach ($data->exception_days as $exception_day) {
+//             $exception_days_name[] =  DayOfWeek::find($exception_day->exception_days_id)->name;
+
+//         }
+//     }
+// 		// First of all, lets create an array containing the names of all days in a week
+// 		$days_of_week = array('Sun','Mon','Tue','Wed','Thu','Fri','Sat');
+
+//         $month = 7; // let  
+//         $year  = 2024; // let 
+
+//         // Create a Carbon instance for the first day of the month
+//         $firstDayOfMonth = Carbon::create($year, $month, 1, 0, 0, 0);
+
+// 		// Now getting the number of days this month contains
+// 		// $number_of_days = date('t',$firstDayOfMonth);
+//         $number_of_days = Carbon::now()->month($month)->daysInMonth;
+
+//         // Get the name of the month
+//         $monthName = $firstDayOfMonth->format('F');  // e.g., "July"
+
+//         // Get the index value (0-6) of the first day of the month
+//         $dayOfWeek = $firstDayOfMonth->dayOfWeek;  
+
+//         dd( $dayOfWeek);
+
+// 		// Getting some information about the first day of this month
+
+//         $dateToday = Carbon::now()->toDateString();  // e.g., "2024-07-03"
+
+        
+// 		// // Getting the name of thjis month
+// 		// $month_name = $date_components['month'];
+
+// 		// // Getting the index values 0-6 of the first day of this month
+// 		// $day_of_week = $date_components['wday'];
+
+// 		// // Getting the current date
+// 		// $date_today = date('Y-m-d');
+
+// }
+
+
+
+
+}

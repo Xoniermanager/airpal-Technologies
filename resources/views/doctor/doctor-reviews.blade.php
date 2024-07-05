@@ -73,7 +73,7 @@
                                             <div class="patinet-information">
                                                 <a href="javascript:void(0);">
                                                     <img src="../assets/img/doctors-dashboard/profile-01.jpg"
-                                                        alt="User Image">
+                                                        alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <h6><a href="javascript:void(0);">Adrian</a></h6>
@@ -110,7 +110,7 @@
                                             <div class="patinet-information">
                                                 <a href="javascript:void(0);">
                                                     <img src="../assets/img/doctors-dashboard/profile-02.jpg"
-                                                        alt="User Image">
+                                                        alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <h6><a href="javascript:void(0);">Kelly</a></h6>
@@ -149,7 +149,7 @@
                                                 <div class="patinet-information">
                                                     <a href="javascript:void(0);">
                                                         <img src="../assets/img/doctors-dashboard/doctor-profile-img.jpg"
-                                                            alt="User Image">
+                                                            alt="">
                                                     </a>
                                                     <div class="patient-info">
                                                         <h6><a href="javascript:void(0);">Dr Edalin Hendry</a></h6>
@@ -182,7 +182,7 @@
                                             <div class="patinet-information">
                                                 <a href="javascript:void(0);">
                                                     <img src="../assets/img/doctors-dashboard/profile-03.jpg"
-                                                        alt="User Image">
+                                                        alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <h6><a href="javascript:void(0);">Samuel</a></h6>

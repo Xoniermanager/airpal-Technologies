@@ -20,6 +20,6 @@ class QuestionServices {
       return $this->questionsRepository->paginate(10)->setPath(route('admin.index.questionsServices'));
      }
      public function all(){
-      return $this->questionsRepository->with(['user','specialty'])->all();
+      return $this->questionsRepository->with(['user','specialty','options'])->all();
      }
 }

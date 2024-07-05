@@ -101,7 +101,7 @@
                                                 <input type="file" class="form-control certificatesInput" 
                                                        id="certificatesID{{ $key }}"
                                                        name="education[{{ $key }}][certificates]"
-                                                       value="{{ $singleEducationDetail->certificates ?? '' }}"
+                                                       value="{{ $singleEducationDetail->id ?? '' }}"
                                                        data-preview-id="preview{{ $key }}">
                                                 <small class="text-secondary">Recommended file types: PDF, image</small>
                                                 <span class="text-danger" id="education_{{ $key }}_certificates_error"></span>
@@ -109,7 +109,7 @@
                                         </div>
                                         <div class="col-lg-6 col-md-6">
                                             @php
-                                                $filePath = asset('images') . '/' . $singleEducationDetail->certificates;
+                                                $filePath = asset('images') . '/' . $singleEducationDetail->id;
                                                 $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
                                             @endphp
                                         
@@ -219,7 +219,7 @@
             </div>
         @endforelse
         <div class="modal-btn text-end">
-            <input type="hidden" value="{{ Request::segment(4) ?? ' ' }}" name="user_id" id="doctor_user_id">
+            <input type="hidden" value="{{Request::segment(4) ?? ''}}" name="user_id" id="doctor_user_id">
             <button class="btn btn-primary prime-btn" id="doctorEducationform">Save Changes</button>
         </div>
     </form>

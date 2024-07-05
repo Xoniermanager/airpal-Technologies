@@ -29,7 +29,6 @@ class SpecializationServices
       }
     }
     public function updateSpeciality($updateSpecialitiesRequest){
-        // dd($updateSpecialitiesRequest);
       try {
         $imageUrl = Specialization::find($updateSpecialitiesRequest->id)->image_url;
         $destinationPath = public_path('admin/specialization_image/') . $imageUrl; 

@@ -10,15 +10,13 @@ use App\Http\Services\DoctorAddressServices;
 class DoctorAddressController extends Controller
 {
     private $doctor_address_services;
-    public function __construct(DoctorAddressServices $doctor_address_services,)
+    public function __construct(DoctorAddressServices $doctor_address_services)
     {
         $this->doctor_address_services  = $doctor_address_services;
     }
     public function addAddress(StoreDoctorAddressRequest $request)
     {
-        $userId = $request->user_id;
-        $addedDoctorAddress = $this->doctor_address_services->addDoctorAddress($request->validated(),$userId);
-  
+        $addedDoctorAddress = $this->doctor_address_services->addDoctorAddress($request->all());
               if ($addedDoctorAddress)
                {
                  return response()->json([

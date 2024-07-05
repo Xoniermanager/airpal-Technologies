@@ -57,20 +57,20 @@ class UserServices
     return $this->UserRepository->where('id', $id)->with(["educations", "experiences", "workingHour", "specializations", "services", "workingHour.daysOfWeek", "language", 'awards'])->first();
   }
 
-  public function updateOrCreateDoctor($email, $data)
+  public function updateOrCreateDoctor($data)
   {
 
     $filename = null;
     $payload   = [
                   "first_name"   => $data["first_name"],
                   "last_name"    => $data["last_name"],
-                  "display_name" => $data["display_name"],
-                  "gender"       => $data["gender"],
+                  "display_name" => $data["display_name"] ?? '',
+                  "gender"       => $data["gender"] ?? '',
                   "email"        => $data["email"],
                   "phone"        => $data["phone"],
-                  "description"  => $data["description"],
+                  "role"         => 2,
+                  "description"  => $data["description"]?? '',
                 ];
-
     if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
       
         $file     = $data['image'];
@@ -85,7 +85,7 @@ class UserServices
     }
 
     $user = $this->UserRepository->updateOrCreate(
-      ['email' => $email],
+      ['email' => $data["email"]],
       $payload
     );
 

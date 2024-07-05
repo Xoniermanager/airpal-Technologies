@@ -2,7 +2,7 @@
                             <div class="widget-profile pro-widget-content">
                                 <div class="profile-info-widget">
                                     <a href="{{ route('patients.patient-settings.index') }}" class="booking-doc-img">
-                                        <img src="../assets/img/doctors-dashboard/profile-06.jpg" alt="User Image">
+                                        <img src="../assets/img/doctors-dashboard/profile-06.jpg" alt="">
                                     </a>
                                     <div class="profile-det-info">
                                         <h3><a href="{{ route('patients.patient-settings.index') }}">Hendrita</a></h3>

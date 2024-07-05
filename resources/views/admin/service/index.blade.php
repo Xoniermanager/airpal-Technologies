@@ -64,7 +64,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">edit Service</h5>
+                        <h5 class="modal-title">Edit service</h5>
                         <button type="button" class="btn-close close-form-edit" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -80,7 +80,7 @@
                                 </div>
                               
                             </div>
-                            <input type="text" name="id" id="service_id">
+                            <input type="hidden" name="id" id="service_id">
                             <button type="submit" class="btn btn-primary w-100">Save</button>
                         </form>
                     </div>
@@ -148,8 +148,6 @@
                     });
                 }
             });
-
-          
 
             jQuery("#editServiceForm").validate({
                 rules: {
@@ -227,8 +225,6 @@
          }); // ready function 
 
          function edit_service(name , id){
-            console.log(name)
-            console.log(id)
            $('#service-name').val(name);
            $('#service_id').val(id);
          }

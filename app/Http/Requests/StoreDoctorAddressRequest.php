@@ -26,7 +26,6 @@ class StoreDoctorAddressRequest extends FormRequest
             'country' => 'required',
             'states'   => 'required',
             'city'    => 'required',
-            'pincode' => 'required|integer',
         ];
     }
 }

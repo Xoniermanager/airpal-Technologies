@@ -31,6 +31,16 @@ class StoreDoctorExperienceRequest extends FormRequest
                 'required',
                 'integer',
                 function ($attribute, $value, $fail) use ($userId) {
+                    // Check for duplicates in the submitted data
+                    $hospitalIds = array_map(function ($experience) {
+                        return $experience['hospital'];
+                    }, $this->input('experience', []));
+
+                    if (count($hospitalIds) !== count(array_unique($hospitalIds))) {
+                        $fail('Duplicate hospitals are not allowed in the submitted data.');
+                    }
+
+                    // Check for duplicates in the database
                     foreach ($this->input('experience', []) as $index => $experience) {
                         $existingEntry = \App\Models\DoctorExperience::where('user_id', $userId)
                             ->where('hospital_id', $experience['hospital'])
@@ -43,7 +53,7 @@ class StoreDoctorExperienceRequest extends FormRequest
                 }
             ],
             'experience.*.description' => 'nullable|string',
-            'experience.*.certificates' => 'mimes:jpeg,jpg,bmp,png,gif,svg,pdf|max:2048',
+            'experience.*.certificates' => 'nullable|mimes:jpeg,jpg,bmp,png,gif,svg,pdf|max:2048',
             'experience.*.start_date' => 'required|date_format:Y-m-d',
             'experience.*.end_date' => 'required|date_format:Y-m-d|after_or_equal:experience.*.start_date',
             'user_id' => 'required'
@@ -54,7 +64,7 @@ class StoreDoctorExperienceRequest extends FormRequest
     public function messages()
     {
         return [
-      
+
             'experience.*.job_title.required'     => 'Please provide job title.',
             'experience.*.location.required'      => 'Location is required for all selected experiences.',
             'experience.*.start_date.required'    => 'Please provide start date.',
@@ -70,4 +80,13 @@ class StoreDoctorExperienceRequest extends FormRequest
         ];
     }
 
+    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    {
+        $response = new \Illuminate\Http\JsonResponse([
+            'status' => 'error',
+            'message' => $validator->errors()->first()
+        ], 422);
+
+        throw new \Illuminate\Validation\ValidationException($validator, $response);
+    }
 }

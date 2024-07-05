@@ -125,8 +125,6 @@
     </svg>
 </div>
 
-<script src="{{asset('assets/js/jquery-3.7.1.min.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
-
 <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
 
 <script src="{{asset('assets/js/feather.min.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
@@ -145,8 +143,21 @@
 <script src="{{asset('assets/js/backToTop.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
 
 <script src="{{asset('assets/js/script.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
-<script src="{{ asset('assets/js/rocket-loader.min.js') }}" data-cf-settings="572446aacaa112e2d4b8af55-|49" defer>
+<script src="{{asset('assets/js/appointment.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
+
+<script src="{{ asset('assets/js/rocket-loader.min.js') }}" data-cf-settings="572446aacaa112e2d4b8af55-|49" defer> 
 </script>
+
+
+<script src="{{asset('admin/assets/plugins/slimscroll/jquery.slimscroll.min.js')}}"
+    type="cd1ed460c5054330c2effc78-text/javascript"></script>
+<script src="{{asset('admin/assets/plugins/datatables/jquery.dataTables.min.js')}}"
+    type="cd1ed460c5054330c2effc78-text/javascript"></script>
+<script src="{{asset('../assets/js/rocket-loader.min.js')}}" data-cf-settings="cd1ed460c5054330c2effc78-|49" defer></script>
+{{-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script> --}}
+<script src="https://kendo.cdn.telerik.com/2024.1.319/js/kendo.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 
 </body>
 

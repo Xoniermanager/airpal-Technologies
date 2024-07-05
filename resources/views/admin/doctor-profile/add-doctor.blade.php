@@ -97,6 +97,29 @@
     <script>
         $(document).ready(function() {
 
+
+            function updateCharCount() {
+        var length = $("#description").val().length;
+        var remaining = 1000 - length;
+
+        $('#charCount').text(length + '/1000');
+
+        if (remaining < 0) {
+            $('#charCount').css('color', 'red');
+        } else {
+            $('#charCount').css('color', 'green');
+        }
+    }
+
+    updateCharCount();
+
+    $("#description").on('input', function() {
+        updateCharCount();
+    });
+
+            var site_admin_base_url = "{{ env('SITE_ADMIN_BASE_URL') }}";
+
+
             var skillId = jQuery('#doctorlanguageID').text();
             if (skillId.length > 1) {
                 var arraySkillId = JSON.parse(skillId);
@@ -116,33 +139,58 @@
                 var servicesArrs = servicesValue.split(',');
             }
 
-
-
             $(".flat-picker").flatpickr({
                 enableTime: false,
                 dateFormat: "Y-m-d",
             });
 
-
-            // Insert personal details 
-            jQuery("#personalDetailsForm").validate({
+            $("#personalDetailsForm").validate({
                 rules: {
                     first_name: "required",
                     last_name: "required",
-                    display_name: "required",
+                    gender: "required",
+                    password: {
+                        required: function(element) {
+                            // This will make the password field required only if it exists in the DOM
+                            return $("input[name='password']").length > 0;
+                        }
+                    },
+
                     phone: "required",
-                    email: "required",
-                    name: "required"
+
+                    email: {
+                        required: true,
+                        email: true // Add email validation
+                    },
+                    name: "required",
+                    description: {
+                        maxlength: 1000
+                    }
                 },
                 messages: {
                     first_name: "Please enter first name!",
                     last_name: "Please enter last name!",
                     display_name: "Please enter display name!",
                     phone: "Please enter phone number!",
-                    email: "Please enter email address!",
-                    name: "Please select language!"
+                    email: {
+                        required: "Please enter email address!",
+                        email: "Please enter a valid email address!" // Add email validation message
+                    },
+                    name: "Please select language!",
+                    description: {
+                        maxlength: function(range, input) {
+                            return [
+                                'You are only allowed ',
+                                range,
+                                ' characters. You have typed ',
+                                $(input).val().length,
+                                ' characters.'
+                            ].join('');
+                        }
+                    }
                 },
                 submitHandler: function(form) {
+                    var errorTimeout;
                     var formData = new FormData(form);
                     $.ajax({
                         url: "<?= route('admin.add-personal-details') ?>",
@@ -173,15 +221,28 @@
                                 }, 1500);
                             }
                         },
+
                         error: function(error_messages) {
                             var errors = error_messages.responseJSON;
                             $.each(errors.errors, function(key, value) {
-                                $('#' + key + '_error').html(value);
+                                $('#' + key + '_error').html(value)
+                            .show(); // Show the error message
                             });
+                            if (errorTimeout) {
+                                clearTimeout(errorTimeout);
+                            }
+                            // Set timeout to remove the error messages after 2 seconds
+                            errorTimeout = setTimeout(function() {
+                                $('.text-danger').fadeOut();
+                            }, 2000);
                         }
+
                     });
                 }
             });
+
+
+
 
             function switchTab(fromTab, toTab) {
                 $(fromTab).removeClass('active').attr('aria-selected', 'false').removeClass('show active');
@@ -225,6 +286,7 @@
                         processData: false, // Important!
                         contentType: false, // Important!
                         success: function(response) {
+
                             if (response.status == 'success') {
                                 swal.fire("Done!", response.message, "success");
                                 $('#education-tab').removeClass('active').attr(
@@ -245,11 +307,21 @@
                                     'aria-selected', 'true');
                                 $('#experience_tab').addClass('show active');
                             }
+
                         },
                         error: function(error_messages) {
-                            var errors = error_messages.responseJSON.errors;
+                            if (error_messages.responseJSON && error_messages.responseJSON
+                                .status === 'error') {
+                                Swal.fire("Error!", error_messages.responseJSON.message,
+                                    "error");
+
+                            } else {
+                                var errors = error_messages.responseJSON.errors;
+
+                            }
+
+                            
                             if (errors) {
-                                // Display validation errors
                                 $.each(errors, function(key, value) {
                                     var id = key.replace(/\./g, '_');
                                     $("#" + id + "_error").html(value[0]);
@@ -266,14 +338,12 @@
                     "country": "required",
                     "states": "required",
                     "city": "required",
-                    "pincode": "required",
                 },
                 messages: {
                     "street": "Please enter street",
                     "country": "Please select country!",
                     "states": "Please select state",
                     "city": "Please enter city",
-                    "pincode": "Please enter end pincode",
                 },
                 submitHandler: function(form) {
                     var formData = $(form).serialize();
@@ -334,7 +404,6 @@
                     event.preventDefault();
 
                     var formData = new FormData(form);
-
                     $.ajax({
                         url: "{{ route('admin.add-doctor-experience') }}",
                         type: 'post',
@@ -364,7 +433,17 @@
                             }
                         },
                         error: function(error_messages) {
-                            var errors = error_messages.responseJSON;
+
+                            if (error_messages.responseJSON && error_messages.responseJSON
+                                .status === 'error') {
+                                Swal.fire("Error!", error_messages.responseJSON.message,
+                                    "error");
+
+                            } else {
+                                var errors = error_messages.responseJSON.errors;
+
+                            }
+
                             $.each(errors.errors, function(key, value) {
                                 var id = key.replace(/\./g, '_');
                                 $('#' + id + '_error').html(value);
@@ -378,10 +457,14 @@
             // insert doctor award data
             jQuery("#doctorAwardForm").validate({
                 rules: {
-
+                    "name": "required",
+                    "year": "required",
+                    "description": "required",
                 },
                 messages: {
-
+                    "name": "Please enter street",
+                    "year": "Please select country!",
+                    "description": "Please select state",
                 },
                 submitHandler: function(form) {
                     event.preventDefault();
@@ -399,7 +482,8 @@
                             console.log(response.success);
                             if (response.success == true) {
                                 swal.fire("Done!", response.message, "success");
-                                $('#awards').removeClass('active').attr('aria-selected', 'false');
+                                $('#awards').removeClass('active').attr('aria-selected',
+                                    'false');
                                 $('#awards').removeClass('show active');
 
                                 var tabLink = document.querySelector('a[href="#awards"]');
@@ -408,18 +492,28 @@
                                     tabLink.setAttribute('aria-selected', 'false');
                                 }
 
-                                var exTabLink = document.querySelector('a[href="#working_hours_tab"]');
+                                var exTabLink = document.querySelector(
+                                    'a[href="#working_hours_tab"]');
                                 exTabLink.classList.add('active');
-                                $('#working_hours_tab').addClass('active').attr('aria-selected', 'true');
+                                $('#working_hours_tab').addClass('active').attr(
+                                    'aria-selected', 'true');
                                 $('#working_hours_tab').addClass('show active');
-                            } else { 
+                            } else {
                                 Swal.fire("Error!", "Error deleting experience.", "error");
                             }
 
 
                         },
                         error: function(error_messages) {
-                            var errors = error_messages.responseJSON;
+                            if (error_messages.responseJSON && error_messages.responseJSON
+                                .status === 'error') {
+                                Swal.fire("Error!", error_messages.responseJSON.message,
+                                    "error");
+
+                            } else {
+                                var errors = error_messages.responseJSON.errors;
+
+                            }
                             $.each(errors.errors, function(key, value) {
                                 var id = key.replace(/\./g, '_');
                                 $('#' + id + '_error').html(value);
@@ -459,15 +553,15 @@
             })
 
             jQuery("#doctorWorkingHourFormData").validate({
-                rules: {
+                // rules: {
 
-                },
-                messages: {
+                // },
+                // messages: {
 
-                    monday_start_time: "Please enter start time for monday!",
-                    monday_end_time: "Please enter end time for monday!",
+                //     monday_start_time: "Please enter start time for monday!",
+                //     monday_end_time: "Please enter end time for monday!",
 
-                },
+                // },
                 submitHandler: function(form) {
                     var formData = $(form).serialize();
                     $.ajax({
@@ -518,9 +612,6 @@
                     }, 5000);
                 }
             }
-
-            // for language  
-            var site_admin_base_url = 'http://127.0.0.1:8000/admin/';
 
             var languageDataSource = new kendo.data.DataSource({
                 batch: true,
@@ -629,8 +720,9 @@
 
             jQuery("#language").kendoMultiSelect({
                 filter: "contains",
-                dataTextField: "name", 
+                dataTextField: "name",
                 dataValueField: "id",
+                placeholder: 'Please select language...',
                 dataSource: languageDataSource,
                 value: arrs ?? '',
                 noDataTemplate: jQuery("#nolanguageTemplate").html()
@@ -640,6 +732,7 @@
                 filter: "contains",
                 dataTextField: "name",
                 dataValueField: "id",
+                placeholder: 'Please select specialties...',
                 dataSource: specialitiesDataSource,
                 value: specialityArrs ?? '',
                 noDataTemplate: jQuery("#nospecialitiesTemplate").html()
@@ -648,6 +741,7 @@
                 filter: "contains",
                 dataTextField: "name",
                 dataValueField: "id",
+                placeholder: 'Please select services...',
                 dataSource: ServicesDataSource,
                 value: servicesArrs ?? '',
                 noDataTemplate: jQuery("#noServicesTemplate").html()
@@ -739,7 +833,7 @@
                             previewElement.innerHTML = previewContent;
                             console.log(
                                 `File uploaded for ${this.id} and displayed in ${previewId}`
-                                );
+                            );
                         }
                     });
                 });

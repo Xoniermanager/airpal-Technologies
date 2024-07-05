@@ -55,7 +55,7 @@
 </a>
 <div class="doc-img">
 <a href="doctor-profile.html">
-<img class="img-fluid" alt="User Image" src="../assets/img/doctors/doctor-thumb-21.jpg">
+<img class="img-fluid" alt="" src="../assets/img/doctors/doctor-thumb-21.jpg">
 </a>
 </div>
 <div class="pro-content">
@@ -105,7 +105,7 @@
 </a>
 <div class="doc-img">
 <a href="doctor-profile.html">
-<img class="img-fluid" alt="User Image" src="../assets/img/doctors/doctor-thumb-13.jpg">
+<img class="img-fluid" alt="" src="../assets/img/doctors/doctor-thumb-13.jpg">
 </a>
 </div>
 <div class="pro-content">
@@ -155,7 +155,7 @@
 </a>
 <div class="doc-img">
 <a href="doctor-profile.html">
-<img class="img-fluid" alt="User Image" src="../assets/img/doctors/doctor-thumb-14.jpg">
+<img class="img-fluid" alt="" src="../assets/img/doctors/doctor-thumb-14.jpg">
 </a>
 </div>
 <div class="pro-content">
@@ -205,7 +205,7 @@
 </a>
 <div class="doc-img">
 <a href="doctor-profile.html">
-<img class="img-fluid" alt="User Image" src="../assets/img/doctors/doctor-thumb-15.jpg">
+<img class="img-fluid" alt="" src="../assets/img/doctors/doctor-thumb-15.jpg">
 </a>
 </div>
 <div class="pro-content">
@@ -255,7 +255,7 @@
 </a>
 <div class="doc-img">
 <a href="doctor-profile.html">
-<img class="img-fluid" alt="User Image" src="../assets/img/doctors/doctor-thumb-16.jpg">
+<img class="img-fluid" alt="" src="../assets/img/doctors/doctor-thumb-16.jpg">
 </a>
 </div>
 <div class="pro-content">
@@ -305,7 +305,7 @@
 </a>
 <div class="doc-img">
 <a href="doctor-profile.html">
-<img class="img-fluid" alt="User Image" src="../assets/img/doctors/doctor-thumb-17.jpg">
+<img class="img-fluid" alt="" src="../assets/img/doctors/doctor-thumb-17.jpg">
 </a>
 </div>
 <div class="pro-content">
@@ -355,7 +355,7 @@
 </a>
 <div class="doc-img">
 <a href="doctor-profile.html">
-<img class="img-fluid" alt="User Image" src="../assets/img/doctors/doctor-thumb-18.jpg">
+<img class="img-fluid" alt="" src="../assets/img/doctors/doctor-thumb-18.jpg">
 </a>
 </div>
 <div class="pro-content">
@@ -405,7 +405,7 @@
 </a>
 <div class="doc-img">
 <a href="doctor-profile.html">
-<img class="img-fluid" alt="User Image" src="../assets/img/doctors/doctor-thumb-19.jpg">
+<img class="img-fluid" alt="" src="../assets/img/doctors/doctor-thumb-19.jpg">
 </a>
 </div>
 <div class="pro-content">
@@ -455,7 +455,7 @@
 </a>
 <div class="doc-img">
 <a href="doctor-profile.html">
-<img class="img-fluid" alt="User Image" src="../assets/img/doctors/doctor-thumb-20.jpg">
+<img class="img-fluid" alt="" src="../assets/img/doctors/doctor-thumb-20.jpg">
 </a>
 </div>
 <div class="pro-content">

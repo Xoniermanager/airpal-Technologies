@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('country_id');
             $table->unsignedBigInteger('state_id');
             $table->string('address');
-            $table->string('city');
-            $table->string('pin_code');
+            $table->string('city')->nullable();
+            $table->string('pin_code')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('country_id')->references('id')->on('countries');
             $table->foreign('state_id')->references('id')->on('states');

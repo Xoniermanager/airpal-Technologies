@@ -1,9 +1,10 @@
 <div class="profile-sidebar doctor-sidebar profile-sidebar-new">
                             <div class="widget-profile pro-widget-content">
                                 <div class="profile-info-widget">
+                                    {{ $doctorDetails->image_url ?? '' }}
                                     <a href="{{ route('doctor.doctor-profile.index') }}" class="booking-doc-img">
-                                        <img src="../assets/img/doctors-dashboard/doctor-profile-img.jpg"
-                                            alt="User Image">
+                                        <img src="" class="img-fluid"
+                                        alt=""   onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" >
                                     </a>
                                     <div class="profile-det-info">
                                         <h3><a href="{{ route('doctor.doctor-profile.index') }}"> {{$doctorDetails->first_name ?? "" }} {{$doctorDetails->last_name ?? "" }}</a></h3>

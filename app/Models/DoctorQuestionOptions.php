@@ -10,4 +10,9 @@ class DoctorQuestionOptions extends Model
     use HasFactory;
     protected $fillable = ['question_id','options','status'];
     protected $table = 'question_options';
+
+    public function questions()
+    {
+        return $this->belongsTo(DoctorQuestions::class);
+    }
 }

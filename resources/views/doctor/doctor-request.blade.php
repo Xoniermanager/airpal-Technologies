@@ -66,7 +66,7 @@
                                     <div class="patinet-information">
                                         <a href="{{ route('doctor.doctor-patients.index') }}">
                                             <img src="../assets/img/doctors-dashboard/profile-01.jpg"
-                                                alt="User Image">
+                                                alt="">
                                         </a>
                                         <div class="patient-info">
                                             <p>#Apt0001</p>
@@ -107,7 +107,7 @@
                                     <div class="patinet-information">
                                         <a href="{{ route('doctor.doctor-patients.index') }}">
                                             <img src="../assets/img/doctors-dashboard/profile-02.jpg"
-                                                alt="User Image">
+                                                alt="">
                                         </a>
                                         <div class="patient-info">
                                             <p>#Apt0002</p>
@@ -149,7 +149,7 @@
                                     <div class="patinet-information">
                                         <a href="{{ route('doctor.doctor-patients.index') }}">
                                             <img src="../assets/img/doctors-dashboard/profile-03.jpg"
-                                                alt="User Image">
+                                                alt="">
                                         </a>
                                         <div class="patient-info">
                                             <p>#Apt0003</p>
@@ -189,7 +189,7 @@
                                     <div class="patinet-information">
                                         <a href="{{ route('doctor.doctor-patients.index') }}">
                                             <img src="../assets/img/doctors-dashboard/profile-06.jpg"
-                                                alt="User Image">
+                                                alt="">
                                         </a>
                                         <div class="patient-info">
                                             <p>#Apt0004</p>
@@ -229,7 +229,7 @@
                                     <div class="patinet-information">
                                         <a href="{{ route('doctor.doctor-patients.index') }}">
                                             <img src="../assets/img/doctors-dashboard/profile-05.jpg"
-                                                alt="User Image">
+                                                alt="">
                                         </a>
                                         <div class="patient-info">
                                             <p>#Apt0005</p>

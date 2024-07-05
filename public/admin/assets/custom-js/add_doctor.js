@@ -4,7 +4,6 @@
                     Start : Manage Doctor Personal Profiles Details From Kendo 
 ================================================================================
 */
-
 function addItemToMultiSelect(widgetId, value) {
     var widget = jQuery("#" + widgetId).getKendoMultiSelect();
     var dataSource = widget.dataSource;
@@ -24,55 +23,6 @@ function addItemToMultiSelect(widgetId, value) {
     widget.trigger('change');
     dataSource.sync();
 }
-
-
-// Todo manage it 
-// function addLanguage(widgetId, value) {
-//     var widget = jQuery("#" + widgetId).getKendoMultiSelect();
-//     var dataSource = widget.dataSource;
-//     dataSource.add({
-//         name: value
-//     });
-//     dataSource.add({
-//         id: dataSource.data().length - 1,
-//         name: value
-//     });
-//     var currentValue = widget.value()
-//     currentValue.push(dataSource.data().length)
-//     widget.value(currentValue)
-//     widget.trigger('change')
-//     dataSource.sync();
-// }
-// function addSpeciality(widgetId, value) {
-//     var widget = jQuery("#" + widgetId).getKendoMultiSelect();
-//     var dataSource = widget.dataSource;
-//     dataSource.add({
-//         name: value
-//     });
-//     dataSource.one("sync", function() {
-//         widget.select(dataSource.data().length + 1);
-//     });
-//     var currentValue = widget.value()
-//     currentValue.push(dataSource.data().length)
-//     widget.value(currentValue)
-//     widget.trigger('change')
-//     dataSource.sync();
-// }
-// function addService(widgetId, value) {
-//     var widget = jQuery("#" + widgetId).getKendoMultiSelect();
-//     var dataSource = widget.dataSource;
-//     dataSource.add({
-//         name: value
-//     });
-//     dataSource.one("sync", function() {
-//         widget.select(dataSource.data().length + 1);
-//     });
-//     var currentValue = widget.value()
-//     currentValue.push(dataSource.data().length)
-//     widget.value(currentValue)
-//     widget.trigger('change')
-//     dataSource.sync();
-// }
 
 /*
 ================================================================================
@@ -200,9 +150,6 @@ const addAward = (function() {
         initializeFlatDatePicker();
     };
 })();
-
-// Get all Awards and list them in kendo ui
-var site_admin_base_url = 'http://127.0.0.1:8000/admin/';  // TODO : from env file
 
 // Initialize Awards list 
 function initializeKendoDropdownSelectForAward(selector,selectedAward = '',awardNoAwardTemplate = ''
@@ -440,8 +387,6 @@ const addEducation = (function() {
     };
 })();
 
-
-var site_admin_base_url = 'http://127.0.0.1:8000/admin/';  // TODO : from env file
 
 // Initialize Education list
     function initializeKendoDropdownSelectForEducation(selector, selectedEducation='') {

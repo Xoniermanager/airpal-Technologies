@@ -18,7 +18,7 @@ class DoctorEducationServices
         $this->doctor_education_repository = $doctor_education_repository;
     }
 
-    public function addDoctorEducation($data)
+public function addDoctorEducation($data)
 {
     $userId = $data['user_id'];
     $results = [];
@@ -50,7 +50,6 @@ class DoctorEducationServices
                 }
             }
         }
-
         // Check if the education entry already exists
         $existingEntry = $this->doctor_education_repository
             ->where('id', $education['id'] ?? null)
@@ -167,4 +166,58 @@ class DoctorEducationServices
             return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
         }
     }
+
+    
+
+public function createOrUpdateEducationSingleRecord($data)
+{
+        $userId = $data['user_id'];
+        $payload = [
+            'user_id'          => $userId,
+            'institute_name'   => $data['name'],
+            'course_id'        => $data['course'],
+            'start_date'       => $data['start_date'],
+            'end_date'         => $data['end_date']
+        ];
+
+        if (isset($data['certificates']) && !empty($data['certificates'])) {
+            $file = $data['certificates'];
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $destinationPath = public_path('images');
+            $file->move($destinationPath, $filename);
+            $payload['certificates'] = $filename;
+
+            // Delete the old certificate if exists
+            $imageUrl = $this->doctor_education_repository
+                ->where('user_id', $userId)
+                ->where('course_id', $data['course'])
+                ->first();
+            if (isset($imageUrl->certificates)) {
+                $destinationPath = public_path('images/' . $imageUrl->certificates);
+                if (File::exists($destinationPath)) {
+                    unlink($destinationPath);
+                }
+            }
+        }
+        // Check if the education entry already exists
+        $existingEntry = $this->doctor_education_repository
+            ->where('id', $data['id'] ?? null)
+            ->where('user_id', $userId)
+            ->first();
+
+        if (!empty($existingEntry)) {
+            $result = $this->doctor_education_repository
+                ->where('id', $data['id'] ?? null)
+                ->where('user_id', $userId)
+                ->update($payload);
+        } else {
+            $result = $this->doctor_education_repository->create(array_merge($payload, [
+                'user_id' => $userId
+            ]));
+        }
+      return $result;
+}
+
+
+
 }

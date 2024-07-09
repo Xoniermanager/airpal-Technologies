@@ -7,11 +7,11 @@ use App\Http\Services\AuthServices;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AuthCheckRequest;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
     protected $authService;
-
     public function __construct(AuthServices $authService)
     {
         $this->authService = $authService;
@@ -21,7 +21,7 @@ class AuthController extends Controller
     {
         try {
             $credentials = $request->only(['email', 'password']);
-            $response = $this->authService->login($credentials);
+            $response    = $this->authService->login($credentials);
             return response()->json($response);
         } catch (\Throwable $th) {
             return response()->json([
@@ -31,7 +31,22 @@ class AuthController extends Controller
         }
     }
 
-    public function logout(Request $request)
+    public function resendOtp(AuthCheckRequest $request)
+    {
+        try {
+            $credentials = $request->only(['email', 'password']);
+            $response    = $this->authService->resendOtp($credentials);
+            return response()->json($response);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+        
+    }
+
+    public function logout()
     {
         try {
             $response = $this->authService->logout();
@@ -44,7 +59,7 @@ class AuthController extends Controller
             ], 500);
         }
     }
-
+    
     public function verifyOtp(Request $request)
     {
         try {
@@ -60,13 +75,46 @@ class AuthController extends Controller
 
     }
 
-    public function resetPassword()
+    public function forgetPasswordSendOtp(Request $request)
     {
-            // Todo 
+        try {
+            $response = $this->authService->forgetPasswordSendOtp($request->all());
+            return response()->json($response);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+        
     }
 
-    public function register()
+    public function forgetPassword(Request $request)
     {
-            // Todo 
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|exists:users,email',
+            'otp'   => 'required|integer',
+            'new_password' => 'required|string|confirmed',
+            'new_password_confirmation' => 'required|string'
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'status' => 422,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+    
+        try {
+            $response = $this->authService->forgetPassword($request->only('email', 'otp', 'new_password'));
+            return response()->json($response);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
+
 }

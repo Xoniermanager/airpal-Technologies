@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Service;
+use App\Models\Hospital;
+use App\Models\Language;
 use App\Models\DayOfWeek;
 use Illuminate\Http\Request;
 use App\Models\Specialization;
@@ -14,6 +16,8 @@ use App\Http\Services\CountryServices;
 use App\Http\Services\DoctorAddressServices;
 use App\Http\Requests\StoreDoctorAddressRequest;
 use App\Http\Requests\StoreDoctorPersonalDetailRequest;
+use App\Models\Award;
+use App\Models\Course;
 
 class DoctorProfileController extends Controller
 {
@@ -39,35 +43,52 @@ class DoctorProfileController extends Controller
     public function profile()
     {
         try {
-            $doctor = $this->user_services->getDoctorDataById(Auth::guard('doctor_api')->user()->id);
-            $languagesIds = $doctor->language->pluck('id');
-            $specialitiesIds = $doctor->specializations->pluck('id');
-            $servicesIds = $doctor->services->pluck('id');
-        
-            $countries = $this->countryServices->all();
-            $states = $this->stateServices->all();
+            if(Auth::guard('doctor_api')->user()){
+
+                $doctor = $this->user_services->getDoctorDataById(Auth::guard('doctor_api')->user()->id);
+                $languagesIds = $doctor->language->pluck('id');
+                $specialitiesIds = $doctor->specializations->pluck('id');
+                $servicesIds = $doctor->services->pluck('id');
             
-            $specialty  = Specialization::all();
-            $services   = Service::all();
-            $dayOfWeeks = DayOfWeek::all();
-        
-            $data = [
-                'doctor'          => $doctor,
-                'languagesIds'    => $languagesIds,
-                'specialitiesIds' => $specialitiesIds,
-                'servicesIds'     => $servicesIds,
-                'specialty_list'  => $specialty,
-                'country_list'    => $countries,
-                'services_list'   => $services,
-                'states_list'     => $states,
-                'service_list'    => $services,
-                'dayOfWeeks_list' => $dayOfWeeks,
-            ];
-        
-            return response()->json([
-                'success' => true,
-                'data' => $data
-            ]);
+                $countries = $this->countryServices->all();
+                $states = $this->stateServices->all();
+                
+                $specialty  = Specialization::all();
+                $services   = Service::all();
+                $dayOfWeeks = DayOfWeek::all();
+                $languages  = Language::all();
+                $hospital   = Hospital::all();
+                $awards     = Award::all();
+                $course     = Course::all();
+            
+                $data = [
+                    'doctor'          => $doctor,
+                    'languagesIds'    => $languagesIds,
+                    'specialitiesIds' => $specialitiesIds,
+                    'servicesIds'     => $servicesIds,
+                    'specialty_list'  => $specialty,
+                    'country_list'    => $countries,
+                    'services_list'   => $services,
+                    'states_list'     => $states,
+                    'service_list'    => $services,
+                    'dayOfWeeks_list' => $dayOfWeeks,
+                    'languages_list'  => $languages,
+                    'hospital_list'   => $hospital,
+                    'award_list'      => $awards,
+                    'course_list'     => $course,
+                ];
+                return response()->json([
+                    'success' => true,
+                    'data' => $data
+                ]);
+            }else
+            {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'User is not logged in'
+                ], 500);
+
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,

@@ -221,7 +221,7 @@
             </div>
         @endforelse
         <div class="modal-btn text-end">
-            <input type="hidden" value="{{Request::segment(4)}}" name="user_id" id="doctor_user_id">
+            <input type="hidden" value="{{$singleAwardDetail->user->id ?? ''}}" name="user_id" id="doctor_user_id">
             <button type="submit" class="btn btn-primary prime-btn">Save
                 Changes</button>
         </div>

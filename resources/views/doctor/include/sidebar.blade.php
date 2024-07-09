@@ -1,9 +1,9 @@
 <div class="profile-sidebar doctor-sidebar profile-sidebar-new">
                             <div class="widget-profile pro-widget-content">
                                 <div class="profile-info-widget">
-                                    {{ $doctorDetails->image_url ?? '' }}
+
                                     <a href="{{ route('doctor.doctor-profile.index') }}" class="booking-doc-img">
-                                        <img src="" class="img-fluid"
+                                        <img src="{{asset('images/').'/'.$doctorDetails['image_url'] ?? '' }}" class="img-fluid"
                                         alt=""   onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" >
                                     </a>
                                     <div class="profile-det-info">
@@ -115,7 +115,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="">
+                                            <a href="{{ route('doctor.logout') }}">
                                                 <i class="fa-solid fa-calendar-check"></i>
                                                 <span>Logout</span>
                                             </a>

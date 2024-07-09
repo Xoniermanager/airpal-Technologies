@@ -224,59 +224,163 @@ class DoctorSlotServices
         return $allDaySlots;
 }
 
-// public function buildCalender($data)
-// {
-//     $startDate = date_create($data->start_slots_from_date);
-//     $endDate = clone $startDate;
-//     date_modify($endDate, '+'.$data->slots_in_advance.' days');
+public function showCalendar($data)
+{
+    $startDate = date_create($data->start_slots_from_date);
+    $endDate = clone $startDate;
+    date_modify($endDate, '+'.$data->slots_in_advance.' days');
 
-//     $formattedStartDate = date_create(date_format($startDate, 'Y-m-d'));
-//     $formattedEndDate   = date_create(date_format($endDate, 'Y-m-d'));
-//     $interval = new DateInterval('P1D');
+    $formattedStartDate = date_create(date_format($startDate, 'Y-m-d'));
+    $formattedEndDate   = date_create(date_format($endDate, 'Y-m-d'));
+    $interval = new DateInterval('P1D');
 
-//     //Step 2 :Getting exception days name and making an array so that we will pass in_array function and if exist
-//     if (isset($data->exception_days) && !empty($data->exception_days->toArray())) {
-//         foreach ($data->exception_days as $exception_day) {
-//             $exception_days_name[] =  DayOfWeek::find($exception_day->exception_days_id)->name;
+    //Step 2 :Getting exception days name and making an array so that we will pass in_array function and if exist
+    if (isset($data->exception_days) && !empty($data->exception_days->toArray())) {
+        foreach ($data->exception_days as $exception_day) {
+            $exception_days_name[] =  DayOfWeek::find($exception_day->exception_days_id)->name;
 
-//         }
-//     }
-// 		// First of all, lets create an array containing the names of all days in a week
-// 		$days_of_week = array('Sun','Mon','Tue','Wed','Thu','Fri','Sat');
+        }
+    }
+		// First of all, lets create an array containing the names of all days in a week
+		$days_of_week = array('Sun','Mon','Tue','Wed','Thu','Fri','Sat');
 
-//         $month = 7; // let  
-//         $year  = 2024; // let 
+        $month = 7; // let  
+        $year  = 2024; // let 
 
-//         // Create a Carbon instance for the first day of the month
-//         $firstDayOfMonth = Carbon::create($year, $month, 1, 0, 0, 0);
+        // Create a Carbon instance for the first day of the month
+        $firstDayOfMonth = Carbon::create($year, $month, 1, 0, 0, 0);
 
-// 		// Now getting the number of days this month contains
-// 		// $number_of_days = date('t',$firstDayOfMonth);
-//         $number_of_days = Carbon::now()->month($month)->daysInMonth;
+		// Now getting the number of days this month contains
+        $number_of_days = Carbon::now()->month($month)->daysInMonth;
 
-//         // Get the name of the month
-//         $monthName = $firstDayOfMonth->format('F');  // e.g., "July"
+        // Get the name of the month
+        $monthName = $firstDayOfMonth->format('F');  // e.g., "July"
 
-//         // Get the index value (0-6) of the first day of the month
-//         $dayOfWeek = $firstDayOfMonth->dayOfWeek;  
+        // Get the index value (0-6) of the first day of the month
+        $dayOfWeek = $firstDayOfMonth->dayOfWeek;  
 
-//         dd( $dayOfWeek);
 
-// 		// Getting some information about the first day of this month
-
-//         $dateToday = Carbon::now()->toDateString();  // e.g., "2024-07-03"
+		// Getting some information about the first day of this month
+        $dateToday = Carbon::now()->toDateString();  // e.g., "2024-07-03"
 
         
-// 		// // Getting the name of thjis month
-// 		// $month_name = $date_components['month'];
+		// // Getting the name of thjis month
+		// $month_name = $date_components['month'];
 
-// 		// // Getting the index values 0-6 of the first day of this month
-// 		// $day_of_week = $date_components['wday'];
+		// // Getting the index values 0-6 of the first day of this month
+		// $day_of_week = $date_components['wday'];
 
-// 		// // Getting the current date
-// 		// $date_today = date('Y-m-d');
+		// // Getting the current date
+		// $date_today = date('Y-m-d');
 
-// }
+
+
+        // Now creating the html table
+		$calendar = "<div class='calen-table'><table class='table table-bordered' id='appointment-request'>";
+
+		$calendar .= "<div class='calen-header'>";
+		$calendar .= "<h2>$monthName $year</h2>";
+
+		$previous_month = date('m',mktime(0,0,0,$month-1,1,$year));
+		$previous_year = date('Y',mktime(0,0,0,$month-1,1,$year));
+		$calendar .= "<button onclick='ajax_update_calendar({$previous_month},{$previous_year})' class='btn bten-pre'>Previous Month</button>";
+
+		$current_month = date('m');
+		$current_year = date('Y');
+		$calendar .= "<button onclick='ajax_update_calendar({$current_month},$current_year)' class='btn btn-cur'>Current Month</button>";
+
+		$next_month = date('m',mktime(0,0,0,$month+1,1,$year));
+		$next_year = date('Y',mktime(0,0,0,$month+1,1,$year));
+		$calendar .= "<button onclick='ajax_update_calendar({$next_month},{$next_year})' class='btn btn-nex'>Next Month</button>";
+
+		$calendar .= "</div>";
+
+		$calendar .= "<tr>";
+
+		// NOw creating the calendar headers
+		foreach($days_of_week as $day)
+		{
+			$calendar .= "<th class='header'>$day</th>";
+		}
+
+		// Initiating the day counter
+		$current_day = 1;
+		$calendar .= "</tr><tr>";
+
+		// The variable $days_of_week will make sure that there must be only 7 columns in our table
+		if($days_of_week > 0)
+		{
+			for($k = 0; $k < $days_of_week; $k++)
+			{
+                // dd($k);
+				 $calendar .= "<td class='empty'></td>";
+			}
+		}
+
+		// Getting the month number
+		$month = str_pad($month,2,"0",STR_PAD_LEFT);
+
+		while($current_day <= $number_of_days)
+		{
+			if($days_of_week == 7)
+			{
+				$days_of_week = 0;
+				$calendar .= "</tr><tr>";
+			}
+
+			$current_day_rel =  str_pad($current_day,2,"0",STR_PAD_LEFT);
+			$date = "$year-$month-$current_day_rel";
+			$day_name = strtolower(date('l',strtotime($date)));
+			$event_num = 0;
+			$today_date = date('Y-m-d');
+			$is_today = ($date == $today_date) ? "today" : "";
+			// $calendar .= "<td>";
+			// $calendar .= "<h4>$current_day</h4>";
+			// $calendar .= "</td>";
+
+			if($date < $startDate || $date < $today_date || $date > $endDate)
+			{
+				if($date >= $startDate && $date <= $endDate)
+				{
+					$calendar .= "<td><button class='btn not-btn'><h4>$current_day</h4> <span class='na'>N/A</span></button></td>";
+				}
+				else
+				{
+					$calendar .= "<td><h4>$current_day</h4></td>";
+				}
+			}
+			elseif(in_array($date,array_column(['2/7/2024'],'booking_date')))
+			{
+				// Searcing the current date in array $bookings under column name booking_date
+				$calendar .= "<td><button class='btn not-btn'><h4>$current_day</h4> Already Booked</button></td>";
+			}
+			else
+			{
+				// $calendar .= "<td class='$is_today'><button onclick='check_available_slot(this,\"".$slot_div_id."\")' type='button' class='btn avail-btn' selected_date=".$date."><h4>$current_day</h4><span class='av'>Availability</span></button></td>";
+			}
+			
+			$current_day++;
+			$days_of_week++;
+		}
+
+		// Completing the row of the last week in month, if necessary
+		if($days_of_week != 7)
+		{
+			$remaining_days = 7 - $days_of_week;
+
+			for($i=0; $i<$remaining_days; $i++)
+			{
+				$calendar .= "<td></td>";
+			}
+		}
+
+		$calendar .= "</tr>";
+		$calendar .= "</table></div>";
+		return $calendar;
+
+
+
+}
 
 
 

@@ -6,11 +6,19 @@
 
                 <div class="page-header">
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-9">
                             <h3 class="page-title">Welcome Admin!</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item active">Dashboard</li>
                             </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="top-nav-search">
+                                <form>
+                                    <input type="text" class="form-control" placeholder="Search here">
+                                    <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

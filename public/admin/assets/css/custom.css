@@ -844,7 +844,7 @@ p:last-child  {
   background: #ffffff;
   border-bottom: 1px solid #f0f0f0;
   z-index: 1001;
-  height: 60px;
+  height: auto !important;
   position: fixed;
   top: 0;
   right: 0;
@@ -3922,4 +3922,28 @@ ul.time-slots {
 .header .user-menu.nav li a {
   color: #000 !important; 
   height: 40px !important; 
+}
+.h-150px {
+  height: 150px !important;
+}
+.h-100px {
+  height: 100px !important;
+}
+.login-right-wrap {
+  background: #fff;
+  padding: 4rem;
+  height: 100%;
+}
+th:last-child {
+  text-align: right;
+}
+td:last-child {
+  text-align: right;
+}
+select {
+  padding: 0px 10px !important;
+}
+
+.float-right {
+  float:right;
 }

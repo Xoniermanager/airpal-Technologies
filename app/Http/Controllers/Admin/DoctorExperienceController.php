@@ -18,7 +18,6 @@ class DoctorExperienceController extends Controller
     public function addDoctorExperience(StoreDoctorExperienceRequest $request)
     {
         $userId = $this->doctor_experience_service->addDoctorExperience($request->all());
-
         if ($userId) {
             return response()->json([
                 'success' => true,

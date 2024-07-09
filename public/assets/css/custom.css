@@ -19423,7 +19423,9 @@ header.header.header-custom.header-fixed.header-one  {
   background-color: #ffffff;
   border: 1px solid #f0f0f0;
   border-radius: 4px;
-  padding: 25px;
+  padding: 28px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; 
+
 }
 @media (max-width: 767.98px) {
   .login-right {
@@ -46060,4 +46062,8 @@ select {
   margin-right: 2rem;
   padding: 1rem;
   padding-right: 2rem;
-}
+} 
+
+
+
+

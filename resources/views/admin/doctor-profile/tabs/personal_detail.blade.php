@@ -187,7 +187,7 @@
                     <div class="col-lg-12">
                         <div class="form-wrap">
                             <label class="col-form-label">Description</label>
-                            <textarea class="form-control" name="description" id="description">{{ $singleDoctorDetails->description ?? "" }}</textarea>
+                            <textarea class="form-control" style="height: 150px;" name="description" id="description">{{ $singleDoctorDetails->description ?? "" }}</textarea>
                             <span class="text-danger" id="description_error"></span>
                             <span id="charCount">0/1000</span>
                         </div>

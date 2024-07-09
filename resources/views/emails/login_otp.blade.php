@@ -24,7 +24,7 @@
 							<td align="center" valign="top" style="padding-bottom: 20px;padding-top: 20px;">
 								<!-- Hero Image // -->
 								<a style="text-decoration:none;">
-									<img src=""   alt="" border="0" style="width:250px; height:auto; display:block;">
+									<img src="https://airpal.ie/assets/img/logo.png"   alt="" border="0" style="width:250px; height:auto; display:block;">
 								</a>
 							</td>
 						</tr>

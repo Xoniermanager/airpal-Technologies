@@ -111,10 +111,22 @@ class User extends Authenticatable
     {
         return $this->hasMany(ExceptionDays::class,'doctor_id');
     } 
-    // public function doctorQuestions()
-    // {
-    //     return $this->hasOne(DoctorQuestions::class,'doctor_id');
-    // } 
+
+
+    public function isAdmin()
+    {
+        return $this->role === 1;
+    }
+
+    public function isDoctor()
+    {
+        return $this->role === 2;
+    }
+
+    public function isPatient()
+    {
+        return $this->role === 3;
+    }
 
 
 

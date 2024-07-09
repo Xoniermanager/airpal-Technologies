@@ -7,7 +7,7 @@
                     <th>#</th>
                     <th>Country</th>
                     <th>Created at</th>
-                    <th>Actions</th>
+                    <th class="text-right">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,7 +25,7 @@
                         </h2>
                     </td>
                     <td>{{ $country->created_at->format('d/m/Y') }}</td>
-                    <td>
+                    <td class="text-right">
                         <div class="actions">
                             <a class="btn btn-sm bg-success-light" data-id ="{{$country->id}}" data-bs-toggle="modal"href="#edit_country" onclick="edit_country('{{$country->name}}','{{$country->id}}')">
                                 <i class="fe fe-pencil"></i> Edit
@@ -46,3 +46,9 @@
 
     </div>
 </div>
+<style>
+    .text-right {
+        text-align: right;
+    }
+   
+</style>

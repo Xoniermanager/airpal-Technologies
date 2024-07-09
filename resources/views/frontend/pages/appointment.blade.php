@@ -65,7 +65,7 @@
                                        <div class="date" data-day="5">5</div>
                                        <div class="date" data-day="6">6</div>
                                        <div class="date" data-day="7">7</div>
-                                        </div>
+                                    </div>
                                   </div>
                                             </div>
 
@@ -198,11 +198,14 @@
                                     <div class="Appointment-doctor-left">
                                         <div class="Appointment-doctor-img">
                                             <a href="doctor-profile.html">
-                                                <img src="assets/img/doctors/doctor-08.jpg" alt="John Doe">
+                                                <img
+                                                  src="{{ asset('images/' . $doctorDetails->image_url) }}"
+                                        onerror="this.src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}';"
+                                                alt="John Doe">
                                             </a>
                                         </div>
                                         <div class="Appointment-doctor-info mt-3">
-                                            <h4><a href="doctor-profile.html">Dr. John Doe</a></h4>
+                                            <h4><a href="doctor-profile.html">Dr. {{ $doctorDetails->fullName }}</a></h4>
                                             <p>MBBS, Dentist</p>
                                         </div>
                                     </div>

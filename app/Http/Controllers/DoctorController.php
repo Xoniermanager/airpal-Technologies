@@ -85,4 +85,25 @@ class DoctorController extends Controller
           return response()->json(['error' => 'Something Went Wrong!! Please try again']);
       }
   }
+
+
+
+
+  public function showCalendar($id)
+  {
+    $doctor = $this->user_services->getDoctorDataById($id); // id is temp will do it later 
+    $doctorSlot = $this->doctorSlotServices->getSlotsByDoctorId($doctor->id);
+    if(isset($doctorSlot))
+    {
+      $doctorSlot->exception_days = $doctorSlot->user->doctorExceptionDays;
+      $returnedSlots = $this->doctorSlotServices->showCalendar($doctorSlot);
+      // $returnedSlots = $this->doctorSlotServices->buildCalender($doctorSlot);
+
+    }else{
+      $returnedSlots = [];
+    }
+    return view('frontend.pages.appointment', ['allDaySlots' => $returnedSlots,'doctorDetails' => $doctor]);
+  }
+
+  
 }

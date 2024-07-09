@@ -16,13 +16,10 @@ class DoctorWorkingHourController extends Controller
     }
     public function createOrUpdateWorkingHour(StoreDoctorWorkingHourRequest $request)
     {
-        // return ($request->validated());
         $userId = $request->user_id;
-        $insertWorkigHour = $this->doctor_working_hour_services->addDoctorWorkingHour($request->validated(),  $userId);
+        $insertWorkingHour = $this->doctor_working_hour_services->addDoctorWorkingHour($request->validated(),  $userId);
 
-        // return $insertWorkigHour;
-
-        if ($insertWorkigHour) {
+        if ($insertWorkingHour) {
             return response()->json([
                 'success' => true,
                 'message' => 'Working hour Updated successfully',

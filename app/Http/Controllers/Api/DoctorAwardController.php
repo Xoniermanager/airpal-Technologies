@@ -38,12 +38,30 @@ class DoctorAwardController extends Controller
         if ($this->doctor_award_services->deleteDetails($id)) {
             return response()->json([
                 'success' => true,
-                'message' => 'Experience records deleted successfully',
+                'message' => 'award records deleted successfully',
             ]);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to add experience records'
+                'message' => 'Failed to add award records'
+            ], 500);
+        }
+    }
+
+    public function createOrUpdateAwardSingleRecord(Request $request)
+    {
+        try {
+            $addedDoctorAward = $this->doctor_award_services->createOrUpdateAwardSingleRecord($request->all());
+            if ($addedDoctorAward) {
+                return response()->json([
+                    "status"   => "success",
+                    "message" => "Doctor award details saved!",
+                ], 200);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
             ], 500);
         }
     }

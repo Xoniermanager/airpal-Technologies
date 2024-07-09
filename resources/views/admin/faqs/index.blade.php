@@ -51,7 +51,8 @@
                                     </div>
                                     <div class="mb-3" id="faqs-div">
                                         <label class="mb-2">Description</label>
-                                        <textarea name="description"  name="description" class="form-control"></textarea>
+                                       
+                                        <textarea name="description"  name="description" class="form-control h-100px"></textarea>
                                         <span class="text-danger" id="description-error"></span>
 
                                     </div>
@@ -88,7 +89,7 @@
                                     </div>
                                     <div class="mb-3" id="faqs-div">
                                         <label class="mb-2">Description</label>
-                                        <textarea name="description" id="description" class="form-control"></textarea>
+                                        <textarea name="description" id="description" class="form-control h-100px"></textarea>
                                         <span class="text-danger" id="description-error"></span>
 
                                     </div>

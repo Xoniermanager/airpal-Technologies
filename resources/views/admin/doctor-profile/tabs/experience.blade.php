@@ -314,7 +314,7 @@
         </div> 
         @endforelse
         <div class="modal-btn text-end"> 
-            <input type="hidden" value="{{Request::segment(4)}}" name="user_id" id="doctor_experience_user_id">
+            <input type="hidden" value="{{$singleExperiencesDetails->user->id ?? ''}}" name="user_id" id="doctor_experience_user_id">
             <button class="btn btn-primary prime-btn">Save
                 Changes</button>
         </div>

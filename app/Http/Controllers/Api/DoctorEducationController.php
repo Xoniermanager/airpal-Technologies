@@ -18,6 +18,7 @@ class DoctorEducationController extends Controller
     public function createOrUpdateEducation(StoreDoctorEducationRequest $request)
     {
         try {
+        
             $addedDoctorEducation = $this->doctor_education_service->addDoctorEducation($request->all());
             if ($addedDoctorEducation) {
                 return response()->json([
@@ -45,6 +46,24 @@ class DoctorEducationController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to add education records'
+            ], 500);
+        }
+    }
+
+    public function createOrUpdateEducationSingleRecord(Request $request)
+    {
+        try {
+            $addedDoctorEducation = $this->doctor_education_service->createOrUpdateEducationSingleRecord($request->all());
+            if ($addedDoctorEducation) {
+                return response()->json([
+                    "status"   => "success",
+                    "message" => "Doctor education details saved!",
+                ], 200);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
             ], 500);
         }
     }

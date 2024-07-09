@@ -228,7 +228,6 @@ function createAwardDataSource() {
         dataSource.sync();
     }
 
-// delete awards section (div container)
     function deleteAwards(awardId='',button) {
         const entry = button.closest('.accordion-item');
         if (!awardId) {

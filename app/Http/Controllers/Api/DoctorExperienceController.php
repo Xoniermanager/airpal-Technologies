@@ -47,4 +47,21 @@ class DoctorExperienceController extends Controller
             ], 404); // Return 404 if record not found or error occurred
         }
     }
+    public function createOrUpdateExperienceSingleRecord(Request $request)
+    {
+        try {
+            $addedDoctorExperience = $this->doctor_experience_service->createOrUpdateExperienceSingleRecord($request->all());
+            if ($addedDoctorExperience) {
+                return response()->json([
+                    "status"   => "success",
+                    "message" => "Doctor experience details saved!",
+                ], 200);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
 }

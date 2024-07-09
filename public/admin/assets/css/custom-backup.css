@@ -808,7 +808,7 @@ p:last-child  {
   background: #ffffff;
   border-bottom: 1px solid #f0f0f0;
   z-index: 1001;
-  height: 60px;
+  height: auto !important;
   position: fixed;
   top: 0;
   right: 0;
@@ -3903,4 +3903,19 @@ ul.time-slots {
 }
 .slot-box .slot-body .time-slots li i {
   margin-right: 10px;
+}
+.login-right-wrap {
+  background: #fff;
+  padding: 4rem;
+  height: 100%;
+}
+.adminlogin-wrapper {
+  padding: 1.5rem 0;
+  max-width: 930px;
+  margin: auto;
+}
+.admin-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100vh;
 }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Traits\ExceptionHandle;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AuthCheckRequest extends FormRequest
 {
+    use ExceptionHandle;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -13,6 +15,7 @@ class AuthCheckRequest extends FormRequest
     {
         return true;
     }
+
 
     /**
      * Get the validation rules that apply to the request.
@@ -26,4 +29,5 @@ class AuthCheckRequest extends FormRequest
                 'password' => 'required'
         ];
     }
+
 }

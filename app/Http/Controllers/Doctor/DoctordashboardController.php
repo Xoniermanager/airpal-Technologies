@@ -12,7 +12,7 @@ use App\Http\Services\StateServices;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Services\CountryServices;
 
-class DoctordashboardController extends Controller
+class DoctorDashboardController extends Controller
 {
 
     private $user_services;

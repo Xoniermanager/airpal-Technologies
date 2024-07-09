@@ -151,4 +151,51 @@ class DoctorAwardServices
   {
     return $this->doctor_award_repository->find($id)->delete();
   }
+
+
+  public function createOrUpdateAwardSingleRecord($data)
+  {
+        $payload = [
+            'award_id'    => $data['name'],
+            'year'        => $data['year'],
+            'description' => $data['description']
+        ];
+  
+        if (isset($data['certificates']) && !empty($data['certificates'])) {
+            $file = $data['certificates'];
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $destinationPath = public_path('images');
+            $file->move($destinationPath, $filename);
+            $payload['certificates'] = $filename;
+
+            // Delete the old certificate if exists
+            $imageUrl = $this->doctor_award_repository
+                ->where('user_id', $data['user_id'])
+                ->where('course_id', $data['course'])
+                ->first();
+            if (isset($imageUrl->certificates)) {
+                $destinationPath = public_path('images/' . $imageUrl->certificates);
+                if (File::exists($destinationPath)) {
+                    unlink($destinationPath);
+                }
+            }
+        }
+        $existingEntry = $this->doctor_award_repository
+              ->where('id', $data['id'] ?? null)
+              ->where('user_id', $data['user_id'])
+              ->first();
+  
+          if (!empty($existingEntry)) {
+              $result = $this->doctor_award_repository
+                  ->where('id', $data['id'] ?? null)
+                  ->where('user_id', $data['user_id'])
+                  ->update($payload);
+          } else {
+              $result = $this->doctor_award_repository->create(array_merge($payload, [
+                  'user_id' => $data['user_id']
+              ]));
+          }
+        return $result;
+  }
+
 }

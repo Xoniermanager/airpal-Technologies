@@ -19,7 +19,7 @@
         }
 
     @endphp
-
+{{-- 
     <div class="breadcrumb-bar-two">
         <div class="container">
             <div class="row align-items-center inner-banner">
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="content doctor-content">
         <div class="container">
             <div class="row">
@@ -94,6 +94,26 @@
 
     <script>
         $(document).ready(function() {
+
+
+            function updateCharCount() {
+        var length = $("#description").val().length;
+        var remaining = 1000 - length;
+
+        $('#charCount').text(length + '/1000');
+
+        if (remaining < 0) {
+            $('#charCount').css('color', 'red');
+        } else {
+            $('#charCount').css('color', 'green');
+        }
+    }
+
+    updateCharCount();
+
+    $("#description").on('input', function() {
+        updateCharCount();
+    });
 
             var skillId = jQuery('#doctorlanguageID').text();
             if (skillId.length > 1) {

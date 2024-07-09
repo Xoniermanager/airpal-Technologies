@@ -1,5 +1,13 @@
 <div class="card-body">
     <div class="table-responsive">
+        <div class="col-md-3 float-right">
+            <div class="top-nav-search mb-3">
+                <form>
+                    <input type="text" class="form-control" placeholder="Search here">
+                    <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+        </div>
         <table class="datatable table table-hover table-center mb-0">
             <thead>
                 <tr>
@@ -56,4 +64,4 @@
             {{ $doctors->links() }}
         </div>
     </div>
-</div>
+</div> 

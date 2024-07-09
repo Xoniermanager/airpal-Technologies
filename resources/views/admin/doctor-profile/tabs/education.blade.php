@@ -109,7 +109,7 @@
                                         </div>
                                         <div class="col-lg-6 col-md-6">
                                             @php
-                                                $filePath = asset('images') . '/' . $singleEducationDetail->id;
+                                                $filePath = asset('images') . '/' . $singleEducationDetail->certificates;
                                                 $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
                                             @endphp
                                         
@@ -219,7 +219,7 @@
             </div>
         @endforelse
         <div class="modal-btn text-end">
-            <input type="hidden" value="{{Request::segment(4) ?? ''}}" name="user_id" id="doctor_user_id">
+            <input type="hidden" value="{{$singleEducationDetail->user->id ?? ''}}" name="user_id" id="doctor_user_id">
             <button class="btn btn-primary prime-btn" id="doctorEducationform">Save Changes</button>
         </div>
     </form>

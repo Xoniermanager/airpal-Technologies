@@ -5,7 +5,9 @@
     @include('include.head')
 </head>
 
-<body>
+<body style="
+background: url(https://img.freepik.com/free-photo/blue-watercolor-stain-white-background_23-2147835864.jpg?t=st=1720166400~exp=1720170000~hmac=ab6c394438adaa520ddaa29029cfe72db0da5ec650b98f0544e75657b508836d&w=1060);
+">
 
     <div class="main-wrapper">
 
@@ -17,15 +19,15 @@
 
                         <div class="account-content">
                             <div class="row align-items-center justify-content-center">
-                                {{-- <div class="col-md-7 col-lg-6 login-left">
-                                    <img src="../assets/img/login-banner.png" class="img-fluid"
-                                        alt="Telemedicine App Login">
-                                </div> --}}
+                                <div class="col-md-7 col-lg-6 login-left">
+                                    <img src="../assets/img/doctor-login.jpg" class="img-fluid"
+                                        alt="App Login">
+                                </div> 
                                 <div class="col-md-12 col-lg-6 login-right">
                                     <div class="login-header">
-                                        <h3>Login <span>Telemedicine App</span></h3>
+                                        <h3>Login <span>Airpal Doctor Dashbarod</span></h3>
                                     </div>
-                                    <form method="post" id="doctorLogin">
+                                    <form method="post" id="doctorLogin" action="{{route('admin.login')}}">
                                          {{-- @csrf --}}
                                          <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                                         <div class="mb-3 form-focus">
@@ -39,7 +41,7 @@
                                             <span class="text-danger" id="password_error"></span>
                                         </div>
                                         <div class="text-end">
-                                            <a class="forgot-link" href="forgot-password.html">Forgot Password ?</a>
+                                            <a class="forgot-link" href="{{ route('doctor.forget.password.index')}}">Forgot Password ?</a>
                                         </div>
                                         <button class="btn btn-primary w-100 btn-lg login-btn"
                                             type="submit">Login</button>
@@ -82,6 +84,7 @@
             </path>
         </svg>
     </div> 
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 
@@ -121,11 +124,14 @@
                         processData: false,
                         contentType: false, 
                         success: function(response) {
+                            swal.fire("Done!", response.message, "success");
                             if (response.success == true) {
-                                window.location.href = "http://127.0.0.1:8000/doctor/doctor-dashboard";
+                                window.location.href = "<?= route('doctor.doctor-dashboard.index') ?>";
                             }
                         },
                         error: function(error_messages) {
+
+                            Swal.fire("Error!", "Invalid credentials", "error");
                             var errors = error_messages.responseJSON;
                             $.each(errors.errors, function(key, value) {
                                 console.log(value);
@@ -144,4 +150,4 @@
         .error {
     color: red;
 }
-    </style>
+    </style> --}}

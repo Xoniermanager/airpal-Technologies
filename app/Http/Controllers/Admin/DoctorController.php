@@ -71,7 +71,7 @@ class DoctorController extends Controller
                 if ($user) {
                     $userId = json_decode($user->content())->id;
                     $addedLanguages    = $this->doctor_language_services->addOrUpdateDoctorLanguage($userId, $request->languages);
-                    $addedSpecialties  = $this->doctor_speciality_services->addOrUpdateDoctorSpecialities($userId, $request->specialities);
+                    $addedSpecialties = $this->doctor_speciality_services->addOrUpdateDoctorSpecialities($userId, $request->specialities);
                     $addedServices     = $this->doctor_service_add_services->addOrUpdateDoctorServices($userId, $request->services);
                     if ($addedLanguages && $addedSpecialties && $addedServices) {
                         return  json_decode($user->content());

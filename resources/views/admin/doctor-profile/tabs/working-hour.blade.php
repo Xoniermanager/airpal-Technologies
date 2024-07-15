@@ -115,7 +115,7 @@
 
         <div class="modal-btn text-end">
             <a href="#" class="btn btn-gray">Cancel</a>
-            <input type="hidden" value="{{Request::segment(4)}}" name="user_id" id="doctor_user_id">
+            <input type="hidden" value="{{ Auth::user() ? Auth::user()->id : Request::segment(4)}}" name="user_id" id="doctor_user_id">
             <button type="submit" class="btn btn-primary prime-btn">Save Changes</button>
         </div>
     </form>

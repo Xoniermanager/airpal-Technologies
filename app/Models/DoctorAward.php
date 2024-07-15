@@ -17,7 +17,7 @@ class DoctorAward extends Model
 
     public function award()
     {
-        return $this->belongsTo(Award::class, 'award_id');
+        return $this->belongsTo(Award::class, 'award_id',"id");
     }
 
     

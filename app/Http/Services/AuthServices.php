@@ -164,13 +164,12 @@ public function forgetPassword(array $data)
     $email = $data['email'];
     $otp   = $data['otp'];
     $newPassword = $data['new_password'];
-
     $user = $this->userRepository->where('email', $email)->first();
     if ($user) {
         $validOtp = UserOtp::where([
             'user_id' => $user->id,
             'otp' => $otp
-        ])->where('updated_at', '>=', now()->subMinutes(2)) // Assuming OTP is valid for 5 minutes
+        ])->where('updated_at', '>=', now()->subMinutes(2)) 
         ->first();
 
         if ($validOtp) {

@@ -29,30 +29,30 @@ class StoreDoctorAwardRequest extends FormRequest
             'awards.*.year' => 'required',
             'awards.*.description' => 'nullable|string',
             'awards.*.certificates' => 'nullable|file|mimes:jpg,jpeg,png,pdf',
-            'awards.*.name' => [
-                'required',
-                function ($attribute, $value, $fail) use ($userId) {
-                    // Check for duplicates in the submitted data
-                    $awardNames = array_map(function($award) {
-                        return $award['name'];
-                    }, $this->input('awards', []));
+            // 'awards.*.name' => [
+            //     'required',
+            //     function ($attribute, $value, $fail) use ($userId) {
+            //         // Check for duplicates in the submitted data
+            //         $awardNames = array_map(function($award) {
+            //             return $award['name'];
+            //         }, $this->input('awards', []));
         
-                    if (count($awardNames) !== count(array_unique($awardNames))) {
-                        $fail('Duplicate award names are not allowed in the submitted data.');
-                    }
+            //         if (count($awardNames) !== count(array_unique($awardNames))) {
+            //             $fail('Duplicate award names are not allowed in the submitted data.');
+            //         }
         
-                    // Check for duplicates in the database
-                    foreach ($this->input('awards', []) as $index => $award) {
-                        $existingEntry = \App\Models\DoctorAward::where('user_id', $userId)
-                            ->where('award_id', $award['name'])
-                            ->where('id', '!=', $award['id'] ?? null)
-                            ->first();
-                        if ($existingEntry) {
-                            $fail("The award has already been taken for this user at index $index.");
-                        }
-                    }
-                },
-            ]
+            //         // Check for duplicates in the database
+            //         foreach ($this->input('awards', []) as $index => $award) {
+            //             $existingEntry = \App\Models\DoctorAward::where('user_id', $userId)
+            //                 ->where('award_id', $award['name'])
+            //                 ->where('id', '!=', $award['id'] ?? null)
+            //                 ->first();
+            //             if ($existingEntry) {
+            //                 $fail("The award has already been taken for this user at index $index.");
+            //             }
+            //         }
+            //     },
+            // ]
         ];
 
         return $rules;

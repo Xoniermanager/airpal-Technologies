@@ -164,16 +164,9 @@ function initializeKendoDropdownSelectForAward(selector,selectedAward = '',award
     });
 }
 
-jQuery("#award").kendoDropDownList({
-    filter: "contains",
-    dataTextField: "name",
-    dataValueField: "id",
-    dataSource: createAwardDataSource(),
-    noDataTemplate: jQuery("#noAwardTemplate").html()
-});
-
 
 function createAwardDataSource() {
+
     return new kendo.data.DataSource({
         batch: true,
         transport: {
@@ -209,6 +202,9 @@ function createAwardDataSource() {
     });
 }
 
+
+
+
 // Add new Awards using kendo ajax
     function addAwardData(widgetId, value) {
         
@@ -227,6 +223,15 @@ function createAwardDataSource() {
         });
         dataSource.sync();
     }
+
+    jQuery("#award").kendoDropDownList({
+        filter: "startswith",
+        dataTextField: "name",
+        dataValueField: "id",
+        dataSource: createAwardDataSource(),
+        // value: selectedAward , 
+        noDataTemplate: jQuery("#noAwardTemplate").html(),
+    });
 
     function deleteAwards(awardId='',button) {
         const entry = button.closest('.accordion-item');
@@ -432,6 +437,13 @@ const addEducation = (function() {
 
 
 
+jQuery("#course").kendoDropDownList({
+    filter: "startswith",
+    dataTextField: "name",
+    dataValueField: "id",
+    dataSource: createCourseDataSource(),
+    noDataTemplate: jQuery("#noCourseTemplate").html()
+});
 
 // Add new Education using kendo ajax
     function addCourse(widgetId, value) {
@@ -451,13 +463,7 @@ const addEducation = (function() {
         dataSource.sync();
     };
 
-    jQuery("#course").kendoDropDownList({
-        filter: "startswith",
-        dataTextField: "name",
-        dataValueField: "id",
-        dataSource: createCourseDataSource(),
-        noDataTemplate: jQuery("#noCourseTemplate").html()
-    });
+
 
     // Delete Experience 
     function deleteEducation(educationId='',button) {
@@ -708,14 +714,6 @@ function initializeKendoMultiSelectForExperience(selector,selectedHospital='') {
     });
 }
 
-var hospitalIds = jQuery('#doctorhospitalID').text();
-var doctorAwardsIds = jQuery('#doctorAwardsIds').text();
-if (doctorAwardsIds.length > 1) {
-    var arraydoctorAwardsIds = JSON.parse(doctorAwardsIds);
-    var awardValue = "" + arraydoctorAwardsIds.join(",") + "";
-    var awardArrs = awardValue.split(',');
-}
-
 jQuery("#hospital").kendoDropDownList({
     filter: "startswith",
     dataTextField: "name",
@@ -724,6 +722,16 @@ jQuery("#hospital").kendoDropDownList({
     value: hospitalIds ?? '',
     noDataTemplate: jQuery("#noHospitalTemplate").html()
 });
+
+var hospitalIds = jQuery('#doctorhospitalID').text();
+var doctorAwardsIds = jQuery('#doctorAwardsIds').text();
+if (doctorAwardsIds.length > 1) {
+    var arraydoctorAwardsIds = JSON.parse(doctorAwardsIds);
+    var awardValue = "" + arraydoctorAwardsIds.join(",") + "";
+    var awardArrs = awardValue.split(',');
+}
+
+
 
 
 // Add new hospital using kendo ajax

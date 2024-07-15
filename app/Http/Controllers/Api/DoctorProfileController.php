@@ -46,6 +46,7 @@ class DoctorProfileController extends Controller
             if(Auth::guard('doctor_api')->user()){
 
                 $doctor = $this->user_services->getDoctorDataById(Auth::guard('doctor_api')->user()->id);
+                $address = $doctor->doctorAddress->toArray();
                 $languagesIds = $doctor->language->pluck('id');
                 $specialitiesIds = $doctor->specializations->pluck('id');
                 $servicesIds = $doctor->services->pluck('id');
@@ -63,6 +64,7 @@ class DoctorProfileController extends Controller
             
                 $data = [
                     'doctor'          => $doctor,
+                    'address'         =>$address,
                     'languagesIds'    => $languagesIds,
                     'specialitiesIds' => $specialitiesIds,
                     'servicesIds'     => $servicesIds,
@@ -76,6 +78,7 @@ class DoctorProfileController extends Controller
                     'hospital_list'   => $hospital,
                     'award_list'      => $awards,
                     'course_list'     => $course,
+
                 ];
                 return response()->json([
                     'success' => true,

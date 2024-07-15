@@ -27,41 +27,44 @@ background: url(https://img.freepik.com/free-photo/blue-watercolor-stain-white-b
                                     <div class="login-header">
                                         <h3>Login <span>Airpal Doctor Dashbarod</span></h3>
                                     </div>
-                                    <form method="post" id="doctorLogin" action="{{route('admin.login')}}">
-                                         {{-- @csrf --}}
-                                         <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+                                    <form method="POST" action="{{ route('admin.login') }}" id="doctorLogin">
+                                        @csrf
                                         <div class="mb-3 form-focus">
-                                            <input type="email" class="form-control floating" name="email">
-                                            <label class="focus-label" >Email</label>
-                                            <span class="text-danger" id="email_error"></span>
+                                            <input type="email" class="form-control floating" name="email" value="{{ old('email') }}">
+                                            <label class="focus-label">Email</label>
+                                            @if($errors->has('email'))
+                                                <span class="text-danger" id="email_error">{{ $errors->first('email') }}</span>
+                                            @endif
                                         </div>
                                         <div class="mb-3 form-focus">
                                             <input type="password" class="form-control floating" name="password">
-                                            <label class="focus-label" >Password</label>
-                                            <span class="text-danger" id="password_error"></span>
+                                            <label class="focus-label">Password</label>
+                                            @if($errors->has('password'))
+                                                <span class="text-danger" id="password_error">{{ $errors->first('password') }}</span>
+                                            @endif
                                         </div>
                                         <div class="text-end">
-                                            <a class="forgot-link" href="{{ route('doctor.forget.password.index')}}">Forgot Password ?</a>
+                                            <a class="forgot-link" href="{{ route('doctor.forget.password.index') }}">Forgot Password ?</a>
                                         </div>
-                                        <button class="btn btn-primary w-100 btn-lg login-btn"
-                                            type="submit">Login</button>
+                                        @if(session('error'))
+                                            <div class="alert alert-danger">{{ session('error') }}</div>
+                                        @endif
+                                        <button class="btn btn-primary w-100 btn-lg login-btn" type="submit">Login</button>
                                         <div class="login-or">
                                             <span class="or-line"></span>
                                             <span class="span-or">or</span>
                                         </div>
                                         <div class="row social-login">
                                             <div class="col-6">
-                                                <a href="#" class="btn btn-facebook w-100"><i
-                                                        class="fab fa-facebook-f me-1"></i> Login</a>
+                                                <a href="#" class="btn btn-facebook w-100"><i class="fab fa-facebook-f me-1"></i> Login</a>
                                             </div>
                                             <div class="col-6">
-                                                <a href="#" class="btn btn-google w-100"><i
-                                                        class="fab fa-google me-1"></i> Login</a>
+                                                <a href="#" class="btn btn-google w-100"><i class="fab fa-google me-1"></i> Login</a>
                                             </div>
                                         </div>
-                                        <div class="text-center dont-have">Don't have an account? <a
-                                                href="register.html">Register</a></div>
+                                        <div class="text-center dont-have">Don't have an account? <a href="register.html">Register</a></div>
                                     </form>
+                                    
                                 </div>
                             </div>
                         </div>

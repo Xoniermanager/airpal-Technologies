@@ -25,4 +25,12 @@ class MailCheck extends FormRequest
             'email' => 'required|exists:users,email',
         ];
     }
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'The email field is required.',
+            'email.email'    => 'Please enter a valid email address.',
+            'email.exists'   => 'This email does not exist in our records.',
+        ];
+    }
 }

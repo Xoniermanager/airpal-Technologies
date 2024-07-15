@@ -20,7 +20,7 @@ class DoctorEducationServices
 
 public function addDoctorEducation($data)
 {
-    $userId = $data['user_id'];
+    $userId  = $data['user_id'];
     $results = [];
 
     foreach ($data['education'] as $education) {

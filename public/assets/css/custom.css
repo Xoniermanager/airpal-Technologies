@@ -2577,9 +2577,24 @@ table.table tbody tr:last-child {
 table.table.table-center td, table.table.table-center th {
   vertical-align: middle;
 }
+.table-bordered {
+  border: 2px solid #ccc;
+}
+.calen-header {
+  border: 2px solid #ccc;
+  text-align: center;
+  border-bottom: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
 table.table > tbody > tr > th {
   border-top: 0;
   padding: 10px 8px;
+  background: transparent;
+  border: 1px solid #ccc;
 }
 table.table .no-border > tbody > tr > th {
   border-top: 0;
@@ -45913,6 +45928,7 @@ fs-40 {
   position: relative;
 }
  button#button1 {
+  margin-right: 5px;
   display: inline-block;
   font-weight: 400;
   color: #fff;
@@ -46017,8 +46033,7 @@ h1#monthYear {
     border-left: 1px solid #ccc;
   border-right: 1px solid #ccc; /* Add this line */
   border-bottom: 1px solid #ccc; /* Add this line */
-    border-top: 1px solid #ccc;
-      display: flex; /* Add this line */
+    border-top: 1px solid #ccc; 
   align-items: flex-start; /* Add this line */
   justify-content: flex-start; /* Add this line */
     position: relative; /* Add this line */
@@ -46064,6 +46079,131 @@ select {
   padding-right: 2rem;
 } 
 
+/* booking calender css  */
+
+button.btn.btn-outline-primary.mb-3.w-100.booked {
+  background: red;
+  color: white;
+  cursor: none;
+}
+
+button.btn.avail-btn {
+  background-color: #b7f5b7;
+  border-radius: 24px;
+  height: 40px;
+  width: 40px;
+  display: block;
+  text-align: center;
+  margin: auto;
+  padding: 0;
+}
+
+.notAvail {
+  background-color: #ff8d8d;
+  border-radius: 24px;
+  height: 40px;
+  width: 40px;
+  display: block;
+  text-align: center;
+  margin: auto;
+  padding: 8px;
+}
+
+.not-btn {
+  /* background-color: red !important; */
+  border-radius: 24px;
+  height: 40px;
+  width: 40px;
+  display: block;
+  text-align: center;
+  margin: auto;
+  padding: 8px;
+}
+
+.not-btn h4 {
+  /* color: #fff; */
+}
+
+td.date {
+  text-align: center;
+}
+
+td.today.date {
+  background: #5f99ff;
+  border-radius: 24px;
+  height: 40px;
+  width: 40px;
+  display: block;
+  text-align: center;
+  margin: 8px auto;
+  padding: 0;
+}
+
+td.empty {
+  border: 1px solid #ccc;
+  border-bottom: none;
+
+}
+
+td {
+  border: 1px solid #ccc;
+}
+
+td.date h4 {
+  margin: 0;
+  height: 40px;
+  padding: 8px;
+}
+
+.colorpallete {
+  color: #FFFFFF;
+  background-color: #004CD4;
+  border: 1px solid #004CD4;
+  box-shadow: inset 0 0 0 0 #FFFFFF;
+  -webkit-transition: 0.7s;
+  -ms-transition: 0.7s;
+  transition: 0.7s;
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 30px;
+  margin: auto;
+  text-align: center
+}
+
+.currentDate {
+  background: #0CD533;
+  border: 1px solid #05DF30;
+  outline: none;
+  padding: 5px 15px;
+  border-radius: 30px;
+  color: #fff;
+}
+
+.available {
+  background: #FA3767;
+  border: 1px solid #FA3767;
+  outline: none;
+  padding: 5px 15px;
+  border-radius: 30px;
+  color: #fff;
+}
+
+.closed {
+  background: #FFB800;
+  border: 1px solid #FFB800;
+  outline: none;
+  padding: 5px 15px;
+  border-radius: 30px;
+  color: #fff;
+}
 
 
+.slotbox {
+  max-height: 475px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
 
+td.date.halfFull button {
+  background: #ffb800;
+}

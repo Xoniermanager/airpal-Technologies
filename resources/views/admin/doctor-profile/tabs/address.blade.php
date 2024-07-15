@@ -112,7 +112,7 @@
         </div>
         
         <div class="modal-btn text-end">
-            <input type="hidden" value="{{$singleDoctorDetails->id ?? ''}}" name="user_id" id="doctor_user_id">
+            <input type="hidden" value="{{ Auth::user() ? Auth::user()->id : Request::segment(4)}}" name="user_id" id="doctor_user_id">
             <button class="btn btn-primary prime-btn">Save Changes</button>
         </div>
     </form>

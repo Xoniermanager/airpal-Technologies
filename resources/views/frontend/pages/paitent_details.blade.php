@@ -87,7 +87,7 @@
 <input type="file" name="" class="form-control inputfile">
 </div>
 <div class="forms-block">
-<label class="form-group-title">Symtoms <span>(Optional)</span></label>
+<label class="form-group-title">Symptoms <span>(Optional)</span></label>
 <input type="text" class="form-control" placeholder="Skin Allergy">
 </div>
 <div class="forms-block mb-0">

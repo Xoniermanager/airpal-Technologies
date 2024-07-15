@@ -25,6 +25,8 @@
         </div>
 
 
+
+
         <div class="content success-page-cont">
             <div class="container">
                 <div class="row justify-content-center">
@@ -35,10 +37,13 @@
                                 <div class="success-cont">
                                     <i class="fas fa-check"></i>
                                     <h3>Appointment booked Successfully!</h3>
-                                    <p>Appointment booked with <strong>Dr. Darren Elder</strong><br> on <strong>12 Nov
-                                            2024 5:00PM to 6:00PM</strong></p>
-                                    <a href="{{ route('invoice.index') }}" class="btn btn-primary view-inv-btn">View
-                                        Invoice</a>
+                                    <p>Appointment booked with <strong>Dr.  {{ $doctorName ?? ''}}</strong><br> on <strong>
+                                        {{$bookingDate ?? ''}},
+                                        {{$bookingSlotTime ?? ''}}
+                               {{-- {{ $bookingDate  ?? ''}}  {{ $bookingSlotTime ?? ''}} --}}
+                                           </strong></p>
+                                    <a href="{{ route('home.index') }}" class="btn btn-primary view-inv-btn">
+                                        Home Page</a>
                                 </div>
                             </div>
                         </div>

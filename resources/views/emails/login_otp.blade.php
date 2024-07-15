@@ -55,7 +55,7 @@
 							<td align="center" valign="top" style="padding-bottom: 5px; padding-left: 20px; padding-right: 20px;">
 								<!-- Main Title Text // -->
 								<h2 class="text" style="color:#555; font-family:'Poppins', Helvetica, Arial, sans-serif; font-size:18px; text-align:center; margin:0">
-									OTP : {{ $sentOtpDetails['otp'] }}
+									OTP : {{ $sentOtpDetails['otp']  ?? ''}}
 								</h2>
 								 
 							</td>

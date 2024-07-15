@@ -25,32 +25,32 @@ class StoreDoctorEducationRequest extends FormRequest
         $rules = [
             'education' => 'required|array',
             'education.*.name' => 'required|string|max:255',
-'education.*.course' => [
-        'required',
-        'string',
-        'max:255',
-        function ($attribute, $value, $fail) use ($userId) {
-            // Check for duplicates in the submitted data
-            $courseIds = array_map(function($education) {
-                return $education['course'];
-            }, $this->input('education', []));
+// 'education.*.course' => [
+//         'required',
+//         'string',
+//         'max:255',
+//         function ($attribute, $value, $fail) use ($userId) {
+//             // Check for duplicates in the submitted data
+//             $courseIds = array_map(function($education) {
+//                 return $education['course'];
+//             }, $this->input('education', []));
             
-            if (count($courseIds) !== count(array_unique($courseIds))) {
-                $fail('Duplicate courses are not allowed in the submitted data.');
-            }
+//             if (count($courseIds) !== count(array_unique($courseIds))) {
+//                 $fail('Duplicate courses are not allowed in the submitted data.');
+//             }
 
-            // Check for duplicates in the database
-            foreach ($this->input('education', []) as $index => $education) {
-                $existingEntry = \App\Models\DoctorEducation::where('user_id', $userId)
-                    ->where('course_id', $education['course'])
-                    ->where('id', '!=', $education['id'] ?? null)
-                    ->first();
-                if ($existingEntry) {
-                    $fail('The course has already been taken for this user.');
-                }
-            }
-        }
-    ],
+//             // Check for duplicates in the database
+//             foreach ($this->input('education', []) as $index => $education) {
+//                 $existingEntry = \App\Models\DoctorEducation::where('user_id', $userId)
+//                     ->where('course_id', $education['course'])
+//                     ->where('id', '!=', $education['id'] ?? null)
+//                     ->first();
+//                 if ($existingEntry) {
+//                     $fail('The course has already been taken for this user.');
+//                 }
+//             }
+//         }
+//     ],
             'education.*.start_date' => 'required|date',
             'education.*.end_date' => 'required|date|after_or_equal:education.*.start_date',
             'education.*.certificates' => 'nullable|mimes:jpeg,jpg,bmp,png,gif,svg,pdf|max:2048',

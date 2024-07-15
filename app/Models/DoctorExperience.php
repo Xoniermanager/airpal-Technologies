@@ -18,7 +18,8 @@ class DoctorExperience extends Model
     }
     public function hospital()
     {
-        return $this->belongsTo(Hospital::class);
+        return $this->belongsTo(Hospital::class,"hospital_id",'id');
     }
+    
     
 }

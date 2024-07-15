@@ -82,8 +82,8 @@
                         @include('admin.doctor-profile.tabs.address')
                         @include('admin.doctor-profile.tabs.experience')
                         @include('admin.doctor-profile.tabs.education')
-                        @include('admin.doctor-profile.tabs.working-hour')
                         @include('admin.doctor-profile.tabs.awards')
+                        @include('admin.doctor-profile.tabs.working-hour')
                     </div>
                 </div>
             </div>
@@ -670,6 +670,31 @@
                 value: servicesArrs ?? '',
                 noDataTemplate: jQuery("#noServicesTemplate").html()
             });
+
+        jQuery("#award").kendoDropDownList({
+            filter: "startswith",
+            dataTextField: "name",
+            dataValueField: "id",
+            dataSource: createAwardDataSource(),
+            // value: selectedAward , 
+            noDataTemplate: jQuery("#noAwardTemplate").html(),
+        });
+
+        jQuery("#course").kendoDropDownList({
+            filter: "startswith",
+            dataTextField: "name",
+            dataValueField: "id",
+            dataSource: createCourseDataSource(),
+            noDataTemplate: jQuery("#noCourseTemplate").html()
+        });
+        jQuery("#hospital").kendoDropDownList({
+            filter: "startswith",
+            dataTextField: "name",
+            dataValueField: "id",
+            dataSource: hospitalDataSource(),
+            value: hospitalIds ?? '',
+            noDataTemplate: jQuery("#noHospitalTemplate").html()
+        });
 
         });
 

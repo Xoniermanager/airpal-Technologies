@@ -164,7 +164,7 @@
                                             <div class="form-wrap">
                                                 <label class="col-form-label">Award Name</label>
                                                 {{-- <input type="text" class="form-control" name="name[]"> --}}
-                                                <select id="award" class="form-control" name="awards[0][name]">
+                                            <select id="award" class="form-control" name="awards[0][name]">
                                                 </select>
                                                 <script id="noAwardTemplate" type="text/x-kendo-tmpl">
                                                        <div>
@@ -221,7 +221,7 @@
             </div>
         @endforelse
         <div class="modal-btn text-end">
-            <input type="hidden" value="{{$singleAwardDetail->user->id ?? ''}}" name="user_id" id="doctor_user_id">
+            <input type="hidden" value="{{ Auth::user() ? Auth::user()->id : Request::segment(4)}}" name="user_id" id="doctor_user_id">
             <button type="submit" class="btn btn-primary prime-btn">Save
                 Changes</button>
         </div>

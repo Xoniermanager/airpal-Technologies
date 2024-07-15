@@ -22,17 +22,20 @@
                                         <h3>Forgot Password?</h3>
                                         <p class="small text-muted">Enter your email to get a password reset link</p>
                                     </div>
-                                    <form action="{{ route('forget.password.send.otp')}}" method="post">
+                                    <form action="{{ route('forget.password.send.otp') }}"  method="post">
                                         @csrf
                                         <div class="mb-3 form-focus">
                                             <input type="email" class="form-control floating" name="email">
                                             <label class="focus-label">Email</label>
-                                            <span class="text-danger" id="email"></span>
+                            
+                                            @error('email')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
-                                        <div class="text-end">
+                                        {{-- <div class="text-end">
                                             <a class="forgot-link" href="">Remember your password?</a>
-                                        </div>
-                                        <button class="btn btn-primary w-100 btn-lg login-btn" type="submit">Reset Password</button>
+                                        </div> --}}
+                                        <button class="btn btn-primary w-100 btn-lg login-btn" type="submit">Send Otp</button>
                                     </form>
                                 </div>
                             </div>

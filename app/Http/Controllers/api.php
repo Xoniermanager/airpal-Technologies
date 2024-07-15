@@ -8,7 +8,6 @@ use App\Http\Controllers\Api\DoctorFilterController;
 use App\Http\Controllers\Api\DoctorProfileController;
 use App\Http\Controllers\Api\DoctorEducationController;
 use App\Http\Controllers\Api\DoctorExperienceController;
-use App\Http\Controllers\Api\DoctorSlotsController;
 use App\Http\Controllers\Api\DoctorWorkingHourController;
 
 Route::get('/user', function (Request $request) {
@@ -55,11 +54,6 @@ Route::prefix('doctor')->group(function () {
 
     Route::controller(DoctorFilterController::class)->group(function () {
         Route::get('search', 'doctorSearch');
-    });
-
-    Route::controller(DoctorSlotsController::class)->group(function () {
-        Route::post('slots/create', 'store');
-        Route::post('slots/update', 'update');
     });
 
 });

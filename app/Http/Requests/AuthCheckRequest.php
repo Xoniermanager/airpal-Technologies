@@ -1,13 +1,10 @@
 <?php
-
 namespace App\Http\Requests;
 
-use App\Traits\ExceptionHandle;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AuthCheckRequest extends FormRequest
 {
-    use ExceptionHandle;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -15,7 +12,6 @@ class AuthCheckRequest extends FormRequest
     {
         return true;
     }
-
 
     /**
      * Get the validation rules that apply to the request.
@@ -25,9 +21,23 @@ class AuthCheckRequest extends FormRequest
     public function rules(): array
     {
         return [
-                'email'    => 'required|exists:users,email',
-                'password' => 'required'
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required'
         ];
     }
 
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'The email field is required.',
+            'email.email'    => 'Please enter a valid email address.',
+            'email.exists'   => 'This email does not exist in our records.',
+            'password.required' => 'The password field is required.',
+        ];
+    }
 }

@@ -8,24 +8,26 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\BookingContoller;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\InstantController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\Admin\SlotsController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\SlotsController;
 use App\Http\Controllers\Admin\StateController;
-use App\Http\Controllers\SpecialtyPageController;
+
+
 use App\Http\Controllers\Admin\CountryController;
-
-
 use App\Http\Controllers\Admin\ProfileController;
-use App\Http\Controllers\Admin\QuestionsController;
+use App\Http\Controllers\SpecialtyPageController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\HealthmonitoringController;
+use App\Http\Controllers\Admin\QuestionsController;
 use App\Http\Controllers\Admin\SpecialityController;
+use App\Http\Controllers\HealthmonitoringController;
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\PatientlistController;
 use App\Http\Controllers\Admin\TransactionController;
@@ -37,16 +39,23 @@ use App\Http\Controllers\Doctor\DoctorAuthenticationController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Admin\{AdminAuthController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
 
-
 // =============================== Login And SignUp Routes ==================================== //
 /**
  * Admin And Patient Panel Login
  */
 
+
+ Route::controller(BookingController::class)->group(function () {
+    Route::post('patient-booking', 'patientBooking')->name('patient.booking');
+
+});
+
 Route::controller(DoctorController::class)->group(function () {
-    Route::get('calender/{id}', 'showCalendar');
-    // Route::get('calender', 'index');
-    Route::get('/calendar/{month}/{year}/{slot_div_id}/{advertisement_id}', [CalendarController::class, 'showCalendar'])->name('calendar');
+    Route::post('update-calender', 'updateCalendar')->name('update.calendar');
+    Route::post('get-doctor-slots-by-date', 'getDoctorSlotsByDate')->name('getDoctorSlots.byId');
+    Route::get('doctor/success', [DoctorController::class, 'success'])->name('success.index');
+
+    //  Route::get('calender', 'appointment')->name('update.calendar');
 });
 
 Route::controller(AdminAuthController::class)->group(function () {
@@ -58,11 +67,10 @@ Route::controller(AdminAuthController::class)->group(function () {
 Route::controller(DoctorAuthenticationController::class)->group(function () {
     Route::get('doctor/login', 'doctorLogin')->name('doctor.doctor-login.index');
     Route::get('doctor/logout', 'logout')->name('doctor.logout');
-
     Route::get('doctor/forget-password', 'forgetPasswordIndex')->name('doctor.forget.password.index');
-    Route::post('doctor/forget-password-send-otp', 'forgetPasswordSendOtp')->name('forget.password.send.otp');
-    Route::get('doctor/reset-password-index', 'resetPasswordIndex')->name('reset.password.index');
-    
+    Route::post('doctor/send-otp', 'forgetPasswordSendOtp')->name('forget.password.send.otp');
+    Route::get('doctor/reset-password', 'resetPasswordIndex')->name('reset.password.index');
+    Route::post('doctor/reset-password', 'resetPassword')->name('reset.password');
     Route::post('doctor/login', 'userLogin')->name('doctor.doctor-login');
 });
 
@@ -278,7 +286,7 @@ Route::get('/term', [FrontController::class, 'term'])->name('term.index');
 Route::get('/appointment/doctor/{id}', [DoctorController::class, 'appointment'])->name('appointment.index');
 Route::get('/invoice', [FrontController::class, 'invoice'])->name('invoice.index');
 Route::get('/patient_details', [FrontController::class, 'patient_details'])->name('patient_details.index');
-Route::get('/success', [FrontController::class, 'success'])->name('success.index');
+// Route::get('/success', [FrontController::class, 'success'])->name('success.index');
 Route::get('/checkout', [FrontController::class, 'checkout'])->name('checkout.index');
 // ============================== End Frontend Website Routes ===================== //
 

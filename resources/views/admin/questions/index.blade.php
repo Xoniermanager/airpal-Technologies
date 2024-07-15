@@ -116,7 +116,7 @@
                                         class="fa fa-plus fs-5"></i> Add Option</a>
                                 </div>
                                 <div>        
-                                <div class="addMoreOptionsEdit">
+                                <div class="addMoreOptions">
                                 </div></div>
                                 <button type="submit" class="btn btn-primary w-100">Save</button>
                             </div>
@@ -206,12 +206,12 @@
                                     </div>
                                 </div>
                                 <div class="optional box">
-                                    <a class="btn btn-primary btn-sm addMoreBtn" onclick="add_options()"><i
+                                    <a class="btn btn-primary btn-sm addMoreBtn" onclick="add_options('1')"><i
                                             class="fa fa-plus fs-5"></i> Add Option</a>
                                 </div>
                                 <div class="multiple box">
                                     <a class="btn btn-primary btn-sm addMoreBtn"
-                                        onclick="add_options()"><i class="fa fa-plus fs-5"></i> Add Option
+                                        onclick="add_options('1')"><i class="fa fa-plus fs-5"></i> Add Option
                                     </a>
                                 </div>
                                 <div>
@@ -289,6 +289,7 @@
                             $('#add_question').modal('hide');
                             $('#addQuestionForm')[0].reset();
                             $('#question_list').replaceWith(response.data);
+                            location.reload(); // Reload the page
                         },
                         error: function(error_messages) {
                             var errors = error_messages.responseJSON;
@@ -325,6 +326,8 @@
                             swal.fire("Done!", response.message, "success");
                             $('#edit_question').modal('hide');
                             $('#question_list').replaceWith(response.data);
+                            location.reload(); // Reload the page
+                            
                         },
                         error: function(error_messages) {
                             let errors = JSON.parse(error_messages.responseText).errors;
@@ -388,7 +391,6 @@
 
 function edit_question(doctorQuestionDetails) {
     var doctorQuestionDetails = JSON.parse(doctorQuestionDetails);
-    console.log(doctorQuestionDetails);
     $('.addMoreOptionsEdit').empty();
     $('#id').val(doctorQuestionDetails.id);
     $('#doctor').val(doctorQuestionDetails.doctor_id);
@@ -417,21 +419,35 @@ function edit_question(doctorQuestionDetails) {
 }
 
 
-        // Function to handle adding options dynamically
-        function add_options() {
-            var options_html =
-                '<div class="option-details"><div class="row panel panel-body"><div class="col-md-6 form-group"><label for="">Answers ' +
-                (counter + 1) +
-                '</label><input class="form-control" type="text" name="options[' +
-                counter +
-                '][value]"><span class="text-danger" id="options_' + counter +
-                '_options_error"></span></div><div class="col-md-2 form-group mt-4"><a onclick="remove_options(this)" class="btn btn-danger btn-sm float-right"> <i class="fa fa-minus"></i></a></div></div></div>';
-            $('.addMoreOptionsEdit').append(options_html);
-            counter += 1;
-            if (counter >= 4) {
-                $('.addMoreBtn').addClass('disabled');
-            }
-        }
+// Function to handle adding options dynamically
+function add_options(id) {
+    var options_html =
+        '<div class="option-details">' +
+        '<div class="row panel panel-body">' +
+        '<div class="col-md-6 form-group">' +
+        '<label for="">Answers ' + (counter + 1) + '</label>' +
+        '<input class="form-control" type="text" name="options[' + counter + '][value]">' +
+        '<span class="text-danger" id="options_' + counter + '_options_error"></span>' +
+        '</div>' +
+        '<div class="col-md-2 form-group mt-4">' +
+        '<a onclick="remove_options(this)" class="btn btn-danger btn-sm float-right">' +
+        '<i class="fa fa-minus"></i></a>' +
+        '</div>' +
+        '</div>' +
+        '</div>';
+    
+    if (id) {
+        $('.addMoreOptionsEdit').append(options_html);
+    } else {
+        $('.addMoreOptions').append(options_html);
+    }
+
+    counter += 1;
+    if (counter >= 4) {
+        $('.addMoreBtn').addClass('disabled');
+    }
+}
+
 
 
 function remove_options(this_ele, id) {

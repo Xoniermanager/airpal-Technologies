@@ -31,20 +31,23 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/css/custom.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('/assets/css/custom.css') }}" type="text/css">
     
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    {{-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> --}}
     <link href="https://kendo.cdn.telerik.com/themes/7.2.1/default/default-main.css" rel="stylesheet" />
     <script src="https://kendo.cdn.telerik.com/2024.1.319/js/kendo.all.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="{{asset('/assets/js/jquery-3.7.1.min.js')}}"></script>
     <script src="{{asset('admin/assets/js/jquery-ui.js')}}"></script>
     <script src="{{asset('admin/assets/js/jquery-ui.css')}}"></script>
-    <script src="{{asset('admin/assets/jquery-validation/dist/jquery.validate.min.js')}}"></script>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> --}}
+
+
 
     <script>
         window.site_admin_base_url = '{{ env('SITE_ADMIN_BASE_URL') }}';
     </script>
     <script src="{{ asset('admin/assets/custom-js/add_doctor.js') }}"></script>
 
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
     .k-list-item.k-selected, .k-selected.k-list-optionlabel {

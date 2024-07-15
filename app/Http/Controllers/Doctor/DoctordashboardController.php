@@ -10,6 +10,7 @@ use App\Http\Services\UserServices;
 use App\Http\Controllers\Controller;
 use App\Http\Services\StateServices;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Services\BookingServices;
 use App\Http\Services\CountryServices;
 
 class DoctorDashboardController extends Controller
@@ -19,11 +20,15 @@ class DoctorDashboardController extends Controller
     private $doctorDetails;
     private $countryServices;
     private $stateServices; 
+    private $bookingServices;
     public function __construct(UserServices $user_services,
     CountryServices $countryServices,
-    StateServices $stateServices,)
+    StateServices $stateServices,
+    BookingServices $bookingServices,
+    )
     {    
          $this->countryServices= $countryServices;
+         $this->bookingServices = $bookingServices;
          $this->stateServices = $stateServices; 
          $this->user_services = $user_services;
          $this->doctorDetails = $this->user_services->getDoctorDataById(auth::id()); // todo this set by auth
@@ -57,7 +62,8 @@ class DoctorDashboardController extends Controller
     }    
     public function doctorAppointments()
     {
-    return view('doctor.doctor-appointments',['doctorDetails' => $this->doctorDetails ]);
+    $allAppointments = $this->bookingServices->doctorBookings($this->doctorDetails->id)->get();
+    return view('doctor.doctor-appointments',['doctorDetails' => $this->doctorDetails ,'bookings' => $allAppointments]);
 
     } 
 

@@ -55,6 +55,7 @@
                                         </select>
                                     </div>
                                 </div>
+                            
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="mb-2">Slot Duration <span style="color: red">* </span>(in
@@ -161,6 +162,7 @@
                                     </div>
                                 </div>
 
+                                <input type="hidden" id="slots_id" name="id" >
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="mb-2">Slot Duration <span style="color: red">* </span>(in
@@ -476,6 +478,8 @@ var exceptionDaysIDArrs;
 function edit_slot(slotDetails, doctor_exception_days) {
     var details = JSON.parse(slotDetails);
     console.log(details.start_month );
+    
+    $('#slots_id').val(details.id);  
     $("p#exceptionDaysID").text(doctor_exception_days);
     $('#doctor_id').val(details.user_id);  
     $('#slot_duration').val(details.slot_duration);  

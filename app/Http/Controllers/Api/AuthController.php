@@ -23,7 +23,7 @@ class AuthController extends Controller
             $credentials = $request->only(['email', 'password']);
             $response    = $this->authService->login($credentials);
             return response()->json([
-                'status' => $response['status'],
+                'status' => $response['success'],
                 'message' => $response['message']
             ], 200);
         } catch (\Throwable $th) {

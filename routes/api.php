@@ -10,10 +10,10 @@ use App\Http\Controllers\Api\DoctorEducationController;
 use App\Http\Controllers\Api\DoctorExperienceController;
 use App\Http\Controllers\Api\DoctorAppointmentController;
 use App\Http\Controllers\Api\DoctorWorkingHourController;
-use App\Http\Controllers\API\Patient\AllListingController;
+use App\Http\Controllers\Api\Patient\AllListingController;
 use App\Http\Controllers\Api\Patient\DoctorFilterController;
-use App\Http\Controllers\Api\Patient\PatientProfileController;
 use App\Http\Controllers\Api\Patient\PatientDashboardController;
+use App\Http\Controllers\Api\Patient\PatientProfileController;
 use App\Http\Controllers\Api\Patient\PatientFavoriteDoctorController;
 
 Route::get('/user', function (Request $request) {

@@ -110,7 +110,7 @@ class BookingServices
    }
    public function patientUpcomingBookings($id)
    {
-      return $this->patientBookings($id)->where('booking_date', '>', Carbon::now()->toDateString())->with('user');
+      return $this->patientBookings($id)->where('booking_date', '>', Carbon::now()->toDateString())->with('user')->get();
    }
    public function filter($filterKey, $patientId = null, $doctorId = null)
    {
@@ -153,6 +153,10 @@ class BookingServices
 
 
       return $query->get();
+   }
+   public function updateStatus($status, $id)
+   {
+      return $this->bookingRepository->find($id)->update(['status' => $status]);
    }
 
    //    public function filterRequestAppointments($filterKey, $doctorId)

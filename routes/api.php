@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\BookAppointmentApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -95,5 +96,11 @@ Route::middleware('authCheck')->prefix('patient')->group(function () {
     });
     Route::controller(DoctorFilterController::class)->group(function () {
         Route::get('search', 'doctorSearch');
+    });
+    Route::controller(BookAppointmentApiController::class)->group(function () {
+        Route::get('all-appointment', 'allAppointment');
+        Route::post('book-appointment', 'bookingAppointment');
+        Route::post('cancel-appointment/{booking_slots:id}', 'cancelAppointment');
+        Route::get('upcoming-all-appointment', 'allUpcomingAppointment');
     });
 });

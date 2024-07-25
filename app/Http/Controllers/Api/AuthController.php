@@ -22,10 +22,13 @@ class AuthController extends Controller
         try {
             $credentials = $request->only(['email', 'password']);
             $response    = $this->authService->login($credentials);
-            return response()->json($response);
+            return response()->json([
+                'status' => $response['status'],
+                'message' => $response['message']
+            ], 200);
         } catch (\Throwable $th) {
             return response()->json([
-                'success' => false,
+                'status' => false,
                 'message' => $th->getMessage()
             ], 500);
         }
@@ -43,7 +46,6 @@ class AuthController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
-        
     }
 
     public function logout()
@@ -59,7 +61,7 @@ class AuthController extends Controller
             ], 500);
         }
     }
-    
+
     public function verifyOtp(Request $request)
     {
         try {
@@ -72,7 +74,6 @@ class AuthController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
-
     }
 
     public function forgetPasswordSendOtp(Request $request)
@@ -86,7 +87,6 @@ class AuthController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
-        
     }
 
     public function forgetPassword(Request $request)
@@ -97,7 +97,7 @@ class AuthController extends Controller
             'new_password' => 'required|string|confirmed',
             'new_password_confirmation' => 'required|string'
         ]);
-    
+
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
@@ -105,7 +105,7 @@ class AuthController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
-    
+
         try {
             $response = $this->authService->forgetPassword($request->only('email', 'otp', 'new_password'));
             return response()->json($response);
@@ -116,5 +116,4 @@ class AuthController extends Controller
             ], 500);
         }
     }
-
 }

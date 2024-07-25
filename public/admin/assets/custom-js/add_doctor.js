@@ -252,7 +252,7 @@ function createAwardDataSource() {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: 'http://127.0.0.1:8000/admin/doctor/delete-award', // Adjust this URL to your route
+                    url: site_admin_base_url + 'doctor/delete-award', // Adjust this URL to your route
                     type: 'get',
                     data: {
                         id: awardId
@@ -485,7 +485,7 @@ jQuery("#course").kendoDropDownList({
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: 'http://127.0.0.1:8000/admin/doctor/delete-education', // Adjust this URL to your route
+                    url: site_admin_base_url + "doctor/delete-education", // Adjust this URL to your route
                     type: 'get',
                     data: {
                         id: educationId
@@ -673,11 +673,11 @@ const addExperience = (function() {
     batch: true,
     transport: {
         read: {
-            url: "http://127.0.0.1:8000/admin/hospital",
+            url: site_admin_base_url + "hospital",
             dataType: "json"
         },
         create: {
-            url: "http://127.0.0.1:8000/admin/hospital/ajax-create",
+            url: site_admin_base_url + "hospital/ajax-create",
             dataType: "json"
         },
         parameterMap: function(options, operation) {
@@ -773,7 +773,7 @@ function addHospital(widgetId, value) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: 'http://127.0.0.1:8000/admin/doctor/delete-experience', // Adjust this URL to your route
+                url: site_admin_base_url +  "doctor/delete-experience", // Adjust this URL to your route
                 type: 'get',
                 data: {
                     id: experienceId

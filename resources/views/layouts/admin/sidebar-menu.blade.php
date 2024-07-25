@@ -196,6 +196,18 @@
                         <a href="{{ route('admin.index.country') }}" data-url="{{ route('admin.index.country') }}"><i class="fe fe-flag"></i>
                             <span>Country</span></a>
                     </li>
+
+                    <li class="submenu" data-url="{{ route('admin.invoice-report.index') }}">
+                        <a href="#"><i class="far fa-sticky-note"></i><span>Social Media</span> <span
+                                class="menu-arrow"></span></a>
+                        <ul style="display: none;">
+                        <a href="{{ route('admin.questions.index')}}" data-url="{{route('admin.questions.index')}}">
+                            <span>Add Social Media</span></a>
+                        <a href="{{ route('admin.questions.index')}}" data-url="{{route('admin.questions.index')}}">
+                                <span>Add Media Account Type</span></a>
+        
+                        </ul>
+                    </li>
                     <li class="menu-item">
                         <a href="{{ route('admin.index.state') }}"  data-url="{{ route('admin.index.state') }}"><i class="fe fe-flag"></i> <span>State</span></a>
                     </li>

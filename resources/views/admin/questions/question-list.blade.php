@@ -14,13 +14,12 @@
             </thead>
             <tbody>
                 @forelse ($allQuestions as $question)
-
                     <tr>
                         <td>{{ $question['id'] }}</td>
                         <td>{{ $question->user->fullName }}</td>
                         <td>{{ $question->specialty->name }}</td>
                         <td>{{ $question['answer_type'] }}</td>
-                        <td>{{ $question['questions'] }}</td>
+                        <td>{{ $question['question'] }}</td>
                         <td>{{ $question['created_at']->format('d/m/Y') }}</td>
                         <td>
                             <div class="actions">
@@ -41,13 +40,12 @@
                     <tr>
                         <td>Not Found</td>
                     </tr>
-
     @endforelse
 
             </tbody>
         </table>
         <div class="mt-3 d-flex justify-content-end">
-            {{-- {{ $allquestion->links() }} --}}
+            {{ $allQuestions->links() }}
         </div>
     </div>
 </div>

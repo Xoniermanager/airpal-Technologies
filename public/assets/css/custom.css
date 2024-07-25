@@ -6347,7 +6347,7 @@ header.header.header-custom.header-fixed.header-one  {
   position: fixed;
   display: block;
   width: 100%;
-  z-index: 9999;
+  z-index: 9  ;
   background: transparent;
   box-shadow: inherit;
 }
@@ -45133,7 +45133,7 @@ ul li {
 }
 
 .modal {
-  z-index: 99;
+  z-index: 999;
   background: #0000007d;
 }
 
@@ -46206,4 +46206,8 @@ td.date h4 {
 
 td.date.halfFull button {
   background: #ffb800;
+}
+
+.error {
+    color: red;
 }

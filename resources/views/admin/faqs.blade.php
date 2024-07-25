@@ -54,7 +54,7 @@
     </div>
     @include('admin.include.footer')
 
-
+{{-- 
     <script>
 
         $(document).ready(function() {
@@ -82,8 +82,9 @@
                         contentType: false, 
                         success: function(response) {
                             if (response.success == true) {
-                                //swal.fire("Done!", response.message, "success");  // todo use swal fire
-                                window.location.href = "http://127.0.0.1:8000/doctors";
+                       
+                                swal.fire("Done!", response.message, "success");  // todo use swal fire
+                                // window.location.href  = "http://127.0.0.1:8000/doctors";
                             }
                         },
                         error: function(error_messages) {
@@ -97,7 +98,7 @@
                     });
                 }
             });
-});
+}); --}}
 
     </script>
 

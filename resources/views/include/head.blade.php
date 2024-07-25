@@ -20,9 +20,8 @@
     <link rel="stylesheet" href="{{asset('assets/plugins/fontawesome/css/fontawesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/plugins/fontawesome/css/all.min.css')}}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    
-    <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     <link rel="stylesheet" href="{{asset('assets/css/feather.css')}}">
@@ -34,3 +33,19 @@
     <link rel="stylesheet" href="{{asset('assets/css/aos.css')}}">
 
     <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}">
+
+
+    <script src="{{asset('/assets/js/jquery-3.7.1.min.js')}}"></script>
+    <script src="{{asset('admin/assets/js/jquery-ui.js')}}"></script>
+    <script src="{{asset('admin/assets/js/jquery-ui.css')}}"></script>
+    
+{{-- <script src="{{asset('/assets/js/bootstrap.bundle.min.js')}}" type="cd1ed460c5054330c2effc78-text/javascript"></script> --}}
+<script src="{{asset('../assets/js/rocket-loader.min.js')}}" data-cf-settings="cd1ed460c5054330c2effc78-|49" defer></script>
+
+    <script>
+        window.site_admin_base_url = '{{ env('SITE_ADMIN_BASE_URL') }}';
+    </script>
+    <script src="{{ asset('admin/assets/custom-js/add_doctor.js') }}"></script>
+
+
+

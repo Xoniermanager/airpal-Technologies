@@ -3947,3 +3947,6 @@ select {
 .float-right {
   float:right;
 }
+.min-h-100px {
+  min-height: 100px !important;
+}

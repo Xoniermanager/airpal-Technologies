@@ -572,10 +572,10 @@
                         success: function(response) {
                             if (response.success == true) {
                                 swal.fire("Done!", response.message, "success");
-                                setTimeout(function() {
-                                    window.location.href =
-                                        "{{ route('admin.index.doctors') }}"
-                                }, 1500);
+                                // setTimeout(function() {
+                                //     window.location.href =
+                                //         "{{ route('admin.index.doctors') }}"
+                                // }, 1500);
                             }
 
 

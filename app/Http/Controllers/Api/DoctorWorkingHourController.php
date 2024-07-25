@@ -15,7 +15,7 @@ class DoctorWorkingHourController extends Controller
         $this->doctor_working_hour_services = $doctor_working_hour_services;
     }
     public function createOrUpdateWorkingHour(StoreDoctorWorkingHourRequest $request)
-    {
+    {   
         $userId = $request->user_id;
         $insertWorkingHour = $this->doctor_working_hour_services->addDoctorWorkingHour($request->validated(),  $userId);
 

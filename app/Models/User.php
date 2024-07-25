@@ -32,6 +32,8 @@ class User extends Authenticatable
         'password',
         'display_name',
         'gender',
+        'dob',
+        'blood_group',
         'role',
         'image_url',
         'description',
@@ -67,6 +69,19 @@ class User extends Authenticatable
             get: fn () => $this->first_name .' ' . $this->last_name
         );
     }
+
+    protected function profilePicture(): Attribute
+    {
+        return new Attribute(
+            get: fn () =>  asset('images/' . $this->image_url)
+        );
+    }
+    // protected function imageUrl(): Attribute   
+    // {
+    //     return Attribute::make(
+    //         get: fn($value) =>  $value ? asset('images/' .  $value) : ''
+    //     );
+    // }
 
     public function specializations()
     {
@@ -112,7 +127,15 @@ class User extends Authenticatable
         return $this->hasMany(ExceptionDays::class,'doctor_id');
     } 
 
-
+    public function doctorQuestions()
+    {
+        return $this->hasMany(DoctorQuestions::class,'doctor_id');
+    } 
+    public function patientAddress()
+    {
+        return $this->hasOne(UserAddress::class,'user_id');
+    }  
+    
     public function isAdmin()
     {
         return $this->role === 1;

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class DoctorQuestions extends Model
 {
     use HasFactory;
-    protected $fillable = ['doctor_id','specialty_id','questions','answer_type','status'];
+    protected $fillable = ['doctor_id','specialty_id','question','answer_type','status'];
     protected $table = "doctor_questions";
 
     public function user()
@@ -23,7 +23,7 @@ class DoctorQuestions extends Model
 
     public function options()
     {
-        return $this->hasMany(DoctorQuestionOptions::class,'question_id');
+        return $this->hasMany(DoctorQuestionOptions::class,'question_id','id');
     }
 
 }

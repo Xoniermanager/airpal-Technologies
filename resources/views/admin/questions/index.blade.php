@@ -4,22 +4,51 @@
         <div class="page-wrapper">
             <div class="content container-fluid">
                 <div class="page-header">
-                    <div class="row">
-                        <div class="col-sm-7 col-auto">
-                            <h3 class="page-title">question</h3>
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard.index') }}">Dashboard</a>
-                                </li>
-                                <li class="breadcrumb-item active">question</li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-5 col">
-                            <a href="#add_question" data-bs-toggle="modal" class="btn btn-primary float-end mt-2">Add</a>
-                        </div>
-                    </div>
+
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="card">
+                                <div class="card-header">
+                                    <div class="row">
+
+                                        <div class="col-sm-3 col">
+                                            <label value="">Filter by Doctor</label>
+                                            <select class="form-control select" name="doctor" id="doctors">
+                                                <option value="">All</option>
+                                                @forelse ($doctors as  $doctor)
+                                                    <option value="{{ $doctor->id }}">{{ $doctor->fullName }}</option>
+                                                @empty
+                                                    <option>Not found</option>
+                                                @endforelse
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3 col">
+                                            <label value="">Filter by Specialty</label>
+                                            <select class="form-control select" name="specialty" id="specialty">
+                                                <option value="">All</option>
+                                                @forelse ($specialties as $specialty)
+                                                    <option value="{{ $specialty->id }}">{{ $specialty->name }}</option>
+                                                @empty
+                                                    <option>Not found</option>
+                                                @endforelse
+
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3 col">
+                                            <label>Filter by Answer Type</label>
+                                            <select name="" id="answerType" class="form-control" name="answerType">
+                                                <option value="">All</option>
+                                                <option value="text">Text</option>
+                                                <option value="optional">Optional</option>
+                                                <option value="multiple">Multiple</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3 col">
+                                            <a href="#add_question" data-bs-toggle="modal"
+                                                class="btn btn-primary float-end mt-2">Add</a>
+                                        </div>
+                                    </div>
+                                </div>
                                 @include('admin.questions.question-list')
                             </div>
                         </div>
@@ -31,7 +60,7 @@
 
         <!-- Start : pop up form to add new country  -->
         <div class="modal fade" id="add_question" aria-hidden="true" role="dialog">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Add question</h5>
@@ -79,12 +108,12 @@
                                 <div class="col-12 col-sm-12">
                                     <div class="mb-3" id="question-div">
                                         <label class="mb-2">Question</label>
-                                        <textarea type="text" name="questions" class="form-control"></textarea>
-                                        <span class="text-danger" id="questions-error"></span>
+                                        <textarea type="text" name="question" class="form-control"></textarea>
+                                        <span class="text-danger" id="question_error"></span>
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-sm-12">
+                                <div class="col-6 col-sm-6">
                                     <div class="mb-3" id="answer-type-div">
                                         <label class="mb-2">Answer Type</label>
                                         <select class="form-control select answer_type" name="answer_type">
@@ -94,30 +123,37 @@
                                             <option value="multiple">multiple</option>
                                         </select>
                                         <span class="text-danger" id="anser-type-error"></span>
-                                        
+
                                     </div>
                                 </div>
 
-                                <div class="text box">
-                                    <div class="col-12 col-sm-12">
-                                        <div class="mb-3" id="question-div">
-                                            <label class="mb-2">Answer</label>
-                                            {{-- <textarea type="text" name="answer" class="form-control" id="answer"></textarea> --}}
-                                            <span class="text-danger" id="answer-error"></span>
+                                <div class="col-md-6">
+                                    <div class="optional box">
+                                        <a class="btn btn-primary btn-sm addMoreBtn" onclick="add_options()"><i
+                                                class="fa fa-plus fs-5"></i> Add Option</a>
+                                    </div>
+                                    <div class="multiple box">
+                                        <a class="btn btn-primary btn-sm addMoreBtn" onclick="add_options()"><i
+                                                class="fa fa-plus fs-5"></i> Add Option</a>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12">
+                                    <div class="text box p-0 mt-0">
+                                        <div class="col-12 col-sm-12">
+                                            <div class="mb-3" id="question-div">
+                                                <label class="mb-2 text-dark">Answer</label>
+                                                <textarea xtype="text" name="answer" class="form-control min-h-100px" id="answer"></textarea>
+                                                <span class="text-danger" id="answer-error"></span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="optional box">
-                                    <a class="btn btn-primary btn-sm addMoreBtn" onclick="add_options()"><i
-                                            class="fa fa-plus fs-5"></i> Add Option</a>
+
+
+                                <div>
+                                    <div class="row addMoreOptions">
+                                    </div>
                                 </div>
-                                <div class="multiple box">
-                                    <a class="btn btn-primary btn-sm addMoreBtn" onclick="add_options()"><i
-                                        class="fa fa-plus fs-5"></i> Add Option</a>
-                                </div>
-                                <div>        
-                                <div class="addMoreOptions">
-                                </div></div>
                                 <button type="submit" class="btn btn-primary w-100">Save</button>
                             </div>
                         </form>
@@ -178,12 +214,12 @@
                                 <div class="col-12 col-sm-12">
                                     <div class="mb-3" id="question-div">
                                         <label class="mb-2">Question</label>
-                                        <textarea type="text" name="questions" class="form-control" id="questions"></textarea>
-                                        <span class="text-danger" id="questions-error"></span>
+                                        <textarea type="text" name="question" class="form-control" id="question"></textarea>
+                                        <span class="text-danger" id="question-error"></span>
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-sm-12">
+                                <div class="col-6 col-sm-6">
                                     <div class="mb-3" id="answer-type-div">
                                         <label class="mb-2">Answer Type</label>
                                         <select class="form-control select answer_type" name="answer_type">
@@ -196,16 +232,19 @@
                                     </div>
                                 </div>
 
-                                <div class="text box">
+
+
+                                {{-- <div class="text box">
                                     <div class="col-12 col-sm-12">
                                         <div class="mb-3" id="question-div">
                                             <label class="mb-2">Answer</label>
-                                            {{-- <textarea type="text" name="answer" class="form-control" id="answer"></textarea> --}}
+                                            <textarea type="text" name="answer" class="form-control" id="answer"></textarea>
                                             <span class="text-danger" id="questions-error"></span>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="optional box">
+                                </div> --}}
+
+                                {{-- <div class="optional box">
                                     <a class="btn btn-primary btn-sm addMoreBtn" onclick="add_options('1')"><i
                                             class="fa fa-plus fs-5"></i> Add Option</a>
                                 </div>
@@ -213,9 +252,31 @@
                                     <a class="btn btn-primary btn-sm addMoreBtn"
                                         onclick="add_options('1')"><i class="fa fa-plus fs-5"></i> Add Option
                                     </a>
+                                </div> --}}
+                                <div class="col-md-6">
+
+                                    <div class="optional box">
+                                        <a class="btn btn-primary btn-sm addMoreBtn" onclick="add_options('1')"><i
+                                                class="fa fa-plus fs-5"></i> Add Option</a>
+                                    </div>
+                                    <div class="multiple box">
+                                        <a class="btn btn-primary btn-sm addMoreBtn" onclick="add_options('1')"><i
+                                                class="fa fa-plus fs-5"></i> Add Option</a>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12">
+                                    <div class="text box p-0 mt-0">
+                                        <div class="col-12 col-sm-12">
+                                            <div class="mb-3" id="question-div">
+                                                <label class="mb-2 text-dark">Answer</label>
+                                                <textarea xtype="text" name="answer" class="form-control min-h-100px" id="answer"></textarea>
+                                                <span class="text-danger" id="answer-error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div>
-                                    <div class="addMoreOptionsEdit"></div>
+                                    <div class="row addMoreOptionsEdit"></div>
                                 </div>
 
                             </div>
@@ -250,6 +311,7 @@
 
     </div>
 @endsection
+
 @section('javascript')
     <script>
         $(document).ready(function() {
@@ -265,18 +327,80 @@
                 });
             }).change();
 
+            $(document).ready(function() {
+                $("#doctors").change(function() {
+                    var selectedValue = $(this).val();
+                    $.ajax({
+                        url: "{{ route('get.question.doctor.id') }}",
+                        type: 'get',
+                        data: {
+                            id: selectedValue
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            $('#question_list').replaceWith(response.data);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                        }
+                    });
+                });
+            });
+
+
+            $(document).ready(function() {
+                $("#specialty").change(function() {
+                    var selectedValue = $(this).val();
+                    $.ajax({
+                        url: "{{ route('get.question.specialty.id') }}",
+                        type: 'get',
+                        data: {
+                            id: selectedValue
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            $('#question_list').replaceWith(response.data);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                        }
+                    });
+                });
+            });
+
+            $(document).ready(function() {
+                $("#answerType").change(function() {
+                    var selectedValue = $(this).val();
+                    $.ajax({
+                        url: "{{ route('get.question.answerType') }}",
+                        type: 'get',
+                        data: {
+                            answerType: selectedValue
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            $('#question_list').replaceWith(response.data);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                        }
+                    });
+                });
+            });
+
+
             $("#addQuestionForm").validate({
                 rules: {
                     doctor: "required",
                     specialty: "required",
                     answer_type: "required",
-                    questions: "required",
+                    question: "required",
                 },
                 messages: {
                     doctor: "Please select a doctor!",
                     specialty: "Please select a specialty!",
                     answer_type: "Please select an answer type!",
-                    questions: "Please enter a question!",
+                    question: "Please enter a question!",
                 },
                 submitHandler: function(form) {
                     var formData = $(form).serialize();
@@ -295,6 +419,7 @@
                             var errors = error_messages.responseJSON;
                             $.each(errors.errors, function(key, value) {
                                 var id = key.replace(/\./g, '_');
+                                console.log('#' + id + '_error');
                                 $('#' + id + '_error').html(value);
                                 remove_error_div(id);
                             });
@@ -327,20 +452,17 @@
                             $('#edit_question').modal('hide');
                             $('#question_list').replaceWith(response.data);
                             location.reload(); // Reload the page
-                            
+
                         },
                         error: function(error_messages) {
-                            let errors = JSON.parse(error_messages.responseText).errors;
-                            let random_number = Math.floor((Math.random() * 100) + 1);
-                            for (var error_key in errors) {
-                                var random_id = error_key + '_' + random_number;
-                                $('.' + error_key + '_error').remove();
-                                $('#edit_question [name=' + error_key + ']')
-                                    .after('<span id="' + random_id +
-                                        '_error" class="text text-danger ' + error_key +
-                                        '_error">' + errors[error_key] + '</span>');
-                                remove_error_div(random_id);
-                            }
+                            var errors = error_messages.responseJSON;
+                            $.each(errors.errors, function(key, value) {
+                                var id = key.replace(/\./g, '_');
+                                console.log('#' + id + '_error');
+                                $('#' + id + '_error').html(value);
+                                remove_error_div(id);
+                            });
+
                         }
                     });
                 }
@@ -389,133 +511,136 @@
         var counter = 0;
 
 
-function edit_question(doctorQuestionDetails) {
-    var doctorQuestionDetails = JSON.parse(doctorQuestionDetails);
-    $('.addMoreOptionsEdit').empty();
-    $('#id').val(doctorQuestionDetails.id);
-    $('#doctor').val(doctorQuestionDetails.doctor_id);
-    $('#specialty').val(doctorQuestionDetails.specialty_id);
-    $('.answer_type').val(doctorQuestionDetails.answer_type);
-    $('#questions').val(doctorQuestionDetails.questions);
+        function edit_question(doctorQuestionDetails) {
+            var doctorQuestionDetails = JSON.parse(doctorQuestionDetails);
+            $('.addMoreOptionsEdit').empty();
+            $('#id').val(doctorQuestionDetails.id);
+            $('#doctor').val(doctorQuestionDetails.doctor_id);
+            $('#specialty').val(doctorQuestionDetails.specialty_id);
+            $('.answer_type').val(doctorQuestionDetails.answer_type);
+            $('#question').val(doctorQuestionDetails.question);
 
-    // Reset counter
-    counter = 0;
-
-    doctorQuestionDetails.options.forEach(function(option, index) {
-        var options_html =
-            '<div class="option-details"><div class="row panel panel-body"><div class="col-md-6 form-group"><label for="">Answers ' +
-            (index + 1) +
-            '</label><input class="form-control" type="text" name="options[' +
-            index +
-            '][value]" value="' + option.options + '" ><span class="text-danger" id="options_' + index +
-            '_value_error"></span><div><input type="hidden" name="options[' + index +
-            '][option_id]" value="' + option.id + '"></div></div><div class="col-md-2 form-group mt-4"><a onclick="remove_options(this, ' + option.id + ')" class="btn btn-danger btn-sm float-right"> <i class="fa fa-minus"></i></a></div></div></div>';
-        
-        $('.addMoreOptionsEdit').append(options_html);
-        counter = index + 1; // Update counter to the latest index
-    });
-    
-    $(".optional").show();
-}
+            // Reset counter
+            counter = 0;
 
 
-// Function to handle adding options dynamically
-function add_options(id) {
-    var options_html =
-        '<div class="option-details">' +
-        '<div class="row panel panel-body">' +
-        '<div class="col-md-6 form-group">' +
-        '<label for="">Answers ' + (counter + 1) + '</label>' +
-        '<input class="form-control" type="text" name="options[' + counter + '][value]">' +
-        '<span class="text-danger" id="options_' + counter + '_options_error"></span>' +
-        '</div>' +
-        '<div class="col-md-2 form-group mt-4">' +
-        '<a onclick="remove_options(this)" class="btn btn-danger btn-sm float-right">' +
-        '<i class="fa fa-minus"></i></a>' +
-        '</div>' +
-        '</div>' +
-        '</div>';
-    
-    if (id) {
-        $('.addMoreOptionsEdit').append(options_html);
-    } else {
-        $('.addMoreOptions').append(options_html);
-    }
+            if ($('.answer_type').val() != 'text') {
+                doctorQuestionDetails.options.forEach(function(option, index) {
+                    var options_html =
+                        '<div class="col-md-6 option-details"><div class="row panel panel-body"><div class="col-md-10 form-group"><label for="">Option ' +
+                        (index + 1) +
+                        '</label><input class="form-control" type="text" name="options[' +
+                        index +
+                        '][value]" value="' + option.options + '" ><span class="text-danger" id="options_' + index +
+                        '_value_error"></span><div><input type="hidden" name="options[' + index +
+                        '][option_id]" value="' + option.id +
+                        '"></div></div><div class="col-md-2 form-group mt-4"><a onclick="remove_options(this, ' +
+                        option.id +
+                        ')" class="btn btn-danger btn-sm float-right"> <i class="fa fa-minus"></i></a></div></div></div>';
+                    $('.addMoreOptionsEdit').append(options_html);
+                    counter = index + 1; // Update counter to the latest index
+                });
+                $(".optional").show();
+            }
 
-    counter += 1;
-    if (counter >= 4) {
-        $('.addMoreBtn').addClass('disabled');
-    }
-}
+        }
 
 
+        // Function to handle adding options dynamically
+        function add_options(id) {
+            var options_html =
+                '<div class="col-md-6  option-details">' +
+                '<div class="row panel panel-body">' +
+                '<div class="col-md-10 form-group">' +
+                '<label for="">Option ' + (counter + 1) + '</label>' +
+                '<input class="form-control" type="text" name="options[' + counter + '][value]">' +
+                '<span class="text-danger" id="options_' + counter + '_value_error"></span>' +
+                '</div>' +
+                '<div class="col-md-2 form-group mt-4">' +
+                '<a onclick="remove_options(this)" class="btn btn-danger btn-sm float-right">' +
+                '<i class="fa fa-minus"></i></a>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
 
-function remove_options(this_ele, id) {
-    console.log(id);
+            if (id) {
+                $('.addMoreOptionsEdit').append(options_html);
+            } else {
+                $('.addMoreOptions').append(options_html);
+            }
 
-    if (id != null) {
-        event.preventDefault();
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: 'http://127.0.0.1:8000/admin/questions-options/delete',
-                    type: "post",
-                    data: {
-                        '_token': '{{ csrf_token() }}',
-                        'id': id
-                    },
-                    success: function(res) {
-                        Swal.fire("Done!", "It was successfully deleted!", "success");
-                        $(this_ele).closest('.option-details').remove();
-                        reindex_options();
-                    },
-                    error: function(xhr, ajaxOptions, thrownError) {
-                        Swal.fire("Error deleting!", "Please try again", "error");
+            counter += 1;
+            if (counter >= 4) {
+                $('.addMoreBtn').addClass('disabled');
+            }
+        }
+        var site_admin_base_url = "{{ env('SITE_ADMIN_BASE_URL') }}";
+
+
+
+        function remove_options(this_ele, id) {
+            console.log(id);
+
+            if (id != null) {
+                event.preventDefault();
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: site_admin_base_url + 'questions-options/delete',
+                            type: "post",
+                            data: {
+                                '_token': '{{ csrf_token() }}',
+                                'id': id
+                            },
+                            success: function(res) {
+                                Swal.fire("Done!", "It was successfully deleted!", "success");
+                                $(this_ele).closest('.option-details').remove();
+                                reindex_options();
+                            },
+                            error: function(xhr, ajaxOptions, thrownError) {
+                                Swal.fire("Error deleting!", "Please try again", "error");
+                            }
+                        });
                     }
                 });
+            } else {
+                $(this_ele).closest('.option-details').remove();
+                reindex_options();
             }
-        });
-    } else {
-        $(this_ele).closest('.option-details').remove();
-        reindex_options();
-    }
-}
+        }
 
-function reindex_options() {
-    $('.option-details').each(function(index, element) {
-        console.log(index);
-        var newIndex = index + 1; // Calculate the new index starting from 1
+        function reindex_options() {
+            $('.option-details').each(function(index, element) {
+                console.log(index);
+                var newIndex = index + 1; // Calculate the new index starting from 1
 
-        // Update label
-        $(element).find('label').text('Answers ' + newIndex);
+                // Update label
+                $(element).find('label').text('Answers ' + newIndex);
 
-        // Update input names
-        $(element).find('input[type="text"]').attr('name', 'options[' + index + '][value]');
-        $(element).find('span').attr('id', 'options_' + index + '_value_error');
-        $(element).find('input[type="hidden"]').attr('name', 'options[' + index + '][option_id]');
-    });
+                // Update input names
+                $(element).find('input[type="text"]').attr('name', 'options[' + index + '][value]');
+                $(element).find('span').attr('id', 'options_' + index + '_value_error');
+                $(element).find('input[type="hidden"]').attr('name', 'options[' + index + '][option_id]');
+            });
 
-    // Update counter to the number of options
-    counter = $('.option-details').length;
+            // Update counter to the number of options
+            counter = $('.option-details').length;
 
-    // Enable or disable "Add More" button based on the number of options
-    if (counter >= 4) {
-        $('.addMoreBtn').addClass('disabled');
-    } else {
-        $('.addMoreBtn').removeClass('disabled');
-    }
-}
-
-
-
+            // Enable or disable "Add More" button based on the number of options
+            if (counter >= 4) {
+                $('.addMoreBtn').addClass('disabled');
+            } else {
+                $('.addMoreBtn').removeClass('disabled');
+            }
+        }
         // // Function to handle removing options dynamically
         // function remove_options(this_ele) {
         //     $(this_ele).closest('.option-details').remove();
@@ -524,6 +649,11 @@ function reindex_options() {
         //         $('.addMoreBtn').removeClass('disabled');
         //     }
         // }
+
+        $('input[name="doctor"] ,input[name="specialty"],input[name="answerType"]').on('change', function() {
+            alert('working');
+            search_doctors();
+        });
     </script>
 @endsection
 

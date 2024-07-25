@@ -48,12 +48,12 @@
                                 </li>
                                 <li>
                                     <div class="view-icons">
-                                        <a href="{{ route('doctor.doctor-appointments.index') }}" class="active"><i class="fa-solid fa-list"></i></a>
+                                        <a href="{{ route('doctor.appointments.index') }}" class="active"><i class="fa-solid fa-list"></i></a>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="view-icons">
-                                        <a href="{{ route('doctor.doctor-appointments.index') }}"><i class="fa-solid fa-th"></i></a>
+                                        <a href="{{ route('doctor.appointments.index') }}"><i class="fa-solid fa-th"></i></a>
                                     </div>
                                 </li>
                                 <li>
@@ -239,8 +239,8 @@
                                                 </div>
                                             </div>
                                             <div class="filter-reset-btns">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}" class="btn btn-light">Reset</a>
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}" class="btn btn-primary">Filter Now</a>
+                                                <a href="{{ route('doctor.appointments.index') }}" class="btn btn-light">Reset</a>
+                                                <a href="{{ route('doctor.appointments.index') }}" class="btn btn-primary">Filter Now</a>
                                             </div>
                                         </div>
                                     </div>
@@ -255,13 +255,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-01.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0001</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Adrian</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Adrian</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -285,7 +285,7 @@
                                         <li class="appointment-action">
                                             <ul>
                                                 <li>
-                                                    <a href="{{ route('doctor.doctor-appointments.index') }}"><i
+                                                    <a href="{{ route('doctor.appointments.index') }}"><i
                                                             class="fa-solid fa-eye"></i></a>
                                                 </li>
                                                 <li>
@@ -297,7 +297,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-start">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">Start Now</a>
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">Start Now</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -307,13 +307,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-02.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0002</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Kelly</a><span
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Kelly</a><span
                                                             class="badge new-tag">New</span></h6>
                                                 </div>
                                             </div>
@@ -338,7 +338,7 @@
                                         <li class="appointment-action">
                                             <ul>
                                                 <li>
-                                                    <a href="{{ route('doctor.doctor-appointments.index') }}"><i
+                                                    <a href="{{ route('doctor.appointments.index') }}"><i
                                                             class="fa-solid fa-eye"></i></a>
                                                 </li>
                                                 <li>
@@ -350,7 +350,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-start">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">Start Now</a>
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">Start Now</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -360,13 +360,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-03.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0003</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Samuel</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Samuel</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -390,7 +390,7 @@
                                         <li class="appointment-action">
                                             <ul>
                                                 <li>
-                                                    <a href="{{ route('doctor.doctor-appointments.index') }}"><i
+                                                    <a href="{{ route('doctor.appointments.index') }}"><i
                                                             class="fa-solid fa-eye"></i></a>
                                                 </li>
                                                 <li>
@@ -402,7 +402,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-start">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">Start Now</a>
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">Start Now</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -412,13 +412,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-04.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0004</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Catherine</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Catherine</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -442,7 +442,7 @@
                                         <li class="appointment-action">
                                             <ul>
                                                 <li>
-                                                    <a href="{{ route('doctor.doctor-appointments.index') }}"><i
+                                                    <a href="{{ route('doctor.appointments.index') }}"><i
                                                             class="fa-solid fa-eye"></i></a>
                                                 </li>
                                                 <li>
@@ -454,7 +454,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-start">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">Start Now</a>
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">Start Now</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -464,13 +464,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-05.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0005</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Robert</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Robert</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -494,7 +494,7 @@
                                         <li class="appointment-action">
                                             <ul>
                                                 <li>
-                                                    <a href="{{ route('doctor.doctor-appointments.index') }}"><i
+                                                    <a href="{{ route('doctor.appointments.index') }}"><i
                                                             class="fa-solid fa-eye"></i></a>
                                                 </li>
                                                 <li>
@@ -506,7 +506,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-start">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">Start Now</a>
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">Start Now</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -516,13 +516,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-06.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0006</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Anderea</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Anderea</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -546,7 +546,7 @@
                                         <li class="appointment-action">
                                             <ul>
                                                 <li>
-                                                    <a href="{{ route('doctor.doctor-appointments.index') }}"><i
+                                                    <a href="{{ route('doctor.appointments.index') }}"><i
                                                             class="fa-solid fa-eye"></i></a>
                                                 </li>
                                                 <li>
@@ -558,7 +558,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-start">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">Start Now</a>
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">Start Now</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -568,13 +568,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-07.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0007</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Peter</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Peter</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -598,7 +598,7 @@
                                         <li class="appointment-action">
                                             <ul>
                                                 <li>
-                                                    <a href="{{ route('doctor.doctor-appointments.index') }}"><i
+                                                    <a href="{{ route('doctor.appointments.index') }}"><i
                                                             class="fa-solid fa-eye"></i></a>
                                                 </li>
                                                 <li>
@@ -610,7 +610,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-start">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">Start Now</a>
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">Start Now</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -620,13 +620,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-08.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0008</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Emily</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Emily</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -650,7 +650,7 @@
                                         <li class="appointment-action">
                                             <ul>
                                                 <li>
-                                                    <a href="{{ route('doctor.doctor-appointments.index') }}"><i
+                                                    <a href="{{ route('doctor.appointments.index') }}"><i
                                                             class="fa-solid fa-eye"></i></a>
                                                 </li>
                                                 <li>
@@ -662,7 +662,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-start">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">Start Now</a>
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">Start Now</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -702,13 +702,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-01.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0001</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Adrian</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Adrian</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -720,7 +720,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-detail-btn">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">View
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">View
                                                 Details</a>
                                         </li>
                                     </ul>
@@ -731,13 +731,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-02.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0002</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Kelly</a><span
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Kelly</a><span
                                                             class="badge new-tag">New</span></h6>
                                                 </div>
                                             </div>
@@ -750,7 +750,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-detail-btn">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">View
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">View
                                                 Details</a>
                                         </li>
                                     </ul>
@@ -761,13 +761,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-03.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0003</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Samuel</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Samuel</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -779,7 +779,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-detail-btn">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">View
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">View
                                                 Details</a>
                                         </li>
                                     </ul>
@@ -790,13 +790,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-04.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0004</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Catherine</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Catherine</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -808,7 +808,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-detail-btn">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">View
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">View
                                                 Details</a>
                                         </li>
                                     </ul>
@@ -819,13 +819,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-05.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0005</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Robert</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Robert</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -837,7 +837,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-detail-btn">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">View
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">View
                                                 Details</a>
                                         </li>
                                     </ul>
@@ -848,13 +848,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-06.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0006</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Anderea</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Anderea</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -866,7 +866,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-detail-btn">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">View
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">View
                                                 Details</a>
                                         </li>
                                     </ul>
@@ -877,13 +877,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-07.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0007</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Peter</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Peter</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -895,7 +895,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-detail-btn">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">View
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">View
                                                 Details</a>
                                         </li>
                                     </ul>
@@ -906,13 +906,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-08.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0008</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Emily</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Emily</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -924,7 +924,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-detail-btn">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">View
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">View
                                                 Details</a>
                                         </li>
                                     </ul>
@@ -965,13 +965,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-01.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0001</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Adrian</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Adrian</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -983,7 +983,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-detail-btn">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">View
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">View
                                                 Details</a>
                                         </li>
                                     </ul>
@@ -994,13 +994,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-02.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0002</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Kelly</a><span
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Kelly</a><span
                                                             class="badge new-tag">New</span></h6>
                                                 </div>
                                             </div>
@@ -1013,7 +1013,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-detail-btn">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">View
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">View
                                                 Details</a>
                                         </li>
                                     </ul>
@@ -1024,13 +1024,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-03.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0003</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Samuel</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Samuel</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -1042,7 +1042,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-detail-btn">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">View
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">View
                                                 Details</a>
                                         </li>
                                     </ul>
@@ -1053,13 +1053,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-04.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0004</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Catherine</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Catherine</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -1071,7 +1071,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-detail-btn">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">View
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">View
                                                 Details</a>
                                         </li>
                                     </ul>
@@ -1082,13 +1082,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-05.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0005</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Robert</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Robert</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -1100,7 +1100,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-detail-btn">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">View
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">View
                                                 Details</a>
                                         </li>
                                     </ul>
@@ -1111,13 +1111,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-06.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0006</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Anderea</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Anderea</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -1129,7 +1129,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-detail-btn">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">View
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">View
                                                 Details</a>
                                         </li>
                                     </ul>
@@ -1140,13 +1140,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-07.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0007</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Peter</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Peter</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -1158,7 +1158,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-detail-btn">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">View
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">View
                                                 Details</a>
                                         </li>
                                     </ul>
@@ -1169,13 +1169,13 @@
                                     <ul>
                                         <li>
                                             <div class="patinet-information">
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}">
+                                                <a href="{{ route('doctor.appointments.index') }}">
                                                     <img src="../assets/img/doctors-dashboard/profile-08.jpg"
                                                         alt="">
                                                 </a>
                                                 <div class="patient-info">
                                                     <p>#Apt0008</p>
-                                                    <h6><a href="{{ route('doctor.doctor-appointments.index') }}">Emily</a></h6>
+                                                    <h6><a href="{{ route('doctor.appointments.index') }}">Emily</a></h6>
                                                 </div>
                                             </div>
                                         </li>
@@ -1187,7 +1187,7 @@
                                             </ul>
                                         </li>
                                         <li class="appointment-detail-btn">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="start-link">View
+                                            <a href="{{ route('doctor.appointments.index') }}" class="start-link">View
                                                 Details</a>
                                         </li>
                                     </ul>

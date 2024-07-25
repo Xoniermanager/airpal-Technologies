@@ -9,6 +9,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use App\Mail\SendMailForAppointmentDoctorQuery;
 
 class SendOtpJob implements ShouldQueue
 {
@@ -25,6 +26,6 @@ class SendOtpJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to("xonier.puneet@gmail.com")->send(new SendMailToUser($this->mailData));
+        Mail::to("yashxoniertechnologies@gmail.com")->send(new SendMailToUser($this->mailData));
     }
 }

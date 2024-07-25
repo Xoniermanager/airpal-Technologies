@@ -80,17 +80,19 @@
 
                                             <input id='{{ strtolower($day->name) }}_start_time' type="time"  value="{{ $startTime }}"
                                                 class="form-control" name="day[{{ $day->id }}][start_time]" 
-
                                                 {{ $disabled}}
                                                 {{-- {{ (array_search($day->id, $dayId) === false ? (isset($dayId) ? 'disabled' : 'disabled') : '') ?? '' }} --}}
                                                 
                                                 >
+
+            
                                             <span class="text-danger"
                                                 id="{{ strtolower($day->name) }}_start_time_error"></span>
 
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="col-md-5">
                                     <div class="form-wrap">
                                         <label class="col-form-label">To <span class="text-danger">*</span></label>
@@ -105,6 +107,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                <input id='{{ strtolower($day->name) }}_start_time' type="hidden"  value="{{$day->id}}"
+                                class="form-control" name="day[{{ $day->id }}][day_id]" {{ $disabled}}>
                             </div>
                         </div>
                     </div>

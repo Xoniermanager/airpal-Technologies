@@ -11,9 +11,12 @@ use App\Http\Repositories\UserRepository;
 class UserServices
 {
   private  $UserRepository;
-  public function __construct(UserRepository $UserRepository)
+  private $doctorAddressServices;
+
+  public function __construct(UserRepository $UserRepository ,DoctorAddressServices $doctorAddressServices)
   {
     $this->UserRepository = $UserRepository;
+    $this->doctorAddressServices = $doctorAddressServices;
   }
   public function all()
   {
@@ -45,21 +48,19 @@ class UserServices
 
   public function getDoctorDataForAdmin()
   {
-    return $this->UserRepository->with(["educations", "experiences", "workingHour", "specializations", "services", "language"])->orderBy('id', 'desc')->paginate(10);
+    return $this->UserRepository->where('role',2)->with(["educations", "experiences", "workingHour", "specializations", "services", "language"])->orderBy('id', 'desc')->paginate(10);
   }
 
   public function getDoctorDataForFrontend()
   {
-    return $this->UserRepository->with(["educations", "experiences", "workingHour", "specializations", "services"])->paginate(5);
+    return $this->UserRepository->where('role',2)->with(["experiences", "specializations", "services"])->paginate(5);
   }
   public function getDoctorDataById($id)
   {
-    return $this->UserRepository->where('id', $id)->with(["educations.course", "experiences.hospital", "workingHour", "specializations", "services", "workingHour.daysOfWeek", "language", 'awards.award','doctorAddress'])->first();
+    return $this->UserRepository->where('id', $id)->with(["educations.course", "experiences.hospital", "workingHour", "specializations", "services", "workingHour.daysOfWeek", "language", 'awards.award','doctorAddress.country','doctorAddress.states'])->first();
   }
-
   public function updateOrCreateDoctor($data)
   {
-
     $filename = null;
     $payload   = [
                   "first_name"   => $data["first_name"],
@@ -101,7 +102,6 @@ class UserServices
     );
   }
 
-
   public function searchInDoctors($searchedKey)
   {
     $data['gender']     = array_key_exists('gender', $searchedKey) ? $searchedKey['gender'] : '';
@@ -109,7 +109,6 @@ class UserServices
     $data['experience'] = array_key_exists('experience', $searchedKey) ? $searchedKey['experience'] : '';
     $data['specialty']  = array_key_exists('specialty', $searchedKey) ? $searchedKey['specialty'] : '';
     $data['services']  = array_key_exists('services', $searchedKey) ? $searchedKey['services'] : '';
-    
 
     $query = $this->UserRepository->newQuery();
 
@@ -149,8 +148,60 @@ class UserServices
       });
     }
     
-
-       return $query->paginate(6);
+       return $query->paginate(10);
   }
+
+  public function getDoctorQuestionById($id)
+  {
+    return $this->UserRepository->where('id', $id)->with(["doctorQuestions.options"])->first();
+  }
+
+  public function getPatientById($id)
+  {
+    return $this->UserRepository->where('id', $id)->first();
+  }
+
+  public function updatePatient($data)
+  {
+    $filename = null;
+    $payload   = [
+                  "first_name"   => $data["first_name"],
+                  "last_name"    => $data["last_name"],
+                  "display_name" => $data["display_name"] ?? '',
+                  "gender"       => $data["gender"] ?? '',
+                  "dob"          => $data["dob"] ?? '',
+                  "blood_group"  => $data["blood_group"] ?? '',
+                  "email"        => $data["email"],
+                  "phone"        => $data["phone"],
+                  "role"         => 3,
+                  "description"  => $data["description"]?? '',
+                ];
+
+    if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
+        $file     = $data['image'];
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        $destinationPath = public_path('images');
+        $file->move($destinationPath, $filename);
+        $payload['image_url'] = $filename;
+  }
+    // dd( $payload);
+    $user = $this->UserRepository->updateOrCreate(
+      ['email' => $data["email"]],
+      $payload
+    );
+    
+    $message = $user->wasRecentlyCreated ? 'Patient created successfully.' : 'Patient updated successfully.';
+    $status  = $user->wasRecentlyCreated ? 'created' : 'updated';
+
+    return response()->json(
+      [
+        'message' => $message,
+        'status'  => $status,
+        'id'      => $user->id
+      ]
+    );
+  }
+
+
 
 }

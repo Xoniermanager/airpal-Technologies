@@ -20,9 +20,11 @@ return new class extends Migration
             $table->string('phone');
             $table->string('email')->unique();
             $table->string('image_url')->nullable();
+            $table->date('dob')->nullable();
+            $table->string('blood_group')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->text('description');
+            $table->text('description')->nullable();;
             $table->rememberToken();
             $table->timestamps();
         });

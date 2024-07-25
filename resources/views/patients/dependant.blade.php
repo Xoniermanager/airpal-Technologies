@@ -16,7 +16,7 @@
 <h2 class="breadcrumb-title">Dependants</h2>
 <nav aria-label="breadcrumb" class="page-breadcrumb">
 <ol class="breadcrumb">
-<li class="breadcrumb-item"><a href="{{ route('patients.patient-dashboard.index') }}">Home</a></li> 
+<li class="breadcrumb-item"><a href="{{ route('patient-dashboard.index') }}">Home</a></li> 
 <li class="breadcrumb-item" aria-current="page">Dependents</li>
 </ol>
 </nav>

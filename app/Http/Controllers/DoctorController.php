@@ -18,7 +18,7 @@ class DoctorController extends Controller
   private $user_services;
   private $doctorsFilterServices;
   private $specializationServices;
-  private  $doctorSlotServices;
+  private $doctorSlotServices;
   private $bookingServices;
 
   public function __construct(UserServices $user_services, SpecializationServices $specializationServices, DoctorSlotServices $doctorSlotServices, BookingServices $bookingServices)
@@ -32,6 +32,7 @@ class DoctorController extends Controller
   public function index()
   {
     $doctors     = $this->user_services->getDoctorDataForFrontend();
+    // dd($doctors);
     $specialties = $this->specializationServices->all();
     $specialties = $this->specializationServices->all();
     return view('frontend.doctor.index', ['doctors' =>  $doctors, 'languages' => Language::all(), 'specialties' => $specialties, 'services' => Service::all()]);
@@ -57,14 +58,13 @@ class DoctorController extends Controller
       ->with('specializationsString', $specializationsString);
   }
 
-
   public function appointment($id)
   {
     $doctor = $this->user_services->getDoctorDataById($id); // id is temp will do it later 
     $doctorSlot = $this->doctorSlotServices->getSlotsByDoctorId($doctor->id);
     if (isset($doctorSlot)) {
       $doctorSlot->exception_days = $doctorSlot->user->doctorExceptionDays;
-      $returnedSlots = $this->doctorSlotServices->makeSlots($doctorSlot);
+      $returnedSlots  = $this->doctorSlotServices->makeSlots($doctorSlot);
       $returnCalendar = $this->doctorSlotServices->showCalendar($doctorSlot);
     } else {
       $returnedSlots = [];
@@ -75,7 +75,6 @@ class DoctorController extends Controller
   public function search(Request $request)
   {
     $searchedItems = $this->user_services->searchInDoctors($request->all());
-
     if ($searchedItems) {
       return response()->json([
         'success' => 'Searching',
@@ -101,23 +100,16 @@ class DoctorController extends Controller
     } else {
       echo "something went wrong";
     }
-    // else{
-    //   $returnedSlots = [];
-    // }
-    // return view('frontend.pages.appointment', ['allDaySlots' => $returnedSlots,'doctorDetails' => $doctor , 'calender' => $returnCalendar]);
   }
-
-
-
 
 
   public function getDoctorSlotsByDate(Request $request)
   {
     $data = $request->all();
     $date = $data['date'];
-    $doctorSlots = $this->doctorSlotServices->getSlotsByDoctorId($data['doctor_id']);
-    $returnedSlots = $this->doctorSlotServices->makeSlots($doctorSlots);
 
+    $doctorSlots        = $this->doctorSlotServices->getSlotsByDoctorId($data['doctor_id']);
+    $returnedSlots      = $this->doctorSlotServices->makeSlots($doctorSlots);
     $gettingBookedSlots = $this->bookingServices->slotDetails($data)->get();
 
     $startDateTime = collect($returnedSlots)->map(function ($item, $key) {
@@ -155,9 +147,8 @@ class DoctorController extends Controller
         $isBooked = false;
         list($startTime, $endTime) = explode(' - ', $slot);
 
-
-        $startDateTime = DateTime::createFromFormat('H:iA', $startTime);
-        $endDateTime = DateTime::createFromFormat('H:iA', $endTime);
+        $startDateTime = DateTime::createFromFormat('H:i', $startTime);
+        $endDateTime = DateTime::createFromFormat('H:i', $endTime);
 
         if (!$startDateTime || !$endDateTime) {
           throw new \Exception("Failed to create DateTime object from '$startTime' or '$endTime'");
@@ -180,13 +171,13 @@ class DoctorController extends Controller
 
         $html .= '<div class="slot-group">';
         $html .= '<button class="btn btn-outline-primary mb-3 w-100' . $slotClass;
-        $html .= $isBooked ? ' disabled' : ''; // Conditionally add disabled attribute
+        $html .= $isBooked ? ' disabled' : '';
         $html .= '" onclick="splitButton(this)">' . htmlspecialchars($slot) . '</button>';
         $html .= '<div class="additional-buttons hidden mb-2">';
         $html .= '<button id="button1" onclick="showContent(\'myDIV\')">' . htmlspecialchars(explode(' - ', $slot)[0]) . '</button>';
         $html .= '<button id="button2" onclick="showContent(\'content2\', \'' . htmlspecialchars($slot) . '\', \'' . $date . '\', \'' . $data['doctor_id'] . '\')">Next</button>';
         $html .= '</div>';
-        $html .= '</div>'; // Close slot-group div
+        $html .= '</div>'; 
 
       }
     }

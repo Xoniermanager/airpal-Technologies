@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Models\Specialization;
 use App\Http\Services\UserServices;
 use App\Http\Controllers\Controller;
-use App\Http\Services\QuestionOptionServices;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Services\QuestionServices;
-use App\Models\Specialization;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\StoreQuestionRequest;
+use App\Http\Services\QuestionOptionServices;
 
 class QuestionsController extends Controller
 {
@@ -22,85 +24,76 @@ class QuestionsController extends Controller
     $this->user_services    = $user_services;
     $this->questionOptionServices = $questionOptionServices;
   }
+
+  // this is for admin 
   public function index()
-  {
+  {   
+
+    $doctors      = $this->user_services->all();
+    $specialties  = Specialization::all();
     $allQuestions =  $this->questionServices->all();
-    $doctors = $this->user_services->all();
-    $specialties = Specialization::all();
 
     return view("admin.questions.index", ['allQuestions' => $allQuestions, 'doctors' => $doctors, 'specialties' => $specialties]);
   }
 
-  public function store(Request $request)
+  // this is for single doctor 
+  public function DoctorQuestionIndex()
   {
+    $doctorId     = Auth::user()->id;
+    $allQuestions =  $this->questionServices->getDoctorQuestionById($doctorId);
+    $doctors      = $this->user_services->all();
+    $specialties  = Specialization::all();
 
-    $validator = Validator::make($request->all(), [
-      'radio.*.options' => 'sometimes|required',
-      'checkbox.*.options' => 'sometimes|required',
-      'answer'      => 'sometimes|required',
-      "doctor"      => "required",
-      "specialty"   => "required",
-      "answer_type" => "required",
-      "questions"   => "required",
-    ]);
+    return view("doctor.questions.index", ['allQuestions' => $allQuestions, 'doctors' => $doctors, 'specialties' => $specialties]);
+  }
 
-    if ($validator->fails()) {
-      return response()->json([
-        'success' => false,
-        'errors'  => $validator->errors()
-      ], 400);
-    }
+
+  public function store(StoreQuestionRequest $request)
+  {
     $payload = [
-      "doctor_id"   => $request->doctor,
-      "specialty_id" => $request->specialty,
-      "answer_type" => $request->answer_type,
-      "questions"   => $request->questions
+      "doctor_id"    =>  $request->doctor,
+      "specialty_id" =>  $request->specialty,
+      "answer_type"  =>  $request->answer_type,
+      "question"     =>  $request->question
     ];
 
-    $insertedQuestionsDetails = $this->questionServices->addQuestions($payload);
+    $createdQuestionsDetails = $this->questionServices->addQuestions($payload);
 
     if (isset($request->options)) {
       foreach ($request->options as $optionValues) {
           $payloadForOptions = [
               'options'     => $optionValues['value'],
-              'question_id' => $insertedQuestionsDetails->id
+              'question_id' => $createdQuestionsDetails->id
           ];
-
-      $insertedOptions = $this->questionOptionServices->addQuestionsOptions($payloadForOptions);  
+      $this->questionOptionServices->addQuestionsOptions($payloadForOptions);  
     }
   }
+  if (isset($request->answer)) {
+        $payloadForText = [
+            'options'     => $request->answer,
+            'question_id' => $createdQuestionsDetails->id
+        ];
+    $this->questionOptionServices->addQuestionsOptions($payloadForText);  
+  }
 
-  // if(isset($request->checkbox)){
-  //   foreach($request->checkbox as $checkboxValues)
-  //   {
-  //     $payloadForOptions = [
-  //       'options' =>  $checkboxValues['options'],
-  //       'question_id' => $insertedQuestionsDetails->id 
-  //     ];
-  //     $insertedOptions = $this->questionOptionServices->addQuestionsOptions($payloadForOptions);  
-  //   }
-  // }
-
-  
-      return response()->json([
-        'message'  => 'Added Successfully!',
-        'data'     =>  view('admin.questions.question-list', [
-          'allQuestions'   =>  $this->questionServices->all()
-        ])->render()
-      ]);
+      // return response()->json([
+      //   'message'  => 'Added Successfully!',
+      //   'data'     =>  view('admin.questions.question-list', [
+      //     'allQuestions'   =>  $this->questionServices->all()
+      //   ])->render()
+      // ]);
     
   }
   public function update(Request $request)
   {
 
     $validator = Validator::make($request->all(), [
-
-      'options.*.value' => 'sometimes|required',
-      'answer'      => 'sometimes|required',
-      "doctor"      => "required",
-      "specialty"   => "required",
-      "answer_type" => "required",
-      "questions"   => "required",
+      'options' => 'sometimes|required|array',
+      'options.*.value' => 'string',
+      "doctor" => "required|exists:users,id",
+      "specialty"   => "required|exists:specializations,id",
+      "answer_type" => "required|in:multiple,optional,text",
+      "question"    => "required|string",
     ]);
 
     if ($validator->fails()) {
@@ -113,28 +106,23 @@ class QuestionsController extends Controller
       "doctor_id"    => $request->doctor,
       "specialty_id" => $request->specialty,
       "answer_type"  => $request->answer_type,
-      "questions"    => $request->questions
+      "question"    => $request->question
     ];
+    $this->questionServices->update($payload, $request->id);
+      if (isset($request->options)) {
+          foreach ($request->options as $optionValues) {
+              $payloadForOptions = [
+                  'options'     => $optionValues['value'],
+                  'question_id' => $request->id
+              ];
 
-    $insertedQuestionsDetails = $this->questionServices->update($payload, $request->id);
-
-// Handle options
-if (isset($request->options)) {
-    foreach ($request->options as $optionValues) {
-        $payloadForOptions = [
-            'options'     => $optionValues['value'],
-            'question_id' => $request->id
-        ];
-
-        if (isset($optionValues['option_id'])) {
-            // Update existing option
-            $insertedOptions = $this->questionOptionServices->update($payloadForOptions, $optionValues['option_id']);
-        } else {
-            // Add new option
-            $insertedOptions = $this->questionOptionServices->addQuestionsOptions($payloadForOptions);
-        }
-    }
-}
+              if (isset($optionValues['option_id'])) {
+                  $this->questionOptionServices->update($payloadForOptions, $optionValues['option_id']);
+              } else {
+                  $this->questionOptionServices->addQuestionsOptions($payloadForOptions);
+              }
+          }
+      }
     return response()->json([
         'message'  => 'Updated Successfully!',
         'data'     =>  view('admin.questions.question-list', [
@@ -157,10 +145,40 @@ if (isset($request->options)) {
     }
   }
 
-  public function faqPageIndex()
-  {
+  // public function getQuestionByDoctorId(Request $request)
+  // { 
+  //   $allQuestions = $this->questionServices->getDoctorQuestionById($request->id);
+  //   return response()->json([
+  //     'message'     =>  'Successfully retrieved!',
+  //     'data'        =>  view('admin.questions.question-list', [
+  //       'allQuestions'   =>  $allQuestions
+  //     ])->render()
+  //   ]);
+  // }
+  // public function getQuestionBySpecialtyId(Request $request)
+  // { 
 
-    $allQuestions =    $this->questionServices->all();
-    return view("pages.faq", ['allQuestions' => $allQuestions]);
-  }
+  //   $allQuestions = $this->questionServices->getDoctorQuestionBySpecialtyId($request->id);
+  //   return response()->json([
+  //     'message'     =>  'Successfully retrieved!',
+  //     'data'        =>  view('admin.questions.question-list', [
+  //       'allQuestions'   =>  $allQuestions
+  //     ])->render()
+  //   ]);
+
+  // }
+  // public function getQuestionByAnswerType(Request $request)
+  // { 
+  //   $allQuestions = $this->questionServices->getDoctorQuestionByAnswerType($request->answerType);
+  //   return response()->json([
+  //     'message'     =>  'Successfully retrieved!',
+  //     'data'        =>  view('admin.questions.question-list', [
+  //       'allQuestions'   =>  $allQuestions
+  //     ])->render()
+  //   ]);
+
+  // }
+
+  
+
 }

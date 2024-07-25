@@ -20,7 +20,6 @@ class RedirectIfAuthenticated
     {
         // $guards = empty($guards) ? [null] : $guards;
         $guard = Auth::guard(); 
-
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
                 return redirect($this->redirectTo($request));

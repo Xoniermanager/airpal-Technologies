@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Patient;
 
-use App\Http\Services\BookingServices;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Services\BookingServices;
 
 class BookingController extends Controller
 {
@@ -13,7 +15,6 @@ class BookingController extends Controller
      }
     public function patientBooking(Request $request)
     {
-        //  dd($request->all());
         $bookedSlot = $this->bookingServices->store($request);
       
         if ($bookedSlot) {
@@ -27,6 +28,15 @@ class BookingController extends Controller
             return response()->json(['error' => 'Something Went Wrong!! Please try again']);
         }
     }
+    public function checkAuth()
+{
+    if (Auth::check()) {
+        return response()->json(['authenticated' => true]);
+    } else {
+        return response()->json(['authenticated' => false]);
+    }
+}
+
 
 
 }

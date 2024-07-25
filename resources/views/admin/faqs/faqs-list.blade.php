@@ -34,7 +34,7 @@
             </tbody>
         </table>
         <div class="mt-3 d-flex justify-content-end">
-            {{-- {{ $allFaqs->links() }} --}}
+            {{ $allFaqs->links() }}
         </div>
     </div>
 </div>

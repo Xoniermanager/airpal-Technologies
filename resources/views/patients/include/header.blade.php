@@ -142,8 +142,8 @@
                 <p class="text-success mb-0">Available</p>
             </div>
         </div>
-        <a class="dropdown-item" href="{{ route('patients.patient-dashboard.index') }}">Dashboard</a>
-        <a class="dropdown-item" href="{{ route('patients.patient-settings.index') }}">Profile Settings</a>
+        <a class="dropdown-item" href="{{ route('patient-dashboard.index') }}">Dashboard</a>
+        <a class="dropdown-item" href="{{ route('patient-settings.index') }}">Profile Settings</a>
         <a class="dropdown-item" href="">Logout</a>
     </div>
 </li>

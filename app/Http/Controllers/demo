@@ -1,9 +1,0 @@
-<div>
-                                                    <button id="original-button" class="btn btn-outline-primary mb-3 w-100" onclick="splitButton()">09:00 am - 09:30 am</button>
-                                                    <div id="additional-buttons" class="hidden mb-2">
-                                                        <button id="button1" onclick="showContent('myDIV')">09:00am
-                                                        </button>
-                                                        <button id="button2" onclick="showContent('content2')">Next</button>
-                                                    </div>
-
-                                                </div>

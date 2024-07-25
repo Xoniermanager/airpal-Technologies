@@ -143,7 +143,7 @@
                                         <label class="custom_radio me-4">
                                             <input type="radio" name="appointment" checked="">
                                             
-                                            <input type="hidden" name="patient_id" value="1">
+                                            <input type="hidden" name="patient_id" value="{{ auth()->user()->id ?? ''}}">
                                             {{-- <input type="hidden" name="booking_date" id="booking_date" value="">
                                             <input type="hidden" name="booking_slot_time" id="booking_slot_time"
                                                 value=""> --}}
@@ -249,8 +249,8 @@
                                     <div class="booking-list">
                                         <div class="booking-date-list">
                                             <ul>
-                                                <li>Booking Date: <span>Sun, 30 Aug 2024</span></li>
-                                                <li>Booking Time: <span>10.00AM to 11:00AM</span></li>
+                                                <li>Booking Date: <span class="booking_date"></span></li>
+                                                <li>Booking Time: <span class="booking_slot_time"></span></li>
                                             </ul>
                                         </div>
                                         <div class="booking-doctor-right">
@@ -266,7 +266,8 @@
                                     <div class="booking-doctor-details">
                                         <div class="booking-device">
                                             <div class="booking-device-img">
-                                                <img src="assets/img/icons/device-message.svg"
+                                               
+                                                <img src="{{URL::asset('assets/img/icons/device-message.svg')}}"
                                                     alt="device-message-image">
                                             </div>
                                             <div class="booking-doctor-info">
@@ -285,20 +286,18 @@
                                     <div class="booking-doctor-details">
                                         <div class="booking-device">
                                             <div class="booking-device-img">
-                                                <img src="assets/img/icons/smart-phone.svg" alt="smart-phone">
+                                                <img src="{{URL::asset('assets/img/icons/smart-phone.svg')}}" alt="smart-phone">
                                             </div>
                                             <div class="booking-doctor-info">
                                                 <h3>Get the App</h3>
-                                                <p class="device-text">Download our app for better experience and for
-                                                    more
-                                                    feature</p>
+                                                <p class="device-text">Download our app for better experience and for more feature</p>
                                                 <div class="app-images">
-                                                    <a href="javascript:void(0);">
-                                                        <img src="assets/img/google-img.svg" alt="google-image">
-                                                    </a>
-                                                    <a href="javascript:void(0);">
-                                                        <img src="assets/img/app-img.svg" alt="app-image">
-                                                    </a>
+                                                <a href="javascript:void(0);">
+                                                <img src="{{URL::asset('assets/img/google-img.svg')}}" alt="google-image">
+                                                </a>
+                                                <a href="javascript:void(0);">
+                                                <img src="{{URL::asset('assets/img/app-img.svg')}}" alt="app-image">
+                                                </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -379,12 +378,11 @@
                     dataType: "html", 
                     cache: false,
                     success: function(response) {
-                        console.log(response);
-                        // if (data.status) {
+                        if(response.success == true){
                         jQuery(".calenderwrap").remove();
                         $('.calendar').replaceWith(response);
                         jQuery(".slot-bookings").html("");
-                        // }
+                        }
                     },
                     error: function(error_data) {
                         console.log(error_data);

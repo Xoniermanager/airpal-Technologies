@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('doctor_id');
             $table->unsignedBigInteger('specialty_id');
-            $table->string('questions');
+            $table->string('question');
             $table->enum('answer_type',['text','optional','multiple']);
-            $table->boolean('status');
+            $table->boolean('status')->default(1);
             $table->timestamps();
-            $table->foreign('doctor_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('specialty_id')->references('id')->on('specializations')->onDelete('cascade');
+            $table->foreign('doctor_id')->references('id')->on('users');
+            $table->foreign('specialty_id')->references('id')->on('specializations');
         });
     }
 

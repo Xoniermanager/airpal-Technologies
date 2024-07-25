@@ -1,11 +1,12 @@
   <div class="profile-sidebar patient-sidebar profile-sidebar-new">
                             <div class="widget-profile pro-widget-content">
                                 <div class="profile-info-widget">
-                                    <a href="{{ route('patients.patient-settings.index') }}" class="booking-doc-img">
-                                        <img src="../assets/img/doctors-dashboard/profile-06.jpg" alt="">
+                                    <a href="{{ route('patient-settings.index') }}" class="booking-doc-img">
+                                        <img src="{{ asset('images').'/'.auth()->user()->image_url}}" id="blah">
+                                        {{-- <img src="../assets/img/doctors-dashboard/profile-06.jpg" alt=""> --}}
                                     </a>
                                     <div class="profile-det-info">
-                                        <h3><a href="{{ route('patients.patient-settings.index') }}">Hendrita</a></h3>
+                                        <h3><a href="{{ route('patient-settings.index') }}">{{ auth()->user()->fullName}}</a></h3>
                                         <div class="patient-details">
                                             <h5 class="mb-0">Patient ID : PT254654</h5>
                                         </div>
@@ -17,13 +18,13 @@
                                 <nav class="dashboard-menu">
                                     <ul>
                                         <li>
-                                            <a href="{{ route('patients.patient-dashboard.index') }}">
+                                            <a href="{{ route('patient-dashboard.index') }}">
                                                 <i class="fa-solid fa-shapes"></i>
                                                 <span>Dashboard</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('patients.patient-appointments.index') }}">
+                                            <a href="{{ route('patient-appointments.index') }}">
                                                 <i class="fa-solid fa-calendar-days"></i>
                                                 <span>My Appointments</span>
                                             </a>
@@ -47,19 +48,19 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('patients.patient-accounts.index') }}">
+                                            <a href="{{ route('patient-accounts.index') }}">
                                                 <i class="fa-solid fa-file-contract"></i>
                                                 <span>Accounts</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('patients.patient-invoices.index') }}">
+                                            <a href="{{ route('patient-invoices.index') }}">
                                                 <i class="fa-solid fa-file-lines"></i>
                                                 <span>Invoices</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('patients.patient-settings.index') }}">
+                                            <a href="{{ route('patient-settings.index') }}">
                                                 <i class="fa-solid fa-user-pen"></i>
                                                 <span>Profile Settings</span>
                                             </a>
@@ -77,7 +78,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="">
+                                            <a href="{{route('patient.logout')}}">
                                                 <i class="fa-solid fa-calendar-check"></i>
                                                 <span>Logout</span>
                                             </a>

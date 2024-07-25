@@ -21,11 +21,6 @@ class FaqsServices {
       return $this->faqsRepository->paginate(10)->setPath(route('admin.index.FaqsServices'));
      }
      public function all(){
-      return $this->faqsRepository->all();
+      return $this->faqsRepository->paginate(10);
      }
 }
-
-
-
-
-?>

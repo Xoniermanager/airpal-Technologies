@@ -230,6 +230,8 @@
                                 aria-labelledby="pills-upcoming-tab">
                                 <div class="row">
 
+                                    @forelse ($patients as $patient)
+                                        
                                     <div class="col-xl-4 col-lg-6 col-md-6 d-flex">
                                         <div class="appointment-wrap appointment-grid-wrap">
                                             <ul>
@@ -237,16 +239,17 @@
                                                     <div class="appointment-grid-head">
                                                         <div class="patinet-information">
                                                             <a href="{{ route('doctor.doctor-patients.index') }}">
-                                                                <img src="../assets/img/doctors-dashboard/profile-01.jpg"
-                                                                    alt="">
+                                                                    <img src="{{ asset('images').'/'.$patient->image_url }}" id="blah" 
+                                                                    onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}">
+                                                                    
                                                             </a>
                                                             <div class="patient-info">
                                                                 <p>#Apt0001</p>
-                                                                <h6><a href="{{ route('doctor.doctor-patients.index') }}">Adrian</a></h6>
+                                                                <h6><a href="{{ route('doctor.doctor-patients.index') }}">{{$patient->fullName}}</a></h6>
                                                                 <ul>
                                                                     <li>Age : 42</li>
-                                                                    <li>Male</li>
-                                                                    <li>AB+</li>
+                                                                    <li>{{$patient->gender ?? ''}}</li>
+                                                                    <li>{{$patient->blood_group ?? ''}}</li>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -254,7 +257,11 @@
                                                 </li>
                                                 <li class="appointment-info">
                                                     <p><i class="fa-solid fa-clock"></i>11 Nov 2024 10.45 AM</p>
-                                                    <p class="mb-0"><i class="fa-solid fa-location-dot"></i>Alabama, USA
+                                                    <p class="mb-0"><i class="fa-solid fa-location-dot"></i>
+                                                        {{$patient->patientAddress->address ?? ''}}
+                                                        {{$patient->patientAddress->city ?? ''}}
+                                                        {{$patient->patientAddress->state ?? ''}}
+                                                        {{$patient->patientAddress->country->name ?? ''}}
                                                     </p>
                                                 </li>
                                                 <li class="appointment-action">
@@ -266,321 +273,17 @@
                                             </ul>
                                         </div>
                                     </div>
+                                    @empty
+                                        
+                                    @endforelse
 
+             
 
-                                    <div class="col-xl-4 col-lg-6 col-md-6 d-flex">
-                                        <div class="appointment-wrap appointment-grid-wrap">
-                                            <ul>
-                                                <li>
-                                                    <div class="appointment-grid-head">
-                                                        <div class="patinet-information">
-                                                            <a href="{{ route('doctor.doctor-patients.index') }}">
-                                                                <img src="../assets/img/doctors-dashboard/profile-02.jpg"
-                                                                    alt="">
-                                                            </a>
-                                                            <div class="patient-info">
-                                                                <p>#Apt0002</p>
-                                                                <h6><a href="{{ route('doctor.doctor-patients.index') }}">Kelly Stevens</a>
-                                                                </h6>
-                                                                <ul>
-                                                                    <li>Age : 37</li>
-                                                                    <li>Female</li>
-                                                                    <li>O+</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="appointment-info">
-                                                    <p><i class="fa-solid fa-clock"></i>05 Nov 2024 11.50 AM</p>
-                                                    <p class="mb-0"><i class="fa-solid fa-location-dot"></i>San Diego,
-                                                        USA</p>
-                                                </li>
-                                                <li class="appointment-action">
-                                                    <div class="patient-book">
-                                                        <p><i class="fa-solid fa-calendar-days"></i>Last Booking<span>20
-                                                                Mar 2024</span></p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-xl-4 col-lg-6 col-md-6 d-flex">
-                                        <div class="appointment-wrap appointment-grid-wrap">
-                                            <ul>
-                                                <li>
-                                                    <div class="appointment-grid-head">
-                                                        <div class="patinet-information">
-                                                            <a href="{{ route('doctor.doctor-patients.index') }}">
-                                                                <img src="../assets/img/doctors-dashboard/profile-03.jpg"
-                                                                    alt="">
-                                                            </a>
-                                                            <div class="patient-info">
-                                                                <p>#Apt0003</p>
-                                                                <h6><a href="{{ route('doctor.doctor-patients.index') }}">Samuel James</a></h6>
-                                                                <ul>
-                                                                    <li>Age : 43</li>
-                                                                    <li>Male</li>
-                                                                    <li>B+</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="appointment-info">
-                                                    <p><i class="fa-solid fa-clock"></i>27 Oct 2024 09.30 AM</p>
-                                                    <p class="mb-0"><i class="fa-solid fa-location-dot"></i>Chicago, USA
-                                                    </p>
-                                                </li>
-                                                <li class="appointment-action">
-                                                    <div class="patient-book">
-                                                        <p><i class="fa-solid fa-calendar-days"></i>Last Booking<span>12
-                                                                Mar 2024</span></p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-xl-4 col-lg-6 col-md-6 d-flex">
-                                        <div class="appointment-wrap appointment-grid-wrap">
-                                            <ul>
-                                                <li>
-                                                    <div class="appointment-grid-head">
-                                                        <div class="patinet-information">
-                                                            <a href="{{ route('doctor.doctor-patients.index') }}">
-                                                                <img src="../assets/img/doctors-dashboard/profile-04.jpg"
-                                                                    alt="">
-                                                            </a>
-                                                            <div class="patient-info">
-                                                                <p>#Apt0004</p>
-                                                                <h6><a href="{{ route('doctor.doctor-patients.index') }}">Catherine Gracey</a>
-                                                                </h6>
-                                                                <ul>
-                                                                    <li>Age : 36</li>
-                                                                    <li>Female</li>
-                                                                    <li>AB-</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="appointment-info">
-                                                    <p><i class="fa-solid fa-clock"></i>18 Oct 2024 12.20 PM</p>
-                                                    <p class="mb-0"><i class="fa-solid fa-location-dot"></i>Los Angeles,
-                                                        USA</p>
-                                                </li>
-                                                <li class="appointment-action">
-                                                    <div class="patient-book">
-                                                        <p><i class="fa-solid fa-calendar-days"></i>Last Booking<span>27
-                                                                Feb 2024</span></p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-xl-4 col-lg-6 col-md-6 d-flex">
-                                        <div class="appointment-wrap appointment-grid-wrap">
-                                            <ul>
-                                                <li>
-                                                    <div class="appointment-grid-head">
-                                                        <div class="patinet-information">
-                                                            <a href="{{ route('doctor.doctor-patients.index') }}">
-                                                                <img src="../assets/img/doctors-dashboard/profile-05.jpg"
-                                                                    alt="">
-                                                            </a>
-                                                            <div class="patient-info">
-                                                                <p>#Apt0005</p>
-                                                                <h6><a href="{{ route('doctor.doctor-patients.index') }}">Robert Miller</a>
-                                                                </h6>
-                                                                <ul>
-                                                                    <li>Age : 38</li>
-                                                                    <li>Male</li>
-                                                                    <li>A+</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="appointment-info">
-                                                    <p><i class="fa-solid fa-clock"></i>10 Oct 2024 11.30 AM</p>
-                                                    <p class="mb-0"><i class="fa-solid fa-location-dot"></i>Dallas, USA
-                                                    </p>
-                                                </li>
-                                                <li class="appointment-action">
-                                                    <div class="patient-book">
-                                                        <p><i class="fa-solid fa-calendar-days"></i>Last Booking<span>18
-                                                                Feb 2024</span></p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-xl-4 col-lg-6 col-md-6 d-flex">
-                                        <div class="appointment-wrap appointment-grid-wrap">
-                                            <ul>
-                                                <li>
-                                                    <div class="appointment-grid-head">
-                                                        <div class="patinet-information">
-                                                            <a href="{{ route('doctor.doctor-patients.index') }}">
-                                                                <img src="../assets/img/doctors-dashboard/profile-06.jpg"
-                                                                    alt="">
-                                                            </a>
-                                                            <div class="patient-info">
-                                                                <p>#Apt0006</p>
-                                                                <h6><a href="{{ route('doctor.doctor-patients.index') }}">Anderea Kearns</a>
-                                                                </h6>
-                                                                <ul>
-                                                                    <li>Age : 40</li>
-                                                                    <li>Female</li>
-                                                                    <li>B-</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="appointment-info">
-                                                    <p><i class="fa-solid fa-clock"></i>26 Sep 2024 10.20 AM</p>
-                                                    <p class="mb-0"><i class="fa-solid fa-location-dot"></i>San
-                                                        Francisco, USA</p>
-                                                </li>
-                                                <li class="appointment-action">
-                                                    <div class="patient-book">
-                                                        <p><i class="fa-solid fa-calendar-days"></i>Last Booking<span>11
-                                                                Feb 2024</span></p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-xl-4 col-lg-6 col-md-6 d-flex">
-                                        <div class="appointment-wrap appointment-grid-wrap">
-                                            <ul>
-                                                <li>
-                                                    <div class="appointment-grid-head">
-                                                        <div class="patinet-information">
-                                                            <a href="{{ route('doctor.doctor-patients.index') }}">
-                                                                <img src="../assets/img/doctors-dashboard/profile-07.jpg"
-                                                                    alt="">
-                                                            </a>
-                                                            <div class="patient-info">
-                                                                <p>#Apt0007</p>
-                                                                <h6><a href="{{ route('doctor.doctor-patients.index') }}">Peter Anderson</a>
-                                                                </h6>
-                                                                <ul>
-                                                                    <li>Age : 30</li>
-                                                                    <li>Male</li>
-                                                                    <li>A-</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="appointment-info">
-                                                    <p><i class="fa-solid fa-clock"></i>14 Sep 2024 08.10 AM</p>
-                                                    <p class="mb-0"><i class="fa-solid fa-location-dot"></i>Austin, USA
-                                                    </p>
-                                                </li>
-                                                <li class="appointment-action">
-                                                    <div class="patient-book">
-                                                        <p><i class="fa-solid fa-calendar-days"></i>Last Booking<span>25
-                                                                Jan 2024</span></p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-xl-4 col-lg-6 col-md-6 d-flex">
-                                        <div class="appointment-wrap appointment-grid-wrap">
-                                            <ul>
-                                                <li>
-                                                    <div class="appointment-grid-head">
-                                                        <div class="patinet-information">
-                                                            <a href="{{ route('doctor.doctor-patients.index') }}">
-                                                                <img src="../assets/img/doctors-dashboard/profile-08.jpg"
-                                                                    alt="">
-                                                            </a>
-                                                            <div class="patient-info">
-                                                                <p>#Apt0008</p>
-                                                                <h6><a href="{{ route('doctor.doctor-patients.index') }}">Emily Musick</a></h6>
-                                                                <ul>
-                                                                    <li>Age : 32</li>
-                                                                    <li>Female</li>
-                                                                    <li>O-</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="appointment-info">
-                                                    <p><i class="fa-solid fa-clock"></i>03 Sep 2024 06.00 PM</p>
-                                                    <p class="mb-0"><i class="fa-solid fa-location-dot"></i>Nashville,
-                                                        USA</p>
-                                                </li>
-                                                <li class="appointment-action">
-                                                    <div class="patient-book">
-                                                        <p><i class="fa-solid fa-calendar-days"></i>Last Booking<span>13
-                                                                Jan 2024</span></p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-xl-4 col-lg-6 col-md-6 d-flex">
-                                        <div class="appointment-wrap appointment-grid-wrap">
-                                            <ul>
-                                                <li>
-                                                    <div class="appointment-grid-head">
-                                                        <div class="patinet-information">
-                                                            <a href="{{ route('doctor.doctor-patients.index') }}">
-                                                                <img src="../assets/img/doctors-dashboard/profile-01.jpg"
-                                                                    alt="">
-                                                            </a>
-                                                            <div class="patient-info">
-                                                                <p>#Apt0009</p>
-                                                                <h6><a href="{{ route('doctor.doctor-patients.index') }}">Darrell Tan</a></h6>
-                                                                <ul>
-                                                                    <li>Age : 31</li>
-                                                                    <li>Male</li>
-                                                                    <li>AB+</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="appointment-info">
-                                                    <p><i class="fa-solid fa-clock"></i>25 Aug 2024 10.45 AM</p>
-                                                    <p class="mb-0"><i class="fa-solid fa-location-dot"></i>San Antonio,
-                                                        USA</p>
-                                                </li>
-                                                <li class="appointment-action">
-                                                    <div class="patient-book">
-                                                        <p><i class="fa-solid fa-calendar-days"></i>Last Booking<span>03
-                                                                Jan 2024</span></p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
+                                    {{-- <div class="col-md-12">
                                         <div class="loader-item text-center">
                                             <a href="javascript:void(0);" class="btn btn-load">Load More</a>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="pills-cancel" role="tabpanel"

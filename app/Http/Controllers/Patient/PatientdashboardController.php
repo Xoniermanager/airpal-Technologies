@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Patient;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Services\BookingServices;
 
-class PatientdashboardController extends Controller
+class PatientDashboardController extends Controller
 {
-    //
+
     public function patientDashboard()
     {
       return view('patients.patient-dashboard');
       
     } 
-     
     public function patientAccounts()
     {
       return view('patients.patient-accounts');
@@ -24,37 +25,17 @@ class PatientdashboardController extends Controller
     return view('patients.patient-appointment-details');
     
     }    
-    public function patientAppointments()
-    {
-    return view('patients.patient-appointments');
-    
-    }    
+  
     public function patientDependant()
     {
-    return view('patients.patient-dependant');
-    
+      return view('patients.patient-dependant');
     }
     public function patientInvoices()
     {
     return view('patients.patient-invoices');
     
     }
-    public function patientProfile()
-    {
-    return view('patients.patient-profile');
-    
-    }
-    public function patientSettings()
-    {
-    return view('patients.patient-settings');
-    
-    }
 
-
-
-
-
-    
     public function patientPassword()
     {
     return view('patients.patient-password');

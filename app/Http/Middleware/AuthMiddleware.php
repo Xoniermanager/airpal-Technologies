@@ -16,8 +16,8 @@ class AuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::guard('doctor_api')->check()) {
-            return response()->json(['error' => 'Unauthenticated.'], 401);
+        if (!Auth::guard('api')->check()) {
+            return response()->json(['message' => 'User Unauthenticated.'], 401);
         }
         return $next($request);
     }

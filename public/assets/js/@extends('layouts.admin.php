@@ -250,7 +250,13 @@
     </div>
 @endsection
 @section('javascript')
+
+
     <script>
+        
+        var site_admin_base_url = "{{ env('SITE_ADMIN_BASE_URL') }}";
+
+
         $(document).ready(function() {
             $(".answer_type").change(function() {
                 $(this).find("option:selected").each(function() {
@@ -486,7 +492,7 @@ $('.addMoreOptionsEdit').append(radio_options_html);
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: 'http://127.0.0.1:8000/admin/questions-options/delete',
+                            url: site_admin_base_url + 'questions-options/delete',
                             type: "post",
                             data: {
                             '_token': '{{ csrf_token() }}',

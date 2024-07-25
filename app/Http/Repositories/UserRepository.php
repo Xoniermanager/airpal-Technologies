@@ -18,18 +18,8 @@ namespace App\Http\Repositories;
         {
             return User::class;
         }
-
         public function doctorDetails()
         {
             return $this->specializations();
         }
-        /**
-         * Boot up the repository, pushing criteria
-         */
-        public function boot()
-        {
-            $this->pushCriteria(app(RequestCriteria::class));
-        }
     }
-
-?>

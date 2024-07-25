@@ -6,7 +6,6 @@
 </head>
 
 <body>
-
     <div class="main-wrapper">
     @include('doctor.include.header')
 
@@ -25,8 +24,6 @@
                 </div>
             </div>
         </div>
-
-
         <div class="content">
             <div class="container">
                 <div class="row">
@@ -36,11 +33,11 @@
                     </div>
                     <div class="col-lg-8 col-xl-9">
                         <div class="row">
-                            <div class="col-xl-4 d-flex">
-                                <div class="dashboard-box-col w-100">
+                        
+                                {{-- <div class="dashboard-box-col w-100">
                                     <div class="dashboard-widget-box">
                                         <div class="dashboard-content-info">
-                                            <h6>Total Patient        </h6>
+                                            <h6>Total Patient</h6>
                                             <h4>978</h4>
                                             <span class="text-success"><i class="fa-solid fa-arrow-up"></i>15% From Last
                                                 Week</span>
@@ -71,7 +68,51 @@
                                             <span class="dash-icon-box"><i class="fa-solid fa-calendar-days"></i></span>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
+                                <div class="col-xl-4 d-flex">
+                                    <div class="dashboard-box-col w-100">
+                                        <div class="dashboard-widget-box">
+                                            <div class="dashboard-content-info">
+                                                <h6>Total Patients</h6>
+                                                <h4>{{ $totalPatientsCounter }}</h4>
+                                                <!-- Example placeholder, you can add percentage change if available -->
+                                                {{-- <span class="text-success">
+                                                    <i class="fa-solid fa-arrow-up"></i>15% From Last Week
+                                                </span> --}}
+                                            </div>
+                                            <div class="dashboard-widget-icon">
+                                                <span class="dash-icon-box"><i class="fa-solid fa-user-injured"></i></span>
+                                            </div>
+                                        </div>
+                                        {{-- <div class="dashboard-widget-box">
+                                            <div class="dashboard-content-info">
+                                                <h6>Patients Today</h6>
+                                                <h4></h4>
+                                                <!-- Example placeholder, you can add percentage change if available -->
+                                                <span class="text-danger">
+                                                    <i class="fa-solid fa-arrow-up"></i>15% From Yesterday
+                                                </span>
+                                            </div>
+                                            <div class="dashboard-widget-icon">
+                                                <span class="dash-icon-box"><i class="fa-solid fa-user-clock"></i></span>
+                                            </div>
+                                        </div> --}}
+                                        <div class="dashboard-widget-box">
+                                            <div class="dashboard-content-info">
+                                                <h6>Appointments Today</h6>
+                                                <h4>{{ $todayAppointmentCounter }}</h4>
+                                                <!-- Example placeholder, you can add percentage change if available -->
+                                                {{-- <span class="text-success">
+                                                    <i class="fa-solid fa-arrow-up"></i>20% From Yesterday
+                                                </span> --}}
+                                            </div>
+                                            <div class="dashboard-widget-icon">
+                                                <span class="dash-icon-box"><i class="fa-solid fa-calendar-days"></i></span>
+                                            </div>
+                                        </div>
+                              
+                  
+                            </div>
                             </div>
                             <div class="col-xl-8 d-flex">
                                 <div class="dashboard-card w-100">
@@ -101,23 +142,28 @@
                                         <div class="table-responsive">
                                             <table class="table dashboard-table appoint-table">
                                                 <tbody>
+                                                 @foreach ($recentAppointments as $appointment)
+
                                                     <tr>
                                                         <td>
                                                             <div class="patient-info-profile">
-                                                                <a href="{{ route('doctor.doctor-appointments.index') }}" class="table-avatar">
-                                                                    <img src="../assets/img/doctors-dashboard/profile-01.jpg"
-                                                                        alt="Img">
+                                                                <a href="{{ route('doctor.appointments.index') }}" class="table-avatar">
+                                                                    <img  src="{{ asset('images/' . $appointment->patient->image_url) }}" >
                                                                 </a>
                                                                 <div class="patient-name-info">
-                                                                    <span>#Apt0001</span>
-                                                                    <h5><a href="{{ route('doctor.doctor-appointments.index') }}">Adrian Marshall</a>
+                                                                    <span>#PAT{{ $appointment->id }}</span>
+                                                                    <h5><a href="{{ route('doctor.appointments.index') }}">{{ $appointment->patient->FullName }}</a>
                                                                     </h5>
                                                                 </div>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="appointment-date-created">
-                                                                <h6>11 Nov 2024 10.45 AM</h6>
+                                                                <h6>
+                                                                    {{ $appointment->booking_date}} {{ $appointment->slot_start_time}}
+                                                                    {{-- {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d M Y h:i A') }} --}}
+
+                                                                </h6>
                                                                 <span class="badge table-badge">General</span>
                                                             </div>
                                                         </td>
@@ -130,123 +176,9 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="patient-info-profile">
-                                                                <a href="{{ route('doctor.doctor-appointments.index') }}" class="table-avatar">
-                                                                    <img src="../assets/img/doctors-dashboard/profile-02.jpg"
-                                                                        alt="Img">
-                                                                </a>
-                                                                <div class="patient-name-info">
-                                                                    <span>#Apt0002</span>
-                                                                    <h5><a href="{{ route('doctor.doctor-appointments.index') }}">Kelly Stevens</a>
-                                                                    </h5>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="appointment-date-created">
-                                                                <h6>10 Nov 2024 11.00 AM</h6>
-                                                                <span class="badge table-badge">Clinic Consulting</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="apponiment-actions d-flex align-items-center">
-                                                                <a href="#" class="text-success-icon me-2"><i
-                                                                        class="fa-solid fa-check"></i></a>
-                                                                <a href="#" class="text-danger-icon"><i
-                                                                        class="fa-solid fa-xmark"></i></a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="patient-info-profile">
-                                                                <a href="{{ route('doctor.doctor-appointments.index') }}" class="table-avatar">
-                                                                    <img src="../assets/img/doctors-dashboard/profile-03.jpg"
-                                                                        alt="Img">
-                                                                </a>
-                                                                <div class="patient-name-info">
-                                                                    <span>#Apt0003</span>
-                                                                    <h5><a href="{{ route('doctor.doctor-appointments.index') }}">Samuel Anderson</a>
-                                                                    </h5>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="appointment-date-created">
-                                                                <h6>03 Nov 2024 02.00 PM</h6>
-                                                                <span class="badge table-badge">General</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="apponiment-actions d-flex align-items-center">
-                                                                <a href="#" class="text-success-icon me-2"><i
-                                                                        class="fa-solid fa-check"></i></a>
-                                                                <a href="#" class="text-danger-icon"><i
-                                                                        class="fa-solid fa-xmark"></i></a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="patient-info-profile">
-                                                                <a href="{{ route('doctor.doctor-appointments.index') }}" class="table-avatar">
-                                                                    <img src="../assets/img/doctors-dashboard/profile-04.jpg"
-                                                                        alt="Img">
-                                                                </a>
-                                                                <div class="patient-name-info">
-                                                                    <span>#Apt0004</span>
-                                                                    <h5><a href="{{ route('doctor.doctor-appointments.index') }}">Catherine
-                                                                            Griffin</a></h5>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="appointment-date-created">
-                                                                <h6>01 Nov 2024 04.00 PM</h6>
-                                                                <span class="badge table-badge">Clinic Consulting</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="apponiment-actions d-flex align-items-center">
-                                                                <a href="#" class="text-success-icon me-2"><i
-                                                                        class="fa-solid fa-check"></i></a>
-                                                                <a href="#" class="text-danger-icon"><i
-                                                                        class="fa-solid fa-xmark"></i></a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="patient-info-profile">
-                                                                <a href="{{ route('doctor.doctor-appointments.index') }}" class="table-avatar">
-                                                                    <img src="../assets/img/doctors-dashboard/profile-05.jpg"
-                                                                        alt="Img">
-                                                                </a>
-                                                                <div class="patient-name-info">
-                                                                    <span>#Apt0005</span>
-                                                                    <h5><a href="{{ route('doctor.doctor-appointments.index') }}">Robert
-                                                                            Hutchinson</a></h5>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="appointment-date-created">
-                                                                <h6>28 Oct 2024 05.30 PM</h6>
-                                                                <span class="badge table-badge">General</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="apponiment-actions d-flex align-items-center">
-                                                                <a href="#" class="text-success-icon me-2"><i
-                                                                        class="fa-solid fa-check"></i></a>
-                                                                <a href="#" class="text-danger-icon"><i
-                                                                        class="fa-solid fa-xmark"></i></a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                     @endforeach
                                                 </tbody>
+                                                
                                             </table>
                                         </div>
                                     </div>
@@ -302,32 +234,28 @@
                                                 <a href="{{ route('doctor.doctor-patients.index') }}">View All</a>
                                             </div>
                                         </div>
+
                                         <div class="dashboard-card-body">
-                                            <div class="d-flex recent-patient-grid-boxes">
+                                            <div class="row recent-patient-grid-boxes">
+                                                @forelse ( $recentPatients as $recentPatient )
+                                                <div class="col-md-6">
                                                 <div class="recent-patient-grid">
                                                     <a href="{{ route('doctor.doctor-patients.index') }}" class="patient-img">
-                                                        <img src="../assets/img/doctors-dashboard/profile-01.jpg"
-                                                            alt="Img">
+                                                        <img  src="{{ asset('images/' . $recentPatient->patient->image_url) }}" >
+                                                        
                                                     </a>
-                                                    <h5><a href="{{ route('doctor.doctor-patients.index') }}">Adrian Marshall</a></h5>
-                                                    <span>Patient ID : P0001</span>
+                                                    <h5><a href="{{ route('doctor.doctor-patients.index') }}"></a></h5>
+                                                    <span>Patient ID : PAT{{ $recentPatient->id }}</span>
                                                     <div class="date-info">
-                                                        <p>Last Appointment
-                                                            15 Mar 2024</p>
+                                                        <p>Last Appointment {{ $recentPatient->booking_date}} {{ $recentPatient->slot_start_time}}
+                                                            {{-- {{ \Carbon\Carbon::parse($recentAppointment->appointment_date)->format('d M Y h:i A') }}</p> --}}
                                                     </div>
-                                                </div>
-                                                <div class="recent-patient-grid">
-                                                    <a href="{{ route('doctor.doctor-patients.index') }}" class="patient-img">
-                                                        <img src="../assets/img/doctors-dashboard/profile-02.jpg"
-                                                            alt="Img">
-                                                    </a>
-                                                    <h5><a href="{{ route('doctor.doctor-patients.index') }}">Kelly Stevens</a></h5>
-                                                    <span>Patient ID : P0002</span>
-                                                    <div class="date-info">
-                                                        <p>Last Appointment
-                                                            13 Mar 2024</p>
-                                                    </div>
-                                                </div>
+                                                </div>    
+                                            </div>
+                                                @empty
+                                                    <p>Fot found</p>
+                                                @endforelse
+   
                                             </div>
                                         </div>
                                     </div>
@@ -341,27 +269,32 @@
                                         </div>
                                         <div class="upcoming-patient-info">
                                             <div class="info-details">
-                                                <span class="img-avatar"><img
-                                                        src="../assets/img/doctors-dashboard/profile-01.jpg"
-                                                        alt="Img"></span>
+                                                <span class="img-avatar">
+                                                    <img src="{{ asset('images/' . $upcomingAppointments->patient->image_url ?? '') }}" >
+                                                    </span>
                                                 <div class="name-info">
-                                                    <span>#Apt0001</span>
-                                                    <h6>Adrian Marshall</h6>
+                                                    <span>#Apt{{ $upcomingAppointments->id}}</span>
+                                                    <h6>{{ $upcomingAppointments->patient->fullName}}</h6>
                                                 </div>
                                             </div>
                                             <div class="date-details">
                                                 <span>General visit</span>
-                                                <h6>Today, 10:45 AM</h6>
+                                                <h6>{{ $upcomingAppointments->slot_start_time}}</h6>
                                             </div>
                                             <div class="circle-bg">
                                                 <img src="../assets/img/bg/dashboard-circle-bg.png" alt>
+                                            </div>
+
+                                            <div class="date-details">
+                                                <span>date</span>
+                                                <h6>{{ $upcomingAppointments->booking_date}}</h6>
                                             </div>
                                         </div>
                                         <div class="appointment-card-footer">
                                             <h5><i class="fa-solid fa-video"></i>Video Appointment</h5>
                                             <div class="btn-appointments">
 
-                                                <a href="{{ route('doctor.doctor-appointments.index') }}" class="btn">Start
+                                                <a href="{{ route('doctor.appointments.index') }}" class="btn">Start
                                                     Appointment</a>
                                             </div>
                                         </div>
@@ -383,8 +316,9 @@
                                                             <td>
                                                                 <div class="patient-info-profile">
                                                                     <a href="{{ route('doctor.doctor-invoices.index') }}" class="table-avatar">
-                                                                        <img src="../assets/img/doctors-dashboard/profile-01.jpg"
+                                                                        <img   src="{{ asset('images/' . $upcomingAppointments->user->image_url) }}" 
                                                                             alt="Img">
+                                                                            
                                                                     </a>
                                                                     <div class="patient-name-info">
                                                                         <h5><a href="{{ route('doctor.doctor-invoices.index') }}">Adrian</a></h5>
@@ -415,7 +349,7 @@
                                                             <td>
                                                                 <div class="patient-info-profile">
                                                                     <a href="#" class="table-avatar">
-                                                                        <img src="../assets/img/doctors-dashboard/profile-02.jpg"
+                                                                        <img   src="{{ asset('images/' . $upcomingAppointments->user->image_url) }}" 
                                                                             alt="Img">
                                                                     </a>
                                                                     <div class="patient-name-info">
@@ -446,7 +380,7 @@
                                                             <td>
                                                                 <div class="patient-info-profile">
                                                                     <a href="#" class="table-avatar">
-                                                                        <img src="../assets/img/doctors-dashboard/profile-03.jpg"
+                                                                        <img  src="{{ asset('images/' . $upcomingAppointments->user->image_url) }}" 
                                                                             alt="Img">
                                                                     </a>
                                                                     <div class="patient-name-info">
@@ -542,7 +476,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-7 d-flex">
+                            {{-- <div class="col-xl-7 d-flex">
                                 <div class="dashboard-card w-100">
                                     <div class="dashboard-card-head">
                                         <div class="header-title">
@@ -632,8 +566,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-5 d-flex">
+                            </div> --}}
+                            {{-- <div class="col-xl-5 d-flex">
                                 <div class="dashboard-card w-100">
                                     <div class="dashboard-card-head">
                                         <div class="header-title">
@@ -701,7 +635,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

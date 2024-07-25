@@ -90,12 +90,14 @@
         </div>
     </div>
 @endsection
+<script src="{{ asset('/assets/js/jquery-3.7.1.min.js') }}"></script>
+<link href="https://kendo.cdn.telerik.com/themes/7.2.1/default/default-main.css" rel="stylesheet" />
+<script src="https://kendo.cdn.telerik.com/2024.1.319/js/kendo.all.min.js"></script>
 @section('javascript')
 
     <script>
         $(document).ready(function() {
-
-
+            var site_admin_base_url = "{{ env('SITE_ADMIN_BASE_URL') }}";
             function updateCharCount() {
         var length = $("#description").val().length;
         var remaining = 1000 - length;
@@ -537,8 +539,8 @@
                 }
             }
 
-            // for language  
-            var site_admin_base_url = 'http://127.0.0.1:8000/admin/';
+            // // for language  
+            // var site_admin_base_url = 'http://127.0.0.1:8000/admin/';
 
             var languageDataSource = new kendo.data.DataSource({
                 batch: true,

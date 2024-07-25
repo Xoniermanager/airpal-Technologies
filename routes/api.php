@@ -4,27 +4,33 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DoctorAwardController;
-use App\Http\Controllers\Api\DoctorFilterController;
+use App\Http\Controllers\Api\DoctorSlotsController;
 use App\Http\Controllers\Api\DoctorProfileController;
 use App\Http\Controllers\Api\DoctorEducationController;
 use App\Http\Controllers\Api\DoctorExperienceController;
-use App\Http\Controllers\Api\DoctorSlotsController;
+use App\Http\Controllers\Api\DoctorAppointmentController;
 use App\Http\Controllers\Api\DoctorWorkingHourController;
+use App\Http\Controllers\API\Patient\AllListingController;
+use App\Http\Controllers\Api\Patient\DoctorFilterController;
+use App\Http\Controllers\Api\Patient\PatientProfileController;
+use App\Http\Controllers\Api\Patient\PatientDashboardController;
+use App\Http\Controllers\Api\Patient\PatientFavoriteDoctorController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::prefix('doctor')->group(function () {
-    Route::controller(AuthController::class)->group(function () {
-        Route::post('login', 'login');
-        Route::get('logout', 'logout');
-        Route::post('resend-otp', 'resendOtp');
-        Route::post('forget-password-send-otp', 'forgetPasswordSendOtp');
-        Route::post('verify-otp', 'verifyOtp');
-        Route::post('forget-password', 'forgetPassword');
-    });
 
+Route::controller(AuthController::class)->group(function () {
+    Route::post('login', 'login');
+    Route::get('logout', 'logout');
+    Route::post('resend-otp', 'resendOtp');
+    Route::post('forget-password-send-otp', 'forgetPasswordSendOtp');
+    Route::post('verify-otp', 'verifyOtp');
+    Route::post('forget-password', 'forgetPassword');
+});
+
+Route::middleware('authCheck')->group(function () {
     Route::controller(DoctorProfileController::class)->group(function () {
         Route::get('profile', 'profile');
         Route::post('create', 'createOrUpdate');
@@ -53,13 +59,41 @@ Route::prefix('doctor')->group(function () {
         Route::post('working-hour/update', 'createOrUpdateWorkingHour');
     });
 
+    Route::controller(DoctorSlotsController::class)->group(function () {
+        Route::get('slots/{id}', 'get');
+        Route::post('slots/create', 'store');
+        Route::post('slots/update', 'update');
+        Route::get('slots/delete', 'delete');
+        Route::get('slots/showSlots/{id}', 'showSlotsByDoctorId');
+        Route::post('slots/get-doctor-slots-by-date', 'getDoctorSlotsByDate')->name('getDoctorSlots.byId');
+    });
+
+    Route::controller(DoctorAppointmentController::class)->group(function () {
+        Route::get('doctor-current-date-appointments/{id}', 'doctorCurrentDateBookings');
+        Route::get('doctor-upcoming-appointments/{id}', 'doctorUpcomingBookings');
+        Route::get('appointments/{id}', 'appointmentsById');
+    });
+});
+
+
+// patient routes starts here
+Route::middleware('authCheck')->prefix('patient')->group(function () {
+    Route::controller(PatientDashboardController::class)->group(function () {
+        Route::get('get-dashboard-data', 'getDashBoardData');
+    });
+    Route::controller(PatientProfileController::class)->group(function () {
+        Route::get('profile', 'patientProfile');
+        Route::post('profile/update', 'updateProfile');
+    });
+    Route::controller(PatientFavoriteDoctorController::class)->group(function () {
+        Route::get('favorite-doctors', 'getFavoriteDoctors');
+        Route::post('add/favorite', 'addFavorite');
+        Route::get('remove/favorite', 'removeFavorite');
+    });
+    Route::controller(AllListingController::class)->group(function () {
+        Route::get('filter-listing', 'listing');
+    });
     Route::controller(DoctorFilterController::class)->group(function () {
         Route::get('search', 'doctorSearch');
     });
-
-    Route::controller(DoctorSlotsController::class)->group(function () {
-        Route::post('slots/create', 'store');
-        Route::post('slots/update', 'update');
-    });
-
 });

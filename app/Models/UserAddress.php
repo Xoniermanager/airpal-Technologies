@@ -36,11 +36,11 @@ class UserAddress extends Model
 
     public function states()
     {
-        return $this->belongsTo(State::class, 'state_id');
+        return $this->belongsTo(State::class, 'state_id','id');
     }
 
     public function country()
     {
-        return $this->belongsTo(Country::class, 'country_id');
+        return $this->belongsTo(Country::class, 'country_id','id');
     }
 }

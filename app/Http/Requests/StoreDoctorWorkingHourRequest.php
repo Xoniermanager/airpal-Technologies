@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Traits\ExceptionHandle;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreDoctorWorkingHourRequest extends FormRequest
 {
+    use ExceptionHandle;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,6 +26,7 @@ class StoreDoctorWorkingHourRequest extends FormRequest
         return [
             // 'day'               => 'required|array|max:7',
             'day.*'             => 'required|array',
+            'day.*.day_id'      => 'required|integer',
             'day.*.available'   => 'required|in:1',
             'day.*.start_time'  => 'required|date_format:H:i',
             'day.*.end_time'    => 'required|date_format:H:i|after:day.*.start_time'

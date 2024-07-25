@@ -87,7 +87,7 @@
                     <div class="form-wrap">
                         <label class="col-form-label">Email Address <span
                                 class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="email" value="{{$singleDoctorDetails->email ?? '' }}">
+                        <input type="text" class="form-control" name="email" value="{{$singleDoctorDetails->email ?? '' }}" readonly>
                         <span class="text-danger" id="email_error"></span>
                     </div>
                 </div>

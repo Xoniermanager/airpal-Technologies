@@ -38,7 +38,7 @@
                     <div class="col-lg-8 col-xl-9">
                         <div class="dashboard-header">
                             <div class="header-back">
-                                <a href="{{ route('doctor.doctor-appointments.index') }}" class="back-arrow"><i
+                                <a href="{{ route('doctor.appointments.index') }}" class="back-arrow"><i
                                         class="fa-solid fa-arrow-left"></i></a>
                                 <h3>Appointment Details</h3>
                             </div>
@@ -114,7 +114,7 @@
                                     </li>
                                     <li>
                                         <div class="start-btn">
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}" class="btn btn-secondary">Start
+                                            <a href="{{ route('doctor.appointments.index') }}" class="btn btn-secondary">Start
                                                 Session</a>
                                         </div>
                                     </li>
@@ -191,7 +191,7 @@
                                     <li>
                                         <div class="detail-badge-info">
                                             <span class="badge bg-soft-red me-2">Status : Reschedule</span>
-                                            <a href="{{ route('doctor.doctor-appointments.index') }}"
+                                            <a href="{{ route('doctor.appointments.index') }}"
                                                 class="reschedule-btn btn-primary-border">Reschedule Appointment</a>
                                         </div>
                                     </li>

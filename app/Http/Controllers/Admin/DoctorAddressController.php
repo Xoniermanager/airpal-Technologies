@@ -16,7 +16,7 @@ class DoctorAddressController extends Controller
     }
     public function addAddress(StoreDoctorAddressRequest $request)
     {
-        $addedDoctorAddress = $this->doctor_address_services->addDoctorAddress($request->all());
+        $addedDoctorAddress = $this->doctor_address_services->createOrUpdateAddress($request->all());
               if ($addedDoctorAddress)
                {
                  return response()->json([

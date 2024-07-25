@@ -30,7 +30,7 @@ class StoreSlotRequest extends FormRequest
         return [
             "doctor_id" => [
                 'required',
-                Rule::unique('doctor_slots', 'user_id')->ignore($data['id']??''),
+                // Rule::unique('doctor_slots', 'user_id')->ignore($data['doctor_id'] ?? ''),
             ],
             "slot_duration" => "required|integer",
             "cleanup_interval" => "nullable|integer", 

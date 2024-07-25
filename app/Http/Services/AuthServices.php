@@ -68,7 +68,7 @@ class AuthServices
 
     public function logout()
     {
-        $user = auth()->guard('doctor_api')->user();
+        $user = auth()->guard('api')->user();
 
         if (!$user) {
             return response()->json([
@@ -140,6 +140,7 @@ class AuthServices
                         "success" => true,
                         "status"  => 200,
                         "user"    => $user->access_token,
+                        "user_id" => $user->id,
                         "message" => "You have logged in successfully"
                     ];
                 }

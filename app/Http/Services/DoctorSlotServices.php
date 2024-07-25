@@ -7,6 +7,7 @@ use DatePeriod;
 use DateInterval;
 use Carbon\Carbon;
 use App\Models\DayOfWeek;
+use Carbon\CarbonInterval;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Repositories\DoctorSlotRepository;
@@ -71,6 +72,10 @@ class DoctorSlotServices
     {
         return $this->doctorSlotRepository->where('user_id', $doctorId)->with(['user', 'doctorExceptionDays'])->first();
     }
+    public function getSlotsBySlotId($id)
+    {
+        return $this->doctorSlotRepository->where('user_id', $id)->with(['user', 'doctorExceptionDays'])->first();
+    }
 
     public function deleteSlot($id)
     {
@@ -78,60 +83,115 @@ class DoctorSlotServices
         $this->doctorExceptionDayRepository->where('doctor_id', $id)->delete();
         return true;
     }
-    public function updateSlot($data)
-    {
-        DB::beginTransaction();
-        $now = Carbon::now();
-        try {
-            $payload = [
-                "user_id"   => $data['doctor_id'],
-                "slot_duration" => $data['slot_duration'],
-                "cleanup_interval" => $data['cleanup_interval'],
-                "start_month" => isset($data['start_month']) ? $data['start_month'] : $now->startOfMonth()->format('d'),
-                "end_month" =>  isset($data['end_month']) ? $data['end_month'] : null,
-                "slots_in_advance" => $data['slots_in_advance'] ? $data['slots_in_advance'] : 30,
-                "start_slots_from_date" => isset($data['start_slots_from_date']) ? $data['start_slots_from_date'] : Carbon::today()->toDateString(),
-                "stop_slots_date" => $data['stop_slots_date']
-            ];
+public function updateSlot($data)
+{
+    DB::beginTransaction();
+    $now = Carbon::now();
+    try {
+        $payload = [
+            "user_id" => $data['doctor_id'],
+            "slot_duration" => $data['slot_duration']?? 0,
+            "cleanup_interval" => $data['cleanup_interval']?? 0,
+            "start_month" => isset($data['start_month']) ? $data['start_month'] : $now->startOfMonth()->format('d'),
+            "end_month" => isset($data['end_month']) ? $data['end_month'] : null,
+            "slots_in_advance" => $data['slots_in_advance'] ? $data['slots_in_advance'] : 30,
+            "start_slots_from_date" => isset($data['start_slots_from_date']) ? $data['start_slots_from_date'] : Carbon::today()->toDateString(),
+            "stop_slots_date" => $data['stop_slots_date']
+        ];
 
-            $existingSlot = $this->doctorSlotRepository->where('user_id', $data['doctor_id'])->first();
-            if ($existingSlot) {
-                $this->doctorSlotRepository->where('user_id', $existingSlot->user_id)->update($payload);
-            } else {
-
-                throw new \Exception('Doctor slot not found for update.');
-            }
-
-            if (isset($data['exception_day_ids'])) {
-
-                $currentExceptionDays =  $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])->pluck('exception_days_id')->toArray();
-                $exceptionDayToRemove   = array_diff($currentExceptionDays, $data['exception_day_ids']);
-                if (!empty($exceptionDayToRemove)) {
-                    $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])
-                        ->whereIn('exception_days_id', $exceptionDayToRemove)
-                        ->delete();
-                }
-
-                foreach ($data['exception_day_ids'] as $exception_day_id) {
-                    $exceptionData = [
-                        "doctor_id" => $data['doctor_id'],
-                        "exception_days_id" => $exception_day_id,
-                    ];
-                    $this->doctorExceptionDayRepository->updateOrCreate(
-                        ['doctor_id' => $data['doctor_id'], 'exception_days_id' => $exception_day_id],
-                        $exceptionData
-                    );
-                }
-            } else {
-                $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])->delete();
-            }
-            DB::commit();
-            return true;
-        } catch (\Exception $e) {
-            DB::rollBack();
-            throw $e;
+        $existingSlot = $this->doctorSlotRepository->where('user_id', $data['doctor_id'])->first();
+        if ($existingSlot) {
+            // Update the existing slot
+            $this->doctorSlotRepository->where('user_id', $existingSlot->user_id)->update($payload);
+        } else {
+            // Create a new slot
+            $this->doctorSlotRepository->create($payload);
         }
+
+        if (isset($data['exception_day_ids'])) {
+            $currentExceptionDays = $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])->pluck('exception_days_id')->toArray();
+            $exceptionDayToRemove = array_diff($currentExceptionDays, $data['exception_day_ids']);
+            if (!empty($exceptionDayToRemove)) {
+                $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])
+                    ->whereIn('exception_days_id', $exceptionDayToRemove)
+                    ->delete();
+            }
+
+            foreach ($data['exception_day_ids'] as $exception_day_id) {
+                $exceptionData = [
+                    "doctor_id" => $data['doctor_id'],
+                    "exception_days_id" => $exception_day_id,
+                ];
+                $this->doctorExceptionDayRepository->updateOrCreate(
+                    ['doctor_id' => $data['doctor_id'], 'exception_days_id' => $exception_day_id],
+                    $exceptionData
+                );
+            }
+        } else {
+            $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])->delete();
+        }
+        DB::commit();
+        return true;
+    } catch (\Exception $e) {
+        DB::rollBack();
+        throw $e;
     }
+}
+
+    // public function updateSlot($data)
+    // {
+    //     DB::beginTransaction();
+    //     $now = Carbon::now();
+    //     try {
+    //         $payload = [
+    //             "user_id"   => $data['doctor_id'],
+    //             "slot_duration" => $data['slot_duration'],
+    //             "cleanup_interval" => $data['cleanup_interval'],
+    //             "start_month" => isset($data['start_month']) ? $data['start_month'] : $now->startOfMonth()->format('d'),
+    //             "end_month" =>  isset($data['end_month']) ? $data['end_month'] : null,
+    //             "slots_in_advance" => $data['slots_in_advance'] ? $data['slots_in_advance'] : 30,
+    //             "start_slots_from_date" => isset($data['start_slots_from_date']) ? $data['start_slots_from_date'] : Carbon::today()->toDateString(),
+    //             "stop_slots_date" => $data['stop_slots_date']
+    //         ];
+
+    //         $existingSlot = $this->doctorSlotRepository->where('user_id', $data['doctor_id'])->first();
+    //         if ($existingSlot) {
+    //             $this->doctorSlotRepository->where('user_id', $existingSlot->user_id)->update($payload);
+    //         } else {
+
+    //             throw new \Exception('Doctor slot not found for update.');
+    //         }
+
+    //         if (isset($data['exception_day_ids'])) {
+
+    //             $currentExceptionDays =  $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])->pluck('exception_days_id')->toArray();
+    //             $exceptionDayToRemove   = array_diff($currentExceptionDays, $data['exception_day_ids']);
+    //             if (!empty($exceptionDayToRemove)) {
+    //                 $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])
+    //                     ->whereIn('exception_days_id', $exceptionDayToRemove)
+    //                     ->delete();
+    //             }
+
+    //             foreach ($data['exception_day_ids'] as $exception_day_id) {
+    //                 $exceptionData = [
+    //                     "doctor_id" => $data['doctor_id'],
+    //                     "exception_days_id" => $exception_day_id,
+    //                 ];
+    //                 $this->doctorExceptionDayRepository->updateOrCreate(
+    //                     ['doctor_id' => $data['doctor_id'], 'exception_days_id' => $exception_day_id],
+    //                     $exceptionData
+    //                 );
+    //             }
+    //         } else {
+    //             $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])->delete();
+    //         }
+    //         DB::commit();
+    //         return true;
+    //     } catch (\Exception $e) {
+    //         DB::rollBack();
+    //         throw $e;
+    //     }
+    // }
 
     public function makeSlots($data)
     {
@@ -194,8 +254,17 @@ class DoctorSlotServices
             //Step 4 : Applying condition inside day for slot creation with time and interval
             $start = new DateTime('09:00'); // statically set but later do it dynamic
             $end   = new DateTime('19:00');
-            $interval = new DateInterval("PT" . $data->slot_duration . "M");
-            $breakInterval = new DateInterval("PT" . $data->cleanup_interval . "M");
+
+            $interval      = CarbonInterval::minutes($data->slot_duration);
+            $breakInterval = CarbonInterval::minutes($data->cleanup_interval);
+
+
+
+            // $interval = new DateInterval("PT" . $data->slot_duration . "M");
+            // $breakInterval = new DateInterval("PT" . $data->cleanup_interval . "M");
+
+            // $start = $start->format('H:i');
+            // $end   = $end->format('H:i');
 
             $daySlots = []; // Array to hold slots for the current day
 
@@ -206,8 +275,9 @@ class DoctorSlotServices
                 if ($endPeriod > $end) {
                     $endPeriod = $end;
                 }
+//dd($startTime->format('H:i'),$endPeriod->format('H:i'));
+                $daySlots[] = $startTime->format('H:i') . ' - ' . $endPeriod->format('H:i');
 
-                $daySlots[] = $startTime->format('H:iA') . ' - ' . $endPeriod->format('H:iA');
             }
 
             $allDaySlots[$dateFormatted] = [
@@ -325,9 +395,11 @@ class DoctorSlotServices
                 } else {
                     $calendar .= "<td class='$is_today date'><h4>$current_day</h4></td>";
                 }
-            } elseif (in_array($date, ['2024-07-24'])) { // for not available days
-                $calendar .= "<td><button class='$is_today btn not-btn'><h4>$current_day</h4></button></td>";
-            } elseif (in_array($dayName, $exception_days_name)) { // for exception days 
+            } 
+            // elseif (in_array($date, ['2024-07-24'])) { 
+            //     $calendar .= "<td><button class='$is_today btn not-btn'><h4>$current_day</h4></button></td>";
+            // } 
+            elseif (in_array($dayName, $exception_days_name)) { 
                 $calendar .= "<td><button class='$is_today btn notAvail'><h4>$current_day</h4></button></td>";
             } else {
                 $data = ['doctor_id' => $doctor_id,'date' => $date];
@@ -338,19 +410,19 @@ class DoctorSlotServices
                 $counter = count($gettingBookedSlots);
 
               
-                $class = '';
+                //$class = '';
 
-                if($counter >= 7)
-                {
-                    $class = "halfFull";
-                }
-                elseif($counter == 12  )
-                {
-                    $class = "full";
-                }
+                // if($counter >= 7)  // TODO
+                // {
+                //     $class = "halfFull";
+                // }
+                // elseif($counter == 12  )
+                // {
+                //     $class = "full"; // TODO
+                // }
 
 
-                $calendar .= "<td class='$is_today date $class'><button onclick='checkSlotsByDate(\"$date\", $doctor_id)' type='button' class='btn avail-btn' selected_date='$date'><h4>$current_day</h4></button></td>";
+                $calendar .= "<td class='$is_today date '><button onclick='checkSlotsByDate(\"$date\", $doctor_id)' type='button' class='btn avail-btn' selected_date='$date'><h4>$current_day</h4></button></td>";
 
                 // $calendar .= "<td class='$is_today date'><button onclick='checkSlotsByDate($date,$doctor_id)' type='button' class='btn avail-btn' selected_date='$date'><h4>$current_day</h4></button></td>";
             }
@@ -369,7 +441,6 @@ class DoctorSlotServices
 
         $calendar .= "</tr>";
         $calendar .= "</table></div>";
-// dd($calendar);
         return $calendar;
     }
 

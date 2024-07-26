@@ -112,9 +112,17 @@ class BookingServices
    {
       return $this->patientBookings($id)->where('booking_date', '>', Carbon::now()->toDateString())->with('user');
    }
-   public function filter($filterKey, $patientId = null, $doctorId = null)
+   public function searchDoctorAppointments($filterParams)
    {
-      return  $this->bookingRepository->filter($filterKey, $patientId, $doctorId);
+      return  $this->bookingRepository->searchDoctorAppointments($filterParams);
+   }
+
+   public function doctorAppointmentSearch($searchKey, $doctorId)
+   {
+      return $this->bookingRepository->where('doctor_id', 2)
+         ->whereHas('patient', function ($query) use ($searchKey) {
+            $query->where('first_name', 'like', "%{$searchKey}%");
+         })->get();
    }
 
    public function requestedAppointment($id)

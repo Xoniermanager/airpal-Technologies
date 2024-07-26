@@ -137,6 +137,8 @@ Route::prefix('doctor')->group(function () {
             Route::get('appointment-request', 'appointmentRequests')->name('doctor.doctor-request.index');
             Route::post('update-appointment-status', 'UpdateAppointmentStatus')->name('doctor.status.appointment');
             Route::get('filter-appointment-request', 'filterRequestAppointments')->name('filter.appointment.request');
+            Route::get('appointment-search', 'doctorAppointmentSearch')->name('doctor.appointment-search');
+            
             
         });
         Route::prefix('questions')->controller(QuestionsController::class)->group(function () {
@@ -145,9 +147,9 @@ Route::prefix('doctor')->group(function () {
             Route::post('update', 'update')->name('doctor.questions.update');
             Route::post('delete', 'destroy')->name('doctor.delete-questions');
 
+            Route::get('doctor-question-filter', 'doctorQuestionFilter')->name('doctor.question.filter');
             Route::get('get-question-by-doctor-id', 'getQuestionByDoctorId')->name('get.question.doctor.id');
-            Route::get('get-question-by-specialty-id', 'getQuestionBySpecialtyId')->name('get.question.specialty.id');
-            Route::get('get-question-by-answerType-id', 'getQuestionByAnswerType')->name('get.question.answerType');
+          
         });
     });
 });

@@ -34,6 +34,7 @@ class DoctorDashboardController extends Controller
           $recentAppointments      = $this->getRecentAppointments()  ?? '';
           $upcomingAppointments    = $this->getUpComingAppointment() ?? '';
           $recentPatients          = $this->getRecentPatients() ?? '';
+
   
           // Pass all the data to the view
           return view('doctor.doctor-dashboard', [

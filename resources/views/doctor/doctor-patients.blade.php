@@ -72,7 +72,7 @@
                                     </div>
                                     <i class="fa-solid fa-calendar-days"></i>
                                 </div>
-                                <div class="form-sorts dropdown">
+                                {{-- <div class="form-sorts dropdown">
                                     <a href="javascript:void(0);" class="dropdown-toggle" id="table-filter"><i
                                             class="fa-solid fa-filter me-2"></i>Filter By</a>
                                     <div class="filter-dropdown-menu">
@@ -222,7 +222,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="tab-content appointment-tab-content grid-patient">

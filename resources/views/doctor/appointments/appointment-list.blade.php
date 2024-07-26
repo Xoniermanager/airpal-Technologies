@@ -28,7 +28,7 @@ aria-labelledby="pills-upcoming-tab" >
             </li>
             <li class="appointment-info">
                 <p><i class="fa-solid fa-clock"></i>{{ $booking->booking_date ?? '' }}</p>
-                <p><i class="fa-solid fa-clock"></i>{{ $booking->slot_start_time ?? '' }}</p>
+                <p><i class="fa-solid fa-clock"></i>{{ date('h:i A', strtotime($booking->slot_start_time)) ?? '' }}</p>
                 <ul class="d-flex apponitment-types">
                     <li>General Visit</li>
                 </ul>

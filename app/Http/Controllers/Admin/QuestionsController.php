@@ -144,40 +144,18 @@ class QuestionsController extends Controller
       ]);
     }
   }
+  
+  public function doctorQuestionFilter(Request $request)
+  { 
+    $allQuestions = $this->questionServices->doctorQuestionFilter($request->all());
+    return response()->json([
+      'message'     =>  'Successfully retrieved!',
+      'data'        =>  view('admin.questions.question-list', [
+        'allQuestions'   =>  $allQuestions
+      ])->render()
+    ]);
+  }
 
-  // public function getQuestionByDoctorId(Request $request)
-  // { 
-  //   $allQuestions = $this->questionServices->getDoctorQuestionById($request->id);
-  //   return response()->json([
-  //     'message'     =>  'Successfully retrieved!',
-  //     'data'        =>  view('admin.questions.question-list', [
-  //       'allQuestions'   =>  $allQuestions
-  //     ])->render()
-  //   ]);
-  // }
-  // public function getQuestionBySpecialtyId(Request $request)
-  // { 
-
-  //   $allQuestions = $this->questionServices->getDoctorQuestionBySpecialtyId($request->id);
-  //   return response()->json([
-  //     'message'     =>  'Successfully retrieved!',
-  //     'data'        =>  view('admin.questions.question-list', [
-  //       'allQuestions'   =>  $allQuestions
-  //     ])->render()
-  //   ]);
-
-  // }
-  // public function getQuestionByAnswerType(Request $request)
-  // { 
-  //   $allQuestions = $this->questionServices->getDoctorQuestionByAnswerType($request->answerType);
-  //   return response()->json([
-  //     'message'     =>  'Successfully retrieved!',
-  //     'data'        =>  view('admin.questions.question-list', [
-  //       'allQuestions'   =>  $allQuestions
-  //     ])->render()
-  //   ]);
-
-  // }
 
   
 

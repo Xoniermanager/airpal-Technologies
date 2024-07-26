@@ -328,65 +328,34 @@
             }).change();
 
             $(document).ready(function() {
-                $("#doctors").change(function() {
-                    var selectedValue = $(this).val();
-                    $.ajax({
-                        url: "{{ route('get.question.doctor.id') }}",
-                        type: 'get',
-                        data: {
-                            id: selectedValue
-                        },
-                        success: function(response) {
-                            console.log(response);
-                            $('#question_list').replaceWith(response.data);
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(error);
-                        }
-                    });
-                });
-            });
+    $('#doctors, #specialty, #answerType').on('change', function() {
+        search_question();
+    });
+});
 
+function search_question() {
+    let doctorId = $('#doctors').val();
+    let answerType = $('#answerType').val();
+    let specialty = $('#specialty').val();
 
-            $(document).ready(function() {
-                $("#specialty").change(function() {
-                    var selectedValue = $(this).val();
-                    $.ajax({
-                        url: "{{ route('get.question.specialty.id') }}",
-                        type: 'get',
-                        data: {
-                            id: selectedValue
-                        },
-                        success: function(response) {
-                            console.log(response);
-                            $('#question_list').replaceWith(response.data);
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(error);
-                        }
-                    });
-                });
-            });
-
-            $(document).ready(function() {
-                $("#answerType").change(function() {
-                    var selectedValue = $(this).val();
-                    $.ajax({
-                        url: "{{ route('get.question.answerType') }}",
-                        type: 'get',
-                        data: {
-                            answerType: selectedValue
-                        },
-                        success: function(response) {
-                            console.log(response);
-                            $('#question_list').replaceWith(response.data);
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(error);
-                        }
-                    });
-                });
-            });
+    $.ajax({
+        url: "{{ route('doctor.question.filter') }}", // Correct way to use route in Blade template
+        type: 'GET',
+        data: {
+            doctorId: doctorId,
+            answerType: answerType,
+            specialty: specialty,
+            _token: '{{ csrf_token() }}'
+        },
+        success: function(response) {
+            jQuery('#question_list').replaceWith(response.data);
+            jQuery('#question_list').hide().delay(200).fadeIn();
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
 
 
             $("#addQuestionForm").validate({
@@ -650,10 +619,35 @@
         //     }
         // }
 
-        $('input[name="doctor"] ,input[name="specialty"],input[name="answerType"]').on('change', function() {
-            alert('working');
-            search_doctors();
-        });
+        // $('input[name="doctor"] ,input[name="specialty"],input[name="answerType"]').on('change', function() {
+        //     search_question();
+        // });
+
+        // function search_question() {
+        //     let userId     = jQuery('#doctor').val();
+        //     let answerType = jQuery('#answerType').val();
+        //     let specialty  = jQuery('#specialty').val();
+        //     $.ajax({
+        //         url: "<?= route('doctor.appointment-filter') ?>",
+        //         type: 'get',
+        //         data: {
+             
+        //             doctorId: userId,
+        //             answerType: answerType,
+        //             specialty: specialty,
+        //             _token: '{{ csrf_token() }}'
+        //         },
+        //         success: function(response) {
+        //             jQuery('#question_list').replaceWith(response.data);
+        //             jQuery('#question_list').hide().delay(200).fadeIn();
+        //         },
+        //         error: function(xhr, status, error) {
+        //             // Handle any errors
+        //             console.error(error);
+        //         }
+        //     });
+        // }
+
     </script>
 @endsection
 

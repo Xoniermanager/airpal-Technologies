@@ -52,6 +52,11 @@ class DoctorDashboardServices
         return $this->bookingRepository->getAllCanceledAppointmentsByDoctorId(Auth::id());
     }
 
+    public function getAllConfirmedAppointments()
+    {
+        return $this->bookingRepository->getAllConfirmedAppointments(Auth::id());
+    }
+
     
 
 

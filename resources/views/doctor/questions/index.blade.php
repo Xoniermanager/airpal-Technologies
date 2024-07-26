@@ -477,8 +477,7 @@
         // Global counter for dynamically adding options
         var counter = 0;
 
-
-function edit_question(doctorQuestionDetails) {
+ function edit_question(doctorQuestionDetails) {
     var doctorQuestionDetails = JSON.parse(doctorQuestionDetails);
     $('.addMoreOptionsEdit').empty();
     $('#id').val(doctorQuestionDetails.id);
@@ -489,9 +488,8 @@ function edit_question(doctorQuestionDetails) {
 
     counter = 0;
 
-    if($('.answer_type').val() != 'text')
-    {
-            doctorQuestionDetails.options.forEach(function(option, index) {
+    if ($('.answer_type').val() != 'text') {
+        doctorQuestionDetails.options.forEach(function(option, index) {
             var options_html =
                 '<div class="col-md-6 option-details"><div class="row panel panel-body"><div class="col-md-10 form-group"><label for="">Option ' +
                 (index + 1) +
@@ -504,10 +502,23 @@ function edit_question(doctorQuestionDetails) {
             counter = index + 1; // Update counter to the latest index
         });
         $(".optional").show();
+    } else {
+        var text_html = 
+            '<div class="col-12 col-sm-12">' +
+                '<div class="mb-3" id="question-div">' +
+                    '<label class="mb-2">Question</label>' +
+                    '<textarea type="text" name="question" class="form-control">' + doctorQuestionDetails.question + '</textarea>' +
+                    '<span class="text-danger" id="question_error"></span>' +
+                '</div>' +
+            '</div>';
+        $('.addMoreOptionsEdit').append(text_html);
+        $(".optional").hide(); // Hide options section if the answer type is 'text'
     }
-    $('#edit_question').addClass('show').css('display', 'block').attr('aria-hidden', 'false');
 
+    $('#edit_question').addClass('show').css('display', 'block').attr('aria-hidden', 'false');
 }
+
+
 
 
 // Function to handle adding options dynamically

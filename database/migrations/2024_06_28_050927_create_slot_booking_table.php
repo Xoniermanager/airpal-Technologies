@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('booking_slots', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('doctor_id');
-            $table->unsignedBigInteger('patient_id')->nullable();
+            $table->unsignedBigInteger('patient_id');
             $table->date('booking_date');
             $table->time('slot_start_time');
             $table->time('slot_end_time');
@@ -24,10 +24,10 @@ return new class extends Migration
             $table->string('insurance')->nullable();
             $table->string('symptoms')->nullable();
 
-            $table->enum('status',['requested','confirm','canceled']);
+            $table->enum('status',['requested','confirmed','cancelled']);
             $table->timestamps();
 
-            // $table->foreign('patient_id')->references('id')->on('patient')->onDelete('cascade'); // patient table is not created yet
+            $table->foreign('patient_id')->references('id')->on('patient')->onDelete('cascade'); // patient table is not created yet
             $table->foreign('doctor_id')->references('id')->on('users')->onDelete('cascade');
 
         });

@@ -1,4 +1,6 @@
 @extends('layouts.doctor-frontend.main')
+
+{{-- @extends('layouts.admin.main') --}}
 @section('content')
     @php
         $userEducationDetails = [];
@@ -19,7 +21,7 @@
         }
 
     @endphp
-{{-- 
+
     <div class="breadcrumb-bar-two">
         <div class="container">
             <div class="row align-items-center inner-banner">
@@ -36,7 +38,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
     <div class="content doctor-content">
         <div class="container">
             <div class="row">
@@ -90,11 +92,8 @@
         </div>
     </div>
 @endsection
-<script src="{{ asset('/assets/js/jquery-3.7.1.min.js') }}"></script>
-<link href="https://kendo.cdn.telerik.com/themes/7.2.1/default/default-main.css" rel="stylesheet" />
-<script src="https://kendo.cdn.telerik.com/2024.1.319/js/kendo.all.min.js"></script>
 @section('javascript')
-
+<script src="{{ asset('admin/assets/custom-js/add_doctor.js') }}"></script>
     <script>
         $(document).ready(function() {
             var site_admin_base_url = "{{ env('SITE_ADMIN_BASE_URL') }}";
@@ -539,8 +538,6 @@
                 }
             }
 
-            // // for language  
-            // var site_admin_base_url = 'http://127.0.0.1:8000/admin/';
 
             var languageDataSource = new kendo.data.DataSource({
                 batch: true,

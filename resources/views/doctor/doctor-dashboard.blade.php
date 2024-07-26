@@ -7,7 +7,7 @@
 
 <body>
     <div class="main-wrapper">
-    @include('doctor.include.header')
+        @include('doctor.include.header')
 
         <div class="breadcrumb-bar-two">
             <div class="container">
@@ -16,7 +16,8 @@
                         <h2 class="breadcrumb-title">Dashboard </h2>
                         <nav aria-label="breadcrumb" class="page-breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('doctor.doctor-dashboard.index') }}">Home</a></li>
+                                <li class="breadcrumb-item"><a
+                                        href="{{ route('doctor.doctor-dashboard.index') }}">Home</a></li>
                                 <li class="breadcrumb-item" aria-current="page">Dashboard</li>
                             </ol>
                         </nav>
@@ -28,99 +29,44 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-xl-3 theiaStickySidebar">
-                    @include('doctor.include.sidebar') 
+                        @include('doctor.include.sidebar')
 
                     </div>
                     <div class="col-lg-8 col-xl-9">
                         <div class="row">
-                        
-                                {{-- <div class="dashboard-box-col w-100">
+
+
+                            <div class="col-xl-4 d-flex">
+                                <div class="dashboard-box-col w-100">
                                     <div class="dashboard-widget-box">
                                         <div class="dashboard-content-info">
-                                            <h6>Total Patient</h6>
-                                            <h4>978</h4>
-                                            <span class="text-success"><i class="fa-solid fa-arrow-up"></i>15% From Last
-                                                Week</span>
+                                            <h6>Total Patients</h6>
+                                            <h4>{{ $totalPatientsCounter }}</h4>
+
                                         </div>
                                         <div class="dashboard-widget-icon">
                                             <span class="dash-icon-box"><i class="fa-solid fa-user-injured"></i></span>
                                         </div>
                                     </div>
-                                    <div class="dashboard-widget-box">
-                                        <div class="dashboard-content-info">
-                                            <h6>Patients Today</h6>
-                                            <h4>80</h4>
-                                            <span class="text-danger"><i class="fa-solid fa-arrow-up"></i>15% From
-                                                Yesterday</span>
-                                        </div>
-                                        <div class="dashboard-widget-icon">
-                                            <span class="dash-icon-box"><i class="fa-solid fa-user-clock"></i></span>
-                                        </div>
-                                    </div>
+
                                     <div class="dashboard-widget-box">
                                         <div class="dashboard-content-info">
                                             <h6>Appointments Today</h6>
-                                            <h4>50</h4>
-                                            <span class="text-success"><i class="fa-solid fa-arrow-up"></i>20% From
-                                                Yesterday</span>
+                                            <h4>{{ $todayAppointmentCounter }}</h4>
                                         </div>
                                         <div class="dashboard-widget-icon">
                                             <span class="dash-icon-box"><i class="fa-solid fa-calendar-days"></i></span>
                                         </div>
                                     </div>
-                                </div> --}}
-                                <div class="col-xl-4 d-flex">
-                                    <div class="dashboard-box-col w-100">
-                                        <div class="dashboard-widget-box">
-                                            <div class="dashboard-content-info">
-                                                <h6>Total Patients</h6>
-                                                <h4>{{ $totalPatientsCounter }}</h4>
-                                                <!-- Example placeholder, you can add percentage change if available -->
-                                                {{-- <span class="text-success">
-                                                    <i class="fa-solid fa-arrow-up"></i>15% From Last Week
-                                                </span> --}}
-                                            </div>
-                                            <div class="dashboard-widget-icon">
-                                                <span class="dash-icon-box"><i class="fa-solid fa-user-injured"></i></span>
-                                            </div>
-                                        </div>
-                                        {{-- <div class="dashboard-widget-box">
-                                            <div class="dashboard-content-info">
-                                                <h6>Patients Today</h6>
-                                                <h4></h4>
-                                                <!-- Example placeholder, you can add percentage change if available -->
-                                                <span class="text-danger">
-                                                    <i class="fa-solid fa-arrow-up"></i>15% From Yesterday
-                                                </span>
-                                            </div>
-                                            <div class="dashboard-widget-icon">
-                                                <span class="dash-icon-box"><i class="fa-solid fa-user-clock"></i></span>
-                                            </div>
-                                        </div> --}}
-                                        <div class="dashboard-widget-box">
-                                            <div class="dashboard-content-info">
-                                                <h6>Appointments Today</h6>
-                                                <h4>{{ $todayAppointmentCounter }}</h4>
-                                                <!-- Example placeholder, you can add percentage change if available -->
-                                                {{-- <span class="text-success">
-                                                    <i class="fa-solid fa-arrow-up"></i>20% From Yesterday
-                                                </span> --}}
-                                            </div>
-                                            <div class="dashboard-widget-icon">
-                                                <span class="dash-icon-box"><i class="fa-solid fa-calendar-days"></i></span>
-                                            </div>
-                                        </div>
-                              
-                  
-                            </div>
+                                </div>
                             </div>
                             <div class="col-xl-8 d-flex">
                                 <div class="dashboard-card w-100">
                                     <div class="dashboard-card-head">
                                         <div class="header-title">
-                                            <h5>Appointment</h5>
+                                            <h5>Latest Appointment Requests</h5>
                                         </div>
-                                        <div class="dropdown header-dropdown">
+                                        {{-- <div class="dropdown header-dropdown">
                                             <a class="dropdown-toggle nav-tog" data-bs-toggle="dropdown"
                                                 href="javascript:void(0);">
                                                 Last 7 Days
@@ -136,50 +82,57 @@
                                                     Last 7 Days
                                                 </a>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="dashboard-card-body">
                                         <div class="table-responsive">
-                                            <table class="table dashboard-table appoint-table">
+                                            @include('doctor.latest-appointment-list')
+                                            {{-- <table class="table dashboard-table appoint-table">
                                                 <tbody>
-                                                 @foreach ($recentAppointments as $appointment)
-
-                                                    <tr>
-                                                        <td>
-                                                            <div class="patient-info-profile">
-                                                                <a href="{{ route('doctor.appointments.index') }}" class="table-avatar">
-                                                                    <img  src="{{ asset('images/' . $appointment->patient->image_url) }}" >
-                                                                </a>
-                                                                <div class="patient-name-info">
-                                                                    <span>#PAT{{ $appointment->id }}</span>
-                                                                    <h5><a href="{{ route('doctor.appointments.index') }}">{{ $appointment->patient->FullName }}</a>
-                                                                    </h5>
+                                                    @forelse ($recentAppointments as $appointment)
+                                                        <tr>
+                                                            <td>
+                                                                <div class="patient-info-profile">
+                                                                    <a href="{{ route('doctor.appointments.index') }}"
+                                                                        class="table-avatar">
+                                                                        <img
+                                                                            src="{{ asset('images/' . $appointment->patient->image_url) }}">
+                                                                    </a>
+                                                                    <div class="patient-name-info">
+                                                                        <span>#PAT{{ $appointment->id }}</span>
+                                                                        <h5><a
+                                                                                href="{{ route('doctor.appointments.index') }}">{{ $appointment->patient->FullName }}</a>
+                                                                        </h5>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="appointment-date-created">
-                                                                <h6>
-                                                                    {{ $appointment->booking_date}} {{ $appointment->slot_start_time}}
-                                                                    {{-- {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('d M Y h:i A') }} --}}
+                                                            </td>
+                                                            <td>
+                                                                <div class="appointment-date-created">
+                                                                    <h6>
+                                                                        {{ $appointment->booking_date }}
+                                                                        {{ $appointment->slot_start_time }}
+                                                                    </h6>
+                                                                    <span class="badge table-badge">General</span>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div
+                                                                    class="apponiment-actions d-flex align-items-center">
+                                                                    <a href="#" class="text-success-icon me-2"><i
+                                                                            class="fa-solid fa-check"></i></a>
+                                                                    <a href="#" class="text-danger-icon"><i
+                                                                            class="fa-solid fa-xmark"></i></a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @empty
 
-                                                                </h6>
-                                                                <span class="badge table-badge">General</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="apponiment-actions d-flex align-items-center">
-                                                                <a href="#" class="text-success-icon me-2"><i
-                                                                        class="fa-solid fa-check"></i></a>
-                                                                <a href="#" class="text-danger-icon"><i
-                                                                        class="fa-solid fa-xmark"></i></a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                     @endforeach
+                                                        <p>Not Found </p>
+                                                    @endforelse
                                                 </tbody>
-                                                
-                                            </table>
+                                            </table> --}}
+                                            <a href="{{ route('doctor.doctor-request.index') }}">View All Appointment
+                                                Requests</a>
                                         </div>
                                     </div>
                                 </div>
@@ -208,7 +161,8 @@
                                                     <li class="nav-item" role="presentation">
                                                         <button class="nav-link" id="pills-appointment-tab"
                                                             data-bs-toggle="pill" data-bs-target="#pills-appointment"
-                                                            type="button" role="tab" aria-controls="pills-appointment"
+                                                            type="button" role="tab"
+                                                            aria-controls="pills-appointment"
                                                             aria-selected="true">Appointments</button>
                                                     </li>
                                                 </ul>
@@ -237,68 +191,80 @@
 
                                         <div class="dashboard-card-body">
                                             <div class="row recent-patient-grid-boxes">
-                                                @forelse ( $recentPatients as $recentPatient )
-                                                <div class="col-md-6">
-                                                <div class="recent-patient-grid">
-                                                    <a href="{{ route('doctor.doctor-patients.index') }}" class="patient-img">
-                                                        <img  src="{{ asset('images/' . $recentPatient->patient->image_url) }}" >
-                                                        
-                                                    </a>
-                                                    <h5><a href="{{ route('doctor.doctor-patients.index') }}"></a></h5>
-                                                    <span>Patient ID : PAT{{ $recentPatient->id }}</span>
-                                                    <div class="date-info">
-                                                        <p>Last Appointment {{ $recentPatient->booking_date}} {{ $recentPatient->slot_start_time}}
-                                                            {{-- {{ \Carbon\Carbon::parse($recentAppointment->appointment_date)->format('d M Y h:i A') }}</p> --}}
+                                                @forelse ($recentPatients as $recentPatient)
+                                                    <div class="col-md-6">
+                                                        <div class="recent-patient-grid">
+                                                            <a href="{{ route('doctor.doctor-patients.index') }}"
+                                                                class="patient-img">
+                                                                <img
+                                                                    src="{{ asset('images/' . $recentPatient->patient->image_url) }}">
+
+                                                            </a>
+                                                            <h5><a
+                                                                    href="{{ route('doctor.doctor-patients.index') }}"></a>
+                                                            </h5>
+                                                            <span>Patient ID : PAT{{ $recentPatient->id }}</span>
+                                                            <div class="date-info">
+                                                                <p>Last Appointment {{ $recentPatient->booking_date }}
+                                                                    {{ $recentPatient->slot_start_time }}
+                                                                    {{-- {{ \Carbon\Carbon::parse($recentAppointment->appointment_date)->format('d M Y h:i A') }}</p> --}}
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>    
-                                            </div>
                                                 @empty
                                                     <p>Fot found</p>
                                                 @endforelse
-   
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-7 d-flex">
+
                                 <div class="dashboard-main-col w-100">
-                                    <div class="upcoming-appointment-card">
-                                        <div class="title-card">
-                                            <h5>Upcoming Appointment</h5>
-                                        </div>
-                                        <div class="upcoming-patient-info">
-                                            <div class="info-details">
-                                                <span class="img-avatar">
-                                                    <img src="{{ asset('images/' . $upcomingAppointments->patient->image_url ?? '') }}" >
+                                    @if (!empty($upcomingAppointments))
+                                        <div class="upcoming-appointment-card">
+                                            <div class="title-card">
+                                                <h5>Upcoming Appointment</h5>
+                                            </div>
+                                            <div class="upcoming-patient-info">
+                                                <div class="info-details">
+                                                    <span class="img-avatar">
+                                                        <img
+                                                            src="{{ asset('images/' . $upcomingAppointments->patient->image_url ?? '') }}">
                                                     </span>
-                                                <div class="name-info">
-                                                    <span>#Apt{{ $upcomingAppointments->id}}</span>
-                                                    <h6>{{ $upcomingAppointments->patient->fullName}}</h6>
+                                                    <div class="name-info">
+                                                        <span>#Apt{{ $upcomingAppointments->id }}</span>
+                                                        <h6>{{ $upcomingAppointments->patient->fullName }}</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="date-details">
+                                                    <span>General visit</span>
+                                                    <h6>{{ $upcomingAppointments->slot_start_time }}</h6>
+                                                </div>
+                                                <div class="circle-bg">
+                                                    <img src="../assets/img/bg/dashboard-circle-bg.png" alt>
+                                                </div>
+                                                <div class="date-details">
+                                                    <span>Date</span>
+                                                    <h6>{{ $upcomingAppointments->booking_date }}</h6>
                                                 </div>
                                             </div>
-                                            <div class="date-details">
-                                                <span>General visit</span>
-                                                <h6>{{ $upcomingAppointments->slot_start_time}}</h6>
-                                            </div>
-                                            <div class="circle-bg">
-                                                <img src="../assets/img/bg/dashboard-circle-bg.png" alt>
-                                            </div>
-
-                                            <div class="date-details">
-                                                <span>date</span>
-                                                <h6>{{ $upcomingAppointments->booking_date}}</h6>
+                                            <div class="appointment-card-footer">
+                                                <h5><i class="fa-solid fa-video"></i>Video Appointment</h5>
+                                                <div class="btn-appointments">
+                                                    <a href="{{ route('doctor.appointments.index') }}"
+                                                        class="btn">Start Appointment</a>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="appointment-card-footer">
-                                            <h5><i class="fa-solid fa-video"></i>Video Appointment</h5>
-                                            <div class="btn-appointments">
-
-                                                <a href="{{ route('doctor.appointments.index') }}" class="btn">Start
-                                                    Appointment</a>
-                                            </div>
+                                    @else
+                                        <div class="dashboard-main-col w-100 mb-3">
+                                            <img src="../assets/img/doctors-dashboard/no-apt-3.png" alt="Img">
                                         </div>
-                                    </div>
+                                    @endif
+
                                     <div class="dashboard-card w-100">
                                         <div class="dashboard-card-head">
                                             <div class="header-title">
@@ -315,13 +281,16 @@
                                                         <tr>
                                                             <td>
                                                                 <div class="patient-info-profile">
-                                                                    <a href="{{ route('doctor.doctor-invoices.index') }}" class="table-avatar">
-                                                                        <img   src="{{ asset('images/' . $upcomingAppointments->user->image_url) }}" 
+                                                                    <a href="{{ route('doctor.doctor-invoices.index') }}"
+                                                                        class="table-avatar">
+                                                                        <img src="../assets/img/doctors-dashboard/profile-04.jpg"
                                                                             alt="Img">
-                                                                            
+
                                                                     </a>
                                                                     <div class="patient-name-info">
-                                                                        <h5><a href="{{ route('doctor.doctor-invoices.index') }}">Adrian</a></h5>
+                                                                        <h5><a
+                                                                                href="{{ route('doctor.doctor-invoices.index') }}">Adrian</a>
+                                                                        </h5>
                                                                         <span>#Apt0001</span>
                                                                     </div>
                                                                 </div>
@@ -340,7 +309,8 @@
                                                             </td>
                                                             <td>
                                                                 <div class="apponiment-view d-flex align-items-center">
-                                                                    <a href="{{ route('doctor.doctor-invoices.index') }}"><i
+                                                                    <a
+                                                                        href="{{ route('doctor.doctor-invoices.index') }}"><i
                                                                             class="fa-solid fa-eye"></i></a>
                                                                 </div>
                                                             </td>
@@ -349,7 +319,7 @@
                                                             <td>
                                                                 <div class="patient-info-profile">
                                                                     <a href="#" class="table-avatar">
-                                                                        <img   src="{{ asset('images/' . $upcomingAppointments->user->image_url) }}" 
+                                                                        <img src="../assets/img/doctors-dashboard/profile-04.jpg"
                                                                             alt="Img">
                                                                     </a>
                                                                     <div class="patient-name-info">
@@ -372,7 +342,8 @@
                                                             </td>
                                                             <td>
                                                                 <div class="apponiment-view d-flex align-items-center">
-                                                                    <a href="#"><i class="fa-solid fa-eye"></i></a>
+                                                                    <a href="#"><i
+                                                                            class="fa-solid fa-eye"></i></a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -380,7 +351,7 @@
                                                             <td>
                                                                 <div class="patient-info-profile">
                                                                     <a href="#" class="table-avatar">
-                                                                        <img  src="{{ asset('images/' . $upcomingAppointments->user->image_url) }}" 
+                                                                        <img src="../assets/img/doctors-dashboard/profile-04.jpg"
                                                                             alt="Img">
                                                                     </a>
                                                                     <div class="patient-name-info">
@@ -403,7 +374,8 @@
                                                             </td>
                                                             <td>
                                                                 <div class="apponiment-view d-flex align-items-center">
-                                                                    <a href="#"><i class="fa-solid fa-eye"></i></a>
+                                                                    <a href="#"><i
+                                                                            class="fa-solid fa-eye"></i></a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -434,7 +406,8 @@
                                                             </td>
                                                             <td>
                                                                 <div class="apponiment-view d-flex align-items-center">
-                                                                    <a href="#"><i class="fa-solid fa-eye"></i></a>
+                                                                    <a href="#"><i
+                                                                            class="fa-solid fa-eye"></i></a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -465,7 +438,8 @@
                                                             </td>
                                                             <td>
                                                                 <div class="apponiment-view d-flex align-items-center">
-                                                                    <a href="#"><i class="fa-solid fa-eye"></i></a>
+                                                                    <a href="#"><i
+                                                                            class="fa-solid fa-eye"></i></a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -641,9 +615,89 @@
                 </div>
             </div>
         </div>
- 
+
 
     </div>
 
     @include('include.footer')
- 
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
+    <script>  
+    function updateAppointment(status, requestId) {
+        Swal.fire({
+            title: "Are you sure?",
+            // text: "You won't be able to revert this!",
+            icon: "done",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, proceed!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ route('doctor.status.appointment') }}", // Adjust this URL to your route
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        patientId: requestId,
+                        status: status
+                    },
+                    success: function(response) {
+                        console.log(response.data);
+                        $('#latest-appointment-list').replaceWith(response.data);
+                        $('#appointmentRequestCounter').text(response.requestCounter);
+                        jQuery('#latest-appointment-list').hide().delay(200).fadeIn();
+                        
+                        if (status === 'canceled') {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Appointment Canceled',
+                                text: response.message,
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Done!',
+                                text: response.message,
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'An error occurred while updating the appointment status.',
+                        });
+                    }
+                });
+            }
+        });
+    }
+    
+    $(document).ready(function() {
+        $('.dropdown-item').on('click', function() {
+            var filterKey = $(this).data('filter');
+            $.ajax({
+                url: "<?= route('filter.appointment.request') ?>",
+                method: 'get',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    filterKey: filterKey
+                },
+                success: function(response) {
+                    $('#appointment-request-list').html(response.data);
+                    $('#appointment-request-list').hide().fadeIn();
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred while filtering the appointments.',
+                    });
+                }
+            });
+        });
+    });
+    
+    </script>

@@ -29,15 +29,33 @@ class QuestionServices {
       return $this->questionsRepository->with(['user','specialty','options'])->paginate();
      }
 
+     public function doctorQuestionFilter($searchedKey){
+
+      $data['doctorId'] = array_key_exists('doctorId', $searchedKey) ? $searchedKey['doctorId'] : '';
+      $data['specialty']  = array_key_exists('specialty', $searchedKey) ? $searchedKey['specialty'] : '';
+      $data['answerType']  = array_key_exists('answerType', $searchedKey) ? $searchedKey['answerType'] : '';
+
+      $query = $this->questionsRepository->newQuery();
+
+    
+      if (!empty($data['doctorId'])) {
+            $query->where('doctor_id', $data['doctorId']);
+      }
+      if (!empty($data['specialty'])) {
+         $query->where('specialty_id', $data['specialty']);
+      }
+      if (!empty($data['answerType'])) {
+         $query->where('answer_type', $data['answerType']);
+      }
+         return $query->paginate(10);
+      // return $this->questionsRepository->where('doctor_id',$id)->with('options')->paginate(10);
+      
+     }
+
      public function getDoctorQuestionById($id){
       return $this->questionsRepository->where('doctor_id',$id)->with('options')->paginate(10);
      }
-     public function getDoctorQuestionBySpecialtyId($id){
-      return $this->questionsRepository->where('specialty_id',$id)->paginate(10);
-     }
-     public function getDoctorQuestionByAnswerType($answerType){
-      return $this->questionsRepository->where('answer_type',$answerType)->paginate(10);
-     }
+   
 
    //   public function searchInQuestions($searchKey)
    //   {

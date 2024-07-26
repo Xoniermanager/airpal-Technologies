@@ -36,21 +36,13 @@
                             </a>
                         </li>
 
-                        {{-- <li>
-                    <a href="#" class="accept-link" data-bs-toggle="modal" data-bs-target="#accept_appointment" data-id="{{$request->id}}">
-                        <i class="fa-solid fa-check"></i>Accept
-                    </a>
-                </li> --}}
-
                         <li>
                             <a href="#" class="reject-link" data-bs-toggle="modal"
                                 data-bs-target="#accept_appointment" data-id="{{ $request->id }}"
                                 onclick="updateAppointment('canceled', {{ $request->id }})">
                                 <i class="fa-solid fa-xmark"></i>Reject
                             </a>
-                            {{-- <a href="#" class="reject-link" data-bs-toggle="modal"
-                        data-bs-target="#cancel_appointment"  data-id="{{$request->id}}"><i
-                            class="fa-solid fa-xmark"></i>Reject</a> --}}
+            
                         </li>
                     </ul>
                 </li>

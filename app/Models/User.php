@@ -151,6 +151,9 @@ class User extends Authenticatable
         return $this->role === 3;
     }
 
-
+    public function bookedAppointments()
+    {
+        return $this->hasMany(BookingSlots::class,'patient_id');
+    }
 
 }

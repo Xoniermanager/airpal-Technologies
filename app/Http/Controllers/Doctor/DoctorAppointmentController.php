@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Services\BookingServices;
 use App\Http\Services\DoctorDashboardServices;
+use App\Http\Requests\SearchAppointmentsRequest;
 
 class DoctorAppointmentController extends Controller
 {
@@ -30,8 +31,7 @@ class DoctorAppointmentController extends Controller
         $todayAppointments   = $this->doctorDashboardServices->getTodayAppointmentCounter();
         $getUpComingAppointment   = $this->doctorDashboardServices->getAllUpcomingAppointments();
         $getAllCanceledAppointments   = $this->doctorDashboardServices->getAllCanceledAppointments();
-
-
+        $getAllConfirmedAppointments   = $this->doctorDashboardServices->getAllConfirmedAppointments();
 
         $doctorDetails   = $this->user_services->getDoctorDataById(auth::id());
         $allAppointments = $this->bookingServices->doctorBookings(auth::id())->get();
@@ -41,7 +41,8 @@ class DoctorAppointmentController extends Controller
          'todayBookingCounter' => $todayAppointments,
          'doctorTotalAppointmentCounter' => $getTotalAppointment,
          'getUpComingAppointmentCounter' => count($getUpComingAppointment),
-         'getAllCanceledAppointments' => count($getAllCanceledAppointments)
+         'getAllCanceledAppointments' => count($getAllCanceledAppointments),
+         'getAllConfirmedAppointments'   =>  count($getAllConfirmedAppointments),
         ]);
     }
     public function appointmentRequests()
@@ -57,11 +58,32 @@ class DoctorAppointmentController extends Controller
         return view('doctor.appointments.doctor-appointment-details', ['doctorDetails' => $doctorDetails]);
     }
 
-    public function doctorAppointmentFilter(Request $request)
+    public function doctorAppointmentFilter(SearchAppointmentsRequest $searchAppointmentsRequest)
+    {
+        $filterParams = $searchAppointmentsRequest->validated();
+        $filtered  = $this->bookingServices->searchDoctorAppointments($filterParams);
+
+        $gridHtml = view("doctor.appointments.appointment-list", [
+          'bookings' =>  $filtered
+        ])->render();
+
+        $listHtml = view("doctor.appointments.list-view-appointment", [
+          'bookings' =>  $filtered
+        ])->render();
+
+        return response()->json([
+            'success' => 'Searching',
+            'data'   =>  [
+              'list'  =>  $listHtml,
+              'grid'  =>  $gridHtml
+            ]
+          ]);
+    }
+    public function doctorAppointmentSearch(Request $request)
     {
         $filterKey = $request->key;
         $doctorId  = $request->doctorId;
-        $filtered  = $this->bookingServices->filter($filterKey, '', $doctorId);
+        $filtered  = $this->bookingServices->doctorAppointmentSearch($filterKey, '', $doctorId);
         return response()->json([
             'success' => 'Searching',
             'data'   =>  view("doctor.appointments.appointment-list", [
@@ -69,6 +91,8 @@ class DoctorAppointmentController extends Controller
             ])->render()
           ]);
     }
+
+    
 
     public function UpdateAppointmentStatus(Request $request)
     {

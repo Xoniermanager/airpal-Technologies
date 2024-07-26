@@ -52,7 +52,7 @@ class ProfileController extends Controller
             'states'      => $states,
             'dayOfWeeks'  => $dayOfWeeks,
             'singleDoctorDetails' => $singleDoctorDetails,
-            'doctorDetails' => $this->doctorDetails
+            // 'doctorDetails' => $singleDoctorDetails
         ]);
     } 
 }

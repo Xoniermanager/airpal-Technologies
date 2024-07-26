@@ -5,6 +5,7 @@
                                         <img src="{{ asset('images').'/'.auth()->user()->image_url }}" id="blah" 
                                         onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}">
                                     </a>
+            
                                     <div class="profile-det-info">
                                         <h3><a href="{{ route('doctor.doctor-profile.index') }}"> {{ auth()->user()->fullName}}</a></h3>
                                         <div class="patient-details">
@@ -20,8 +21,15 @@
            
                                             </h5>
                                         </div>
-                                        <span class="badge doctor-role-badge"><i
-                                                class="fa-solid fa-circle"></i>Dentist</span>
+                                        @isset($doctorDetails)
+                                        @forelse ($doctorDetails->specializations as $specialization)
+                                        <span class="badge doctor-role-badge"><i class="fa-solid fa-circle"></i>{{$specialization->name}}</span>
+                          
+                                        @empty
+                                        <p>N/A</p>
+                                        @endforelse
+                                        @endisset
+                                    
                                     </div>
                                 </div>
                             </div>
@@ -47,7 +55,7 @@
                                             <a href="{{ route('doctor.doctor-request.index') }}">
                                                 <i class="fa-solid fa-calendar-check"></i>
                                                 <span>Appointment Requests</span>
-                                                <small class="unread-msg" id="appointmentRequestCounter">{{ $requestCounter ?? '' }}</small>
+                                                <small class="unread-msg" id="appointmentRequestCounter">{{  $appointmentCounter }}</small>
                                             </a>
                                         </li>
                                         <li class="{{ request()->routeIs('doctor.appointments.index') ? 'active' : '' }}">

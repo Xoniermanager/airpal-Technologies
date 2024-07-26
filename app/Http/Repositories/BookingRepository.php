@@ -25,28 +25,54 @@ class BookingRepository extends BaseRepository
         return $this->model->newQuery();
     }
 
-    public function filter($filterKey, $patientId = null, $doctorId = null)
+    public function searchDoctorAppointments($filterParams)
     {
-
+        
         $query = $this->model->newQuery();
+        $key = $filterParams['key'];
 
-        if ($filterKey == 'completed') {
-            $query->where('status', 'completed');
-        } elseif ($filterKey == 'canceled') {
-            $query->where('status', 'canceled');
-        } elseif ($filterKey == 'today') {
-            $query->where('booking_date', Carbon::now()->toDateString());
-        } elseif ($filterKey == 'upcoming') {
-            $query->where('booking_date', '>', Carbon::now()->toDateString());
-        } elseif ($filterKey == 'all') {
+        /*
+        Managing filter for :
+            1. today appointments, 
+            2. upcoming appointments and
+            3. cancelled appointments
+        */
+        switch($key)
+        {
+            case 'today':
+                $query->where('booking_date', Carbon::now()->toDateString());
+                break;
+            case 'upcoming':
+                $query->where('booking_date', '>', Carbon::now()->toDateString());
+                break;
+            case 'cancelled':
+                $query->where('status', 'cancelled');
+                break;
+            case 'confirmed':
+                $query->where('status', 'confirmed');
+                break;
+        }
+        
+        // Using selected date filter from calendar
+        if (isset($filterParams['dateSearch']) && !empty($filterParams['dateSearch']))
+        {
+            $query->where('booking_date', '=', $filterParams['dateSearch']);
         }
 
-        if (!is_null($patientId) && $patientId !== '') {
-            $query->where('patient_id', $patientId);
+        // Using provided doctor id to filter
+        if (isset($filterParams['doctorId']) && !empty($filterParams['doctorId']))
+        {
+            $query->where('doctor_id', '=', $filterParams['doctorId']);
         }
 
-        if (!is_null($doctorId) && $doctorId !== '') {
-            $query->where('doctor_id', $doctorId);
+        // Using search keyword to find appointments
+        if (isset($filterParams['searchKey']) && !empty($filterParams['searchKey']))
+        {
+            $searchKey = $filterParams['searchKey'];
+            $query->whereHas('patient', function ($query) use ($searchKey) {
+                $query->where('first_name', 'like', "%{$searchKey}%");
+                $query->orWhere('last_name', 'like', "%{$searchKey}%");
+             });
         }
 
         return $query->get();
@@ -76,9 +102,8 @@ class BookingRepository extends BaseRepository
     public function getRecentAppointmentsByDoctorId($doctorId)
     {
         return $this->where('doctor_id', $doctorId)
-            ->where('booking_date', '>', Carbon::now())
-            ->distinct('patient_id')
-            ->orderBy('booking_date', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->where('status','requested')
             ->take(4)
             ->get();
     }
@@ -88,7 +113,7 @@ class BookingRepository extends BaseRepository
         $todayDate = Carbon::now()->toDateString();
         return  $this->where('doctor_id', $doctorId)
             ->where('booking_date', '>=', $todayDate)
-            ->where('status', '!=', 'canceled')
+            ->where('status', '!=', 'cancelled')
             ->orderBy('slot_start_time', 'asc')
             ->first();
     }
@@ -114,9 +139,15 @@ class BookingRepository extends BaseRepository
 
     public function getAllCanceledAppointmentsByDoctorId($doctorId)
     {
-        $todayDate = Carbon::now()->toDateString();
         return  $this->where('doctor_id', $doctorId)
-                ->where('status', '=', 'canceled')
+                ->where('status', '=', 'cancelled')
+                ->get();
+    }
+
+    public function getAllConfirmedAppointments($doctorId)
+    {
+        return  $this->where('doctor_id', $doctorId)
+                ->where('status', '=', 'confirmed')
                 ->get();
     }
 }

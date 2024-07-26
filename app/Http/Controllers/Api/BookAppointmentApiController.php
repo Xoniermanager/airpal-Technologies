@@ -26,6 +26,8 @@ class BookAppointmentApiController extends Controller
                 'booking_slot_time'  => ['required'],
                 'insurance'          => ['boolean'],
                 'description'        => ['required'],
+                'symptoms'           => ['string'],
+                'image'              => ['mimes|jpeg|png|jpg|gif|svg|max:2048'],
             ]);
             if ($validator->fails()) {
                 return response()->json([
@@ -53,7 +55,7 @@ class BookAppointmentApiController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'status'             => ['required', 'in:confirmed,canceled'],
+                'status'             => ['required', 'in:canceled'],
             ]);
             if ($validator->fails()) {
                 return response()->json([

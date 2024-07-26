@@ -16,7 +16,6 @@ class BookingController extends Controller
     public function patientBooking(Request $request)
     {
         $bookedSlot = $this->bookingServices->store($request);
-      
         if ($bookedSlot) {
             return response()->json([
                 'success' => 'true',

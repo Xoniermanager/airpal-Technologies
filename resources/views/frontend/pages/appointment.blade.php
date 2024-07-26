@@ -136,7 +136,7 @@
                                 <h4 class="paitent-title">Patient Details</h4>
                             </div>
                             <div class="paitent-appointment">
-                                <form action="#" id="booking">
+                                <form action="#" id="booking" enctype="multipart/form-data">
                                     @csrf
                                     <div class="forms-block">
                                         <label class="form-group-title">Appointment for</label>
@@ -196,12 +196,11 @@
                                                 <a href="javascript:void(0);"><i class="feather-x"></i></a>
                                             </div>
                                         </div>
-                                        <input type="file" name="" class="form-control inputfile"
-                                            name="image">
+                                        <input type="file" class="form-control inputfile" name="image">
                                     </div>
                                     <div class="forms-block">
                                         <label class="form-group-title">Symptoms <span>(Optional)</span></label>
-                                        <input type="text" class="form-control" placeholder="Skin Allergy">
+                                        <input type="text" class="form-control" placeholder="Skin Allergy" name="symptoms">
                                     </div>
                                     <div class="forms-block mb-0">
                                         <div class="booking-btn">

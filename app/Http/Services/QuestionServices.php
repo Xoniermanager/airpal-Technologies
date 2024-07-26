@@ -2,7 +2,7 @@
 namespace App\Http\Services;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Repositories\UserRepository;
-use App\Http\Repositories\questionsRepository;
+use App\Http\Repositories\QuestionsRepository;
 
 class QuestionServices {
     private  $questionsRepository;

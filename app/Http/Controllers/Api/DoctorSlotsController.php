@@ -86,10 +86,10 @@ class DoctorSlotsController extends Controller
     {
 
         $doctor     = $this->userServices->getDoctorDataById($id);
-        $doctorSlot = $this->doctorSlotServices->getSlotsByDoctorId($doctor->id);
+        $doctorSlot = $this->doctorSlotServices->getDoctorSlotConfiguration($doctor->id);
         if (isset($doctorSlot)) {
             $doctorSlot->exception_days = $doctorSlot->user->doctorExceptionDays;
-            $returnedSlots  = $this->doctorSlotServices->makeSlots($doctorSlot);
+            $returnedSlots  = $this->doctorSlotServices->createDoctorSlots($doctorSlot);
         } else {
             $returnedSlots = [];
         }
@@ -109,8 +109,8 @@ class DoctorSlotsController extends Controller
     //     $data = $request->all();
     //     $date = $data['date'];
     
-    //     $doctorSlots = $this->doctorSlotServices->getSlotsByDoctorId($data['doctor_id']);
-    //     $returnedSlots = $this->doctorSlotServices->makeSlots($doctorSlots);
+    //     $doctorSlots = $this->doctorSlotServices->getDoctorSlotConfiguration($data['doctor_id']);
+    //     $returnedSlots = $this->doctorSlotServices->createDoctorSlots($doctorSlots);
     
     //     $gettingBookedSlots = $this->bookingServices->slotDetails($data)->get();
     
@@ -184,8 +184,8 @@ class DoctorSlotsController extends Controller
         $data = $request->all();
         $date = $data['date'];
 
-        $doctorSlots = $this->doctorSlotServices->getSlotsByDoctorId($data['doctor_id']);
-        $returnedSlots = $this->doctorSlotServices->makeSlots($doctorSlots);
+        $doctorSlots = $this->doctorSlotServices->getDoctorSlotConfiguration($data['doctor_id']);
+        $returnedSlots = $this->doctorSlotServices->createDoctorSlots($doctorSlots);
 
         $gettingBookedSlots = $this->bookingServices->slotDetails($data)->get();
 

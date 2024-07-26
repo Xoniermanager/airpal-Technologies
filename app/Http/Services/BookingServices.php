@@ -26,15 +26,24 @@ class BookingServices
          return str_replace(['AM', 'PM'], '', $time);
       }, explode(' - ', $slot));
 
+      if (isset($data["image"]) && !empty($data['image'])) {
+         $image = $data["image"];
+         if ($image instanceof \Illuminate\Http\UploadedFile) {
+            $filename = 'appointment_booking' . time() . '.' . $image->getClientOriginalName();
+            $destinationPath = public_path('appointments_file');
+            $image->move($destinationPath, $filename);
+         }
+      }
       $payload = [
          'doctor_id'  => $data->doctor_id,
          'patient_id' => $data->patient_id,
          'booking_date'   =>  $data->booking_date,
          'slot_start_time' =>  $start_time,
          'slot_end_time'  =>  $end_time,
-         'attachment' =>  $data->attachment ?? '',
          'insurance'  =>  $data->insurance,
-         'note' => $data->description
+         'note' => $data->description,
+         'symptoms' => $data->symptoms,
+         'image' => $filename ?? '',
       ];
       $bookedSlot  =  $this->bookingRepository->create($payload);
       if ($bookedSlot) {

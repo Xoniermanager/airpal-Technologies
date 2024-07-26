@@ -68,7 +68,7 @@ class DoctorSlotServices
     {
         return $this->doctorSlotRepository->with(['user', 'doctorExceptionDays'])->paginate(10);
     }
-    public function getSlotsByDoctorId($doctorId)
+    public function getDoctorSlotConfiguration($doctorId)
     {
         return $this->doctorSlotRepository->where('user_id', $doctorId)->with(['user', 'doctorExceptionDays'])->first();
     }
@@ -193,60 +193,66 @@ public function updateSlot($data)
     //     }
     // }
 
-    public function makeSlots($data)
+    public function createDoctorSlots($doctorSlotConfigDetails)
     {
-
-        $startDate = date_create($data->start_slots_from_date);
+        $startDate = date_create($doctorSlotConfigDetails->start_slots_from_date);
         $endDate = clone $startDate;
-        date_modify($endDate, '+' . $data->slots_in_advance . ' days');
+        date_modify($endDate, '+' . $doctorSlotConfigDetails->slots_in_advance . ' days');
 
         $formattedStartDate = date_create(date_format($startDate, 'Y-m-d'));
         $formattedEndDate   = date_create(date_format($endDate, 'Y-m-d'));
         $interval = new DateInterval('P1D');
 
         //Step 2 :Getting exception days name and making an array so that we will pass in_array function and if exist
-        if (isset($data->exception_days) && !empty($data->exception_days->toArray())) {
-            foreach ($data->exception_days as $exception_day) {
-                $exception_days_name[] =  DayOfWeek::find($exception_day->exception_days_id)->name;
+        if (isset($doctorSlotConfigDetails->exception_days)) 
+        {
+            $exceptionDays = $doctorSlotConfigDetails->exception_days->toArray();
+            if(count($exceptionDays) > 0 )
+            {
+                foreach($exceptionDays as $exceptionDay) 
+                {
+                    $exceptionDaysName[] =  DayOfWeek::find($exceptionDay['exception_days_id'])->name;
+                }
             }
         }
 
         //Step 3 : Getting date range between start slot date from and advance date (future date)
         $date_range = new DatePeriod($formattedStartDate, $interval, $formattedEndDate);
+
         $allDaySlots = [];
 
-
-
-        foreach ($date_range as $date) {
+        foreach ($date_range as $date) 
+        {
+            
             $dayName = $date->format('l');
             $dateFormatted = $date->format('Y-m-d');
-
+            print_r($dateFormatted);
             // Check if exception_days exist and are not empty, then skip that day of slot creation
-            if (isset($data->exception_days) && !empty($data->exception_days->toArray())) {
-                if (in_array($dayName, $exception_days_name)) {
+            if (isset($doctorSlotConfigDetails->exception_days) && !empty($doctorSlotConfigDetails->exception_days->toArray())) {
+                if (in_array($dayName, $exceptionDaysName)) {
                     continue;
                 }
             }
 
             // start date of month date modification integer to date the compare
-            if (isset($data->start_month)) {
+            if (isset($doctorSlotConfigDetails->start_month)) {
                 $dayNumber = $date->format('j');
-                if ($dayNumber < $data->start_month) {
+                if ($dayNumber < $doctorSlotConfigDetails->start_month) {
                     continue;
                 }
             }
 
             // end date of month date modification integer to date the compare
-            if (isset($data->end_month)) {
+            if (isset($doctorSlotConfigDetails->end_month)) {
                 $dayNumber = $date->format('j');
-                if ($dayNumber > $data->end_month) {
+                if ($dayNumber > $doctorSlotConfigDetails->end_month) {
                     continue;
                 }
             }
 
             // Checking if current date is greater than stop_slots_date exit the loop
-            if (isset($data->stop_slots_date)) {
-                if ($dateFormatted >= $data->stop_slots_date) {
+            if (isset($doctorSlotConfigDetails->stop_slots_date)) {
+                if ($dateFormatted >= $doctorSlotConfigDetails->stop_slots_date) {
                     break;
                 }
             }
@@ -255,13 +261,13 @@ public function updateSlot($data)
             $start = new DateTime('09:00'); // statically set but later do it dynamic
             $end   = new DateTime('19:00');
 
-            $interval      = CarbonInterval::minutes($data->slot_duration);
-            $breakInterval = CarbonInterval::minutes($data->cleanup_interval);
+            $interval      = CarbonInterval::minutes($doctorSlotConfigDetails->slot_duration);
+            $breakInterval = CarbonInterval::minutes($doctorSlotConfigDetails->cleanup_interval);
 
 
 
-            // $interval = new DateInterval("PT" . $data->slot_duration . "M");
-            // $breakInterval = new DateInterval("PT" . $data->cleanup_interval . "M");
+            // $interval = new DateInterval("PT" . $doctorSlotConfigDetails->slot_duration . "M");
+            // $breakInterval = new DateInterval("PT" . $doctorSlotConfigDetails->cleanup_interval . "M");
 
             // $start = $start->format('H:i');
             // $end   = $end->format('H:i');
@@ -289,7 +295,7 @@ public function updateSlot($data)
         return $allDaySlots;
     }
 
-    public function showCalendar($data, $month = '',$year = '')
+    public function CreateDoctorSlotCalendar($data, $month = '',$year = '')
     {
         $doctor_id = $data->id;
         $startDate = date_create($data->start_slots_from_date);

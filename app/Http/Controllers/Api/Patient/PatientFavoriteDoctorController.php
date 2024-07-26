@@ -14,11 +14,11 @@ class PatientFavoriteDoctorController extends Controller
     {
         $this->favoriteDoctorServices = $favoriteDoctorServices;
     }
-    public function getFavoriteDoctors(Request $request)
+    public function getFavoriteDoctors()
     {
-  
+
         try {
-            $doctors =  $this->favoriteDoctorServices->getAllFavoriteDoctors($request->patientId)->get();
+            $doctors =  $this->favoriteDoctorServices->getAllFavoriteDoctors(Auth::guard('api')->user()->id)->get();
             if ($doctors) {
                 return response()->json([
                     "status" => true,

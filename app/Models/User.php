@@ -17,7 +17,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens,HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -66,22 +66,16 @@ class User extends Authenticatable
     protected function fullName(): Attribute
     {
         return new Attribute(
-            get: fn () => $this->first_name .' ' . $this->last_name
+            get: fn () => $this->first_name . ' ' . $this->last_name
         );
     }
 
-    protected function profilePicture(): Attribute
+    protected function imageUrl(): Attribute
     {
-        return new Attribute(
-            get: fn () =>  asset('images/' . $this->image_url)
+        return Attribute::make(
+            get: fn ($value) =>  $value ? asset('images/' .  $value) : ''
         );
     }
-    // protected function imageUrl(): Attribute   
-    // {
-    //     return Attribute::make(
-    //         get: fn($value) =>  $value ? asset('images/' .  $value) : ''
-    //     );
-    // }
 
     public function specializations()
     {
@@ -90,7 +84,11 @@ class User extends Authenticatable
 
     public function services()
     {
-        return $this->belongsToMany(Service::class,'doctor_services');
+        return $this->belongsToMany(Service::class, 'doctor_services');
+    }
+    public function favoriteDoctor()
+    {
+        return $this->hasMany(FavoriteDoctor::class, 'doctor_id');
     }
     public function educations()
     {
@@ -106,36 +104,36 @@ class User extends Authenticatable
     }
     public function language()
     {
-        return $this->belongsToMany(Language::class,'doctor_languages');
+        return $this->belongsToMany(Language::class, 'doctor_languages');
     }
     public function awards()
     {
-        return $this->hasMany(DoctorAward::class,'user_id');
+        return $this->hasMany(DoctorAward::class, 'user_id');
     }
     public function doctorAddress()
     {
-        return $this->hasOne(UserAddress::class,'user_id');
-    }  
-    
+        return $this->hasOne(UserAddress::class, 'user_id');
+    }
+
     public function doctorSlots()
     {
-        return $this->hasMany(DoctorSlots::class,'user_id');
-    }  
+        return $this->hasMany(DoctorSlots::class, 'user_id');
+    }
 
     public function doctorExceptionDays()
     {
-        return $this->hasMany(ExceptionDays::class,'doctor_id');
-    } 
+        return $this->hasMany(ExceptionDays::class, 'doctor_id');
+    }
 
     public function doctorQuestions()
     {
-        return $this->hasMany(DoctorQuestions::class,'doctor_id');
-    } 
+        return $this->hasMany(DoctorQuestions::class, 'doctor_id');
+    }
     public function patientAddress()
     {
-        return $this->hasOne(UserAddress::class,'user_id');
-    }  
-    
+        return $this->hasOne(UserAddress::class, 'user_id');
+    }
+
     public function isAdmin()
     {
         return $this->role === 1;
@@ -153,7 +151,6 @@ class User extends Authenticatable
 
     public function bookedAppointments()
     {
-        return $this->hasMany(BookingSlots::class,'patient_id');
+        return $this->hasMany(BookingSlots::class, 'patient_id');
     }
-
 }

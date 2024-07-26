@@ -26,6 +26,8 @@ class BookAppointmentApiController extends Controller
                 'booking_slot_time'  => ['required'],
                 'insurance'          => ['boolean'],
                 'description'        => ['required'],
+                'symptoms'           => ['string'],
+                'image'              => ['mimes|jpeg|png|jpg|gif|svg|max:2048'],
             ]);
             if ($validator->fails()) {
                 return response()->json([
@@ -53,7 +55,7 @@ class BookAppointmentApiController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'status'             => ['required', 'in:confirm,canceled'],
+                'status'             => ['required', 'in:canceled'],
             ]);
             if ($validator->fails()) {
                 return response()->json([
@@ -79,11 +81,11 @@ class BookAppointmentApiController extends Controller
     public function allAppointment()
     {
         try {
-            $allUpcomingAppointment = $this->bookingAppointmentServices->patientBookings(Auth::guard('api')->user()->id)->get();
+            $allAppointment = $this->bookingAppointmentServices->patientBookings(Auth::guard('api')->user()->id)->with('user')->get();
             return response()->json([
                 'status' => true,
                 'message' => "Retrieved All Appointment List",
-                'data' => $allUpcomingAppointment
+                'data' => $allAppointment
             ], 200);
         } catch (Exception $e) {
             return response()->json([

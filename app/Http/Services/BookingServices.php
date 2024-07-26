@@ -8,7 +8,7 @@ use App\Models\BookingSlots;
 use App\Jobs\BookedSlotMailJob;
 use Illuminate\Support\Facades\Crypt;
 use App\Jobs\DoctorAppointmentQueryMailJob;
-use App\Http\Repositories\bookingRepository;
+use App\Http\Repositories\BookingRepository;
 
 class BookingServices
 {
@@ -161,6 +161,10 @@ class BookingServices
 
 
       return $query->get();
+   }
+   public function updateStatus($status, $id)
+   {
+      return $this->bookingRepository->find($id)->update(['status' => $status]);
    }
 
    //    public function filterRequestAppointments($filterKey, $doctorId)

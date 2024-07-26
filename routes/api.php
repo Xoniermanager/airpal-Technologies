@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\BookAppointmentApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -10,10 +11,10 @@ use App\Http\Controllers\Api\DoctorEducationController;
 use App\Http\Controllers\Api\DoctorExperienceController;
 use App\Http\Controllers\Api\DoctorAppointmentController;
 use App\Http\Controllers\Api\DoctorWorkingHourController;
-use App\Http\Controllers\API\Patient\AllListingController;
+use App\Http\Controllers\Api\Patient\AllListingController;
 use App\Http\Controllers\Api\Patient\DoctorFilterController;
-use App\Http\Controllers\Api\Patient\PatientProfileController;
 use App\Http\Controllers\Api\Patient\PatientDashboardController;
+use App\Http\Controllers\Api\Patient\PatientProfileController;
 use App\Http\Controllers\Api\Patient\PatientFavoriteDoctorController;
 
 Route::get('/user', function (Request $request) {
@@ -65,7 +66,7 @@ Route::middleware('authCheck')->group(function () {
         Route::post('slots/update', 'update');
         Route::get('slots/delete', 'delete');
         Route::get('slots/showSlots/{id}', 'showSlotsByDoctorId');
-        Route::post('slots/get-doctor-slots-by-date', 'getDoctorSlotsByDate')->name('getDoctorSlots.byId');
+        Route::post('slots/get-doctor-slots-by-date', 'getDoctorSlotsByDate');
     });
 
     Route::controller(DoctorAppointmentController::class)->group(function () {
@@ -95,5 +96,11 @@ Route::middleware('authCheck')->prefix('patient')->group(function () {
     });
     Route::controller(DoctorFilterController::class)->group(function () {
         Route::get('search', 'doctorSearch');
+    });
+    Route::controller(BookAppointmentApiController::class)->group(function () {
+        Route::get('all-appointment', 'allAppointment');
+        Route::post('book-appointment', 'bookingAppointment');
+        Route::post('cancel-appointment/{booking_slots:id}', 'cancelAppointment');
+        Route::get('upcoming-all-appointment', 'allUpcomingAppointment');
     });
 });

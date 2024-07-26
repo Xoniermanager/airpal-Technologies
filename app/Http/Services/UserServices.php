@@ -20,7 +20,7 @@ class UserServices
   }
   public function all()
   {
-    return  $this->UserRepository->with(['doctorAddress.states.country','specializations','educations','doctorExceptionDays'])->get();
+    return  $this->UserRepository->with(['doctorAddress.states.country','specializations','educations','doctorExceptionDays','favoriteDoctor'])->get();
   }
   public function addDoctorPersonalDetails($data)
   {

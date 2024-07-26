@@ -79,11 +79,11 @@ class BookAppointmentApiController extends Controller
     public function allAppointment()
     {
         try {
-            $allUpcomingAppointment = $this->bookingAppointmentServices->patientBookings(Auth::guard('api')->user()->id)->get();
+            $allAppointment = $this->bookingAppointmentServices->patientBookings(Auth::guard('api')->user()->id)->with('user')->get();
             return response()->json([
                 'status' => true,
                 'message' => "Retrieved All Appointment List",
-                'data' => $allUpcomingAppointment
+                'data' => $allAppointment
             ], 200);
         } catch (Exception $e) {
             return response()->json([

@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Services;
 use App\Http\Repositories\UserRepository;
-use App\Http\Repositories\questionsRepository;
+use App\Http\Repositories\QuestionsRepository;
 
 class QuestionServices {
     private  $questionsRepository;

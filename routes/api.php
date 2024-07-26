@@ -89,7 +89,7 @@ Route::middleware('authCheck')->prefix('patient')->group(function () {
     Route::controller(PatientFavoriteDoctorController::class)->group(function () {
         Route::get('favorite-doctors', 'getFavoriteDoctors');
         Route::post('add/favorite', 'addFavorite');
-        Route::get('remove/favorite', 'removeFavorite');
+        Route::post('remove/favorite', 'removeFavorite');
     });
     Route::controller(AllListingController::class)->group(function () {
         Route::get('filter-listing', 'listing');

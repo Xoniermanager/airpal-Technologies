@@ -1192,10 +1192,10 @@
             this.element.trigger('outsideClick.daterangepicker', this);
         },
 
-        showCalendars: function() {
+        CreateDoctorSlotCalendars: function() {
             this.container.addClass('show-calendar');
             this.move();
-            this.element.trigger('showCalendar.daterangepicker', this);
+            this.element.trigger('CreateDoctorSlotCalendar.daterangepicker', this);
         },
 
         hideCalendars: function() {
@@ -1207,7 +1207,7 @@
             var label = e.target.getAttribute('data-range-key');
             this.chosenLabel = label;
             if (label == this.locale.customRangeLabel) {
-                this.showCalendars();
+                this.CreateDoctorSlotCalendars();
             } else {
                 var dates = this.ranges[label];
                 this.startDate = dates[0];
@@ -1393,7 +1393,7 @@
                 } else {
                     this.chosenLabel = null;
                 }
-                this.showCalendars();
+                this.CreateDoctorSlotCalendars();
             }
         },
 

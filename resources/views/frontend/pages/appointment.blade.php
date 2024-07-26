@@ -314,12 +314,9 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             $(document).ready(function() {
-
-                checkSlotsByDate('',"<?= $doctorDetails->id ?>");
-
+                
                 jQuery("#booking").validate({
                     rules: {
-
                         // TODO apply it later
                     },
                     messages: {
@@ -391,6 +388,7 @@
             }
 
             function checkSlotsByDate(date, doctorId) {
+                console.log("doctorId : " + doctorId);
                 var url = "{{ route('getDoctorSlots.byId') }}";
                 jQuery.ajax({
                     type: "post",

@@ -61,11 +61,13 @@ class DoctorController extends Controller
   public function appointment($id)
   {
     $doctor = $this->user_services->getDoctorDataById($id); // id is temp will do it later 
-    $doctorSlot = $this->doctorSlotServices->getSlotsByDoctorId($doctor->id);
+    $doctorSlot = $this->doctorSlotServices->getDoctorSlotConfiguration($doctor->id);
     if (isset($doctorSlot)) {
       $doctorSlot->exception_days = $doctorSlot->user->doctorExceptionDays;
-      $returnedSlots  = $this->doctorSlotServices->makeSlots($doctorSlot);
-      $returnCalendar = $this->doctorSlotServices->showCalendar($doctorSlot);
+      $returnedSlots  = $this->doctorSlotServices->createDoctorSlots($doctorSlot);
+      dd($returnedSlots);
+      $returnCalendar = $this->doctorSlotServices->CreateDoctorSlotCalendar($doctorSlot);
+      // dd($returnCalendar);
     } else {
       $returnedSlots = [];
     }
@@ -92,11 +94,11 @@ class DoctorController extends Controller
   {
     $data = $request->all();
     $doctor = $this->user_services->getDoctorDataById($data['doctor_id']); // id is temp will do it later 
-    $doctorSlot = $this->doctorSlotServices->getSlotsByDoctorId($doctor->id);
+    $doctorSlot = $this->doctorSlotServices->getDoctorSlotConfiguration($doctor->id);
     if (isset($doctorSlot)) {
       $doctorSlot->exception_days = $doctorSlot->user->doctorExceptionDays;
-      $returnedSlots = $this->doctorSlotServices->makeSlots($doctorSlot);
-      return $this->doctorSlotServices->showCalendar($doctorSlot, $data['month'], $data['year']);
+      $returnedSlots = $this->doctorSlotServices->createDoctorSlots($doctorSlot);
+      return $this->doctorSlotServices->CreateDoctorSlotCalendar($doctorSlot, $data['month'], $data['year']);
     } else {
       echo "something went wrong";
     }
@@ -105,12 +107,17 @@ class DoctorController extends Controller
 
   public function getDoctorSlotsByDate(Request $request)
   {
-    $data = $request->all();
-    $date = $data['date'];
+    $request->validate([
+        'date'        =>  'required|date',
+        'doctor_id'   =>  'required|integer|exists:users,id,role,2'
+    ]);
+    $requestPayload = $request->validated();
 
-    $doctorSlots        = $this->doctorSlotServices->getSlotsByDoctorId($data['doctor_id']);
-    $returnedSlots      = $this->doctorSlotServices->makeSlots($doctorSlots);
-    $gettingBookedSlots = $this->bookingServices->slotDetails($data)->get();
+    $date = $requestPayload['date'];
+
+    $doctorSlotCongiguration   = $this->doctorSlotServices->getDoctorSlotConfiguration($requestPayload['doctor_id']);
+    $returnedSlots      = $this->doctorSlotServices->createDoctorSlots($doctorSlotCongiguration);
+    $gettingBookedSlots = $this->bookingServices->slotDetails($requestPayload)->get();
 
     $startDateTime = collect($returnedSlots)->map(function ($item, $key) {
       $item['date'] = $key;

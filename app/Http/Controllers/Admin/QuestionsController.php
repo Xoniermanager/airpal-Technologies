@@ -29,8 +29,8 @@ class QuestionsController extends Controller
   public function index()
   {   
 
-    $doctors      = $this->user_services->all();
-    $specialties  = Specialization::all();
+    $doctors      =  $this->user_services->all();
+    $specialties  =  Specialization::all();
     $allQuestions =  $this->questionServices->all();
 
     return view("admin.questions.index", ['allQuestions' => $allQuestions, 'doctors' => $doctors, 'specialties' => $specialties]);
@@ -129,12 +129,11 @@ class QuestionsController extends Controller
           'allQuestions' =>  $this->questionServices->all()
         ])->render()
       ]);
-    
+
   }
 
   public function destroy(Request $request)
   {
-
     if ($this->questionServices->destroy($request->id)) {
       return response()->json([
         'message'     =>  'Delete Successfully!',
@@ -144,6 +143,9 @@ class QuestionsController extends Controller
       ]);
     }
   }
+
+
+  
   
   public function doctorQuestionFilter(Request $request)
   { 
@@ -157,6 +159,16 @@ class QuestionsController extends Controller
   }
 
 
-  
+  public function deleteQuestion(Request $request)
+  {
+    if ($this->questionServices->destroy($request->id)) {
+      return response()->json([
+        'message'     =>  'Delete Successfully!',
+        'data'        =>  view('admin.questions.question-list', [
+          'allQuestions'   =>  $this->questionServices->getQuestionByDoctorId()
+        ])->render()
+      ]);
+    }
+  }
 
 }

@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Services;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Repositories\UserRepository;
 use App\Http\Repositories\questionsRepository;
 
@@ -27,6 +28,9 @@ class QuestionServices {
      }
      public function all(){
       return $this->questionsRepository->with(['user','specialty','options'])->paginate();
+     }
+     public function getQuestionByDoctorId(){
+      return $this->questionsRepository->where('doctor_id',Auth::id())->with(['user','specialty','options'])->paginate();
      }
 
      public function doctorQuestionFilter($searchedKey){

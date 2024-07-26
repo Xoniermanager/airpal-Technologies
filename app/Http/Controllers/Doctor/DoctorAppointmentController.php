@@ -47,9 +47,9 @@ class DoctorAppointmentController extends Controller
     }
     public function appointmentRequests()
     {
+        
         $allRequestedAppointments = $this->bookingServices->requestedAppointment(auth::id())->get();
-        $requestCounter = count($allRequestedAppointments);
-        return view('doctor.request.patient-request',['allRequest' => $allRequestedAppointments,'requestCounter' => $requestCounter]);
+        return view('doctor.request.patient-request',['allRequest' => $allRequestedAppointments]);
     }
 
     public function doctorAppointmentDetails()

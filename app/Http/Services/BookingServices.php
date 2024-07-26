@@ -127,7 +127,9 @@ class BookingServices
 
    public function requestedAppointment($id)
    {
-      return $this->doctorBookings($id)->where('status', 'requested');
+      return $this->doctorBookings($id)
+      ->orderBy('created_at', 'desc')
+      ->where('status', 'requested');
    }
 
 

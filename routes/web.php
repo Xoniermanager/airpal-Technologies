@@ -95,6 +95,9 @@ Route::prefix('doctor')->group(function () {
             Route::get('timing', 'doctorTiming')->name('doctor.doctor-timing.index');
             Route::get('change-password', 'doctorChangepass')->name('doctor.doctor-change-password.index');
             Route::get('specialities', 'doctorSpecialities')->name('doctor.doctor-specialities.index');
+
+
+            Route::post('/update-latest-appointment-request', 'UpdateLatestAppointmentRequestAjax')->name('updateStatus.appointment.request');
         });
 
         Route::controller(DoctorProfileController::class)->group(function () {
@@ -137,15 +140,16 @@ Route::prefix('doctor')->group(function () {
             Route::get('appointment-request', 'appointmentRequests')->name('doctor.doctor-request.index');
             Route::post('update-appointment-status', 'UpdateAppointmentStatus')->name('doctor.status.appointment');
             Route::get('filter-appointment-request', 'filterRequestAppointments')->name('filter.appointment.request');
-            Route::get('appointment-search', 'doctorAppointmentSearch')->name('doctor.appointment-search');
-            
-            
+            Route::get('appointment-search', 'doctorAppointmentSearch')->name('doctor.appointment-search');   
         });
+
+ 
+
         Route::prefix('questions')->controller(QuestionsController::class)->group(function () {
             Route::get('/', 'DoctorQuestionIndex')->name('doctor.questions.index');
             Route::post('create', 'store')->name('doctor.add.questions');
             Route::post('update', 'update')->name('doctor.questions.update');
-            Route::post('delete', 'destroy')->name('doctor.delete-questions');
+            Route::post('delete', 'deleteQuestion')->name('doctor.delete-questions');
 
             Route::get('doctor-question-filter', 'doctorQuestionFilter')->name('doctor.question.filter');
             Route::get('get-question-by-doctor-id', 'getQuestionByDoctorId')->name('get.question.doctor.id');

@@ -54,13 +54,13 @@
                                         <button class="nav-link active" id="pills-upcoming-tab" data-bs-toggle="pill"
                                             data-bs-target="#pills-upcoming" type="button" role="tab"
                                             aria-controls="pills-upcoming"
-                                            aria-selected="false">Active<span>200</span></button>
+                                            aria-selected="false">Regular patient<span>200</span></button>
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link" id="pills-cancel-tab" data-bs-toggle="pill"
                                             data-bs-target="#pills-cancel" type="button" role="tab"
                                             aria-controls="pills-cancel"
-                                            aria-selected="true">InActive<span>22</span></button>
+                                            aria-selected="true">New patient<span>22</span></button>
                                     </li>
                                 </ul>
                             </div>

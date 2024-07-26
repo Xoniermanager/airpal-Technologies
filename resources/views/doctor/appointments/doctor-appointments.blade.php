@@ -248,20 +248,13 @@
             display: flex;
             cursor: pointer;
         }
-
-        .tabs div {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-bottom: none;
-        }
-
-        .tabs .active {
-            background-color: #f1f1f1;
-        }
-
+ .tabs .active a {
+    background-color: #004cd4 !important;
+    color: #fff;
+}
         .tab-content {
             display: none;
-            border: 1px solid #ccc;
+            /* border: 1px solid #ccc; */
             padding: 10px;
         }
 

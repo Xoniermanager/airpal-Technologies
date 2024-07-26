@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Doctor;
 
-use App\Http\Services\DoctorDashboardServices;
 use Illuminate\Http\Request;
 use App\Http\Services\UserServices;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Services\BookingServices;
+use App\Http\Services\DoctorDashboardServices;
+use App\Http\Requests\UpdateLatestAppointmentStatus;
 
 
 class DoctorDashboardController extends Controller
@@ -14,13 +16,15 @@ class DoctorDashboardController extends Controller
 
   private $user_services;
   private $doctorDetails;
-
+  private $bookingServices;
   private $doctorDashboardServices;
 
-  public function __construct(UserServices $user_services, DoctorDashboardServices $doctorDashboardServices)
+  public function __construct(UserServices $user_services, DoctorDashboardServices $doctorDashboardServices,BookingServices $bookingServices)
   {
 
     $this->user_services  = $user_services;
+    $this->bookingServices = $bookingServices;
+
     $this->doctorDetails  = $this->user_services->getDoctorDataById(auth::id());
     $this->doctorDashboardServices = $doctorDashboardServices;
   }
@@ -86,6 +90,26 @@ class DoctorDashboardController extends Controller
   {
     // $request get date range,  days/months/year
     // days selection should be maximum of 30 day range, month will include group by month data sand the same way group data by year-wise
+  }
+
+  public function UpdateLatestAppointmentRequestAjax(UpdateLatestAppointmentStatus $request)
+  {
+    
+    $updateRequest   = $this->bookingServices->updateStatus($request->status,$request->id);
+    $allRequestAppointments = $this->getRecentAppointments();
+    $allAppointments = $this->bookingServices->requestedAppointment(Auth::id())->get();
+
+    if($updateRequest)
+    {
+        return response()->json([
+            'success'             =>  'Update successfully',
+            'requestCounter'      =>  count( $allAppointments),
+            'data'                =>  view("doctor.latest-appointment-list", [
+            'recentAppointments'  =>  $allRequestAppointments ,
+            ])->render()
+          ]);
+    }
+
   }
 
 

@@ -32,6 +32,8 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::middleware('authCheck')->group(function () {
+
+    Route::post('change-password', [AuthController::class, 'changePassword']);
     Route::controller(DoctorProfileController::class)->group(function () {
         Route::get('profile', 'profile');
         Route::post('create', 'createOrUpdate');
@@ -74,33 +76,32 @@ Route::middleware('authCheck')->group(function () {
         Route::get('doctor-upcoming-appointments/{id}', 'doctorUpcomingBookings');
         Route::get('appointments/{id}', 'appointmentsById');
     });
-});
 
-
-// patient routes starts here
-Route::middleware('authCheck')->prefix('patient')->group(function () {
-    Route::controller(PatientDashboardController::class)->group(function () {
-        Route::get('get-dashboard-data', 'getDashBoardData');
-    });
-    Route::controller(PatientProfileController::class)->group(function () {
-        Route::get('profile', 'patientProfile');
-        Route::post('profile/update', 'updateProfile');
-    });
-    Route::controller(PatientFavoriteDoctorController::class)->group(function () {
-        Route::get('favorite-doctors', 'getFavoriteDoctors');
-        Route::post('add/favorite', 'addFavorite');
-        Route::post('remove/favorite', 'removeFavorite');
-    });
-    Route::controller(AllListingController::class)->group(function () {
-        Route::get('filter-listing', 'listing');
-    });
-    Route::controller(DoctorFilterController::class)->group(function () {
-        Route::get('search', 'doctorSearch');
-    });
-    Route::controller(BookAppointmentApiController::class)->group(function () {
-        Route::get('all-appointment', 'allAppointment');
-        Route::post('book-appointment', 'bookingAppointment');
-        Route::post('cancel-appointment/{booking_slots:id}', 'cancelAppointment');
-        Route::get('upcoming-all-appointment', 'allUpcomingAppointment');
+    // patient routes starts here
+    Route::prefix('patient')->group(function () {
+        Route::controller(PatientDashboardController::class)->group(function () {
+            Route::get('get-dashboard-data', 'getDashBoardData');
+        });
+        Route::controller(PatientProfileController::class)->group(function () {
+            Route::get('profile', 'patientProfile');
+            Route::post('profile/update', 'updateProfile');
+        });
+        Route::controller(PatientFavoriteDoctorController::class)->group(function () {
+            Route::get('favorite-doctors', 'getFavoriteDoctors');
+            Route::post('add/favorite', 'addFavorite');
+            Route::post('remove/favorite', 'removeFavorite');
+        });
+        Route::controller(AllListingController::class)->group(function () {
+            Route::get('filter-listing', 'listing');
+        });
+        Route::controller(DoctorFilterController::class)->group(function () {
+            Route::get('search', 'doctorSearch');
+        });
+        Route::controller(BookAppointmentApiController::class)->group(function () {
+            Route::get('all-appointment', 'allAppointment');
+            Route::post('book-appointment', 'bookingAppointment');
+            Route::post('cancel-appointment/{booking_slots:id}', 'cancelAppointment');
+            Route::get('upcoming-all-appointment', 'allUpcomingAppointment');
+        });
     });
 });

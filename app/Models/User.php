@@ -153,4 +153,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(BookingSlots::class, 'patient_id');
     }
+    public function doctorReview()
+    {
+        return $this->hasMany(DoctorReview::class, 'doctor_id');
+    }
 }

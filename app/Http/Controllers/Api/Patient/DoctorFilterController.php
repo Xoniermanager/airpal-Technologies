@@ -16,11 +16,6 @@ class DoctorFilterController extends Controller
     $this->user_services = $user_services;
   }
 
-  public function getAllDoctorFilters()
-  {
-    // Call methof getAllDoctorFilters();  from Doctor Service file
-  }
-
   public function doctorSearch(Request $request)
   {
     try {
@@ -30,6 +25,24 @@ class DoctorFilterController extends Controller
           "status"  => "success",
           "message" => "searching ...",
           "data"    => $searchedItems
+        ]);
+      }
+    } catch (\Throwable $th) {
+      return response()->json([
+        'success' => false,
+        'message' => $th->getMessage()
+      ], 500);
+    }
+  }
+
+  public function getDoctorDetailsById($id)
+  {
+    try {
+      $getAllDetails = $this->user_services->getDoctorDataById($id);
+      if ($getAllDetails) {
+        return response()->json([
+          "status"  => true,
+          "data"    => $getAllDetails
         ]);
       }
     } catch (\Throwable $th) {

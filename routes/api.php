@@ -97,6 +97,7 @@ Route::middleware('authCheck')->group(function () {
         });
         Route::controller(DoctorFilterController::class)->group(function () {
             Route::get('search', 'doctorSearch');
+            Route::get('get-all-doctor/{users:id}', 'getDoctorDetailsById');
         });
         Route::controller(BookAppointmentApiController::class)->group(function () {
             Route::get('all-appointment', 'allAppointment');

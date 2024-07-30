@@ -13,14 +13,14 @@ class UserServices
   private  $UserRepository;
   private $doctorAddressServices;
 
-  public function __construct(UserRepository $UserRepository ,DoctorAddressServices $doctorAddressServices)
+  public function __construct(UserRepository $UserRepository, DoctorAddressServices $doctorAddressServices)
   {
     $this->UserRepository = $UserRepository;
     $this->doctorAddressServices = $doctorAddressServices;
   }
   public function all()
   {
-    return  $this->UserRepository->with(['doctorAddress.states.country','specializations','educations','doctorExceptionDays','favoriteDoctor'])->get();
+    return  $this->UserRepository->with(['doctorAddress.states.country', 'specializations', 'educations', 'doctorExceptionDays', 'favoriteDoctor'])->get();
   }
   public function addDoctorPersonalDetails($data)
   {
@@ -48,38 +48,38 @@ class UserServices
 
   public function getDoctorDataForAdmin()
   {
-    return $this->UserRepository->where('role',2)->with(["educations", "experiences", "workingHour", "specializations", "services", "language"])->orderBy('id', 'desc')->paginate(10);
+    return $this->UserRepository->where('role', 2)->with(["educations", "experiences", "workingHour", "specializations", "services", "language"])->orderBy('id', 'desc')->paginate(10);
   }
 
   public function getDoctorDataForFrontend()
   {
-    return $this->UserRepository->where('role',2)->with(["experiences", "specializations", "services"])->paginate(5);
+    return $this->UserRepository->where('role', 2)->with(["experiences", "specializations", "services"])->paginate(5);
   }
   public function getDoctorDataById($id)
   {
-    return $this->UserRepository->where('id', $id)->with(["educations.course", "experiences.hospital", "workingHour", "specializations", "services", "workingHour.daysOfWeek", "language", 'awards.award','doctorAddress.country','doctorAddress.states'])->first();
+    return $this->UserRepository->where('id', $id)->with(["educations.course", "experiences.hospital", "workingHour", "specializations", "services", "workingHour.daysOfWeek", "language", 'awards.award', 'doctorAddress.country', 'doctorAddress.states'])->first();
   }
   public function updateOrCreateDoctor($data)
   {
     $filename = null;
     $payload   = [
-                  "first_name"   => $data["first_name"],
-                  "last_name"    => $data["last_name"],
-                  "display_name" => $data["display_name"] ?? '',
-                  "gender"       => $data["gender"] ?? '',
-                  "email"        => $data["email"],
-                  "phone"        => $data["phone"],
-                  "role"         => 2,
-                  "description"  => $data["description"]?? '',
-                ];
+      "first_name"   => $data["first_name"],
+      "last_name"    => $data["last_name"],
+      "display_name" => $data["display_name"] ?? '',
+      "gender"       => $data["gender"] ?? '',
+      "email"        => $data["email"],
+      "phone"        => $data["phone"],
+      "role"         => 2,
+      "description"  => $data["description"] ?? '',
+    ];
     if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
-      
-        $file     = $data['image'];
-        $filename = time() . '.' . $file->getClientOriginalExtension();
-        $destinationPath = public_path('images');
-        $file->move($destinationPath, $filename);
-        $payload['image_url'] = $filename;
-  }
+
+      $file     = $data['image'];
+      $filename = time() . '.' . $file->getClientOriginalExtension();
+      $destinationPath = public_path('images');
+      $file->move($destinationPath, $filename);
+      $payload['image_url'] = $filename;
+    }
 
     if (isset($data['password'])) {
       $payload['password'] = Hash::make($data["password"]);
@@ -112,43 +112,43 @@ class UserServices
 
     $query = $this->UserRepository->newQuery();
 
-    
+
     if (!empty($data['gender'])) {
-          $query->whereIn('gender', $data['gender']);
+      $query->whereIn('gender', $data['gender']);
     }
 
     if (!empty($data['languages'])) {
-          $query->whereHas('language', function ($q) use ($data) {
-              $q->whereIn('languages.id', $data['languages']);
-          });
+      $query->whereHas('language', function ($q) use ($data) {
+        $q->whereIn('languages.id', $data['languages']);
+      });
     }
 
     if (!empty($data['specialty'])) {
       $query->whereHas('specializations', function ($q) use ($data) {
-          $q->whereIn('specializations.id', $data['specialty']);
+        $q->whereIn('specializations.id', $data['specialty']);
       });
     }
     if (!empty($data['services'])) {
       $query->whereHas('services', function ($q) use ($data) {
-          $q->whereIn('services.id', $data['services']);
+        $q->whereIn('services.id', $data['services']);
       });
     }
 
     if (!empty($data['experience'])) {
       $expArray = [];
       foreach ($data['experience'] as $experience) {
-          $value = explode('-', $experience);
-          $expArray[] = [$value[0], isset($value[1]) ? $value[1] : ''];
+        $value = explode('-', $experience);
+        $expArray[] = [$value[0], isset($value[1]) ? $value[1] : ''];
       }
 
       $query->where(function ($query) use ($expArray) {
-          foreach ($expArray as $range) {
-              $query->orWhereBetween('experience_years', $range);
-          }
+        foreach ($expArray as $range) {
+          $query->orWhereBetween('experience_years', $range);
+        }
       });
     }
-    
-       return $query->paginate(10);
+
+    return $query->paginate(10);
   }
 
   public function getDoctorQuestionById($id)
@@ -170,31 +170,29 @@ class UserServices
   {
     $filename = null;
     $payload   = [
-                  "first_name"   => $data["first_name"],
-                  "last_name"    => $data["last_name"],
-                  "display_name" => $data["display_name"] ?? '',
-                  "gender"       => $data["gender"] ?? '',
-                  "dob"          => $data["dob"] ?? '',
-                  "blood_group"  => $data["blood_group"] ?? '',
-                  "email"        => $data["email"],
-                  "phone"        => $data["phone"],
-                  "role"         => 3,
-                  "description"  => $data["description"]?? '',
-                ];
+      "first_name"   => $data["first_name"],
+      "last_name"    => $data["last_name"],
+      "display_name" => $data["display_name"] ?? '',
+      "gender"       => $data["gender"] ?? '',
+      "dob"          => $data["dob"] ?? '',
+      "blood_group"  => $data["blood_group"] ?? '',
+      "email"        => $data["email"],
+      "phone"        => $data["phone"],
+      "role"         => 3,
+      "description"  => $data["description"] ?? '',
+    ];
 
     if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
-        $file     = $data['image'];
-        $filename = time() . '.' . $file->getClientOriginalExtension();
-        $destinationPath = public_path('images');
-        $file->move($destinationPath, $filename);
-        $payload['image_url'] = $filename;
-  }
-    // dd( $payload);
+      $file     = $data['image'];
+      $filename = time() . '.' . $file->getClientOriginalExtension();
+      $destinationPath = public_path('images');
+      $file->move($destinationPath, $filename);
+      $payload['image_url'] = $filename;
+    }
     $user = $this->UserRepository->updateOrCreate(
       ['email' => $data["email"]],
       $payload
     );
-    
     $message = $user->wasRecentlyCreated ? 'Patient created successfully.' : 'Patient updated successfully.';
     $status  = $user->wasRecentlyCreated ? 'created' : 'updated';
 
@@ -206,7 +204,4 @@ class UserServices
       ]
     );
   }
-
-
-
 }

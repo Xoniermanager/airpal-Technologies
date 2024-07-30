@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\UserOtp;
 use App\Jobs\SendOtpJob;
+use App\Mail\SendMailToUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -41,7 +42,7 @@ class AuthServices
         if ($user && Hash::check($credentials['password'], $user->password)) {
             return $this->sendOtp($user, $credentials['email']);
         }
-    
+
         return [
             'status' => 422,
             "success" => false,
@@ -58,7 +59,7 @@ class AuthServices
                 'email' => $email,
                 'otp' => $code,
             ];
-            if (SendOtpJob::dispatch($mailData)) {
+            if (Mail::to("yashxoniertechnologies@gmail.com")->send(new SendMailToUser($mailData))) {
                 return ['status' => 200, 'success' => true, 'message' => 'OTP sent on mail'];
             } else {
                 return ['status' => 500, 'success' => false, 'message' => 'Error while sending mail'];
@@ -87,7 +88,7 @@ class AuthServices
     public function forgetPasswordSendOtp($data)
     {
         $email = $data['email'];
-        if (RateLimiter::tooManyAttempts('otp:'.$email, 10)) {
+        if (RateLimiter::tooManyAttempts('otp:' . $email, 10)) {
             return [
                 'status' => 429,
                 'success' => false,
@@ -97,7 +98,7 @@ class AuthServices
         $user = $this->userRepository->where('email', $email)->first();
         if ($user) {
             $this->sendOtp($user, $email);
-            RateLimiter::hit('otp:'.$email);
+            RateLimiter::hit('otp:' . $email);
             return [
                 'status' => 200,
                 'success' => true,
@@ -160,43 +161,46 @@ class AuthServices
         }
     }
 
-public function forgetPassword(array $data)
-{
-    $email = $data['email'];
-    $otp   = $data['otp'];
-    $newPassword = $data['new_password'];
-    $user = $this->userRepository->where('email', $email)->first();
-    if ($user) {
-        $validOtp = UserOtp::where([
-            'user_id' => $user->id,
-            'otp' => $otp
-        ])->where('updated_at', '>=', now()->subMinutes(2)) 
-        ->first();
+    public function forgetPassword(array $data)
+    {
+        $email = $data['email'];
+        $otp   = $data['otp'];
+        $newPassword = $data['new_password'];
+        $user = $this->userRepository->where('email', $email)->first();
+        if ($user) {
+            $validOtp = UserOtp::where([
+                'user_id' => $user->id,
+                'otp' => $otp
+            ])->where('updated_at', '>=', now()->subMinutes(2))
+                ->first();
 
-        if ($validOtp) {
-            $user->password = bcrypt($newPassword);
-            $user->save();
+            if ($validOtp) {
+                $user->password = bcrypt($newPassword);
+                $user->save();
 
-            $validOtp->delete();
-            return [
-                "success" => true,
-                "status" => 200,
-                "message" => "Password reset successfully. You can now log in with your new password."
-            ];
+                $validOtp->delete();
+                return [
+                    "success" => true,
+                    "status" => 200,
+                    "message" => "Password reset successfully. You can now log in with your new password."
+                ];
+            } else {
+                return [
+                    "success" => false,
+                    "status" => 400,
+                    "message" => "Invalid or expired OTP."
+                ];
+            }
         } else {
             return [
                 "success" => false,
                 "status" => 400,
-                "message" => "Invalid or expired OTP."
+                "message" => "User not found."
             ];
         }
-    } else {
-        return [
-            "success" => false,
-            "status" => 400,
-            "message" => "User not found."
-        ];
     }
-}
-
+    public function changePassword($id, $password)
+    {
+        return $this->userRepository->find($id)->update(['password' => Hash::make($password)]);
+    }
 }

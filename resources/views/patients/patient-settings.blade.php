@@ -47,7 +47,7 @@
                                         <div class="imgs-load d-flex align-items-center">
                                             <div class="change-photo">
                                                 Upload New
-                                                <input type="file" class="upload" name="image"  id="imgInp">
+                                                <input type="file" class="upload" name="image"  id="imgInp" value="{{$patientDetails->image_url}}">
                                             </div>
                                             {{-- <a href="#" class="upload-remove">Remove</a> --}}
                                         </div>

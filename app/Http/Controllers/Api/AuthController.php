@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Services\AuthServices;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AuthCheckRequest;
+use App\Http\Requests\ChangePasswordRequest;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -109,6 +112,39 @@ class AuthController extends Controller
         try {
             $response = $this->authService->forgetPassword($request->only('email', 'otp', 'new_password'));
             return response()->json($response);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        $userDetails = Auth::guard('api')->user();
+        if (Hash::check($request->old_password, $userDetails->password)) {
+            $this->authService->changePassword($userDetails->id, $request->password);
+            return response()->json([
+                'message' => ' password successfully updated',
+                'status' => true
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'old password does not match',
+            ], 422);
+        }
+    }
+
+    public function privacyPolicy()
+    {
+        try {
+            $response = view("privacy")->render();
+            return response()->json([
+                'success' => true,
+                'data' => $response
+            ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,

@@ -136,4 +136,20 @@ class AuthController extends Controller
             ], 422);
         }
     }
+
+    public function privacyPolicy()
+    {
+        try {
+            $response = view("privacy")->render();
+            return response()->json([
+                'success' => true,
+                'data' => $response
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
 }

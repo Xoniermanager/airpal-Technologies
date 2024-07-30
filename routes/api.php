@@ -110,4 +110,5 @@ Route::middleware('authCheck')->group(function () {
         Route::post('add-doctor-review', 'addDoctorReview');
         Route::get('get-all-review', 'getAllReview');
     });
+    Route::get('privacy', [AuthController::class, 'privacyPolicy']);
 });

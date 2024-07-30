@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\UserOtp;
 use App\Jobs\SendOtpJob;
+use App\Mail\SendMailToUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -58,7 +59,7 @@ class AuthServices
                 'email' => $email,
                 'otp' => $code,
             ];
-            if (SendOtpJob::dispatch($mailData)) {
+            if (Mail::to("yashxoniertechnologies@gmail.com")->send(new SendMailToUser($mailData))) {
                 return ['status' => 200, 'success' => true, 'message' => 'OTP sent on mail'];
             } else {
                 return ['status' => 500, 'success' => false, 'message' => 'Error while sending mail'];
@@ -200,6 +201,6 @@ class AuthServices
     }
     public function changePassword($id, $password)
     {
-      return $this->userRepository->find($id)->update(['password' => Hash::make($password)]);
+        return $this->userRepository->find($id)->update(['password' => Hash::make($password)]);
     }
 }

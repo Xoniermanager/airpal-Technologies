@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\DoctorProfileController;
 use App\Http\Controllers\Api\DoctorEducationController;
 use App\Http\Controllers\Api\DoctorExperienceController;
 use App\Http\Controllers\Api\DoctorAppointmentController;
+use App\Http\Controllers\Api\DoctorReviewController;
 use App\Http\Controllers\Api\DoctorWorkingHourController;
 use App\Http\Controllers\Api\Patient\AllListingController;
 use App\Http\Controllers\Api\Patient\DoctorFilterController;
@@ -103,5 +104,10 @@ Route::middleware('authCheck')->group(function () {
             Route::post('cancel-appointment/{booking_slots:id}', 'cancelAppointment');
             Route::get('upcoming-all-appointment', 'allUpcomingAppointment');
         });
+    });
+
+    Route::controller(DoctorReviewController::class)->group(function () {
+        Route::post('add-doctor-review', 'addDoctorReview');
+        Route::get('get-all-review', 'getAllReview');
     });
 });

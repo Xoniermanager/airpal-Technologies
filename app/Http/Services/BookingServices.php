@@ -175,29 +175,4 @@ class BookingServices
    {
       return $this->bookingRepository->find($id)->update(['status' => $status]);
    }
-
-   //    public function filterRequestAppointments($filterKey, $doctorId)
-   //    {
-   //        $query = $this->bookingRepository->query(); // Ensure you're using the correct model
-
-   //        // Add the common status filter
-   //        $query->where('status', 'requested');
-   //        // Add additional filters based on the filter key
-   //        if ($filterKey == 'month') {
-   //            $query->whereMonth('booking_date', Carbon::now()->month);
-   //        } elseif ($filterKey == 'today') {
-   //            $query->whereDate('booking_date', Carbon::now()->toDateString());
-   //        } elseif ($filterKey == 'week') {
-   //            $query->whereBetween('booking_date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
-   //        } elseif ($filterKey == 'all') {
-   //            // No additional date filter for 'all'
-   //        }
-
-   //        // Filter by doctor ID if provided
-   //        if (!is_null($doctorId) && $doctorId !== '') {
-   //            $query->where('doctor_id', $doctorId);
-   //        }
-   // dd($query->Tosql());
-   //        return $query->get();
-   //    }
 }

@@ -18,6 +18,6 @@ class DoctorReviewService
 
    public function all()
    {
-      return $this->doctorReviewRepository->with(['doctor:id,display_name,image_url,email','patient:id,first_name,last_name,email,image_url'])->get()->groupBy('doctor_id');
+      return $this->doctorReviewRepository->with(['doctor:id,display_name,image_url,email','patient:id,first_name,last_name,email,image_url'])->get();
    }
 }

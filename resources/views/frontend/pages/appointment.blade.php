@@ -95,13 +95,14 @@
                         <div class="Appointment-header">
                             <h4 class="Appointment-title">Appointment Summary</h4>
                         </div>
+          
                         <div class="card Appointment-card">
                             <div class="card-body Appointment-card-body">
                                 <div class="Appointment-doctor-details">
                                     <div class="Appointment-doctor-left">
                                         <div class="Appointment-doctor-img">
                                             <a href="doctor-profile.html">
-                                                <img src="{{ asset('images/' . $doctorDetails->image_url) }}"
+                                                <img src="{{ $doctorDetails['image_url'] }}"
                                                     onerror="this.src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}';"
                                                     alt="John Doe">
                                             </a>
@@ -109,14 +110,22 @@
                                         <div class="Appointment-doctor-info mt-3">
                                             <h4><a href="doctor-profile.html">Dr. {{ $doctorDetails->fullName }}</a>
                                             </h4>
-                                            <p>MBBS, Dentist</p>
+                                            @isset($doctorDetails)
+                                            @forelse ($doctorDetails->educations as $education)
+                                            {{$education->course->name}}
+                                            @if( !$loop->last),@endif
+                                            @empty
+                                            <p>N/A</p>
+                                            @endforelse
+                                            @endisset
+                                            {{-- <p>MBBS, Dentist</p> --}}
                                         </div>
                                     </div>
                                     <div class="Appointment-doctor-right">
-                                        <p>
+                                        {{-- <p>
                                             <i class="fas fa-check-circle"></i>
                                             <a href="search.html">Edit</a>
-                                        </p>
+                                        </p> --}}
                                     </div>
                                 </div>
                             </div>
@@ -223,7 +232,7 @@
                                         <div class="booking-doctor-left">
                                             <div class="booking-doctor-img">
                                                 <a href="doctor-profile.html">
-                                                    <img src="{{ asset('images/' . $doctorDetails->image_url) }}"
+                                                    <img src="{{ $doctorDetails['image_url'] }}"
                                                         onerror="this.src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}';"
                                                         alt="John Doe">
                                                 </a>
@@ -231,7 +240,14 @@
                                             <div class="booking-doctor-info">
                                                 <h4><a href="doctor-profile.html">{{ $doctorDetails->fullName }}</a>
                                                 </h4>
-                                                <p>MBBS, Dentist</p>
+                                                @isset($doctorDetails)
+                                                @forelse ($doctorDetails->educations as $education)
+                                                {{$education->course->name}}
+                                                @if( !$loop->last),@endif
+                                                @empty
+                                                <p>N/A</p>
+                                                @endforelse
+                                                @endisset
                                             </div>
                                         </div>
                                         <div class="booking-doctor-right">
@@ -309,10 +325,16 @@
             </div>
         </div>
         @include('include.footer')
+        <script>
+            var site_base_url = "{{ env('SITE_BASE_URL') }}";
+            </script>
         <script src="{{ asset('/assets/js/jquery-3.7.1.min.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <script>
+
+
             $(document).ready(function() {
                 
                 jQuery("#booking").validate({
@@ -329,7 +351,7 @@
                         },
                     },
                     submitHandler: function(form) {
-                 var formData = new FormData(form);
+                    var formData = new FormData(form);
                         $.ajax({
                             url: "<?= route('patient.booking') ?>",
                             type: 'post',
@@ -338,11 +360,13 @@
                             processData: false,
                             contentType: false,
                             success: function(response) {
+                              if (response.status == 200) {
                                 swal.fire("Done!", response.message, "success");
-                                window.location.href = "http://127.0.0.1:8000/doctor/success";
-                                // if (response.success == true) {
+                                console.log(site_base_url);
+                                window.location.href = site_base_url + "doctor/success";
+                                }
 
-                                // }
+           
                             },
                             error: function(error_messages) {
 
@@ -361,7 +385,6 @@
 
             function ajax_update_calendar(month, year, doctor_id) {
                 var url = "{{ route('update.calendar') }}";
-
                 jQuery.ajax({
                     type: "post",
                     url: url,
@@ -374,11 +397,9 @@
                     dataType: "html", 
                     cache: false,
                     success: function(response) {
-                        if(response.success == true){
                         jQuery(".calenderwrap").remove();
-                        $('.calendar').replaceWith(response);
+                        $('.calendar').html(response);
                         jQuery(".slot-bookings").html("");
-                        }
                     },
                     error: function(error_data) {
                         console.log(error_data);
@@ -388,7 +409,6 @@
             }
 
             function checkSlotsByDate(date, doctorId) {
-                console.log("doctorId : " + doctorId);
                 var url = "{{ route('getDoctorSlots.byId') }}";
                 jQuery.ajax({
                     type: "post",
@@ -398,9 +418,11 @@
                         date: date,
                         doctor_id: doctorId,
                     },
-                    dataType: "json",
+                    // dataType: "json",
                     cache: false,
                     success: function(response) {
+                        console.log('show',response);
+                        jQuery('.appointment-time').html(response.html);
                         $('.appointment-time').html(response.html).hide().delay(200).fadeIn();
                     },
                     error: function(error_data) {

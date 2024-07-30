@@ -87,7 +87,7 @@
                                 <a href="#">
                                     <div class="doctor-profile-img">
                                         <a href="{{route('frontend.doctor.profile',['user'=> $doctor->id])}}">
-                                        <img src="{{asset('images/').'/'.$doctor->image_url}}" class="img-fluid" alt="Ruby Perrin" 
+                                        <img src="{{ $doctor['image_url'] }}" class="img-fluid" alt="Ruby Perrin" 
                                         onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" 
                                         >
                                         </a>

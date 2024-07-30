@@ -97,7 +97,16 @@ public function filterInQuestion($searchedKey)
     }
     if (!empty($data['answerType'])) {
       $query->whereIn('answerType', $data['answerType']);
-}
+   }
        return $query->paginate(6);
+  }
+
+  /**
+   * Creating HTML for the selected question
+   * show the html in pop up to update
+   */
+  public function getSelectedQuestionHTML($questionId)
+  {
+     
   }
 }

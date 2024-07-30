@@ -14,114 +14,115 @@ use App\Http\Requests\SearchAppointmentsRequest;
 
 class DoctorAppointmentController extends Controller
 {
-    private $user_services;
-    private $bookingServices;
-    private $doctorDashboardServices;
-    public function __construct(UserServices $user_services, BookingServices $bookingServices,DoctorDashboardServices $doctorDashboardServices)
-    {
-        $this->user_services   = $user_services;
-        $this->bookingServices = $bookingServices;
-        $this->doctorDashboardServices = $doctorDashboardServices;
-        
-    }
+  private $user_services;
+  private $bookingServices;
+  private $doctorDashboardServices;
+  public function __construct(UserServices $user_services, BookingServices $bookingServices, DoctorDashboardServices $doctorDashboardServices)
+  {
+    $this->user_services   = $user_services;
+    $this->bookingServices = $bookingServices;
+    $this->doctorDashboardServices = $doctorDashboardServices;
+  }
 
-    public function doctorAppointments()
-    {
-        $getTotalAppointment = $this->doctorDashboardServices->getTotalAppointment();
-        $todayAppointments   = $this->doctorDashboardServices->getTodayAppointmentCounter();
-        $getUpComingAppointment   = $this->doctorDashboardServices->getAllUpcomingAppointments();
-        $getAllCanceledAppointments   = $this->doctorDashboardServices->getAllCanceledAppointments();
-        $getAllConfirmedAppointments   = $this->doctorDashboardServices->getAllConfirmedAppointments();
-
-        $doctorDetails   = $this->user_services->getDoctorDataById(auth::id());
-        $allAppointments = $this->bookingServices->doctorBookings(auth::id())->get();
-        return view('doctor.appointments.doctor-appointments',[
-         'doctorDetails' => $doctorDetails, 
-         'bookings' => $allAppointments,
-         'todayBookingCounter' => $todayAppointments,
-         'doctorTotalAppointmentCounter' => $getTotalAppointment,
-         'getUpComingAppointmentCounter' => count($getUpComingAppointment),
-         'getAllCanceledAppointments' => count($getAllCanceledAppointments),
-         'getAllConfirmedAppointments'   =>  count($getAllConfirmedAppointments),
+  public function doctorAppointments()
+  {
+    try {
+      $allAppointments = $this->bookingServices->doctorBookings(Auth::id())->paginate(9)->setPath(route('doctor.appointments.index'));
+      $allAppointmentCounter = $this->bookingServices->getAllAppointmentCounter(Auth::id());
+      if ($allAppointmentCounter) {
+        return view('doctor.appointments.doctor-appointments', [
+          'bookings' => $allAppointments,
+          'counters' => $allAppointmentCounter,
         ]);
+      }
+    } catch (\Exception $e) {
+      return  $e->getMessage();
     }
-    public function appointmentRequests()
-    {
-        
-        $allRequestedAppointments = $this->bookingServices->requestedAppointment(auth::id())->get();
-        return view('doctor.request.patient-request',['allRequest' => $allRequestedAppointments]);
+  }
+
+  public function appointmentRequests()
+  {
+    try {
+      $allRequestedAppointments = $this->bookingServices->requestedAppointment(auth::id())->paginate(10);
+      return view('doctor.request.patient-request', ['allRequest' => $allRequestedAppointments]);
+    } catch (\Exception $e) {
+      return  $e->getMessage();
     }
+  }
 
-    public function doctorAppointmentDetails()
-    {
-        $doctorDetails = $this->user_services->getDoctorDataById(auth::id());
-        return view('doctor.appointments.doctor-appointment-details', ['doctorDetails' => $doctorDetails]);
-    }
+  public function doctorAppointmentFilter(SearchAppointmentsRequest $searchAppointmentsRequest)
+  {
+    $filterParams = $searchAppointmentsRequest->validated();
+    $filtered  = $this->bookingServices->searchDoctorAppointments($filterParams);
 
-    public function doctorAppointmentFilter(SearchAppointmentsRequest $searchAppointmentsRequest)
-    {
-        $filterParams = $searchAppointmentsRequest->validated();
-        $filtered  = $this->bookingServices->searchDoctorAppointments($filterParams);
+    $gridHtml = view("doctor.appointments.appointment-list", [
+      'bookings' =>  $filtered
+    ])->render();
 
-        $gridHtml = view("doctor.appointments.appointment-list", [
+    $listHtml = view("doctor.appointments.list-view-appointment", [
+      'bookings' =>  $filtered
+    ])->render();
+
+    return response()->json([
+      'success' => 'Searching',
+      'data'   =>  [
+        'list'  =>  $listHtml,
+        'grid'  =>  $gridHtml
+      ]
+    ]);
+  }
+  public function doctorAppointmentSearch(Request $request)
+  {
+    try {
+      $filterKey = $request->key;
+      $doctorId  = $request->doctorId;
+      $filtered  = $this->bookingServices->doctorAppointmentSearch($filterKey, '', $doctorId);
+      return response()->json([
+        'success' => 'Searching',
+        'data'   =>  view("doctor.appointments.appointment-list", [
           'bookings' =>  $filtered
-        ])->render();
+        ])->render()
+      ]);
+    } catch (\Exception $e) {
+      return  $e->getMessage();
+    }
+  }
 
-        $listHtml = view("doctor.appointments.list-view-appointment", [
-          'bookings' =>  $filtered
-        ])->render();
 
+  public function UpdateAppointmentStatus(Request $request)
+  {
+    try {
+      $updateRequest   = $this->bookingServices->update($request->all(), $request->patientId);
+      $allAppointments = $this->bookingServices->requestedAppointment(Auth::id())->paginate(10)->setPath(route('doctor.doctor-request.index'));
+      if ($updateRequest) {
         return response()->json([
-            'success' => 'Searching',
-            'data'   =>  [
-              'list'  =>  $listHtml,
-              'grid'  =>  $gridHtml
-            ]
-          ]);
+          'success'    =>  'Update successfully',
+          'requestCounter' => count($allAppointments),
+          'data'       =>  view("doctor.request.list", [
+            'allRequest' =>  $allAppointments,
+          ])->render()
+        ]);
+      }
+    } catch (\Exception $e) {
+      return  $e->getMessage();
     }
-    public function doctorAppointmentSearch(Request $request)
-    {
-        $filterKey = $request->key;
-        $doctorId  = $request->doctorId;
-        $filtered  = $this->bookingServices->doctorAppointmentSearch($filterKey, '', $doctorId);
-        return response()->json([
-            'success' => 'Searching',
-            'data'   =>  view("doctor.appointments.appointment-list", [
-              'bookings' =>  $filtered
-            ])->render()
-          ]);
+  }
+
+  public function filterRequestAppointments(Request $request)
+  {
+    try {
+      $filterKey = $request->filterKey;
+      $doctorId  = Auth::id();
+      $filtered  = $this->bookingServices->filterRequestAppointments($filterKey, $doctorId);
+      return response()->json([
+        'success' => 'Filtering',
+        'data'    =>  view("doctor.request.list", [
+          'allRequest' =>  $filtered,
+
+        ])->render()
+      ]);
+    } catch (\Exception $e) {
+      return  $e->getMessage();
     }
-
-    
-
-    public function UpdateAppointmentStatus(Request $request)
-    {
-        $updateRequest   = $this->bookingServices->update($request->all(),$request->patientId);
-        $allAppointments = $this->bookingServices->requestedAppointment(Auth::id())->get();
-
-        if($updateRequest)
-        {
-            return response()->json([
-                'success'    =>  'Update successfully',
-                'requestCounter' => count($allAppointments),
-                'data'       =>  view("doctor.request.list", [
-                'allRequest' =>  $allAppointments ,
-                ])->render()
-              ]);
-        }
-    }
-
-    public function filterRequestAppointments(Request $request)
-    {
-        $filterKey = $request->filterKey;
-        $doctorId  = Auth::id();
-        $filtered  = $this->bookingServices->filterRequestAppointments($filterKey,$doctorId);
-        return response()->json([
-            'success' => 'Filtering',
-            'data'    =>  view("doctor.request.list", [
-              'allRequest' =>  $filtered,
-
-            ])->render()
-          ]);
-    }
+  }
 }

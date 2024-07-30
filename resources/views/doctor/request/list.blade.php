@@ -7,7 +7,7 @@
                         <a href="{{ route('doctor.doctor-patients.index') }}">
                             {{-- <img src="../assets/img/doctors-dashboard/profile-01.jpg"
                         alt=""> --}}
-                            <img src="{{ asset('images/' . $request->patient->image_url) }}">
+                            <img src="{{ $request->patient->image_url }}">
                         </a>
                         <div class="patient-info">
                             <p>#Apt0001</p>
@@ -50,7 +50,11 @@
         </div>
 
     @empty
-    
         <p>No Request Avaiable</p>
     @endforelse
+
+    <div class="mt-3 d-flex justify-content-end">
+        {{ $allRequest->links() }}
+    </div>
+    
 </div>

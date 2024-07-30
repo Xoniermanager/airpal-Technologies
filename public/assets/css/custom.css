@@ -46211,3 +46211,130 @@ td.date.halfFull button {
 .error {
     color: red;
 }
+
+
+/* ribben css */
+
+
+:root {
+  --hot-one: hsl(0, 96%, 49%);
+  --hot-two: hsl(0, 89%, 30%);
+  --new-one: hsl(75, 88%, 42%);
+  --new-two: hsl(78, 89%, 35%);
+  --pop-one: hsl(207, 69%, 50%);
+  --pop-two: hsl(212, 67%, 36%);
+  --spo-one: hsl(38, 96%, 49%);
+  --spo-two: hsl(34, 89%, 30%);
+  --box-shadow: hsl(0, 0%, 0%);
+  --white: hsl(0, 0%, 100%);
+}
+.ribbon {
+  position: absolute;
+  right: -0.313rem;
+  top: -0.313rem;
+  z-index: 1;
+  overflow: hidden;
+  width: 4.688rem;
+  height: 4.688rem;
+  text-align: right;
+}
+.ribbon span {
+  font-size: 0.625rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.25rem;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  width: 6.25rem;
+  display: block;
+  position: absolute;
+  top: 1.188rem;
+  right: -1.313rem;
+}
+.ribbon-hot span {
+  color: var(--white);
+  background: var(--hot-one);
+  background: linear-gradient(var(--hot-one) 0%, var(--hot-two) 100%);
+  box-shadow: 0 0.188rem 0.625rem -0.313rem var(--box-shadow);
+}
+.ribbon-new span {
+  color: var(--white);
+  background: var(--new-one);
+  background: linear-gradient(var(--new-one) 0%, var(--new-two) 100%);
+  box-shadow: 0 0.188rem 0.625rem -0.313rem var(--box-shadow);
+}
+.ribbon-pop span {
+  color: var(--white);
+  background: var(--pop-one);
+  background: linear-gradient(var(--pop-one) 0%, var(--pop-two) 100%);
+  box-shadow: 0 0.188rem 0.625rem -0.313rem var(--box-shadow);
+}
+.ribbon-spo span {
+  color: var(--white);
+  background: var(--spo-one);
+  background: linear-gradient(var(--spo-one) 0%, var(--spo-two) 100%);
+  box-shadow: 0 0.188rem 0.625rem -0.313rem var(--box-shadow);
+}
+.ribbon span::before {
+  content: "";
+  position: absolute;
+  left: 0rem;
+  top: 100%;
+  z-index: -1;
+}
+.ribbon span::after {
+  content: "";
+  position: absolute;
+  right: 0rem;
+  top: 100%;
+  z-index: -1;
+}
+.ribbon-hot span::before {
+  border-left: 0.188rem solid var(--hot-two);
+  border-right: 0.188rem solid transparent;
+  border-bottom: 0.188rem solid transparent;
+  border-top: 0.188rem solid var(--hot-two);
+}
+.ribbon-hot span::after {
+  border-left: 0.188rem solid transparent;
+  border-right: 0.188rem solid var(--hot-two);
+  border-bottom: 0.188rem solid transparent;
+  border-top: 0.188rem solid var(--hot-two);
+}
+.ribbon-new span::before {
+  border-left: 0.188rem solid var(--new-two);
+  border-right: 0.188rem solid transparent;
+  border-bottom: 0.188rem solid transparent;
+  border-top: 0.188rem solid var(--new-two);
+}
+.ribbon-new span::after {
+  border-left: 0.188rem solid transparent;
+  border-right: 0.188rem solid var(--new-two);
+  border-bottom: 0.188rem solid transparent;
+  border-top: 0.188rem solid var(--new-two);
+}
+.ribbon-pop span::before {
+  border-left: 0.188rem solid var(--pop-two);
+  border-right: 0.188rem solid transparent;
+  border-bottom: 0.188rem solid transparent;
+  border-top: 0.188rem solid var(--pop-two);
+}
+.ribbon-pop span::after {
+  border-left: 0.188rem solid transparent;
+  border-right: 0.188rem solid var(--pop-two);
+  border-bottom: 0.188rem solid transparent;
+  border-top: 0.188rem solid var(--pop-two);
+}
+.ribbon-spo span::before {
+  border-left: 0.188rem solid var(--spo-two);
+  border-right: 0.188rem solid transparent;
+  border-bottom: 0.188rem solid transparent;
+  border-top: 0.188rem solid var(--spo-two);
+}
+.ribbon-spo span::after {
+  border-left: 0.188rem solid transparent;
+  border-right: 0.188rem solid var(--spo-two);
+  border-bottom: 0.188rem solid transparent;
+  border-top: 0.188rem solid var(--spo-two);
+}

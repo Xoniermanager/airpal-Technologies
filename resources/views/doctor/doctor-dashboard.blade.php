@@ -87,52 +87,7 @@
                                     <div class="dashboard-card-body">
                                         <div class="table-responsive">
                                             @include('doctor.latest-appointment-list')
-                                            {{-- <table class="table dashboard-table appoint-table">
-                                                <tbody>
-                                                    @forelse ($recentAppointments as $appointment)
-                                                        <tr>
-                                                            <td>
-                                                                <div class="patient-info-profile">
-                                                                    <a href="{{ route('doctor.appointments.index') }}"
-                                                                        class="table-avatar">
-                                                                        <img
-                                                                            src="{{ asset('images/' . $appointment->patient->image_url) }}">
-                                                                    </a>
-                                                                    <div class="patient-name-info">
-                                                                        <span>#PAT{{ $appointment->id }}</span>
-                                                                        <h5><a
-                                                                                href="{{ route('doctor.appointments.index') }}">{{ $appointment->patient->FullName }}</a>
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="appointment-date-created">
-                                                                    <h6>
-                                                                        {{ $appointment->booking_date }}
-                                                                        {{ $appointment->slot_start_time }}
-                                                                    </h6>
-                                                                    <span class="badge table-badge">General</span>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div
-                                                                    class="apponiment-actions d-flex align-items-center">
-                                                                    <a href="#" class="text-success-icon me-2"><i
-                                                                            class="fa-solid fa-check"></i></a>
-                                                                    <a href="#" class="text-danger-icon"><i
-                                                                            class="fa-solid fa-xmark"></i></a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @empty
-
-                                                        <p>Not Found </p>
-                                                    @endforelse
-                                                </tbody>
-                                            </table> --}}
-                                            <a href="{{ route('doctor.doctor-request.index') }}">View All Appointment
-                                                Requests</a>
+                                            <a href="{{ route('doctor.doctor-request.index') }}" class="btn btn-primary btn-sm float-end mt-4">View All</a>
                                         </div>
                                     </div>
                                 </div>
@@ -184,9 +139,9 @@
                                             <div class="header-title">
                                                 <h5>Recent Patients</h5>
                                             </div>
-                                            <div class="card-view-link">
+                                            {{-- <div class="card-view-link">
                                                 <a href="{{ route('doctor.doctor-patients.index') }}">View All</a>
-                                            </div>
+                                            </div> --}}
                                         </div>
 
                                         <div class="dashboard-card-body">
@@ -197,7 +152,7 @@
                                                             <a href="{{ route('doctor.doctor-patients.index') }}"
                                                                 class="patient-img">
                                                                 <img
-                                                                    src="{{ asset('images/' . $recentPatient->patient->image_url) }}">
+                                                                    src="{{ $recentPatient->patient->image_url }}">
 
                                                             </a>
                                                             <h5><a
@@ -232,7 +187,7 @@
                                                 <div class="info-details">
                                                     <span class="img-avatar">
                                                         <img
-                                                            src="{{ asset('images/' . $upcomingAppointments->patient->image_url ?? '') }}">
+                                                            src="{{ $upcomingAppointments->patient->image_url }}">
                                                     </span>
                                                     <div class="name-info">
                                                         <span>#Apt{{ $upcomingAppointments->id }}</span>

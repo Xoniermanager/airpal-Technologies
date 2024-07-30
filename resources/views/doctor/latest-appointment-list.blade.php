@@ -5,7 +5,7 @@
                 <td>
                     <div class="patient-info-profile">
                         <a href="{{ route('doctor.appointments.index') }}" class="table-avatar">
-                            <img src="{{ asset('images/' . $appointment->patient->image_url) }}">
+                            <img src="{{ $appointment->patient->image_url }}">
                         </a>
                         <div class="patient-name-info">
                             <span>#PAT{{ $appointment->id }}</span>

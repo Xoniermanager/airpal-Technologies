@@ -22,7 +22,7 @@ use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\SpecialtyPageController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\QuestionsController;
+use App\Http\Controllers\Admin\DoctorQuestionController;
 use App\Http\Controllers\Patient\BookingController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\HealthmonitoringController;
@@ -93,10 +93,8 @@ Route::prefix('doctor')->group(function () {
         Route::controller(DoctorDashboardController::class)->group(function () {
             Route::get('dashboard', 'doctorDashboard')->name('doctor.doctor-dashboard.index');
             Route::get('timing', 'doctorTiming')->name('doctor.doctor-timing.index');
-            Route::get('change-password', 'doctorChangepass')->name('doctor.doctor-change-password.index');
+            Route::get('change-password', 'doctorChangePassword')->name('doctor.doctor-change-password.index');
             Route::get('specialities', 'doctorSpecialities')->name('doctor.doctor-specialities.index');
-
-
             Route::post('/update-latest-appointment-request', 'UpdateLatestAppointmentRequestAjax')->name('updateStatus.appointment.request');
         });
 
@@ -112,6 +110,8 @@ Route::prefix('doctor')->group(function () {
         });
         Route::controller(PatientController::class)->group(function () {
             Route::get('patient','doctorPatient')->name('doctor.doctor-patients.index');
+            Route::get('doctor-filter-on-patient','doctorFilterOnPatient')->name('doctor.filter.on.my-patient');
+
         });
         Route::controller(InvoiceController::class)->group(function () {
             Route::get('invoices', 'doctorInvoices')->name('doctor.doctor-invoices.index');
@@ -135,7 +135,6 @@ Route::prefix('doctor')->group(function () {
         });
         Route::controller(DoctorAppointmentController::class)->group(function () {
             Route::get('appointments', 'doctorAppointments')->name('doctor.appointments.index');
-            Route::get('appointment-details', 'doctorAppointmentDetails')->name('doctor.appointment-details.index');
             Route::get('appointment-filter', 'doctorAppointmentFilter')->name('doctor.appointment-filter');
             Route::get('appointment-request', 'appointmentRequests')->name('doctor.doctor-request.index');
             Route::post('update-appointment-status', 'UpdateAppointmentStatus')->name('doctor.status.appointment');
@@ -143,11 +142,10 @@ Route::prefix('doctor')->group(function () {
             Route::get('appointment-search', 'doctorAppointmentSearch')->name('doctor.appointment-search');   
         });
 
- 
-
-        Route::prefix('questions')->controller(QuestionsController::class)->group(function () {
+        Route::prefix('questions')->controller(DoctorQuestionController::class)->group(function () {
             Route::get('/', 'DoctorQuestionIndex')->name('doctor.questions.index');
             Route::post('create', 'store')->name('doctor.add.questions');
+            Route::get('get-question-details', 'getQuestionDetailsHTML')->name('doctor.get.question.html');
             Route::post('update', 'update')->name('doctor.questions.update');
             Route::post('delete', 'deleteQuestion')->name('doctor.delete-questions');
 
@@ -175,7 +173,7 @@ Route::prefix('admin')->group(function () {
             Route::post('delete', 'destroy')->name('admin.delete-faqs');
         });
 
-        Route::prefix('questions')->controller(QuestionsController::class)->group(function () {
+        Route::prefix('questions')->controller(DoctorQuestionController::class)->group(function () {
             Route::get('/', 'index')->name('admin.questions.index');
             Route::post('create', 'store')->name('admin.add.questions');
             Route::post('update', 'update')->name('admin.questions.update');

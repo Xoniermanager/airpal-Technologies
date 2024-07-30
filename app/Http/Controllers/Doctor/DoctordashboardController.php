@@ -98,18 +98,16 @@ class DoctorDashboardController extends Controller
     $updateRequest   = $this->bookingServices->updateStatus($request->status,$request->id);
     $allRequestAppointments = $this->getRecentAppointments();
     $allAppointments = $this->bookingServices->requestedAppointment(Auth::id())->get();
-
     if($updateRequest)
     {
         return response()->json([
             'success'             =>  'Update successfully',
-            'requestCounter'      =>  count( $allAppointments),
+            'requestCounter'      =>  count($allAppointments),
             'data'                =>  view("doctor.latest-appointment-list", [
             'recentAppointments'  =>  $allRequestAppointments ,
             ])->render()
           ]);
     }
-
   }
 
 
@@ -118,7 +116,7 @@ class DoctorDashboardController extends Controller
   {
     return view('doctor.doctor-timing', ['doctorDetails' => $this->doctorDetails]);
   }
-  public function doctorChangepass()
+  public function doctorChangePassword()
   {
     return view('doctor.doctor-change-password', ['doctorDetails' => $this->doctorDetails]);
   }

@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Jobs\SendOtpJob;
 use App\Models\BookingSlots;
 use App\Jobs\BookedSlotMailJob;
@@ -115,7 +116,9 @@ class BookingServices
 
    public function doctorUpcomingBookings($id)
    {
-      return $this->doctorBookings($id)->where('booking_date', '>', Carbon::now()->toDateString());
+      return $this->doctorBookings($id)
+         ->where('booking_date', '>', Carbon::now()->toDateString())
+         ->where('status', '!=', 'cancelled');
    }
    public function patientUpcomingBookings($id)
    {
@@ -137,8 +140,9 @@ class BookingServices
    public function requestedAppointment($id)
    {
       return $this->doctorBookings($id)
-      ->orderBy('created_at', 'desc')
-      ->where('status', 'requested');
+         ->whereDate('booking_date', '>=', date('Y-m-d'))
+         ->where('status', 'requested')
+         ->orderBy('created_at', 'desc');
    }
 
 
@@ -178,28 +182,47 @@ class BookingServices
       return $this->bookingRepository->find($id)->update(['status' => $status]);
    }
 
-   //    public function filterRequestAppointments($filterKey, $doctorId)
-   //    {
-   //        $query = $this->bookingRepository->query(); // Ensure you're using the correct model
+   public function filterOnMyPatient($filterData)
+   {
+      $key = $filterData['key'];
+      $doctorId = $filterData['doctorId'];
+      $searchKey = isset($filterData['searchKey']) ? $filterData['searchKey'] : '';
 
-   //        // Add the common status filter
-   //        $query->where('status', 'requested');
-   //        // Add additional filters based on the filter key
-   //        if ($filterKey == 'month') {
-   //            $query->whereMonth('booking_date', Carbon::now()->month);
-   //        } elseif ($filterKey == 'today') {
-   //            $query->whereDate('booking_date', Carbon::now()->toDateString());
-   //        } elseif ($filterKey == 'week') {
-   //            $query->whereBetween('booking_date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
-   //        } elseif ($filterKey == 'all') {
-   //            // No additional date filter for 'all'
-   //        }
+      $appointments = $this->doctorBookings($doctorId)->get();
+      $patientBookings = $appointments->groupBy('patient_id')->map(function ($appointments) {
+         return $appointments->count();
+      });
 
-   //        // Filter by doctor ID if provided
-   //        if (!is_null($doctorId) && $doctorId !== '') {
-   //            $query->where('doctor_id', $doctorId);
-   //        }
-   // dd($query->Tosql());
-   //        return $query->get();
-   //    }
+      $filteredAppointments = $appointments->filter(function ($appointment) use ($patientBookings, $key) {
+         $patientId = $appointment->patient_id;
+         $count = $patientBookings[$patientId];
+               if ($key == 'new') {
+                  return $count == 1;
+               } elseif ($key == 'regular') {
+                  return $count > 1;
+               }
+               return false;
+      });
+
+      $filteredPatientIds = $filteredAppointments->pluck('patient_id')->unique();
+      $uniquePatients = User::whereIn('id', $filteredPatientIds)
+         ->where('first_name', 'LIKE', "%$searchKey%")
+         ->get();
+
+      return $uniquePatients;
+   }
+
+
+   public function getAllAppointmentCounter($id)
+   {
+      // Here returning all patient type (status,upcoming,cancelled,confirmed) counter for (doctor profile) 
+      return
+         [
+            'allAppointments'       => $this->doctorBookings($id)->count(),
+            'todayAppointments'     => $this->bookingRepository->getTodayAppointmentCounter($id) ?? 0,
+            'upcomingAppointments'  => $this->bookingRepository->getAllUpcomingAppointmentsByDoctorId($id)->count() ?? 0,
+            'confirmedAppointments' => $this->bookingRepository->getAllConfirmedAppointments($id)->count() ?? 0,
+            'cancelledAppointments' => $this->bookingRepository->getAllCanceledAppointmentsByDoctorId($id)->count() ?? 0,
+         ];
+   }
 }

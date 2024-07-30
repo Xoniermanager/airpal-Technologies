@@ -9,10 +9,9 @@
 
                 <div class="profile-img">
                     @if (isset($singleDoctorDetails->image_url))
-                        <img src="{{ asset('images').'/'.$singleDoctorDetails->image_url}}" id="blah">
+                        <img src="{{ $singleDoctorDetails->image_url}}" id="blah" class="previewProfile">
                     @else
                     <img src="" id="blah"  onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" >
-                    {{-- <i class="fa-solid fa-file-image"></i> --}}
                     @endif
                 </div>
                 <div class="upload-img">

@@ -118,7 +118,7 @@
                                         <form id="editSocialMediaAccount" enctype="multipart/form-data">
                                             @csrf
                                             <div class="row">
-                                                <div class="col-6">
+                                                <div class="col-12">
                                                     <div class="mb-3">
                                                         <label class="mb-2">Account Type</label>
                                                         <select class="form-control" name="account_type"
@@ -132,7 +132,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-12">
                                                     <div class="mb-3" id="accounts-div">
                                                         <label class="mb-2">link</label>
                                                         <input type="text" name="link" class="form-control"

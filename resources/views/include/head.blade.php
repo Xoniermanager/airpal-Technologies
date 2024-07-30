@@ -41,6 +41,8 @@
     
 {{-- <script src="{{asset('/assets/js/bootstrap.bundle.min.js')}}" type="cd1ed460c5054330c2effc78-text/javascript"></script> --}}
 <script src="{{asset('../assets/js/rocket-loader.min.js')}}" data-cf-settings="cd1ed460c5054330c2effc78-|49" defer></script>
+<script src="http://127.0.0.1:8000/assets/js/bootstrap.bundle.min.js" type="cd1ed460c5054330c2effc78-text/javascript"></script>
+<script src="{{ asset('admin/assets/jquery-validation/dist/jquery.validate.min.js') }}"></script>
 
     <script>
         window.site_admin_base_url = '{{ env('SITE_ADMIN_BASE_URL') }}';

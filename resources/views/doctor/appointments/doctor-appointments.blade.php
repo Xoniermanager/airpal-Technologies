@@ -86,24 +86,24 @@
 
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link active" id="all" type="button"
-                                                onclick="appointment_filter(this)">All<span>{{ $doctorTotalAppointmentCounter }}</span></button>
+                                                onclick="appointment_filter(this)">All<span>{{ $counters['allAppointments'] }}</span></button>
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="today" type="button"
-                                                onclick="appointment_filter(this)">Today<span>{{ $todayBookingCounter }}</span></button>
+                                                onclick="appointment_filter(this)">Today<span>{{ $counters['todayAppointments'] }}</span></button>
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="upcoming" type="button"
-                                                onclick="appointment_filter(this)">Upcoming<span>{{ $getUpComingAppointmentCounter }}</span></button>
+                                                onclick="appointment_filter(this)">Upcoming<span>{{ $counters['upcomingAppointments'] }}</span></button>
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="confirmed" type="button"
-                                                onclick="appointment_filter(this)">Confirmed<span>{{ $getAllConfirmedAppointments }}
+                                                onclick="appointment_filter(this)">Confirmed<span>{{ $counters['confirmedAppointments'] }}
                                                 </span></button>
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="cancelled" type="button"
-                                                onclick="appointment_filter(this)">Cancelled<span>{{ $getAllCanceledAppointments }}
+                                                onclick="appointment_filter(this)">Cancelled<span>{{ $counters['cancelledAppointments'] }}
                                                 </span></button>
                                         </li>
                                     </ul>

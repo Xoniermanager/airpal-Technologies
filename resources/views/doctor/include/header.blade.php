@@ -126,20 +126,15 @@
 <li class="nav-item dropdown has-arrow logged-item">
     <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
         <span class="user-img">
-            <img src="{{ asset('images').'/'.auth()->user()->image_url }}" id="blah" 
+            <img src="{{ auth()->user()->image_url }}" class="blah" 
             onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}" class="avatar-img rounded-circle">
-            {{-- <img class="rounded-circle"
-                src="{{asset('assets/img/doctors-dashboard/doctor-profile-img.jpg')}}" width="31"
-                alt="Darren Elder"> --}}
         </span>
     </a>
     <div class="dropdown-menu dropdown-menu-end">
         <div class="user-header">
             <div class="avatar avatar-sm">
-                {{-- <img src="{{asset('assets/img/doctors-dashboard/doctor-profile-img.jpg')}}"
-                    alt="" class="avatar-img rounded-circle"> --}}
-                    <img src="{{ asset('images').'/'.auth()->user()->image_url }}" id="blah" 
-                    onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}" class="avatar-img rounded-circle">
+                    <img src="{{ auth()->user()->image_url }}" class="blah" 
+               class="avatar-img rounded-circle">
             </div>
             <div class="user-text">
                 <h6> <a href="{{ route('doctor.doctor-profile.index') }}">Dr {{ auth()->user()->fullName}}</h6>

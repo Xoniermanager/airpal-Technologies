@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Services\QuestionOptionServices;
 
-class QuestionsController extends Controller
+class DoctorQuestionController extends Controller
 {
 
   private $questionServices;
@@ -76,13 +76,6 @@ class QuestionsController extends Controller
     $this->questionOptionServices->addQuestionsOptions($payloadForText);  
   }
 
-      // return response()->json([
-      //   'message'  => 'Added Successfully!',
-      //   'data'     =>  view('admin.questions.question-list', [
-      //     'allQuestions'   =>  $this->questionServices->all()
-      //   ])->render()
-      // ]);
-    
   }
   public function update(Request $request)
   {
@@ -144,8 +137,6 @@ class QuestionsController extends Controller
     }
   }
 
-
-  
   
   public function doctorQuestionFilter(Request $request)
   { 
@@ -169,6 +160,22 @@ class QuestionsController extends Controller
         ])->render()
       ]);
     }
+  }
+
+  public function getQuestionDetailsHTML(Request $request)
+  {
+    $validator = Validator::make($request->all(),[
+      'question_id'   =>  'required|integer|exists:doctor_questions,id'
+    ]);
+
+    if ($validator->fails()) 
+    {
+      return response()->json([
+        'success' => false,
+        'errors'  => $validator->errors()
+      ], 400);
+    }
+    $this->questionServices->getSelectedQuestionHTML($request->question_id); 
   }
 
 }

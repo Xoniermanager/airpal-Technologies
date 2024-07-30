@@ -9,7 +9,7 @@
                     <div class="doc-info-left">
                         <div class="doctor-img">
                             <a href="{{ route('frontend.doctor.profile',['user' => $doctor->id]) }}">
-                                <img src="{{asset('images/'.$doctor->image_url)}}"
+                                <img src="{{ $doctor['image_url'] }}"
                                 onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" 
                                     class="img-fluid" alt="John Doe">
                             </a>

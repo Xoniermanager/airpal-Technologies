@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Doctor;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Services\SocialMediaService;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreSocialMedia;
+use App\Http\Services\SocialMediaService;
 
 class DoctorSocialMediaAccountsController extends Controller
 {
@@ -19,12 +20,12 @@ class DoctorSocialMediaAccountsController extends Controller
         $socialMediaAccounts  = $this->socialMediaService->getSocialMediaAccountsByDoctorId(Auth::id());
         return view('doctor.social-media-accounts.doctor-social',['socialMediaAccounts'=> $socialMediaAccounts]);
     }
-    public function addSocialMedia(Request $request)
+    public function addSocialMedia(StoreSocialMedia $storeSocialMedia)
     {
         try {
-            $data = $request->except('_token');
+            $data = $storeSocialMedia->validated();
             $this->socialMediaService->addSocialMediaAccount($data);
-            $socialMediaAccounts  = $this->socialMediaService->getSocialMediaAccountsByDoctorId(Auth::id());
+            $socialMediaAccounts = $this->socialMediaService->getSocialMediaAccountsByDoctorId(Auth::id());
             return response()->json([
                 'message'  => 'Social media account added successfully!',
                 'data'     =>  view('doctor.social-media-accounts.list', [
@@ -53,18 +54,21 @@ class DoctorSocialMediaAccountsController extends Controller
         }
     }
 
-    public function updateSocialMediaAccount(Request $request)
+    public function updateSocialMediaAccount(StoreSocialMedia $request)
     {
         try {
             $data = $request->except('_token');
             $updateAccount = $this->socialMediaService->updateSocialMediaAccount($data);
             $socialMediaAccounts  = $this->socialMediaService->getSocialMediaAccountsByDoctorId(Auth::id());
-            return response()->json([
-                'message'  => 'Social media account delete successfully!',
-                'data'     =>  view('doctor.social-media-accounts.list', [
-                  'socialMediaAccounts' => $socialMediaAccounts
-                ])->render()
-              ]);
+            if($updateAccount)
+            {
+                return response()->json([
+                    'message'  => 'Social media account delete successfully!',
+                    'data'     =>  view('doctor.social-media-accounts.list', [
+                      'socialMediaAccounts' => $socialMediaAccounts
+                    ])->render()
+                  ]);
+            }
         } catch (\Exception $e) {
             return response()->json(['message' => 'Failed to add social media account', 'error' => $e->getMessage()], 500);
         }

@@ -20,9 +20,13 @@ class DoctorReviewService
       }
    }
 
-   public function all()
+   public function all($searchKey = null)
    {
-      return $this->doctorReviewRepository->with(['doctor:id,display_name,image_url,email', 'patient:id,first_name,last_name,email,image_url'])->get();
+      $allReviewDetails =  $this->doctorReviewRepository->with(['doctor:id,display_name,image_url,email', 'patient:id,first_name,last_name,email,image_url']);
+      if (isset($searchKey['rating'])) {
+         $allReviewDetails->orderBy('rating', $searchKey['rating']);
+      }
+      return $allReviewDetails->get();
    }
 
    public function getAllReviewByPatientId($patientId)
@@ -36,7 +40,6 @@ class DoctorReviewService
 
    public function getReviewById($id)
    {
-      dd($id);
       return $this->doctorReviewRepository->find($id);
    }
 }

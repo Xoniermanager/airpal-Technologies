@@ -139,9 +139,6 @@
 <script src="{{asset('assets/js/slick.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
 
 <script src="{{asset('assets/js/aos.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
-
-<script src="{{asset('assets/js/counter.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
-
 <script src="{{asset('assets/js/backToTop.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
 
 <script src="{{asset('assets/js/script.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>

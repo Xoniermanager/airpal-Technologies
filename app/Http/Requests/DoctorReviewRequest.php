@@ -27,6 +27,7 @@ class DoctorReviewRequest extends FormRequest
         return [
             'doctor_id' => 'required|exists:users,id,role,2',
             'review' => 'required|string',
+            'title' => 'required|string',
             'rating' => 'required|numeric|min:0.5|max:5'
         ];
     }

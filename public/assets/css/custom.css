@@ -3,6 +3,10 @@
 /***** custom values *****/
 /***** Grid Values *****/
 /** Extends **/
+:root {
+  --color-gold: #f39405;
+  --color-gold-light: #ffc415;
+}
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 .upload-wrap, .login-page .login-right, .listing-day, .doctor-action, .doc-times, .css-equal-content, .css-equal-heights {
   display: flex;
@@ -46210,4 +46214,61 @@ td.date.halfFull button {
 
 .error {
     color: red;
+}
+.comment-stars {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+}
+.comment-stars-input {
+  display: none;
+}
+
+.comment-stars-input:checked ~ .comment-stars-view svg {
+  fill: var(--color-gold);
+}
+
+.comment-stars-input:checked ~ .comment-stars-view:hover svg,
+.comment-stars-input:checked
+  ~ .comment-stars-view:hover
+  ~ .comment-stars-view
+  svg {
+  fill: var(--color-gold-light);
+}
+
+.comment-stars-view {
+  cursor: pointer;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.comment-stars-view svg {
+  fill: #ededef;
+  width: 1.39306640625em;
+  height: 1.5em;
+}
+
+.comment-stars-view.is-half {
+  transform: translateX(100%);
+  margin-left: -0.69580078125em;
+}
+
+.comment-stars-view.is-half svg {
+  width: 0.69580078125em;
+}
+
+.comment-stars-view:hover svg,
+.comment-stars-view:hover ~ .comment-stars-view svg {
+  fill: var(--color-gold-light);
+}
+.rate-form {
+  max-width: 600px;
+  background: #fff;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  padding: 25px;
+  margin: auto;
+  border-radius: 15px;
+}
+.rate-form .col-6.col-sm-6.mb-3 {
+  width: 100%;
 }

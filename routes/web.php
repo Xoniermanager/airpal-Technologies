@@ -47,7 +47,7 @@ use App\Http\Controllers\Doctor\InvoiceController;
 use App\Http\Controllers\Doctor\PatientController;
 use App\Http\Controllers\Doctor\ReviewsController;
 use App\Http\Controllers\Doctor\SocialMediaController;
-
+use App\Http\Controllers\Patient\DoctorReviewController;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
 // =============================== Login And SignUp Routes ==================================== //
@@ -108,7 +108,7 @@ Route::prefix('doctor')->group(function () {
             Route::post('/appointment-query', 'storeAppointmentQueries')->name('doctor.appointment.query');
         });
         Route::controller(PatientController::class)->group(function () {
-            Route::get('patient','doctorPatient')->name('doctor.doctor-patients.index');
+            Route::get('patient', 'doctorPatient')->name('doctor.doctor-patients.index');
         });
         Route::controller(InvoiceController::class)->group(function () {
             Route::get('invoices', 'doctorInvoices')->name('doctor.doctor-invoices.index');
@@ -138,8 +138,6 @@ Route::prefix('doctor')->group(function () {
             Route::post('update-appointment-status', 'UpdateAppointmentStatus')->name('doctor.status.appointment');
             Route::get('filter-appointment-request', 'filterRequestAppointments')->name('filter.appointment.request');
             Route::get('appointment-search', 'doctorAppointmentSearch')->name('doctor.appointment-search');
-            
-            
         });
         Route::prefix('questions')->controller(QuestionsController::class)->group(function () {
             Route::get('/', 'DoctorQuestionIndex')->name('doctor.questions.index');
@@ -149,7 +147,6 @@ Route::prefix('doctor')->group(function () {
 
             Route::get('doctor-question-filter', 'doctorQuestionFilter')->name('doctor.question.filter');
             Route::get('get-question-by-doctor-id', 'getQuestionByDoctorId')->name('get.question.doctor.id');
-          
         });
     });
 });
@@ -296,7 +293,7 @@ Route::prefix('patients')->group(function () {
 
     Route::controller(BookingController::class)->group(function () {
         Route::post('patient-booking', 'patientBooking')->name('patient.booking');
-        Route::get('/check-auth','checkAuth')->name('check.auth');
+        Route::get('/check-auth', 'checkAuth')->name('check.auth');
     });
     // Patient Dashboard Routes
     Route::controller(PatientDashboardController::class)->group(function () {
@@ -308,8 +305,8 @@ Route::prefix('patients')->group(function () {
     // Patient Appointments Routes
     Route::controller(PatientAppointmentsController::class)->group(function () {
         Route::get('appointments', 'patientAppointments')->name('patient-appointments.index');
-        Route::get('appointment-details','patientAppointmentDetails')->name('patient-appointment-details.index');
-        Route::get('appointment-filter','appointmentFilter')->name('patient.appointment-filter');
+        Route::get('appointment-details', 'patientAppointmentDetails')->name('patient-appointment-details.index');
+        Route::get('appointment-filter', 'appointmentFilter')->name('patient.appointment-filter');
     });
     // Patient Profile Routes
     Route::controller(PatientProfileController::class)->group(function () {
@@ -354,4 +351,9 @@ Route::get('/appointment/doctor/{id}', [DoctorController::class, 'appointment'])
 Route::get('/invoice', [FrontController::class, 'invoice'])->name('invoice.index');
 Route::get('/patient_details', [FrontController::class, 'patient_details'])->name('patient_details.index');
 Route::get('/checkout', [FrontController::class, 'checkout'])->name('checkout.index');
+
+Route::controller(DoctorReviewController::class)->group(function () {
+    Route::post('add-doctor-review', 'addDoctorReview')->name('add.doctor.review');
+    Route::get('get-all-review', 'getAllReview')->name('get.all.review');
+});
 // ============================== End Frontend Website Routes ===================== //

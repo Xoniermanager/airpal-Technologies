@@ -26,7 +26,7 @@
                         <h2 class="table-avatar">
                             <a href="{{ route('admin.profile.index', ['user' => $doctor->id]) }}" class="avatar avatar-sm me-2"><img
                                     class="avatar-img rounded-circle"
-                                    src="{{asset('images/'.$doctor->image_url)}}"
+                                    src="{{ $doctor['image_url'] }}"
                                     alt=""
                                     onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" 
                                     >

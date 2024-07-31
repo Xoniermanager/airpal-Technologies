@@ -255,27 +255,6 @@
                                     </div>
                                 </div>
 
-                                
-
-                                {{-- <div class="text box">
-                                    <div class="col-12 col-sm-12">
-                                        <div class="mb-3" id="question-div">
-                                            <label class="mb-2">Answer</label>
-                                            <textarea type="text" name="answer" class="form-control" id="answer"></textarea>
-                                            <span class="text-danger" id="questions-error"></span>
-                                        </div>
-                                    </div>
-                                </div> --}}
-                                
-                                {{-- <div class="optional box">
-                                    <a class="btn btn-primary btn-sm addMoreBtn" onclick="add_options('1')"><i
-                                            class="fa fa-plus fs-5"></i> Add Option</a>
-                                </div>
-                                <div class="multiple box">
-                                    <a class="btn btn-primary btn-sm addMoreBtn"
-                                        onclick="add_options('1')"><i class="fa fa-plus fs-5"></i> Add Option
-                                    </a>
-                                </div> --}}
                                 <div class="col-md-6">
 
                                     <div class="optional box">
@@ -337,13 +316,25 @@
     </div>
 {{-- @endsection
 @section('javascript') --}}
-<script src="http://127.0.0.1:8000/assets/js/bootstrap.bundle.min.js" type="cd1ed460c5054330c2effc78-text/javascript"></script>
-<script src="{{ asset('admin/assets/jquery-validation/dist/jquery.validate.min.js') }}"></script>
 
 
     <script>
+        // Clear all selected options if question type gets changed
+    // Global counter for dynamically adding options
+    var counter = 0;
+
         $(document).ready(function() {
-            $(".answer_type").change(function() {
+            $(".answer_type").change(function() 
+            {
+                /*
+                Removing all selected options on change of question type.
+                Also reset the counter to 0 and 
+                Remove disabled class to allow add new options
+                */
+                jQuery('.addMoreOptions').html('');
+                counter = 0;
+                $('.addMoreBtn').removeClass('disabled');
+                console.log('counter : ' + counter);
                 $(this).find("option:selected").each(function() {
                     var optionValue = $(this).attr("value");
                     if (optionValue) {
@@ -450,7 +441,9 @@
                             '_token': '{{ csrf_token() }}',
                             'id': id
                         },
-                        url: "{{ route('admin.delete-questions') }}",
+                        // doctor.delete-questions
+                        // admin.delete-questions
+                        url: "{{ route('doctor.delete-questions') }}",
                         success: function(response) {
                             swal.fire("Done!", response.message, "success");
                             $('#delete-question').modal('hide');
@@ -474,46 +467,60 @@
             }
         });
 
-        // Global counter for dynamically adding options
-        var counter = 0;
+ function edit_question(question_id) 
+ {
+    jQuery.ajax({
+        type: 'GET',
+        url: '{{ route('doctor.get.question.html') }}',
+        data:{
+            'question_id':question_id,
+            '_token': '{{ csrf_token() }}',
+        },
+        dataType:'json',
+        success: function(response){
 
- function edit_question(doctorQuestionDetails) {
-    var doctorQuestionDetails = JSON.parse(doctorQuestionDetails);
-    $('.addMoreOptionsEdit').empty();
-    $('#id').val(doctorQuestionDetails.id);
-    $('#doctor').val(doctorQuestionDetails.doctor_id);
-    $('#specialty').val(doctorQuestionDetails.specialty_id);
-    $('.answer_type').val(doctorQuestionDetails.answer_type);
-    $('#question').val(doctorQuestionDetails.question);
+        },
+        error: function(error_data){
 
-    counter = 0;
+        }
+    });
+    // var doctorQuestionDetails = JSON.parse(doctorQuestionDetails);
+    // $('.addMoreOptionsEdit').empty();
+    // $('#id').val(doctorQuestionDetails.id);
+    // $('#doctor').val(doctorQuestionDetails.doctor_id);
+    // $('#specialty').val(doctorQuestionDetails.specialty_id);
+    // $('.answer_type').val(doctorQuestionDetails.answer_type);
+    // $('#question').val(doctorQuestionDetails.question);
 
-    if ($('.answer_type').val() != 'text') {
-        doctorQuestionDetails.options.forEach(function(option, index) {
-            var options_html =
-                '<div class="col-md-6 option-details"><div class="row panel panel-body"><div class="col-md-10 form-group"><label for="">Option ' +
-                (index + 1) +
-                '</label><input class="form-control" type="text" name="options[' +
-                index +
-                '][value]" value="' + option.options + '" ><span class="text-danger" id="options_' + index +
-                '_value_error"></span><div><input type="hidden" name="options[' + index +
-                '][option_id]" value="' + option.id + '"></div></div><div class="col-md-2 form-group mt-4"><a onclick="remove_options(this, ' + option.id + ')" class="btn btn-danger btn-sm float-right"> <i class="fa fa-minus"></i></a></div></div></div>';
-            $('.addMoreOptionsEdit').append(options_html);
-            counter = index + 1; // Update counter to the latest index
-        });
-        $(".optional").show();
-    } else {
-        var text_html = 
-            '<div class="col-12 col-sm-12">' +
-                '<div class="mb-3" id="question-div">' +
-                    '<label class="mb-2">Question</label>' +
-                    '<textarea type="text" name="question" class="form-control">' + doctorQuestionDetails.question + '</textarea>' +
-                    '<span class="text-danger" id="question_error"></span>' +
-                '</div>' +
-            '</div>';
-        $('.addMoreOptionsEdit').append(text_html);
-        $(".optional").hide(); // Hide options section if the answer type is 'text'
-    }
+
+    // if ($('.answer_type').val() != 'text') {
+    //     doctorQuestionDetails.options.forEach(function(option, index) {
+    //         var options_html =
+    //             '<div class="col-md-6 option-details"><div class="row panel panel-body"><div class="col-md-10 form-group"><label for="">Option ' +
+    //             (index + 1) +
+    //             '</label><input class="form-control" type="text" name="options[' +
+    //             index +
+    //             '][value]" value="' + option.options + '" ><span class="text-danger" id="options_' + index +
+    //             '_value_error"></span><div><input type="hidden" name="options[' + index +
+    //             '][option_id]" value="' + option.id + '"></div></div><div class="col-md-2 form-group mt-4"><a onclick="remove_options(this, ' + option.id + ')" class="btn btn-danger btn-sm float-right"> <i class="fa fa-minus"></i></a></div></div></div>';
+    //         $('.addMoreOptionsEdit').append(options_html);
+    //         counter = index + 1; // Update counter to the latest index
+    //     });
+    //     $(".optional").show();
+    // } 
+    // else 
+    // {
+    //     var text_html = 
+    //         '<div class="col-12 col-sm-12">' +
+    //             '<div class="mb-3" id="question-div">' +
+    //                 '<label class="mb-2">Question</label>' +
+    //                 '<textarea type="text" name="question" class="form-control">' + doctorQuestionDetails.question + '</textarea>' +
+    //                 '<span class="text-danger" id="question_error"></span>' +
+    //             '</div>' +
+    //         '</div>';
+    //     $('.addMoreOptionsEdit').append(text_html);
+    //     $(".optional").hide(); // Hide options section if the answer type is 'text'
+    // }
 
     $('#edit_question').addClass('show').css('display', 'block').attr('aria-hidden', 'false');
 }
@@ -523,6 +530,7 @@
 
 // Function to handle adding options dynamically
 function add_options(id) {
+    console.log('Add counter : ' + counter);
     var options_html =
         '<div class="col-md-6  option-details">' +
         '<div class="row panel panel-body">' +

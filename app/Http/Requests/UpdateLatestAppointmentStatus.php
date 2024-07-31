@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreQuestionRequest extends FormRequest
+class UpdateLatestAppointmentStatus extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +22,8 @@ class StoreQuestionRequest extends FormRequest
     public function rules(): array
     {
         return [
-                'options' => 'sometimes|array',
-                'options.*.value' => 'required|string',
-                'answer'      => 'sometimes|string|nullable',
-                "doctor"      => "required|exists:users,id",
-                "specialty"   => "required|exists:specializations,id",
-                "answer_type" => "required|in:multiple,optional,text",
-                "question"    => "required|string",
+             'id' => 'required|exists:booking_slots,id',
+             'status'    => 'required|in:cancelled,confirmed'
         ];
     }
 }

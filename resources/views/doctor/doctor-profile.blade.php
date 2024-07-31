@@ -93,28 +93,29 @@
     </div>
 @endsection
 @section('javascript')
-<script src="{{ asset('admin/assets/custom-js/add_doctor.js') }}"></script>
+    <script src="{{ asset('admin/assets/custom-js/add_doctor.js') }}"></script>
     <script>
         $(document).ready(function() {
             var site_admin_base_url = "{{ env('SITE_ADMIN_BASE_URL') }}";
+
             function updateCharCount() {
-        var length = $("#description").val().length;
-        var remaining = 1000 - length;
+                var length = $("#description").val().length;
+                var remaining = 1000 - length;
 
-        $('#charCount').text(length + '/1000');
+                $('#charCount').text(length + '/1000');
 
-        if (remaining < 0) {
-            $('#charCount').css('color', 'red');
-        } else {
-            $('#charCount').css('color', 'green');
-        }
-    }
+                if (remaining < 0) {
+                    $('#charCount').css('color', 'red');
+                } else {
+                    $('#charCount').css('color', 'green');
+                }
+            }
 
-    updateCharCount();
+            updateCharCount();
 
-    $("#description").on('input', function() {
-        updateCharCount();
-    });
+            $("#description").on('input', function() {
+                updateCharCount();
+            });
 
             var skillId = jQuery('#doctorlanguageID').text();
             if (skillId.length > 1) {
@@ -418,7 +419,8 @@
                             console.log(response.success);
                             if (response.success == true) {
                                 swal.fire("Done!", response.message, "success");
-                                $('#awards').removeClass('active').attr('aria-selected', 'false');
+                                $('#awards').removeClass('active').attr('aria-selected',
+                                    'false');
                                 $('#awards').removeClass('show active');
 
                                 var tabLink = document.querySelector('a[href="#awards"]');
@@ -427,11 +429,13 @@
                                     tabLink.setAttribute('aria-selected', 'false');
                                 }
 
-                                var exTabLink = document.querySelector('a[href="#working_hours_tab"]');
+                                var exTabLink = document.querySelector(
+                                    'a[href="#working_hours_tab"]');
                                 exTabLink.classList.add('active');
-                                $('#working_hours_tab').addClass('active').attr('aria-selected', 'true');
+                                $('#working_hours_tab').addClass('active').attr(
+                                    'aria-selected', 'true');
                                 $('#working_hours_tab').addClass('show active');
-                            } else { 
+                            } else {
                                 Swal.fire("Error!", "Error deleting experience.", "error");
                             }
 
@@ -646,7 +650,7 @@
 
             jQuery("#language").kendoMultiSelect({
                 filter: "contains",
-                dataTextField: "name", 
+                dataTextField: "name",
                 dataValueField: "id",
                 dataSource: languageDataSource,
                 value: arrs ?? '',
@@ -670,30 +674,30 @@
                 noDataTemplate: jQuery("#noServicesTemplate").html()
             });
 
-        jQuery("#award").kendoDropDownList({
-            filter: "startswith",
-            dataTextField: "name",
-            dataValueField: "id",
-            dataSource: createAwardDataSource(),
-            // value: selectedAward , 
-            noDataTemplate: jQuery("#noAwardTemplate").html(),
-        });
+            jQuery("#award").kendoDropDownList({
+                filter: "startswith",
+                dataTextField: "name",
+                dataValueField: "id",
+                dataSource: createAwardDataSource(),
+                // value: selectedAward , 
+                noDataTemplate: jQuery("#noAwardTemplate").html(),
+            });
 
-        jQuery("#course").kendoDropDownList({
-            filter: "startswith",
-            dataTextField: "name",
-            dataValueField: "id",
-            dataSource: createCourseDataSource(),
-            noDataTemplate: jQuery("#noCourseTemplate").html()
-        });
-        jQuery("#hospital").kendoDropDownList({
-            filter: "startswith",
-            dataTextField: "name",
-            dataValueField: "id",
-            dataSource: hospitalDataSource(),
-            value: hospitalIds ?? '',
-            noDataTemplate: jQuery("#noHospitalTemplate").html()
-        });
+            jQuery("#course").kendoDropDownList({
+                filter: "startswith",
+                dataTextField: "name",
+                dataValueField: "id",
+                dataSource: createCourseDataSource(),
+                noDataTemplate: jQuery("#noCourseTemplate").html()
+            });
+            jQuery("#hospital").kendoDropDownList({
+                filter: "startswith",
+                dataTextField: "name",
+                dataValueField: "id",
+                dataSource: hospitalDataSource(),
+                value: hospitalIds ?? '',
+                noDataTemplate: jQuery("#noHospitalTemplate").html()
+            });
 
         });
 
@@ -738,13 +742,22 @@
                 jQuery('#experience_end_time').prop('disabled', false);
             }
         }
-
-        imgInp.onchange = evt => {
-            const [file] = imgInp.files
+        document.getElementById('imgInp').addEventListener('change', function(event) {
+            const [file] = event.target.files; // Get the selected file
             if (file) {
-                blah.src = URL.createObjectURL(file)
+                // Get all elements with the class 'previewProfile'
+                const previewImages = document.getElementsByClassName('previewProfile');
+
+                // Loop through each element and set the preview image
+                Array.from(previewImages).forEach((img, index) => {
+                    img.src = URL.createObjectURL(
+                    file); // Create a URL for the file and set it as the src of the img
+                    img.style.display = 'block'; // Make sure the image is visible
+                });
             }
-        }
+        });
+
+
 
         document.addEventListener('DOMContentLoaded', function() {
             // Function to handle file input change dynamically
@@ -781,7 +794,7 @@
                             previewElement.innerHTML = previewContent;
                             console.log(
                                 `File uploaded for ${this.id} and displayed in ${previewId}`
-                                );
+                            );
                         }
                     });
                 });

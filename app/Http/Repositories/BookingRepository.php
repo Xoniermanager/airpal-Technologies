@@ -29,7 +29,7 @@ class BookingRepository extends BaseRepository
     {
         
         $query = $this->model->newQuery();
-        $key = $filterParams['key'];
+        $key   = $filterParams['key'];
 
         /*
         Managing filter for :
@@ -40,10 +40,12 @@ class BookingRepository extends BaseRepository
         switch($key)
         {
             case 'today':
-                $query->where('booking_date', Carbon::now()->toDateString());
+                $query->where('booking_date', Carbon::now()->toDateString())
+                ->where('status', '!=', 'cancelled');
                 break;
             case 'upcoming':
-                $query->where('booking_date', '>', Carbon::now()->toDateString());
+                $query->where('booking_date', '>', Carbon::now()->toDateString())->
+                where('status', '!=', 'cancelled');
                 break;
             case 'cancelled':
                 $query->where('status', 'cancelled');
@@ -74,8 +76,7 @@ class BookingRepository extends BaseRepository
                 $query->orWhere('last_name', 'like', "%{$searchKey}%");
              });
         }
-
-        return $query->get();
+        return $query->paginate(12);
     }
 
     public function getTotalAppointmentByDoctorId($doctorId)
@@ -96,6 +97,7 @@ class BookingRepository extends BaseRepository
     {
         return $this->where('doctor_id', $doctorId)
             ->whereDate('booking_date', Carbon::today())
+            ->where('status', '!=', 'cancelled')
             ->count();
     }
 
@@ -133,7 +135,7 @@ class BookingRepository extends BaseRepository
         $todayDate = Carbon::now()->toDateString();
         return  $this->where('doctor_id', $doctorId)
             ->where('booking_date', '>', $todayDate)
-            // ->where('status', '!=', 'canceled')
+            ->where('status', '!=', 'cancelled')
             ->get();
     }
 

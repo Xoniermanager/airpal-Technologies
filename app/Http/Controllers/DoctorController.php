@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Models\Service;
 use App\Models\Language;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 use App\Http\Services\DoctorSlotServices;
 use App\Http\Services\SpecializationServices;
 use DateTime;
@@ -63,18 +63,17 @@ class DoctorController extends Controller
 
   public function appointment($id)
   {
-    $doctor = $this->user_services->getDoctorDataById($id); // id is temp will do it later 
-    $doctorSlot = $this->doctorSlotServices->getDoctorSlotConfiguration($doctor->id);
-    if (isset($doctorSlot)) {
-      $doctorSlot->exception_days = $doctorSlot->user->doctorExceptionDays;
-      $returnedSlots  = $this->doctorSlotServices->createDoctorSlots($doctorSlot);
-      dd($returnedSlots);
-      $returnCalendar = $this->doctorSlotServices->CreateDoctorSlotCalendar($doctorSlot);
-      // dd($returnCalendar);
+    $doctor = $this->user_services->getDoctorDataById($id);
+    $doctorSlotConfigDetails = $this->doctorSlotServices->getDoctorSlotConfiguration($doctor->id);
+    if (isset($doctorSlotConfigDetails)) {
+      // $doctorSlotConfigDetails->exception_days = $doctorSlotConfigDetails->user->doctorExceptionDays;
+      // $returnedSlots  = $this->doctorSlotServices->createDoctorSlots($doctorSlotConfigDetails); // unused 
+      $doctorSlotConfigDetails->exception_days = $doctorSlotConfigDetails->user->doctorExceptionDays;
+      $returnCalendar = $this->doctorSlotServices->CreateDoctorSlotCalendar($doctorSlotConfigDetails);
     } else {
       $returnedSlots = [];
     }
-    return view('frontend.pages.appointment', ['allDaySlots' => $returnedSlots, 'doctorDetails' => $doctor, 'calender' => $returnCalendar]);
+    return view('frontend.pages.appointment', ['doctorDetails' => $doctor, 'calender' => $returnCalendar]);
   }
 
   public function search(Request $request)
@@ -96,11 +95,11 @@ class DoctorController extends Controller
   public function updateCalendar(Request $request)
   {
     $data = $request->all();
-    $doctor = $this->user_services->getDoctorDataById($data['doctor_id']); // id is temp will do it later 
+    $doctor = $this->user_services->getDoctorDataById($data['doctor_id']);
     $doctorSlot = $this->doctorSlotServices->getDoctorSlotConfiguration($doctor->id);
     if (isset($doctorSlot)) {
       $doctorSlot->exception_days = $doctorSlot->user->doctorExceptionDays;
-      $returnedSlots = $this->doctorSlotServices->createDoctorSlots($doctorSlot);
+      // $returnedSlots = $this->doctorSlotServices->createDoctorSlots($doctorSlot);
       return $this->doctorSlotServices->CreateDoctorSlotCalendar($doctorSlot, $data['month'], $data['year']);
     } else {
       echo "something went wrong";
@@ -110,35 +109,43 @@ class DoctorController extends Controller
 
   public function getDoctorSlotsByDate(Request $request)
   {
-    $request->validate([
+    $validator = Validator::make($request->all(), [
       'date'        =>  'required|date',
       'doctor_id'   =>  'required|integer|exists:users,id,role,2'
     ]);
-    $requestPayload = $request->validated();
+
+    if ($validator->fails()) {
+      return redirect()->back()->withErrors($validator)->withInput();
+    }
+    $requestPayload = $validator->validated();
 
     $date = $requestPayload['date'];
 
-    $doctorSlotCongiguration   = $this->doctorSlotServices->getDoctorSlotConfiguration($requestPayload['doctor_id']);
-    $returnedSlots      = $this->doctorSlotServices->createDoctorSlots($doctorSlotCongiguration);
+    $doctorSlotConfiguration   = $this->doctorSlotServices->getDoctorSlotConfiguration($requestPayload['doctor_id']);
+    $returnedSlots             = $this->doctorSlotServices->createDoctorSlots($doctorSlotConfiguration);
     $gettingBookedSlots = $this->bookingServices->slotDetails($requestPayload)->get();
 
-    $startDateTime = collect($returnedSlots)->map(function ($item, $key) {
-      $item['date'] = $key;
+    $startDateTime = collect($returnedSlots)->map(function ($item, $key) use ($date) {
+      $item['date'] = $date;
       return $item;
     })->values()->first();
 
+
     $date = $date ? $date : $startDateTime['date'];
 
+    // dd($startDateTime);
     // Filter and prepare slots data
-    $slotsData = collect($returnedSlots)
-      ->filter(function ($item, $key) use ($date, $startDateTime) {
-        return $key == $date;
-      })
-      ->map(function ($item, $key) {
-        $item['date'] = $key;
-        return $item;
-      })
-      ->values();
+//     $slotsData = collect($returnedSlots)
+//       ->filter(function ($item, $key) use ($date, $startDateTime) {
+//         return $key == $date;
+//       })
+//       ->map(function ($item, $key) {
+//         $item['date'] = $key;
+//         return $item;
+//       })
+//       ->values();
+// dd( $slotsData);
+
 
     // Collect booked slots for the given date
     $bookedSlotTimes = $gettingBookedSlots->filter(function ($item) use ($date) {
@@ -149,11 +156,12 @@ class DoctorController extends Controller
         'end_time' => $item['slot_end_time']
       ];
     });
+    // dd($bookedSlotTimes);
 
     // Prepare HTML for slots with indication of booked slots
     $html = '<div>';
-    foreach ($slotsData as $day) {
-      foreach ($day['slotsTime'] as $slot) {
+    // foreach ($startDateTime as $day) {
+      foreach ($startDateTime['slotsTime'] as $slot) {
         $isBooked = false;
         list($startTime, $endTime) = explode(' - ', $slot);
 
@@ -163,7 +171,9 @@ class DoctorController extends Controller
         if (!$startDateTime || !$endDateTime) {
           throw new \Exception("Failed to create DateTime object from '$startTime' or '$endTime'");
         }
-
+        if(isset($bookedSlotTimes))
+        {
+          
         // Check if slot is booked
         foreach ($bookedSlotTimes as $bookedSlot) {
           $bookedStartTime = DateTime::createFromFormat('H:i:s', $bookedSlot['start_time']);
@@ -185,7 +195,7 @@ class DoctorController extends Controller
         $html .= '" onclick="splitButton(this)">' . htmlspecialchars($slot) . '</button>';
         $html .= '<div class="additional-buttons hidden mb-2">';
         $html .= '<button id="button1" onclick="showContent(\'myDIV\')">' . htmlspecialchars(explode(' - ', $slot)[0]) . '</button>';
-        $html .= '<button id="button2" onclick="showContent(\'content2\', \'' . htmlspecialchars($slot) . '\', \'' . $date . '\', \'' . $data['doctor_id'] . '\')">Next</button>';
+        $html .= '<button id="button2" onclick="showContent(\'content2\', \'' . htmlspecialchars($slot) . '\', \'' . $date . '\', \'' . $requestPayload['doctor_id'] . '\')">Next</button>';
         $html .= '</div>';
         $html .= '</div>';
       }

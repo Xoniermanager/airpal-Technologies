@@ -482,6 +482,7 @@ function search_question() {
 
         function edit_question(doctorQuestionDetails) {
             var doctorQuestionDetails = JSON.parse(doctorQuestionDetails);
+            console.log(doctorQuestionDetails.specialty_id);
             $('.addMoreOptionsEdit').empty();
             $('#id').val(doctorQuestionDetails.id);
             $('#doctor').val(doctorQuestionDetails.doctor_id);
@@ -493,24 +494,51 @@ function search_question() {
             counter = 0;
 
 
+            // if ($('.answer_type').val() != 'text') {
+            //     doctorQuestionDetails.options.forEach(function(option, index) {
+            //         var options_html =
+            //             '<div class="col-md-6 option-details"><div class="row panel panel-body"><div class="col-md-10 form-group"><label for="">Option ' +
+            //             (index + 1) +
+            //             '</label><input class="form-control" type="text" name="options[' +
+            //             index +
+            //             '][value]" value="' + option.options + '" ><span class="text-danger" id="options_' + index +
+            //             '_value_error"></span><div><input type="hidden" name="options[' + index +
+            //             '][option_id]" value="' + option.id +
+            //             '"></div></div><div class="col-md-2 form-group mt-4"><a onclick="remove_options(this, ' +
+            //             option.id +
+            //             ')" class="btn btn-danger btn-sm float-right"> <i class="fa fa-minus"></i></a></div></div></div>';
+            //         $('.addMoreOptionsEdit').append(options_html);
+            //         counter = index + 1; // Update counter to the latest index
+            //     });
+            //     $(".optional").show();
+            // }
             if ($('.answer_type').val() != 'text') {
-                doctorQuestionDetails.options.forEach(function(option, index) {
-                    var options_html =
-                        '<div class="col-md-6 option-details"><div class="row panel panel-body"><div class="col-md-10 form-group"><label for="">Option ' +
-                        (index + 1) +
-                        '</label><input class="form-control" type="text" name="options[' +
-                        index +
-                        '][value]" value="' + option.options + '" ><span class="text-danger" id="options_' + index +
-                        '_value_error"></span><div><input type="hidden" name="options[' + index +
-                        '][option_id]" value="' + option.id +
-                        '"></div></div><div class="col-md-2 form-group mt-4"><a onclick="remove_options(this, ' +
-                        option.id +
-                        ')" class="btn btn-danger btn-sm float-right"> <i class="fa fa-minus"></i></a></div></div></div>';
-                    $('.addMoreOptionsEdit').append(options_html);
-                    counter = index + 1; // Update counter to the latest index
-                });
-                $(".optional").show();
-            }
+        doctorQuestionDetails.options.forEach(function(option, index) {
+            var options_html =
+                '<div class="col-md-6 option-details"><div class="row panel panel-body"><div class="col-md-10 form-group"><label for="">Option ' +
+                (index + 1) +
+                '</label><input class="form-control" type="text" name="options[' +
+                index +
+                '][value]" value="' + option.options + '" ><span class="text-danger" id="options_' + index +
+                '_value_error"></span><div><input type="hidden" name="options[' + index +
+                '][option_id]" value="' + option.id + '"></div></div><div class="col-md-2 form-group mt-4"><a onclick="remove_options(this, ' + option.id + ')" class="btn btn-danger btn-sm float-right"> <i class="fa fa-minus"></i></a></div></div></div>';
+            $('.addMoreOptionsEdit').append(options_html);
+            counter = index + 1; // Update counter to the latest index
+        });
+        $(".optional").show();
+    } else {
+        var text_html = 
+            '<div class="col-12 col-sm-12">' +
+                '<div class="mb-3" id="question-div">' +
+                    '<label class="mb-2">Question</label>' +
+                    '<textarea type="text" name="question" class="form-control">' + doctorQuestionDetails.question + '</textarea>' +
+                    '<span class="text-danger" id="question_error"></span>' +
+                '</div>' +
+            '</div>';
+        $('.addMoreOptionsEdit').append(text_html);
+        $(".optional").hide(); // Hide options section if the answer type is 'text'
+    }
+
 
         }
 

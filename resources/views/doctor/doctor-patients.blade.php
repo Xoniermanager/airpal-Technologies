@@ -41,7 +41,7 @@
                             <ul class="header-list-btns">
                                 <li>
                                     <div class="input-block dash-search-input">
-                                        <input type="text" class="form-control" placeholder="Search">
+                                        <input type="text" class="form-control" placeholder="Search" id="searchKey">
                                         <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
                                     </div>
                                 </li>
@@ -49,29 +49,39 @@
                         </div>
                         <div class="appointment-tab-head">
                             <div class="appointment-tabs">
+                                <p style="display:none" id="doctor-id">{{ $doctorDetails->id }}</p>
+                                <p style="display:none" id="selected-filter">regular</p>
                                 <ul class="nav nav-pills inner-tab " id="pills-tab" role="tablist">
                                     <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="regular" type="button"
+                                            onclick="appointment_filter(this)">Regular patient<span>{{ $regularPatients }}</span></button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link " id="new" type="button"
+                                            onclick="appointment_filter(this)">New patient<span> {{ $newPatients ?? 0 }}</span></button>
+                                    </li>
+                                    {{-- <li class="nav-item" role="presentation">
                                         <button class="nav-link active" id="pills-upcoming-tab" data-bs-toggle="pill"
                                             data-bs-target="#pills-upcoming" type="button" role="tab"
                                             aria-controls="pills-upcoming"
-                                            aria-selected="false">Active<span>200</span></button>
+                                            aria-selected="false">Regular patient<span>{{ $regularPatients }} </span></button>
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link" id="pills-cancel-tab" data-bs-toggle="pill"
                                             data-bs-target="#pills-cancel" type="button" role="tab"
                                             aria-controls="pills-cancel"
-                                            aria-selected="true">InActive<span>22</span></button>
-                                    </li>
+                                            aria-selected="true">New patient<span> {{ $newPatients ?? 0 }} </span></button>
+                                    </li> --}}
                                 </ul>
                             </div>
-                            <div class="filter-head">
+                            {{-- <div class="filter-head">
                                 <div class="position-relative daterange-wraper me-2">
                                     <div class="input-groupicon calender-input">
                                         <input type="text" class="form-control  date-range bookingrange"
                                             placeholder="From Date - To Date ">
                                     </div>
                                     <i class="fa-solid fa-calendar-days"></i>
-                                </div>
+                                </div> --}}
                                 {{-- <div class="form-sorts dropdown">
                                     <a href="javascript:void(0);" class="dropdown-toggle" id="table-filter"><i
                                             class="fa-solid fa-filter me-2"></i>Filter By</a>
@@ -223,196 +233,11 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                            </div>
+                            {{-- </div> --}}
                         </div>
-                        <div class="tab-content appointment-tab-content grid-patient">
-                            <div class="tab-pane fade show active" id="pills-upcoming" role="tabpanel"
-                                aria-labelledby="pills-upcoming-tab">
-                                <div class="row">
 
-                                    @forelse ($patients as $patient)
-                                        
-                                    <div class="col-xl-4 col-lg-6 col-md-6 d-flex">
-                                        <div class="appointment-wrap appointment-grid-wrap">
-                                            <ul>
-                                                <li>
-                                                    <div class="appointment-grid-head">
-                                                        <div class="patinet-information">
-                                                            <a href="{{ route('doctor.doctor-patients.index') }}">
-                                                                    <img src="{{ asset('images').'/'.$patient->image_url }}" id="blah" 
-                                                                    onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}">
-                                                                    
-                                                            </a>
-                                                            <div class="patient-info">
-                                                                <p>#Apt0001</p>
-                                                                <h6><a href="{{ route('doctor.doctor-patients.index') }}">{{$patient->fullName}}</a></h6>
-                                                                <ul>
-                                                                    <li>Age : 42</li>
-                                                                    <li>{{$patient->gender ?? ''}}</li>
-                                                                    <li>{{$patient->blood_group ?? ''}}</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="appointment-info">
-                                                    <p><i class="fa-solid fa-clock"></i>11 Nov 2024 10.45 AM</p>
-                                                    <p class="mb-0"><i class="fa-solid fa-location-dot"></i>
-                                                        {{$patient->patientAddress->address ?? ''}}
-                                                        {{$patient->patientAddress->city ?? ''}}
-                                                        {{$patient->patientAddress->state ?? ''}}
-                                                        {{$patient->patientAddress->country->name ?? ''}}
-                                                    </p>
-                                                </li>
-                                                <li class="appointment-action">
-                                                    <div class="patient-book">
-                                                        <p><i class="fa-solid fa-calendar-days"></i>Last Booking
-                                                            <span>27 Feb 2024</span></p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    @empty
-                                        
-                                    @endforelse
-
-             
-
-                                    {{-- <div class="col-md-12">
-                                        <div class="loader-item text-center">
-                                            <a href="javascript:void(0);" class="btn btn-load">Load More</a>
-                                        </div>
-                                    </div> --}}
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="pills-cancel" role="tabpanel"
-                                aria-labelledby="pills-cancel-tab">
-                                <div class="row">
-
-                                    <div class="col-xl-4 col-lg-6 col-md-6 d-flex">
-                                        <div class="appointment-wrap appointment-grid-wrap">
-                                            <ul>
-                                                <li>
-                                                    <div class="appointment-grid-head">
-                                                        <div class="patinet-information">
-                                                            <a href="{{ route('doctor.doctor-patients.index') }}">
-                                                                <img src="../assets/img/doctors-dashboard/profile-06.jpg"
-                                                                    alt="">
-                                                            </a>
-                                                            <div class="patient-info">
-                                                                <p>#Apt0006</p>
-                                                                <h6><a href="{{ route('doctor.doctor-patients.index') }}">Anderea Kearns</a>
-                                                                </h6>
-                                                                <ul>
-                                                                    <li>Age : 40</li>
-                                                                    <li>Female</li>
-                                                                    <li>B-</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="appointment-info">
-                                                    <p><i class="fa-solid fa-clock"></i>26 Sep 2024 10.20 AM</p>
-                                                    <p class="mb-0"><i class="fa-solid fa-location-dot"></i>San
-                                                        Francisco, USA</p>
-                                                </li>
-                                                <li class="appointment-action">
-                                                    <div class="patient-book">
-                                                        <p><i class="fa-solid fa-calendar-days"></i>Last Booking<span>11
-                                                                Feb 2024</span></p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-xl-4 col-lg-6 col-md-6 d-flex">
-                                        <div class="appointment-wrap appointment-grid-wrap">
-                                            <ul>
-                                                <li>
-                                                    <div class="appointment-grid-head">
-                                                        <div class="patinet-information">
-                                                            <a href="{{ route('doctor.doctor-patients.index') }}">
-                                                                <img src="../assets/img/doctors-dashboard/profile-01.jpg"
-                                                                    alt="">
-                                                            </a>
-                                                            <div class="patient-info">
-                                                                <p>#Apt0009</p>
-                                                                <h6><a href="{{ route('doctor.doctor-patients.index') }}">Darrell Tan</a></h6>
-                                                                <ul>
-                                                                    <li>Age : 31</li>
-                                                                    <li>Male</li>
-                                                                    <li>AB+</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="appointment-info">
-                                                    <p><i class="fa-solid fa-clock"></i>25 Aug 2024 10.45 AM</p>
-                                                    <p class="mb-0"><i class="fa-solid fa-location-dot"></i>San Antonio,
-                                                        USA</p>
-                                                </li>
-                                                <li class="appointment-action">
-                                                    <div class="patient-book">
-                                                        <p><i class="fa-solid fa-calendar-days"></i>Last Booking<span>03
-                                                                Jan 2024</span></p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-xl-4 col-lg-6 col-md-6 d-flex">
-                                        <div class="appointment-wrap appointment-grid-wrap">
-                                            <ul>
-                                                <li>
-                                                    <div class="appointment-grid-head">
-                                                        <div class="patinet-information">
-                                                            <a href="{{ route('doctor.doctor-patients.index') }}">
-                                                                <img src="../assets/img/doctors-dashboard/profile-04.jpg"
-                                                                    alt="">
-                                                            </a>
-                                                            <div class="patient-info">
-                                                                <p>#Apt0004</p>
-                                                                <h6><a href="{{ route('doctor.doctor-patients.index') }}">Catherine Gracey</a>
-                                                                </h6>
-                                                                <ul>
-                                                                    <li>Age : 36</li>
-                                                                    <li>Female</li>
-                                                                    <li>AB-</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="appointment-info">
-                                                    <p><i class="fa-solid fa-clock"></i>18 Oct 2024 12.20 PM</p>
-                                                    <p class="mb-0"><i class="fa-solid fa-location-dot"></i>Los Angeles,
-                                                        USA</p>
-                                                </li>
-                                                <li class="appointment-action">
-                                                    <div class="patient-book">
-                                                        <p><i class="fa-solid fa-calendar-days"></i>Last Booking<span>27
-                                                                Feb 2024</span></p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="loader-item text-center">
-                                            <a href="javascript:void(0);" class="btn btn-load">Load More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @include('doctor.my-patient.list')
+                
                     </div>
                 </div>
             </div>
@@ -422,3 +247,52 @@
     </div>
 
     @include('include.footer')
+
+
+
+    <script>
+        $("#searchKey").keyup(function() {
+            filter();
+        });
+
+        // $('input[type=date]').change(function() {
+        //     filter();
+        // });
+
+        function appointment_filter(element) {
+            document.querySelectorAll('.nav-link').forEach(function(navLink) {
+                navLink.classList.remove('active');
+            });
+            element.classList.add('active');
+            jQuery('#selected-filter').text(jQuery(element).attr('id'));
+            filter();
+        }
+
+        function filter() {
+            let key = jQuery('#selected-filter').text();
+            let userId = jQuery('#doctor-id').text();
+            let searchKey = jQuery('#searchKey').val();
+            let dateSearch = jQuery('#dateSearch').val();
+            $.ajax({
+                url: "<?= route('doctor.filter.on.my-patient') ?>",
+                type: 'get',
+                data: {
+                    key: key,
+                    doctorId: userId,
+                    searchKey: searchKey,
+                    dateSearch: dateSearch,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+
+                    jQuery('#my-patient-list').replaceWith(response.data);
+                    jQuery('#my-patient-list').hide().delay(200).fadeIn();
+                },
+                error: function(xhr, status, error) {
+                    // Handle any errors
+                    console.error(error);
+                }
+            });
+        }
+    </script>
+

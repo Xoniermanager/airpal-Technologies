@@ -161,6 +161,11 @@ class UserServices
     return $this->UserRepository->where('id', $id)->first();
   }
 
+  public function getPatientByDoctorId($id)
+  {
+    return $this->UserRepository->where('role',3)->get();
+  }
+
   public function updatePatient($data)
   {
     $filename = null;

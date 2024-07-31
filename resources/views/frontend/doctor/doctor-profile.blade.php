@@ -24,10 +24,9 @@
                 <div class="card-body">
                     <div class="doctor-widget">
                         <div class="doc-info-left">
-                            <div class="doctor-img">
-                                <img src="{{ asset('images/') . '/' . $doctor->image_url }}" class="img-fluid"
-                                    alt=""
-                                    onerror="this.src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}';">
+                            <div class="doctor-img"> 
+                                <img src="{{ $doctor['image_url'] }}" class="img-fluid"
+                                    alt=""   onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" >
                             </div>
                             <div class="doc-info-cont">
                                 <h4 class="doc-name">{{ $doctor->first_name }} {{ $doctor->last_name }}</h4>

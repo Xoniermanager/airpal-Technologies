@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Services;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Repositories\UserRepository;
 use App\Http\Repositories\QuestionsRepository;
 
@@ -27,6 +28,9 @@ class QuestionServices {
      }
      public function all(){
       return $this->questionsRepository->with(['user','specialty','options'])->paginate();
+     }
+     public function getQuestionByDoctorId(){
+      return $this->questionsRepository->where('doctor_id',Auth::id())->with(['user','specialty','options'])->paginate();
      }
 
      public function doctorQuestionFilter($searchedKey){
@@ -93,7 +97,16 @@ public function filterInQuestion($searchedKey)
     }
     if (!empty($data['answerType'])) {
       $query->whereIn('answerType', $data['answerType']);
-}
+   }
        return $query->paginate(6);
+  }
+
+  /**
+   * Creating HTML for the selected question
+   * show the html in pop up to update
+   */
+  public function getSelectedQuestionHTML($questionId)
+  {
+     
   }
 }

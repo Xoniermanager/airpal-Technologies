@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class DoctorQuestions extends Model
 {
-    use HasFactory;
+    use HasFactory ,SoftDeletes;
+
     protected $fillable = ['doctor_id','specialty_id','question','answer_type','status'];
     protected $table = "doctor_questions";
 

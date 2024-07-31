@@ -6,7 +6,7 @@
             <li>
                 <div class="patinet-information">
                     <a href="#">
-                        <img src="{{ asset('images').'/'.$booking->patient->image_url}}"
+                        <img src="{{ $booking->patient->image_url}}"
                             alt="">
                     </a>
                     <div class="patient-info">

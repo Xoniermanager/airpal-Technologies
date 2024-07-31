@@ -1,17 +1,29 @@
 <div class="tab-pane fade show active" id="appointmentList" role="tabpanel"
 aria-labelledby="pills-upcoming-tab" >
 <div class="row">
-
+    
 @forelse ($bookings as $booking )
 
  <div class="col-xl-4 col-lg-6 col-md-12 d-flex">
-    <div class="appointment-wrap appointment-grid-wrap">
+    <div class="position-relative appointment-wrap appointment-grid-wrap">
+            @if ($booking->status == 'confirmed')
+            <div class="ribbon ribbon-new"><span>Confirmed</span>
+            </div>
+            @elseif ($booking->status == 'cancelled')
+            <div class="ribbon ribbon-hot"><span>Cancelled</span>
+            </div>
+            @elseif ($booking->booking_date == \Carbon\Carbon::now()->toDateString())
+            <div class="ribbon ribbon-spo"><span>Today</span></div>
+            @elseif (\Carbon\Carbon::parse($booking->booking_date)->gt(\Carbon\Carbon::now()))
+            <div class="ribbon ribbon-pop"><span>Upcoming</span></div>
+
+            @endif
         <ul>
             <li>
                 <div class="appointment-grid-head">
                     <div class="patinet-information">
                         <a href="{{ route('doctor.appointments.index') }}">
-                            <img src="{{ asset('images').'/'.$booking->patient->image_url}}" id="blah">
+                            <img src="{{ $booking->patient->image_url}}" id="blah">
                         </a>
                         <div class="patient-info">
                             {{-- <p>#Apt0001</p> --}}
@@ -59,6 +71,9 @@ aria-labelledby="pills-upcoming-tab" >
  @endforelse
 
 
+ <div class="mt-3 d-flex justify-content-end">
+    {{ $bookings->links() }}
+</div>
 
     {{-- <div class="col-md-12">
         <div class="loader-item text-center">

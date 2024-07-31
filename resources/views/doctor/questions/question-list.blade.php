@@ -23,10 +23,9 @@
                         <td>{{ $question['created_at']->format('d/m/Y') }}</td>
                         <td>
                             <div class="actions">
-                                <a class="btn btn-sm bg-success-light" data-id ="{{ $question['name'] }}"
-                                    data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#edit_question" data-bs-original-title="" title=""
+                                <a class="btn btn-sm bg-success-light" data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#edit_question" data-bs-original-title="" title=""
  
-                                    onclick="edit_question('{{ $question }}')">
+                                    onclick="edit_question('{{ $question->id }}')">
                                     <i class="fe fe-pencil"></i> Edit
                                 </a>
                                 <a data-bs-toggle="modal" href="#delete-question"

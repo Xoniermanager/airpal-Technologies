@@ -2,7 +2,8 @@
                             <div class="widget-profile pro-widget-content">
                                 <div class="profile-info-widget">
                                     <a href="{{ route('doctor.doctor-profile.index') }}" class="booking-doc-img">
-                                        <img src="{{ asset('images').'/'.auth()->user()->image_url }}" id="blah" 
+                         
+                                        <img src="{{ auth()->user()->image_url}}" id="blah"  class="previewProfile"
                                         onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}">
                                     </a>
             
@@ -35,7 +36,7 @@
                             </div>
                             <div class="doctor-available-head">
                                 <div class="input-block input-block-new">
-                                    <label class="form-label">Availability <span class="text-danger">*</span></label>
+                                    <label class="form-label">Availability<span class="text-danger">*</span></label>
                                     <select class="select form-control">
                                         <option>I am Available Now</option>
                                         <option>Not Available</option>

@@ -34,31 +34,6 @@
                     <div class="col-lg-8 col-xl-9">
                         <div class="dashboard-header">
                             <h3>Appointment Requests</h3>
-                            <ul>
-                                <li>
-                                    <div class="dropdown header-dropdown">
-                                        <a class="dropdown-toggle nav-tog" data-bs-toggle="dropdown" href="javascript:void(0);">
-                                            Filter Options
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a href="javascript:void(0);" class="dropdown-item" data-filter="all">
-                                                All
-                                            </a>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-filter="today">
-                                                Today
-                                            </a>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-filter="week">
-                                                Next 7 Days
-                                            </a>
-                                            <a href="javascript:void(0);" class="dropdown-item" data-filter="month">
-                                                This Month
-                                            </a>
-
-                                        </div>
-                                    </div>
-                                    
-                                </li>
-                            </ul>
                         </div>
                         @include('doctor.request.list')
                     </div>

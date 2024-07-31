@@ -59,9 +59,9 @@
 
                                 <div class="filter-grid">
                                     <h4>
-                                        <a href="#collapsetwo" data-bs-toggle="collapse">Availability</a>
+                                        <a href="#collapsetwo" data-bs-toggle="collapse" class="collapsed">Availability</a>
                                     </h4>
-                                    <div id="collapsetwo" class="collapse show">
+                                    <div id="collapsetwo" class="collapse">
                                         <div class="filter-collapse">
                                             <ul>
                                                 <li>
@@ -102,7 +102,7 @@
                                     <h4>
                                         <a href="#collapsethree" data-bs-toggle="collapse">Consultation Fee</a>
                                     </h4>
-                                    <div id="collapsethree" class="collapse show">
+                                    <div id="collapsethree" class="collapse">
                                         <div class="filter-collapse">
                                             <div class="filter-content filter-content-slider">
                                                 <p>$10 <span>$10000</span></p>
@@ -212,7 +212,7 @@
                                     <h4>
                                         <a href="#collapsesix" data-bs-toggle="collapse">Online Consultation</a>
                                     </h4>
-                                    <div id="collapsesix" class="collapse show">
+                                    <div id="collapsesix" class="collapse ">
                                         <div class="filter-collapse">
                                             <ul>
                                                 <li>
@@ -249,7 +249,7 @@
                                 </div>
 
 
-                                <div class="filter-grid">
+                                {{-- <div class="filter-grid">
                                     <h4>
                                         <a href="#collapseseven" data-bs-toggle="collapse">By Rating</a>
                                     </h4>
@@ -329,14 +329,14 @@
                                             </ul>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
 
                                 <div class="filter-grid">
                                     <h4>
                                         <a href="#collapseeight" data-bs-toggle="collapse">Languages</a>
                                     </h4>
-                                    <div id="collapseeight" class="collapse show">
+                                    <div id="collapseeight" class="collapse">
                                         <div class="filter-collapse">
                                             <ul>
 

@@ -53,11 +53,11 @@ class UserServices
 
   public function getDoctorDataForFrontend()
   {
-    return $this->UserRepository->where('role', 2)->with(["experiences", "specializations", "services"])->paginate(5);
+    return $this->UserRepository->where('role', 2)->with(["experiences", "specializations", "services",'favoriteDoctor','doctorReview'])->paginate(5);
   }
   public function getDoctorDataById($id)
   {
-    return $this->UserRepository->where('id', $id)->with(["educations.course", "experiences.hospital", "workingHour", "specializations", "services", "workingHour.daysOfWeek", "language", 'awards.award', 'doctorAddress.country', 'doctorAddress.states'])->first();
+    return $this->UserRepository->where('id', $id)->with(["educations.course", "experiences.hospital", "workingHour", "specializations", "services", "workingHour.daysOfWeek", "language", 'awards.award', 'doctorAddress.country', 'doctorAddress.states','favoriteDoctor','doctorReview'])->first();
   }
   public function updateOrCreateDoctor($data)
   {

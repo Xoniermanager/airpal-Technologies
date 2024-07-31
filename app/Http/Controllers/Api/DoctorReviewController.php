@@ -55,4 +55,22 @@ class DoctorReviewController extends Controller
             ], 500);
         }
     }
+
+    public function getReviewDetailById($id)
+    {
+        try {
+            $allReviewDetails = $this->doctorReviewService->getReviewById($id);
+            return response()->json([
+                'status' => true,
+                'message' => "Retrieved Review Details",
+                'data' => $allReviewDetails
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                "status" => false,
+                "error" =>  $e->getMessage(),
+                "message" => "Unable to find Review"
+            ], 500);
+        }
+    }
 }

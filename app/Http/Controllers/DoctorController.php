@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\BookingServices;
+use App\Http\Services\DoctorReviewService;
 use App\Http\Services\UserServices;
 use App\Models\User;
 use App\Models\Service;
@@ -21,12 +22,15 @@ class DoctorController extends Controller
   private $doctorSlotServices;
   private $bookingServices;
 
-  public function __construct(UserServices $user_services, SpecializationServices $specializationServices, DoctorSlotServices $doctorSlotServices, BookingServices $bookingServices)
+  private $doctorReviewService;
+
+  public function __construct(UserServices $user_services, SpecializationServices $specializationServices, DoctorSlotServices $doctorSlotServices, BookingServices $bookingServices, DoctorReviewService $doctorReviewService)
   {
     $this->user_services = $user_services;
     $this->bookingServices = $bookingServices;
     $this->specializationServices = $specializationServices;
     $this->doctorSlotServices =  $doctorSlotServices;
+    $this->doctorReviewService =  $doctorReviewService;
   }
 
   public function index()
@@ -41,7 +45,7 @@ class DoctorController extends Controller
   public function doctorProfile(User $user)
   {
 
-    $doctor = $user->load('specializations', 'services', 'educations.course', 'experiences', 'workingHour.daysOfWeek', 'awards.award', 'doctorAddress.states.country');
+    $doctor = $user->load('specializations', 'services', 'educations.course', 'experiences', 'workingHour.daysOfWeek', 'awards.award', 'doctorAddress.states.country', 'doctorReview.patient');
     $doctorSpecializations = ($doctor->specializations)->toArray();
     $specializationNames = [];
 
@@ -51,10 +55,10 @@ class DoctorController extends Controller
 
     $topSpecializations = array_slice($specializationNames, 0, 2);
     $specializationsString = implode(', ', $topSpecializations);
-
     return view('frontend.doctor.doctor-profile')
       ->with('doctor', $doctor)
-      ->with('specializationsString', $specializationsString);
+      ->with('specializationsString', $specializationsString)
+      ->with('allReviewDetails', $this->doctorReviewService->getAllReviewByDoctorId($user->id));
   }
 
   public function appointment($id)

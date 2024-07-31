@@ -34,48 +34,51 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::middleware('authCheck')->group(function () {
 
-    Route::post('change-password', [AuthController::class, 'changePassword']);
-    Route::controller(DoctorProfileController::class)->group(function () {
-        Route::get('profile', 'profile');
-        Route::post('create', 'createOrUpdate');
-        Route::post('address/update', 'updateAddress');
-    });
+    Route::prefix('doctor')->group(function () {
+        Route::post('change-password', [AuthController::class, 'changePassword']);
+        Route::controller(DoctorProfileController::class)->group(function () {
+            Route::get('profile', 'profile');
+            Route::post('create', 'createOrUpdate');
+            Route::post('address/update', 'updateAddress');
+        });
 
-    Route::controller(DoctorEducationController::class)->group(function () {
-        Route::post('education/update', 'createOrUpdateEducation');
-        Route::post('education/update/{id}', 'createOrUpdateEducationSingleRecord');
-        Route::get('education/delete/{id}', 'destroy');
-    });
+        Route::controller(DoctorEducationController::class)->group(function () {
+            Route::post('education/update', 'createOrUpdateEducation');
+            Route::post('education/update/{id}', 'createOrUpdateEducationSingleRecord');
+            Route::get('education/delete/{id}', 'destroy');
+        });
 
-    Route::controller(DoctorExperienceController::class)->group(function () {
-        Route::post('experience/update', 'createOrUpdateExperience');
-        Route::post('experience/update/{id}', 'createOrUpdateExperienceSingleRecord');
-        Route::get('experience/delete/{id}', 'destroy');
-    });
+        Route::controller(DoctorExperienceController::class)->group(function () {
+            Route::post('experience/update', 'createOrUpdateExperience');
+            Route::post('experience/update/{id}', 'createOrUpdateExperienceSingleRecord');
+            Route::get('experience/delete/{id}', 'destroy');
+        });
 
-    Route::controller(DoctorAwardController::class)->group(function () {
-        Route::post('award/update', 'createOrUpdateAward');
-        Route::post('award/update/{id}', 'createOrUpdateAwardSingleRecord');
-        Route::get('award/delete/{id}', 'destroy');
-    });
+        Route::controller(DoctorAwardController::class)->group(function () {
+            Route::post('award/update', 'createOrUpdateAward');
+            Route::post('award/update/{id}', 'createOrUpdateAwardSingleRecord');
+            Route::get('award/delete/{id}', 'destroy');
+        });
 
-    Route::controller(DoctorWorkingHourController::class)->group(function () {
-        Route::post('working-hour/update', 'createOrUpdateWorkingHour');
-    });
+        Route::controller(DoctorWorkingHourController::class)->group(function () {
+            Route::post('working-hour/update', 'createOrUpdateWorkingHour');
+        });
 
-    Route::controller(DoctorSlotsController::class)->group(function () {
-        Route::get('slots/{id}', 'get');
-        Route::post('slots/create', 'store');
-        Route::post('slots/update', 'update');
-        Route::get('slots/delete', 'delete');
-        Route::get('slots/showSlots/{id}', 'showSlotsByDoctorId');
-        Route::post('slots/get-doctor-slots-by-date', 'getDoctorSlotsByDate');
-    });
+        Route::controller(DoctorSlotsController::class)->group(function () {
+            Route::get('slots/{id}', 'get');
+            Route::post('slots/create', 'store');
+            Route::post('slots/update', 'update');
+            Route::get('slots/delete', 'delete');
+            Route::get('slots/showSlots/{id}', 'showSlotsByDoctorId');
+            Route::post('slots/get-doctor-slots-by-date', 'getDoctorSlotsByDate');
+        });
 
-    Route::controller(DoctorAppointmentController::class)->group(function () {
-        Route::get('doctor-current-date-appointments/{id}', 'doctorCurrentDateBookings');
-        Route::get('doctor-upcoming-appointments/{id}', 'doctorUpcomingBookings');
-        Route::get('appointments/{id}', 'appointmentsById');
+        Route::controller(DoctorAppointmentController::class)->group(function () {
+            Route::get('doctor-current-date-appointments/{id}', 'doctorCurrentDateBookings');
+            Route::get('doctor-upcoming-appointments/{id}', 'doctorUpcomingBookings');
+            Route::get('appointments/{id}', 'appointmentsById');
+            Route::get('all-appointments', 'getAllAppointment');
+        });
     });
 
     // patient routes starts here
@@ -97,6 +100,7 @@ Route::middleware('authCheck')->group(function () {
         });
         Route::controller(DoctorFilterController::class)->group(function () {
             Route::get('search', 'doctorSearch');
+            Route::get('get-all-doctor/{users:id}', 'getDoctorDetailsById');
         });
         Route::controller(BookAppointmentApiController::class)->group(function () {
             Route::get('all-appointment', 'allAppointment');
@@ -109,6 +113,7 @@ Route::middleware('authCheck')->group(function () {
     Route::controller(DoctorReviewController::class)->group(function () {
         Route::post('add-doctor-review', 'addDoctorReview');
         Route::get('get-all-review', 'getAllReview');
+        Route::get('get-review-details/{doctor_reviews:id}', 'getReviewDetailById');
     });
     Route::get('privacy', [AuthController::class, 'privacyPolicy']);
 });

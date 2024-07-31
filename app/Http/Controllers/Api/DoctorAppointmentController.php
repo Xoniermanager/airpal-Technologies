@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Services\UserServices;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Services\BookingServices;
 
 class DoctorAppointmentController extends Controller
@@ -71,7 +72,6 @@ class DoctorAppointmentController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
-        
     }
     public function appointmentsById($appointmentID)
     {
@@ -97,9 +97,30 @@ class DoctorAppointmentController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
-
     }
-
-    
-
+    public function getAllAppointment()
+    {
+        try {
+            $allAppointments = $this->bookingServices->doctorBookings(Auth::guard('api')->user()->id)->get();
+            if ($allAppointments->isNotEmpty()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Doctor appointments retrieved successfully',
+                    'data' => $allAppointments
+                ]);
+            } else {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'No appointments found',
+                    'data' => []
+                ]);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to retrieve appointments',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }

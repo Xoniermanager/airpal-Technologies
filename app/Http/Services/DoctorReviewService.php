@@ -33,4 +33,10 @@ class DoctorReviewService
    {
       return $this->doctorReviewRepository->with('patient')->where('doctor_id', $doctorId)->paginate(10);
    }
+
+   public function getReviewById($id)
+   {
+      dd($id);
+      return $this->doctorReviewRepository->find($id);
+   }
 }

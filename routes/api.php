@@ -77,6 +77,7 @@ Route::middleware('authCheck')->group(function () {
             Route::get('doctor-current-date-appointments/{id}', 'doctorCurrentDateBookings');
             Route::get('doctor-upcoming-appointments/{id}', 'doctorUpcomingBookings');
             Route::get('appointments/{id}', 'appointmentsById');
+            Route::get('all-appointments', 'getAllAppointment');
         });
     });
 
@@ -112,6 +113,7 @@ Route::middleware('authCheck')->group(function () {
     Route::controller(DoctorReviewController::class)->group(function () {
         Route::post('add-doctor-review', 'addDoctorReview');
         Route::get('get-all-review', 'getAllReview');
+        Route::get('get-review-details/{doctor_reviews:id}', 'getReviewDetailById');
     });
     Route::get('privacy', [AuthController::class, 'privacyPolicy']);
 });

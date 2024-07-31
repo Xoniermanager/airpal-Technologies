@@ -93,7 +93,7 @@ class BookingServices
    }
    public function doctorBookings($id)
    {
-      return $this->bookingRepository->where('doctor_id', $id);
+      return $this->bookingRepository->where('doctor_id', $id)->with('patient');
    }
    public function patientBookings($id)
    {

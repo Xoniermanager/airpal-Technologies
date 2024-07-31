@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="zxx">
+
 <head>
     @include('include.head')
 </head>
+
 <body>
     <div class="main-wrapper">
         @include('include.header')
@@ -95,7 +97,7 @@
                         <div class="Appointment-header">
                             <h4 class="Appointment-title">Appointment Summary</h4>
                         </div>
-          
+
                         <div class="card Appointment-card">
                             <div class="card-body Appointment-card-body">
                                 <div class="Appointment-doctor-details">
@@ -111,12 +113,14 @@
                                             <h4><a href="doctor-profile.html">Dr. {{ $doctorDetails->fullName }}</a>
                                             </h4>
                                             @isset($doctorDetails)
-                                            @forelse ($doctorDetails->educations as $education)
-                                            {{$education->course->name}}
-                                            @if( !$loop->last),@endif
-                                            @empty
-                                            <p>N/A</p>
-                                            @endforelse
+                                                @forelse ($doctorDetails->educations as $education)
+                                                    {{ $education->course->name }}
+                                                    @if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @empty
+                                                    <p>N/A</p>
+                                                @endforelse
                                             @endisset
                                             {{-- <p>MBBS, Dentist</p> --}}
                                         </div>
@@ -151,24 +155,23 @@
                                         <label class="form-group-title">Appointment for</label>
                                         <label class="custom_radio me-4">
                                             <input type="radio" name="appointment" checked="">
-                                            
-                                            <input type="hidden" name="patient_id" value="{{ auth()->user()->id ?? ''}}">
-                                            {{-- <input type="hidden" name="booking_date" id="booking_date" value="">
-                                            <input type="hidden" name="booking_slot_time" id="booking_slot_time"
-                                                value=""> --}}
-                                            <input type="hidden" name="doctor_id" id="doctor_id" value="" >
+
+                                            <input type="hidden" name="patient_id" value="{{ auth()->user()->id ?? '' }}">
+                                            <input type="hidden" name="doctor_id" id="doctor_id" value="">
 
                                             <span class="checkmark"></span> My Self
                                         </label>
 
                                     </div>
                                     <div class="forms-block">
-                                        <input type="text" name="booking_date" id="booking_date" class="form-control" 
-                                        value="" readonly>
+                                        <input type="text" name="booking_date" id="booking_date" class="form-control"
+                                            value="" readonly>
+                                            <span class="text-danger" id="booking_date_error"></span>
                                     </div>
                                     <div class="forms-block">
-                                        <input type="text" name="booking_slot_time" id="booking_slot_time" class="form-control" 
-                                        value="" readonly >
+                                        <input type="text" name="booking_slot_time" id="booking_slot_time"
+                                            class="form-control" value="" readonly>
+                                            <span class="text-danger" id="booking_slot_time_error"></span>
                                     </div>
                                     <div class="forms-block">
                                         <label class="form-group-title">Do you have insurance?</label>
@@ -185,6 +188,7 @@
                                         <label class="form-group-title">Description</label>
                                         <textarea class="form-control" placeholder="Enter Your Reason" name="description"></textarea>
                                         <p class="characters-text">400 Characters</p>
+                                        <span class="text-danger" id="description_error"></span>
                                     </div>
                                     <div class="forms-block position-relative">
                                         <label class="form-group-title d-flex align-items-center">
@@ -206,10 +210,13 @@
                                             </div>
                                         </div>
                                         <input type="file" class="form-control inputfile" name="image">
+                                        <span class="text-danger" id="image_error"></span>
                                     </div>
                                     <div class="forms-block">
                                         <label class="form-group-title">Symptoms <span>(Optional)</span></label>
-                                        <input type="text" class="form-control" placeholder="Skin Allergy" name="symptoms">
+                                        <input type="text" class="form-control" placeholder="Skin Allergy"
+                                            name="symptoms">
+                                            <span class="text-danger" id="symptoms_error"></span>
                                     </div>
                                     <div class="forms-block mb-0">
                                         <div class="booking-btn">
@@ -241,12 +248,14 @@
                                                 <h4><a href="doctor-profile.html">{{ $doctorDetails->fullName }}</a>
                                                 </h4>
                                                 @isset($doctorDetails)
-                                                @forelse ($doctorDetails->educations as $education)
-                                                {{$education->course->name}}
-                                                @if( !$loop->last),@endif
-                                                @empty
-                                                <p>N/A</p>
-                                                @endforelse
+                                                    @forelse ($doctorDetails->educations as $education)
+                                                        {{ $education->course->name }}
+                                                        @if (!$loop->last)
+                                                            ,
+                                                        @endif
+                                                    @empty
+                                                        <p>N/A</p>
+                                                    @endforelse
                                                 @endisset
                                             </div>
                                         </div>
@@ -281,8 +290,8 @@
                                     <div class="booking-doctor-details">
                                         <div class="booking-device">
                                             <div class="booking-device-img">
-                                               
-                                                <img src="{{URL::asset('assets/img/icons/device-message.svg')}}"
+
+                                                <img src="{{ URL::asset('assets/img/icons/device-message.svg') }}"
                                                     alt="device-message-image">
                                             </div>
                                             <div class="booking-doctor-info">
@@ -301,18 +310,22 @@
                                     <div class="booking-doctor-details">
                                         <div class="booking-device">
                                             <div class="booking-device-img">
-                                                <img src="{{URL::asset('assets/img/icons/smart-phone.svg')}}" alt="smart-phone">
+                                                <img src="{{ URL::asset('assets/img/icons/smart-phone.svg') }}"
+                                                    alt="smart-phone">
                                             </div>
                                             <div class="booking-doctor-info">
                                                 <h3>Get the App</h3>
-                                                <p class="device-text">Download our app for better experience and for more feature</p>
+                                                <p class="device-text">Download our app for better experience and for
+                                                    more feature</p>
                                                 <div class="app-images">
-                                                <a href="javascript:void(0);">
-                                                <img src="{{URL::asset('assets/img/google-img.svg')}}" alt="google-image">
-                                                </a>
-                                                <a href="javascript:void(0);">
-                                                <img src="{{URL::asset('assets/img/app-img.svg')}}" alt="app-image">
-                                                </a>
+                                                    <a href="javascript:void(0);">
+                                                        <img src="{{ URL::asset('assets/img/google-img.svg') }}"
+                                                            alt="google-image">
+                                                    </a>
+                                                    <a href="javascript:void(0);">
+                                                        <img src="{{ URL::asset('assets/img/app-img.svg') }}"
+                                                            alt="app-image">
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -325,33 +338,24 @@
             </div>
         </div>
         @include('include.footer')
-        <script>
-            var site_base_url = "{{ env('SITE_BASE_URL') }}";
-            </script>
-        <script src="{{ asset('/assets/js/jquery-3.7.1.min.js') }}"></script>
-        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script>
-
-
             $(document).ready(function() {
-                
                 jQuery("#booking").validate({
                     rules: {
-                        // TODO apply it later
+                        description: {
+                            required: true,
+                            maxlength: 200
+                        }
                     },
                     messages: {
-
-                        email: "Please enter a valid email address",
-                        password: {
-                            required: "Please enter your password",
-                            minlength: "Password must be at least 8 characters long",
-                            maxlength: "Password must be no more than 20 characters long"
-                        },
+                        description: {
+                                required: "This field is required",
+                                maxlength: "Please enter no more than 200 characters"
+                            }
                     },
                     submitHandler: function(form) {
-                    var formData = new FormData(form);
+                        var formData = new FormData(form);
                         $.ajax({
                             url: "<?= route('patient.booking') ?>",
                             type: 'post',
@@ -360,16 +364,14 @@
                             processData: false,
                             contentType: false,
                             success: function(response) {
-                              if (response.status == 200) {
-                                swal.fire("Done!", response.message, "success");
-                                console.log(site_base_url);
-                                window.location.href = site_base_url + "doctor/success";
+                                if (response.status == 200) {
+                                    swal.fire("Done!", response.message, "success");
+                                    console.log(site_base_url);
+                                    window.location.href = site_base_url + "doctor/success";
                                 }
 
-           
                             },
                             error: function(error_messages) {
-
                                 Swal.fire("Error!", "Something Went Wrong", "error");
                                 var errors = error_messages.responseJSON;
                                 $.each(errors.errors, function(key, value) {
@@ -392,9 +394,9 @@
                         '_token': '{{ csrf_token() }}',
                         month: month,
                         year: year,
-                        doctor_id: doctor_id, 
+                        doctor_id: doctor_id,
                     },
-                    dataType: "html", 
+                    dataType: "html",
                     cache: false,
                     success: function(response) {
                         jQuery(".calenderwrap").remove();
@@ -421,7 +423,7 @@
                     // dataType: "json",
                     cache: false,
                     success: function(response) {
-                        console.log('show',response);
+                        console.log('show', response);
                         jQuery('.appointment-time').html(response.html);
                         $('.appointment-time').html(response.html).hide().delay(200).fadeIn();
                     },
@@ -431,5 +433,48 @@
 
                 });
             }
-        </script>
+            function splitButton(button) {
+                var $button = $(button);
+                var $allSlots = $('.slot-group');
 
+                // Toggle visibility for the clicked slot's additional buttons
+                var $additionalButtons = $button.siblings('.additional-buttons');
+                if ($additionalButtons.hasClass("hidden")) {
+                    // Show additional buttons of the clicked slot and hide others
+                    $allSlots.find('.additional-buttons').addClass("hidden");
+                    $additionalButtons.removeClass("hidden");
+                } else {
+                    // Hide additional buttons of the clicked slot
+                    $additionalButtons.addClass("hidden");
+                }
+            }
+
+            function showContent(contentId, slot, date, doctorId) {
+
+                // Send AJAX request to check if the user is authenticated
+                $.ajax({
+                    url: site_base_url + 'patients/check-auth',
+                    method: 'GET',
+                    success: function(response) {
+                        if (response.authenticated) {
+                            // If authenticated, proceed with booking process
+                            $('#booking_date').val(date);
+                            $('.booking_date').text(date);
+                            $('#booking_slot_time').val(slot);
+                            $('.booking_slot_time').text(slot);
+                            $('#doctor_id').val(doctorId);
+
+                            var content = document.getElementById(contentId);
+                            content.classList.remove("hidden-content");
+                        } else {
+                            // If not authenticated, redirect to login or show a message
+                            Swal.fire("To Continue!", "your booking, please sign in first.", "error");
+
+                        }
+                    },
+                    error: function() {
+                        alert('An error occurred while checking authentication.');
+                    }
+                });
+            }
+        </script>

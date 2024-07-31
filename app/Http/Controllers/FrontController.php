@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookingSlots;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
@@ -35,5 +36,13 @@ class FrontController extends Controller
   public function checkout()
   {
     return view('frontend.pages.checkout');
+  }
+
+
+  public function testing()
+  {
+
+    $bookingDetail = BookingSlots::find(107);
+    return view('invoice.invoice-template',compact('bookingDetail'));
   }
 }

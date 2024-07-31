@@ -36,6 +36,7 @@ use App\Http\Controllers\Doctor\DoctorDashboardController;
 use App\Http\Controllers\Patient\PatientProfileController;
 use App\Http\Controllers\Doctor\AppointmentConfigController;
 use App\Http\Controllers\Doctor\DoctorAppointmentController;
+use App\Http\Controllers\Doctor\DoctorPanelQuestionController;
 use App\Http\Controllers\Patient\PatientDashboardController;
 use App\Http\Controllers\Doctor\DoctorAuthenticationController;
 use App\Http\Controllers\Patient\PatientAppointmentsController;
@@ -142,8 +143,8 @@ Route::prefix('doctor')->group(function () {
             Route::get('appointment-search', 'doctorAppointmentSearch')->name('doctor.appointment-search');   
         });
 
-        Route::prefix('questions')->controller(DoctorQuestionController::class)->group(function () {
-            Route::get('/', 'DoctorQuestionIndex')->name('doctor.questions.index');
+        Route::prefix('questions')->controller(DoctorPanelQuestionController::class)->group(function () {
+            Route::get('/', 'index')->name('doctor.questions.index');
             Route::post('create', 'store')->name('doctor.add.questions');
             Route::get('get-question-details', 'getQuestionDetailsHTML')->name('doctor.get.question.html');
             Route::post('update', 'update')->name('doctor.questions.update');
@@ -339,7 +340,7 @@ Route::prefix('patients')->group(function () {
 Route::controller(DoctorController::class)->group(function () {
     Route::get('doctor/{user:id}', 'doctorProfile')->name('frontend.doctor.profile');
 });
-Route::get('/doctors', [DoctorController::class, 'index'])->name('doctors.index');
+Route::get('/search-doctor', [DoctorController::class, 'index'])->name('doctors.index');
 Route::get('/search', [DoctorController::class, 'search'])->name('doctors.search');
 Route::get('/', [HomeController::class, 'home'])->name('home.index');
 Route::get('/specialty-list', [SpecialtyPageController::class, 'specialty_list'])->name('specialty.list');
@@ -356,4 +357,7 @@ Route::get('/appointment/doctor/{id}', [DoctorController::class, 'appointment'])
 Route::get('/invoice', [FrontController::class, 'invoice'])->name('invoice.index');
 Route::get('/patient_details', [FrontController::class, 'patient_details'])->name('patient_details.index');
 Route::get('/checkout', [FrontController::class, 'checkout'])->name('checkout.index');
+
+
+Route::get('/testingUrl', [FrontController::class, 'testing']);
 // ============================== End Frontend Website Routes ===================== //

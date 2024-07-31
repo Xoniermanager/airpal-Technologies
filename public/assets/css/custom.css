@@ -46338,3 +46338,10 @@ td.date.halfFull button {
   border-bottom: 0.188rem solid transparent;
   border-top: 0.188rem solid var(--spo-two);
 }
+.question-table thead tr th {
+    background: #f7f7f7 !important;
+    border: 1px solid #ccc !important;
+}
+.min-w-600px {
+    min-width: 600px;
+}

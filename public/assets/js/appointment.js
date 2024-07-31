@@ -1,16 +1,3 @@
-// function splitButton(button) {
-
-//     // // var originalButton = document.getElementById("original-button");
-//     // button.classList.add("hidden");
-
-   
-
-//     // var additionalButtons = document.getElementsByClassName("additional-buttons");
-//     // additionalButtons.classList.remove("hidden");
-
-//         $(button).addClass("hidden"); // Hide the original slot button
-//         $(button).siblings('.additional-buttons').removeClass("hidden"); // Show the additional buttons
-//     }
 
 function splitButton(button) {
     var $button = $(button);
@@ -27,18 +14,6 @@ function splitButton(button) {
         $additionalButtons.addClass("hidden");
     }
 }
-
-// function showContent(contentId,slot,date,doctorId) {
-
-//     $('#booking_date').val(date);
-//     $('.booking_date').text(date);
-//     $('#booking_slot_time').val(slot);
-//     $('.booking_slot_time').text(slot);
-//     $('#doctor_id').val(doctorId);
-    
-//     var content = document.getElementById(contentId);
-//     content.classList.remove("hidden-content");
-// }
 
 function showContent(contentId, slot, date, doctorId) {
 

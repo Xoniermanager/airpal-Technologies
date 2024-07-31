@@ -5,11 +5,16 @@ namespace App\Http\Services;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Jobs\SendOtpJob;
+
+
 use App\Models\BookingSlots;
 use App\Jobs\BookedSlotMailJob;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Storage;
 use App\Jobs\DoctorAppointmentQueryMailJob;
 use App\Http\Repositories\BookingRepository;
+use App\Jobs\GenerateInvoicePdf;
+use App\Models\DoctorSlots;
 
 class BookingServices
 {
@@ -21,14 +26,33 @@ class BookingServices
    public function store($data)
    {
 
+
+      $bookingDetails = BookingSlots::find(107);
+      GenerateInvoicePdf::dispatch($bookingDetails);
+      dd('dispatch');
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
       $slot = $data->booking_slot_time;
       // Split the string and remove "AM" or "PM"
       list($start_time, $end_time) = array_map(function ($time) {
          return str_replace(['AM', 'PM'], '', $time);
       }, explode(' - ', $slot));
 
-      if (isset($data["image"]) && !empty($data['image'])) {
-         $image = $data["image"];
+      // here uploading image
+      if (isset($data->image) && !empty($data->image)) {
+         $image = $data->image;
          if ($image instanceof \Illuminate\Http\UploadedFile) {
             $filename = 'appointment_booking' . time() . '.' . $image->getClientOriginalName();
             $destinationPath = public_path('appointments_file');
@@ -46,8 +70,14 @@ class BookingServices
          'symptoms' => $data->symptoms,
          'image' => $filename ?? '',
       ];
+
       $bookedSlot  =  $this->bookingRepository->create($payload);
       if ($bookedSlot) {
+
+         // generating invoice against booking
+         GenerateInvoicePdf::dispatch($bookedSlot);
+
+         // sending mail with invoice attachments
          BookedSlotMailJob::dispatch($bookedSlot);
 
          $encryptedBookingId = Crypt::encryptString($bookedSlot->id);
@@ -55,13 +85,12 @@ class BookingServices
          $urlSafeEncoded = urlencode($base64Encoded);
          $url = route('doctor.disease-details', ['booking_id' => $urlSafeEncoded]);
 
-         // $encryptedBookingId = Crypt::encryptString($bookedSlot->id);
-         // $url = route('doctor.disease-details', ['booking_id' => $encryptedBookingId]);
          $mailDataAndLink = [
             'link' => $url
          ];
-         DoctorAppointmentQueryMailJob::dispatch($mailDataAndLink);
 
+         // sending mail for query about disease
+         DoctorAppointmentQueryMailJob::dispatch($mailDataAndLink);
          return redirect()->route('success.index')->with([
             'booking_date' => $data->booking_date,
             'bookingSlotTime' => $data->booking_slot_time,
@@ -196,12 +225,12 @@ class BookingServices
       $filteredAppointments = $appointments->filter(function ($appointment) use ($patientBookings, $key) {
          $patientId = $appointment->patient_id;
          $count = $patientBookings[$patientId];
-               if ($key == 'new') {
-                  return $count == 1;
-               } elseif ($key == 'regular') {
-                  return $count > 1;
-               }
-               return false;
+         if ($key == 'new') {
+            return $count == 1;
+         } elseif ($key == 'regular') {
+            return $count > 1;
+         }
+         return false;
       });
 
       $filteredPatientIds = $filteredAppointments->pluck('patient_id')->unique();

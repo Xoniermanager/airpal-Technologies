@@ -76,7 +76,7 @@ class BookingRepository extends BaseRepository
                 $query->orWhere('last_name', 'like', "%{$searchKey}%");
              });
         }
-        return $query->paginate(12);
+        return $query->paginate(9);
     }
 
     public function getTotalAppointmentByDoctorId($doctorId)

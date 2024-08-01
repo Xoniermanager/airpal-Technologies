@@ -32,15 +32,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/aos.css') }}">
 
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
-    <!--  jquery script  -->
-    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <!--  validation script  -->
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.0/jquery.validate.min.js"></script>
-
-    <!--  jsrender script  -->
-    <script src="http://cdn.syncfusion.com/js/assets/external/jsrender.min.js"></script>
-
-    <!-- Essential JS UI widget -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!--Add custom scripts here -->
     <title>Airpal Technology</title>

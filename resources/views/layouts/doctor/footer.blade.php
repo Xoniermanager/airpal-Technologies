@@ -125,7 +125,6 @@
     </svg>
 </div>
 
-<script src="{{asset('assets/js/jquery-3.7.1.min.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
 
 <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
 

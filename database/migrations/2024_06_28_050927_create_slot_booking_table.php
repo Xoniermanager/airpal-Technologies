@@ -20,10 +20,10 @@ return new class extends Migration
             $table->time('slot_start_time');
             $table->time('slot_end_time');
             $table->string('note')->nullable();
-            $table->string('attachments')->nullable();
+            // $table->string('attachments')->nullable();
             $table->string('invoice_url')->nullable();
             $table->string('insurance')->nullable();
-            $table->string('symptoms')->nullable();
+            // $table->string('symptoms')->nullable();
 
             $table->enum('status',['requested','confirmed','cancelled']);
             $table->timestamps();

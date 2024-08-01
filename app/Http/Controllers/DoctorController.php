@@ -38,7 +38,8 @@ class DoctorController extends Controller
     $doctors     = $this->user_services->getDoctorDataForFrontend();
     $specialties = $this->specializationServices->all();
     $specialties = $this->specializationServices->all();
-    return view('frontend.doctor.search-doctor', ['doctors' =>  $doctors, 'languages' => Language::all(), 'specialties' => $specialties, 'services' => Service::all()]);
+    $allRatingStars = $this->doctorReviewService->getAllRatingGroupByRatingNumber();
+    return view('frontend.doctor.search-doctor', ['doctors' =>  $doctors, 'languages' => Language::all(), 'specialties' => $specialties, 'services' => Service::all(), 'allRatingStars'=>$allRatingStars]);
   }
 
 

@@ -112,7 +112,6 @@ Route::prefix('doctor')->group(function () {
         Route::controller(PatientController::class)->group(function () {
             Route::get('patient','doctorPatient')->name('doctor.doctor-patients.index');
             Route::get('doctor-filter-on-patient','doctorFilterOnPatient')->name('doctor.filter.on.my-patient');
-
         });
         Route::controller(InvoiceController::class)->group(function () {
             Route::get('invoices', 'doctorInvoices')->name('doctor.doctor-invoices.index');

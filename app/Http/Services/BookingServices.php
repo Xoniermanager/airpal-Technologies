@@ -26,24 +26,6 @@ class BookingServices
    public function store($data)
    {
 
-
-      $bookingDetails = BookingSlots::find(107);
-      GenerateInvoicePdf::dispatch($bookingDetails);
-      dd('dispatch');
-
-
-
-
-
-
-      
-
-
-
-
-
-
-
       $slot = $data->booking_slot_time;
       // Split the string and remove "AM" or "PM"
       list($start_time, $end_time) = array_map(function ($time) {

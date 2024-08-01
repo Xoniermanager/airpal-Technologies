@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Jobs\DoctorAppointmentQueryMailJob;
 use App\Http\Repositories\BookingRepository;
 use App\Jobs\GenerateInvoicePdf;
-use App\Models\DoctorSlots;
+use App\Models\DoctorAppointmentConfig;
 
 class BookingServices
 {

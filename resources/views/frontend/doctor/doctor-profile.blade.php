@@ -1,8 +1,5 @@
 @extends('layouts.doctor.main')
 @section('content')
-    @php
-        $ratingButton = false;
-    @endphp
     <div class="breadcrumb-bar-two">
         <div class="container">
             <div class="row align-items-center inner-banner">
@@ -24,9 +21,9 @@
                 <div class="card-body">
                     <div class="doctor-widget">
                         <div class="doc-info-left">
-                            <div class="doctor-img"> 
-                                <img src="{{ $doctor['image_url'] }}" class="img-fluid"
-                                    alt=""   onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" >
+                            <div class="doctor-img">
+                                <img src="{{ $doctor['image_url'] }}" class="img-fluid" alt=""
+                                    onerror="this.src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}';">
                             </div>
                             <div class="doc-info-cont">
                                 <h4 class="doc-name">{{ $doctor->first_name }} {{ $doctor->last_name }}</h4>
@@ -322,7 +319,7 @@
                             <div class="widget review-listing">
                                 @include('frontend.doctor.review')
                             </div>
-                            @if (Auth()->user() && $ratingButton == true)
+                            @if (Auth()->user() && $ratingButton == false)
                                 <div class="rate-form">
                                     <h4 class="mb-4">Add Review</h4>
                                     @include('frontend.doctor.review_form')

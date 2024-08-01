@@ -39,7 +39,7 @@ class DoctorController extends Controller
     $specialties = $this->specializationServices->all();
     $specialties = $this->specializationServices->all();
     $allRatingStars = $this->doctorReviewService->getAllRatingGroupByRatingNumber();
-    return view('frontend.doctor.search-doctor', ['doctors' =>  $doctors, 'languages' => Language::all(), 'specialties' => $specialties, 'services' => Service::all(), 'allRatingStars'=>$allRatingStars]);
+    return view('frontend.doctor.search-doctor', ['doctors' =>  $doctors, 'languages' => Language::all(), 'specialties' => $specialties, 'services' => Service::all(), 'allRatingStars' => $allRatingStars]);
   }
 
 
@@ -48,6 +48,11 @@ class DoctorController extends Controller
 
     $doctor = $user->load('specializations', 'services', 'educations.course', 'experiences', 'workingHour.daysOfWeek', 'awards.award', 'doctorAddress.states.country', 'doctorReview.patient');
     $doctorSpecializations = ($doctor->specializations)->toArray();
+    $ratingButton = false;
+    if (isset($doctor->doctorReview) && count($doctor->doctorReview) > 0) {
+      $ratingButton = true;
+    }
+    $rating =  $doctor->doctorReview ? 'true' : 'false';
     $specializationNames = [];
 
     foreach ($doctorSpecializations as $specialization) {
@@ -58,6 +63,7 @@ class DoctorController extends Controller
     $specializationsString = implode(', ', $topSpecializations);
     return view('frontend.doctor.doctor-profile')
       ->with('doctor', $doctor)
+      ->with('ratingButton', $ratingButton)
       ->with('specializationsString', $specializationsString)
       ->with('allReviewDetails', $this->doctorReviewService->getAllReviewByDoctorId($user->id));
   }
@@ -77,7 +83,7 @@ class DoctorController extends Controller
 
   public function search(Request $request)
   {
-    Validator::make($request->all(),[
+    Validator::make($request->all(), [
       'gender'      =>  'sometimes|in:male,female',
       'languages'   =>  'sometimes|exists:languages,id',
       'experience'  =>  'sometimes|in:"1-5","5-10"',
@@ -156,19 +162,18 @@ class DoctorController extends Controller
     // Prepare HTML for slots with indication of booked slots
     $html = '<div>';
     // foreach ($startDateTime as $day) {
-      foreach ($startDateTime['slotsTime'] as $slot) {
-        $isBooked = false;
-        list($startTime, $endTime) = explode(' - ', $slot);
+    foreach ($startDateTime['slotsTime'] as $slot) {
+      $isBooked = false;
+      list($startTime, $endTime) = explode(' - ', $slot);
 
-        $startDateTime = DateTime::createFromFormat('H:i', $startTime);
-        $endDateTime = DateTime::createFromFormat('H:i', $endTime);
+      $startDateTime = DateTime::createFromFormat('H:i', $startTime);
+      $endDateTime = DateTime::createFromFormat('H:i', $endTime);
 
-        if (!$startDateTime || !$endDateTime) {
-          throw new \Exception("Failed to create DateTime object from '$startTime' or '$endTime'");
-        }
-        if(isset($bookedSlotTimes))
-        {
-          
+      if (!$startDateTime || !$endDateTime) {
+        throw new \Exception("Failed to create DateTime object from '$startTime' or '$endTime'");
+      }
+      if (isset($bookedSlotTimes)) {
+
         // Check if slot is booked
         foreach ($bookedSlotTimes as $bookedSlot) {
           $bookedStartTime = DateTime::createFromFormat('H:i:s', $bookedSlot['start_time']);

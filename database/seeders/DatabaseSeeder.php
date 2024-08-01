@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             LanguagesTableSeeder::class,
             CountriesAndStatesTableSeeder::class,
             UsersTableSeeder::class,
+            PatientSeeder::class
     ]);
     }
 }

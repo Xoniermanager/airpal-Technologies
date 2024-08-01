@@ -78,6 +78,7 @@ Route::middleware('authCheck')->group(function () {
             Route::get('doctor-upcoming-appointments/{id}', 'doctorUpcomingBookings');
             Route::get('appointments/{id}', 'appointmentsById');
             Route::get('all-appointments', 'getAllAppointment');
+            Route::get('all-appointments-by-filter', 'getFilteredAppointment');
         });
     });
 

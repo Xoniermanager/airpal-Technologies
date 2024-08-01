@@ -4,19 +4,20 @@ namespace App\Http\Controllers\Doctor;
 
 
 
-use App\Http\Services\UserServices;
 use App\Http\Controllers\Controller;
+use App\Http\Services\DoctorReviewService;
 use Illuminate\Support\Facades\Auth;
 
 class ReviewsController extends Controller
 {
-    private $userServices;
-    public function __construct(UserServices $userServices){
-        $this->userServices = $userServices;
+    private $doctorReviewServices;
+    public function __construct(DoctorReviewService $doctorReviewServices)
+    {
+        $this->doctorReviewServices = $doctorReviewServices;
     }
     public function doctorReviews()
     {
-    $doctorDetails   = $this->userServices->getDoctorDataById(auth::id());
-    return view('doctor.doctor-reviews',['doctorDetails' => $doctorDetails ]);
-    } 
+        $doctorReviewDetails   = $this->doctorReviewServices->getAllReviewByDoctorId(auth::id());
+        return view('doctor.doctor-reviews',compact('doctorReviewDetails'));
+    }
 }

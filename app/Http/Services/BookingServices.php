@@ -26,6 +26,8 @@ class BookingServices
    public function store($data)
    {
 
+
+
       $slot = $data->booking_slot_time;
       // Split the string and remove "AM" or "PM"
       list($start_time, $end_time) = array_map(function ($time) {

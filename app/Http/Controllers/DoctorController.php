@@ -50,7 +50,7 @@ class DoctorController extends Controller
     $doctorSpecializations = ($doctor->specializations)->toArray();
     $ratingButton = false;
     $reviewCheck = $this->doctorReviewService->checkReviewDoctorAndPatientid(Auth()->user()->id,$user->id);
-    if (isset($reviewCheck) && count($reviewCheck) > 0) {
+    if (isset($reviewCheck) && $reviewCheck > 0) {
       $ratingButton = true;
     }
     $specializationNames = [];

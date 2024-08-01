@@ -4,10 +4,9 @@
     namespace App\Http\Repositories;
     use Prettus\Repository\Eloquent\BaseRepository;
     use Prettus\Repository\Criteria\RequestCriteria;
-    use App\Models\DoctorSlots;
+    use App\Models\DoctorAppointmentConfig;
 
-
-    class DoctorSlotRepository extends BaseRepository {
+    class DoctorAppointmentConfigRepository extends BaseRepository {
 
         /**
          * Specify Model class name
@@ -16,7 +15,7 @@
          */
         public function model()
         {
-            return DoctorSlots::class;
+            return DoctorAppointmentConfig::class;
         }
         /**
          * Boot up the repository, pushing criteria

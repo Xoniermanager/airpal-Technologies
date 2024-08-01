@@ -9,11 +9,10 @@ use Carbon\Carbon;
 use App\Models\DayOfWeek;
 use Carbon\CarbonInterval;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use App\Http\Repositories\DoctorSlotRepository;
+use App\Http\Repositories\DoctorAppointmentConfigRepository;
 use App\Http\Repositories\DoctorExceptionDayRepository;
 
-class DoctorSlotServices
+class DoctorAppointmentConfigService
 {
     private  $doctorSlotRepository;
     private $userServices;
@@ -21,7 +20,7 @@ class DoctorSlotServices
 
     private $bookingServices;
 
-    public function __construct(DoctorSlotRepository $doctorSlotRepository, DoctorExceptionDayRepository $doctorExceptionDayRepository, UserServices $userServices, BookingServices $bookingServices)
+    public function __construct(DoctorAppointmentConfigRepository $doctorSlotRepository, DoctorExceptionDayRepository $doctorExceptionDayRepository, UserServices $userServices, BookingServices $bookingServices)
     {
         $this->doctorSlotRepository = $doctorSlotRepository;
         $this->doctorExceptionDayRepository = $doctorExceptionDayRepository;

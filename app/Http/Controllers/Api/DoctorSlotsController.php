@@ -9,7 +9,7 @@ use App\Http\Services\UserServices;
 use App\Http\Controllers\Controller;
 use App\Http\Services\BookingServices;
 use App\Http\Requests\StoreSlotRequest;
-use App\Http\Services\DoctorSlotServices;
+use App\Http\Services\DoctorAppointmentConfigService;
 
 class DoctorSlotsController extends Controller
 {
@@ -17,7 +17,7 @@ class DoctorSlotsController extends Controller
     private $userServices;
     private $bookingServices;
 
-    public function __construct(DoctorSlotServices $doctorSlotServices, UserServices $userServices, BookingServices $bookingServices)
+    public function __construct(DoctorAppointmentConfigService $doctorSlotServices, UserServices $userServices, BookingServices $bookingServices)
     {
         $this->doctorSlotServices = $doctorSlotServices;
         $this->userServices = $userServices;

@@ -10,7 +10,7 @@ use App\Models\Service;
 use App\Models\Language;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Services\DoctorSlotServices;
+use App\Http\Services\DoctorAppointmentConfigService;
 use App\Http\Services\SpecializationServices;
 use DateTime;
 
@@ -24,7 +24,7 @@ class DoctorController extends Controller
 
   private $doctorReviewService;
 
-  public function __construct(UserServices $user_services, SpecializationServices $specializationServices, DoctorSlotServices $doctorSlotServices, BookingServices $bookingServices, DoctorReviewService $doctorReviewService)
+  public function __construct(UserServices $user_services, SpecializationServices $specializationServices, DoctorAppointmentConfigService $doctorSlotServices, BookingServices $bookingServices, DoctorReviewService $doctorReviewService)
   {
     $this->user_services = $user_services;
     $this->bookingServices = $bookingServices;

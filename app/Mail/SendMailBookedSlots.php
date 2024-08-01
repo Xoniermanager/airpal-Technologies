@@ -54,6 +54,8 @@ class SendMailBookedSlots extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        return [
+            'invoice' => $this->mailData->invoice_url,
+        ];
     }
 }

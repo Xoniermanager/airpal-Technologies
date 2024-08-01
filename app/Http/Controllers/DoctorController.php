@@ -38,7 +38,7 @@ class DoctorController extends Controller
     $doctors     = $this->user_services->getDoctorDataForFrontend();
     $specialties = $this->specializationServices->all();
     $specialties = $this->specializationServices->all();
-    return view('frontend.doctor.index', ['doctors' =>  $doctors, 'languages' => Language::all(), 'specialties' => $specialties, 'services' => Service::all()]);
+    return view('frontend.doctor.search-doctor', ['doctors' =>  $doctors, 'languages' => Language::all(), 'specialties' => $specialties, 'services' => Service::all()]);
   }
 
 
@@ -66,8 +66,6 @@ class DoctorController extends Controller
     $doctor = $this->user_services->getDoctorDataById($id);
     $doctorSlotConfigDetails = $this->doctorSlotServices->getDoctorSlotConfiguration($doctor->id);
     if (isset($doctorSlotConfigDetails)) {
-      // $doctorSlotConfigDetails->exception_days = $doctorSlotConfigDetails->user->doctorExceptionDays;
-      // $returnedSlots  = $this->doctorSlotServices->createDoctorSlots($doctorSlotConfigDetails); // unused 
       $doctorSlotConfigDetails->exception_days = $doctorSlotConfigDetails->user->doctorExceptionDays;
       $returnCalendar = $this->doctorSlotServices->CreateDoctorSlotCalendar($doctorSlotConfigDetails);
     } else {
@@ -78,6 +76,16 @@ class DoctorController extends Controller
 
   public function search(Request $request)
   {
+    Validator::make($request->all(),[
+      'gender'      =>  'sometimes|in:male,female',
+      'languages'   =>  'sometimes|exists:languages,id',
+      'experience'  =>  'sometimes|in:"1-5","5-10"',
+      'specialty'   =>  'sometimes|exists:specializations,id',
+      'services'    =>  'sometimes|exists:services,id',
+      'availability'  =>  'sometimes|integer|in:1,2,7,30',
+      'rating'      =>  'sometimes|integer|between:1,5'
+    ]);
+
     $searchedItems = $this->user_services->searchInDoctors($request->all());
     if ($searchedItems) {
       return response()->json([
@@ -132,20 +140,6 @@ class DoctorController extends Controller
 
 
     $date = $date ? $date : $startDateTime['date'];
-
-    // dd($startDateTime);
-    // Filter and prepare slots data
-//     $slotsData = collect($returnedSlots)
-//       ->filter(function ($item, $key) use ($date, $startDateTime) {
-//         return $key == $date;
-//       })
-//       ->map(function ($item, $key) {
-//         $item['date'] = $key;
-//         return $item;
-//       })
-//       ->values();
-// dd( $slotsData);
-
 
     // Collect booked slots for the given date
     $bookedSlotTimes = $gettingBookedSlots->filter(function ($item) use ($date) {

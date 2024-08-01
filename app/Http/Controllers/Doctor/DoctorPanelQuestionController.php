@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Doctor;
 
 use Illuminate\Http\Request;
 use App\Models\Specialization;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Services\QuestionOptionServices;
 
-class DoctorQuestionController extends Controller
+class DoctorPanelQuestionController extends Controller
 {
 
   private $questionServices;
@@ -24,16 +24,11 @@ class DoctorQuestionController extends Controller
     $this->user_services    = $user_services;
     $this->questionOptionServices = $questionOptionServices;
   }
-
-  // this is for admin 
   public function index()
   {
-
-    $doctors      =  $this->user_services->all();
-    $specialties  =  Specialization::all();
-    $allQuestions =  $this->questionServices->all();
-
-    return view("admin.questions.index", ['allQuestions' => $allQuestions, 'doctors' => $doctors, 'specialties' => $specialties]);
+    $allQuestions = $this->questionServices->getDoctorQuestionById(Auth::user()->id);
+    $specialties  = Specialization::all();
+    return view("doctor.questions.index", ['allQuestions' => $allQuestions, 'specialties' => $specialties]);
   }
 
   public function store(StoreQuestionRequest $request)
@@ -56,14 +51,14 @@ class DoctorQuestionController extends Controller
         $this->questionOptionServices->addQuestionsOptions($payloadForOptions);
       }
     }
-    if (isset($request->answer)) {
-      $payloadForText = [
-        'options'     => $request->answer,
-        'question_id' => $createdQuestionsDetails->id
-      ];
-      $this->questionOptionServices->addQuestionsOptions($payloadForText);
-    }
+    return response()->json([
+      'message'  => 'Question Created Successfully!',
+      'data'     =>  view('doctor.questions.question-list', [
+        'allQuestions' =>   $this->questionServices->getDoctorQuestionById(Auth::user()->id)
+      ])->render()
+    ]);
   }
+
   public function update(Request $request)
   {
     $validator = Validator::make($request->all(), [
@@ -101,7 +96,6 @@ class DoctorQuestionController extends Controller
         }
       }
     }
-
     return response()->json([
       'message'  => 'Updated Successfully!',
       'data'     =>  view('doctor.questions.question-list', [
@@ -110,42 +104,6 @@ class DoctorQuestionController extends Controller
     ]);
   }
 
-  public function destroy(Request $request)
-  {
-    if ($this->questionServices->destroy($request->id)) {
-      return response()->json([
-        'message'     =>  'Delete Successfully!',
-        'data'        =>  view('admin.questions.question-list', [
-          'allQuestions'   =>  $this->questionServices->all()
-        ])->render()
-      ]);
-    }
-  }
-
-
-  public function doctorQuestionFilter(Request $request)
-  {
-    $allQuestions = $this->questionServices->doctorQuestionFilter($request->all());
-    return response()->json([
-      'message'     =>  'Successfully retrieved!',
-      'data'        =>  view('admin.questions.question-list', [
-        'allQuestions'   =>  $allQuestions
-      ])->render()
-    ]);
-  }
-
-
-  public function deleteQuestion(Request $request)
-  {
-    if ($this->questionServices->destroy($request->id)) {
-      return response()->json([
-        'message'     =>  'Delete Successfully!',
-        'data'        =>  view('admin.questions.question-list', [
-          'allQuestions'   =>  $this->questionServices->getQuestionByDoctorId()
-        ])->render()
-      ]);
-    }
-  }
 
   public function getQuestionDetailsHTML(Request $request)
   {
@@ -169,4 +127,29 @@ class DoctorQuestionController extends Controller
       ])->render()
     ]);
   }
+
+  public function deleteQuestion(Request $request)
+  {
+    if ($this->questionServices->destroy($request->id)) {
+      return response()->json([
+        'message'     =>  'Delete Successfully!',
+        'data'        =>  view('doctor.questions.question-list', [
+          'allQuestions'   =>  $this->questionServices->getQuestionByDoctorId()
+        ])->render()
+      ]);
+    }
+  }
+
+  public function doctorQuestionFilter(Request $request)
+  {
+    $allQuestions = $this->questionServices->doctorQuestionFilter($request->all());
+    return response()->json([
+      'message'     =>  'Successfully retrieved!',
+      'data'        =>  view('doctor.questions.question-list', [
+        'allQuestions'   =>  $allQuestions
+      ])->render()
+    ]);
+  }
+
+
 }

@@ -1,19 +1,21 @@
 <?php
 namespace App\Http\Services;
+
+use App\Http\Repositories\QuestionsOptionsRepository;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Repositories\UserRepository;
 use App\Http\Repositories\QuestionsRepository;
 
 class QuestionServices {
     private  $questionsRepository;
-    private  $UserRepository;
-    public function __construct(QuestionsRepository $questionsRepository,UserRepository $UserRepository ) {
+    private  $userRepository;
+
+    private  $questionsOptionsRepository;
+    public function __construct(QuestionsRepository $questionsRepository,UserRepository $userRepository, QuestionsOptionsRepository $questionsOptionsRepository) {
         $this->questionsRepository = $questionsRepository;
-        $this->UserRepository = $UserRepository;
+        $this->userRepository = $userRepository;
+        $this->questionsOptionsRepository = $questionsOptionsRepository;
      }
-
-
-
      public function addQuestions($data){
         return $this->questionsRepository->create($data);
      }
@@ -61,26 +63,6 @@ class QuestionServices {
      }
    
 
-   //   public function searchInQuestions($searchKey)
-   //   {
-   
-   //     $data['key']          = array_key_exists('key', $searchKey) ? $searchKey['key'] : '';
-   //     $data['status']       = array_key_exists('status', $searchKey) ? $searchKey['status'] : '';
-   //     $data['departmentID'] = array_key_exists('departmentID', $searchKey) ? $searchKey['departmentID'] : '';
-   
-   //     return $this->questionsRepository->where(function($query) use ($data) {
-   //       if (!empty($data['key'])) {
-   //           $query->where('name', 'like', "%{$data['key']}%");
-   //       }
-   //       if (!empty($data['departmentID'])) {
-   //           $query->where('department_id', $data['departmentID']);
-   //       }
-   //       if (isset($data['status'])) {
-   //           $query->where('status', $data['status']);
-   //       }
-   //     })->get();
-   //    }
-
 public function filterInQuestion($searchedKey)
   {
     $data['doctor_id']  = array_key_exists('doctor_id', $searchedKey) ? $searchedKey['doctor_id'] : '';
@@ -105,8 +87,13 @@ public function filterInQuestion($searchedKey)
    * Creating HTML for the selected question
    * show the html in pop up to update
    */
-  public function getSelectedQuestionHTML($questionId)
+  public function getSelectedQuestionDetails($questionId)
   {
-     
+     return $this->questionsRepository->with('options')->where('id',$questionId)->first();
+  }
+
+  public function deleteOptions($id)
+  {
+      return $this->questionsOptionsRepository->where('question_id',$id)->delete(); 
   }
 }

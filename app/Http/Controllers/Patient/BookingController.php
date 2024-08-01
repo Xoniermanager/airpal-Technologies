@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Patient;
 
+use App\Http\Requests\StoreBooking;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -13,9 +14,11 @@ class BookingController extends Controller
     public function __construct(BookingServices $bookingServices) {
         $this->bookingServices = $bookingServices;
      }
-    public function patientBooking(Request $request)
+     
+    public function patientBooking(StoreBooking $request)
     {
-        $bookedSlot = $this->bookingServices->store($request);
+        $data = $request->validated();
+        $bookedSlot = $this->bookingServices->store((object)$data);
         if ($bookedSlot) {
             return response()->json([
                 'success' => 'true',

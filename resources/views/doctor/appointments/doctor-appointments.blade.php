@@ -191,23 +191,23 @@
         }
 
 
-        function filter() {
+        function filter(page_no = 1) {
             let key = jQuery('#selected-filter').text();
             let userId = jQuery('#doctor-id').text();
             let searchKey = jQuery('#searchKey').val();
             let dateSearch = jQuery('#dateSearch').val();
             $.ajax({
-                url: "<?= route('doctor.appointment-filter') ?>",
+                url: "<?= route('doctor.appointment-filter') ?>?page="+page_no,
                 type: 'get',
                 data: {
-                    key: key,
-                    doctorId: userId,
-                    searchKey: searchKey,
-                    dateSearch: dateSearch,
-                    _token: '{{ csrf_token() }}'
+                    'key': key,
+                    'doctorId': userId,
+                    'searchKey': searchKey,
+                    'dateSearch': dateSearch,
+                    'page_no': page_no,
+                    '_token': '{{ csrf_token() }}'
                 },
                 success: function(response) {
-
                     jQuery('#appointmentList').replaceWith(response.data.grid);
                     jQuery('#appointmentGrid').replaceWith(response.data.list);
                     jQuery('#appointmentList').hide().delay(200).fadeIn();
@@ -241,6 +241,13 @@
             document.getElementById(tabName).classList.add("active");
             event.currentTarget.classList.add("active");
         }
+
+        $(document).on('click', '.pagination a', function(e)
+        {
+            e.preventDefault();
+            var page_no = $(this).attr('href').split('page=')[1];
+            filter(page_no);
+        });
     </script>
 
     <style>

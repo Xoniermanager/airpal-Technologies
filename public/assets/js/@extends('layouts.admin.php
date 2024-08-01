@@ -200,7 +200,6 @@
                                     <div class="col-12 col-sm-12">
                                         <div class="mb-3" id="question-div">
                                             <label class="mb-2">Answer</label>
-                                            {{-- <textarea type="text" name="answer" class="form-control" id="answer"></textarea> --}}
                                             <span class="text-danger" id="questions-error"></span>
                                         </div>
                                     </div>

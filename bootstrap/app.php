@@ -21,9 +21,10 @@ return Application::configure(basePath: dirname(__DIR__))
         'IfAuthenticated' => RedirectIfAuthenticated::class,
 
     ]);
-
        
     }) 
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
+
+    

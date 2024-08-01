@@ -27,8 +27,9 @@ class DoctorAppointmentController extends Controller
   public function doctorAppointments()
   {
     try {
-      $allAppointments = $this->bookingServices->doctorBookings(Auth::id())->paginate(9)->setPath(route('doctor.appointments.index'));
+      $allAppointments = $this->bookingServices->doctorBookings(Auth::id())->paginate(9);
       $allAppointmentCounter = $this->bookingServices->getAllAppointmentCounter(Auth::id());
+
       if ($allAppointmentCounter) {
         return view('doctor.appointments.doctor-appointments', [
           'bookings' => $allAppointments,

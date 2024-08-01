@@ -22,13 +22,18 @@ class StoreQuestionRequest extends FormRequest
     public function rules(): array
     {
         return [
-                'options' => 'sometimes|array',
-                'options.*.value' => 'required|string',
-                'answer'      => 'sometimes|string|nullable',
-                "doctor"      => "required|exists:users,id",
-                "specialty"   => "required|exists:specializations,id",
-                "answer_type" => "required|in:multiple,optional,text",
-                "question"    => "required|string",
+                "doctor"            => "required|exists:users,id",
+                "specialty"         => "required|exists:specializations,id",
+                "answer_type"       => "required|in:multiple,optional,text",
+                "question"          => "required|string",
+                'options'           => 'required_if:answer_type,==,optional,multiple|array',
+                'options.*.value'   => 'required|string',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'options.*.value.required'    => 'Options is required.',
         ];
     }
 }

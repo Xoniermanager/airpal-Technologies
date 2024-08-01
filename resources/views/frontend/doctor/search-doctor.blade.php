@@ -12,7 +12,7 @@
                         <li class="breadcrumb-item" aria-current="page">Search Doctors</li>
                     </ol>
                 </nav>
-            </div>
+            </div> 
         </div>
     </div>
 </div>

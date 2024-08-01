@@ -1,6 +1,6 @@
 <div id="question_list" class="card-body">
     <div class="table-responsive">
-        <table class="table table-hover table-center mb-0">
+        <table class="table table-hover table-center mb-0 question-table">
             <thead>
                 <tr>
                     <th>#</th>
@@ -23,8 +23,8 @@
                         <td>{{ $question['created_at']->format('d/m/Y') }}</td>
                         <td>
                             <div class="actions">
-                                <a class="btn btn-sm bg-success-light" data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#edit_question" data-bs-original-title="" title=""
- 
+                                <a class="btn btn-sm bg-success-light" data-bs-toggle="modal"
+                                    data-bs-target="#edit_question" data-bs-original-title="" title=""
                                     onclick="edit_question('{{ $question->id }}')">
                                     <i class="fe fe-pencil"></i> Edit
                                 </a>
@@ -38,10 +38,9 @@
                 @empty
 
                     <tr>
-                        <td>Not Found</td>
+                        <td colspan="6" class="text-center">Not Found</td>
                     </tr>
-
-    @endforelse
+                @endforelse
 
             </tbody>
         </table>
@@ -53,7 +52,4 @@
     </div>
 </div>
 
-<script>
-
-
-    </script>
+<script></script>

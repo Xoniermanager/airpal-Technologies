@@ -31,7 +31,6 @@
                                                 @empty
                                                     <option>Not found</option>
                                                 @endforelse
-
                                             </select>
                                         </div>
                                         <div class="col-sm-3 col">
@@ -231,28 +230,6 @@
                                         <span class="text-danger" id="anser-type-error"></span>
                                     </div>
                                 </div>
-
-
-
-                                {{-- <div class="text box">
-                                    <div class="col-12 col-sm-12">
-                                        <div class="mb-3" id="question-div">
-                                            <label class="mb-2">Answer</label>
-                                            <textarea type="text" name="answer" class="form-control" id="answer"></textarea>
-                                            <span class="text-danger" id="questions-error"></span>
-                                        </div>
-                                    </div>
-                                </div> --}}
-
-                                {{-- <div class="optional box">
-                                    <a class="btn btn-primary btn-sm addMoreBtn" onclick="add_options('1')"><i
-                                            class="fa fa-plus fs-5"></i> Add Option</a>
-                                </div>
-                                <div class="multiple box">
-                                    <a class="btn btn-primary btn-sm addMoreBtn"
-                                        onclick="add_options('1')"><i class="fa fa-plus fs-5"></i> Add Option
-                                    </a>
-                                </div> --}}
                                 <div class="col-md-6">
 
                                     <div class="optional box">
@@ -333,29 +310,7 @@
     });
 });
 
-function search_question() {
-    let doctorId = $('#doctors').val();
-    let answerType = $('#answerType').val();
-    let specialty = $('#specialty').val();
 
-    $.ajax({
-        url: "{{ route('doctor.question.filter') }}", // Correct way to use route in Blade template
-        type: 'GET',
-        data: {
-            doctorId: doctorId,
-            answerType: answerType,
-            specialty: specialty,
-            _token: '{{ csrf_token() }}'
-        },
-        success: function(response) {
-            jQuery('#question_list').replaceWith(response.data);
-            jQuery('#question_list').hide().delay(200).fadeIn();
-        },
-        error: function(xhr, status, error) {
-            console.error(error);
-        }
-    });
-}
 
 
             $("#addQuestionForm").validate({

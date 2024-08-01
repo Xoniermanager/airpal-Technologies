@@ -49,12 +49,11 @@ class DoctorController extends Controller
     $doctor = $user->load('specializations', 'services', 'educations.course', 'experiences', 'workingHour.daysOfWeek', 'awards.award', 'doctorAddress.states.country', 'doctorReview.patient');
     $doctorSpecializations = ($doctor->specializations)->toArray();
     $ratingButton = false;
-    if (isset($doctor->doctorReview) && count($doctor->doctorReview) > 0) {
+    $reviewCheck = $this->doctorReviewService->checkReviewDoctorAndPatientid(Auth()->user()->id,$user->id);
+    if (isset($reviewCheck) && count($reviewCheck) > 0) {
       $ratingButton = true;
     }
-    $rating =  $doctor->doctorReview ? 'true' : 'false';
     $specializationNames = [];
-
     foreach ($doctorSpecializations as $specialization) {
       $specializationNames[] = $specialization['name'];
     }

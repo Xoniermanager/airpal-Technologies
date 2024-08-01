@@ -54,4 +54,9 @@ class DoctorReviewService
     ->groupBy('rating')
     ->pluck('total','rating');
    }
+
+   public function checkReviewDoctorAndPatientid($patientId,$doctorId)
+   {
+      return $this->doctorReviewRepository->where('patient_id',$patientId)->where('doctor_id',$doctorId);
+   }
 }

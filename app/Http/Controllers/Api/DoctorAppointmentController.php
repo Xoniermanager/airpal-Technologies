@@ -123,4 +123,37 @@ class DoctorAppointmentController extends Controller
             ], 500);
         }
     }
+    public function getFilteredAppointment(Request $request)
+    {
+        try {
+            $data =
+                [
+                    'key' => $request->key,
+                    'doctorId' => Auth::guard('api')->user()->id,
+                    'dateSearch' => $request->date,
+                    'searchKey' => $request->searchKey
+
+                ];
+            $allAppointments = $this->bookingServices->searchDoctorAppointments($data);
+            if ($allAppointments->isNotEmpty()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Doctor appointments retrieved successfully',
+                    'data' => $allAppointments
+                ]);
+            } else {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'No appointments found',
+                    'data' => []
+                ]);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to retrieve appointments',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
 }

@@ -100,7 +100,7 @@ class UsersTableSeeder extends Seeder
         ];
 
         foreach ($users as $user) {
-            // Insert user
+                // Insert user
             $userId = DB::table('users')->insertGetId($user);
 
             // Insert related details
@@ -170,7 +170,17 @@ class UsersTableSeeder extends Seeder
                 'updated_at' => now(),
             ]);
 
-            // Add more related details inserts as needed
+            DB::table('user_addresses')->insert([
+                [
+                    'user_id' => $userId,
+                    'address_type' => 'local',
+                    'country_id' => 1,
+                    'state_id' => 2,
+                    'address' => '123 Main St',
+                    'city' => 'New York',
+                    'pin_code' => '10001',
+                ], 
+            ]);
         }
     }
 }

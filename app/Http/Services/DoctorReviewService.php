@@ -57,6 +57,6 @@ class DoctorReviewService
 
    public function checkReviewDoctorAndPatientid($patientId,$doctorId)
    {
-      return $this->doctorReviewRepository->where('patient_id',$patientId)->where('doctor_id',$doctorId);
+      return $this->doctorReviewRepository->where('patient_id',$patientId)->where('doctor_id',$doctorId)->count();
    }
 }

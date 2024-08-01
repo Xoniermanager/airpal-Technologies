@@ -20,17 +20,14 @@ return new class extends Migration
             $table->time('slot_start_time');
             $table->time('slot_end_time');
             $table->string('note')->nullable();
-            $table->string('attachments')->nullable();
+            $table->string('image')->nullable();
             $table->string('invoice_url')->nullable();
             $table->string('insurance')->nullable();
             $table->string('symptoms')->nullable();
-
-            $table->enum('status',['requested','confirmed','cancelled']);
+            $table->enum('status', ['requested', 'confirmed', 'cancelled']);
             $table->timestamps();
-
-            $table->foreign('patient_id')->references('id')->on('patient')->onDelete('cascade'); // patient table is not created yet
+            $table->foreign('patient_id')->references('id')->on('users')->onDelete('cascade'); // patient table is not created yet
             $table->foreign('doctor_id')->references('id')->on('users')->onDelete('cascade');
-
         });
     }
 

@@ -8,7 +8,7 @@ use App\Models\DayOfWeek;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSlotRequest;
-use App\Http\Services\DoctorSlotServices;
+use App\Http\Services\DoctorAppointmentConfigService;
 
 class SlotsController extends Controller
 {
@@ -16,7 +16,7 @@ class SlotsController extends Controller
     private $doctorSlotServices;
     private $userServices;
 
-    public function __construct(DoctorSlotServices $doctorSlotServices,UserServices $userServices){
+    public function __construct(DoctorAppointmentConfigService $doctorSlotServices,UserServices $userServices){
         $this->doctorSlotServices = $doctorSlotServices;
         $this->userServices = $userServices;
     }

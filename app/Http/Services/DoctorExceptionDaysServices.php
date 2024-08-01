@@ -2,14 +2,14 @@
 
 namespace App\Http\Services;
 
-use App\Http\Repositories\DoctorSlotRepository;
+use App\Http\Repositories\DoctorAppointmentConfigRepository;
 
 class DoctorExceptionDaysServices
 {
     private  $doctorSlotRepository;
     private $doctorExceptionDaysServices;
 
-    public function __construct(DoctorSlotRepository $doctorSlotRepository,DoctorExceptionDaysServices $doctorExceptionDaysServices)
+    public function __construct(DoctorAppointmentConfigRepository $doctorSlotRepository,DoctorExceptionDaysServices $doctorExceptionDaysServices)
     {
         $this->doctorSlotRepository = $doctorSlotRepository;
         $this->doctorExceptionDaysServices = $doctorExceptionDaysServices;

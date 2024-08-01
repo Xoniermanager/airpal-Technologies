@@ -6,7 +6,7 @@
     use Prettus\Repository\Criteria\RequestCriteria;
     use App\Models\DoctorAppointmentConfig;
 
-    class DoctorSlotRepository extends BaseRepository {
+    class DoctorAppointmentConfigRepository extends BaseRepository {
 
         /**
          * Specify Model class name

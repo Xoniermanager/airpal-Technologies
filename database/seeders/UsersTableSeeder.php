@@ -47,11 +47,60 @@ class UsersTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+
+            [
+                'first_name' => 'Eva',
+                'last_name' => 'Smith',
+                'display_name' => 'Dr. Eva Smith',
+                'gender' => 'Female',
+                'phone' => '9876540000',
+                'email' => 'eva@example.com',
+                'role'  => '2',
+                'image_url' => 'path_to_image.jpg',
+                'email_verified_at' => now(),
+                'password' => Hash::make('password'),
+                'description' => 'A competent ENT Surgeon practising for the past 13 years and having a wide range of experience in treating patients with all kinds of ENT issues. Listens to and addresses all of the patients concerns and clearly explains the course of treatment.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+            [
+                'first_name' => 'Paul',
+                'last_name' => 'Walker',
+                'display_name' => 'Dr. Paul Walker',
+                'gender' => 'Male',
+                'phone' => '9876540000',
+                'email' => 'paul@example.com',
+                'role'  => '2',
+                'image_url' => 'path_to_image.jpg',
+                'email_verified_at' => now(),
+                'password' => Hash::make('password'),
+                'description' => 'A competent ENT Surgeon practising for the past 13 years and having a wide range of experience in treating patients with all kinds of ENT issues. Listens to and addresses all of the patients concerns and clearly explains the course of treatment.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+            [
+                'first_name' => 'Nina',
+                'last_name' => 'Welliams',
+                'display_name' => 'Dr. Neena Welliams',
+                'gender' => 'Female',
+                'phone' => '9876540000',
+                'email' => 'nina@example.com',
+                'role'  => '2',
+                'image_url' => 'path_to_image.jpg',
+                'email_verified_at' => now(),
+                'password' => Hash::make('password'),
+                'description' => 'A competent ENT Surgeon practising for the past 13 years and having a wide range of experience in treating patients with all kinds of ENT issues. Listens to and addresses all of the patients concerns and clearly explains the course of treatment.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
             // Add more users as needed
         ];
 
         foreach ($users as $user) {
-            // Insert user
+                // Insert user
             $userId = DB::table('users')->insertGetId($user);
 
             // Insert related details
@@ -121,7 +170,17 @@ class UsersTableSeeder extends Seeder
                 'updated_at' => now(),
             ]);
 
-            // Add more related details inserts as needed
+            DB::table('user_addresses')->insert([
+                [
+                    'user_id' => $userId,
+                    'address_type' => 'local',
+                    'country_id' => 1,
+                    'state_id' => 2,
+                    'address' => '123 Main St',
+                    'city' => 'New York',
+                    'pin_code' => '10001',
+                ], 
+            ]);
         }
     }
 }

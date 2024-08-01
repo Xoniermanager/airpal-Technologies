@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Patient;
 use App\Models\User;
 use App\Http\Services\UserServices;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Services\BookingServices;
 
 class PatientDashboardController extends Controller
@@ -13,7 +14,7 @@ class PatientDashboardController extends Controller
   private $userServices;
   private $bookingServices;
 
-  public function __construct(BookingServices $bookingServices,UserServices $userServices)
+  public function __construct(BookingServices $bookingServices, UserServices $userServices)
   {
     $this->bookingServices = $bookingServices;
     $this->userServices = $userServices;
@@ -56,22 +57,24 @@ class PatientDashboardController extends Controller
   public function getPopularDoctors()
   {
 
-      $allBookings   = $this->bookingServices->all();
-      $doctorBookingCounts = $allBookings->groupBy('doctor_id')->map(function($group) { return $group->count(); })->sortDesc();
-      $topDoctorIds   = $doctorBookingCounts->keys();
-      $popularDoctors = User::whereIn('id', $topDoctorIds)
-                                 ->get()
-                                 ->map(function($doctor) use ($doctorBookingCounts) {
-                                     $doctor->booking_count = $doctorBookingCounts[$doctor->id];
-                                     return $doctor;
-                                 });
-  
-      return $popularDoctors;
+    $allBookings   = $this->bookingServices->all();
+    $doctorBookingCounts = $allBookings->groupBy('doctor_id')->map(function ($group) {
+      return $group->count();
+    })->sortDesc();
+    $topDoctorIds   = $doctorBookingCounts->keys();
+    $popularDoctors = User::whereIn('id', $topDoctorIds)
+      ->get()
+      ->map(function ($doctor) use ($doctorBookingCounts) {
+        $doctor->booking_count = $doctorBookingCounts[$doctor->id];
+        return $doctor;
+      });
+
+    return $popularDoctors;
   }
-  
+
 
   public function getUpcomingAppointment()
   {
-    return $this->bookingServices->patientUpcomingBookings(9)->get();
+    return $this->bookingServices->patientUpcomingBookings(Auth::guard('api')->user()->id)->get();
   }
 }

@@ -71,6 +71,13 @@ class CountriesAndStatesTableSeeder extends Seeder
                         ['name' => 'Wales', 'country_id' => $countryId, 'status' => true, 'created_at' => now(), 'updated_at' => now()],
                         // Add more states as needed
                     ];
+                } elseif ($country['name'] == 'India') {
+                    $states = [
+                        ['name' => 'Uttar Pradesh', 'country_id' => $countryId, 'status' => true, 'created_at' => now(), 'updated_at' => now()],
+                        ['name' => 'Bihar', 'country_id' => $countryId, 'status' => true, 'created_at' => now(), 'updated_at' => now()],
+                        ['name' => 'Udisa', 'country_id' => $countryId, 'status' => true, 'created_at' => now(), 'updated_at' => now()],
+                        // Add more states as needed
+                    ];
                 }
 
                 DB::table('states')->insert($states);

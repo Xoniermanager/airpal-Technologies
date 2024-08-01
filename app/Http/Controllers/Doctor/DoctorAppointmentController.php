@@ -72,6 +72,7 @@ class DoctorAppointmentController extends Controller
       ]
     ]);
   }
+  
   public function doctorAppointmentSearch(Request $request)
   {
     try {

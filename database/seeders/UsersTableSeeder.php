@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -23,9 +24,10 @@ class UsersTableSeeder extends Seeder
                 'gender' => 'Male',
                 'phone' => '1234567890',
                 'email' => 'john@example.com',
+                'role'  => '2',
                 'image_url' => 'path_to_image.jpg',
                 'email_verified_at' => now(),
-                'password' => bcrypt('password'),
+                'password' => Hash::make('password'),
                 'description' => 'Nasal endoscopic sinus surgery, tympanoplasty surgery, skull base surgery, surgery for snoring and micro-ear surgery',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -37,9 +39,10 @@ class UsersTableSeeder extends Seeder
                 'gender' => 'Female',
                 'phone' => '9876543210',
                 'email' => 'jane@example.com',
+                'role'  => '2',
                 'image_url' => 'path_to_image.jpg',
                 'email_verified_at' => now(),
-                'password' => bcrypt('password'),
+                'password' => Hash::make('password'),
                 'description' => 'A competent ENT Surgeon practising for the past 13 years and having a wide range of experience in treating patients with all kinds of ENT issues. Listens to and addresses all of the patients concerns and clearly explains the course of treatment.',
                 'created_at' => now(),
                 'updated_at' => now(),

@@ -35,7 +35,7 @@ class GenerateInvoicePdf implements ShouldQueue
 
         // Creating the invoice name and path path to store
          $fileName = 'invoice-pdf-' . time() . '.pdf';
-         $invoicePath = 'public/' . $doctorId . '//invoices/' . $fileName;
+         $invoicePath = 'public/' . $doctorId . '/invoices/' . $fileName;
 
         Storage::put($invoicePath, $pdf->output());
 

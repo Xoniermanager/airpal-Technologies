@@ -3,6 +3,8 @@
 namespace App\Http\Services;
 
 use App\Http\Repositories\DoctorReviewRepository;
+use App\Models\DoctorReview;
+use Illuminate\Support\Facades\DB;
 
 class DoctorReviewService
 {
@@ -41,5 +43,15 @@ class DoctorReviewService
    public function getReviewById($id)
    {
       return $this->doctorReviewRepository->find($id);
+   }
+
+   public function getAllRatingGroupByRatingNumber()
+   {
+   
+   // return $this->doctorReviewRepository->get()->groupBy('rating');
+   return  $this->doctorReviewRepository
+    ->select('rating', DB::raw('count(*) as total'))
+    ->groupBy('rating')
+    ->pluck('total','rating');
    }
 }

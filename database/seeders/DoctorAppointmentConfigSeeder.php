@@ -15,34 +15,38 @@ class DoctorAppointmentConfigSeeder extends Seeder
      */
     public function run(): void
     {
-     // Retrieve all doctors from the users table
-     $doctors = User::where('role', 2)->get();
+        $doctors = User::where('role', 2)->get();
+        $currentDate = Carbon::now(); // or any specific date if needed
+        
+        $startOfMonth = (clone $currentDate)->startOfMonth();
+        $endOfMonth = (clone $currentDate)->endOfMonth();
 
-     $slotsData = [];
-     foreach ($doctors as $doctor) {
-         $slotsData[] = [
-             'user_id' => $doctor->id,
-             'slot_duration' => 30,
-             'cleanup_interval' => 10,
-             'start_month' => '1',
-             'end_month' => '30',
-             'slots_in_advance' => 20,
-             'start_slots_from_date' => Carbon::parse('2024-01-01'),
-             'stop_slots_date' => Carbon::parse('2024-12-31'),
-             'status' => 1,
-             'created_at' => now(),
-             'updated_at' => now(),
-         ];
-         $exceptionDays[] = [
-              'doctor_id' => $doctor->id,
-              'exception_days_id' => 7,
-              'status'=> true,
-              'created_at' => now(),
-              'updated_at' => now(),
-         ];
-     }
+        $slotsData = [];
+        foreach ($doctors as $doctor) {
 
-     DB::table('doctor_slots')->insert($slotsData);
-     DB::table('exception_days')->insert($exceptionDays);
+            $slotsData[] = [
+                'user_id' => $doctor->id,
+                'slot_duration' => 30,
+                'cleanup_interval' => 10,
+                'start_month' => '1',
+                'end_month' => '30',
+                'slots_in_advance' => 20,
+                'start_slots_from_date' => $startOfMonth,
+                'stop_slots_date' => $endOfMonth,
+                'status' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+            $exceptionDays[] = [
+                'doctor_id' => $doctor->id,
+                'exception_days_id' => 7,
+                'status' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+
+        DB::table('doctor_appointment_configs')->insert($slotsData);
+        DB::table('exception_days')->insert($exceptionDays);
     }
 }

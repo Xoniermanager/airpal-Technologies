@@ -73,7 +73,7 @@
                                                     <a href="{{ route('doctor.doctor-profile.index') }}"
                                                         class="avatar avatar-sm me-2">
                                                         <img class="avatar-img rounded-3"
-                                                            src="../assets/img/doctors/doctor-thumb-02.jpg"
+                                                            src="{{ $invoiceDetail->patient->image_url}}"
                                                             alt="">
                                                     </a>
                                                     <a href="{{ route('doctor.doctor-profile.index') }}">

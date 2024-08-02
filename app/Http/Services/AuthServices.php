@@ -59,7 +59,7 @@ class AuthServices
                 'email' => $email,
                 'otp' => $code,
             ];
-            if (Mail::to("xonier.puneet@gmail.com")->send(new SendMailToUser($mailData))) {
+            if (Mail::to("yashxoniertechnologies@gmail.com")->send(new SendMailToUser($mailData))) {
                 return ['status' => 200, 'success' => true, 'message' => 'OTP sent on mail'];
             } else {
                 return ['status' => 500, 'success' => false, 'message' => 'Error while sending mail'];

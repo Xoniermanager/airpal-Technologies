@@ -11,7 +11,7 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-6">
-                        <div class="banner-content aos" data-aos="fade-up">
+                        <div class="banner-content aos" >
                             <h1>Consult <span>Best Doctors</span> Your Nearby Location.</h1>
                             <img src="{{URL::asset('assets/img/icons/header-icon.svg')}}" class="header-icon" alt="header-icon">
                             <p>Experts opinion at your comfort Zone </p>
@@ -20,7 +20,7 @@
                                 <img src="{{URL::asset('assets/img/down-arrow-img.png')}}" class="img-fluid" alt="down-arrow">
                             </div>
                         </div>
-                        <div class="search-box-one aos" data-aos="fade-up">
+                        <div class="search-box-one aos" >
                             <form action="#">
                                 <div class="search-input search-line">
                                     <i class="feather-search bficon"></i>
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="banner-img aos" data-aos="fade-up">
+                        <div class="banner-img aos" >
                             <img src="{{URL::asset('assets/img/banner-img.png')}}" class="img-fluid" alt="patient-image">
                             <div class="banner-img1">
                                 <img src="{{URL::asset('assets/img/banner-img1.png')}}" class="img-fluid" alt="checkup-image">
@@ -69,17 +69,17 @@
         <section class="doctors-section">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6 aos" data-aos="fade-up">
+                    <div class="col-md-6 aos" >
                         <div class="section-header-one section-header-slider">
                             <h2 class="section-title">Top Doctors</h2>
                         </div>
                     </div>
-                    <div class="col-md-6 aos" data-aos="fade-up">
+                    <div class="col-md-6 aos" >
                         <div class="owl-nav slide-nav-2 text-end nav-control"></div>
                     </div>
                 </div>
             
-                <div class="owl-carousel doctor-slider-one owl-theme aos" data-aos="fade-up">
+                <div class="owl-carousel doctor-slider-one owl-theme aos" >
                     @foreach ( $doctorList as $doctor )
                     <div class="item">
                         <div class="doctor-profile-widget">
@@ -155,7 +155,7 @@
             </div>
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6 aos aos-init aos-animate" data-aos="fade-up">
+                    <div class="col-md-6 aos aos-init aos-animate" >
                         <div class="section-heading bg-area">
                             <h2>Browse by Specialities</h2>
                             <p>Find experienced doctors across all specialties</p>
@@ -169,7 +169,7 @@
 
                     @foreach($specialties as $speciality)
 
-                    <div class="col-xl-3 col-lg-4 col-md-6 aos aos-init aos-animate" data-aos="fade-up">
+                    <div class="col-xl-3 col-lg-4 col-md-6 aos aos-init aos-animate" >
                         <div class="specialist-card d-flex">
                             <div class="specialist-img">
                                 <img src="{{URL::asset('assets/img/category/1.png')}}" alt="kidney-image" class="img-fluid">
@@ -195,12 +195,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-md-12 work-details">
-                        <div class="section-header-one aos" data-aos="fade-up">
+                        <div class="section-header-one aos" >
                             <h5>How it Works</h5>
                             <h2 class="section-title">4 easy steps to get your solution</h2>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6 col-md-6 aos" data-aos="fade-up">
+                            <div class="col-lg-6 col-md-6 aos" >
                                 <div class="work-info">
                                     <div class="work-icon">
                                         <span><img src="{{URL::asset('assets/img/icons/work-01.svg')}}" alt="search-doctor-icon"></span>
@@ -215,7 +215,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6 aos" data-aos="fade-up">
+                            <div class="col-lg-6 col-md-6 aos" >
                                 <div class="work-info">
                                     <div class="work-icon">
                                         <span><img src="{{URL::asset('assets/img/icons/work-02.svg')}}" alt="doctor-profile-icon"></span>
@@ -228,7 +228,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6 aos" data-aos="fade-up">
+                            <div class="col-lg-6 col-md-6 aos" >
                                 <div class="work-info">
                                     <div class="work-icon">
                                         <span><img src="{{URL::asset('assets/img/icons/work-03.svg')}}" alt="calendar-icon"></span>
@@ -240,7 +240,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6 aos" data-aos="fade-up">
+                            <div class="col-lg-6 col-md-6 aos" >
                                 <div class="work-info">
                                     <div class="work-icon">
                                         <span><img src="{{URL::asset('assets/img/icons/work-04.svg')}}" alt="solution-icon"></span>
@@ -256,7 +256,7 @@
                         </div>
                     </div>
                     
-                    <div class="col-lg-4 col-md-12 work-img-info aos" data-aos="fade-up">
+                    <div class="col-lg-4 col-md-12 work-img-info aos" >
                         <div class="work-img">
                             <img src="{{URL::asset('assets/img/work-img.png')}}" class="img-fluid" alt="doctor-image">
                         </div>
@@ -270,14 +270,14 @@
             </div>
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12 aos aos-init aos-animate" data-aos="fade-up">
+                    <div class="col-md-12 aos aos-init aos-animate" >
                         <div class="section-head-fourteen">
                             <h2>Why <span> Airpal App</span></h2>
 
                         </div>
                     </div>
                 </div>
-                <div class="specialities-block aos aos-init aos-animate" data-aos="fade-up">
+                <div class="specialities-block aos aos-init aos-animate" >
                     <ul>
                         <li>
                             <div class="specialities-item">
@@ -337,21 +337,21 @@
                     <div class="row align-items-center">
                         <div class="col-lg-6 col-md-12">
                             <div class="app-content">
-                                <div class="app-header aos" data-aos="fade-up">
+                                <div class="app-header aos" >
                                     <h5>Working for Your Better Health.</h5>
                                     <h2>Download the Airpal App today!</h2>
                                 </div>
-                                <div class="app-scan aos" data-aos="fade-up">
+                                <div class="app-scan aos" >
                                     <p>Book your medicines from your app.</p>
 
                                 </div>
-                                <div class="google-imgs aos" data-aos="fade-up">
+                                <div class="google-imgs aos" >
                                     <a href="javascript:void(0);"><img src="{{URL::asset('assets/img/google-play.png')}}" alt="img"></a>
                                     <a href="javascript:void(0);"><img src="{{URL::asset('assets/img/app-store.png')}}" alt="img"></a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12 aos" data-aos="fade-up">
+                        <div class="col-lg-6 col-md-12 aos" >
                             <div class="mobile-img">
                                 <img src="{{URL::asset('assets/img/mobile-img.png')}}" class="img-fluid" alt="img">
                             </div>
@@ -366,14 +366,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="section-header-one text-center aos" data-aos="fade-up">
+                        <div class="section-header-one text-center aos" >
                             <h5>Get Your Answer</h5>
                             <h2 class="section-title">Frequently Asked Questions</h2>
                         </div>
                     </div>
                 </div>
                 <div class="row align-items-center">
-                    <div class="col-lg-6 col-md-12 aos" data-aos="fade-up">
+                    <div class="col-lg-6 col-md-12 aos" >
                         <div class="faq-img">
                             <img src="{{URL::asset('assets/img/faq-img-2.jpg')}}" class="img-fluid" alt="img">
                             <div class="faq-patients-count">
@@ -388,7 +388,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
-                        <div class="faq-info aos" data-aos="fade-up">
+                        <div class="faq-info aos" >
                             <div class="accordion" id="faq-details">
 
                                 @foreach ( $allFaqs->slice(0, 6) as  $key => $allFaq)
@@ -545,12 +545,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="section-header-one text-center aos" data-aos="fade-up">
+                        <div class="section-header-one text-center aos" >
                             <h2 class="section-title">Our Partners</h2>
                         </div>
                     </div>
                 </div>
-                <div class="partners-info aos" data-aos="fade-up">
+                <div class="partners-info aos" >
                     <ul class="owl-carousel partners-slider d-flex">
                         <li>
                             <a href="javascript:void(0);">

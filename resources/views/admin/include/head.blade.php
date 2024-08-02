@@ -7,12 +7,12 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="">
     <meta property="og:description" content="">
-    <meta property="og:image" content="assets/img/preview-banner.jpg">
+    <meta property="og:image" content="assets/img/logo.png">
     <meta property="twitter:domain" content="">
     <meta property="twitter:url" content="">
     <meta name="twitter:title" content="">
     <meta name="twitter:description" content="">
-    <meta name="twitter:image" content="assets/img/preview-banner.jpg">
+    <meta name="twitter:image" content="assets/img/logo.png">
     <title>Airpal Technology</title>
 
 <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">

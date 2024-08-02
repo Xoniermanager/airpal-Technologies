@@ -11,12 +11,12 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="">
     <meta property="og:description" content="">
-    <meta property="og:image" content="/assets/img/preview-banner.jpg">
+    <meta property="og:image" content="/assets/img/logo.png">
     <meta property="twitter:domain" content="">
     <meta property="twitter:asset" content="">
     <meta name="twitter:title" content="">
     <meta name="twitter:description" content="">
-    <meta name="twitter:image" content="{{ asset('/assets/img/preview-banner.jpg') }}">
+    <meta name="twitter:image" content="{{ asset('/assets/img/logo.png') }}">
     <title>Airpal Technology</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/assets/img/favicon.png') }}">
 

@@ -28,5 +28,34 @@ class DatabaseSeeder extends Seeder
             PatientSeeder::class,
             DoctorAppointmentConfigSeeder::class
     ]);
+        $this->call(AwardsTableSeeder::class);
+        $this->call(CoursesTableSeeder::class);
+        $this->call(DayOfWeeksTableSeeder::class);
+        $this->call(DoctorAwardsTableSeeder::class);
+        $this->call(HospitalsTableSeeder::class);
+        $this->call(LanguagesTableSeeder::class);
+        $this->call(ServicesTableSeeder::class);
+        $this->call(SpecializationsTableSeeder::class);
+        $this->call(CountriesTableSeeder::class);
+        $this->call(StatesTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        $this->call(UserAddressesTableSeeder::class);
+        $this->call(DoctorEducationTableSeeder::class);
+        $this->call(DoctorExperiencesTableSeeder::class);
+        $this->call(DoctorLanguagesTableSeeder::class);
+        $this->call(DoctorServicesTableSeeder::class);
+        $this->call(DoctorSocialMediaAccountsTableSeeder::class);
+        $this->call(DoctorSpecialitiesTableSeeder::class);
+        $this->call(DoctorSpecializationsTableSeeder::class);
+        $this->call(DoctorWorkingHoursTableSeeder::class);
+        $this->call(DoctorAppointmentConfigsTableSeeder::class);
+        $this->call(ExceptionDaysTableSeeder::class);
+        $this->call(DoctorQuestionsTableSeeder::class);
+        $this->call(QuestionOptionsTableSeeder::class);
+        $this->call(BookingSlotsTableSeeder::class);
+        $this->call(DoctorAppointmentQueriesTableSeeder::class);
+        $this->call(DoctorReviewsTableSeeder::class);
+        $this->call(FavoriteDoctorsTableSeeder::class);
+        $this->call(FaqsTableSeeder::class);
     }
 }

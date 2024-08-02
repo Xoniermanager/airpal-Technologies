@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class HospitalsTableSeeder extends Seeder
+class CountriesTableSeeder extends Seeder
 {
 
     /**
@@ -16,13 +16,13 @@ class HospitalsTableSeeder extends Seeder
     {
         
 
-        \DB::table('hospitals')->delete();
+        \DB::table('countries')->delete();
         
-        \DB::table('hospitals')->insert(array (
+        \DB::table('countries')->insert(array (
             0 => 
             array (
                 'id' => 1,
-                'name' => 'General Hospital',
+                'name' => 'United States',
                 'status' => 1,
                 'created_at' => '2024-08-01 11:16:00',
                 'updated_at' => '2024-08-01 11:16:00',
@@ -30,7 +30,7 @@ class HospitalsTableSeeder extends Seeder
             1 => 
             array (
                 'id' => 2,
-                'name' => 'City Medical Center',
+                'name' => 'Canada',
                 'status' => 1,
                 'created_at' => '2024-08-01 11:16:00',
                 'updated_at' => '2024-08-01 11:16:00',
@@ -38,7 +38,7 @@ class HospitalsTableSeeder extends Seeder
             2 => 
             array (
                 'id' => 3,
-                'name' => 'Children\'s Hospital',
+                'name' => 'United Kingdom',
                 'status' => 1,
                 'created_at' => '2024-08-01 11:16:00',
                 'updated_at' => '2024-08-01 11:16:00',
@@ -46,23 +46,7 @@ class HospitalsTableSeeder extends Seeder
             3 => 
             array (
                 'id' => 4,
-                'name' => 'Community Health Center',
-                'status' => 1,
-                'created_at' => '2024-08-01 11:16:00',
-                'updated_at' => '2024-08-01 11:16:00',
-            ),
-            4 => 
-            array (
-                'id' => 5,
-                'name' => 'University Medical Center',
-                'status' => 1,
-                'created_at' => '2024-08-01 11:16:00',
-                'updated_at' => '2024-08-01 11:16:00',
-            ),
-            5 => 
-            array (
-                'id' => 6,
-                'name' => 'Veterans Affairs Hospital',
+                'name' => 'India',
                 'status' => 1,
                 'created_at' => '2024-08-01 11:16:00',
                 'updated_at' => '2024-08-01 11:16:00',

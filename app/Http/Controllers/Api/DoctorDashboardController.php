@@ -12,14 +12,12 @@ use App\Http\Services\DoctorDashboardServices;
 class DoctorDashboardController extends Controller
 {
     private $userService;
-    private $doctorDetails;
     private $bookingServices;
     private $doctorDashboardServices;
 
-    public function __construct(UserServices $userService, DoctorDashboardServices $doctorDashboardServices, BookingServices $bookingServices)
+    public function __construct(DoctorDashboardServices $doctorDashboardServices, BookingServices $bookingServices)
     {
         $this->bookingServices = $bookingServices;
-        $this->doctorDetails  = $this->userService->getDoctorDataById(Auth::guard('api')->user()->id);
         $this->doctorDashboardServices = $doctorDashboardServices;
     }
 

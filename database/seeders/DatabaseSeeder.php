@@ -17,21 +17,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             DaysSeeder::class,
-            CoursesTableSeeder::class,
-            AwardsTableSeeder::class,
-            HospitalsTableSeeder::class,
-            SpecializationsTableSeeder::class,
-            ServicesTableSeeder::class,
-            LanguagesTableSeeder::class,
-            CountriesAndStatesTableSeeder::class,
-            UsersTableSeeder::class,
-            PatientSeeder::class,
-            DoctorAppointmentConfigSeeder::class
-    ]);
+        ]);
         $this->call(AwardsTableSeeder::class);
         $this->call(CoursesTableSeeder::class);
         $this->call(DayOfWeeksTableSeeder::class);
-        $this->call(DoctorAwardsTableSeeder::class);
         $this->call(HospitalsTableSeeder::class);
         $this->call(LanguagesTableSeeder::class);
         $this->call(ServicesTableSeeder::class);
@@ -39,6 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CountriesTableSeeder::class);
         $this->call(StatesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
+        $this->call(DoctorAwardsTableSeeder::class);
         $this->call(UserAddressesTableSeeder::class);
         $this->call(DoctorEducationTableSeeder::class);
         $this->call(DoctorExperiencesTableSeeder::class);

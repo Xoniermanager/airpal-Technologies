@@ -54,8 +54,8 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Patient</th>
-                                            <th>Appointment Date</th>
                                             <th>Booked on</th>
+                                            <th>Appointment Date</th>
                                             <th>Appointment Time</th>
                                             <th>Amount</th>
                                             <th>Action</th>
@@ -81,18 +81,20 @@
                                                     </a>
                                                 </h2>
                                             </td>
-                                            <td> {{ \Carbon\Carbon::parse($invoiceDetail->booking_date)->format('d M Y') ?? '' }}</p></td>
                                             <td> {{ \Carbon\Carbon::parse($invoiceDetail->created_at)->format('d M Y') ?? '' }}</td>
+                                            <td> {{ \Carbon\Carbon::parse($invoiceDetail->booking_date)->format('d M Y') ?? '' }}</p></td>
                                             <td> {{ \Carbon\Carbon::parse($invoiceDetail->slot_start_time)->format('h:i') ?? '' }} - {{ \Carbon\Carbon::parse($invoiceDetail->slot_end_time)->format('h:i') ?? '' }}</td>
                                             <td>$300</td>
                                             <td>
                                                 <div class="action-item">
-                                                    <a href="javascript:void(0);" data-bs-toggle="modal"
+                                                    {{-- <a href="javascript:void(0);" data-bs-toggle="modal"
                                                         data-bs-target="#invoice_view">
                                                         <i class="fa-solid fa-link"></i>
-                                                    </a>
+                                                    </a> --}}
+                                                    {{-- {{ url('storage/images/'.$invoiceDetail->invoice_url) }} --}}
+                                                   
                                                     @if (isset($invoiceDetail->invoice_url))
-                                                    <a href="{{ $invoiceDetail->invoice_url ?? ''}}" class="set-bg-color">
+                                                    <a href="{{ Storage::url($invoiceDetail->invoice_url) }}" class="set-bg-color" target="_blank">
                                                         <i class="fa-solid fa-print"></i>
                                                     </a>
                                                     @else

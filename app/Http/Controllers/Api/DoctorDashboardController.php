@@ -11,7 +11,7 @@ use App\Http\Services\DoctorDashboardServices;
 
 class DoctorDashboardController extends Controller
 {
-    private $userService;
+    private $doctorDetails;
     private $bookingServices;
     private $doctorDashboardServices;
 
@@ -24,14 +24,13 @@ class DoctorDashboardController extends Controller
     public function getDashboardDetails()
     {
         try {
-            $userId = Auth::guard('api')->user()->id;
             $data =
                 [
-                    'totalPatientsCounter'    => $this->getTotalPatientsCounter($userId) ?? '',
-                    'todayAppointmentCounter' => $this->getTodayAppointmentCounter($userId) ?? '',
-                    'recentAppointments'      => $this->getRecentAppointments($userId)  ?? '',
-                    'upcomingAppointments'    => $this->getUpComingAppointment($userId) ?? '',
-                    'recentPatients'          => $this->getRecentPatients($userId) ?? '',
+                    'totalPatientsCounter'    => $this->getTotalPatientsCounter() ?? '',
+                    'todayAppointmentCounter' => $this->getTodayAppointmentCounter() ?? '',
+                    'recentAppointments'      => $this->getRecentAppointments()  ?? '',
+                    'upcomingAppointments'    => $this->getUpComingAppointment() ?? '',
+                    'recentPatients'          => $this->getRecentPatients() ?? '',
 
                 ];
             return response()->json([
@@ -46,32 +45,32 @@ class DoctorDashboardController extends Controller
             ], 500);
         }
     }
-    public function getTotalPatientsCounter($userId)
+    public function getTotalPatientsCounter()
     {
-        return $this->doctorDashboardServices->getTotalPatientsCounter($userId);
+        return $this->doctorDashboardServices->getTotalPatientsCounter(Auth::guard('api')->user()->id);
     }
 
-    public function getTodayAppointmentCounter($userId)
+    public function getTodayAppointmentCounter()
     {
-        return $this->doctorDashboardServices->getTodayAppointmentCounter($userId);
+        return $this->doctorDashboardServices->getTodayAppointmentCounter(Auth::guard('api')->user()->id);
     }
 
-    public function getAppointments($userId)
+    public function getAppointments()
     {
-        return  $this->doctorDashboardServices->getAppointmentsByDoctorId($userId);
+        return  $this->doctorDashboardServices->getAppointmentsByDoctorId(Auth::guard('api')->user()->id);
     }
-    public function getRecentAppointments($userId)
+    public function getRecentAppointments()
     {
-        return  $this->doctorDashboardServices->getRecentAppointments($userId);
-    }
-
-    public function getUpComingAppointment($userId)
-    {
-        return $this->doctorDashboardServices->getUpComingAppointment($userId);
+        return  $this->doctorDashboardServices->getRecentAppointments(Auth::guard('api')->user()->id);
     }
 
-    public function getRecentPatients($userId)
+    public function getUpComingAppointment()
     {
-        return $this->doctorDashboardServices->getRecentPatients($userId);
+        return $this->doctorDashboardServices->getUpComingAppointment(Auth::guard('api')->user()->id);
+    }
+
+    public function getRecentPatients()
+    {
+        return $this->doctorDashboardServices->getRecentPatients(Auth::guard('api')->user()->id);
     }
 }

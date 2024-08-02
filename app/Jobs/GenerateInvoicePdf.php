@@ -28,19 +28,31 @@ class GenerateInvoicePdf implements ShouldQueue
      */
     public function handle(): void
     {
-        $bookingDetail =  $this->bookingDetail;
-        $doctorId = $this->bookingDetail->doctor_id;
-         // Generate the PDF using the facade
-        $pdf = Pdf::loadView('invoice.invoice-template', ['bookingDetail'  =>  $this->bookingDetail]);
+         try {
 
-        // Creating the invoice name and path path to store
-         $fileName = 'invoice-pdf-' . time() . '.pdf';
-         $invoicePath = 'public/' . $doctorId . '/invoices/' . $fileName;
-
-        Storage::put($invoicePath, $pdf->output());
-
-        // Save the invoice path in database
-         $bookingDetail->invoice_url = $invoicePath;
-         $bookingDetail->save();
+          $bookingDetail =  $this->bookingDetail;
+          $doctorId = $this->bookingDetail->doctor_id;
+          
+          $pdf = Pdf::loadView('invoice.invoice-template', ['bookingDetail' => $this->bookingDetail]);
+          $fileName = 'invoice-pdf-' . time() . '.pdf';
+          $invoicePath = 'public/' . $doctorId . '/invoices/' . $fileName;
+      
+          // Ensure the directory exists
+          $directory = 'public/' . $doctorId . '/invoices/';
+          if (!Storage::exists($directory)) {
+              Storage::makeDirectory($directory);
+          }
+      
+          // Save the PDF
+          Storage::put($invoicePath, $pdf->output(), 'public');
+      
+          // Update the invoice path in the database
+          $bookingDetail->invoice_url = $invoicePath;
+          $bookingDetail->save();
+      } catch (\Exception $e) {
+          // Handle the exception, log it or notify the user
+          \Log::error('Failed to generate or save invoice: ' . $e->getMessage());
+      }
+      
     }
 }

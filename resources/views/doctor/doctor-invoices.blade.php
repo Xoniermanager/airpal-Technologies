@@ -42,10 +42,11 @@
                         </div>
                         <div class="search-header">
                             <div class="search-field">
-                                <input type="text" class="form-control" placeholder="Search">
+                                <input type="text" class="form-control" placeholder="Search" id="searchKey">
                                 <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
                             </div>
                         </div>
+                        <input type="hidden" id="doctor-id" value="{{ auth()->user()->id }}">
                         <div class="custom-table">
                             <div class="table-responsive">
                                 <table class="table table-center mb-0">
@@ -55,13 +56,16 @@
                                             <th>Patient</th>
                                             <th>Appointment Date</th>
                                             <th>Booked on</th>
+                                            <th>Appointment Time</th>
                                             <th>Amount</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @forelse ($invoiceDetails as  $invoiceDetail)
                                         <tr>
-                                            <td><a href="javascript:void(0);" class="text-blue-600"
+                                            <td>
+                                                <a href="javascript:void(0);" class="text-blue-600"
                                                     data-bs-toggle="modal" data-bs-target="#invoice_view">#Inv-2021</a>
                                             </td>
                                             <td>
@@ -72,12 +76,14 @@
                                                             src="../assets/img/doctors/doctor-thumb-02.jpg"
                                                             alt="">
                                                     </a>
-                                                    <a href="{{ route('doctor.doctor-profile.index') }}">Edalin
-                                                        Hendry</a>
+                                                    <a href="{{ route('doctor.doctor-profile.index') }}">
+                                                        {{ $invoiceDetail->patient->fullName ?? ''}}
+                                                    </a>
                                                 </h2>
                                             </td>
-                                            <td>24 Mar 2024</td>
-                                            <td>21 Mar 2024</td>
+                                            <td> {{ \Carbon\Carbon::parse($invoiceDetail->booking_date)->format('d M Y') ?? '' }}</p></td>
+                                            <td> {{ \Carbon\Carbon::parse($invoiceDetail->created_at)->format('d M Y') ?? '' }}</td>
+                                            <td> {{ \Carbon\Carbon::parse($invoiceDetail->slot_start_time)->format('h:i') ?? '' }} - {{ \Carbon\Carbon::parse($invoiceDetail->slot_end_time)->format('h:i') ?? '' }}</td>
                                             <td>$300</td>
                                             <td>
                                                 <div class="action-item">
@@ -85,235 +91,80 @@
                                                         data-bs-target="#invoice_view">
                                                         <i class="fa-solid fa-link"></i>
                                                     </a>
-                                                    <a href="javascript:void(0);">
+                                                    @if (isset($invoiceDetail->invoice_url))
+                                                    <a href="{{ $invoiceDetail->invoice_url ?? ''}}" class="set-bg-color">
                                                         <i class="fa-solid fa-print"></i>
                                                     </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="javascript:void(0);" class="text-blue-600"
-                                                    data-bs-toggle="modal" data-bs-target="#invoice_view">#Inv-2021</a>
-                                            </td>
-                                            <td>
-                                                <h2 class="table-avatar">
-                                                    <a href="{{ route('doctor.doctor-profile.index') }}"
-                                                        class="avatar avatar-sm me-2">
-                                                        <img class="avatar-img rounded-3"
-                                                            src="../assets/img/doctors/doctor-thumb-05.jpg"
-                                                            alt="">
-                                                    </a>
-                                                    <a href="{{ route('doctor.doctor-profile.index') }}">John Homes</a>
-                                                </h2>
-                                            </td>
-                                            <td>17 Mar 2024</td>
-                                            <td>14 Mar 2024</td>
-                                            <td>$450</td>
-                                            <td>
-                                                <div class="action-item">
-                                                    <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                        data-bs-target="#invoice_view">
-                                                        <i class="fa-solid fa-link"></i>
-                                                    </a>
-                                                    <a href="javascript:void(0);">
+                                                    @else
+                                                    <a href="javascript:void(0)" >
                                                         <i class="fa-solid fa-print"></i>
-                                                    </a>
+                                                    </a>  
+                                                   
+                                                    @endif
+                                          
                                                 </div>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="javascript:void(0);" class="text-blue-600"
-                                                    data-bs-toggle="modal" data-bs-target="#invoice_view">#Inv-2021</a>
-                                            </td>
-                                            <td>
-                                                <h2 class="table-avatar">
-                                                    <a href="{{ route('doctor.doctor-profile.index') }}"
-                                                        class="avatar avatar-sm me-2">
-                                                        <img class="avatar-img rounded-3"
-                                                            src="../assets/img/doctors/doctor-thumb-03.jpg"
-                                                            alt="">
-                                                    </a>
-                                                    <a href="{{ route('doctor.doctor-profile.index') }}">Shanta
-                                                        Neill</a>
-                                                </h2>
-                                            </td>
-                                            <td>11 Mar 2024</td>
-                                            <td>07 Mar 2024</td>
-                                            <td>$250</td>
-                                            <td>
-                                                <div class="action-item">
-                                                    <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                        data-bs-target="#invoice_view">
-                                                        <i class="fa-solid fa-link"></i>
-                                                    </a>
-                                                    <a href="javascript:void(0);">
-                                                        <i class="fa-solid fa-print"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="javascript:void(0);" class="text-blue-600"
-                                                    data-bs-toggle="modal" data-bs-target="#invoice_view">#Inv-2021</a>
-                                            </td>
-                                            <td>
-                                                <h2 class="table-avatar">
-                                                    <a href="{{ route('doctor.doctor-profile.index') }}"
-                                                        class="avatar avatar-sm me-2">
-                                                        <img class="avatar-img rounded-3"
-                                                            src="../assets/img/doctors/doctor-thumb-08.jpg"
-                                                            alt="">
-                                                    </a>
-                                                    <a href="{{ route('doctor.doctor-profile.index') }}">Anthony
-                                                        Tran</a>
-                                                </h2>
-                                            </td>
-                                            <td>26 Feb 2024</td>
-                                            <td>23 Feb 2024</td>
-                                            <td>$320</td>
-                                            <td>
-                                                <div class="action-item">
-                                                    <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                        data-bs-target="#invoice_view">
-                                                        <i class="fa-solid fa-link"></i>
-                                                    </a>
-                                                    <a href="javascript:void(0);">
-                                                        <i class="fa-solid fa-print"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="javascript:void(0);" class="text-blue-600"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#invoice_view">#Inv-2021</a></td>
-                                            <td>
-                                                <h2 class="table-avatar">
-                                                    <a href="{{ route('doctor.doctor-profile.index') }}"
-                                                        class="avatar avatar-sm me-2">
-                                                        <img class="avatar-img rounded-3"
-                                                            src="../assets/img/doctors/doctor-thumb-01.jpg"
-                                                            alt="">
-                                                    </a>
-                                                    <a href="{{ route('doctor.doctor-profile.index') }}">Susan
-                                                        Lingo</a>
-                                                </h2>
-                                            </td>
-                                            <td>18 Feb 2024</td>
-                                            <td>15 Feb 2024</td>
-                                            <td>$480</td>
-                                            <td>
-                                                <div class="action-item">
-                                                    <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                        data-bs-target="#invoice_view">
-                                                        <i class="fa-solid fa-link"></i>
-                                                    </a>
-                                                    <a href="javascript:void(0);">
-                                                        <i class="fa-solid fa-print"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="javascript:void(0);" class="text-blue-600"
-                                                    data-bs-toggle="modal" data-bs-target="#invoice_view">#IApt123</a>
-                                            </td>
-                                            <td>
-                                                <h2 class="table-avatar">
-                                                    <a href="{{ route('doctor.doctor-profile.index') }}"
-                                                        class="avatar avatar-sm me-2">
-                                                        <img class="avatar-img rounded-3"
-                                                            src="../assets/img/doctors/doctor-thumb-09.jpg"
-                                                            alt="">
-                                                    </a>
-                                                    <a href="{{ route('doctor.doctor-profile.index') }}">Joseph
-                                                        Boyd</a>
-                                                </h2>
-                                            </td>
-                                            <td>10 Feb 2024</td>
-                                            <td>07 Feb 2024</td>
-                                            <td>$260</td>
-                                            <td>
-                                                <div class="action-item">
-                                                    <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                        data-bs-target="#invoice_view">
-                                                        <i class="fa-solid fa-link"></i>
-                                                    </a>
-                                                    <a href="javascript:void(0);">
-                                                        <i class="fa-solid fa-print"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="javascript:void(0);" class="text-blue-600"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#invoice_view">#Inv-2021</a></td>
-                                            <td>
-                                                <h2 class="table-avatar">
-                                                    <a href="{{ route('doctor.doctor-profile.index') }}"
-                                                        class="avatar avatar-sm me-2">
-                                                        <img class="avatar-img rounded-3"
-                                                            src="../assets/img/doctors/doctor-thumb-07.jpg"
-                                                            alt="">
-                                                    </a>
-                                                    <a href="{{ route('doctor.doctor-profile.index') }}">Juliet
-                                                        Gabriel</a>
-                                                </h2>
-                                            </td>
-                                            <td>28 Jan 2024</td>
-                                            <td>25 Jan 2024</td>
-                                            <td>$350</td>
-                                            <td>
-                                                <div class="action-item">
-                                                    <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                        data-bs-target="#invoice_view">
-                                                        <i class="fa-solid fa-link"></i>
-                                                    </a>
-                                                    <a href="javascript:void(0);">
-                                                        <i class="fa-solid fa-print"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        </tr> 
+                                        @empty
+                                            
+                                        @endforelse
+                               
                                     </tbody>
                                 </table>
                             </div>
                         </div>
 
-                        <div class="pagination dashboard-pagination">
-                            <ul>
-                                <li>
-                                    <a href="#" class="page-link"><i class="fa-solid fa-chevron-left"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link">1</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link active">2</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link">3</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link">4</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link">...</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link"><i class="fa-solid fa-chevron-right"></i></a>
-                                </li>
-                            </ul>
-                        </div>
+                        <div class="pagination dashboard-pagination ">
+                            {{ $invoiceDetails->links() }}    
+                    </div>
 
                     </div>
 
                 </div>
             </div>
         </div>
-
-
     </div>
+
+    <script>
+        $("#searchKey").keyup(function() {
+            filter();
+        });
+
+
+        function filter(page_no = 1) {
+    
+            let userId = jQuery('#doctor-id').text();
+            let searchKey = jQuery('#searchKey').val();
+            $.ajax({
+                url: "<?= route('doctor.appointment-filter') ?>?page="+page_no,
+                type: 'get',
+                data: {
+                    'key' :'all',
+                    'doctorId': 2,
+                    'searchKey': searchKey,
+                    'page_no': page_no,
+                    '_token': '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    jQuery('#appointmentList').replaceWith(response.data);
+                    jQuery('#appointmentList').hide().delay(200).fadeIn();
+                },
+                error: function(xhr, status, error) {
+                    // Handle any errors
+                    console.error(error);
+                }
+            });
+        }
+        </script>
+    <style>
+        a.set-bg-color {
+    background-color: #004cd4;
+    color: white;
+}.page-item.active .page-link {
+    background-color: #004cd4;
+    border-color: #004cd4;
+    color: white;
+}
+        </style>
 
     @include('include.footer')

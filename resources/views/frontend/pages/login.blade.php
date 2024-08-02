@@ -24,7 +24,7 @@
                                     <div class="login-header">
                                         <h3>Login <span>Airpal</span></h3>
                                     </div>
-                                    <form action="{{ route('patient.login') }}" method="post">
+                                    <form action="{{ route('login') }}" method="post">
                                         @csrf
                                         @if (\Session::has('error'))
                                             <p style="color: red;">{{ \Session::get('error') }}</p>

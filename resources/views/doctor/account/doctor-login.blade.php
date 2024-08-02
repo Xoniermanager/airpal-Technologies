@@ -27,7 +27,7 @@ background: url(https://img.freepik.com/free-photo/blue-watercolor-stain-white-b
                                     <div class="login-header">
                                         <h3>Login <span>Airpal Doctor Dashbarod</span></h3>
                                     </div>
-                                    <form method="POST" action="{{ route('admin.login') }}" id="doctorLogin">
+                                    <form method="POST" action="{{ route('login') }}" id="doctorLogin">
                                         @csrf
                                         <div class="mb-3 form-focus">
                                             <input type="email" class="form-control floating" name="email" value="{{ old('email') }}">

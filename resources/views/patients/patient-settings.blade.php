@@ -36,7 +36,7 @@
                                 <div class="change-avatar img-upload">
                                     <div class="profile-img">
                                         @if (isset($patientDetails->image_url))
-                                            <img src="{{ asset('images').'/'.$patientDetails->image_url}}" id="blah">
+                                            <img src="{{ $patientDetails->image_url }}" id="blah">
                                         @else
                                         <img src="" id="blah"  onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" >
                                         {{-- <i class="fa-solid fa-file-image"></i> --}}

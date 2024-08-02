@@ -8,6 +8,7 @@
             <div class="change-avatar img-upload">
 
                 <div class="profile-img">
+                    
                     @if (isset($singleDoctorDetails->image_url))
                         <img src="{{ $singleDoctorDetails->image_url}}" id="blah" class="previewProfile">
                     @else

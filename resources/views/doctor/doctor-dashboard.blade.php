@@ -225,26 +225,27 @@
                                             <div class="header-title">
                                                 <h5>Recent Invoices</h5>
                                             </div>
-                                            <div class="card-view-link">
-                                                <a href="{{ route('doctor.doctor-invoices.index') }}">View All</a>
+                                            <div >
+                                                <a href="{{ route('doctor.doctor-invoices.index') }}" class="btn btn-primary btn-sm float-end mt-4">View All</a>
                                             </div>
                                         </div>
                                         <div class="dashboard-card-body">
                                             <div class="table-responsive">
                                                 <table class="table dashboard-table">
                                                     <tbody>
+                                                        @forelse ($recentAppointments as $recentAppointments)
                                                         <tr>
                                                             <td>
                                                                 <div class="patient-info-profile">
                                                                     <a href="{{ route('doctor.doctor-invoices.index') }}"
                                                                         class="table-avatar">
-                                                                        <img src="../assets/img/doctors-dashboard/profile-04.jpg"
+                                                                        <img src="{{ $recentAppointments->patient->image_url}}"
                                                                             alt="Img">
 
                                                                     </a>
                                                                     <div class="patient-name-info">
                                                                         <h5><a
-                                                                                href="{{ route('doctor.doctor-invoices.index') }}">Adrian</a>
+                                                                                href="{{ route('doctor.doctor-invoices.index') }}">{{ $recentAppointments->patient->fullName }} </a>
                                                                         </h5>
                                                                         <span>#Apt0001</span>
                                                                     </div>
@@ -259,145 +260,21 @@
                                                             <td>
                                                                 <div class="appointment-date-created">
                                                                     <span class="paid-text">Paid On</span>
-                                                                    <h6>11 Nov 2024</h6>
+                                                                    <h6>{{ \Carbon\Carbon::parse($recentAppointments->created_at)->format('d M Y') ?? '' }}</h6>
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="apponiment-view d-flex align-items-center">
                                                                     <a
-                                                                        href="{{ route('doctor.doctor-invoices.index') }}"><i
+                                                                        href="{{ $recentAppointments->invoice_url ?? ''}}"><i
                                                                             class="fa-solid fa-eye"></i></a>
                                                                 </div>
                                                             </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="patient-info-profile">
-                                                                    <a href="#" class="table-avatar">
-                                                                        <img src="../assets/img/doctors-dashboard/profile-04.jpg"
-                                                                            alt="Img">
-                                                                    </a>
-                                                                    <div class="patient-name-info">
-                                                                        <h5><a href="#">Kelly</a></h5>
-                                                                        <span>#Apt0002</span>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="appointment-date-created">
-                                                                    <span class="paid-text">Paid On</span>
-                                                                    <h6>10 Nov 2024</h6>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="appointment-date-created">
-                                                                    <span class="paid-text">Amount</span>
-                                                                    <h6>$500</h6>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="apponiment-view d-flex align-items-center">
-                                                                    <a href="#"><i
-                                                                            class="fa-solid fa-eye"></i></a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="patient-info-profile">
-                                                                    <a href="#" class="table-avatar">
-                                                                        <img src="../assets/img/doctors-dashboard/profile-04.jpg"
-                                                                            alt="Img">
-                                                                    </a>
-                                                                    <div class="patient-name-info">
-                                                                        <h5><a href="#">Samuel</a></h5>
-                                                                        <span>#Apt0003</span>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="appointment-date-created">
-                                                                    <span class="paid-text">Paid On</span>
-                                                                    <h6>03 Nov 2024</h6>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="appointment-date-created">
-                                                                    <span class="paid-text">Amount</span>
-                                                                    <h6>$320</h6>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="apponiment-view d-flex align-items-center">
-                                                                    <a href="#"><i
-                                                                            class="fa-solid fa-eye"></i></a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="patient-info-profile">
-                                                                    <a href="#" class="table-avatar">
-                                                                        <img src="../assets/img/doctors-dashboard/profile-04.jpg"
-                                                                            alt="Img">
-                                                                    </a>
-                                                                    <div class="patient-name-info">
-                                                                        <h5><a href="#">Catherine</a></h5>
-                                                                        <span>#Apt0004</span>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="appointment-date-created">
-                                                                    <span class="paid-text">Paid On</span>
-                                                                    <h6>01 Nov 2024</h6>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="appointment-date-created">
-                                                                    <span class="paid-text">Amount</span>
-                                                                    <h6>$240</h6>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="apponiment-view d-flex align-items-center">
-                                                                    <a href="#"><i
-                                                                            class="fa-solid fa-eye"></i></a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="patient-info-profile">
-                                                                    <a href="#" class="table-avatar">
-                                                                        <img src="../assets/img/doctors-dashboard/profile-05.jpg"
-                                                                            alt="Img">
-                                                                    </a>
-                                                                    <div class="patient-name-info">
-                                                                        <h5><a href="#">Robert</a></h5>
-                                                                        <span>#Apt0005</span>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="appointment-date-created">
-                                                                    <span class="paid-text">Paid On</span>
-                                                                    <h6>28 Oct 2024</h6>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="appointment-date-created">
-                                                                    <span class="paid-text">Amount</span>
-                                                                    <h6>$380</h6>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="apponiment-view d-flex align-items-center">
-                                                                    <a href="#"><i
-                                                                            class="fa-solid fa-eye"></i></a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                        </tr> 
+                                                        @empty
+                                                            
+                                                        @endforelse
+                                         
                                                     </tbody>
                                                 </table>
                                             </div>

@@ -139,46 +139,10 @@
     <script>
         $("#searchKey").keyup(function() {
             filter();
-            //    var searchKey = $('#searchKey').val();
-            //    $.ajax({
-            //         url:  "<?= route('doctor.appointment-search') ?>", 
-            //         type: 'get', 
-            //         data: { 
-            //                 searchKey: searchKey,
-            //                 doctorId: 2,
-            //                 _token: '{{ csrf_token() }}' 
-            //             },
-            //         success: function(response) {
-            //             jQuery('#appointmentList').replaceWith(response.data); 
-            //             jQuery('#appointmentList').hide().delay(200).fadeIn();
-            //         },
-            //         error: function(xhr, status, error) {
-            //             console.error(error);
-            //         }
-            //     });
         });
-
-
-
 
         $('input[type=date]').change(function() {
             filter();
-            // $.ajax({
-            //         url:  "<?= route('doctor.appointment-filter') ?>", 
-            //         type: 'get', 
-            //         data: { 
-            //                 key: this.value,
-            //                 doctorId: 2,
-            //                 _token: '{{ csrf_token() }}' 
-            //             },
-            //         success: function(response) {
-            //             jQuery('#appointmentList').replaceWith(response.data); 
-            //             jQuery('#appointmentList').hide().delay(200).fadeIn();
-            //         },
-            //         error: function(xhr, status, error) {
-            //             console.error(error);
-            //         }
-            //     });
         });
 
         function appointment_filter(element) {

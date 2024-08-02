@@ -2,7 +2,7 @@
       <div class="widget-profile pro-widget-content">
           <div class="profile-info-widget">
               <a href="{{ route('patient-settings.index') }}" class="booking-doc-img">
-                  <img src="{{ asset('images') . '/' . auth()->user()->image_url }}" id="blah">
+                  <img src="{{ auth()->user()->image_url }}" id="blah">
                   {{-- <img src="../assets/img/doctors-dashboard/profile-06.jpg" alt=""> --}}
               </a>
               <div class="profile-det-info">

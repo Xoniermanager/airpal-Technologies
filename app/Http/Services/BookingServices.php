@@ -74,7 +74,7 @@ class BookingServices
          ];
 
          // sending mail for query about disease
-         DoctorAppointmentQueryMailJob::dispatch($mailDataAndLink);
+         // DoctorAppointmentQueryMailJob::dispatch($mailDataAndLink);
          return redirect()->route('success.index')->with([
             'booking_date' => $data->booking_date,
             'bookingSlotTime' => $data->booking_slot_time,

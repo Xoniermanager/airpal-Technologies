@@ -74,7 +74,15 @@ Route::prefix('doctor')->group(function () {
 });
 
 // common file for login Admin, Doctor, Patient
-Route::post('login', [AuthController::class, 'login'])->name('admin.login');
+Route::post('login', [AuthController::class, 'login'])->name('login');
+
+Route::controller(PatientAuthController::class)->group(function () {
+    Route::get('/register', 'register')->name('register.index');
+    Route::post('/register', 'register')->name('patient.register');
+    Route::get('/login', 'login')->name('patient.login.index');
+    Route::get('/logout', 'logout')->name('patient.logout');
+});
+
 // =============================== End Login And SignUp Routes ==================================== //
 
 
@@ -89,8 +97,9 @@ Route::controller(DoctorController::class)->group(function () {
  * Routes for doctor panel 
  * doctor profile
  */
+
 Route::prefix('doctor')->group(function () {
-    Route::middleware(['IfAuthenticated'])->group(function () {
+    Route::middleware(['role:doctor'])->group(function () {
         Route::controller(DoctorDashboardController::class)->group(function () {
             Route::get('dashboard', 'doctorDashboard')->name('doctor.doctor-dashboard.index');
             Route::get('timing', 'doctorTiming')->name('doctor.doctor-timing.index');
@@ -153,7 +162,7 @@ Route::prefix('doctor')->group(function () {
             Route::get('get-question-by-doctor-id', 'getQuestionByDoctorId')->name('get.question.doctor.id');
         });
     });
-});
+    });
 // =============================== End Doctor Panel Start ===================================== //
 
 
@@ -163,7 +172,6 @@ Route::prefix('doctor')->group(function () {
  * Routes for Admin panel 
  */
 Route::prefix('admin')->group(function () {
-    Route::middleware(['IfAuthenticated'])->group(function () {
 
         Route::prefix('faqs')->controller(FaqsController::class)->group(function () {
             Route::get('/', 'index')->name('admin.faqs.index');
@@ -289,12 +297,15 @@ Route::prefix('admin')->group(function () {
         Route::get('/invoice-report', [InvoiceReportController::class, 'invoiceReport'])->name('admin.invoice-report.index');
         Route::get('/invoice', [InvoiceReportController::class, 'invoice'])->name('admin.invoice.index');
     });
-});
+
 // =========================== End Admin Routes Start ================================= //
 
 // =========================== Patient Panel Start ===================== //
+
 Route::prefix('patients')->group(function () {
 
+    Route::middleware(['role:patient'])->group(function () {
+    Route::middleware(['auth'])->group(function () {
     Route::controller(BookingController::class)->group(function () {
         Route::post('patient-booking', 'patientBooking')->name('patient.booking');
         Route::get('/check-auth', 'checkAuth')->name('check.auth');
@@ -324,11 +335,12 @@ Route::prefix('patients')->group(function () {
         Route::get('/register', 'register')->name('register.index');
         Route::post('/register', 'register')->name('patient.register');
         Route::get('/login', 'login')->name('patient.login.index');
-        Route::post('/login', 'patientLogin')->name('patient.login');
+        // Route::post('/login', 'patientLogin')->name('patient.login');
         Route::get('/logout', 'logout')->name('patient.logout');
     });
 });
-
+});
+});
 
 // ============================== End Patient Panel Start ===================== //
 

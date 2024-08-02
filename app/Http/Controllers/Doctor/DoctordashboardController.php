@@ -24,7 +24,6 @@ class DoctorDashboardController extends Controller
 
     $this->user_services  = $user_services;
     $this->bookingServices = $bookingServices;
-
     $this->doctorDetails  = $this->user_services->getDoctorDataById(auth::id());
     $this->doctorDashboardServices = $doctorDashboardServices;
   }

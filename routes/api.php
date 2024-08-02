@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\DoctorProfileController;
 use App\Http\Controllers\Api\DoctorEducationController;
 use App\Http\Controllers\Api\DoctorExperienceController;
 use App\Http\Controllers\Api\DoctorAppointmentController;
+use App\Http\Controllers\Api\DoctorDashboardController;
 use App\Http\Controllers\Api\DoctorReviewController;
 use App\Http\Controllers\Api\DoctorWorkingHourController;
 use App\Http\Controllers\Api\Patient\AllListingController;
@@ -34,8 +35,13 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::middleware('authCheck')->group(function () {
 
+
     Route::prefix('doctor')->group(function () {
         Route::post('change-password', [AuthController::class, 'changePassword']);
+        Route::controller(DoctorDashboardController::class)->group(function () {
+            Route::get('get-doctor-dashboard-data', 'getDashboardDetails');
+        });
+
         Route::controller(DoctorProfileController::class)->group(function () {
             Route::get('profile', 'profile');
             Route::post('create', 'createOrUpdate');

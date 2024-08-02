@@ -13,48 +13,48 @@ class DoctorDashboardServices
         $this->bookingRepository = $bookingRepository;
     }
 
-    public function getTotalPatientsCounter()
+    public function getTotalPatientsCounter($userId)
     {
-      return $this->bookingRepository->getUniquePatientsCounterByDoctorId(Auth::id());
+      return $this->bookingRepository->getUniquePatientsCounterByDoctorId($userId);
     }
-    public function getTodayAppointmentCounter()
+    public function getTodayAppointmentCounter($userId)
     {
-      return $this->bookingRepository->getTodayAppointmentCounter(Auth::id());
-    }
-
-    public function getAppointmentsByDoctorId()
-    {
-        return $this->bookingRepository->getAppointmentsByDoctorId(Auth::id());
-    }
-    public function getRecentAppointments()
-    {
-        return $this->bookingRepository->getRecentAppointmentsByDoctorId(Auth::id());
+      return $this->bookingRepository->getTodayAppointmentCounter($userId);
     }
 
-    public function getUpComingAppointment()
+    public function getAppointmentsByDoctorId($userId)
     {
-        return $this->bookingRepository->getUpcomingAppointmentsByDoctorId(Auth::id());
+        return $this->bookingRepository->getAppointmentsByDoctorId($userId);
     }
-    public function getRecentPatients()
+    public function getRecentAppointments($userId)
     {
-        return $this->bookingRepository->getRecentPatientsByDoctorId(Auth::id());
+        return $this->bookingRepository->getRecentAppointmentsByDoctorId($userId);
     }
-    public function getTotalAppointment()
+
+    public function getUpComingAppointment($userId)
     {
-        return $this->bookingRepository->getTotalAppointmentByDoctorId(Auth::id());
+        return $this->bookingRepository->getUpcomingAppointmentsByDoctorId($userId);
     }
-    public function getAllUpcomingAppointments()
+    public function getRecentPatients($userId)
     {
-        return $this->bookingRepository->getAllUpcomingAppointmentsByDoctorId(Auth::id());
+        return $this->bookingRepository->getRecentPatientsByDoctorId($userId);
     }
-    public function getAllCanceledAppointments()
+    public function getTotalAppointment($userId)
     {
-        return $this->bookingRepository->getAllCanceledAppointmentsByDoctorId(Auth::id());
+        return $this->bookingRepository->getTotalAppointmentByDoctorId($userId);
+    }
+    public function getAllUpcomingAppointments($userId)
+    {
+        return $this->bookingRepository->getAllUpcomingAppointmentsByDoctorId($userId);
+    }
+    public function getAllCanceledAppointments($userId)
+    {
+        return $this->bookingRepository->getAllCanceledAppointmentsByDoctorId($userId);
     }
 
     public function getAllConfirmedAppointments()
     {
-        return $this->bookingRepository->getAllConfirmedAppointments(Auth::id());
+        return $this->bookingRepository->getAllConfirmedAppointments($userId);
     }
 
     

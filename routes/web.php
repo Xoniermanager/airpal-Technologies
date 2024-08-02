@@ -78,7 +78,7 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 
 Route::controller(PatientAuthController::class)->group(function () {
     Route::get('/register', 'register')->name('register.index');
-    Route::post('/register', 'register')->name('patient.register');
+    Route::post('/register', 'signUp')->name('patient.register');
     Route::get('/login', 'login')->name('patient.login.index');
     Route::get('/logout', 'logout')->name('patient.logout');
 });
@@ -360,7 +360,7 @@ Route::get('/faqs', [FaqsController::class, 'faqPageIndex'])->name('faqs.index')
 Route::get('/contact', [ContactController::class, 'contact'])->name('contact.index');
 Route::get('/health_monitoring', [HealthMonitoringController::class, 'health_monitoring'])->name('health_monitoring.index');
 Route::get('/instant', [InstantController::class, 'instant'])->name('instant.index');
-Route::post('/register', [RegisterController::class, 'userRegister'])->name('register.userRegister');
+// Route::post('/register', [RegisterController::class, 'userRegister'])->name('register.userRegister');
 Route::get('/privacy', [FrontController::class, 'privacy'])->name('privacy.index');
 Route::get('/term', [FrontController::class, 'term'])->name('term.index');
 Route::get('/appointment/doctor/{id}', [DoctorController::class, 'appointment'])->name('appointment.index');

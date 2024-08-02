@@ -67,17 +67,8 @@
                                         <button class="btn btn-primary w-100 btn-lg login-btn"
                                             type="submit">Signup</button>
                                         <div class="login-or">
-                                            {{-- <span class="or-line"></span>
-<span class="span-or">or</span> --}}
                                         </div>
-                                        {{-- <div class="row social-login">
-<div class="col-6">
-<a href="#" class="btn btn-facebook w-100"><i class="fab fa-facebook-f me-1"></i> Login</a>
-</div>
-<div class="col-6">
-<a href="#" class="btn btn-google w-100"><i class="fab fa-google me-1"></i> Login</a>
-</div>
-</div> --}}
+
                                     </form>
 
                                 </div>

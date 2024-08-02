@@ -55,7 +55,7 @@ class BookAppointmentApiController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'status'             => ['required', 'in:canceled'],
+                'status'             => ['required', 'in:confirmed,cancelled'],
             ]);
             if ($validator->fails()) {
                 return response()->json([

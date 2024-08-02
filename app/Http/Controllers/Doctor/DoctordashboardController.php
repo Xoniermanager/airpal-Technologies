@@ -31,13 +31,12 @@ class DoctorDashboardController extends Controller
   public function doctorDashboard()
   {
     try {
-      $userId = Auth()->user()->id;
       // Fetch all necessary data for the dashboard
-      $totalPatientsCounter    = $this->getTotalPatientsCounter($userId) ?? '';
-      $todayAppointmentCounter = $this->getTodayAppointmentCounter($userId) ?? '';
-      $recentAppointments      = $this->getRecentAppointments($userId)  ?? '';
-      $upcomingAppointments    = $this->getUpComingAppointment($userId) ?? '';
-      $recentPatients          = $this->getRecentPatients($userId) ?? '';
+      $totalPatientsCounter    = $this->getTotalPatientsCounter() ?? '';
+      $todayAppointmentCounter = $this->getTodayAppointmentCounter() ?? '';
+      $recentAppointments      = $this->getRecentAppointments()  ?? '';
+      $upcomingAppointments    = $this->getUpComingAppointment() ?? '';
+      $recentPatients          = $this->getRecentPatients() ?? '';
 
 
       // Pass all the data to the view
@@ -56,33 +55,33 @@ class DoctorDashboardController extends Controller
       ], 500);
     }
   }
-  public function getTotalPatientsCounter($userId)
+  public function getTotalPatientsCounter()
   {
-    return $this->doctorDashboardServices->getTotalPatientsCounter($userId);
+    return $this->doctorDashboardServices->getTotalPatientsCounter(Auth::id());
   }
 
-  public function getTodayAppointmentCounter($userId)
+  public function getTodayAppointmentCounter()
   {
-    return $this->doctorDashboardServices->getTodayAppointmentCounter($userId);
+    return $this->doctorDashboardServices->getTodayAppointmentCounter(Auth::id());
   }
 
-  public function getAppointments($userId)
+  public function getAppointments()
   {
-    return  $this->doctorDashboardServices->getAppointmentsByDoctorId($userId);
+    return  $this->doctorDashboardServices->getAppointmentsByDoctorId(Auth::id());
   }
-  public function getRecentAppointments($userId)
+  public function getRecentAppointments()
   {
-    return  $this->doctorDashboardServices->getRecentAppointments($userId);
-  }
-
-  public function getUpComingAppointment($userId)
-  {
-    return $this->doctorDashboardServices->getUpComingAppointment($userId);
+    return  $this->doctorDashboardServices->getRecentAppointments(Auth::id());
   }
 
-  public function getRecentPatients($userId)
+  public function getUpComingAppointment()
   {
-    return $this->doctorDashboardServices->getRecentPatients($userId);
+    return $this->doctorDashboardServices->getUpComingAppointment(Auth::id());
+  }
+
+  public function getRecentPatients()
+  {
+    return $this->doctorDashboardServices->getRecentPatients(Auth::id());
   }
 
   public function getRevenueAndAppointmentGraphData(Request $request)
@@ -94,9 +93,8 @@ class DoctorDashboardController extends Controller
   public function UpdateLatestAppointmentRequestAjax(UpdateLatestAppointmentStatus $request)
   {
 
-    $userId = Auth()->user()->id;
     $updateRequest   = $this->bookingServices->updateStatus($request->status, $request->id);
-    $allRequestAppointments = $this->getRecentAppointments($userId);
+    $allRequestAppointments = $this->getRecentAppointments();
     $allAppointments = $this->bookingServices->requestedAppointment(Auth::id())->get();
     if ($updateRequest) {
       return response()->json([

@@ -331,13 +331,13 @@ Route::prefix('patients')->group(function () {
     });
 
     // Patient Authentication Routes
-    Route::controller(PatientAuthController::class)->group(function () {
-        Route::get('/register', 'register')->name('register.index');
-        Route::post('/register', 'register')->name('patient.register');
-        Route::get('/login', 'login')->name('patient.login.index');
-        // Route::post('/login', 'patientLogin')->name('patient.login');
-        Route::get('/logout', 'logout')->name('patient.logout');
-    });
+    // Route::controller(PatientAuthController::class)->group(function () {
+    //     Route::get('/register', 'register')->name('register.index');
+    //     Route::post('/register', 'register')->name('patient.register');
+    //     Route::get('/login', 'login')->name('patient.login.index');
+    //     // Route::post('/login', 'patientLogin')->name('patient.login');
+    //     Route::get('/logout', 'logout')->name('patient.logout');
+    // });
 });
 });
 });

@@ -156,7 +156,8 @@
                                         <label class="custom_radio me-4">
                                             <input type="radio" name="appointment" checked="">
 
-                                            <input type="hidden" name="patient_id" value="{{ auth()->user()->id ?? '' }}">
+                                            <input type="hidden" name="patient_id"
+                                                value="{{ auth()->user()->id ?? '' }}">
                                             <input type="hidden" name="doctor_id" id="doctor_id" value="">
 
                                             <span class="checkmark"></span> My Self
@@ -166,12 +167,12 @@
                                     <div class="forms-block">
                                         <input type="text" name="booking_date" id="booking_date" class="form-control"
                                             value="" readonly>
-                                            <span class="text-danger" id="booking_date_error"></span>
+                                        <span class="text-danger" id="booking_date_error"></span>
                                     </div>
                                     <div class="forms-block">
                                         <input type="text" name="booking_slot_time" id="booking_slot_time"
                                             class="form-control" value="" readonly>
-                                            <span class="text-danger" id="booking_slot_time_error"></span>
+                                        <span class="text-danger" id="booking_slot_time_error"></span>
                                     </div>
                                     <div class="forms-block">
                                         <label class="form-group-title">Do you have insurance?</label>
@@ -216,7 +217,7 @@
                                         <label class="form-group-title">Symptoms <span>(Optional)</span></label>
                                         <input type="text" class="form-control" placeholder="Skin Allergy"
                                             name="symptoms">
-                                            <span class="text-danger" id="symptoms_error"></span>
+                                        <span class="text-danger" id="symptoms_error"></span>
                                     </div>
                                     <div class="forms-block mb-0">
                                         <div class="booking-btn">
@@ -350,12 +351,13 @@
                     },
                     messages: {
                         description: {
-                                required: "This field is required",
-                                maxlength: "Please enter no more than 200 characters"
-                            }
+                            required: "This field is required",
+                            maxlength: "Please enter no more than 200 characters"
+                        }
                     },
                     submitHandler: function(form) {
                         var formData = new FormData(form);
+                        var successUrl = "{{ route('success.index') }}";
                         $.ajax({
                             url: "<?= route('patient.booking') ?>",
                             type: 'post',
@@ -367,7 +369,7 @@
                                 if (response.status == 200) {
                                     swal.fire("Done!", response.message, "success");
                                     console.log(site_base_url);
-                                    window.location.href = site_base_url + "doctor/success";
+                                    window.location.href = successUrl;
                                 }
 
                             },
@@ -433,6 +435,7 @@
 
                 });
             }
+
             function splitButton(button) {
                 var $button = $(button);
                 var $allSlots = $('.slot-group');
@@ -450,10 +453,10 @@
             }
 
             function showContent(contentId, slot, date, doctorId) {
-
+                var url = "{{ route('check.auth') }}";
                 // Send AJAX request to check if the user is authenticated
                 $.ajax({
-                    url: site_base_url + 'patients/check-auth',
+                    url: url,
                     method: 'GET',
                     success: function(response) {
                         if (response.authenticated) {

@@ -16,6 +16,30 @@ class CoursesTableSeeder extends Seeder
     {
         $courses = [
             [
+                'name' => 'BDS',
+                'status' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'BPharm',
+                'status' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'MD',
+                'status' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'MPH',
+                'status' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
                 'name' => 'Medical Science',
                 'status' => true,
                 'created_at' => now(),
@@ -29,6 +53,24 @@ class CoursesTableSeeder extends Seeder
             ],
             [
                 'name' => 'Pediatrics',
+                'status' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'BPT',
+                'status' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'MBBS',
+                'status' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'MS',
                 'status' => true,
                 'created_at' => now(),
                 'updated_at' => now(),

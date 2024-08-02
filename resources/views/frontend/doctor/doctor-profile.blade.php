@@ -45,16 +45,8 @@
                                         src="{{ URL::asset('assets/img/specialities/specialities-05.png') }}"
                                         class="img-fluid" alt="Speciality">Dentist</p>
                                 <div class="reviews-ratings">
-                                    <p>
-                                        <?php
-                                        $total = '0';
-                                        if (isset($doctor->doctorReview) && count($doctor->doctorReview) > 0) {
-                                            $total = $doctor->doctorReview->sum('rating') / count($doctor->doctorReview);
-                                        }
-                                        ?>
-                                        <span><i class="fas fa-star"></i>{{ $total }}</span>
-                                        ({{ count($doctor->doctorReview) }} reviews)
-                                    </p>
+                                    {!! getRatingHtml($doctor->allover_rating) !!}
+                                    ({{ count($doctor->doctorReview) }} Reviews)
                                 </div>
                                 <div class="clinic-details">
                                     @php
@@ -353,9 +345,8 @@
                                                             <use xlink:href="#icon-star"></use>
                                                         </svg></label>
                                                     <input class="comment-stars-input" type="radio" name="rating"
-                                                        value="4.5"> <label
-                                                        class="comment-stars-view is-half" for="rating-4.5"><svg
-                                                            class="icon icon-star-half">
+                                                        value="4.5"> <label class="comment-stars-view is-half"
+                                                        for="rating-4.5"><svg class="icon icon-star-half">
                                                             <use xlink:href="#icon-star-half"></use>
                                                         </svg></label>
                                                     <input class="comment-stars-input" type="radio" name="rating"
@@ -364,25 +355,22 @@
                                                             <use xlink:href="#icon-star"></use>
                                                         </svg></label>
                                                     <input class="comment-stars-input" type="radio" name="rating"
-                                                        value="3.5"> <label
-                                                        class="comment-stars-view is-half" for="rating-3.5"><svg
-                                                            class="icon icon-star-half">
+                                                        value="3.5"> <label class="comment-stars-view is-half"
+                                                        for="rating-3.5"><svg class="icon icon-star-half">
                                                             <use xlink:href="#icon-star-half"></use>
                                                         </svg></label>
                                                     <input class="comment-stars-input" type="radio" name="rating"
-                                                        value="3" checked> <label
-                                                        class="comment-stars-view" for="rating-3"><svg
-                                                            class="icon icon-star">
+                                                        value="3" checked> <label class="comment-stars-view"
+                                                        for="rating-3"><svg class="icon icon-star">
                                                             <use xlink:href="#icon-star"></use>
                                                         </svg></label>
                                                     <input class="comment-stars-input" type="radio" name="rating"
-                                                        value="2.5"> <label
-                                                        class="comment-stars-view is-half" for="rating-2.5"><svg
-                                                            class="icon icon-star-half">
+                                                        value="2.5"> <label class="comment-stars-view is-half"
+                                                        for="rating-2.5"><svg class="icon icon-star-half">
                                                             <use xlink:href="#icon-star-half"></use>
                                                         </svg></label>
                                                     <input class="comment-stars-input" type="radio" name="rating"
-                                                        value="2" > <label class="comment-stars-view"
+                                                        value="2"> <label class="comment-stars-view"
                                                         for="rating-2"><svg class="icon icon-star">
                                                             <use xlink:href="#icon-star"></use>
                                                         </svg></label>
@@ -393,22 +381,20 @@
                                                             <use xlink:href="#icon-star-half"></use>
                                                         </svg></label>
                                                     <input class="comment-stars-input" type="radio" name="rating"
-                                                        value="1" > <label class="comment-stars-view"
+                                                        value="1"> <label class="comment-stars-view"
                                                         for="rating-1"><svg class="icon icon-star">
                                                             <use xlink:href="#icon-star"></use>
                                                         </svg></label>
                                                     <input class="comment-stars-input" type="radio" name="rating"
-                                                        value="0.5"> <label
-                                                        class="comment-stars-view is-half" for="rating-0.5"><svg
-                                                            class="icon icon-star-half">
+                                                        value="0.5"> <label class="comment-stars-view is-half"
+                                                        for="rating-0.5"><svg class="icon icon-star-half">
                                                             <use xlink:href="#icon-star-half"></use>
                                                         </svg></label>
                                                 </div>
                                             </div>
                                             <div class="col-6 col-sm-6 mb-3">
                                                 <label class="mb-2">Title *</label>
-                                                <input type="text" name="title"
-                                                    class="form-control">
+                                                <input type="text" name="title" class="form-control">
                                             </div>
                                             <div class="col-12 col-sm-12 mb-3">
                                                 <label class="mb-2">Review *</label>

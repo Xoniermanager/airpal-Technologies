@@ -18,6 +18,7 @@ class ReviewsController extends Controller
     public function doctorReviews()
     {
         $doctorReviewDetails   = $this->doctorReviewServices->getAllReviewByDoctorId(auth::id());
-        return view('doctor.doctor-reviews',compact('doctorReviewDetails'));
+        $allOverrating = Auth()->user()->allover_rating;
+        return view('doctor.doctor-reviews',compact('doctorReviewDetails','allOverrating'));
     }
 }

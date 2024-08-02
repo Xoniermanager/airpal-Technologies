@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Controllers\Doctor\AccountsDetailsController;
-use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use Illuminate\Support\Facades\Route;
-
+use App\Jobs\UpdateDoctorRatingsAverageValue;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FaqsController;
 use App\Http\Controllers\HomeController;
@@ -18,38 +16,40 @@ use App\Http\Controllers\Admin\SlotsController;
 use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\ProfileController;
-use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\SpecialtyPageController;
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Doctor\InvoiceController;
+use App\Http\Controllers\Doctor\PatientController;
+use App\Http\Controllers\Doctor\ReviewsController;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\DoctorQuestionController;
+use App\Http\Controllers\Doctor\DoctorNotification;
 use App\Http\Controllers\Patient\BookingController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\HealthmonitoringController;
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\PatientListController;
 use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Doctor\SocialMediaController;
 use App\Http\Controllers\Admin\InvoiceReportController;
 use App\Http\Controllers\Patient\PatientAuthController;
+use App\Http\Controllers\Admin\DoctorQuestionController;
+use App\Http\Controllers\Patient\DoctorReviewController;
+use App\Http\Controllers\Doctor\DiseaseDetailsController;
 use App\Http\Controllers\Admin\QuestionsOptionsController;
+use App\Http\Controllers\Doctor\AccountsDetailsController;
 use App\Http\Controllers\Doctor\DoctorDashboardController;
 use App\Http\Controllers\Patient\PatientProfileController;
 use App\Http\Controllers\Doctor\AppointmentConfigController;
 use App\Http\Controllers\Doctor\DoctorAppointmentController;
-use App\Http\Controllers\Doctor\DoctorPanelQuestionController;
 use App\Http\Controllers\Patient\PatientDashboardController;
+use App\Http\Controllers\Doctor\DoctorPanelQuestionController;
 use App\Http\Controllers\Doctor\DoctorAuthenticationController;
 use App\Http\Controllers\Patient\PatientAppointmentsController;
+use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
+use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
-use App\Http\Controllers\Doctor\DiseaseDetailsController;
-use App\Http\Controllers\Doctor\DoctorNotification;
-use App\Http\Controllers\Doctor\InvoiceController;
-use App\Http\Controllers\Doctor\PatientController;
-use App\Http\Controllers\Doctor\ReviewsController;
-use App\Http\Controllers\Doctor\SocialMediaController;
-use App\Http\Controllers\Patient\DoctorReviewController;
-use Symfony\Component\HttpKernel\Profiler\Profile;
 
 // =============================== Login And SignUp Routes ==================================== //
 /**
@@ -119,8 +119,8 @@ Route::prefix('doctor')->group(function () {
             Route::post('/appointment-query', 'storeAppointmentQueries')->name('doctor.appointment.query');
         });
         Route::controller(PatientController::class)->group(function () {
-            Route::get('patient','doctorPatient')->name('doctor.doctor-patients.index');
-            Route::get('doctor-filter-on-patient','doctorFilterOnPatient')->name('doctor.filter.on.my-patient');
+            Route::get('patient', 'doctorPatient')->name('doctor.doctor-patients.index');
+            Route::get('doctor-filter-on-patient', 'doctorFilterOnPatient')->name('doctor.filter.on.my-patient');
         });
         Route::controller(InvoiceController::class)->group(function () {
             Route::get('invoices', 'doctorInvoices')->name('doctor.doctor-invoices.index');
@@ -148,7 +148,7 @@ Route::prefix('doctor')->group(function () {
             Route::get('appointment-request', 'appointmentRequests')->name('doctor.doctor-request.index');
             Route::post('update-appointment-status', 'UpdateAppointmentStatus')->name('doctor.status.appointment');
             Route::get('filter-appointment-request', 'filterRequestAppointments')->name('filter.appointment.request');
-            Route::get('appointment-search', 'doctorAppointmentSearch')->name('doctor.appointment-search');   
+            Route::get('appointment-search', 'doctorAppointmentSearch')->name('doctor.appointment-search');
         });
 
         Route::prefix('questions')->controller(DoctorPanelQuestionController::class)->group(function () {
@@ -162,7 +162,7 @@ Route::prefix('doctor')->group(function () {
             Route::get('get-question-by-doctor-id', 'getQuestionByDoctorId')->name('get.question.doctor.id');
         });
     });
-    });
+});
 // =============================== End Doctor Panel Start ===================================== //
 
 
@@ -173,130 +173,130 @@ Route::prefix('doctor')->group(function () {
  */
 Route::prefix('admin')->group(function () {
 
-        Route::prefix('faqs')->controller(FaqsController::class)->group(function () {
-            Route::get('/', 'index')->name('admin.faqs.index');
-            Route::post('create', 'store')->name('admin.add.faqs');
-            Route::post('update', 'update')->name('admin.faqs.update');
-            Route::post('delete', 'destroy')->name('admin.delete-faqs');
-        });
-
-        Route::prefix('questions')->controller(DoctorQuestionController::class)->group(function () {
-            Route::get('/', 'index')->name('admin.questions.index');
-            Route::post('create', 'store')->name('admin.add.questions');
-            Route::post('update', 'update')->name('admin.questions.update');
-            Route::post('delete', 'destroy')->name('admin.delete-questions');
-        });
-
-        Route::prefix('questions-options')->controller(QuestionsOptionsController::class)->group(function () {
-            Route::get('/', 'index')->name('admin.questions-options.index');
-            Route::post('create', 'store')->name('admin.add.questions-options');
-            Route::post('update', 'update')->name('admin.questions-options.update');
-            Route::post('delete', 'destroy')->name('admin.delete-questions-options');
-        });
-
-        Route::prefix('slots')->controller(SlotsController::class)->group(function () {
-            Route::get('/', 'index')->name('admin.slots.index');
-            Route::post('create', 'store')->name('admin.add.slots');
-            Route::post('update', 'update')->name('admin.slots.update');
-            Route::post('delete', 'destroy')->name('admin.delete-slot');
-            Route::get('getWeekDays', 'getWeekDays');
-        });
-
-        Route::prefix('specialities')->controller(SpecialityController::class)->group(function () {
-            Route::get('/', 'speciality')->name('admin.speciality.index');
-            Route::post('/specialities', 'addSpeciality')->name('admin.speciality.add');
-            Route::post('/update-specialities', 'updateSpeciality')->name('admin.update-specailization');
-            Route::delete('/delete/{speciality:id}', 'deleteSpecialities')->name('admin.delete-specialities');
-            Route::get('/get-speciality', 'getSpecialitiesAjaxCall');
-            Route::get('/create-speciality', 'storeSpecialityByAjaxCall');
-        });
-
-        Route::prefix('country')->controller(CountryController::class)->group(function () {
-            Route::get('/', 'index')->name('admin.index.country');
-            Route::post('country', 'create')->name('admin.country.add');
-            Route::post('update/{country:id}', 'update')->name('admin.country.update');
-            Route::get('delete', 'deleteCountry')->name('admin.delete-country');
-        });
-
-        Route::prefix('state')->controller(StateController::class)->group(function () {
-            Route::get('/', [StateController::class, 'index'])->name('admin.index.state');
-            Route::post('create', 'store')->name('admin.state.add');
-            Route::post('update/{state:id}', 'update')->name('admin.state.update');
-            Route::delete('delete/{state:id}', 'deleteState')->name('admin.delete-state');
-            Route::get('get-state-by-country-id', 'getStateByCountryID')->name('get.state.by.country.id');
-        });
-
-        Route::prefix('language')->controller(LanguageController::class)->group(function () {
-            Route::get('/', 'index')->name('admin.index.language');
-            Route::get('ajax-create', 'store')->name('admin.language.add');
-        });
-
-        Route::prefix('service')->controller(ServiceController::class)->group(function () {
-            Route::get('/', 'index')->name('admin.service.index');
-            Route::post('/create', 'store')->name('admin.service.add');
-            Route::post('/update/{id}', 'update')->name('admin.service.update');
-            Route::get('/delete/{id}', 'delete')->name('admin.delete-service');
-            Route::get('/ajax-create', 'storeServiceByAjaxCall');
-            Route::get('/get-service', 'getServiceAjaxCall');
-        });
-
-        Route::prefix('doctor')->controller(AdminDoctorController::class)->group(function () {
-            Route::get('/', 'index')->name('admin.index.doctors');
-            Route::get('add', 'addDoctor')->name('admin.add-doctor');
-            Route::get('edit/{user:id}', 'editDoctor')->name('admin.edit-doctor');
-            Route::post('add', 'addPersonalDetails')->name('admin.add-personal-details');
-        });
-
-        Route::prefix('doctor')->controller(DoctorEducationController::class)->group(function () {
-            Route::post('education', 'addDoctorEducation')->name('admin.add-doctor-education');
-            Route::get('/delete-education', 'destroy')->name('delete.education');
-        });
-
-        Route::prefix('doctor')->controller(DoctorAddressController::class)->group(function () {
-            Route::post('address', 'addAddress')->name('admin.add-doctor-address');
-        });
-
-        Route::prefix('doctor')->controller(DoctorExperienceController::class)->group(function () {
-            Route::post('experience', 'addDoctorExperience')->name('admin.add-doctor-experience');
-            Route::get('/delete-experience', 'destroy')->name('delete.experience');
-        });
-
-        Route::prefix('doctor')->controller(DoctorWorkingHourController::class)->group(function () {
-            Route::post('working-hour', 'addDoctorWorkingHour')->name('admin.add-doctor-working-hour');
-        });
-
-        Route::prefix('doctor')->controller(DoctorAwardController::class)->group(function () {
-            Route::post('award', 'addDoctorAward')->name('admin.add-doctor-award');
-            Route::get('/delete-award', 'destroy')->name('delete.award');
-        });
-
-        Route::prefix('course')->controller(CourseController::class)->group(function () {
-            Route::get('/', 'index')->name('admin.index.course');
-            Route::get('ajax-create', 'store')->name('admin.add-course');
-        });
-
-        Route::prefix('hospital')->controller(HospitalController::class)->group(function () {
-            Route::get('/', 'index')->name('admin.index.hospital');
-            Route::get('ajax-create', 'store')->name('admin.add-hospital');
-        });
-
-        Route::prefix('award')->controller(AwardController::class)->group(function () {
-            Route::get('/', 'index')->name('admin.index.award');
-            Route::get('ajax-create', 'store')->name('admin.add-award');
-        });
-
-        Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard.index');
-        Route::get('/appointment-list', [AppointmentController::class, 'appointmentList'])->name('admin.appointment-list.index');
-
-        Route::get('/profile/{user:id}', [ProfileController::class, 'profile'])->name('admin.profile.index');
-        Route::get('/settings', [SettingsController::class, 'settings'])->name('admin.settings.index');
-
-        Route::get('/patient-list', [PatientListController::class, 'patientList'])->name('admin.patient-list.index');
-        Route::get('/reviews', [AdminController::class, 'reviews'])->name('admin.reviews.index');
-        Route::get('/transactions-list', [TransactionController::class, 'transactionsList'])->name('admin.transactions-list.index');
-        Route::get('/invoice-report', [InvoiceReportController::class, 'invoiceReport'])->name('admin.invoice-report.index');
-        Route::get('/invoice', [InvoiceReportController::class, 'invoice'])->name('admin.invoice.index');
+    Route::prefix('faqs')->controller(FaqsController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.faqs.index');
+        Route::post('create', 'store')->name('admin.add.faqs');
+        Route::post('update', 'update')->name('admin.faqs.update');
+        Route::post('delete', 'destroy')->name('admin.delete-faqs');
     });
+
+    Route::prefix('questions')->controller(DoctorQuestionController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.questions.index');
+        Route::post('create', 'store')->name('admin.add.questions');
+        Route::post('update', 'update')->name('admin.questions.update');
+        Route::post('delete', 'destroy')->name('admin.delete-questions');
+    });
+
+    Route::prefix('questions-options')->controller(QuestionsOptionsController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.questions-options.index');
+        Route::post('create', 'store')->name('admin.add.questions-options');
+        Route::post('update', 'update')->name('admin.questions-options.update');
+        Route::post('delete', 'destroy')->name('admin.delete-questions-options');
+    });
+
+    Route::prefix('slots')->controller(SlotsController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.slots.index');
+        Route::post('create', 'store')->name('admin.add.slots');
+        Route::post('update', 'update')->name('admin.slots.update');
+        Route::post('delete', 'destroy')->name('admin.delete-slot');
+        Route::get('getWeekDays', 'getWeekDays');
+    });
+
+    Route::prefix('specialities')->controller(SpecialityController::class)->group(function () {
+        Route::get('/', 'speciality')->name('admin.speciality.index');
+        Route::post('/specialities', 'addSpeciality')->name('admin.speciality.add');
+        Route::post('/update-specialities', 'updateSpeciality')->name('admin.update-specailization');
+        Route::delete('/delete/{speciality:id}', 'deleteSpecialities')->name('admin.delete-specialities');
+        Route::get('/get-speciality', 'getSpecialitiesAjaxCall');
+        Route::get('/create-speciality', 'storeSpecialityByAjaxCall');
+    });
+
+    Route::prefix('country')->controller(CountryController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.index.country');
+        Route::post('country', 'create')->name('admin.country.add');
+        Route::post('update/{country:id}', 'update')->name('admin.country.update');
+        Route::get('delete', 'deleteCountry')->name('admin.delete-country');
+    });
+
+    Route::prefix('state')->controller(StateController::class)->group(function () {
+        Route::get('/', [StateController::class, 'index'])->name('admin.index.state');
+        Route::post('create', 'store')->name('admin.state.add');
+        Route::post('update/{state:id}', 'update')->name('admin.state.update');
+        Route::delete('delete/{state:id}', 'deleteState')->name('admin.delete-state');
+        Route::get('get-state-by-country-id', 'getStateByCountryID')->name('get.state.by.country.id');
+    });
+
+    Route::prefix('language')->controller(LanguageController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.index.language');
+        Route::get('ajax-create', 'store')->name('admin.language.add');
+    });
+
+    Route::prefix('service')->controller(ServiceController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.service.index');
+        Route::post('/create', 'store')->name('admin.service.add');
+        Route::post('/update/{id}', 'update')->name('admin.service.update');
+        Route::get('/delete/{id}', 'delete')->name('admin.delete-service');
+        Route::get('/ajax-create', 'storeServiceByAjaxCall');
+        Route::get('/get-service', 'getServiceAjaxCall');
+    });
+
+    Route::prefix('doctor')->controller(AdminDoctorController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.index.doctors');
+        Route::get('add', 'addDoctor')->name('admin.add-doctor');
+        Route::get('edit/{user:id}', 'editDoctor')->name('admin.edit-doctor');
+        Route::post('add', 'addPersonalDetails')->name('admin.add-personal-details');
+    });
+
+    Route::prefix('doctor')->controller(DoctorEducationController::class)->group(function () {
+        Route::post('education', 'addDoctorEducation')->name('admin.add-doctor-education');
+        Route::get('/delete-education', 'destroy')->name('delete.education');
+    });
+
+    Route::prefix('doctor')->controller(DoctorAddressController::class)->group(function () {
+        Route::post('address', 'addAddress')->name('admin.add-doctor-address');
+    });
+
+    Route::prefix('doctor')->controller(DoctorExperienceController::class)->group(function () {
+        Route::post('experience', 'addDoctorExperience')->name('admin.add-doctor-experience');
+        Route::get('/delete-experience', 'destroy')->name('delete.experience');
+    });
+
+    Route::prefix('doctor')->controller(DoctorWorkingHourController::class)->group(function () {
+        Route::post('working-hour', 'addDoctorWorkingHour')->name('admin.add-doctor-working-hour');
+    });
+
+    Route::prefix('doctor')->controller(DoctorAwardController::class)->group(function () {
+        Route::post('award', 'addDoctorAward')->name('admin.add-doctor-award');
+        Route::get('/delete-award', 'destroy')->name('delete.award');
+    });
+
+    Route::prefix('course')->controller(CourseController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.index.course');
+        Route::get('ajax-create', 'store')->name('admin.add-course');
+    });
+
+    Route::prefix('hospital')->controller(HospitalController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.index.hospital');
+        Route::get('ajax-create', 'store')->name('admin.add-hospital');
+    });
+
+    Route::prefix('award')->controller(AwardController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.index.award');
+        Route::get('ajax-create', 'store')->name('admin.add-award');
+    });
+
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard.index');
+    Route::get('/appointment-list', [AppointmentController::class, 'appointmentList'])->name('admin.appointment-list.index');
+
+    Route::get('/profile/{user:id}', [ProfileController::class, 'profile'])->name('admin.profile.index');
+    Route::get('/settings', [SettingsController::class, 'settings'])->name('admin.settings.index');
+
+    Route::get('/patient-list', [PatientListController::class, 'patientList'])->name('admin.patient-list.index');
+    Route::get('/reviews', [AdminController::class, 'reviews'])->name('admin.reviews.index');
+    Route::get('/transactions-list', [TransactionController::class, 'transactionsList'])->name('admin.transactions-list.index');
+    Route::get('/invoice-report', [InvoiceReportController::class, 'invoiceReport'])->name('admin.invoice-report.index');
+    Route::get('/invoice', [InvoiceReportController::class, 'invoice'])->name('admin.invoice.index');
+});
 
 // =========================== End Admin Routes Start ================================= //
 
@@ -305,30 +305,30 @@ Route::prefix('admin')->group(function () {
 Route::prefix('patients')->group(function () {
 
     Route::middleware(['role:patient'])->group(function () {
-    Route::middleware(['auth'])->group(function () {
-    Route::controller(BookingController::class)->group(function () {
-        Route::post('patient-booking', 'patientBooking')->name('patient.booking');
-        Route::get('/check-auth', 'checkAuth')->name('check.auth');
-    });
-    // Patient Dashboard Routes
-    Route::controller(PatientDashboardController::class)->group(function () {
-        Route::get('dashboard', 'patientDashboard')->name('patient-dashboard.index');
-        Route::get('accounts', 'patientAccounts')->name('patient-accounts.index');
-        Route::get('dependant', 'patientDependant')->name('patient-dependant.index');
-        Route::get('invoices', 'patientInvoices')->name('patient-invoices.index');
-    });
-    // Patient Appointments Routes
-    Route::controller(PatientAppointmentsController::class)->group(function () {
-        Route::get('appointments', 'patientAppointments')->name('patient-appointments.index');
-        Route::get('appointment-details', 'patientAppointmentDetails')->name('patient-appointment-details.index');
-        Route::get('appointment-filter', 'appointmentFilter')->name('patient.appointment-filter');
-    });
-    // Patient Profile Routes
-    Route::controller(PatientProfileController::class)->group(function () {
-        Route::get('settings', 'patientSettings')->name('patient-settings.index');
-        Route::get('profile', 'patientProfile')->name('patient-profile.index');
-        Route::post('profile-update', 'patientProfileUpdate')->name('patient-profile.update');
-    });
+        Route::middleware(['auth'])->group(function () {
+            Route::controller(BookingController::class)->group(function () {
+                Route::post('patient-booking', 'patientBooking')->name('patient.booking');
+                Route::get('/check-auth', 'checkAuth')->name('check.auth');
+            });
+            // Patient Dashboard Routes
+            Route::controller(PatientDashboardController::class)->group(function () {
+                Route::get('dashboard', 'patientDashboard')->name('patient-dashboard.index');
+                Route::get('accounts', 'patientAccounts')->name('patient-accounts.index');
+                Route::get('dependant', 'patientDependant')->name('patient-dependant.index');
+                Route::get('invoices', 'patientInvoices')->name('patient-invoices.index');
+            });
+            // Patient Appointments Routes
+            Route::controller(PatientAppointmentsController::class)->group(function () {
+                Route::get('appointments', 'patientAppointments')->name('patient-appointments.index');
+                Route::get('appointment-details', 'patientAppointmentDetails')->name('patient-appointment-details.index');
+                Route::get('appointment-filter', 'appointmentFilter')->name('patient.appointment-filter');
+            });
+            // Patient Profile Routes
+            Route::controller(PatientProfileController::class)->group(function () {
+                Route::get('settings', 'patientSettings')->name('patient-settings.index');
+                Route::get('profile', 'patientProfile')->name('patient-profile.index');
+                Route::post('profile-update', 'patientProfileUpdate')->name('patient-profile.update');
+            });
 
     // Patient Authentication Routes
     // Route::controller(PatientAuthController::class)->group(function () {
@@ -371,5 +371,12 @@ Route::get('/checkout', [FrontController::class, 'checkout'])->name('checkout.in
 Route::controller(DoctorReviewController::class)->group(function () {
     Route::post('add-doctor-review', 'addDoctorReview')->name('add.doctor.review');
     Route::get('get-all-review', 'getAllReview')->name('get.all.review');
+});
+
+
+
+Route::get('job', function () {
+    UpdateDoctorRatingsAverageValue::dispatch();
+    return 'job executes';
 });
 // ============================== End Frontend Website Routes ===================== //

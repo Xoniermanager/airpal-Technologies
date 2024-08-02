@@ -53,25 +53,10 @@
                                             </div> --}}
 
                                             <div class="reviews-ratings">
-                                                <p>
-                                                    <?php
-                                                    $total = '0';
-                                                    if (isset($doctorReviewDetails) && count($doctorReviewDetails) > 0) {
-                                                        $total = $doctorReviewDetails->sum('rating') / count($doctorReviewDetails);
-                                                    }
-                                                    ?>
-                                                    <span><i class="fas fa-star"></i>{{ $total }}</span>
-                                                    ({{ count($doctorReviewDetails) }} Reviews)
-                                                </p>
+                                                {!! getRatingHtml($allOverrating) !!}
+                                                ({{ count($doctorReviewDetails) }} Reviews)
                                             </div>
                                         </div>
-                                        {{-- <div class="position-relative daterange-wraper">
-                                            <div class="input-groupicon calender-input">
-                                                <input type="text" class="form-control  date-range bookingrange"
-                                                    placeholder="From Date - To Date ">
-                                            </div>
-                                            <i class="fa-solid fa-calendar-days"></i>
-                                        </div> --}}
                                     </div>
                                 </li>
                                 @forelse ($doctorReviewDetails as $reviewDetails)

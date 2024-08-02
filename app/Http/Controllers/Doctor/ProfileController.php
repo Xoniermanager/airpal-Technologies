@@ -18,14 +18,13 @@ class ProfileController extends Controller
     private $user_services;
     private $doctorDetails;
     private $countryServices;
-    private $stateServices; 
+    private $stateServices;
 
     public function __construct(UserServices $user_services, CountryServices $countryServices, StateServices $stateServices,)
-    {    
-      $this->countryServices = $countryServices;
-      $this->stateServices   = $stateServices; 
-      $this->user_services   = $user_services;
-
+    {
+        $this->countryServices = $countryServices;
+        $this->stateServices   = $stateServices;
+        $this->user_services   = $user_services;
     }
 
     public function doctorProfile()
@@ -37,7 +36,7 @@ class ProfileController extends Controller
 
         $countries  = $this->countryServices->all();
         $states     = $this->stateServices->all();
-        
+
         $specialty  = Specialization::all();
         $services   = Service::all();
         $dayOfWeeks = DayOfWeek::all();
@@ -54,5 +53,5 @@ class ProfileController extends Controller
             'singleDoctorDetails' => $singleDoctorDetails,
             // 'doctorDetails' => $singleDoctorDetails
         ]);
-    } 
+    }
 }

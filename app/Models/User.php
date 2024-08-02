@@ -37,7 +37,8 @@ class User extends Authenticatable
         'role',
         'image_url',
         'description',
-        'experience_years'
+        'experience_years',
+        'allover_rating'
     ];
 
     /**

@@ -62,16 +62,8 @@
                                                         </p>
                                                     </div>
                                                     <div class="reviews-ratings">
-                                                        <p>
-                                                            <?php
-                                                            $total = '0';
-                                                            if (isset($doctor->doctorReview) && count($doctor->doctorReview) > 0) {
-                                                                $total = $doctor->doctorReview->sum('rating') / count($doctor->doctorReview);
-                                                            }
-                                                            ?>
-                                                            <span><i class="fas fa-star"></i>{{ $total }}</span>
-                                                            ({{ count($doctor->doctorReview) }} reviews)
-                                                        </p>
+                                                        {!! getRatingHtml($doctor->allover_rating) !!}
+                                                        ({{ count($doctor->doctorReview) }} Reviews)
                                                     </div>
                                                 </div>
                                             </div>
@@ -87,7 +79,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             @empty
                                 <div>
                                     <p>No Doctor Found</p>

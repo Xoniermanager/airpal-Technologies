@@ -13,20 +13,32 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+            $redirectUrl = '';
+    
             if ($user->isDoctor()) {
-                return redirect()->route('doctor.doctor-dashboard.index');
+                $redirectUrl = route('doctor.doctor-dashboard.index');
             } elseif ($user->isPatient()) {
-                return redirect()->route('patient-dashboard.index');
+                $redirectUrl = route('patient-dashboard.index');
             } elseif ($user->isAdmin()) {
-                return redirect()->route('admin.dashboard.index');
+                $redirectUrl = route('admin.dashboard.index');
             }
+    
+            return response()->json([
+                'success' => true,
+                'message' => 'Login successful',
+                'redirect_url' => $redirectUrl,
+            ]);
         }
-
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
+    
+        return response()->json([
+            'success' => false,
+            'message' => 'The provided credentials do not match our records.',
+            'errors' => [
+                'email' => 'Invalid email or password.'
+            ]
+        ], 422);
     }
-
+    
 
 public function logout(Request $request)
 {

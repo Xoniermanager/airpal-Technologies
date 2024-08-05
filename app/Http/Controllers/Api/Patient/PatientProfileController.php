@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Api\Patient;
 
+use Illuminate\Http\Request;
 use App\Http\Services\UserServices;
 use App\Http\Controllers\Controller;
 use App\Http\Services\StateServices;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Services\CountryServices;
-use App\Http\Services\DoctorAddressServices;
-use Illuminate\Http\Request;
 
+use App\Http\Services\DoctorAddressServices;
 use App\Http\Requests\PatientProfileDetailRequest;
 
 class PatientProfileController extends Controller
@@ -33,7 +34,7 @@ class PatientProfileController extends Controller
         try {
             $countries      =  $this->countryServices->all();
             $states         =  $this->stateServices->all();
-            $patientDetails =  $this->userServices->getPatientById(9);
+            $patientDetails =  $this->userServices->getPatientById(Auth::guard('api')->user()->id);
 
             $data = [
                 'states'         => $states,

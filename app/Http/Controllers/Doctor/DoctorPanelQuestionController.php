@@ -134,7 +134,7 @@ class DoctorPanelQuestionController extends Controller
       return response()->json([
         'message'     =>  'Delete Successfully!',
         'data'        =>  view('doctor.questions.question-list', [
-          'allQuestions'   =>  $this->questionServices->getQuestionByDoctorId()
+          'allQuestions'   =>  $this->questionServices->getQuestionByDoctorId(Auth()->user()->id)
         ])->render()
       ]);
     }

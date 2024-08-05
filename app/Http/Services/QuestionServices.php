@@ -31,8 +31,8 @@ class QuestionServices {
      public function all(){
       return $this->questionsRepository->with(['user','specialty','options'])->paginate();
      }
-     public function getQuestionByDoctorId(){
-      return $this->questionsRepository->where('doctor_id',Auth::id())->with(['user','specialty','options'])->paginate();
+     public function getQuestionByDoctorId($doctorId){
+      return $this->questionsRepository->where('doctor_id',$doctorId)->with(['user','specialty','options'])->paginate();
      }
 
      public function doctorQuestionFilter($searchedKey){

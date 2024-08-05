@@ -36,7 +36,6 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::middleware('authCheck')->group(function () {
 
-
     Route::prefix('doctor')->group(function () {
         Route::post('change-password', [AuthController::class, 'changePassword']);
         Route::controller(DoctorDashboardController::class)->group(function () {
@@ -88,14 +87,19 @@ Route::middleware('authCheck')->group(function () {
             Route::get('all-appointments-by-filter', 'getFilteredAppointment');
         });
         Route::controller(QuestionController::class)->group(function () {
-            Route::get('appointments/{id}', 'appointmentsById');
+            Route::get('get-all-specialization', 'getAllSpecializations');
         });
-
+        Route::controller(QuestionController::class)->group(function () {
+            Route::get('get-all-specialization', 'getAllSpecializations');
+            Route::post('add-question', 'addQuestion');
+            Route::get('get-all-question', 'getAllQuestion');
+            Route::post('update-question/{doctor_questions:id}', 'updateQuestion');
+            Route::get('question-delete/{doctor_questions:id}', 'deleteQuestion');
+        });
     });
 
     // patient routes starts here
-    Route::prefix('patient')->group(function () 
-    {
+    Route::prefix('patient')->group(function () {
         Route::controller(PatientDashboardController::class)->group(function () {
             Route::get('get-dashboard-data', 'getDashBoardData');
         });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Traits\ExceptionHandle;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreQuestionRequest extends FormRequest
@@ -13,6 +14,8 @@ class StoreQuestionRequest extends FormRequest
     {
         return true;
     }
+    use ExceptionHandle;
+
 
     /**
      * Get the validation rules that apply to the request.

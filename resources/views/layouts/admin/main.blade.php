@@ -76,7 +76,7 @@
 <body>
     @include('layouts.admin.sidebar-menu')
     @yield('content')
-    @include('layouts.admin.footer')
+    {{-- @include('layouts.admin.footer') --}}
 </body>
 
 </html>

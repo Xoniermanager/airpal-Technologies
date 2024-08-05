@@ -1,41 +1,6 @@
-<!DOCTYPE html>
-<html lang="zxx">
-
-<head>
-    @include('include.head')
-</head>
-
-<body>
-    <div class="main-wrapper">
-        @include('doctor.include.header')
-
-        <div class="breadcrumb-bar-two">
-            <div class="container">
-                <div class="row align-items-center inner-banner">
-                    <div class="col-md-12 col-12 text-center">
-                        <h2 class="breadcrumb-title">Dashboard </h2>
-                        <nav aria-label="breadcrumb" class="page-breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a
-                                        href="{{ route('doctor.doctor-dashboard.index') }}">Home</a></li>
-                                <li class="breadcrumb-item" aria-current="page">Dashboard</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-xl-3 theiaStickySidebar">
-                        @include('doctor.include.sidebar')
-
-                    </div>
-                    <div class="col-lg-8 col-xl-9">
+@extends('layouts.doctor.main')
+@section('content')
                         <div class="row">
-
-
                             <div class="col-xl-4 d-flex">
                                 <div class="dashboard-box-col w-100">
                                     <div class="dashboard-widget-box">
@@ -86,7 +51,7 @@
                                     </div>
                                     <div class="dashboard-card-body">
                                         <div class="table-responsive">
-                                            @include('doctor.latest-appointment-list')
+                                            @include('doctor.dashboard.latest-appointment-list')
                                             <a href="{{ route('doctor.doctor-request.index') }}"
                                                 class="btn btn-primary btn-sm float-end mt-4">View All</a>
                                         </div>
@@ -219,72 +184,8 @@
                                         </div>
                                     @endif
 
-                                    <div class="dashboard-card w-100">
-                                        <div class="dashboard-card-head">
-                                            <div class="header-title">
-                                                <h5>Recent Invoices</h5>
-                                            </div>
-                                            <div>
-                                                <a href="{{ route('doctor.doctor-invoices.index') }}"
-                                                    class="btn btn-primary btn-sm float-end mt-4">View All</a>
-                                            </div>
-                                        </div>
-                                        <div class="dashboard-card-body">
-                                            <div class="table-responsive">
-                                                <table class="table dashboard-table">
-                                                    <tbody>
-                                                        @forelse ($recentAppointments as $recentAppointments)
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="patient-info-profile">
-                                                                        <a href="{{ route('doctor.doctor-invoices.index') }}"
-                                                                            class="table-avatar">
-                                                                            <img src="{{ $recentAppointments->patient->image_url }}"
-                                                                                alt="Img">
-
-                                                                        </a>
-                                                                        <div class="patient-name-info">
-                                                                            <h5><a
-                                                                                    href="{{ route('doctor.doctor-invoices.index') }}">{{ $recentAppointments->patient->fullName }}
-                                                                                </a>
-                                                                            </h5>
-                                                                            <span>#Apt0001</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="appointment-date-created">
-                                                                        <span class="paid-text">Amount</span>
-                                                                        <h6>$450</h6>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="appointment-date-created">
-                                                                        <span class="paid-text">Paid On</span>
-                                                                        <h6>{{ \Carbon\Carbon::parse($recentAppointments->created_at)->format('d M Y') ?? '' }}
-                                                                        </h6>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div
-                                                                        class="apponiment-view d-flex align-items-center">
-                                                                        <a onclick="show_invoice({{ $recentAppointments->id }})"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#invoice-preview"
-                                                                            href="{{ $recentAppointments->invoice_url ?? '' }}"><i
-                                                                                class="fa-solid fa-eye"></i></a>
-                                                                    </div>
-
-                                                                </td>
-                                                            </tr>
-                                                        @empty
-                                                        @endforelse
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @include('doctor.dashboard.invoices-list')
+                   
                                 </div>
                             </div>
                         </div>
@@ -301,19 +202,9 @@
             </form>
         </div>
     </div>
+@endsection
 
-
-    {{-- <div class="modal fade" id="invoice-preview" aria-hidden="true" role="dialog">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div id="show-patient-invoice"></div>
-            <form action="" style="position: absolute; bottom: 4px; left: 40px; mt-2">
-                <button class="btn btn-primary" onclick="downloadInvoice()">Print</button>
-            </form>
-        </div>
-    </div> --}}
-
-
-    @include('include.footer')
+@section('javascript')
     <script>
         function updateAppointment(status, requestId) {
             let statusText = '';
@@ -421,3 +312,5 @@
             });
         }
     </script>
+
+@endsection

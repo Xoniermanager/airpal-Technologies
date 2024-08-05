@@ -1,36 +1,6 @@
-<!DOCTYPE html>
-<html lang="zxx">
+@extends('layouts.patient.main')
+@section('content')
 
-<head>
-    @include('include.head')
-</head>
-
-<body>
-    <div class="main-wrapper">
-        @include('patients.include.header')
-        <div class="breadcrumb-bar-two">
-            <div class="container">
-                <div class="row align-items-center inner-banner">
-                    <div class="col-md-12 col-12 text-center">
-                        <h2 class="breadcrumb-title">Profile Settings</h2>
-                        <nav aria-label="breadcrumb" class="page-breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                <li class="breadcrumb-item" aria-current="page">Profile Settings</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-xl-3 theiaStickySidebar">
-                        @include('patients.include.sidebar')
-
-                    </div>
-                    <div class="col-lg-8 col-xl-9">
                         <form  id="patientDetailsForm">
                             <div class="setting-card">
                                 <div class="change-avatar img-upload">
@@ -195,12 +165,8 @@
                                 <button type="submit" class="btn btn-primary prime-btn">Save Changes</button>
                             </div>
                         </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @include('include.footer')
+    @endsection
+
 
 
     <script>

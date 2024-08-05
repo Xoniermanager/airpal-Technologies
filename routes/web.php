@@ -47,11 +47,14 @@ use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
+use App\Http\Controllers\TempController;
 
 // =============================== Login And SignUp Routes ==================================== //
 /**
  * Admin And Patient Panel Login
  */
+
+ Route::view('demo', 'doctor/demo');
 
 Route::controller(AdminAuthController::class)->group(function () {
     Route::get('admin/login', 'index')->name('admin.login.index');
@@ -327,6 +330,17 @@ Route::prefix('patients')->group(function () {
                 Route::get('profile', 'patientProfile')->name('patient-profile.index');
                 Route::post('profile-update', 'patientProfileUpdate')->name('patient-profile.update');
             });
+
+            Route::controller(TempController::class)->group(function () {
+                Route::get('favorite', 'favorite')->name('patient.favorite.index');
+                Route::get('dependant', 'dependant')->name('patient.dependant.index');
+                Route::get('medical-records', 'medicalRecords')->name('patient.medical-records.index');
+                Route::get('medical-details', 'medicalDetails')->name('patient.medical-details.index');
+            });
+
+
+
+
 
             // Patient Authentication Routes
             // Route::controller(PatientAuthController::class)->group(function () {

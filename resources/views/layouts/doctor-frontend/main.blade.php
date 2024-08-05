@@ -75,9 +75,7 @@
 
 <body>
     @yield('content')
-    @include('include.header')
-    @include('include.footer')
 </body>
 
-</html>
+@include('include.footer')
 @yield('javascript')

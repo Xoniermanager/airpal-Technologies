@@ -1,54 +1,14 @@
-<!DOCTYPE html>
-<html lang="zxx">
+@extends('layouts.doctor.main')
+@section('content')
 
-<head>
-@include('include.head')
-</head>
-
-<body>
-    <div class="main-wrapper">
-    @include('doctor.include.header')
-        <div class="breadcrumb-bar-two">
-            <div class="container">
-                <div class="row align-items-center inner-banner">
-                    <div class="col-md-12 col-12 text-center">
-                        <h2 class="breadcrumb-title">Requests</h2>
-                        <nav aria-label="breadcrumb" class="page-breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('doctor.doctor-dashboard.index') }}">Home</a></li>
-                                <li class="breadcrumb-item" aria-current="page">Requests</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="content doctor-content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-xl-3 theiaStickySidebar">
-                    @include('doctor.include.sidebar')
-                    </div>
-                    <div class="col-lg-8 col-xl-9">
                         <div class="dashboard-header">
                             <h3>Appointment Requests</h3>
                         </div>
                         @include('doctor.request.list')
-                    </div>
-                </div>
-            </div>
-        </div>
- 
+                
+@endsection
 
-    </div>
-
-    @include('include.footer')
-
-
-<!-- Include jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+@section('javascript')
 <script>  
 function updateAppointment(status, requestId) {
     Swal.fire({
@@ -131,3 +91,4 @@ $(document).ready(function() {
 </script>
 
 
+@endsection

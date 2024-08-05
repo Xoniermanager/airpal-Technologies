@@ -23,7 +23,7 @@ class InvoiceController extends Controller
         $doctorDetails = $this->userServices->getDoctorDataById(auth::id());
 
         $invoiceDetails = $this->bookingServices->doctorBookings(auth::id())->paginate(10);
-        return view('doctor.doctor-invoices', ['doctorDetails' => $doctorDetails ,'invoiceDetails' => $invoiceDetails]);
+        return view('doctor.invoices.doctor-invoices', ['doctorDetails' => $doctorDetails ,'invoiceDetails' => $invoiceDetails]);
     }
     public function previewInvoice(Request $request)
     {

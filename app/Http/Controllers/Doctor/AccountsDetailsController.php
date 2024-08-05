@@ -15,6 +15,6 @@ class AccountsDetailsController extends Controller
     public function doctorAccounts()
     {
     $doctorDetails = $this->userServices->getDoctorDataById(auth::id());
-      return view('doctor.doctor-accounts',['doctorDetails' => $doctorDetails ]);
+      return view('doctor.accounts-details.doctor-accounts',['doctorDetails' => $doctorDetails ]);
     }
 }

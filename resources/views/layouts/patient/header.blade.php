@@ -83,7 +83,7 @@
                                             <div class="notify-block d-flex">
                                                 <span class="avatar">
                                                     <img class="avatar-img" alt="Hendry Watt"
-                                                        src="../{{ asset('assets/img/clients/client-02.jpg') }}">
+                                                        src="{{ auth()->user()->image_url }}">
                                                 </span>
                                                 <div class="media-body">
                                                     <h6>Travis Tremble <span class="notification-time">12 Min
@@ -116,7 +116,7 @@
                                             <div class="notify-block d-flex">
                                                 <div class="avatar avatar-sm">
                                                     <img class="avatar-img" alt="client-image"
-                                                        src="../{{ asset('assets/img/clients/client-04.jpg') }}">
+                                                        src="{{ auth()->user()->image_url ?? '' }}">
                                                 </div>
                                                 <div class="media-body">
                                                     <h6>Travis Tremble <span class="notification-time">8.30
@@ -136,18 +136,18 @@
                         <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                             <span class="user-img">
                                 <img class="rounded-circle"
-                                    src="{{ asset('assets/img/doctors-dashboard/doctor-profile-img.jpg') }}"
+                                    src="{{ auth()->user()->image_url }}"
                                     width="31" alt="Darren Elder">
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <div class="user-header">
                                 <div class="avatar avatar-sm">
-                                    <img src="{{ asset('assets/img/doctors-dashboard/doctor-profile-img.jpg') }}"
+                                    <img src="{{ auth()->user()->image_url }}"
                                         alt="" class="avatar-img rounded-circle">
                                 </div>
                                 <div class="user-text">
-                                    <h6>Dr Edalin Hendry</h6>
+                                    <h6>Dr {{ auth()->user()->fullName }}</h6>
                                     <p class="text-success mb-0">Available</p>
                                 </div>
                             </div>

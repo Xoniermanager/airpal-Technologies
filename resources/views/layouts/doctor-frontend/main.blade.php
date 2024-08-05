@@ -72,7 +72,7 @@
         });
     </script>
 </head>
-
+@include('include.header')
 <body>
     @yield('content')
 </body>

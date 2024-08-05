@@ -47,12 +47,8 @@ class DoctorController extends Controller
   {
 
     $doctor = $user->load('specializations', 'services', 'educations.course', 'experiences', 'workingHour.daysOfWeek', 'awards.award', 'doctorAddress.states.country', 'doctorReview.patient');
+
     $doctorSpecializations = ($doctor->specializations)->toArray();
-    $ratingButton = false;
-    $reviewCheck = $this->doctorReviewService->checkReviewDoctorAndPatientid(Auth()->user()->id,$user->id);
-    if (isset($reviewCheck) && $reviewCheck > 0) {
-      $ratingButton = true;
-    }
     $specializationNames = [];
     foreach ($doctorSpecializations as $specialization) {
       $specializationNames[] = $specialization['name'];
@@ -62,7 +58,6 @@ class DoctorController extends Controller
     $specializationsString = implode(', ', $topSpecializations);
     return view('frontend.doctor.doctor-profile')
       ->with('doctor', $doctor)
-      ->with('ratingButton', $ratingButton)
       ->with('specializationsString', $specializationsString)
       ->with('allReviewDetails', $this->doctorReviewService->getAllReviewByDoctorId($user->id));
   }

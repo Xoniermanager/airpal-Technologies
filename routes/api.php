@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\BookAppointmentApiController;
+use App\Http\Controllers\Api\QuestionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -86,10 +87,15 @@ Route::middleware('authCheck')->group(function () {
             Route::get('all-appointments', 'getAllAppointment');
             Route::get('all-appointments-by-filter', 'getFilteredAppointment');
         });
+        Route::controller(QuestionController::class)->group(function () {
+            Route::get('appointments/{id}', 'appointmentsById');
+        });
+
     });
 
     // patient routes starts here
-    Route::prefix('patient')->group(function () {
+    Route::prefix('patient')->group(function () 
+    {
         Route::controller(PatientDashboardController::class)->group(function () {
             Route::get('get-dashboard-data', 'getDashBoardData');
         });

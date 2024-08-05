@@ -59,7 +59,7 @@
 
                                     @if (isset($invoiceDetail->invoice_url))
                                         <a href="{{ Storage::url($invoiceDetail->invoice_url) }}" class="set-bg-color"
-                                            target="_blank">
+                                            target="_blank" >
                                             <i class="fa-solid fa-print"></i>
                                         </a>
                                     @else

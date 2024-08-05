@@ -125,6 +125,9 @@ Route::prefix('doctor')->group(function () {
         Route::controller(InvoiceController::class)->group(function () {
             Route::get('invoices', 'doctorInvoices')->name('doctor.doctor-invoices.index');
             Route::post('preview-invoice', 'previewInvoice')->name('preview.patient.invoice');
+            Route::post('download-invoice','downloadInvoice')->name('download.patient.invoice');
+            
+
         });
         Route::controller(ReviewsController::class)->group(function () {
             Route::get('reviews', 'doctorReviews')->name('doctor.doctor-reviews.index');
@@ -297,6 +300,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/transactions-list', [TransactionController::class, 'transactionsList'])->name('admin.transactions-list.index');
     Route::get('/invoice-report', [InvoiceReportController::class, 'invoiceReport'])->name('admin.invoice-report.index');
     Route::get('/invoice', [InvoiceReportController::class, 'invoice'])->name('admin.invoice.index');
+
+
 });
 
 // =========================== End Admin Routes Start ================================= //

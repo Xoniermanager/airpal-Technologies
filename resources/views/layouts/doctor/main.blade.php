@@ -33,5 +33,6 @@
     </div>
 </body>
 
+
 @include('layouts.doctor.footer')
 @yield('javascript')

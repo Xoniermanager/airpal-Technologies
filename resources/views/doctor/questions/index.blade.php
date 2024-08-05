@@ -222,7 +222,7 @@
                     success: function(response) {
                         swal.fire("Done!", response.message, "success");
                         $('#add_question').modal('hide');
-                        $('#addQuestionForm')[0].reset();
+                        // $('#addQuestionForm')[0].reset();
                         $('#question_list').replaceWith(response.data);
                     },
                     error: function(error_messages) {

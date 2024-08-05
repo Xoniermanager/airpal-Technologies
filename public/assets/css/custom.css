@@ -46407,3 +46407,8 @@ td.date.halfFull button {
 .min-w-600px {
     min-width: 600px;
 }
+
+
+.modal-dialog {
+    pointer-events: auto !important;
+}

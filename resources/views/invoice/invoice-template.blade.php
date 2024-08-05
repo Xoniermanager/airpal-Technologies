@@ -11,7 +11,7 @@ table {
 </head>
 <body style="background-color: #eee;">
     <div style="background-color: #fff;padding: 40px;max-width: 700px;
-margin: auto;"> 
+margin: auto;padding-bottom:70px;"> 
 <table style="max-width: 700px;
 margin: auto;
 padding: 16px; 
@@ -19,10 +19,9 @@ font-size: 16px;
 line-height: 24px; 
 color: #555;">
   <tr style="text-align: left;">
-    <th style="width: 40%;"><h1 style="">Airpal Invoice</h1>
-    <p style="">Airpal </p></th>
-    <th style="width: 20%;"><img src="https://airpal.ie/assets/img/logo.png" style="height: 70px;" alt=""></th>
-    <th style="width: 40%;">
+    <th style="width: 40%;"><h3 style="">Airpal Invoice</h3> </th>
+    <th style="width: 20%;padding-bottom:20px;"><img src="https://airpal.ie/assets/img/logo.png" style="height: 70px;" alt=""></th>
+    <th style="width: 40%;text-align:right;">
         <p style="margin: 0;">Cork, Cork T12DN79, IE +353861544176</p>
         <p style="margin: 0;"> Email: david@airpal.ie</p>
         </th>

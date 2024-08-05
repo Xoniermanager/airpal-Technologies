@@ -63,6 +63,14 @@ class DoctorQuestionController extends Controller
       ];
       $this->questionOptionServices->addQuestionsOptions($payloadForText);
     }
+
+    return response()->json([
+      'message'  => 'Created Successfully!',
+      'data'     =>  view('doctor.questions.question-list', [
+        'allQuestions' =>   $this->questionServices->getDoctorQuestionById(Auth::user()->id)
+      ])->render()
+    ]);
+
   }
   public function update(Request $request)
   {

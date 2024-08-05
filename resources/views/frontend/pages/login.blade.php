@@ -25,6 +25,7 @@
                                         <h3>Login <span>Airpal</span></h3>
                                     </div>
                                     <form id="login" method="post">
+                                        @csrf
                                         @if (\Session::has('error'))
                                             <p style="color: red;">{{ \Session::get('error') }}</p>
                                         @endif
@@ -94,11 +95,10 @@
                             data: formData,
                             processData: false,
                             contentType: false,
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
                             dataType: 'json',
                             success: function(response) {
+
+
                                 if (response.success) {
                                     Swal.fire("Done!", response.message, "success").then(() => {
                                         window.location.href = response.redirect_url;
@@ -108,7 +108,7 @@
                                 }
                             },
                             error: function(error_messages) {
-                                // Swal.fire("Error!", "Invalid credentials", "error");
+                                Swal.fire("Error!", "Invalid credentials", "error");
                                 var errors = error_messages.responseJSON.errors;
                                 $.each(errors, function(key, value) {
                                     $('#' + key + '_error').html(value);

@@ -16,7 +16,7 @@
                                             </div> --}}
 
                         <div class="reviews-ratings">
-                            {{-- {!! getRatingHtml($allOverrating) !!} --}}
+                            {!! getRatingHtml($allOverrating) !!}
                             ({{ count($doctorReviewDetails) }} Reviews)
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                                 </div>
                             </div>
                             <div class="star-rated">
-                                {{-- {!! getRatingHtml($reviewDetails->rating) !!} --}}
+                                {!! getRatingHtml($reviewDetails->rating) !!}
                             </div>
                         </div>
                         <div class="review-info">

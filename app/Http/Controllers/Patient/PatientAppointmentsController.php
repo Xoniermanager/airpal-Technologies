@@ -17,7 +17,7 @@ class PatientAppointmentsController extends Controller
     public function patientAppointments()
     {
       $patientAppointments = $this->bookingServices->patientBookings(Auth::user()->id)->get();
-      return view('patients.patient-appointments',['appointments' => $patientAppointments]);
+      return view('patients.appointments.patient-appointments',['appointments' => $patientAppointments]);
     }   
 
     public function appointmentFilter(Request $request)

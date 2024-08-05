@@ -1,4 +1,3 @@
-
 /*
 ================================================================================
                     Start : Manage Doctor Personal Profiles Details From Kendo 
@@ -61,10 +60,10 @@ function initializeFlatDatePicker() {
 
 // Add awards section  div/container
 
-let awardCount        = 1;
+
 
 const addAward = (function() {
-    let awardCount;
+    let awardCount  = 1; 
     return function(userAwardCount) {
         if (awardCount === undefined && userAwardCount !== undefined) {
             awardCount = userAwardCount + 1;

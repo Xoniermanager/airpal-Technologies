@@ -40,7 +40,7 @@ class DoctorDashboardController extends Controller
 
 
       // Pass all the data to the view
-      return view('doctor.doctor-dashboard', [
+      return view('doctor.dashboard.doctor-dashboard', [
         'totalPatientsCounter'    => $totalPatientsCounter,
         'todayAppointmentCounter' => $todayAppointmentCounter,
         'recentAppointments'      => $recentAppointments,
@@ -100,7 +100,7 @@ class DoctorDashboardController extends Controller
       return response()->json([
         'success'             =>  'Update successfully',
         'requestCounter'      =>  count($allAppointments),
-        'data'                =>  view("doctor.latest-appointment-list", [
+        'data'                =>  view("doctor.dashboard.latest-appointment-list", [
           'recentAppointments'  =>  $allRequestAppointments,
         ])->render()
       ]);
@@ -115,7 +115,7 @@ class DoctorDashboardController extends Controller
   }
   public function doctorChangePassword()
   {
-    return view('doctor.doctor-change-password', ['doctorDetails' => $this->doctorDetails]);
+    return view('doctor.account.doctor-change-password', ['doctorDetails' => $this->doctorDetails]);
   }
   public function doctorSpecialities()
   {

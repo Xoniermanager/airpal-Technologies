@@ -43,7 +43,7 @@ class PatientController extends Controller
         $regularPatients[] = $uniquePatients->firstWhere('id', $patient_id);
       }
     }
-    return view('doctor.doctor-patients', ['patients' => $uniquePatients, 'regularPatients' => count($regularPatients), 'newPatients' => count($newPatients)]);
+    return view('doctor.my-patient.doctor-patients', ['patients' => $uniquePatients, 'regularPatients' => count($regularPatients), 'newPatients' => count($newPatients)]);
   }
 
   public function doctorFilterOnPatient(DoctorFilterOnMyPatient $doctorFilterOnMyPatient)

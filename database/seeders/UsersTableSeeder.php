@@ -3,184 +3,360 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
+
     /**
-     * Run the database seeds.
+     * Auto generated seed file
      *
      * @return void
      */
     public function run()
     {
-        // Example user data
-        $users = [
-            [
+        
+
+        \DB::table('users')->delete();
+        
+        \DB::table('users')->insert(array (
+            0 => 
+            array (
+                'id' => 1,
                 'first_name' => 'John',
                 'last_name' => 'Doe',
                 'display_name' => 'Dr. John Doe',
                 'gender' => 'Male',
+                'experience_years' => NULL,
+                'role' => 2,
                 'phone' => '1234567890',
                 'email' => 'john@example.com',
-                'role'  => '2',
-                'image_url' => 'path_to_image.jpg',
-                'email_verified_at' => now(),
-                'password' => Hash::make('password'),
+                'image_url' => '1722590443.jpg',
+                'dob' => NULL,
+                'blood_group' => NULL,
+                'email_verified_at' => '2024-08-01 11:16:00',
+                'password' => '$2y$12$.HreI2/Rh9WroDh4M1a9B.lCuyPBnZMG3yrNCyKERHVCi0NMCpjpG',
                 'description' => 'Nasal endoscopic sinus surgery, tympanoplasty surgery, skull base surgery, surgery for snoring and micro-ear surgery',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
+                'remember_token' => NULL,
+                'created_at' => '2024-08-01 11:16:00',
+                'updated_at' => '2024-08-02 09:20:43',
+            ),
+            1 => 
+            array (
+                'id' => 2,
                 'first_name' => 'Jane',
                 'last_name' => 'Smith',
                 'display_name' => 'Dr. Jane Smith',
                 'gender' => 'Female',
+                'experience_years' => NULL,
+                'role' => 2,
                 'phone' => '9876543210',
                 'email' => 'jane@example.com',
-                'role'  => '2',
-                'image_url' => 'path_to_image.jpg',
-                'email_verified_at' => now(),
-                'password' => Hash::make('password'),
+                'image_url' => '1722515244.jpg',
+                'dob' => NULL,
+                'blood_group' => NULL,
+                'email_verified_at' => '2024-08-01 11:16:00',
+                'password' => '$2y$12$KrtMikf.KS1SshHA.k1BFOVwaRZ1IxCQxk4jAAHR/GRXGCt/BphEO',
                 'description' => 'A competent ENT Surgeon practising for the past 13 years and having a wide range of experience in treating patients with all kinds of ENT issues. Listens to and addresses all of the patients concerns and clearly explains the course of treatment.',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
-            [
+                'remember_token' => NULL,
+                'created_at' => '2024-08-01 11:16:00',
+                'updated_at' => '2024-08-01 12:27:24',
+            ),
+            2 => 
+            array (
+                'id' => 3,
                 'first_name' => 'Eva',
                 'last_name' => 'Smith',
                 'display_name' => 'Dr. Eva Smith',
                 'gender' => 'Female',
+                'experience_years' => NULL,
+                'role' => 2,
                 'phone' => '9876540000',
                 'email' => 'eva@example.com',
-                'role'  => '2',
-                'image_url' => 'path_to_image.jpg',
-                'email_verified_at' => now(),
-                'password' => Hash::make('password'),
+                'image_url' => '1722590754.jpg',
+                'dob' => NULL,
+                'blood_group' => NULL,
+                'email_verified_at' => '2024-08-01 11:16:00',
+                'password' => '$2y$12$.KE9QjmeWKCNUCmmm.KA.eV9iakSezUSmPbfysF92Af6YhluU8q1C',
                 'description' => 'A competent ENT Surgeon practising for the past 13 years and having a wide range of experience in treating patients with all kinds of ENT issues. Listens to and addresses all of the patients concerns and clearly explains the course of treatment.',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
-            [
+                'remember_token' => NULL,
+                'created_at' => '2024-08-01 11:16:01',
+                'updated_at' => '2024-08-02 09:25:54',
+            ),
+            3 => 
+            array (
+                'id' => 4,
                 'first_name' => 'Paul',
                 'last_name' => 'Walker',
                 'display_name' => 'Dr. Paul Walker',
                 'gender' => 'Male',
+                'experience_years' => NULL,
+                'role' => 2,
                 'phone' => '9876540000',
                 'email' => 'paul@example.com',
-                'role'  => '2',
                 'image_url' => 'path_to_image.jpg',
-                'email_verified_at' => now(),
-                'password' => Hash::make('password'),
+                'dob' => NULL,
+                'blood_group' => NULL,
+                'email_verified_at' => '2024-08-01 11:16:01',
+                'password' => '$2y$12$Kl7UH1skYJEjtnxfjQAjoOrF443IV1U05KPheB59J03oE/hZRm/Q2',
                 'description' => 'A competent ENT Surgeon practising for the past 13 years and having a wide range of experience in treating patients with all kinds of ENT issues. Listens to and addresses all of the patients concerns and clearly explains the course of treatment.',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
-            [
+                'remember_token' => NULL,
+                'created_at' => '2024-08-01 11:16:01',
+                'updated_at' => '2024-08-01 11:16:01',
+            ),
+            4 => 
+            array (
+                'id' => 5,
                 'first_name' => 'Nina',
                 'last_name' => 'Welliams',
                 'display_name' => 'Dr. Neena Welliams',
                 'gender' => 'Female',
+                'experience_years' => NULL,
+                'role' => 2,
                 'phone' => '9876540000',
                 'email' => 'nina@example.com',
-                'role'  => '2',
-                'image_url' => 'path_to_image.jpg',
-                'email_verified_at' => now(),
-                'password' => Hash::make('password'),
+                'image_url' => '1722591020.jpeg',
+                'dob' => NULL,
+                'blood_group' => NULL,
+                'email_verified_at' => '2024-08-01 11:16:01',
+                'password' => '$2y$12$M1nbDS5T6BYaYm3uYlXWq.0V3/YNvukRgzZcAOjhw5TpBm7w/rTrG',
                 'description' => 'A competent ENT Surgeon practising for the past 13 years and having a wide range of experience in treating patients with all kinds of ENT issues. Listens to and addresses all of the patients concerns and clearly explains the course of treatment.',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
-            // Add more users as needed
-        ];
-
-        foreach ($users as $user) {
-                // Insert user
-            $userId = DB::table('users')->insertGetId($user);
-
-            // Insert related details
-            DB::table('doctor_specialities')->insert([
-                'user_id' => $userId,
-                'speciality_id' => 1, // Replace with actual specialization_id
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-
-            DB::table('doctor_languages')->insert([
-                'user_id' => $userId,
-                'language_id' => 1, // Replace with actual language_id
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-
-            DB::table('doctor_services')->insert([
-                'user_id' => $userId,
-                'service_id' => 1, // Replace with actual service_id
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-
-            DB::table('doctor_education')->insert([
-                'user_id' => $userId,
-                'course_id' => 1, // Replace with actual course_id
-                'institute_name' => 'Example Institute',
-                'certificates' => 'Certification Name',
-                'start_date' => '2023-01-01',
-                'end_date' => '2023-12-31',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-
-            DB::table('doctor_experiences')->insert([
-                'user_id' => $userId,
-                'job_title' => 'Example Job Title',
-                'hospital_id' => 1, // Replace with actual hospital_id
-                'location' => 'Example Location',
-                'certificates' => 'Certification Name',
-                'start_date' => '2020-01-01',
-                'end_date' => '2021-12-31',
-                'job_description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                'currently_working' => false,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-
-            DB::table('doctor_awards')->insert([
-                'user_id' => $userId,
-                'award_id' => 1, // Replace with actual award_id
-                'certificates' => 'Award Certificate',
-                'year' => '2022-01-01',
-                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-
-            DB::table('doctor_working_hours')->insert([
-                'user_id' => $userId,
-                'day_id' => 1, // Replace with actual day_id
-                'available' => true,
-                'start_time' => '09:00:00',
-                'end_time' => '17:00:00',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-
-            DB::table('user_addresses')->insert([
-                [
-                    'user_id' => $userId,
-                    'address_type' => 'local',
-                    'country_id' => 1,
-                    'state_id' => 2,
-                    'address' => '123 Main St',
-                    'city' => 'New York',
-                    'pin_code' => '10001',
-                ], 
-            ]);
-        }
+                'remember_token' => NULL,
+                'created_at' => '2024-08-01 11:16:01',
+                'updated_at' => '2024-08-02 09:30:20',
+            ),
+            5 => 
+            array (
+                'id' => 6,
+                'first_name' => 'Jack',
+                'last_name' => 'Mos',
+                'display_name' => '',
+                'gender' => 'Male',
+                'experience_years' => NULL,
+                'role' => 3,
+                'phone' => '1234562890',
+                'email' => 'jack@example.com',
+                'image_url' => '1722572899.jpg',
+                'dob' => '1992-08-02',
+                'blood_group' => '',
+                'email_verified_at' => '2024-08-01 11:16:01',
+                'password' => '$2y$12$EtpEw6fl8dLH5Pqok6Og6u.K0pfpjA2Eaoz.OccY7T/5Lf0Rzz5kq',
+                'description' => '',
+                'remember_token' => NULL,
+                'created_at' => '2024-08-01 11:16:01',
+                'updated_at' => '2024-08-02 06:02:06',
+            ),
+            6 => 
+            array (
+                'id' => 7,
+                'first_name' => 'James',
+                'last_name' => 'Smith',
+                'display_name' => '',
+                'gender' => 'Female',
+                'experience_years' => NULL,
+                'role' => 3,
+                'phone' => '9876543220',
+                'email' => 'James@example.com',
+                'image_url' => '1722579606.webp',
+                'dob' => '1992-08-02',
+                'blood_group' => '',
+                'email_verified_at' => '2024-08-01 11:16:01',
+                'password' => '$2y$12$Qimx9Xid/7D6PbfncOt4TuiYIpnxUUmCTMzLaXX2QnSxbeWGrUN0C',
+                'description' => '',
+                'remember_token' => NULL,
+                'created_at' => '2024-08-01 11:16:02',
+                'updated_at' => '2024-08-02 06:20:06',
+            ),
+            7 => 
+            array (
+                'id' => 8,
+                'first_name' => 'Sara',
+                'last_name' => 'Corner',
+                'display_name' => '',
+                'gender' => 'Female',
+                'experience_years' => NULL,
+                'role' => 3,
+                'phone' => '9876540001',
+                'email' => 'sara@example.com',
+                'image_url' => '1722579182.jpg',
+                'dob' => '1992-08-02',
+                'blood_group' => '',
+                'email_verified_at' => '2024-08-01 11:16:02',
+                'password' => '$2y$12$B9OgutwihxgDz5i1e.WFA.GWPTbvTsv8f6yBUH.wBEOE2g9l1cVfS',
+                'description' => '',
+                'remember_token' => NULL,
+                'created_at' => '2024-08-01 11:16:02',
+                'updated_at' => '2024-08-02 06:13:02',
+            ),
+            8 => 
+            array (
+                'id' => 9,
+                'first_name' => 'Albert',
+                'last_name' => 'Roadd',
+                'display_name' => '',
+                'gender' => 'Male',
+                'experience_years' => NULL,
+                'role' => 3,
+                'phone' => '9876540006',
+                'email' => 'albert@example.com',
+                'image_url' => '1722582345.jpg',
+                'dob' => '1992-08-02',
+                'blood_group' => 'A+',
+                'email_verified_at' => '2024-08-01 11:16:02',
+                'password' => '$2y$12$pjaJs9b5veEGZ6EulCKyVupi9aSeJNsgd1ggxITV783yM0XPWJ.h2',
+                'description' => '',
+                'remember_token' => NULL,
+                'created_at' => '2024-08-01 11:16:02',
+                'updated_at' => '2024-08-02 07:05:45',
+            ),
+            9 => 
+            array (
+                'id' => 10,
+                'first_name' => 'Ivy',
+                'last_name' => 'Welliams',
+                'display_name' => 'Ivy Welliams',
+                'gender' => 'Female',
+                'experience_years' => NULL,
+                'role' => 3,
+                'phone' => '9876540000',
+                'email' => 'ivy@example.com',
+                'image_url' => 'path_to_image.jpg',
+                'dob' => '1992-08-02',
+                'blood_group' => NULL,
+                'email_verified_at' => '2024-08-01 11:16:02',
+                'password' => '$2y$12$4y9X5./BjINcjkqq62RJaOi1XaF1KFUWFi7jBkUl07wZoVy/4KqWW',
+                'description' => 'A competent ENT Surgeon practising for the past 13 years and having a wide range of experience in treating patients with all kinds of ENT issues. Listens to and addresses all of the patients concerns and clearly explains the course of treatment.',
+                'remember_token' => NULL,
+                'created_at' => '2024-08-01 11:16:03',
+                'updated_at' => '2024-08-01 11:16:03',
+            ),
+            10 => 
+            array (
+                'id' => 11,
+                'first_name' => 'Thomas',
+                'last_name' => 'Sow',
+                'display_name' => '',
+                'gender' => 'Male',
+                'experience_years' => NULL,
+                'role' => 3,
+                'phone' => '9876540000',
+                'email' => 'thomas@example.com',
+                'image_url' => '1722579357.jpeg',
+                'dob' => '1992-08-02',
+                'blood_group' => '',
+                'email_verified_at' => '2024-08-01 11:16:03',
+                'password' => '$2y$12$pg6I6lwvxdmls54Ou3bCf.rEDTnyuFL5wvzHA9e/0i9t7feskZy7C',
+                'description' => '',
+                'remember_token' => NULL,
+                'created_at' => '2024-08-01 11:16:03',
+                'updated_at' => '2024-08-02 06:15:57',
+            ),
+            11 => 
+            array (
+                'id' => 12,
+                'first_name' => 'Jackson',
+                'last_name' => 'White',
+                'display_name' => 'Jackson White',
+                'gender' => 'Male',
+                'experience_years' => NULL,
+                'role' => 3,
+                'phone' => '9876540000',
+                'email' => 'jackson@example.com',
+                'image_url' => 'path_to_image.jpg',
+                'dob' => '1992-08-02',
+                'blood_group' => NULL,
+                'email_verified_at' => '2024-08-01 11:16:03',
+                'password' => '$2y$12$IXcZDpLFfopEcLm.uT5YX.rOzbt8Bx1aM1p7hXkVf9kmrrIfQ4TeO',
+                'description' => 'A competent ENT Surgeon practising for the past 13 years and having a wide range of experience in treating patients with all kinds of ENT issues. Listens to and addresses all of the patients concerns and clearly explains the course of treatment.',
+                'remember_token' => NULL,
+                'created_at' => '2024-08-01 11:16:03',
+                'updated_at' => '2024-08-01 11:16:03',
+            ),
+            12 => 
+            array (
+                'id' => 13,
+                'first_name' => 'Lee',
+                'last_name' => 'White',
+                'display_name' => 'Jackson White',
+                'gender' => 'Male',
+                'experience_years' => NULL,
+                'role' => 3,
+                'phone' => '9876540110',
+                'email' => 'lee@example.com',
+                'image_url' => 'path_to_image.jpg',
+                'dob' => '1992-08-02',
+                'blood_group' => NULL,
+                'email_verified_at' => '2024-08-01 11:16:03',
+                'password' => '$2y$12$wFKUz/.2lpQ6gQJFs5nzYOBU29U2bnkVp98ifhPR5auPehOmadl2q',
+                'description' => 'A competent ENT Surgeon practising for the past 13 years and having a wide range of experience in treating patients with all kinds of ENT issues. Listens to and addresses all of the patients concerns and clearly explains the course of treatment.',
+                'remember_token' => NULL,
+                'created_at' => '2024-08-01 11:16:04',
+                'updated_at' => '2024-08-01 11:16:04',
+            ),
+            13 => 
+            array (
+                'id' => 14,
+                'first_name' => 'Taylor',
+                'last_name' => 'Shift',
+                'display_name' => '',
+                'gender' => 'Female',
+                'experience_years' => NULL,
+                'role' => 3,
+                'phone' => '9876540110',
+                'email' => 'taylor@example.com',
+                'image_url' => '1722588774.jpg',
+                'dob' => '1992-08-02',
+                'blood_group' => '',
+                'email_verified_at' => '2024-08-01 11:16:04',
+                'password' => '$2y$12$V1gSAPJAzjj7633uw9U56e84JnyZorwFyLm.2vOHirvcbBsjpos3q',
+                'description' => '',
+                'remember_token' => NULL,
+                'created_at' => '2024-08-01 11:16:04',
+                'updated_at' => '2024-08-02 08:52:54',
+            ),
+            14 => 
+            array (
+                'id' => 15,
+                'first_name' => 'Scott',
+                'last_name' => 'Land',
+                'display_name' => 'Scott Land',
+                'gender' => 'Male',
+                'experience_years' => NULL,
+                'role' => 3,
+                'phone' => '9876540110',
+                'email' => 'scott@example.com',
+                'image_url' => 'path_to_image.jpg',
+                'dob' => '1992-08-02',
+                'blood_group' => NULL,
+                'email_verified_at' => '2024-08-01 11:16:04',
+                'password' => '$2y$12$3W.vSMtlen5uZ/syew2rtukCqojAzujix66fTnnrPEabtK6LImSxS',
+                'description' => 'A competent ENT Surgeon practising for the past 13 years and having a wide range of experience in treating patients with all kinds of ENT issues. Listens to and addresses all of the patients concerns and clearly explains the course of treatment.',
+                'remember_token' => NULL,
+                'created_at' => '2024-08-01 11:16:04',
+                'updated_at' => '2024-08-01 11:16:04',
+            ),
+            15 => 
+            array (
+                'id' => 16,
+                'first_name' => 'mike',
+                'last_name' => 'malo',
+                'display_name' => '',
+                'gender' => 'Male',
+                'experience_years' => NULL,
+                'role' => 3,
+                'phone' => '1122334455',
+                'email' => 'mike@example.com',
+                'image_url' => '1722584587.jpg',
+                'dob' => '2011-06-02',
+                'blood_group' => 'o+',
+                'email_verified_at' => NULL,
+                'password' => '$2y$12$cH09jhFOProBMds83fClKuqBb7eahlpZKPTSX/w9BBW0iVp0mbTpG',
+                'description' => '',
+                'remember_token' => NULL,
+                'created_at' => '2024-08-02 07:39:00',
+                'updated_at' => '2024-08-02 07:46:38',
+            ),
+        ));
+        
+        
     }
 }

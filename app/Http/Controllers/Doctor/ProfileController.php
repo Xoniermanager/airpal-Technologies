@@ -41,7 +41,7 @@ class ProfileController extends Controller
         $services   = Service::all();
         $dayOfWeeks = DayOfWeek::all();
 
-        return view('doctor.doctor-profile', [
+        return view('doctor.profile.doctor-profile', [
             'specialities'    => $specialty,
             'languagesIds'    => $languagesIds,
             'specialitiesIds' => $specialitiesIds,

@@ -10,7 +10,6 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\InstantController;
-use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SlotsController;
 use App\Http\Controllers\Admin\StateController;
@@ -21,7 +20,6 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Doctor\InvoiceController;
 use App\Http\Controllers\Doctor\PatientController;
 use App\Http\Controllers\Doctor\ReviewsController;
-use Symfony\Component\HttpKernel\Profiler\Profile;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Doctor\DoctorNotification;
 use App\Http\Controllers\Patient\BookingController;
@@ -30,7 +28,6 @@ use App\Http\Controllers\HealthmonitoringController;
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\PatientListController;
 use App\Http\Controllers\Admin\TransactionController;
-use App\Http\Controllers\Doctor\SocialMediaController;
 use App\Http\Controllers\Admin\InvoiceReportController;
 use App\Http\Controllers\Patient\PatientAuthController;
 use App\Http\Controllers\Admin\DoctorQuestionController;
@@ -50,11 +47,14 @@ use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
+use App\Http\Controllers\TempController;
 
 // =============================== Login And SignUp Routes ==================================== //
 /**
  * Admin And Patient Panel Login
  */
+
+ Route::view('demo', 'doctor/demo');
 
 Route::controller(AdminAuthController::class)->group(function () {
     Route::get('admin/login', 'index')->name('admin.login.index');
@@ -78,7 +78,7 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 
 Route::controller(PatientAuthController::class)->group(function () {
     Route::get('/register', 'register')->name('register.index');
-    Route::post('/register', 'register')->name('patient.register');
+    Route::post('/register', 'signUp')->name('patient.register');
     Route::get('/login', 'login')->name('patient.login.index');
     Route::get('/logout', 'logout')->name('patient.logout');
 });
@@ -124,6 +124,7 @@ Route::prefix('doctor')->group(function () {
         });
         Route::controller(InvoiceController::class)->group(function () {
             Route::get('invoices', 'doctorInvoices')->name('doctor.doctor-invoices.index');
+            Route::post('preview-invoice', 'previewInvoice')->name('preview.patient.invoice');
         });
         Route::controller(ReviewsController::class)->group(function () {
             Route::get('reviews', 'doctorReviews')->name('doctor.doctor-reviews.index');
@@ -330,14 +331,25 @@ Route::prefix('patients')->group(function () {
                 Route::post('profile-update', 'patientProfileUpdate')->name('patient-profile.update');
             });
 
-            // Patient Authentication Routes
-            Route::controller(PatientAuthController::class)->group(function () {
-                Route::get('/register', 'register')->name('register.index');
-                Route::post('/register', 'register')->name('patient.register');
-                Route::get('/login', 'login')->name('patient.login.index');
-                // Route::post('/login', 'patientLogin')->name('patient.login');
-                Route::get('/logout', 'logout')->name('patient.logout');
+            Route::controller(TempController::class)->group(function () {
+                Route::get('favorite', 'favorite')->name('patient.favorite.index');
+                Route::get('dependant', 'dependant')->name('patient.dependant.index');
+                Route::get('medical-records', 'medicalRecords')->name('patient.medical-records.index');
+                Route::get('medical-details', 'medicalDetails')->name('patient.medical-details.index');
             });
+
+
+
+
+
+            // Patient Authentication Routes
+            // Route::controller(PatientAuthController::class)->group(function () {
+            //     Route::get('/register', 'register')->name('register.index');
+            //     Route::post('/register', 'register')->name('patient.register');
+            //     Route::get('/login', 'login')->name('patient.login.index');
+            //     // Route::post('/login', 'patientLogin')->name('patient.login');
+            //     Route::get('/logout', 'logout')->name('patient.logout');
+            // });
         });
     });
 });
@@ -360,7 +372,7 @@ Route::get('/faqs', [FaqsController::class, 'faqPageIndex'])->name('faqs.index')
 Route::get('/contact', [ContactController::class, 'contact'])->name('contact.index');
 Route::get('/health_monitoring', [HealthMonitoringController::class, 'health_monitoring'])->name('health_monitoring.index');
 Route::get('/instant', [InstantController::class, 'instant'])->name('instant.index');
-Route::post('/register', [RegisterController::class, 'userRegister'])->name('register.userRegister');
+// Route::post('/register', [RegisterController::class, 'userRegister'])->name('register.userRegister');
 Route::get('/privacy', [FrontController::class, 'privacy'])->name('privacy.index');
 Route::get('/term', [FrontController::class, 'term'])->name('term.index');
 Route::get('/appointment/doctor/{id}', [DoctorController::class, 'appointment'])->name('appointment.index');

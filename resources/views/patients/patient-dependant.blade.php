@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="zxx">
-
-<head> @include('include.head')
-</head>
-
-<body>
-
-    <div class="main-wrapper">
-        @include('patients.include.header')
+@extends('layouts.patient.main')
+@section('content')
         <div class="onboard-wrapper">
             <div class="left-panel">
                 <div class="onboarding-logo text-center">
@@ -897,4 +889,4 @@
 
 
     </div>
-    @include('include.footer')
+@endsection

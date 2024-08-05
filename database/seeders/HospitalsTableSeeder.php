@@ -3,57 +3,72 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class HospitalsTableSeeder extends Seeder
 {
+
     /**
-     * Run the database seeds.
+     * Auto generated seed file
      *
      * @return void
      */
     public function run()
     {
-        $hospitals = [
-            [
-                'name' => 'General Hospital',
-                'status' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'City Medical Center',
-                'status' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Children\'s Hospital',
-                'status' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Community Health Center',
-                'status' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'University Medical Center',
-                'status' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Veterans Affairs Hospital',
-                'status' => true,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ];
+        
 
-        // Insert data into hospitals table
-        DB::table('hospitals')->insert($hospitals);
+        \DB::table('hospitals')->delete();
+        
+        \DB::table('hospitals')->insert(array (
+            0 => 
+            array (
+                'id' => 1,
+                'name' => 'General Hospital',
+                'status' => 1,
+                'created_at' => '2024-08-01 11:16:00',
+                'updated_at' => '2024-08-01 11:16:00',
+            ),
+            1 => 
+            array (
+                'id' => 2,
+                'name' => 'City Medical Center',
+                'status' => 1,
+                'created_at' => '2024-08-01 11:16:00',
+                'updated_at' => '2024-08-01 11:16:00',
+            ),
+            2 => 
+            array (
+                'id' => 3,
+                'name' => 'Children\'s Hospital',
+                'status' => 1,
+                'created_at' => '2024-08-01 11:16:00',
+                'updated_at' => '2024-08-01 11:16:00',
+            ),
+            3 => 
+            array (
+                'id' => 4,
+                'name' => 'Community Health Center',
+                'status' => 1,
+                'created_at' => '2024-08-01 11:16:00',
+                'updated_at' => '2024-08-01 11:16:00',
+            ),
+            4 => 
+            array (
+                'id' => 5,
+                'name' => 'University Medical Center',
+                'status' => 1,
+                'created_at' => '2024-08-01 11:16:00',
+                'updated_at' => '2024-08-01 11:16:00',
+            ),
+            5 => 
+            array (
+                'id' => 6,
+                'name' => 'Veterans Affairs Hospital',
+                'status' => 1,
+                'created_at' => '2024-08-01 11:16:00',
+                'updated_at' => '2024-08-01 11:16:00',
+            ),
+        ));
+        
+        
     }
 }

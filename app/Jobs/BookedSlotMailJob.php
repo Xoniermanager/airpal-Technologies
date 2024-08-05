@@ -29,6 +29,6 @@ class BookedSlotMailJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to("arjun@xoniertechnologies.com")->send(new SendMailBookedSlots($this->mailData));
+        Mail::to("yashxoniertechnologies@gmail.com")->send(new SendMailBookedSlots($this->mailData));
     }
 }

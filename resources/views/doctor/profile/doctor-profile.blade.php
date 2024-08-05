@@ -69,6 +69,7 @@
         </div>
     </div>
 @endsection
+
 @section('javascript')
     <script src="{{ asset('admin/assets/custom-js/add_doctor.js') }}"></script>
     <script>

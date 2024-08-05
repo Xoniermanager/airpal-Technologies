@@ -93,6 +93,8 @@
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
 @endsection
+
+@section('javascript')
 <script>
     var site_admin_base_url = "{{ env('SITE_ADMIN_BASE_URL') }}";
 
@@ -289,3 +291,5 @@
         }
     });
 </script>
+
+@endsection

@@ -30,7 +30,6 @@
 <script src="{{ asset('admin/assets/js/jquery-ui.js') }}"></script>
 <script src="{{ asset('admin/assets/js/jquery-ui.css') }}"></script>
 
-
 <script src="{{ asset('admin/assets/jquery-validation/dist/jquery.validate.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

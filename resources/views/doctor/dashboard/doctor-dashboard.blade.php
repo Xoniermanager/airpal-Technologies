@@ -216,11 +216,6 @@
 
         </div>
     </div>
-    <form action="{{ route('download.patient.invoice') }}" method="post">
-        @csrf
-        <input type="hidden" name="appointment_id" value="1">
-        <button type="submit">test</button>
-    </form>
 @endsection
 @section('javascript')
     <script>

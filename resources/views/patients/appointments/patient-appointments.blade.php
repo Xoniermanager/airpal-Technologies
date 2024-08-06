@@ -1,229 +1,126 @@
 @extends('layouts.patient.main')
 @section('content')
-@php $userId  = auth()->user()->id; @endphp
-                        <div class="dashboard-header">
-                            <h3>Appointments</h3>
-                            <ul class="header-list-btns">
-                                <li>
-                                    <div class="input-block dash-search-input">
-                                        <input type="text" class="form-control" placeholder="Search">
-                                        <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="view-icons">
-                                        <a href="patient-appointments.html"><i class="fa-solid fa-list"></i></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="view-icons">
-                                        <a href="patient-appointments-grid.html" class="active"><i
-                                                class="fa-solid fa-th"></i></a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="appointment-tab-head">
-                            <div class="appointment-tabs">
-                                <ul class="nav nav-pills inner-tab " id="pills-tab" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="today" type="button"  onclick="filter('all',{{ $userId}})">All<span>21</span></button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="today" type="button"  onclick="filter('today',{{ $userId}})">Today<span>21</span></button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="upcoming" type="button" onclick="filter('upcoming',{{ $userId}})">Upcoming<span>21</span></button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="cancelled" type="button" onclick="filter('canceled',{{ $userId}})">Cancelled<span>16</span></button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="completed" type="button" onclick="filter('completed',{{ $userId}})">Completed<span>214</span></button>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="filter-head">
-                                <div class="position-relative daterange-wraper me-2">
-                                    <div class="input-groupicon calender-input">
-                                        <input type="text" class="form-control  date-range bookingrange"
-                                            placeholder="From Date - To Date ">
-                                    </div>
-                                    <i class="fa-solid fa-calendar-days"></i>
-                                </div>
-                                <div class="form-sorts dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" id="table-filter"><i
-                                            class="fa-solid fa-filter me-2"></i>Filter By</a>
-                                    <div class="filter-dropdown-menu">
-                                        <div class="filter-set-view">
-                                            <div class="accordion" id="accordionExample">
-                                                <div class="filter-set-content">
-                                                    <div class="filter-set-content-head">
-                                                        <a href="#" data-bs-toggle="collapse"
-                                                            data-bs-target="#collapseTwo" aria-expanded="false"
-                                                            aria-controls="collapseTwo">Name<i
-                                                                class="fa-solid fa-chevron-right"></i></a>
-                                                    </div>
-                                                    <div class="filter-set-contents accordion-collapse collapse show"
-                                                        id="collapseTwo" data-bs-parent="#accordionExample">
-                                                        <ul>
-                                                            <li>
-                                                                <div class="input-block dash-search-input w-100">
-                                                                    <input type="text" class="form-control"
-                                                                        placeholder="Search">
-                                                                    <span class="search-icon"><i
-                                                                            class="fa-solid fa-magnifying-glass"></i></span>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="filter-set-content">
-                                                    <div class="filter-set-content-head">
-                                                        <a href="#" data-bs-toggle="collapse"
-                                                            data-bs-target="#collapseOne" aria-expanded="true"
-                                                            aria-controls="collapseOne">Appointment Type<i
-                                                                class="fa-solid fa-chevron-right"></i></a>
-                                                    </div>
-                                                    <div class="filter-set-contents accordion-collapse collapse show"
-                                                        id="collapseOne" data-bs-parent="#accordionExample">
-                                                        <ul>
-                                                            <li>
-                                                                <div class="filter-checks">
-                                                                    <label class="checkboxs">
-                                                                        <input type="checkbox" checked>
-                                                                        <span class="checkmarks"></span>
-                                                                        <span class="check-title">All Type</span>
-                                                                    </label>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="filter-checks">
-                                                                    <label class="checkboxs">
-                                                                        <input type="checkbox">
-                                                                        <span class="checkmarks"></span>
-                                                                        <span class="check-title">Video Call</span>
-                                                                    </label>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="filter-checks">
-                                                                    <label class="checkboxs">
-                                                                        <input type="checkbox">
-                                                                        <span class="checkmarks"></span>
-                                                                        <span class="check-title">Audio Call</span>
-                                                                    </label>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="filter-checks">
-                                                                    <label class="checkboxs">
-                                                                        <input type="checkbox">
-                                                                        <span class="checkmarks"></span>
-                                                                        <span class="check-title">Chat</span>
-                                                                    </label>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="filter-checks">
-                                                                    <label class="checkboxs">
-                                                                        <input type="checkbox">
-                                                                        <span class="checkmarks"></span>
-                                                                        <span class="check-title">Direct Visit</span>
-                                                                    </label>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="filter-set-content">
-                                                    <div class="filter-set-content-head">
-                                                        <a href="#" data-bs-toggle="collapse"
-                                                            data-bs-target="#collapseThree" aria-expanded="false"
-                                                            aria-controls="collapseThree">Visit Type<i
-                                                                class="fa-solid fa-chevron-right"></i></a>
-                                                    </div>
-                                                    <div class="filter-set-contents accordion-collapse collapse show"
-                                                        id="collapseThree" data-bs-parent="#accordionExample">
-                                                        <ul>
-                                                            <li>
-                                                                <div class="filter-checks">
-                                                                    <label class="checkboxs">
-                                                                        <input type="checkbox" checked>
-                                                                        <span class="checkmarks"></span>
-                                                                        <span class="check-title">All Visit</span>
-                                                                    </label>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="filter-checks">
-                                                                    <label class="checkboxs">
-                                                                        <input type="checkbox">
-                                                                        <span class="checkmarks"></span>
-                                                                        <span class="check-title">General</span>
-                                                                    </label>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="filter-checks">
-                                                                    <label class="checkboxs">
-                                                                        <input type="checkbox">
-                                                                        <span class="checkmarks"></span>
-                                                                        <span class="check-title">Consultation</span>
-                                                                    </label>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="filter-checks">
-                                                                    <label class="checkboxs">
-                                                                        <input type="checkbox">
-                                                                        <span class="checkmarks"></span>
-                                                                        <span class="check-title">Follow-up</span>
-                                                                    </label>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="filter-checks">
-                                                                    <label class="checkboxs">
-                                                                        <input type="checkbox">
-                                                                        <span class="checkmarks"></span>
-                                                                        <span class="check-title">Direct Visit</span>
-                                                                    </label>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="filter-reset-btns">
-                                                <a href="appointments.html" class="btn btn-light">Reset</a>
-                                                <a href="appointments.html" class="btn btn-primary">Filter Now</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-        
-                        <div class="tab-content appointment-tab-content appoint-patient">
-                            <div class="tab-content appointment-tab-content">
-                                @include('patients.appointments.list')
-                            </div>
-                        </div>
+    @php $patientId  = auth()->user()->id; @endphp
+    <div class="dashboard-header">
+        <h3>Appointments</h3>
+        <ul class="header-list-btns">
+            <li>
+                <div class="input-block dash-search-input">
+                    <input type="text" class="form-control" placeholder="Search" id="searchKey">
+                    <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                </div>
+            </li>
+            <ul class="tabs">
+                <li>
+                    <div class="view-icons nav-link active" onclick="openTab(event, 'grid-view')">
+                        <a href="javascript:void(0)"><i class="fa-solid fa-th"></i></a>
+                    </div>
+                </li>
+                <li>
+                    <div class="view-icons nav-link" onclick="openTab(event, 'list-view')">
+                        <a href="javascript:void(0)"><i class="fa-solid fa-list"></i></a>
+                    </div>
+                </li>
+            </ul>
+        </ul>
+    </div>
+    <div class="appointment-tab-head">
+        <p style="display:none" id="patient-id">{{ $patientId }}</p>
+        <p style="display:none" id="selected-filter">all</p>
+        <div class="appointment-tabs">
+            <ul class="nav nav-pills inner-tab " id="pills-tab" role="tablist">
+                <ul class="nav nav-pills inner-tab" id="pills-tab" role="tablist">
+
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="all" type="button"
+                            onclick="appointment_filter(this)">All<span>{{ $counters['allAppointments'] ?? 0 }}</span></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="today" type="button"
+                            onclick="appointment_filter(this)">Today<span>{{ $counters['todayAppointments'] ?? 0 }}</span></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="upcoming" type="button"
+                            onclick="appointment_filter(this)">Upcoming<span>{{ $counters['upcomingAppointments'] ?? 0 }}</span></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="confirmed" type="button"
+                            onclick="appointment_filter(this)">Confirmed<span>{{ $counters['confirmedAppointments'] ?? 0 }}
+                            </span></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="cancelled" type="button"
+                            onclick="appointment_filter(this)">Cancelled<span>{{ $counters['cancelledAppointments'] ?? 0 }}
+                            </span></button>
+                    </li>
+                </ul>
+
+
+            </ul>
+        </div>
+        <div class="filter-head">
+            <div class="position-relative daterange-wraper me-2">
+                <div class="input-groupicon calender-input">
+                    <input type="date" class="form-control  date-range bookingrange" placeholder="From Date - To Date "
+                        id="dateSearch">
+                </div>
+                <i class="fa-solid fa-calendar-days"></i>
+            </div>
+        </div>
+    </div>
+        <div id="grid-view" class="tab-content appointment-tab-content active">
+            @include('patients.appointments.grid-view')
+        </div>
+        <div id="list-view" class="tab-content appointment-tab-content">
+            @include('patients.appointments.list-view')
+        </div>
+
+    </div>
 @endsection
+
+@section('javascript')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-        function filter(key, userId) {
+        $("#pSearchKey").keyup(function() {
+            filter();
+        });
+
+        $('input[type=date]').change(function() {
+            filter();
+        });
+
+        function appointment_filter(element) {
+            document.querySelectorAll('.nav-link').forEach(function(navLink) {
+                navLink.classList.remove('active');
+            });
+            element.classList.add('active');
+            jQuery('#selected-filter').text(jQuery(element).attr('id'));
+            filter();
+        }
+
+
+        function filter(page_no = 1) {
+            let key = jQuery('#selected-filter').text();
+            let patientId = jQuery('#patient-id').text();
+            let pSearchKey = jQuery('#pSearchKey').val();
+            let dateSearch = jQuery('#dateSearch').val();
             $.ajax({
-                url: "<?= route('patient.appointment-filter') ?>", 
-                type: 'get', 
-                data: { 
-                    key: key,
-                    user: userId,
-                    _token: '{{ csrf_token() }}' 
+                url: "<?= route('patient.appointment.filter') ?>?page=" + page_no,
+                type: 'get',
+                data: {
+                    'key': key,
+                    'patientId': patientId,
+                    'pSearchKey': pSearchKey,
+                    'dateSearch': dateSearch,
+                    'page_no': page_no,
+                    '_token': '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    jQuery('#appointmentList').replaceWith(response.data); // Replace the content
-                    jQuery('#appointmentList').hide().delay(200).fadeIn(); // Apply fadeIn effect to the new content
+                    jQuery('#patientAppointmentList').replaceWith(response.data.list);
+                    jQuery('#patientAppointmentGrid').replaceWith(response.data.grid);
+
+                    jQuery('#patientAppointmentList').hide().delay(200).fadeIn();
+                    jQuery('#patientAppointmentGrid').hide().delay(200).fadeIn();
                 },
                 error: function(xhr, status, error) {
                     // Handle any errors
@@ -232,4 +129,56 @@
             });
         }
     </script>
-    
+
+
+    <script>
+        function openTab(event, tabName) {
+            var i, tabcontent, tablinks;
+
+            // Hide all tab content
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+
+            // Remove active class from all tabs
+            tablinks = document.getElementsByClassName("nav-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            // Show the current tab and add an active class to the clicked tab
+            console.log( document.getElementById(tabName));
+            document.getElementById(tabName).classList.add("active");
+            event.currentTarget.classList.add("active");
+        }
+
+        $(document).on('click', '.pagination a', function(e) {
+            e.preventDefault();
+            var page_no = $(this).attr('href').split('page=')[1];
+            filter(page_no);
+        });
+    </script>
+@endsection
+
+<style>
+    .tabs {
+        display: flex;
+        cursor: pointer;
+    }
+
+    .tabs .active a {
+        background-color: #004cd4 !important;
+        color: #fff;
+    }
+
+    .tab-content {
+        display: none;
+        /* border: 1px solid #ccc; */
+        padding: 10px;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+</style>

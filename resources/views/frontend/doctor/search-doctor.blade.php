@@ -1,4 +1,4 @@
-@extends('layouts.doctor.main')
+@extends('layouts.doctor-frontend.main')
 @section('content')
     <div class="breadcrumb-bar-two">
         <div class="container">

@@ -26,14 +26,14 @@
                                                          <h5><a href="{{ route('doctor.doctor-invoices.index') }}">{{ $recentAppointments->patient->fullName }}
                                                              </a>
                                                          </h5>
-                                                         <span>#Apt0001</span>
+                                                         {{-- <span>#Apt0001</span> --}}
                                                      </div>
                                                  </div>
                                              </td>
                                              <td>
                                                  <div class="appointment-date-created">
                                                      <span class="paid-text">Amount</span>
-                                                     <h6>$450</h6>
+                                                     <h6>$0</h6>
                                                  </div>
                                              </td>
                                              <td>

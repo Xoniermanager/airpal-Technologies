@@ -2,6 +2,7 @@
 @section('content')
 
                         <form  id="patientDetailsForm">
+                            @csrf
                             <div class="setting-card">
                                 <div class="change-avatar img-upload">
                                     <div class="profile-img">
@@ -169,6 +170,8 @@
 
 
 
+    @section('javascript')
+
     <script>
 
         $("#patientDetailsForm").validate({
@@ -265,3 +268,5 @@
             }
         }
     </script>
+
+    @endsection

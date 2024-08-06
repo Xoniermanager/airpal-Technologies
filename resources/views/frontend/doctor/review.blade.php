@@ -16,6 +16,9 @@
                     <p class="comment-content">
                         {{ $reviewDetails->review }}
                         @if (isset(Auth()->user()->id) && Auth()->user()->id == $reviewDetails->patient_id)
+                        @php
+                            $ratingButton = true;
+                        @endphp
                             <a class="" href="#" data-bs-toggle="modal" data-bs-target="#add_rating"
                                 onclick="getReviewDetailsByPatientId('{{ $reviewDetails->id }}','{{ $reviewDetails->rating }}','{{ $reviewDetails->title }}','{{ $reviewDetails->review }}')">
                                 <i class="fa fa-edit btn btn-primary btn-sm"></i>

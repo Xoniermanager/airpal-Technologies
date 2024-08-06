@@ -16,7 +16,7 @@
             <table class="table table-center mb-0">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        {{-- <th>ID</th> --}}
                         <th>Patient</th>
                         <th>Booked on</th>
                         <th>Appointment Date</th>
@@ -28,10 +28,10 @@
                 <tbody>
                     @forelse ($invoiceDetails as  $invoiceDetail)
                         <tr>
-                            <td>
+                            {{-- <td>
                                 <a href="javascript:void(0);" class="text-blue-600" data-bs-toggle="modal"
                                     data-bs-target="#invoice_view">#Inv-2021</a>
-                            </td>
+                            </td> --}}
                             <td>
                                 <h2 class="table-avatar">
                                     <a href="{{ route('doctor.doctor-profile.index') }}" class="avatar avatar-sm me-2">
@@ -48,7 +48,7 @@
                             </td>
                             <td> {{ \Carbon\Carbon::parse($invoiceDetail->slot_start_time)->format('h:i') ?? '' }} -
                                 {{ \Carbon\Carbon::parse($invoiceDetail->slot_end_time)->format('h:i') ?? '' }}</td>
-                            <td>$300</td>
+                            <td>$0</td>
                             <td>
                                 <div class="action-item">
                                     {{-- <a href="javascript:void(0);" data-bs-toggle="modal"
@@ -58,8 +58,7 @@
                                     {{-- {{ url('storage/images/'.$invoiceDetail->invoice_url) }} --}}
 
                                     @if (isset($invoiceDetail->invoice_url))
-                                        <a href="{{ Storage::url($invoiceDetail->invoice_url) }}" class="set-bg-color"
-                                            target="_blank" >
+                                        <a href="javascript:void(0)" class="set-bg-color" onclick="printInvoice('{{ Storage::url($invoiceDetail->invoice_url) }}');">
                                             <i class="fa-solid fa-print"></i>
                                         </a>
                                     @else
@@ -113,6 +112,13 @@
                 console.error(error);
             }
         });
+    }
+
+    function printInvoice(url) {
+        var printWindow = window.open(url, '_blank');
+        printWindow.onload = function() {
+            printWindow.print();
+        };
     }
 </script>
 <style>

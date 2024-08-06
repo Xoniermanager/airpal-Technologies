@@ -65,6 +65,8 @@
         </div>
         @include('include.footer')
 
+<script src="{{ asset('admin/assets/jquery-validation/dist/jquery.validate.min.js') }}"></script>
+
         <script>
             $(document).ready(function() {
                 $("#login").validate({
@@ -97,8 +99,7 @@
                             contentType: false,
                             dataType: 'json',
                             success: function(response) {
-
-
+                                console.log(response);
                                 if (response.success) {
                                     Swal.fire("Done!", response.message, "success").then(() => {
                                         window.location.href = response.redirect_url;

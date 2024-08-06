@@ -16,7 +16,6 @@ class PatientFavoriteDoctorController extends Controller
     }
     public function getFavoriteDoctors()
     {
-
         try {
             $doctors =  $this->favoriteDoctorServices->getAllFavoriteDoctors(Auth::guard('api')->user()->id)->get();
             if ($doctors) {

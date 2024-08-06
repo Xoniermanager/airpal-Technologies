@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Services\BookingServices;
+use App\Http\Requests\SearchPatientAppointments;
 
 class PatientAppointmentsController extends Controller
 {
@@ -16,21 +17,37 @@ class PatientAppointmentsController extends Controller
     }
     public function patientAppointments()
     {
-      $patientAppointments = $this->bookingServices->patientBookings(Auth::user()->id)->get();
-      return view('patients.appointments.patient-appointments',['appointments' => $patientAppointments]);
+      $patientAppointments = $this->bookingServices->patientBookings(Auth::user()->id)->paginate(9);
+      $allAppointmentCounter = $this->bookingServices->getAllAppointmentPatientCounter(Auth::id());
+      if ($patientAppointments) {
+        return view('patients.appointments.patient-appointments', [
+          'appointments' => $patientAppointments,
+          'counters'     => $allAppointmentCounter,
+        ]);
+      }
     }   
 
-    public function appointmentFilter(Request $request)
+    public function patientAppointmentFilter(SearchPatientAppointments $searchPatientAppointments)
     {
-        $filterKey = $request->key;
-        $patientId = $request->user;
-        $filtered  = $this->bookingServices->filter($filterKey, $patientId);
-        return response()->json([
-            'success' => 'Searching',
-            'data'   =>  view("patients.appointments.list", [
-            'appointments' =>  $filtered
-            ])->render()
-          ]);
+
+      $filterParams = $searchPatientAppointments->validated();
+      $filtered  = $this->bookingServices->searchDoctorAppointments($filterParams);
+
+      $gridHtml = view("patients.appointments.grid-view", [
+        'appointments' =>  $filtered
+      ])->render();
+  
+      $listHtml = view("patients.appointments.list-view", [
+        'appointments' =>  $filtered
+      ])->render();
+  
+      return response()->json([
+        'success' => 'Searching',
+        'data'   =>  [
+          'list'  =>  $listHtml,
+          'grid'  =>  $gridHtml
+        ]
+      ]);
     }
 }
 

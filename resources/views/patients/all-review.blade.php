@@ -52,6 +52,6 @@
                                 {{ $allReviewDetails->links() }}
                             </div>
                         </div>
-    
+
    
-    @include('include.footer')
+@endsection

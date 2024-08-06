@@ -12,11 +12,13 @@ class UserServices
 {
   private  $UserRepository;
   private $doctorAddressServices;
+  private $bookingService;
 
-  public function __construct(UserRepository $UserRepository, DoctorAddressServices $doctorAddressServices)
+  public function __construct(UserRepository $UserRepository, DoctorAddressServices $doctorAddressServices,BookingServices $bookingService)
   {
     $this->UserRepository = $UserRepository;
     $this->doctorAddressServices = $doctorAddressServices;
+    $this->bookingService = $bookingService;
   }
   public function all()
   {
@@ -53,11 +55,11 @@ class UserServices
 
   public function getDoctorDataForFrontend()
   {
-    return $this->UserRepository->where('role', 2)->with(["experiences", "specializations", "services",'favoriteDoctor','doctorReview'])->paginate(5);
+    return $this->UserRepository->where('role', 2)->with(["experiences", "specializations", "services", 'favoriteDoctor', 'doctorReview'])->paginate(5);
   }
   public function getDoctorDataById($id)
   {
-    return $this->UserRepository->where('id', $id)->with(["educations.course", "experiences.hospital", "workingHour", "specializations", "services", "workingHour.daysOfWeek", "language", 'awards.award', 'doctorAddress.country', 'doctorAddress.states','favoriteDoctor','doctorReview'])->first();
+    return $this->UserRepository->where('id', $id)->with(["educations.course", "experiences.hospital", "workingHour", "specializations", "services", "workingHour.daysOfWeek", "language", 'awards.award', 'doctorAddress.country', 'doctorAddress.states', 'favoriteDoctor', 'doctorReview'])->first();
   }
   public function updateOrCreateDoctor($data)
   {
@@ -163,7 +165,7 @@ class UserServices
 
   public function getPatientByDoctorId($id)
   {
-    return $this->UserRepository->where('role',3)->get();
+    return $this->UserRepository->where('role', 3)->get();
   }
 
   public function updatePatient($data)
@@ -204,4 +206,5 @@ class UserServices
       ]
     );
   }
+  
 }

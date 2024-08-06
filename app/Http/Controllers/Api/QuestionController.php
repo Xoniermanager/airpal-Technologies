@@ -146,4 +146,22 @@ class QuestionController extends Controller
             ], 500);
         }
     }
+
+    public function getQuestionDetailsById($questionId)
+    {
+        try {
+            $questionDetails = $this->questionService->getSelectedQuestionDetails($questionId);
+            return response()->json([
+                'status' => true,
+                'message' => "Retrieved Question Details",
+                'data' => $questionDetails
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                "status" => false,
+                "error" =>  $e->getMessage(),
+                "message" => "Unable to find Question Details"
+            ], 500);
+        }
+    }
 }

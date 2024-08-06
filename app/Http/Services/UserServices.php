@@ -14,7 +14,7 @@ class UserServices
   private $doctorAddressServices;
   private $bookingService;
 
-  public function __construct(UserRepository $UserRepository, DoctorAddressServices $doctorAddressServices,BookingServices $bookingService)
+  public function __construct(UserRepository $UserRepository, DoctorAddressServices $doctorAddressServices, BookingServices $bookingService)
   {
     $this->UserRepository = $UserRepository;
     $this->doctorAddressServices = $doctorAddressServices;
@@ -112,9 +112,7 @@ class UserServices
     $data['specialty']  = array_key_exists('specialty', $searchedKey) ? $searchedKey['specialty'] : '';
     $data['services']  = array_key_exists('services', $searchedKey) ? $searchedKey['services'] : '';
 
-    $query = $this->UserRepository->newQuery();
-
-
+    $query = $this->UserRepository->with(["educations.course", 'favoriteDoctor'])->newQuery();
     if (!empty($data['gender'])) {
       $query->whereIn('gender', $data['gender']);
     }
@@ -206,5 +204,4 @@ class UserServices
       ]
     );
   }
-  
 }

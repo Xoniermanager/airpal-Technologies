@@ -88,9 +88,6 @@ Route::middleware('authCheck')->group(function () {
         });
         Route::controller(QuestionController::class)->group(function () {
             Route::get('get-all-specialization', 'getAllSpecializations');
-        });
-        Route::controller(QuestionController::class)->group(function () {
-            Route::get('get-all-specialization', 'getAllSpecializations');
             Route::post('add-question', 'addQuestion');
             Route::get('get-all-question', 'getAllQuestion');
             Route::post('update-question/{doctor_questions:id}', 'updateQuestion');

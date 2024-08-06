@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+
+use App\Models\Payments;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -29,4 +31,10 @@ class BookingSlots extends Model
             get: fn ($value) =>  $value ? asset('appointment_booking/' .  $value) : ''
         );
     }
+    public function payments()
+    {
+        return $this->hasOne(Payments::class, 'booking_id');
+    }
+
+
 }

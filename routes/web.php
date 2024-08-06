@@ -54,7 +54,6 @@ use App\Http\Controllers\TempController;
  * Admin And Patient Panel Login
  */
 
- Route::view('demo', 'doctor/demo');
 
 Route::controller(AdminAuthController::class)->group(function () {
     Route::get('admin/login', 'index')->name('admin.login.index');
@@ -126,8 +125,7 @@ Route::prefix('doctor')->group(function () {
             Route::get('invoices', 'doctorInvoices')->name('doctor.doctor-invoices.index');
             Route::post('preview-invoice', 'previewInvoice')->name('preview.patient.invoice');
             Route::post('download-invoice','downloadInvoice')->name('download.patient.invoice');
-            
-
+            Route::get('revenue-report','getRevenueDetailForChart')->name('revenue.report');
         });
         Route::controller(ReviewsController::class)->group(function () {
             Route::get('reviews', 'doctorReviews')->name('doctor.doctor-reviews.index');

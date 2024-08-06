@@ -250,7 +250,7 @@ class BookingServices
       return
          [
             'allAppointments'       => $this->bookingRepository->where('patient_id', $id)->with('patient')->count(),
-            
+
             'todayAppointments'     => $this->bookingRepository->where('patient_id', $id)
             ->whereDate('booking_date', Carbon::today())
             ->where('status', '!=', 'cancelled')
@@ -268,5 +268,15 @@ class BookingServices
             ->where('status', '=', 'cancelled')
             ->get()->count(),
          ];
+   }
+
+
+   public function getAllRecentAppointmentsByDoctorId($doctorId)
+   {
+      return $this->bookingRepository->where('doctor_id', $doctorId)
+      ->where('booking_date', '<', Carbon::now())
+      ->with('payments')
+      ->get()
+      ->groupBy('booking_date');
    }
 }

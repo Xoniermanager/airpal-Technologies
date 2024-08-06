@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Doctor;
 
+use DateTime;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Services\UserServices;
@@ -53,4 +54,49 @@ class InvoiceController extends Controller
             \Log::error('Failed to generate or save invoice: ' . $e->getMessage());
         }
     }
+
+    // public function getRevenueDetailForChart()
+    // {
+    //     $appointments = $this->bookingServices->getAllRecentAppointmentsByDoctorId(auth::id());
+    //     // dd($appointments);
+    //     foreach ($appointments as $key => $appointment) {
+    //         $date = $key;
+    //         $sum = 0;
+    //         foreach ($appointment as $appointmentData)
+    //         {
+    //             $amount   =  $appointmentData->payments->amount ?? 0;
+    //             $sum     += $amount;
+    //             $result[] = [$date, $sum];
+    //         }
+    //     }
+    
+    //     dd( $result);
+    // }
+    public function getRevenueDetailForChart()
+{
+    $appointments = $this->bookingServices->getAllRecentAppointmentsByDoctorId(auth::id());
+    // dd($appointments);
+
+    $result = [];
+    $revenueByDate = [];
+
+    foreach ($appointments as $appointment) {
+        foreach ($appointment as $appointmentData) {
+            $date = $appointmentData->booking_date;
+            $amount = $appointmentData->payments->amount ?? 0;
+            if (!isset($revenueByDate[$date])) {
+                $revenueByDate[$date] = 0;
+            }
+            $revenueByDate[$date] += $amount;
+        }
+    }
+
+    foreach ($revenueByDate as $date => $sum) {
+        $date = new DateTime($date);
+        $day = $date->format('j');
+        $result[] = [(int)$day, $sum];
+    }
+    return $result;
+}
+
 }

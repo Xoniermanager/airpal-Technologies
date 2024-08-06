@@ -65,8 +65,6 @@
         </div>
         @include('include.footer')
 
-<script src="{{ asset('admin/assets/jquery-validation/dist/jquery.validate.min.js') }}"></script>
-
         <script>
             $(document).ready(function() {
                 $("#login").validate({

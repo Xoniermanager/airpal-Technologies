@@ -27,7 +27,7 @@ class BookingRepository extends BaseRepository
 
     public function searchDoctorAppointments($filterParams)
     {
-        
+
         $query = $this->model->newQuery();
         $key   = $filterParams['key'];
 
@@ -37,15 +37,13 @@ class BookingRepository extends BaseRepository
             2. upcoming appointments and
             3. cancelled appointments
         */
-        switch($key)
-        {
+        switch ($key) {
             case 'today':
                 $query->where('booking_date', Carbon::now()->toDateString())
-                ->where('status', '!=', 'cancelled');
+                    ->where('status', '!=', 'cancelled');
                 break;
             case 'upcoming':
-                $query->where('booking_date', '>', Carbon::now()->toDateString())->
-                where('status', '!=', 'cancelled');
+                $query->where('booking_date', '>', Carbon::now()->toDateString())->where('status', '!=', 'cancelled');
                 break;
             case 'cancelled':
                 $query->where('status', 'cancelled');
@@ -54,27 +52,37 @@ class BookingRepository extends BaseRepository
                 $query->where('status', 'confirmed');
                 break;
         }
-        
+
         // Using selected date filter from calendar
-        if (isset($filterParams['dateSearch']) && !empty($filterParams['dateSearch']))
-        {
+        if (isset($filterParams['dateSearch']) && !empty($filterParams['dateSearch'])) {
             $query->where('booking_date', '=', $filterParams['dateSearch']);
         }
 
         // Using provided doctor id to filter
-        if (isset($filterParams['doctorId']) && !empty($filterParams['doctorId']))
-        {
+        if (isset($filterParams['doctorId']) && !empty($filterParams['doctorId'])) {
             $query->where('doctor_id', '=', $filterParams['doctorId']);
         }
 
+        // Using provided doctor id to filter
+        if (isset($filterParams['patientId']) && !empty($filterParams['patientId'])) {
+            $query->where('patient_id', '=', $filterParams['patientId']);
+        }
+
         // Using search keyword to find appointments
-        if (isset($filterParams['searchKey']) && !empty($filterParams['searchKey']))
-        {
+        if (isset($filterParams['searchKey']) && !empty($filterParams['searchKey'])) {
             $searchKey = $filterParams['searchKey'];
             $query->whereHas('patient', function ($query) use ($searchKey) {
                 $query->where('first_name', 'like', "%{$searchKey}%");
                 $query->orWhere('last_name', 'like', "%{$searchKey}%");
-             });
+            });
+        }
+        // Using search keyword to find appointments
+        if (isset($filterParams['pSearchKey']) && !empty($filterParams['pSearchKey'])) {
+            $pSearchKey = $filterParams['pSearchKey'];
+            $query->whereHas('user', function ($query) use ($pSearchKey) {
+                $query->where('first_name', 'like', "%{$pSearchKey}%");
+                $query->orWhere('last_name', 'like', "%{$pSearchKey}%");
+            });
         }
         return $query->paginate(9);
     }
@@ -105,7 +113,7 @@ class BookingRepository extends BaseRepository
     {
         return $this->where('doctor_id', $doctorId)
             ->orderBy('created_at', 'desc')
-            ->where('status','requested')
+            ->where('status', 'requested')
             ->take(4)
             ->get();
     }
@@ -142,14 +150,14 @@ class BookingRepository extends BaseRepository
     public function getAllCanceledAppointmentsByDoctorId($doctorId)
     {
         return  $this->where('doctor_id', $doctorId)
-                ->where('status', '=', 'cancelled')
-                ->get();
+            ->where('status', '=', 'cancelled')
+            ->get();
     }
 
     public function getAllConfirmedAppointments($doctorId)
     {
         return  $this->where('doctor_id', $doctorId)
-                ->where('status', '=', 'confirmed')
-                ->get();
+            ->where('status', '=', 'confirmed')
+            ->get();
     }
 }

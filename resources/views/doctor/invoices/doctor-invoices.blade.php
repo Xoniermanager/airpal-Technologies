@@ -48,7 +48,7 @@
                             </td>
                             <td> {{ \Carbon\Carbon::parse($invoiceDetail->slot_start_time)->format('h:i') ?? '' }} -
                                 {{ \Carbon\Carbon::parse($invoiceDetail->slot_end_time)->format('h:i') ?? '' }}</td>
-                            <td>$300</td>
+                            <td>$0</td>
                             <td>
                                 <div class="action-item">
                                     {{-- <a href="javascript:void(0);" data-bs-toggle="modal"

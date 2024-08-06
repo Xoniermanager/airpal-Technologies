@@ -327,7 +327,8 @@ Route::prefix('patients')->group(function () {
             Route::controller(PatientAppointmentsController::class)->group(function () {
                 Route::get('appointments', 'patientAppointments')->name('patient-appointments.index');
                 Route::get('appointment-details', 'patientAppointmentDetails')->name('patient-appointment-details.index');
-                Route::get('appointment-filter', 'appointmentFilter')->name('patient.appointment-filter');
+                Route::get('patient-appointment-filter', 'patientAppointmentFilter')->name('patient.appointment.filter');
+
             });
             // Patient Profile Routes
             Route::controller(PatientProfileController::class)->group(function () {

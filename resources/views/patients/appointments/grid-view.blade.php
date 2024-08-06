@@ -1,4 +1,4 @@
-<div class="tab-pane fade show active" id="appointmentList" role="tabpanel"
+<div class="tab-pane fade show active" id="patientAppointmentGrid" role="tabpanel"
 aria-labelledby="pills-upcoming-tab">
 <div class="row">
     @forelse ($appointments as $appointment )
@@ -9,7 +9,7 @@ aria-labelledby="pills-upcoming-tab">
                     <div class="appointment-grid-head">
                         <div class="patinet-information">
                             <a href="patient-upcoming-appointment.html">
-                                <img src="{{asset('images/').'/'.$appointment->user->image_url}}" class="img-fluid"
+                                <img src="{{ $appointment->user->image_url}}" class="img-fluid"
                                 alt=""   onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" >
                             </a>
                             <div class="patient-info">
@@ -53,7 +53,9 @@ aria-labelledby="pills-upcoming-tab">
     @empty
     <p>Not Found</p>     
     @endforelse 
-
-
 </div>
+<div class="mt-3 d-flex justify-content-end">
+    {{ $appointments->links() }}
+</div>
+
 </div>

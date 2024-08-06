@@ -75,10 +75,5 @@ aria-labelledby="pills-upcoming-tab" >
     {{ $bookings->links() }}
 </div>
 
-    {{-- <div class="col-md-12">
-        <div class="loader-item text-center">
-            <a href="javascript:void(0);" class="btn btn-load">Load More</a>
-        </div>
-    </div> --}}
 </div>
 </div>

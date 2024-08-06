@@ -141,6 +141,10 @@ class BookingServices
    {
       return  $this->bookingRepository->searchDoctorAppointments($filterParams);
    }
+   public function searchPatientsAppointments($filterParams)
+   {
+      return  $this->bookingRepository->searchPatientsAppointments($filterParams);
+   }
 
    public function doctorAppointmentSearch($searchKey, $doctorId)
    {
@@ -236,6 +240,33 @@ class BookingServices
             'upcomingAppointments'  => $this->bookingRepository->getAllUpcomingAppointmentsByDoctorId($id)->count() ?? 0,
             'confirmedAppointments' => $this->bookingRepository->getAllConfirmedAppointments($id)->count() ?? 0,
             'cancelledAppointments' => $this->bookingRepository->getAllCanceledAppointmentsByDoctorId($id)->count() ?? 0,
+         ];
+   }
+
+   public function getAllAppointmentPatientCounter($id)
+   {
+      $todayDate = Carbon::now()->toDateString();
+      // Here returning all patient type (status,upcoming,cancelled,confirmed) counter for (doctor profile) 
+      return
+         [
+            'allAppointments'       => $this->bookingRepository->where('patient_id', $id)->with('patient')->count(),
+            
+            'todayAppointments'     => $this->bookingRepository->where('patient_id', $id)
+            ->whereDate('booking_date', Carbon::today())
+            ->where('status', '!=', 'cancelled')
+            ->count(),
+
+            'upcomingAppointments'  => $this->bookingRepository->where('patient_id', $id)
+            ->where('booking_date', '>', $todayDate)
+            ->where('status', '!=', 'cancelled')
+            ->get()->count(),
+
+            'confirmedAppointments' => $this->bookingRepository->where('patient_id', $id)
+            ->where('status', '=', 'confirmed')
+            ->get()->count(),
+            'cancelledAppointments' => $this->bookingRepository->where('doctor_id', $id)
+            ->where('status', '=', 'cancelled')
+            ->get()->count(),
          ];
    }
 }

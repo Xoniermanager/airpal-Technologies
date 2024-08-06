@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\DoctorAppointmentController;
 use App\Http\Controllers\Api\DoctorDashboardController;
 use App\Http\Controllers\Api\DoctorReviewController;
 use App\Http\Controllers\Api\DoctorWorkingHourController;
+use App\Http\Controllers\Api\DoctorAppointmentConfigController;
 use App\Http\Controllers\Api\Patient\AllListingController;
 use App\Http\Controllers\Api\Patient\DoctorFilterController;
 use App\Http\Controllers\Api\Patient\PatientDashboardController;
@@ -88,13 +89,13 @@ Route::middleware('authCheck')->group(function () {
         });
         Route::controller(QuestionController::class)->group(function () {
             Route::get('get-all-specialization', 'getAllSpecializations');
-        });
-        Route::controller(QuestionController::class)->group(function () {
-            Route::get('get-all-specialization', 'getAllSpecializations');
             Route::post('add-question', 'addQuestion');
             Route::get('get-all-question', 'getAllQuestion');
             Route::post('update-question/{doctor_questions:id}', 'updateQuestion');
             Route::get('question-delete/{doctor_questions:id}', 'deleteQuestion');
+        });
+        Route::controller(DoctorAppointmentConfigController::class)->group(function () {
+            Route::get('get-appointment-config', 'getAppointmentConfig');
         });
     });
 

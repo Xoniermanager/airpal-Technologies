@@ -93,6 +93,7 @@ Route::middleware('authCheck')->group(function () {
             Route::get('get-all-question', 'getAllQuestion');
             Route::post('update-question/{doctor_questions:id}', 'updateQuestion');
             Route::get('question-delete/{doctor_questions:id}', 'deleteQuestion');
+            Route::get('get-question-details/{doctor_questions:id}', 'getQuestionDetailsById');
         });
         Route::controller(DoctorAppointmentConfigController::class)->group(function () {
             Route::get('get-appointment-config', 'getAppointmentConfig');

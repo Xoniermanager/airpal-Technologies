@@ -31,23 +31,6 @@
                     <div class="header-title">
                         <h5>Latest Appointment Requests</h5>
                     </div>
-                    {{-- <div class="dropdown header-dropdown">
-                                            <a class="dropdown-toggle nav-tog" data-bs-toggle="dropdown"
-                                                href="javascript:void(0);">
-                                                Last 7 Days
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <a href="javascript:void(0);" class="dropdown-item">
-                                                    Today
-                                                </a>
-                                                <a href="javascript:void(0);" class="dropdown-item">
-                                                    This Month
-                                                </a>
-                                                <a href="javascript:void(0);" class="dropdown-item">
-                                                    Last 7 Days
-                                                </a>
-                                            </div>
-                                        </div> --}}
                 </div>
                 <div class="dashboard-card-body">
                     <div class="table-responsive">
@@ -101,9 +84,6 @@
                         <div class="header-title">
                             <h5>Recent Patients</h5>
                         </div>
-                        {{-- <div class="card-view-link">
-                                                <a href="{{ route('doctor.doctor-patients.index') }}">View All</a>
-                                            </div> --}}
                     </div>
 
                     <div class="dashboard-card-body">
@@ -330,6 +310,7 @@
     <script>
         $(document).ready(function() {
             $('#printButton').click(function(event) {
+                appintment_id = document.getElementById('showValue').value;
                 event.preventDefault(); // Prevent the default form submission
                 document.getElementById("spin-loader").style.display = "inline-block";
                 $.ajax({
@@ -340,7 +321,7 @@
                             'content') // If you're using Laravel
                     },
                     data: {
-                        "appointment_id": 1,
+                        "appointment_id": appintment_id,
                         "_token": '{{ csrf_token() }}'
                     },
                     xhrFields: {
@@ -354,6 +335,7 @@
                         document.body.appendChild(a);
                         a.click();
                         a.remove();
+                        document.getElementById("spin-loader").style.display = "none";
                     },
                     error: function(xhr, status, error) {
                         console.error('Error generating PDF:', error);

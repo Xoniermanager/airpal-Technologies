@@ -190,14 +190,17 @@
     <div class="modal fade" id="invoice-preview" aria-hidden="true" role="dialog" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div id="show-patient-invoice"></div>
-            <div class="" style="display:none;background: rgb(0 0 0 / 47%);
+            <div class=""
+                style="display:none;background: rgb(0 0 0 / 47%);
     height: 100%;
     position: absolute;
-    width: 87.5%;" id="spin-loader"> 
-            <img src="{{ asset('assets/img/loading.gif')}}" style="height: 120px;
+    width: 87.5%;"
+                id="spin-loader">
+                <img src="{{ asset('assets/img/loading.gif') }}"
+                    style="height: 120px;
     position: relative;
     left: 46%; 
-    top: 35%;" id="spin-loader" >
+    top: 35%;" id="spin-loader">
             </div>
             <form id="invoiceForm"
                 style="position: absolute;
@@ -208,13 +211,17 @@
              right: 91px;">
                 <input type="hidden" value="" id="showValue">
                 <button type="button" class="btn btn-primary" id="printButton">Download Invoice</button>
-               
+
             </form>
 
         </div>
     </div>
+    <form action="{{ route('download.patient.invoice') }}" method="post">
+        @csrf
+        <input type="hidden" name="appointment_id" value="1">
+        <button type="submit">test</button>
+    </form>
 @endsection
-
 @section('javascript')
     <script>
         function updateAppointment(status, requestId) {
@@ -341,21 +348,20 @@
                         "appointment_id": 1,
                         "_token": '{{ csrf_token() }}'
                     },
-                    success: function(response) {
-
-                    if(response.status = true)
-                    {
-                        var link = document.createElement('a');
-                        link.href = response.invoice_pdf_url;
-                        link.download = 'invoice.pdf';
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                        document.getElementById("spin-loader").style.display = "none";
-                    }
+                    xhrFields: {
+                        responseType: 'blob' // Important for handling binary data
+                    },
+                    success: function(data) {
+                        var url = window.URL.createObjectURL(data);
+                        var a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'invoice.pdf';
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
                     },
                     error: function(xhr, status, error) {
-                        console.error('Error:', error);
+                        console.error('Error generating PDF:', error);
                     }
                 });
             });

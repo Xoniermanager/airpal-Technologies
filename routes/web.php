@@ -48,6 +48,7 @@ use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
 use App\Http\Controllers\TempController;
+use App\Http\Controllers\DoctorPatientChatController;
 
 // =============================== Login And SignUp Routes ==================================== //
 /**
@@ -122,6 +123,7 @@ Route::prefix('doctor')->group(function () {
         });
         Route::controller(PatientController::class)->group(function () {
             Route::get('patient', 'doctorPatient')->name('doctor.doctor-patients.index');
+            Route::get('get-search-filter', 'getSearchFilterData')->name('getsearch.filter.data');
         });
         Route::controller(InvoiceController::class)->group(function () {
             Route::get('invoices', 'doctorInvoices')->name('doctor.doctor-invoices.index');
@@ -169,6 +171,11 @@ Route::prefix('doctor')->group(function () {
             Route::post('change-password', 'changePassword')->name('doctor.change.password');
         });
         
+
+        // Doctor Patient Chat
+        Route::controller(DoctorPatientChatController::class)->group(function(){
+            Route::get('chat','getDoctorAllChats')->name('patient.doctor.chat');
+        });
     });
 });
 // =============================== End Doctor Panel Start ===================================== //

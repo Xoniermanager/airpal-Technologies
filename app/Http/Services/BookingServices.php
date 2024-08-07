@@ -96,9 +96,27 @@ class BookingServices
          ->where('doctor_id', $data['doctor_id'])
          ->where('booking_date', $data['date']);
    }
-   public function doctorBookings($id)
+   public function doctorBookings($id, $searchKey = null)
    {
-      return $this->bookingRepository->where('doctor_id', $id)->with('patient');
+      $queryDetails =  $this->bookingRepository->where('doctor_id', $id)->with('patient');
+
+      // Using search keyword to find appointments
+      if (isset($searchKey) && !empty($searchKey)) {
+         $searchKey = explode(' ', $searchKey);
+         $queryDetails = $queryDetails->whereHas('patient', function ($query) use ($searchKey) {
+            $query->where('first_name', 'like', "%{$searchKey[0]}%");
+            $query->orWhere('last_name', 'like', "%{$searchKey[0]}%");
+            $query->orWhere('display_name', 'like', "%{$searchKey[0]}%");
+            if (count($searchKey) > 1) {
+               foreach ($searchKey as $key) {
+                  $query->orWhere('first_name', 'like', "%{$key}%");
+                  $query->orWhere('last_name', 'like', "%{$key}%");
+                  $query->orWhere('display_name', 'like', "%{$key}%");
+               }
+            }
+         });
+      }
+      return $queryDetails;
    }
    public function patientBookings($id)
    {

@@ -1,8 +1,11 @@
 <?php
+
 namespace App\Http\Repositories;
+
 use App\Models\Specialization;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
+
 /**
  * Class DepartmentRepositoryEloquent.
  *

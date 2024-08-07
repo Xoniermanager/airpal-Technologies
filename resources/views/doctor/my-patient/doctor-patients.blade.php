@@ -11,29 +11,29 @@
             </li>
         </ul>
     </div>
-    <div class="appointment-tab-head">
-        <div class="appointment-tab-head">
-            <div class="appointment-tabs">
-                <ul class="nav nav-pills inner-tab " id="pills-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="all_tab" data-bs-toggle="pill" data-bs-target="#pills-upcoming"
-                            type="button" role="tab" aria-controls="pills-upcoming" aria-selected="false"
-                            tabindex="-1">All Patients<span>{{ count($finalData['allPatients']) }}</span></button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="new_tab" data-bs-toggle="pill" data-bs-target="#pills-complete"
-                            type="button" role="tab" aria-controls="pills-complete" aria-selected="false"
-                            tabindex="-1">New Patients<span>{{ count($finalData['newPatients']) }}</span></button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="regular_tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-cancel" type="button" role="tab" aria-controls="pills-cancel"
-                            aria-selected="true">Regular
-                            Patients<span>{{ count($finalData['regularPatients']) }}</span></button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
     @include('doctor.my-patient.list')
+    <script>
+    jQuery("#searchKey").keyup(function() {
+        searchfilter();
+    });
+
+    function searchfilter() {
+        $.ajax({
+            url: "<?= route('getsearch.filter.data') ?>",
+            type: 'get',
+            data: {
+                search_key: jQuery('#searchKey').val(),
+                '_token': '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                jQuery('#patient_list').replaceWith(response.data);
+            },
+            error: function(xhr, status, error) {
+                // Handle any errors
+                console.error(error);
+            }
+        });
+    }
+</script>
 @endsection
+

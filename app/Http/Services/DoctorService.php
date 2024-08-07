@@ -36,26 +36,40 @@ class DoctorService
         return $this->servicesRepository->all();
     }
 
-    public function getAllPatientByDoctorId($doctorId)
+    public function getAllPatientByDoctorId($doctorId, $searchKey = null)
     {
-        $allBookingDetails = $this->bookingServices->doctorBookings($doctorId)->orderBy('booking_date','DESC')->get()->groupBy('patient_id');
+        $allBookingDetails = $this->bookingServices->doctorBookings($doctorId, $searchKey)->orderBy('booking_date', 'ASC')->orderBy('slot_start_time', 'ASC')->get()->groupBy('patient_id');
         $newPatients     = [];
         $regularPatients = [];
         $finalArray = '';
-        foreach ($allBookingDetails as $bookingDetails) {
+        foreach ($allBookingDetails as $userId => $bookingDetails) {
+            $upcomingAppointment = [];
+            $lastBookedAppointment  = [];
+
+            foreach ($bookingDetails as $bookingDetail) {
+                if ($bookingDetail->booking_date >= now()) {
+                    $upcomingAppointment = $bookingDetail;
+                    break;
+                }
+                $lastBookedAppointment  = $bookingDetail;
+            }
+
             if (count($bookingDetails) > 1) {
-                $regularPatients[] = $bookingDetails[0]['patient'];
+                $regularPatients[$userId]['patient_details'] = $bookingDetails[0]['patient'];
+                $regularPatients[$userId]['upcoming'] = $upcomingAppointment;
+                $regularPatients[$userId]['last_booking'] = $lastBookedAppointment;
             } else {
-                $newPatients[] = $bookingDetails[0]['patient'];
+                $newPatients[$userId]['patient_details'] = $bookingDetails[0]['patient'];
+                $newPatients[$userId]['upcoming'] = $upcomingAppointment;
+                $newPatients[$userId]['last_booking'] = $lastBookedAppointment;
             }
         }
         $finalArray =
             [
                 'newPatients' => $newPatients,
                 'regularPatients' => $regularPatients,
-                'allPatients' => array_merge($regularPatients, $newPatients)
+                'allPatients' => array_merge($regularPatients, $newPatients),
             ];
         return  $finalArray;
     }
 }
-

@@ -11,12 +11,12 @@
                 <div class="patient-details">
                     <h5 class="mb-0">
                         @isset($doctorDetails)
-                        @forelse ($doctorDetails->educations as $education)
-                        {{$education->course->name}}
-                        @if( !$loop->last),@endif
-                        @empty
-                        <p>N/A</p>
-                        @endforelse
+                            @forelse ($doctorDetails->educations as $education)
+                            {{$education->course->name}}
+                            @if( !$loop->last),@endif
+                            @empty
+                            <p>N/A</p>
+                            @endforelse
                         @endisset
 
                     </h5>
@@ -76,6 +76,12 @@
                         <span>Specialties & Services</span>
                     </a>
                 </li> --}}
+                <li class="{{ request()->routeIs('doctor.appointment.config') ? 'active' : '' }}">
+                    <a href="{{ route('patient.doctor.chat') }}">
+                        <i class="fa fa-comments"></i>
+                        <span>Chat</span>
+                    </a>
+                </li>
                 <li class="{{ request()->routeIs('doctor.appointment.config') ? 'active' : '' }}">
                     <a href="{{ route('doctor.appointment.config') }}">
                         <i class="fas fa-star"></i>

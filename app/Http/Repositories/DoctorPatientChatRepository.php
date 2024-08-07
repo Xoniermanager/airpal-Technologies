@@ -2,10 +2,10 @@
 
 namespace App\Http\Repositories;
 
+use App\Models\DoctorPatientChat;
 use Prettus\Repository\Eloquent\BaseRepository;
-use App\Models\User;
 
-class UserRepository extends BaseRepository
+class DoctorPatientChatRepository extends BaseRepository
 {
 
     /**
@@ -15,10 +15,6 @@ class UserRepository extends BaseRepository
      */
     public function model()
     {
-        return User::class;
-    }
-    public function doctorDetails()
-    {
-        return $this->specializations();
+        return DoctorPatientChat::class;
     }
 }

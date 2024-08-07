@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Doctor;
 
-use DateTime;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Services\UserServices;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Services\BookingServices;
-use Illuminate\Support\Facades\Storage;
 
 class InvoiceController extends Controller
 {
@@ -43,10 +41,8 @@ class InvoiceController extends Controller
     public function downloadInvoice(Request $request)
     {
         try {
-
             $bookingId = $request->appointment_id;
             $bookingDetail = $this->bookingServices->appointmentsById($bookingId)->first();
-            $doctorId = $bookingDetail->doctor_id;
             $pdf = PDF::loadView('invoice.invoice-template', ['bookingDetail' => $bookingDetail]);
             return $pdf->download('invoice.pdf');
         } catch (\Exception $e) {
@@ -55,48 +51,8 @@ class InvoiceController extends Controller
         }
     }
 
-    // public function getRevenueDetailForChart()
-    // {
-    //     $appointments = $this->bookingServices->getAllRecentAppointmentsByDoctorId(auth::id());
-    //     // dd($appointments);
-    //     foreach ($appointments as $key => $appointment) {
-    //         $date = $key;
-    //         $sum = 0;
-    //         foreach ($appointment as $appointmentData)
-    //         {
-    //             $amount   =  $appointmentData->payments->amount ?? 0;
-    //             $sum     += $amount;
-    //             $result[] = [$date, $sum];
-    //         }
-    //     }
-    
-    //     dd( $result);
-    // }
-    public function getRevenueDetailForChart()
-{
-    $appointments = $this->bookingServices->getAllRecentAppointmentsByDoctorId(auth::id());
-    // dd($appointments);
-
-    $result = [];
-    $revenueByDate = [];
-
-    foreach ($appointments as $appointment) {
-        foreach ($appointment as $appointmentData) {
-            $date = $appointmentData->booking_date;
-            $amount = $appointmentData->payments->amount ?? 0;
-            if (!isset($revenueByDate[$date])) {
-                $revenueByDate[$date] = 0;
-            }
-            $revenueByDate[$date] += $amount;
-        }
+    public function getRevenueDetailForChart(Request $request)
+    {
+        return $this->bookingServices->gettingRevenueDetailForChart($request->period);
     }
-
-    foreach ($revenueByDate as $date => $sum) {
-        $date = new DateTime($date);
-        $day = $date->format('j');
-        $result[] = [(int)$day, $sum];
-    }
-    return $result;
-}
-
 }

@@ -48,6 +48,7 @@ use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
 use App\Http\Controllers\TempController;
+use App\Http\Controllers\DoctorPatientChatController;
 
 // =============================== Login And SignUp Routes ==================================== //
 /**
@@ -164,6 +165,11 @@ Route::prefix('doctor')->group(function () {
 
             Route::get('doctor-question-filter', 'doctorQuestionFilter')->name('doctor.question.filter');
             Route::get('get-question-by-doctor-id', 'getQuestionByDoctorId')->name('get.question.doctor.id');
+        });
+
+        // Doctor Patient Chat
+        Route::controller(DoctorPatientChatController::class)->group(function(){
+            Route::get('chat','getDoctorAllChats')->name('patient.doctor.chat');
         });
     });
 });

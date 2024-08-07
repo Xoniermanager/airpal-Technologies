@@ -1,27 +1,28 @@
 <?php
 
+namespace App\Http\Repositories;
 
-    namespace App\Http\Repositories;
-    use Prettus\Repository\Eloquent\BaseRepository;
-    use Prettus\Repository\Criteria\RequestCriteria;
-    use App\Models\DoctorAppointmentConfig;
+use Prettus\Repository\Eloquent\BaseRepository;
+use Prettus\Repository\Criteria\RequestCriteria;
+use App\Models\DoctorAppointmentConfig;
 
-    class DoctorAppointmentConfigRepository extends BaseRepository {
+class DoctorAppointmentConfigRepository extends BaseRepository
+{
 
-        /**
-         * Specify Model class name
-         *
-         * @return string
-         */
-        public function model()
-        {
-            return DoctorAppointmentConfig::class;
-        }
-        /**
-         * Boot up the repository, pushing criteria
-         */
-        public function boot()
-        {
-            $this->pushCriteria(app(RequestCriteria::class));
-        }
+    /**
+     * Specify Model class name
+     *
+     * @return string
+     */
+    public function model()
+    {
+        return DoctorAppointmentConfig::class;
     }
+    /**
+     * Boot up the repository, pushing criteria
+     */
+    public function boot()
+    {
+        $this->pushCriteria(app(RequestCriteria::class));
+    }
+}

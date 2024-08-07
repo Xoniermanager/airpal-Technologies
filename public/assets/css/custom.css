@@ -15264,9 +15264,14 @@ header.header.header-custom.header-fixed.header-one  {
   }
 }
 .main-chat-blk .chat-page-wrapper .left-chat-title {
-  padding: 12px;
+  padding: 10px;
   border-bottom: 1px solid #E0E0E0;
   min-height: 72px;
+  animation: p;
+  position: absolute;
+  z-index: 1;
+  background: #fbfbfb;
+  width: 348px;
 }
 .main-chat-blk .chat-page-wrapper .setting-title-head h4 {
   font-size: 18px;
@@ -16780,7 +16785,7 @@ header.header.header-custom.header-fixed.header-one  {
 .main-chat-blk .left-sidebar-wrap {
   background: #FBFBFB;
   overflow: hidden;
-  width: 448px;
+  width: 348px;
   display: flex;
   display: -webkit-flex;
   flex-direction: column;
@@ -18207,8 +18212,9 @@ header.header.header-custom.header-fixed.header-one  {
 .main-chat-blk .sidebar-body {
   flex: 1;
   overflow: auto;
-  padding: 24px 24px 10px;
+  padding: 24px 0;
   width: 100%;
+  padding-top: 135px;
 }
 .main-chat-blk .pin-chat img {
   margin-right: 6px;
@@ -46416,4 +46422,7 @@ td.date.halfFull button {
 .error
 {
   color:red !important;
+}
+.min-w-200px {
+  min-width: 200px;
 }

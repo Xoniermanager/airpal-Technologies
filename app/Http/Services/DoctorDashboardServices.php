@@ -19,6 +19,10 @@ class DoctorDashboardServices
     {
       return $this->bookingRepository->getUniquePatientsCounterByDoctorId($userId);
     }
+    public function gettingTotalAttendedBookings($doctorId)
+    {
+      return $this->bookingRepository->gettingTotalAttendedBookings($doctorId);   
+    }
     public function getTodayAppointmentCounter($userId)
     {
       return $this->bookingRepository->getTodayAppointmentCounter($userId);

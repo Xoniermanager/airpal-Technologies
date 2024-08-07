@@ -32,11 +32,12 @@ class DoctorDashboardController extends Controller
   {
     try {
       // Fetch all necessary data for the dashboard
-      $totalPatientsCounter    = $this->getTotalPatientsCounter() ?? '';
-      $todayAppointmentCounter = $this->getTodayAppointmentCounter() ?? '';
-      $recentAppointments      = $this->getRecentAppointments()  ?? '';
-      $upcomingAppointments    = $this->getUpComingAppointment() ?? '';
-      $recentPatients          = $this->getRecentPatients() ?? '';
+      $totalPatientsCounter    = $this->getTotalPatientsCounter(); 
+      $todayAppointmentCounter = $this->getTodayAppointmentCounter();
+      $recentAppointments      = $this->getRecentAppointments(); 
+      $upcomingAppointments    = $this->getUpComingAppointment(); 
+      $recentPatients          = $this->getRecentPatients();
+      $totalAttendedBookings   = $this->totalAttendedBookings();
 
 
       // Pass all the data to the view
@@ -45,8 +46,9 @@ class DoctorDashboardController extends Controller
         'todayAppointmentCounter' => $todayAppointmentCounter,
         'recentAppointments'      => $recentAppointments,
         'upcomingAppointments'    => $upcomingAppointments,
-        'recentPatients' => $recentPatients,
-        'doctorDetails'  => $this->doctorDetails
+        'recentPatients'          => $recentPatients,
+        'totalAttendedBookings'   => $totalAttendedBookings,
+        'doctorDetails'           => $this->doctorDetails
       ]);
     } catch (\Exception $e) {
       return response()->json([
@@ -55,6 +57,12 @@ class DoctorDashboardController extends Controller
       ], 500);
     }
   }
+
+  public function totalAttendedBookings()
+  {
+    return $this->doctorDashboardServices->gettingTotalAttendedBookings(Auth::id());
+  }
+
   public function getTotalPatientsCounter()
   {
     return $this->doctorDashboardServices->getTotalPatientsCounter(Auth::id());

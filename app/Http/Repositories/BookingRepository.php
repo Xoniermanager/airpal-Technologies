@@ -109,6 +109,14 @@ class BookingRepository extends BaseRepository
             ->count();
     }
 
+    public function gettingTotalAttendedBookings($doctorId)
+    {
+        return $this->where('doctor_id', $doctorId)
+        ->whereDate('booking_date','<', Carbon::today())
+        ->where('status', '!=', 'cancelled')
+        ->count();   
+    }
+
     public function getRecentAppointmentsByDoctorId($doctorId)
     {
         return $this->where('doctor_id', $doctorId)

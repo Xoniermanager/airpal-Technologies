@@ -75,6 +75,7 @@ Route::prefix('doctor')->group(function () {
 // common file for login Admin, Doctor, Patient
 Route::post('login', [AuthController::class, 'login'])->name('login');
 
+
 Route::controller(PatientAuthController::class)->group(function () {
     Route::get('/register', 'register')->name('register.index');
     Route::post('/register', 'signUp')->name('patient.register');
@@ -107,7 +108,6 @@ Route::prefix('doctor')->group(function () {
             Route::get('specialities', 'doctorSpecialities')->name('doctor.doctor-specialities.index');
             Route::post('/update-latest-appointment-request', 'UpdateLatestAppointmentRequestAjax')->name('updateStatus.appointment.request');
             Route::get('get-appointments-graph-data', 'getAppointmentGraphData')->name('doctor.booking.graphData');
-            
         });
 
         Route::controller(DoctorProfileController::class)->group(function () {
@@ -165,6 +165,10 @@ Route::prefix('doctor')->group(function () {
             Route::get('doctor-question-filter', 'doctorQuestionFilter')->name('doctor.question.filter');
             Route::get('get-question-by-doctor-id', 'getQuestionByDoctorId')->name('get.question.doctor.id');
         });
+        Route::controller(DoctorAuthenticationController::class)->group(function () {
+            Route::post('change-password', 'changePassword')->name('doctor.change.password');
+        });
+        
     });
 });
 // =============================== End Doctor Panel Start ===================================== //

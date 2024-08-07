@@ -46412,3 +46412,8 @@ td.date.halfFull button {
 .modal-dialog {
     pointer-events: auto !important;
 }
+
+.error
+{
+  color:red !important;
+}

@@ -47,6 +47,7 @@ Route::middleware('authCheck')->group(function () {
             Route::get('profile', 'profile');
             Route::post('create', 'createOrUpdate');
             Route::post('address/update', 'updateAddress');
+            Route::get('get-my-patient', 'getMyPatientByDoctorId');
         });
 
         Route::controller(DoctorEducationController::class)->group(function () {

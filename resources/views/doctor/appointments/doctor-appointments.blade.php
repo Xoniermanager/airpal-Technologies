@@ -1,7 +1,5 @@
 @extends('layouts.doctor.main')
 @section('content')
-
-
     @php $userId = auth()->user()->id; @endphp
     <div class="dashboard-header">
         <h3>Appointments</h3>
@@ -78,104 +76,103 @@
     </div>
 @endsection
 @section('javascript')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script>
-    $("#searchKey").keyup(function() {
-        filter();
-    });
-
-    $('input[type=date]').change(function() {
-        filter();
-    });
-
-    function appointment_filter(element) {
-        document.querySelectorAll('.nav-link').forEach(function(navLink) {
-            navLink.classList.remove('active');
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $("#searchKey").keyup(function() {
+            filter();
         });
-        element.classList.add('active');
-        jQuery('#selected-filter').text(jQuery(element).attr('id'));
-        filter();
-    }
+
+        $('input[type=date]').change(function() {
+            filter();
+        });
+
+        function appointment_filter(element) {
+            document.querySelectorAll('.nav-link').forEach(function(navLink) {
+                navLink.classList.remove('active');
+            });
+            element.classList.add('active');
+            jQuery('#selected-filter').text(jQuery(element).attr('id'));
+            filter();
+        }
 
 
-    function filter(page_no = 1) {
-        let key = jQuery('#selected-filter').text();
-        let userId = jQuery('#doctor-id').text();
-        let searchKey = jQuery('#searchKey').val();
-        let dateSearch = jQuery('#dateSearch').val();
-        $.ajax({
-            url: "<?= route('doctor.appointment-filter') ?>?page=" + page_no,
-            type: 'get',
-            data: {
-                'key': key,
-                'doctorId': userId,
-                'searchKey': searchKey,
-                'dateSearch': dateSearch,
-                'page_no': page_no,
-                '_token': '{{ csrf_token() }}'
-            },
-            success: function(response) {
-                jQuery('#appointmentList').replaceWith(response.data.grid);
-                jQuery('#appointmentGrid').replaceWith(response.data.list);
-                jQuery('#appointmentList').hide().delay(200).fadeIn();
-            },
-            error: function(xhr, status, error) {
-                // Handle any errors
-                console.error(error);
+        function filter(page_no = 1) {
+            let key = jQuery('#selected-filter').text();
+            let userId = jQuery('#doctor-id').text();
+            let searchKey = jQuery('#searchKey').val();
+            let dateSearch = jQuery('#dateSearch').val();
+            $.ajax({
+                url: "<?= route('doctor.appointment-filter') ?>?page=" + page_no,
+                type: 'get',
+                data: {
+                    'key': key,
+                    'doctorId': userId,
+                    'searchKey': searchKey,
+                    'dateSearch': dateSearch,
+                    'page_no': page_no,
+                    '_token': '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    jQuery('#appointmentList').replaceWith(response.data.grid);
+                    jQuery('#appointmentGrid').replaceWith(response.data.list);
+                    jQuery('#appointmentList').hide().delay(200).fadeIn();
+                },
+                error: function(xhr, status, error) {
+                    // Handle any errors
+                    console.error(error);
+                }
+            });
+        }
+    </script>
+
+
+    <script>
+        function openTab(event, tabName) {
+            var i, tabcontent, tablinks;
+
+            // Hide all tab content
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
             }
+
+            // Remove active class from all tabs
+            tablinks = document.getElementsByClassName("nav-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            // Show the current tab and add an active class to the clicked tab
+            document.getElementById(tabName).classList.add("active");
+            event.currentTarget.classList.add("active");
+        }
+
+        $(document).on('click', '.pagination a', function(e) {
+            e.preventDefault();
+            var page_no = $(this).attr('href').split('page=')[1];
+            filter(page_no);
         });
-    }
-</script>
+    </script>
 
-
-<script>
-    function openTab(event, tabName) {
-        var i, tabcontent, tablinks;
-
-        // Hide all tab content
-        tabcontent = document.getElementsByClassName("tab-content");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].classList.remove("active");
+    <style>
+        .tabs {
+            display: flex;
+            cursor: pointer;
         }
 
-        // Remove active class from all tabs
-        tablinks = document.getElementsByClassName("nav-link");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].classList.remove("active");
+        .tabs .active a {
+            background-color: #004cd4 !important;
+            color: #fff;
         }
 
-        // Show the current tab and add an active class to the clicked tab
-        document.getElementById(tabName).classList.add("active");
-        event.currentTarget.classList.add("active");
-    }
+        .tab-content {
+            display: none;
+            /* border: 1px solid #ccc; */
+            padding: 10px;
+        }
 
-    $(document).on('click', '.pagination a', function(e) {
-        e.preventDefault();
-        var page_no = $(this).attr('href').split('page=')[1];
-        filter(page_no);
-    });
-</script>
-
-<style>
-    .tabs {
-        display: flex;
-        cursor: pointer;
-    }
-
-    .tabs .active a {
-        background-color: #004cd4 !important;
-        color: #fff;
-    }
-
-    .tab-content {
-        display: none;
-        /* border: 1px solid #ccc; */
-        padding: 10px;
-    }
-
-    .tab-content.active {
-        display: block;
-    }
-</style>
-
+        .tab-content.active {
+            display: block;
+        }
+    </style>
 @endsection

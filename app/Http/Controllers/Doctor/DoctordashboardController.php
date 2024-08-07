@@ -83,16 +83,14 @@ class DoctorDashboardController extends Controller
   {
     return $this->doctorDashboardServices->getRecentPatients(Auth::id());
   }
-
-  public function getRevenueAndAppointmentGraphData(Request $request)
+  public function getAppointmentGraphData(Request $request)
   {
-    // $request get date range,  days/months/year
-    // days selection should be maximum of 30 day range, month will include group by month data sand the same way group data by year-wise
+    return $this->doctorDashboardServices->gettingAppointmentGraphData($request->period);
   }
+  
 
   public function UpdateLatestAppointmentRequestAjax(UpdateLatestAppointmentStatus $request)
   {
-
     $updateRequest   = $this->bookingServices->updateStatus($request->status, $request->id);
     $allRequestAppointments = $this->getRecentAppointments();
     $allAppointments = $this->bookingServices->requestedAppointment(Auth::id())->get();
@@ -106,16 +104,13 @@ class DoctorDashboardController extends Controller
       ]);
     }
   }
-
-
-
   public function doctorTiming()
   {
     return view('doctor.doctor-timing', ['doctorDetails' => $this->doctorDetails]);
   }
   public function doctorChangePassword()
   {
-    return view('doctor.account.doctor-change-password', ['doctorDetails' => $this->doctorDetails]);
+    return view('doctor.account.doctor-change-password');
   }
   public function doctorSpecialities()
   {

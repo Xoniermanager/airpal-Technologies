@@ -4,17 +4,12 @@ namespace App\Http\Services;
 
 use Carbon\Carbon;
 use App\Models\User;
-use App\Jobs\SendOtpJob;
-
-
-use App\Models\BookingSlots;
 use App\Jobs\BookedSlotMailJob;
+use App\Jobs\GenerateInvoicePdf;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Storage;
 use App\Jobs\DoctorAppointmentQueryMailJob;
 use App\Http\Repositories\BookingRepository;
-use App\Jobs\GenerateInvoicePdf;
-use App\Models\DoctorAppointmentConfig;
 
 class BookingServices
 {
@@ -25,9 +20,6 @@ class BookingServices
    }
    public function store($data)
    {
-
-
-
       $slot = $data->booking_slot_time;
       // Split the string and remove "AM" or "PM"
       list($start_time, $end_time) = array_map(function ($time) {
@@ -74,7 +66,7 @@ class BookingServices
          ];
 
          // sending mail for query about disease
-         // DoctorAppointmentQueryMailJob::dispatch($mailDataAndLink);
+         DoctorAppointmentQueryMailJob::dispatch($mailDataAndLink);
          return redirect()->route('success.index')->with([
             'booking_date' => $data->booking_date,
             'bookingSlotTime' => $data->booking_slot_time,
@@ -288,7 +280,6 @@ class BookingServices
          ];
    }
 
-
    public function getAllRecentAppointmentsByDoctorId($doctorId)
    {
       return $this->bookingRepository->where('doctor_id', $doctorId)
@@ -296,5 +287,57 @@ class BookingServices
          ->with('payments')
          ->get()
          ->groupBy('booking_date');
+   }
+
+   public function gettingRevenueDetailForChart($period)
+   {
+      // Initialize variables
+      $daysInMonth = Carbon::now()->daysInMonth;
+      $revenueByMonth = array_fill(1, 12, 0);
+      $revenueByYear  = array_fill(Carbon::now()->year, 11, 0);;
+      $revenueByDate  = array_fill(1, $daysInMonth, 0);
+
+      // Fetch recent appointments
+      $appointments = $this->getAllRecentAppointmentsByDoctorId(Auth::id());
+
+      foreach ($appointments as $appointment) {
+         foreach ($appointment as $appointmentData) {
+            $date = Carbon::parse($appointmentData->booking_date);
+            $amount = $appointmentData->payments->amount ?? 0;
+
+            if ($period === 'monthly' || $period === 'currentMonth') {
+               $month = (int)$date->format('n');
+               $revenueByMonth[$month] += $amount;
+
+               if ($period === 'currentMonth' && $date->month === Carbon::now()->month) {
+                  $day = (int)$date->format('j');
+                  $revenueByDate[$day] += $amount;
+               }
+            } elseif ($period === 'yearly') {
+               $year = $date->year;
+               if (!isset($revenueByYear[$year])) {
+                  $revenueByYear[$year] = 0;
+               }
+               $revenueByYear[$year] += $amount;
+            }
+         }
+      }
+
+      $result = [];
+      if ($period === 'monthly') {
+         foreach ($revenueByMonth as $month => $sum) {
+            $result[] = [$month, $sum];
+         }
+      } elseif ($period === 'yearly') {
+         foreach ($revenueByYear as $year => $totalAmount) {
+            $result[] = [$year, $totalAmount];
+         }
+      } elseif ($period === 'currentMonth') {
+         foreach ($revenueByDate as $day => $sum) {
+            $result[] = [$day, $sum];
+         }
+      }
+
+      return $result;
    }
 }

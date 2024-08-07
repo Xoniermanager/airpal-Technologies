@@ -10,12 +10,18 @@
         </div>
     </div>
 
+    <div class="text-right">
+        <select id="time-period" class="">
+            <option value="currentMonth">Current Month</option>
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
+        </select>
+    </div>
 
     {{-- This div make chart by chart.js with dynamic data --}}
     <div id="chart_div">
     </div>
     {{-- End --}}
-
     <input type="hidden" id="doctor-id" value="{{ auth()->user()->id }}">
 
     <div class="dashboard-header mt-20">
@@ -92,36 +98,84 @@
 
 @section('javascript')
     <script>
+
+        // first load and select period process 
         $(document).ready(function() {
             var graphData = [];
-            loadGrpahRevenueData();
+            loadGrpahRevenueData('currentMonth');
             google.charts.load('current', {
                 packages: ['corechart', 'line']
             });
             google.charts.setOnLoadCallback(drawLogScales);
+            
+            $("#time-period").change(function() {
+                var period = $(this).val() ?? 'monthly';
+                loadGrpahRevenueData(period);
+            });
+
+            function loadGrpahRevenueData(period) {
+                period = period ?? 'currentMonth';
+                $.ajax({
+                    url: "<?= route('revenue.report') ?>",
+                    type: 'get',
+                    data: {
+                        'period': period
+                    },
+                    success: function(response) {
+                        graphData = response;
+                        drawLogScales();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+
+           // manage graph based on select 
+            function drawLogScales() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('number', 'X');
+                data.addColumn('number', 'rate');
+                data.addRows(graphData);
+
+                var view = new google.visualization.DataView(data);
+                view.setColumns([{
+                        sourceColumn: 0,
+                        type: 'string',
+                        calc: function(dt, rowIndex) {
+                            return String(dt.getValue(rowIndex, 0));
+                        }
+                    },
+                    1
+                ]);
+
+                var options = {
+                    hAxis: {
+                        title: 'Periods',
+                        logScale: false
+                    },
+                    vAxis: {
+                        title: 'Amounts',
+                        logScale: false
+                    },
+                    colors: ['#004cd4', '#097138']
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                chart.draw(view, options);
+            }
         });
 
-        function loadGrpahRevenueData()
-        {
-            $.ajax({
-                url: "<?= route('revenue.report') ?>",
-                type: 'get',
-                success: function(response) {
-                    graphData = response;
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
-            });
-        }
 
+        // seaching filter 
         $("#searchKey").keyup(function() {
             filter();
         });
 
+        // filter definition 
         function filter(page_no = 1) {
 
-            let userId    = jQuery('#doctor-id').text();
+            let userId = jQuery('#doctor-id').text();
             let searchKey = jQuery('#searchKey').val();
             $.ajax({
                 url: "<?= route('doctor.appointment-filter') ?>?page=" + page_no,
@@ -149,43 +203,6 @@
             printWindow.onload = function() {
                 printWindow.print();
             };
-        }
-
-        function drawLogScales() {
-            // console.log(response);
-            var data = new google.visualization.DataTable();
-            data.addColumn('number', 'X');
-            data.addColumn('number', 'rate');
-
-
-            
-            data.addRows(graphData);
-            // data.addRows(response);
-            var view = new google.visualization.DataView(data);
-            view.setColumns([{
-                sourceColumn: 0,
-                type: 'string',
-                calc: function(dt, rowIndex) {
-                    return String(dt.getValue(rowIndex, 0));
-                }
-            }, 1]);
-
-            var options = {
-                hAxis: {
-                    title: 'day',
-                    logScale: false
-
-                },
-                vAxis: {
-                    title: 'rates',
-                    logScale: false
-
-                },
-                colors: ['#a52714', '#097138']
-            };
-
-            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-            chart.draw(view, options);
         }
     </script>
     <style>

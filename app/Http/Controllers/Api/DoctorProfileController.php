@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\Specialization;
 use App\Http\Services\UserServices;
 use App\Http\Controllers\Controller;
+use App\Http\Services\DoctorService;
 use App\Http\Services\StateServices;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Services\CountryServices;
@@ -33,44 +34,47 @@ class DoctorProfileController extends Controller
     private $doctor_service_add_services;
 
     private $countryServices;
-    private $stateServices; 
+    private $stateServices;
+    private $doctorService;
 
-    public function __construct(UserServices $user_services ,
-                                DoctorAddressServices $doctor_address_services,
-                                CountryServices $countryServices,
-                                StateServices $stateServices,
-                                DoctorLanguageServices $doctor_language_services,
-                                SpecializationServices $specialization_services,
-                                DoctorSpecialityServices $doctor_speciality_services,
-                                DoctorServiceAddServices $doctor_service_add_services,
-                                )
-    {
+    public function __construct(
+        UserServices $user_services,
+        DoctorAddressServices $doctor_address_services,
+        CountryServices $countryServices,
+        StateServices $stateServices,
+        DoctorLanguageServices $doctor_language_services,
+        SpecializationServices $specialization_services,
+        DoctorSpecialityServices $doctor_speciality_services,
+        DoctorServiceAddServices $doctor_service_add_services,
+        DoctorService $doctorService
+    ) {
         $this->user_services = $user_services;
-        $this->countryServices= $countryServices;
-        $this->stateServices = $stateServices; 
+        $this->countryServices = $countryServices;
+        $this->stateServices = $stateServices;
         $this->doctor_address_services  = $doctor_address_services;
         $this->doctor_language_services = $doctor_language_services;
         $this->specialization_services     = $specialization_services;
         $this->doctor_speciality_services  = $doctor_speciality_services;
         $this->doctor_service_add_services = $doctor_service_add_services;
+        $this->doctorService   = $doctorService;
     }
 
 
     public function profile()
     {
         try {
-            if(Auth::guard('api')->user()){
+            if (Auth::guard('api')->user()) {
 
                 $doctor = $this->user_services->getDoctorDataById(Auth::guard('api')->user()->id);
-                isset($doctor->doctorAddress) ? $address = $doctor->doctorAddress->toArray() : $address = [];                
+                isset($doctor->doctorAddress) ? $address = $doctor->doctorAddress->toArray() : $address = [];
 
                 $languagesIds = $doctor->language->pluck('id');
                 $specialitiesIds = $doctor->specializations->pluck('id');
                 $servicesIds = $doctor->services->pluck('id');
-            
+
                 $countries = $this->countryServices->all();
                 $states = $this->stateServices->all();
-                
+
                 $specialty  = Specialization::all();
                 $services   = Service::all();
                 $dayOfWeeks = DayOfWeek::all();
@@ -97,18 +101,16 @@ class DoctorProfileController extends Controller
                     'course_list'     => $course,
 
                 ];
-      
+
                 return response()->json([
                     'success' => true,
                     'data' => $data
                 ]);
-            }else
-            {
+            } else {
                 return response()->json([
                     'success' => false,
                     'message' => 'User is not logged in'
                 ], 500);
-
             }
         } catch (\Throwable $th) {
             return response()->json([
@@ -119,49 +121,27 @@ class DoctorProfileController extends Controller
     }
 
     public function createOrUpdate(StoreDoctorPersonalDetailRequest $request)
-    {    
-     try {
-        $userData = $request->validated();
-        $user = $this->user_services->updateOrCreateDoctor($request->all());
-        if ($user) {
-            $userId = json_decode($user->content())->id;
-            $addedLanguages    = $this->doctor_language_services->addOrUpdateDoctorLanguage($userId, $request->languages);
-            $addedSpecialties  = $this->doctor_speciality_services->addOrUpdateDoctorSpecialities($userId, $request->specialities);
-            $addedServices     = $this->doctor_service_add_services->addOrUpdateDoctorServices($userId, $request->services);
-            if ($addedLanguages && $addedSpecialties && $addedServices) {
-                   return response()->json([
-                    'success' => true,
-                    'message' => "Personal detail Saved Successfully",
-                    'status'  => 200
-                ], 200);
-            } else {
-                return response()->json([
-                'success' => false,
-                'message' => 'failed'
-            ], 500);
-            }
-        }
-    }
-      catch (\Throwable $th) {
-            return response()->json([
-                'success' => false,
-                'message' => $th->getMessage()
-            ], 500);
-        }
-    }
-
-
-    public function updateAddress(StoreDoctorAddressRequest $request)
     {
         try {
-            $addedDoctorAddress = $this->doctor_address_services->createOrUpdateAddress($request->all());
-            if ($addedDoctorAddress)
-            {
-              return response()->json([
-                    "status"  => "success",
-                    "message" => "Doctor address details saved!",
-                    "data"    => $addedDoctorAddress
-               ]);
+            $userData = $request->validated();
+            $user = $this->user_services->updateOrCreateDoctor($request->all());
+            if ($user) {
+                $userId = json_decode($user->content())->id;
+                $addedLanguages    = $this->doctor_language_services->addOrUpdateDoctorLanguage($userId, $request->languages);
+                $addedSpecialties  = $this->doctor_speciality_services->addOrUpdateDoctorSpecialities($userId, $request->specialities);
+                $addedServices     = $this->doctor_service_add_services->addOrUpdateDoctorServices($userId, $request->services);
+                if ($addedLanguages && $addedSpecialties && $addedServices) {
+                    return response()->json([
+                        'success' => true,
+                        'message' => "Personal detail Saved Successfully",
+                        'status'  => 200
+                    ], 200);
+                } else {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'failed'
+                    ], 500);
+                }
             }
         } catch (\Throwable $th) {
             return response()->json([
@@ -170,5 +150,38 @@ class DoctorProfileController extends Controller
             ], 500);
         }
     }
-    
+    public function updateAddress(StoreDoctorAddressRequest $request)
+    {
+        try {
+            $addedDoctorAddress = $this->doctor_address_services->createOrUpdateAddress($request->all());
+            if ($addedDoctorAddress) {
+                return response()->json([
+                    "status"  => "success",
+                    "message" => "Doctor address details saved!",
+                    "data"    => $addedDoctorAddress
+                ]);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+    public function getMyPatientByDoctorId()
+    {
+        try {
+            $finalData = $this->doctorService->getAllPatientByDoctorId(Auth::guard('api')->user()->id);
+            return response()->json([
+                "status"  => "success",
+                "message" => "Get All Patients",
+                "data"    => $finalData
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
 }

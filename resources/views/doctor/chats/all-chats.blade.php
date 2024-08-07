@@ -755,23 +755,10 @@
                                         <div class="smile-foot">
                                             <div class="chat-action-btns">
                                                 <div class="chat-action-col">
-                                                    <a class="action-circle" href="#" data-bs-toggle="dropdown">
+                                                    <span class="action-circle" style="position: absolute;bottom: 40px;"> 
                                                         <i class="fa-solid fa-paperclip"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <a href="#" class="dropdown-item "><span><i
-                                                                    class="fa-solid fa-file-lines"></i></span>Document</a>
-                                                        <a href="#" class="dropdown-item"><span><i
-                                                                    class="fa-solid fa-camera"></i></span>Camera</a>
-                                                        <a href="#" class="dropdown-item"><span><i
-                                                                    class="fa-solid fa-image"></i></span>Gallery</a>
-                                                        <a href="#" class="dropdown-item"><span><i
-                                                                    class="fa-solid fa-volume-high"></i></span>Audio</a>
-                                                        <a href="#" class="dropdown-item"><span><i
-                                                                    class="fa-solid fa-location-dot"></i></span>Location</a>
-                                                        <a href="#" class="dropdown-item"><span><i
-                                                                    class="fa-solid fa-user"></i></span>Contact</a>
-                                                    </div>
+                                                    </span>
+                                                    <input type="file" class="" style="opacity: 0;width: 30px;"> 
                                                 </div>
                                             </div>
                                         </div>

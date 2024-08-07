@@ -15471,7 +15471,7 @@ header.header.header-custom.header-fixed.header-one  {
   -webkit-flex-direction: column;
   align-items: flex-start;
   -webkit-align-items: flex-start;
-  margin-bottom: 30px;
+  margin-bottom: 80px;
 }
 .main-chat-blk .chat .chat-body .messages .chats {
   max-width: 75%;
@@ -15828,7 +15828,8 @@ header.header.header-custom.header-fixed.header-one  {
 .main-chat-blk .chat .chat-footer form .smile-foot .action-circle {
   width: 38px;
   height: 38px;
-  background: #ffffff;
+  background-color: #EDE9FE;
+  border-color: #EDE9FE;
   border-radius: 50px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -15845,10 +15846,10 @@ header.header.header-custom.header-fixed.header-one  {
   border-color: #EDE9FE;
 }
 .main-chat-blk .chat .chat-footer form .smile-foot .action-circle:hover i {
-  color: #64748B;
+  color: #64758b;
 }
 .main-chat-blk .chat .chat-footer form .smile-foot .action-circle i {
-  color: #CBD5E1;
+  color: #64758b;
   font-size: 18px;
 }
 @media (max-width: 575.98px) {
@@ -16724,7 +16725,7 @@ header.header.header-custom.header-fixed.header-one  {
   background: #ffffff;
   border: 1px solid #E2E8F0;
   border-radius: 10px;
-  min-height: 40px;
+  min-height: 70px;
   padding: 10px 10px;
 }
 .main-chat-blk .chat_form::placeholder {

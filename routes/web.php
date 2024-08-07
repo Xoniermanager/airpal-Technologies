@@ -123,6 +123,7 @@ Route::prefix('doctor')->group(function () {
         });
         Route::controller(PatientController::class)->group(function () {
             Route::get('patient', 'doctorPatient')->name('doctor.doctor-patients.index');
+            Route::get('get-search-filter', 'getSearchFilterData')->name('getsearch.filter.data');
         });
         Route::controller(InvoiceController::class)->group(function () {
             Route::get('invoices', 'doctorInvoices')->name('doctor.doctor-invoices.index');

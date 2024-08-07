@@ -58,11 +58,16 @@
                                                     <li>{{ $patientDetails['patient_details']->gender ?? '' }}</li>
                                                     <li>{{ $patientDetails['patient_details']->blood_group ?? '' }}</li>
                                                 </ul>
-                                                @if ($lastBookingDate >= now())
-                                                    <button class="btn btn parimary">Upcoming Appointment</button>
-                                                @endif
                                             </div>
                                         </div>
+                                        @if ($lastBookingDate >= now())
+                                            <small class="">
+                                                <p class="m-0 text-primary">
+                                                    <i class="fa fa-calendar-day"></i>
+                                                    {{ date('j M Y', strtotime($lastBookingDate)) }}
+                                                </p>
+                                            </small>
+                                        @endif
                                     </div>
                                 </li>
                                 <li class="appointment-info">
@@ -78,8 +83,8 @@
                                 </li>
                                 <li class="appointment-action">
                                     <div class="patient-book">
-                                        <p><i class="fa-solid fa-calendar-days"></i>Last Booking
-                                            <span>{{ date('j M Y h:i A', strtotime($lastBookingDate)) }}</span>
+                                        <p><i class="fa-solid fa-calendar-days"></i> Last Booked
+                                            <span>{{ date('j M Y', strtotime($lastBookingDate)) }}</span>
                                         </p>
                                     </div>
                                 </li>
@@ -133,11 +138,17 @@
                                                     <li>{{ $patientDetails['patient_details']->blood_group ?? '' }}
                                                     </li>
                                                 </ul>
-                                                @if ($lastBookingDate >= now())
-                                                    <button class="btn btn parimary">Upcoming Appointment</button>
-                                                @endif
                                             </div>
                                         </div>
+                                        @if ($lastBookingDate >= now())
+                                            <small class="">
+                                                <p class="m-0 text-primary">
+                                                    <i class="fa fa-calendar-day"></i>
+                                                    {{ date('j M Y', strtotime($lastBookingDate)) }}
+                                                </p>
+                                            </small>
+                                        @endif
+
                                     </div>
                                 </li>
                                 <li class="appointment-info">
@@ -153,8 +164,8 @@
                                 </li>
                                 <li class="appointment-action">
                                     <div class="patient-book">
-                                        <p><i class="fa-solid fa-calendar-days"></i>Last Booking
-                                            <span>{{ date('j M Y h:i A', strtotime($lastBookingDate)) }}</span>
+                                        <p><i class="fa-solid fa-calendar-days"></i> Last Booked
+                                            <span>{{ date('j M Y', strtotime($lastBookingDate)) }}</span>
                                         </p>
                                     </div>
                                 </li>
@@ -208,11 +219,16 @@
                                                     <li>{{ $patientDetails['patient_details']->blood_group ?? '' }}
                                                     </li>
                                                 </ul>
-                                                @if ($lastBookingDate >= now())
-                                                    <button class="btn btn parimary">Upcoming Appointment</button>
-                                                @endif
                                             </div>
                                         </div>
+                                        @if ($lastBookingDate >= now())
+                                            <small class="">
+                                                <p class="m-0 text-primary">
+                                                    <i class="fa fa-calendar-day"></i>
+                                                    {{ date('j M Y', strtotime($lastBookingDate)) }}
+                                                </p>
+                                            </small>
+                                        @endif
                                     </div>
                                 </li>
                                 <li class="appointment-info">
@@ -228,8 +244,8 @@
                                 </li>
                                 <li class="appointment-action">
                                     <div class="patient-book">
-                                        <p><i class="fa-solid fa-calendar-days ml-"></i>Last Booking
-                                            <span>{{ date('j M Y h:i A', strtotime($lastBookingDate)) }}</span>
+                                        <p><i class="fa-solid fa-calendar-days"></i> Last Booked
+                                            <span>{{ date('j M Y', strtotime($lastBookingDate)) }}</span>
                                         </p>
                                     </div>
                                 </li>

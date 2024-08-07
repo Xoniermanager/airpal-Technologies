@@ -18,8 +18,7 @@
                 <td>
                     <div class="appointment-date-created">
                         <h6>
-                            {{ $appointment->booking_date }}
-                            {{ $appointment->slot_start_time }}
+                            <span>{{ date('j M Y',strtotime($appointment->booking_date)) ?? '' }} - {{ date('h:i A', strtotime($appointment->slot_start_time)) ?? '' }}</span>
                         </h6>
                         <span class="badge table-badge">General</span>
                     </div>

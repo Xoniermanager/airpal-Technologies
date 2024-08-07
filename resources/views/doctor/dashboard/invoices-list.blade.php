@@ -26,7 +26,6 @@
                                                          <h5><a href="{{ route('doctor.doctor-invoices.index') }}">{{ $recentAppointments->patient->fullName }}
                                                              </a>
                                                          </h5>
-                                                         {{-- <span>#Apt0001</span> --}}
                                                      </div>
                                                  </div>
                                              </td>
@@ -39,7 +38,7 @@
                                              <td>
                                                  <div class="appointment-date-created">
                                                      <span class="paid-text">Paid On</span>
-                                                     <h6>{{ \Carbon\Carbon::parse($recentAppointments->created_at)->format('d M Y') ?? '' }}
+                                                     <h6>{{ \Carbon\Carbon::parse($recentAppointments->created_at)->format('j M Y') ?? '' }}
                                                      </h6>
                                                  </div>
                                              </td>

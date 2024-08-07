@@ -5,8 +5,6 @@
                 <li>
                     <div class="patinet-information">
                         <a href="{{ route('doctor.doctor-patients.index') }}">
-                            {{-- <img src="../assets/img/doctors-dashboard/profile-01.jpg"
-                        alt=""> --}}
                             <img src="{{ $request->patient->image_url }}">
                         </a>
                         <div class="patient-info">
@@ -18,8 +16,8 @@
                     </div>
                 </li>
                 <li class="appointment-info">
-                    <p><i class="fa-solid fa-clock"></i>{{ $request->booking_date ?? '' }}
-                        {{ $request->slot_start_time ?? '' }} {{ $request->slot_end_time ?? '' }}</p>
+                    <p><i class="fa-solid fa-clock"></i>
+                        {{ date('j M Y',strtotime($request->booking_date)) ?? '' }} - {{ date('h:i A', strtotime($request->slot_start_time)) ?? '' }} - {{ date('h:i A', strtotime($request->slot_end_time)) ?? '' }}
                     <p class="md-text">General Visit</p>
                 </li>
                 <li class="appointment-type">

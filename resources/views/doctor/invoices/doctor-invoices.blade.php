@@ -55,11 +55,12 @@
                                     </a>
                                 </h2>
                             </td>
-                            <td> {{ \Carbon\Carbon::parse($invoiceDetail->created_at)->format('d M Y') ?? '' }}</td>
-                            <td> {{ \Carbon\Carbon::parse($invoiceDetail->booking_date)->format('d M Y') ?? '' }}</p>
+                            <td> {{ date('j M Y', strtotime($invoiceDetail->created_at)) ?? '' }}</td>
+                            <td> {{ date('j M Y', strtotime($invoiceDetail->booking_date)) ?? '' }}</p></td>
+                            <td> 
+                                 {{ date('h:i A', strtotime($invoiceDetail->slot_start_time)) ?? '' }}
+                                 {{ date('h:i A', strtotime($invoiceDetail->slot_end_time)) ?? '' }}
                             </td>
-                            <td> {{ \Carbon\Carbon::parse($invoiceDetail->slot_start_time)->format('h:i') ?? '' }} -
-                                {{ \Carbon\Carbon::parse($invoiceDetail->slot_end_time)->format('h:i') ?? '' }}</td>
                             <td>$0</td>
                             <td>
                                 <div class="action-item">
@@ -98,7 +99,6 @@
 
 @section('javascript')
     <script>
-
         // first load and select period process 
         $(document).ready(function() {
             var graphData = [];
@@ -107,7 +107,7 @@
                 packages: ['corechart', 'line']
             });
             google.charts.setOnLoadCallback(drawLogScales);
-            
+
             $("#time-period").change(function() {
                 var period = $(this).val() ?? 'monthly';
                 loadGrpahRevenueData(period);
@@ -131,7 +131,7 @@
                 });
             }
 
-           // manage graph based on select 
+            // manage graph based on select 
             function drawLogScales() {
                 var data = new google.visualization.DataTable();
                 data.addColumn('number', 'X');

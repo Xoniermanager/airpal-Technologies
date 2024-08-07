@@ -118,9 +118,8 @@
                                         </h5>
                                         <span>Patient ID : PAT{{ $recentPatient->id }}</span>
                                         <div class="date-info">
-                                            <p>Last Appointment {{ $recentPatient->booking_date }}
-                                                {{ $recentPatient->slot_start_time }}
-                                                {{-- {{ \Carbon\Carbon::parse($recentAppointment->appointment_date)->format('d M Y h:i A') }}</p> --}}
+                                            <p>Last Appointment </p>
+                                            <p>{{ date('j M Y',strtotime($recentPatient->booking_date)) ?? '' }} - {{ date('h:i A', strtotime($recentPatient->slot_start_time)) ?? '' }}</p>
                                         </div>
                                     </div>
                                 </div>

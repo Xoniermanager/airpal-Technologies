@@ -20,7 +20,7 @@
                         <td>{{ $question->specialty->name }}</td>
                         <td>{{ $question['answer_type'] }}</td>
                         <td>{{ $question['question'] }}</td>
-                        <td>{{ $question['created_at']->format('d/m/Y') }}</td>
+                        <td>{{ date('j M Y',strtotime($question['created_at'])) ?? '' }}</td>
                         <td>
                             <div class="actions">
                                 <a class="btn btn-sm bg-success-light" data-bs-toggle="modal"

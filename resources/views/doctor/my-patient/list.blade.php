@@ -38,13 +38,6 @@
                                     {{ $patientDetails->patientAddress->country->name ?? '' }}
                                 </p>
                             </li>
-                            {{-- <li class="appointment-action">
-                                <div class="patient-book">
-                                    <p><i class="fa-solid fa-calendar-days"></i>Last Booking
-                                        <span>27 Feb 2024</span>
-                                    </p>
-                                </div>
-                            </li> --}}
                         </ul>
                     </div>
                 </div>

@@ -1,6 +1,25 @@
 @extends('layouts.doctor.main')
 @section('content')
+<div class="dashboard-header">
+    <h3>Revenue</h3>
+    <div class="search-header">
+        <select id="time-period" class="form-control min-w-200px">
+            <option value="currentMonth">Current Month</option>
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
+        </select>
+    </div>
+</div> 
+<div id="chart_div" class="mb-4">
+</div>
     <div class="row">
+<style>
+.min-w-200px {
+    min-width: 200px;
+}
+    </style>
+    {{-- This div make chart by chart.js with dynamic data --}}
+    {{-- End --}}
         <div class="col-xl-4 d-flex">
             <div class="dashboard-box-col w-100">
                 <div class="dashboard-widget-box">
@@ -343,5 +362,72 @@
                 });
             });
         });
+
+        $(document).ready(function() {
+            var graphData = [];
+            loadGrpahRevenueData('currentMonth');
+            google.charts.load('current', {
+                packages: ['corechart', 'line']
+            });
+            google.charts.setOnLoadCallback(drawLogScales);
+            
+            $("#time-period").change(function() {
+                var period = $(this).val() ?? 'monthly';
+                loadGrpahRevenueData(period);
+            });
+
+            function loadGrpahRevenueData(period) {
+                period = period ?? 'currentMonth';
+                $.ajax({
+                    url: "<?= route('doctor.booking.graphData') ?>",
+                    type: 'get',
+                    data: {
+                        'period': period
+                    },
+                    success: function(response) {
+                        graphData = response;
+                        drawLogScales();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+
+           // manage graph based on select 
+            function drawLogScales() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('number', 'X');
+                data.addColumn('number', 'rate');
+                data.addRows(graphData);
+
+                var view = new google.visualization.DataView(data);
+                view.setColumns([{
+                        sourceColumn: 0,
+                        type: 'string',
+                        calc: function(dt, rowIndex) {
+                            return String(dt.getValue(rowIndex, 0));
+                        }
+                    },
+                    1
+                ]);
+
+                var options = {
+                    hAxis: {
+                        title: 'Periods',
+                        logScale: false
+                    },
+                    vAxis: {
+                        title: 'Bookings Counts',
+                        logScale: false
+                    },
+                    colors: ['#004cd4', '#097138']
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                chart.draw(view, options);
+            }
+        });
+
     </script>
 @endsection

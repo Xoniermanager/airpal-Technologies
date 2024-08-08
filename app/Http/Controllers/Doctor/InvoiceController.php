@@ -53,6 +53,6 @@ class InvoiceController extends Controller
 
     public function getRevenueDetailForChart(Request $request)
     {
-        return $this->bookingServices->gettingRevenueDetailForChart($request->period);
+        return $this->bookingServices->gettingRevenueDetailForChart($request->period,Auth::id());
     }
 }

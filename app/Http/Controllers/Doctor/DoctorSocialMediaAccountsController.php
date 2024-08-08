@@ -7,18 +7,26 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreSocialMedia;
 use App\Http\Services\SocialMediaService;
+use App\Http\Services\SocialMediaTypeService;
 
 class DoctorSocialMediaAccountsController extends Controller
 {
     private $socialMediaService;
-    public function __construct(SocialMediaService $socialMediaService)
+    private $socialMediaTypeService;
+
+    public function __construct(SocialMediaService $socialMediaService,SocialMediaTypeService $socialMediaTypeService)
     {
         $this->socialMediaService = $socialMediaService;
+        $this->socialMediaTypeService = $socialMediaTypeService;
     }
     public function doctorSocial()
     {
         $socialMediaAccounts  = $this->socialMediaService->getSocialMediaAccountsByDoctorId(Auth::id());
-        return view('doctor.social-media-accounts.doctor-social',['socialMediaAccounts'=> $socialMediaAccounts]);
+        $socialMediaTypes     = $this->socialMediaTypeService->all();
+        return view('doctor.social-media-accounts.doctor-social', [
+            'socialMediaAccounts' => $socialMediaAccounts,
+            'socialMediaTypes'   => $socialMediaTypes
+         ]);
     }
     public function addSocialMedia(StoreSocialMedia $storeSocialMedia)
     {

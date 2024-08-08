@@ -15,7 +15,7 @@
                 @forelse ($socialMediaAccounts as $socialMediaAccount)
                     <tr>
                         <td>{{ $socialMediaAccount['id'] }}</td>
-                        <td>{{ $socialMediaAccount['account_type'] }}</td>
+                        <td>{{ $socialMediaAccount->socialMediaAccountType->name }}</td>
                         <td>{{ $socialMediaAccount['link'] }}</td>
                         <td>{{ $socialMediaAccount['status'] == 1 ? 'Active' : 'DeActive' }}</td>
                         <td> {{ date('j M Y', strtotime($socialMediaAccount['created_at'] )) ?? '' }} </td>

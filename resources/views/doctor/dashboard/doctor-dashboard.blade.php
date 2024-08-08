@@ -17,35 +17,40 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="pills-revenue-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-revenue" type="button" role="tab"
-                                    aria-controls="pills-revenue" aria-selected="false">Revenue</button>
+                                    aria-controls="pills-revenue" aria-selected="false">Appointment</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-appointment-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-appointment" type="button" role="tab"
-                                    aria-controls="pills-appointment" aria-selected="true">Appointments</button>
+                                    aria-controls="pills-appointment" aria-selected="true">Revenue</button>
                             </li>
                         </ul>
                         <div class="tab-content w-100" id="v-pills-tabContent">
-                            <div class="tab-pane fade show active" id="pills-revenue" role="tabpanel"
-                                aria-labelledby="pills-revenue-tab">
+                            <div class="tab-pane fade show active" id="pills-revenue" role="tabpanel" aria-labelledby="pills-revenue-tab">
                                 <div id="revenue-chart">
                                     <div class="search-header">
-                                        <select id="time-period-appointment" class="">
+                                        <select id="time-period-revenue" class="">
                                             <option value="currentMonth">Current Month</option>
                                             <option value="monthly">Monthly</option>
                                             <option value="yearly">Yearly</option>
                                         </select>
                                     </div>
-                                    <div id="booking_chart_div" class="mb-4">
-
-                                    </div>
+                                    <div id="revenue_chart_div" class="mb-4"></div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="pills-appointment" role="tabpanel"
-                                aria-labelledby="pills-appointment-tab">                             
-                                <div id="revenue_chart_div"> </div>
+                            <div class="tab-pane fade active" id="pills-appointment" role="tabpanel" aria-labelledby="pills-appointment-tab">
+                                <div id="appointment-chart">
+                                    <select id="time-period-appointment" class="">
+                                        <option value="currentMonth">Current Month</option>
+                                        <option value="monthly">Monthly</option>
+                                        <option value="yearly">Yearly</option>
+                                    </select>
+                                    <div id="booking_chart_div"></div>
+                                </div>
                             </div>
+
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -367,267 +372,133 @@
         });
 
 
-        // $(document).ready(function() {
-        //     var graphBookingData = [];
-        //     loadGrpahBookingData('currentMonth');
-        //     google.charts.load('current', {
-        //         packages: ['corechart', 'line']
-        //     });
-        //     google.charts.setOnLoadCallback(drawLogScalesBooking);
-
-        //     $("#time-period").change(function() {
-        //         var period = $(this).val() ?? 'monthly';
-        //         loadGrpahBookingData(period);
-        //     });
-
-        //     function loadGrpahBookingData(period) {
-        //         period = period ?? 'currentMonth';
-        //         $.ajax({
-        //             url: "<?= route('doctor.booking.graphData') ?>",
-        //             type: 'get',
-        //             data: {
-        //                 'period': period
-        //             },
-        //             success: function(response) {
-        //                 graphBookingData = response;
-        //                 drawLogScalesBooking();
-        //             },
-        //             error: function(xhr, status, error) {
-        //                 console.error(error);
-        //             }
-        //         });
-        //     }
-
-        //     function drawLogScalesBooking() {
-   
-        //         data.addColumn('number', 'X');
-        //         data.addColumn('number', 'rate');
-        //         data.addRows(graphBookingData);
-
-        //         var view = new google.visualization.DataView(data);
-        //         view.setColumns([{
-        //                 sourceColumn: 0,
-        //                 type: 'string',
-        //                 calc: function(dt, rowIndex) {
-        //                     return String(dt.getValue(rowIndex, 0));
-        //                 }
-        //             },
-        //             1
-        //         ]);
-
-        //         var bookingOptions = {
-        //             hAxis: {
-        //                 title: 'Periods',
-        //                 logScale: false
-        //             },
-        //             vAxis: {
-        //                 title: 'Bookings Counts',
-        //                 logScale: false
-        //             },
-        //             colors: ['#004cd4', '#097138']
-        //         };
-
-        //         var chartBooking = new google.visualization.LineChart(document.getElementById('booking_chart_div'));
-        //         chartBooking.draw(view, bookingOptions);
-        //     }
-        // });
-
-        // $(document).ready(function() {
-        //         var graphData = [];
-        //         loadGrpahRevenueData('currentMonth');
-        //         google.charts.load('current', {
-        //             packages: ['corechart', 'line']
-        //         });
-        //         google.charts.setOnLoadCallback(drawLogScales);
-
-        //         $("#time-period").change(function() {
-        //             var period = $(this).val() ?? 'monthly';
-        //             loadGrpahRevenueData(period);
-        //         });
-
-        //         function loadGrpahRevenueData(period) {
-        //             period = period ?? 'currentMonth';
-        //             $.ajax({
-        //                 url: "<?= route('revenue.report') ?>",
-        //                 type: 'get',
-        //                 data: {
-        //                     'period': period
-        //                 },
-        //                 success: function(response) {
-        //                     graphData = response;
-        //                     // drawLogScales();
-        //                 },
-        //                 error: function(xhr, status, error) {
-        //                     console.error(error);
-        //                 }
-        //             });
-        //         }
-
-        //         // manage graph based on select 
-        //         function drawLogScales() {
-        //             var data = new google.visualization.DataTable();
-        //             data.addColumn('number', 'X');
-        //             data.addColumn('number', 'rate');
-        //             data.addRows(graphData);
-
-        //             var view = new google.visualization.DataView(data);
-        //             view.setColumns([{
-        //                     sourceColumn: 0,
-        //                     type: 'string',
-        //                     calc: function(dt, rowIndex) {
-        //                         return String(dt.getValue(rowIndex, 0));
-        //                     }
-        //                 },
-        //                 1
-        //             ]);
-
-        //             var options = {
-        //                 hAxis: {
-        //                     title: 'Periods',
-        //                     logScale: false
-        //                 },
-        //                 vAxis: {
-        //                     title: 'Amounts',
-        //                     logScale: false
-        //                 },
-        //                 colors: ['#004cd4', '#097138']
-        //             };
-
-        //             var chart = new google.visualization.LineChart(document.getElementById('revenue_chart_div'));
-        //             chart.draw(view, options);
-        //         }
-        //     });
-            
-
         $(document).ready(function() {
-        var graphBookingData = [];
-        var graphRevenueData = [];
+            var graphBookingData = [];
+            var graphRevenueData = [];
 
-        google.charts.load('current', {
-            packages: ['corechart', 'line']
-        });
-
-        // Function to load booking data
-        function loadGraphBookingData(period) {
-            period = period ?? 'currentMonth';
-            $.ajax({
-                url: "<?= route('doctor.booking.graphData') ?>",
-                type: 'get',
-                data: {
-                    'period': period
-                },
-                success: function(response) {
-                    graphBookingData = response;
-                    drawLogScalesBooking();
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
+            google.charts.load('current', {
+                packages: ['corechart', 'line']
             });
-        }
 
-        // Function to load revenue data
-        function loadGraphRevenueData(period) {
-            period = period ?? 'currentMonth';
-            $.ajax({
-                url: "<?= route('revenue.report') ?>",
-                type: 'get',
-                data: {
-                    'period': period
-                },
-                success: function(response) {
-                    graphRevenueData = response;
-                    drawLogScalesRevenue();
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
+            // Function to load booking data
+            function loadGraphBookingData(period) {
+                period = period ?? 'currentMonth';
+                $.ajax({
+                    url: "<?= route('doctor.booking.graphData') ?>",
+                    type: 'get',
+                    data: {
+                        'period': period
+                    },
+                    success: function(response) {
+                        graphBookingData = response;
+                        drawLogScalesBooking();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+
+            // Function to load revenue data
+            function loadGraphRevenueData(period) {
+                period = period ?? 'currentMonth';
+                $.ajax({
+                    url: "<?= route('revenue.report') ?>",
+                    type: 'get',
+                    data: {
+                        'period': period
+                    },
+                    success: function(response) {
+                        graphRevenueData = response;
+                        drawLogScalesRevenue();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+
+            // Function to draw booking chart
+            function drawLogScalesBooking() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('number', 'X');
+                data.addColumn('number', 'rate');
+                data.addRows(graphBookingData);
+
+                var view = new google.visualization.DataView(data);
+                view.setColumns([{
+                    sourceColumn: 0,
+                    type: 'string',
+                    calc: function(dt, rowIndex) {
+                        return String(dt.getValue(rowIndex, 0));
+                    }
+                }, 1]);
+
+                var bookingOptions = {
+                    hAxis: {
+                        title: 'Periods',
+                        logScale: false
+                    },
+                    vAxis: {
+                        title: 'Bookings Counts',
+                        logScale: false
+                    },
+                    colors: ['#004cd4', '#097138']
+                };
+
+                var chartBooking = new google.visualization.LineChart(document.getElementById('booking_chart_div'));
+                chartBooking.draw(view, bookingOptions);
+            }
+
+            // Function to draw revenue chart
+            function drawLogScalesRevenue() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('number', 'X');
+                data.addColumn('number', 'rate');
+                data.addRows(graphRevenueData);
+
+                var view = new google.visualization.DataView(data);
+                view.setColumns([{
+                    sourceColumn: 0,
+                    type: 'string',
+                    calc: function(dt, rowIndex) {
+                        return String(dt.getValue(rowIndex, 0));
+                    }
+                }, 1]);
+
+                var revenueOptions = {
+                    hAxis: {
+                        title: 'Periods',
+                        logScale: false
+                    },
+                    vAxis: {
+                        title: 'Amounts',
+                        logScale: false
+                    },
+                    colors: ['#004cd4', '#097138']
+                };
+
+                var chartRevenue = new google.visualization.LineChart(document.getElementById('revenue_chart_div'));
+                chartRevenue.draw(view, revenueOptions);
+            }
+
+            // Initialize charts on page load
+            google.charts.setOnLoadCallback(function() {
+                loadGraphBookingData('currentMonth');
+                loadGraphRevenueData('currentMonth');
             });
-        }
 
-        // Function to draw booking chart
-        function drawLogScalesBooking() {
-            var data = new google.visualization.DataTable();
-            data.addColumn('number', 'X');
-            data.addColumn('number', 'rate');
-            data.addRows(graphBookingData);
+            // Event listener for revenue time period change
+            $("#time-period-revenue").change(function() {
+                var period = $(this).val() ?? 'currentMonth';
+                loadGraphRevenueData(period);
+            });
 
-            var view = new google.visualization.DataView(data);
-            view.setColumns([{
-                sourceColumn: 0,
-                type: 'string',
-                calc: function(dt, rowIndex) {
-                    return String(dt.getValue(rowIndex, 0));
-                }
-            }, 1]);
-
-            var bookingOptions = {
-                hAxis: {
-                    title: 'Periods',
-                    logScale: false
-                },
-                vAxis: {
-                    title: 'Bookings Counts',
-                    logScale: false
-                },
-                colors: ['#004cd4', '#097138']
-            };
-
-            var chartBooking = new google.visualization.LineChart(document.getElementById('booking_chart_div'));
-            chartBooking.draw(view, bookingOptions);
-        }
-
-        // Function to draw revenue chart
-        function drawLogScalesRevenue() {
-            var data = new google.visualization.DataTable();
-            data.addColumn('number', 'X');
-            data.addColumn('number', 'rate');
-            data.addRows(graphRevenueData);
-
-            var view = new google.visualization.DataView(data);
-            view.setColumns([{
-                sourceColumn: 0,
-                type: 'string',
-                calc: function(dt, rowIndex) {
-                    return String(dt.getValue(rowIndex, 0));
-                }
-            }, 1]);
-
-            var revenueOptions = {
-                hAxis: {
-                    title: 'Periods',
-                    logScale: false
-                },
-                vAxis: {
-                    title: 'Amounts',
-                    logScale: false
-                },
-                colors: ['#004cd4', '#097138']
-            };
-
-            var chartRevenue = new google.visualization.LineChart(document.getElementById('revenue_chart_div'));
-            chartRevenue.draw(view, revenueOptions);
-        }
-
-        // Initialize charts on page load
-        google.charts.setOnLoadCallback(function() {
-            loadGraphBookingData('currentMonth');
-            loadGraphRevenueData('currentMonth');
+            // Event listener for appointment time period change
+            $("#time-period-appointment").change(function() {
+                var period = $(this).val() ?? 'currentMonth';
+                loadGraphBookingData(period);
+            });
         });
-
-        // Event listener for revenue time period change
-        $("#time-period-revenue").change(function() {
-            var period = $(this).val() ?? 'currentMonth';
-            loadGraphRevenueData(period);
-        });
-
-        // Event listener for appointment time period change
-        $("#time-period-appointment").change(function() {
-            var period = $(this).val() ?? 'currentMonth';
-            loadGraphBookingData(period);
-        });
-    });
-
-
     </script>
 @endsection

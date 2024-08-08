@@ -19,8 +19,7 @@
     </div>
 
     {{-- This div make chart by chart.js with dynamic data --}}
-    {{-- <div id="chart_div"> </div> --}}
-    @include('doctor.invoices.invoice-chart')
+    <div id="chart_div"> </div>
     {{-- End --}}
     <input type="hidden" id="doctor-id" value="{{ auth()->user()->id }}">
 

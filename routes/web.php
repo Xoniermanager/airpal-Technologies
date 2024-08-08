@@ -46,7 +46,7 @@ use App\Http\Controllers\Patient\PatientAppointmentsController;
 use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
-use App\Http\Controllers\Admin\{AdminAuthController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
+use App\Http\Controllers\Admin\{AdminAuthController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
 use App\Http\Controllers\TempController;
 use App\Http\Controllers\DoctorPatientChatController;
 
@@ -170,8 +170,6 @@ Route::prefix('doctor')->group(function () {
         Route::controller(DoctorAuthenticationController::class)->group(function () {
             Route::post('change-password', 'changePassword')->name('doctor.change.password');
         });
-        
-
         // Doctor Patient Chat
         Route::controller(DoctorPatientChatController::class)->group(function(){
             Route::get('chat','getDoctorAllChats')->name('patient.doctor.chat');
@@ -300,6 +298,15 @@ Route::prefix('admin')->group(function () {
         Route::get('ajax-create', 'store')->name('admin.add-award');
     });
 
+    Route::prefix('social-media')->controller(AdminSocialMediaController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.social.media.index');
+        Route::post('add', 'store')->name('admin.social-media.add');
+        Route::get('get-all-social-media-type', 'getAllSocialMediaType')->name('admin.get.all.social.media.type');
+        Route::post('edit', 'update')->name('admin.social-media.update');
+        Route::get('delete', 'destroy')->name('admin.social-media.type.delete');
+    });
+
+
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard.index');
     Route::get('/appointment-list', [AppointmentController::class, 'appointmentList'])->name('admin.appointment-list.index');
 
@@ -311,6 +318,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/transactions-list', [TransactionController::class, 'transactionsList'])->name('admin.transactions-list.index');
     Route::get('/invoice-report', [InvoiceReportController::class, 'invoiceReport'])->name('admin.invoice-report.index');
     Route::get('/invoice', [InvoiceReportController::class, 'invoice'])->name('admin.invoice.index');
+
 
 
 });

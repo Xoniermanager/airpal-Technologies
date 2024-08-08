@@ -304,7 +304,7 @@
                 });
             }).change();
 
-            $(document).ready(function() {
+$(document).ready(function() {
     $('#doctors, #specialty, #answerType').on('change', function() {
         search_question();
     });

@@ -46427,3 +46427,7 @@ td.date.halfFull button {
 .min-w-200px {
   min-width: 200px;
 }
+
+.doctor-available-head {
+  display: none;
+}

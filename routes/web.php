@@ -306,6 +306,13 @@ Route::prefix('admin')->group(function () {
         Route::get('delete', 'destroy')->name('admin.social-media.type.delete');
     });
 
+    Route::prefix('doctor')->controller(PatientListController::class)->group(function(){
+        Route::get('patient-list', 'patientList')->name('admin.patient-list.index');
+        // Route::get('filter-', 'patientList')->name('filter.patients.by.doctor');
+    });
+
+   
+
 
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard.index');
     Route::get('/appointment-list', [AppointmentController::class, 'appointmentList'])->name('admin.appointment-list.index');
@@ -313,7 +320,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/profile/{user:id}', [ProfileController::class, 'profile'])->name('admin.profile.index');
     Route::get('/settings', [SettingsController::class, 'settings'])->name('admin.settings.index');
 
-    Route::get('/patient-list', [PatientListController::class, 'patientList'])->name('admin.patient-list.index');
+
     Route::get('/reviews', [AdminController::class, 'reviews'])->name('admin.reviews.index');
     Route::get('/transactions-list', [TransactionController::class, 'transactionsList'])->name('admin.transactions-list.index');
     Route::get('/invoice-report', [InvoiceReportController::class, 'invoiceReport'])->name('admin.invoice-report.index');
@@ -363,10 +370,6 @@ Route::prefix('patients')->group(function () {
                 Route::get('medical-details', 'medicalDetails')->name('patient.medical-details.index');
             });
 
-
-
-
-
             // Patient Authentication Routes
             // Route::controller(PatientAuthController::class)->group(function () {
             //     Route::get('/register', 'register')->name('register.index');
@@ -380,7 +383,6 @@ Route::prefix('patients')->group(function () {
 });
 
 // ============================== End Patient Panel Start ===================== //
-
 
 
 // =========================== Frontend Website Routes ===================== //

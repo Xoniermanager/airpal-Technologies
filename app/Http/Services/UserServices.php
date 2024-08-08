@@ -10,20 +10,26 @@ use App\Http\Repositories\UserRepository;
 
 class UserServices
 {
-  private  $UserRepository;
+  private  $userRepository;
   private $doctorAddressServices;
   private $bookingService;
 
-  public function __construct(UserRepository $UserRepository, DoctorAddressServices $doctorAddressServices, BookingServices $bookingService)
+  public function __construct(UserRepository $userRepository, DoctorAddressServices $doctorAddressServices, BookingServices $bookingService)
   {
-    $this->UserRepository = $UserRepository;
+    $this->userRepository = $userRepository;
     $this->doctorAddressServices = $doctorAddressServices;
     $this->bookingService = $bookingService;
   }
   public function all()
   {
-    return  $this->UserRepository->with(['doctorAddress.states.country', 'specializations', 'educations', 'doctorExceptionDays', 'favoriteDoctor'])->get();
+    return  $this->userRepository->with(['doctorAddress.states.country', 'specializations', 'educations', 'doctorExceptionDays', 'favoriteDoctor'])->get();
   }
+
+   public function getAllDoctorsList()
+   {
+      return $this->userRepository->where('role',2)->get();
+   }
+   
   public function addDoctorPersonalDetails($data)
   {
     $filename = null;
@@ -36,7 +42,7 @@ class UserServices
       }
     }
 
-    $user = $this->UserRepository->create([
+    $user = $this->userRepository->create([
       "first_name"   => $data["first_name"],
       "last_name"    => $data["last_name"],
       "display_name" => $data["display_name"],
@@ -50,16 +56,17 @@ class UserServices
 
   public function getDoctorDataForAdmin()
   {
-    return $this->UserRepository->where('role', 2)->with(["educations", "experiences", "workingHour", "specializations", "services", "language"])->orderBy('id', 'desc')->paginate(10);
+    return $this->userRepository->where('role', 2)->with(["educations", "experiences", "workingHour", "specializations", "services", "language"])->orderBy('id', 'desc')->paginate(10);
   }
 
   public function getDoctorDataForFrontend()
   {
-    return $this->UserRepository->where('role', 2)->with(["experiences", "specializations", "services", 'favoriteDoctor', 'doctorReview'])->paginate(5);
+    return $this->userRepository->where('role', 2)->with(["experiences", "specializations", "services", 'favoriteDoctor', 'doctorReview'])->paginate(5);
   }
+  
   public function getDoctorDataById($id)
   {
-    return $this->UserRepository->where('id', $id)->with(["educations.course", "experiences.hospital", "workingHour", "specializations", "services", "workingHour.daysOfWeek", "language", 'awards.award', 'doctorAddress.country', 'doctorAddress.states', 'favoriteDoctor', 'doctorReview'])->first();
+    return $this->userRepository->where('id', $id)->with(["educations.course", "experiences.hospital", "workingHour", "specializations", "services", "workingHour.daysOfWeek", "language", 'awards.award', 'doctorAddress.country', 'doctorAddress.states', 'favoriteDoctor', 'doctorReview'])->first();
   }
   public function updateOrCreateDoctor($data)
   {
@@ -87,7 +94,7 @@ class UserServices
       $payload['password'] = Hash::make($data["password"]);
     }
 
-    $user = $this->UserRepository->updateOrCreate(
+    $user = $this->userRepository->updateOrCreate(
       ['email' => $data["email"]],
       $payload
     );
@@ -112,7 +119,7 @@ class UserServices
     $data['specialty']  = array_key_exists('specialty', $searchedKey) ? $searchedKey['specialty'] : '';
     $data['services']  = array_key_exists('services', $searchedKey) ? $searchedKey['services'] : '';
 
-    $query = $this->UserRepository->with(["educations.course", 'favoriteDoctor'])->newQuery();
+    $query = $this->userRepository->with(["educations.course", 'favoriteDoctor'])->newQuery();
     if (!empty($data['gender'])) {
       $query->whereIn('gender', $data['gender']);
     }
@@ -153,17 +160,17 @@ class UserServices
 
   public function getDoctorQuestionById($id)
   {
-    return $this->UserRepository->where('id', $id)->with(["doctorQuestions.options"])->first();
+    return $this->userRepository->where('id', $id)->with(["doctorQuestions.options"])->first();
   }
 
   public function getPatientById($id)
   {
-    return $this->UserRepository->where('id', $id)->first();
+    return $this->userRepository->where('id', $id)->first();
   }
 
   public function getPatientByDoctorId($id)
   {
-    return $this->UserRepository->where('role', 3)->get();
+    return $this->userRepository->where('role', 3)->get();
   }
 
   public function updatePatient($data)
@@ -189,7 +196,7 @@ class UserServices
       $file->move($destinationPath, $filename);
       $payload['image_url'] = $filename;
     }
-    $user = $this->UserRepository->updateOrCreate(
+    $user = $this->userRepository->updateOrCreate(
       ['email' => $data["email"]],
       $payload
     );

@@ -25,11 +25,6 @@ use App\Http\Controllers\Api\Patient\PatientFavoriteDoctorController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
-   
-Route::controller(DoctorAppointmentAndRevenueGraphController::class)->group(function () {
-    Route::post('get-appointment-revenue-data', 'getAppointmentAndRevenueGraphData');
-    Route::post('get-revenue-data', 'getRevenueGraphData');
-});
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
@@ -103,6 +98,11 @@ Route::middleware('authCheck')->group(function () {
         });
         Route::controller(DoctorAppointmentConfigController::class)->group(function () {
             Route::get('get-appointment-config', 'getAppointmentConfig');
+        });
+           
+        Route::controller(DoctorAppointmentAndRevenueGraphController::class)->group(function () {
+            Route::post('get-appointment-revenue-data', 'getAppointmentAndRevenueGraphData');
+            Route::post('get-revenue-data', 'getRevenueGraphData');
         });
 
     });

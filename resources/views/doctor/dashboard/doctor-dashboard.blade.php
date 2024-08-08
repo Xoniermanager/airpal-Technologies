@@ -3,6 +3,7 @@
     <div class="dashboard-header">
         <h3>Revenue</h3>
     </div>
+    <div class="row">
     <div class="col-xl-12 d-flex">
         <div class="dashboard-chart-col w-100">
             <div class="dashboard-card w-100">
@@ -48,47 +49,15 @@
                                     <div id="booking_chart_div"></div>
                                 </div>
                             </div>
-
                         </div>
-                        
                     </div>
                 </div>
             </div>
-            <div class="dashboard-card w-100">
-                <div class="dashboard-card-head">
-                    <div class="header-title">
-                        <h5>Recent Patients</h5>
-                    </div>
-                </div>
-
-                <div class="dashboard-card-body">
-                    <div class="row recent-patient-grid-boxes">
-                        @forelse ($recentPatients as $recentPatient)
-                            <div class="col-md-6">
-                                <div class="recent-patient-grid">
-                                    <a href="{{ route('doctor.doctor-patients.index') }}" class="patient-img">
-                                        <img src="{{ $recentPatient->patient->image_url }}">
-
-                                    </a>
-                                    <h5><a href="{{ route('doctor.doctor-patients.index') }}"></a>
-                                    </h5>
-                                    <span>Patient ID : PAT{{ $recentPatient->id }}</span>
-                                    <div class="date-info">
-                                        <p>Last Appointment </p>
-                                        <p>{{ date('j M Y', strtotime($recentPatient->booking_date)) ?? '' }} -
-                                            {{ date('h:i A', strtotime($recentPatient->slot_start_time)) ?? '' }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
-                            <p>Fot found</p>
-                        @endforelse
-
-                    </div>
-                </div>
-            </div>
+          
         </div>
-    </div>
+    </div> 
+</div>
+
 
     <div class="row">
         <div class="col-xl-4 d-flex">
@@ -143,8 +112,43 @@
             </div>
         </div>
 
-        <div class="col-xl-7 d-flex">
+<div class="col-xl-5 d-flex">
+    <div class="dashboard-card w-100">
+        <div class="dashboard-card-head">
+            <div class="header-title">
+                <h5>Recent Patients</h5>
+            </div>
+        </div>
 
+        <div class="dashboard-card-body">
+            <div class="row recent-patient-grid-boxes">
+                @forelse ($recentPatients as $recentPatient)
+                    <div class="col-md-6">
+                        <div class="recent-patient-grid">
+                            <a href="{{ route('doctor.doctor-patients.index') }}" class="patient-img">
+                                <img src="{{ $recentPatient->patient->image_url }}">
+
+                            </a>
+                            <h5><a href="{{ route('doctor.doctor-patients.index') }}"></a>
+                            </h5>
+                            <span>Patient ID : PAT{{ $recentPatient->id }}</span>
+                            <div class="date-info">
+                                <p>Last Appointment </p>
+                                <p>{{ date('j M Y', strtotime($recentPatient->booking_date)) ?? '' }} -
+                                    {{ date('h:i A', strtotime($recentPatient->slot_start_time)) ?? '' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <p>Fot found</p>
+                @endforelse
+
+            </div>
+        </div>
+    </div>
+</div>
+        <div class="col-xl-7 d-flex">
+          
             <div class="dashboard-main-col w-100">
                 @if (!empty($upcomingAppointments))
                     <div class="upcoming-appointment-card">
@@ -191,11 +195,7 @@
             </div>
         </div>
     </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
+  
     <div class="modal fade" id="invoice-preview" aria-hidden="true" role="dialog" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div id="show-patient-invoice"></div>

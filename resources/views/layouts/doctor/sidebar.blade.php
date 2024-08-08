@@ -70,13 +70,7 @@
                         <span>My Patients</span>
                     </a>
                 </li>
-                {{-- <li class="{{ request()->routeIs('doctor.doctor-specialities.index') ? 'active' : '' }}">
-                    <a href="{{ route('doctor.doctor-specialities.index') }}">
-                        <i class="fa-solid fa-clock"></i>
-                        <span>Specialties & Services</span>
-                    </a>
-                </li> --}}
-                <li class="{{ request()->routeIs('doctor.appointment.config') ? 'active' : '' }}">
+                <li class="{{ request()->routeIs('patient.doctor.chat') ? 'active' : '' }}">
                     <a href="{{ route('patient.doctor.chat') }}">
                         <i class="fa fa-comments"></i>
                         <span>Chat</span>

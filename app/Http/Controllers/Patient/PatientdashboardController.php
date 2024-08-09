@@ -30,7 +30,7 @@ class PatientDashboardController extends Controller
     $favoriteDoctorsList      = $this->favoriteDoctorServices->getAllFavoriteDoctors($patientId)->get();
     $patientPastBookings      = $this->patientServices->getPatientPastBookings($patientId);
     $patientUpcomingBookings  = $this->patientServices->getPatientBookings($patientId);
-    // $patientInvoicesList      = $this->invoiceServices->getAllPatientInvoice($patientId);
+     $patientInvoicesList      = $this->invoiceServices->getAllPatientInvoice($patientId);
 
 
 
@@ -40,7 +40,7 @@ class PatientDashboardController extends Controller
         'favoriteDoctors'         => $favoriteDoctorsList,
         'patientUpcomingBookings' => $patientUpcomingBookings,
         'patientPastBookings'     => $patientPastBookings,
-        // 'patientInvoicesList'     => $patientInvoicesList
+        'patientInvoicesList'     => $patientInvoicesList
       ]
     );
   }

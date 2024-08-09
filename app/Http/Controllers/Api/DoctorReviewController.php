@@ -73,10 +73,11 @@ class DoctorReviewController extends Controller
             ], 500);
         }
     }
-    public function getAllReviewByDoctorId()
+    public function getAllReviewByDoctorId($doctorId)
     {
+
         try {
-            $allReviewDetails = $this->doctorReviewService->getAllReviewByDoctorId(Auth::guard('api')->user()->id);
+            $allReviewDetails = $this->doctorReviewService->getAllReviewByDoctorId($doctorId);
             return response()->json([
                 'status' => true,
                 'message' => "Retrieved All Review of doctor",

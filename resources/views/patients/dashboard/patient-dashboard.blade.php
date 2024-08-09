@@ -70,7 +70,7 @@
                                     </div>
                                 </div>
                                 <span class="health-percentage">Your health is 95% Normal</span>
-                                <a href="medical-details.html" class="btn btn-dark w-100">View
+                                <a href="{{ route('patient.medical-details.index')}}" class="btn btn-dark w-100">View
                                     Details<i class="fa-solid fa-chevron-right ms-2"></i></a>
                             </div>
                         </div>
@@ -182,91 +182,43 @@
                     <div class="dashboard-card w-100">
                         <div class="dashboard-card-head">
                             <div class="header-title">
-                                <h5>Notifications</h5>
+                                <h5>Past Appointments</h5>
                             </div>
                             <div class="card-view-link">
-
+                                <div class="owl-nav slide-nav2 text-end nav-control">
+                                </div>
                             </div>
                         </div>
-                        <div class="dashboard-card-body">
-                            <div class="table-responsive">
-                                <table class="table dashboard-table">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="table-noti-info">
-                                                    <div class="table-noti-icon color-violet">
-                                                        <i class="fa-solid fa-bell"></i>
-                                                    </div>
-                                                    <div class="table-noti-message">
-                                                        <h6><a href="#">Booking Confirmed on <span> 21
-                                                                    Mar 2024 </span> 10:30 AM</a></h6>
-                                                        <span class="message-time">Just Now</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="table-noti-info">
-                                                    <div class="table-noti-icon color-blue">
-                                                        <i class="fa-solid fa-star"></i>
-                                                    </div>
-                                                    <div class="table-noti-message">
-                                                        <h6><a href="#">You have a <span> New </span>
-                                                                Review for your Appointment </a></h6>
-                                                        <span class="message-time">5 Days ago</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="table-noti-info">
-                                                    <div class="table-noti-icon color-red">
-                                                        <i class="fa-solid fa-calendar-check"></i>
-                                                    </div>
-                                                    <div class="table-noti-message">
-                                                        <h6><a href="#">You have Appointment with <span>
-                                                                    Ahmed </span> by 01:20 PM </a></h6>
-                                                        <span class="message-time">12:55 PM</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="table-noti-info">
-                                                    <div class="table-noti-icon color-yellow">
-                                                        <i class="fa-solid fa-money-bill-1-wave"></i>
-                                                    </div>
-                                                    <div class="table-noti-message">
-                                                        <h6><a href="#">Sent an amount of <span> $200
-                                                                </span> for an Appointment by 01:20 PM
-                                                            </a></h6>
-                                                        <span class="message-time">2 Days ago</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="table-noti-info">
-                                                    <div class="table-noti-icon color-blue">
-                                                        <i class="fa-solid fa-star"></i>
-                                                    </div>
-                                                    <div class="table-noti-message">
-                                                        <h6><a href="#">You have a <span> New </span>
-                                                                Review for your Appointment </a></h6>
-                                                        <span class="message-time">5 Days ago</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        @forelse ($patientPastBookings->take(2) as $patientPastBookings)
+                            <div class="appointment-dash-card">
+                                <div class="doctor-fav-list">
+                                    <div class="doctor-info-profile">
+                                        <a href="#" class="table-avatar">
+                                            <img src="{{ $patientPastBookings->user->image_url }}" alt="Img">
+                                        </a>
+                                        <div class="doctor-name-info">
+                                            <h5><a href="#">Dr.{{ $patientPastBookings->user->fullName ?? '' }}</a>
+                                            </h5>
+                                            <span>Dentist</span>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="cal-plus-icon"><i class="fa-solid fa-hospital"></i></a>
+                                </div>
+                                <div class="date-time">
+                                    <p><i class="fa-solid fa-clock"></i>
+                                        {{ date('j M Y', strtotime($patientPastBookings->booking_date)) ?? '' }} -
+                                        {{ date('h:i A', strtotime($patientPastBookings->slot_start_time)) ?? '' }}
+                                    </p>
+                                </div>
+                                <div class="card-btns">
+                                    <a href="#" class="btn btn-gray"><i class="fa-solid fa-comment-dots"></i>Chat
+                                        Now</a>
+                                    <a href="patient-appointments.html" class="btn btn-outline-primary"><i
+                                            class="fa-solid fa-calendar-check"></i>Attend</a>
+                                </div>
                             </div>
-                        </div>
+                        @empty
+                        @endforelse
                     </div>
                 </div>
             </div>
@@ -294,7 +246,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="tab-content w-100" id="v-pills-tabContent">
+                            <div class="tab-content w-100" id="v-pills-tabContent" style="height: 300px;">
                                 <div class="tab-pane fade show active" id="pills-revenue" role="tabpanel"
                                     aria-labelledby="pills-revenue-tab">
                                     <div id="revenue-chart">
@@ -336,47 +288,7 @@
                             </div> --}}
                         </div>
                     </div>
-                    <div class="dashboard-card w-100">
-                        <div class="dashboard-card-head">
-                            <div class="header-title">
-                                <h5>Past Appointments</h5>
-                            </div>
-                            <div class="card-view-link">
-                                <div class="owl-nav slide-nav2 text-end nav-control">
-                                </div>
-                            </div>
-                        </div>
-                        @forelse ($patientPastBookings->take(2) as $patientPastBookings)
-                            <div class="appointment-dash-card">
-                                <div class="doctor-fav-list">
-                                    <div class="doctor-info-profile">
-                                        <a href="#" class="table-avatar">
-                                            <img src="{{ $patientPastBookings->user->image_url }}" alt="Img">
-                                        </a>
-                                        <div class="doctor-name-info">
-                                            <h5><a href="#">Dr.{{ $patientPastBookings->user->fullName ?? '' }}</a>
-                                            </h5>
-                                            <span>Dentist</span>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="cal-plus-icon"><i class="fa-solid fa-hospital"></i></a>
-                                </div>
-                                <div class="date-time">
-                                    <p><i class="fa-solid fa-clock"></i>
-                                        {{ date('j M Y', strtotime($patientPastBookings->booking_date)) ?? '' }} -
-                                        {{ date('h:i A', strtotime($patientPastBookings->slot_start_time)) ?? '' }}
-                                    </p>
-                                </div>
-                                <div class="card-btns">
-                                    <a href="#" class="btn btn-gray"><i class="fa-solid fa-comment-dots"></i>Chat
-                                        Now</a>
-                                    <a href="patient-appointments.html" class="btn btn-outline-primary"><i
-                                            class="fa-solid fa-calendar-check"></i>Attend</a>
-                                </div>
-                            </div>
-                        @empty
-                        @endforelse
-                    </div>
+       
                     <div class="dashboard-card w-100">
                         <div class="dashboard-card-head">
                             <div class="header-title">
@@ -431,7 +343,7 @@
                         <div class="header-title">
                             <h5>Reports</h5>
                         </div>
-               
+
                     </div>
                     <div class="dashboard-card-body">
                         <div class="account-detail-table">
@@ -1004,7 +916,7 @@
                                             <table class="table table-center mb-0">
                                                 <thead>
                                                     <tr>
-                                                        <th>ID</th>
+                                                        {{-- <th>ID</th> --}}
                                                         <th>Doctor</th>
                                                         <th>Appointment Date</th>
                                                         <th>Booked on</th>
@@ -1013,10 +925,11 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    @forelse ($patientInvoicesList->take(8) as $patientInvoice )
                                                     <tr>
-                                                        <td class="text-blue-600"><a href="#" data-bs-toggle="modal"
+                                                        {{-- <td class="text-blue-600"><a href="#" data-bs-toggle="modal"
                                                                 data-bs-target="#invoice_view">#Inv-2021</a>
-                                                        </td>
+                                                        </td> --}}
                                                         <td>
                                                             <h2 class="table-avatar">
                                                                 <a href="doctor-profile.html" class="avatar avatar-sm me-2">
@@ -1024,15 +937,26 @@
                                                                         src="../assets/img/doctors/doctor-thumb-21.jpg"
                                                                         alt="">
                                                                 </a>
-                                                                <a href="doctor-profile.html">Edalin
-                                                                    Hendry</a>
+                                                                <a href="doctor-profile.html">Dr.  {{  $patientInvoice->user->fullName}}</a>
                                                             </h2>
                                                         </td>
-                                                        <td>24 Mar 2024</td>
-                                                        <td>21 Mar 2024</td>
-                                                        <td>$300</td>
+                                                        <td>{{ date('j M Y', strtotime($patientInvoice->booking_date)) ?? '' }}
+                                                            {{-- {{ date('h:i A', strtotime($patientInvoice->slot_start_time)) ?? '' }} --}}
+                                                        </td>
+                                                        <td>{{ date('j M Y', strtotime($patientInvoice->created_at)) ?? '' }}</td>
+                                                        <td>${{$patientInvoice->user->payment ?? 0}}</td>
                                                         <td>
-                                                            <div class="action-item">
+                                                            @if (isset($invoiceDetail->invoice_url))
+                                                            <a href="javascript:void(0)" class="set-bg-color"
+                                                                onclick="printInvoice('{{ Storage::url($invoiceDetail->invoice_url) }}');">
+                                                                <i class="fa-solid fa-print"></i>
+                                                            </a>
+                                                        @else
+                                                            <a href="javascript:void(0)">
+                                                                <i class="fa-solid fa-print"></i>
+                                                            </a>
+                                                        @endif
+                                                            {{-- <div class="action-item">
                                                                 <a href="javascript:void(0);" data-bs-toggle="modal"
                                                                     data-bs-target="#invoice_view">
                                                                     <i class="fa-solid fa-link"></i>
@@ -1040,189 +964,13 @@
                                                                 <a href="javascript:void(0);">
                                                                     <i class="fa-solid fa-print"></i>
                                                                 </a>
-                                                            </div>
+                                                            </div> --}}
                                                         </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-blue-600"><a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#invoice_view">#Inv-2021</a>
-                                                        </td>
-                                                        <td>
-                                                            <h2 class="table-avatar">
-                                                                <a href="doctor-profile.html" class="avatar avatar-sm me-2">
-                                                                    <img class="avatar-img rounded-3"
-                                                                        src="../assets/img/doctors/doctor-thumb-13.jpg"
-                                                                        alt="">
-                                                                </a>
-                                                                <a href="doctor-profile.html">John
-                                                                    Homes</a>
-                                                            </h2>
-                                                        </td>
-                                                        <td>17 Mar 2024</td>
-                                                        <td>14 Mar 2024</td>
-                                                        <td>$450</td>
-                                                        <td>
-                                                            <div class="action-item">
-                                                                <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                                    data-bs-target="#invoice_view">
-                                                                    <i class="fa-solid fa-link"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-print"></i>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-blue-600"><a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#invoice_view">#Inv-2021</a>
-                                                        </td>
-                                                        <td>
-                                                            <h2 class="table-avatar">
-                                                                <a href="doctor-profile.html" class="avatar avatar-sm me-2">
-                                                                    <img class="avatar-img rounded-3"
-                                                                        src="../assets/img/doctors/doctor-thumb-03.jpg"
-                                                                        alt="">
-                                                                </a>
-                                                                <a href="doctor-profile.html">Shanta
-                                                                    Neill</a>
-                                                            </h2>
-                                                        </td>
-                                                        <td>11 Mar 2024</td>
-                                                        <td>07 Mar 2024</td>
-                                                        <td>$250</td>
-                                                        <td>
-                                                            <div class="action-item">
-                                                                <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                                    data-bs-target="#invoice_view">
-                                                                    <i class="fa-solid fa-link"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-print"></i>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-blue-600"><a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#invoice_view">#Inv-2021</a>
-                                                        </td>
-                                                        <td>
-                                                            <h2 class="table-avatar">
-                                                                <a href="doctor-profile.html" class="avatar avatar-sm me-2">
-                                                                    <img class="avatar-img rounded-3"
-                                                                        src="../assets/img/doctors/doctor-thumb-08.jpg"
-                                                                        alt="">
-                                                                </a>
-                                                                <a href="doctor-profile.html">Anthony
-                                                                    Tran</a>
-                                                            </h2>
-                                                        </td>
-                                                        <td>26 Feb 2024</td>
-                                                        <td>23 Feb 2024</td>
-                                                        <td>$320</td>
-                                                        <td>
-                                                            <div class="action-item">
-                                                                <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                                    data-bs-target="#invoice_view">
-                                                                    <i class="fa-solid fa-link"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-print"></i>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-blue-600"><a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#invoice_view">#Inv-2021</a>
-                                                        </td>
-                                                        <td>
-                                                            <h2 class="table-avatar">
-                                                                <a href="doctor-profile.html" class="avatar avatar-sm me-2">
-                                                                    <img class="avatar-img rounded-3"
-                                                                        src="../assets/img/doctors/doctor-thumb-01.jpg"
-                                                                        alt="">
-                                                                </a>
-                                                                <a href="doctor-profile.html">Susan
-                                                                    Lingo</a>
-                                                            </h2>
-                                                        </td>
-                                                        <td>18 Feb 2024</td>
-                                                        <td>15 Feb 2024</td>
-                                                        <td>$480</td>
-                                                        <td>
-                                                            <div class="action-item">
-                                                                <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                                    data-bs-target="#invoice_view">
-                                                                    <i class="fa-solid fa-link"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-print"></i>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-blue-600"><a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#invoice_view">#Inv-2021</a>
-                                                        </td>
-                                                        <td>
-                                                            <h2 class="table-avatar">
-                                                                <a href="doctor-profile.html" class="avatar avatar-sm me-2">
-                                                                    <img class="avatar-img rounded-3"
-                                                                        src="../assets/img/doctors/doctor-thumb-09.jpg"
-                                                                        alt="">
-                                                                </a>
-                                                                <a href="doctor-profile.html">Joseph
-                                                                    Boyd</a>
-                                                            </h2>
-                                                        </td>
-                                                        <td>10 Feb 2024</td>
-                                                        <td>07 Feb 2024</td>
-                                                        <td>$260</td>
-                                                        <td>
-                                                            <div class="action-item">
-                                                                <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                                    data-bs-target="#invoice_view">
-                                                                    <i class="fa-solid fa-link"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-print"></i>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-blue-600"><a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#invoice_view">#Inv-2021</a>
-                                                        </td>
-                                                        <td>
-                                                            <h2 class="table-avatar">
-                                                                <a href="doctor-profile.html" class="avatar avatar-sm me-2">
-                                                                    <img class="avatar-img rounded-3"
-                                                                        src="../assets/img/doctors/doctor-thumb-07.jpg"
-                                                                        alt="">
-                                                                </a>
-                                                                <a href="doctor-profile.html">Juliet
-                                                                    Gabriel</a>
-                                                            </h2>
-                                                        </td>
-                                                        <td>28 Jan 2024</td>
-                                                        <td>25 Jan 2024</td>
-                                                        <td>$350</td>
-                                                        <td>
-                                                            <div class="action-item">
-                                                                <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                                    data-bs-target="#invoice_view">
-                                                                    <i class="fa-solid fa-link"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-print"></i>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                    </tr> 
+                                                    @empty
+                                                        
+                                                    @endforelse
+                             
                                                 </tbody>
                                             </table>
                                         </div>

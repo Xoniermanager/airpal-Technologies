@@ -128,21 +128,19 @@
                         </div>
                     </div>
                 </li>
-
-
                 <li class="nav-item dropdown has-arrow logged-item">
                     <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <span class="user-img">
-                            <img src="{{ auth()->user()->image_url }}" class="blah"
+                            <img src="{{ auth()->user()->image_url }}" class="blah avatar-img rounded-circle"
                               
-                                class="avatar-img rounded-circle">
+                               >
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
                         <div class="user-header">
                             <div class="avatar avatar-sm">
-                                <img src="{{ auth()->user()->image_url }}" class="blah"
-                                    class="avatar-img rounded-circle">
+                                <img src="{{ auth()->user()->image_url }}" class="blah avatar-img rounded-circle"
+                               >
                             </div>
                             <div class="user-text">
                                 <h6> <a href="{{ route('doctor.doctor-profile.index') }}">Dr

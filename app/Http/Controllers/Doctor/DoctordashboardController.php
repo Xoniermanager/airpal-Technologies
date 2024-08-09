@@ -42,13 +42,13 @@ class DoctorDashboardController extends Controller
 
       // Pass all the data to the view
       return view('doctor.dashboard.doctor-dashboard', [
-        'totalPatientsCounter'    => $totalPatientsCounter,
-        'todayAppointmentCounter' => $todayAppointmentCounter,
-        'recentAppointments'      => $recentAppointments,
-        'upcomingAppointments'    => $upcomingAppointments,
-        'recentPatients'          => $recentPatients,
-        'totalAttendedBookings'   => $totalAttendedBookings,
-        'doctorDetails'           => $this->doctorDetails
+        'totalPatientsCounter'    => $totalPatientsCounter ?? 0,
+        'todayAppointmentCounter' => $todayAppointmentCounter ?? 0,
+        'recentAppointments'      => $recentAppointments ?? [],
+        'upcomingAppointments'    => $upcomingAppointments ?? '',
+        'recentPatients'          => $recentPatients ?? [],
+        'totalAttendedBookings'   => $totalAttendedBookings ?? [],
+        'doctorDetails'           => $this->doctorDetails ?? []
       ]);
     } catch (\Exception $e) {
       return response()->json([

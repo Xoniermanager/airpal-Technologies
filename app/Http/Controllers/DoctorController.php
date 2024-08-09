@@ -39,7 +39,7 @@ class DoctorController extends Controller
     $specialties = $this->specializationServices->all();
     $specialties = $this->specializationServices->all();
     $allRatingStars = $this->doctorReviewService->getAllRatingGroupByRatingNumber();
-    return view('frontend.doctor.search-doctor', ['doctors' =>  $doctors, 'languages' => Language::all(), 'specialties' => $specialties, 'services' => Service::all(), 'allRatingStars' => $allRatingStars]);
+    return view('website.doctor.search-doctor', ['doctors' =>  $doctors, 'languages' => Language::all(), 'specialties' => $specialties, 'services' => Service::all(), 'allRatingStars' => $allRatingStars]);
   }
 
 
@@ -56,7 +56,7 @@ class DoctorController extends Controller
 
     $topSpecializations = array_slice($specializationNames, 0, 2);
     $specializationsString = implode(', ', $topSpecializations);
-    return view('frontend.doctor.doctor-profile')
+    return view('website.doctor.doctor-profile')
       ->with('doctor', $doctor)
       ->with('specializationsString', $specializationsString)
       ->with('allReviewDetails', $this->doctorReviewService->getAllReviewByDoctorId($user->id));
@@ -72,7 +72,7 @@ class DoctorController extends Controller
     } else {
       $returnedSlots = [];
     }
-    return view('frontend.pages.appointment', ['doctorDetails' => $doctor, 'calender' => $returnCalendar]);
+    return view('website.pages.appointment', ['doctorDetails' => $doctor, 'calender' => $returnCalendar]);
   }
 
   public function search(Request $request)
@@ -91,7 +91,7 @@ class DoctorController extends Controller
     if ($searchedItems) {
       return response()->json([
         'success' => 'Searching',
-        'data'   =>  view("frontend.doctor.doctors_list", [
+        'data'   =>  view("website.doctor.doctors_list", [
           'doctors' =>  $searchedItems
         ])->render()
       ]);

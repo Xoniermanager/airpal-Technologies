@@ -34,7 +34,7 @@ class HomeController extends Controller
     $specialtiesByDoctorsCount =  $this->doctor_specialty->getSpecialtyGroupByDoctor();
     $allFaqs =  $this->faqsServices->all();
 
-    return view('frontend.pages.home',['doctorList' => $doctors , 'specialties' => $specialtiesByDoctorsCount , 'allFaqs'=>$allFaqs]);
+    return view('website.pages.home',['doctorList' => $doctors , 'specialties' => $specialtiesByDoctorsCount , 'allFaqs'=>$allFaqs]);
   }
 
 }

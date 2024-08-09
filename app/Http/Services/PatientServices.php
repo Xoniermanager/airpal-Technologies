@@ -22,4 +22,11 @@ class PatientServices
   {
      return $this->userRepository->where('role',3)->get();
   }
+  public function getPatientListByDoctor($doctorId)
+  {
+     return $this->bookingService->getAllAppointmentsByDoctorId($doctorId);
+  }
+
+
+  
 }

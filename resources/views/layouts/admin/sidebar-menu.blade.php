@@ -201,10 +201,8 @@
                         <a href="#"><i class="far fa-sticky-note"></i><span>Social Media</span> <span
                                 class="menu-arrow"></span></a>
                         <ul style="display: none;">
-                        <a href="{{ route('admin.questions.index')}}" data-url="{{route('admin.questions.index')}}">
-                            <span>Add Social Media</span></a>
                         <a href="{{ route('admin.social.media.index')}}" data-url="{{route('admin.social.media.index')}}">
-                                <span>Add Media Account Type</span></a>
+                                <span>Add Social Media Type</span></a>
                         </ul>
                     </li>
                     <li class="menu-item">

@@ -55,7 +55,7 @@ class DoctorAuthenticationController extends Controller
         Auth::logout();
         $request->session()->flash('success', 'You have been logged out.');
 
-        return redirect(route('doctor.doctor-login'));
+        return redirect(route('patient.login.index'));
     }
 
     public function forgetPasswordSendOtp(Request $request)

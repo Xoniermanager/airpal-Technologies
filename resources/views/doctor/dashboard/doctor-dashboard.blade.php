@@ -18,12 +18,12 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="pills-revenue-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-revenue" type="button" role="tab"
-                                    aria-controls="pills-revenue" aria-selected="false">Appointment</button>
+                                    aria-controls="pills-revenue" aria-selected="false">Revenue</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-appointment-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-appointment" type="button" role="tab"
-                                    aria-controls="pills-appointment" aria-selected="true">Revenue</button>
+                                    aria-controls="pills-appointment" aria-selected="true">Appointment</button>
                             </li>
                         </ul>
                         <div class="tab-content w-100" id="v-pills-tabContent">
@@ -65,7 +65,7 @@
                 <div class="dashboard-widget-box">
                     <div class="dashboard-content-info">
                         <h6>Total Patients</h6>
-                        <h4>{{ $totalPatientsCounter }}</h4>
+                        <h4>{{ $totalPatientsCounter ?? ''}}</h4>
 
                     </div>
                     <div class="dashboard-widget-icon">
@@ -76,7 +76,7 @@
                 <div class="dashboard-widget-box">
                     <div class="dashboard-content-info">
                         <h6>Appointments Today</h6>
-                        <h4>{{ $todayAppointmentCounter }}</h4>
+                        <h4>{{ $todayAppointmentCounter ?? ''}}</h4>
                     </div>
                     <div class="dashboard-widget-icon">
                         <span class="dash-icon-box"><i class="fa-solid fa-calendar-days"></i></span>
@@ -86,7 +86,7 @@
                 <div class="dashboard-widget-box">
                     <div class="dashboard-content-info">
                         <h6>Total Attended Bookings</h6>
-                        <h4>{{ $totalAttendedBookings }} +</h4>
+                        <h4>{{ $totalAttendedBookings ?? '' }} +</h4>
                     </div>
                     <div class="dashboard-widget-icon">
                         <span class="dash-icon-box"><i class="fa-solid fa fa-medkit"></i></span>

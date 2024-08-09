@@ -13,7 +13,7 @@ class SocialMediaTypeService
 
     public function all()
     {
-        return $this->socialMediaTypeRepository->all();
+        return $this->socialMediaTypeRepository->paginate(10);
     }
 
     public function add($data)

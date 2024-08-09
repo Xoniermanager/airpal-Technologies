@@ -9,6 +9,6 @@ class InstantController extends Controller
 // 
   public function instant()
   {
-    return view('frontend.pages.instant');
+    return view('website.pages.instant');
   }
 }

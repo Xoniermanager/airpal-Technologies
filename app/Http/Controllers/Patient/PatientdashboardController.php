@@ -30,12 +30,7 @@ class PatientDashboardController extends Controller
     {
       return view('patients.patient-dependant');
     }
-    public function patientInvoices()
-    {
-    return view('patients.patient-invoices');
     
-    }
-
     public function patientPassword()
     {
     return view('patients.patient-password');

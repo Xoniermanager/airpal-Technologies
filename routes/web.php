@@ -49,6 +49,7 @@ use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
 use App\Http\Controllers\TempController;
 use App\Http\Controllers\DoctorPatientChatController;
+use App\Http\Controllers\Patient\PatientInvoiceController;
 
 // =============================== Login And SignUp Routes ==================================== //
 /**
@@ -63,8 +64,8 @@ Route::controller(AdminAuthController::class)->group(function () {
 
 Route::prefix('doctor')->group(function () {
     Route::controller(DoctorAuthenticationController::class)->group(function () {
-        Route::get('login', 'doctorLogin')->name('doctor.doctor-login.index');
-        Route::get('logout', 'logout')->name('doctor.logout');
+        // Route::get('login', 'doctorLogin')->name('doctor.doctor-login.index');
+    Route::get('logout', 'logout')->name('doctor.logout');
         Route::get('forget-password', 'forgetPasswordIndex')->name('doctor.forget.password.index');
         Route::post('send-otp', 'forgetPasswordSendOtp')->name('forget.password.send.otp');
         Route::get('reset-password', 'resetPasswordIndex')->name('reset.password.index');
@@ -75,6 +76,8 @@ Route::prefix('doctor')->group(function () {
 
 // common file for login Admin, Doctor, Patient
 Route::post('login', [AuthController::class, 'login'])->name('login');
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
 
 
 Route::controller(PatientAuthController::class)->group(function () {
@@ -100,7 +103,7 @@ Route::controller(DoctorController::class)->group(function () {
  */
 
 Route::prefix('doctor')->group(function () {
-    Route::middleware(['role:doctor'])->group(function () {
+    Route::middleware(['role:doctor,'])->group(function () {
         Route::controller(DoctorDashboardController::class)->group(function () {
 
             Route::get('dashboard', 'doctorDashboard')->name('doctor.doctor-dashboard.index');
@@ -306,20 +309,16 @@ Route::prefix('admin')->group(function () {
         Route::get('delete', 'destroy')->name('admin.social-media.type.delete');
     });
 
-    Route::prefix('doctor')->controller(PatientListController::class)->group(function(){
+    Route::controller(PatientListController::class)->group(function(){
         Route::get('patient-list', 'patientList')->name('admin.patient-list.index');
-        // Route::get('filter-', 'patientList')->name('filter.patients.by.doctor');
+        Route::post('filter-patients-by-doctor', 'getPatientListByDoctor')->name('filter.patients.by.doctor');
     });
-
-   
-
 
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard.index');
     Route::get('/appointment-list', [AppointmentController::class, 'appointmentList'])->name('admin.appointment-list.index');
 
     Route::get('/profile/{user:id}', [ProfileController::class, 'profile'])->name('admin.profile.index');
     Route::get('/settings', [SettingsController::class, 'settings'])->name('admin.settings.index');
-
 
     Route::get('/reviews', [AdminController::class, 'reviews'])->name('admin.reviews.index');
     Route::get('/transactions-list', [TransactionController::class, 'transactionsList'])->name('admin.transactions-list.index');
@@ -347,37 +346,38 @@ Route::prefix('patients')->group(function () {
                 Route::get('dashboard', 'patientDashboard')->name('patient-dashboard.index');
                 Route::get('accounts', 'patientAccounts')->name('patient-accounts.index');
                 Route::get('dependant', 'patientDependant')->name('patient-dependant.index');
-                Route::get('invoices', 'patientInvoices')->name('patient-invoices.index');
+    
             });
             // Patient Appointments Routes
             Route::controller(PatientAppointmentsController::class)->group(function () {
                 Route::get('appointments', 'patientAppointments')->name('patient-appointments.index');
                 Route::get('appointment-details', 'patientAppointmentDetails')->name('patient-appointment-details.index');
                 Route::get('patient-appointment-filter', 'patientAppointmentFilter')->name('patient.appointment.filter');
+            });
+
+            Route::controller(PatientInvoiceController::class)->group(function () {
+                Route::get('invoices', 'index')->name('patient-invoices.index');
+                Route::get('get-patient-invoices', 'getPatientInvoices')->name('get.patient.invoices');
+            });
+
+            Route::controller(PatientAuthController::class)->group(function () {
+                Route::get('change-password', 'changePasswordIndex')->name('patient.change-password.index');
+                Route::post('patient-change-password', 'patientChangePassword')->name('patient.change.password.index');
 
             });
+
             // Patient Profile Routes
             Route::controller(PatientProfileController::class)->group(function () {
                 Route::get('settings', 'patientSettings')->name('patient-settings.index');
                 Route::get('profile', 'patientProfile')->name('patient-profile.index');
                 Route::post('profile-update', 'patientProfileUpdate')->name('patient-profile.update');
             });
-
             Route::controller(TempController::class)->group(function () {
                 Route::get('favorite', 'favorite')->name('patient.favorite.index');
                 Route::get('dependant', 'dependant')->name('patient.dependant.index');
                 Route::get('medical-records', 'medicalRecords')->name('patient.medical-records.index');
                 Route::get('medical-details', 'medicalDetails')->name('patient.medical-details.index');
             });
-
-            // Patient Authentication Routes
-            // Route::controller(PatientAuthController::class)->group(function () {
-            //     Route::get('/register', 'register')->name('register.index');
-            //     Route::post('/register', 'register')->name('patient.register');
-            //     Route::get('/login', 'login')->name('patient.login.index');
-            //     // Route::post('/login', 'patientLogin')->name('patient.login');
-            //     Route::get('/logout', 'logout')->name('patient.logout');
-            // });
         });
     });
 });

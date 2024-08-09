@@ -340,4 +340,14 @@ class BookingServices
 
       return $result;
    }
+
+
+   public function getAllAppointmentsByDoctorId($doctorId)
+   {
+    return $this->bookingRepository->where('doctor_id', $doctorId)
+    ->with('patient')
+    ->get()
+    ->pluck('patient')
+    ->unique('id') ;  
+   }
 }

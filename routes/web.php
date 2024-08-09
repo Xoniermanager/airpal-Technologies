@@ -47,6 +47,7 @@ use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
+use App\Http\Controllers\Patient\PatientDiaryController;
 use App\Http\Controllers\TempController;
 
 // =============================== Login And SignUp Routes ==================================== //
@@ -345,18 +346,14 @@ Route::prefix('patients')->group(function () {
                 Route::get('medical-details', 'medicalDetails')->name('patient.medical-details.index');
             });
 
-
-
-
-
-            // Patient Authentication Routes
-            // Route::controller(PatientAuthController::class)->group(function () {
-            //     Route::get('/register', 'register')->name('register.index');
-            //     Route::post('/register', 'register')->name('patient.register');
-            //     Route::get('/login', 'login')->name('patient.login.index');
-            //     // Route::post('/login', 'patientLogin')->name('patient.login');
-            //     Route::get('/logout', 'logout')->name('patient.logout');
-            // });
+            //Diary Module
+            Route::controller(PatientDiaryController::class)->group(function () {
+                Route::get('index-diary', 'index')->name('patient.diary.index');
+                Route::get('add-diary', 'addDiary')->name('patient.diary.add');
+                Route::post('create-diary', 'createDiary')->name('patient.diary.create');
+                Route::get('edit-diary/{patient_diaries:id}', 'editDiary')->name('patient.diary.edit');
+                Route::get('view-diary/{patient_diaries:id}', 'viewDiary')->name('patient.diary.view');
+            });
         });
     });
 });

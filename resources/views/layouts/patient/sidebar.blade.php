@@ -84,6 +84,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('patient.diary.index') }}">
+                        <i class="fa-solid fa-key"></i>
+                        <span>Patient Diary</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('patient.logout') }}">
                         <i class="fa-solid fa-calendar-check"></i>
                         <span>Logout</span>

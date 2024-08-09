@@ -73,4 +73,21 @@ class DoctorReviewController extends Controller
             ], 500);
         }
     }
+    public function getAllReviewByDoctorId()
+    {
+        try {
+            $allReviewDetails = $this->doctorReviewService->getAllReviewByDoctorId(Auth::guard('api')->user()->id);
+            return response()->json([
+                'status' => true,
+                'message' => "Retrieved All Review of doctor",
+                'data' => $allReviewDetails
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                "status" => false,
+                "error" =>  $e->getMessage(),
+                "message" => "Unable to find Review Of this patient"
+            ], 500);
+        }
+    }
 }

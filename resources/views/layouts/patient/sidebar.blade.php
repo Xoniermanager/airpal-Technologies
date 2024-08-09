@@ -81,6 +81,19 @@
                         <span>Change Password</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('get.all.review') }}">
+                        <i class="fa-solid fa-key"></i>
+                        <span>My Rating</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('patient.diary.index') }}">
+                        <i class="fa-solid fa-key"></i>
+                        <span>Patient Diary</span>
+                    </a>
+                </li>
+                <li>
                 <li class="{{ request()->routeIs('patient.logout') ? 'active' : '' }}">
                     <a href="{{ route('patient.logout') }}">
                         <i class="fa-solid fa-calendar-check"></i>

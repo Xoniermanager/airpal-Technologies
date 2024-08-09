@@ -47,6 +47,7 @@ use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
+use App\Http\Controllers\Patient\PatientDiaryController;
 use App\Http\Controllers\TempController;
 use App\Http\Controllers\DoctorPatientChatController;
 use App\Http\Controllers\Patient\PatientFavoriteDoctorController;
@@ -383,6 +384,15 @@ Route::prefix('patients')->group(function () {
                 Route::get('dependant', 'dependant')->name('patient.dependant.index');
                 Route::get('medical-records', 'medicalRecords')->name('patient.medical-records.index');
                 Route::get('medical-details', 'medicalDetails')->name('patient.medical-details.index');
+            });
+
+            //Diary Module
+            Route::controller(PatientDiaryController::class)->group(function () {
+                Route::get('index-diary', 'index')->name('patient.diary.index');
+                Route::get('add-diary', 'addDiary')->name('patient.diary.add');
+                Route::post('create-diary', 'createDiary')->name('patient.diary.create');
+                Route::get('edit-diary/{patient_diaries:id}', 'editDiary')->name('patient.diary.edit');
+                Route::get('view-diary/{patient_diaries:id}', 'viewDiary')->name('patient.diary.view');
             });
         });
     });

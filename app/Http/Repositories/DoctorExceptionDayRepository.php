@@ -1,26 +1,27 @@
 <?php
 
+namespace App\Http\Repositories;
 
-    namespace App\Http\Repositories;
-    use Prettus\Repository\Eloquent\BaseRepository;
-    use Prettus\Repository\Criteria\RequestCriteria;
-    use App\Models\ExceptionDays;
+use Prettus\Repository\Eloquent\BaseRepository;
+use Prettus\Repository\Criteria\RequestCriteria;
+use App\Models\ExceptionDays;
 
-    class DoctorExceptionDayRepository extends BaseRepository {
-        /**
-         * Specify Model class name
-         *
-         * @return string
-         */
-        public function model()
-        {
-            return ExceptionDays::class;
-        }
-        /**
-         * Boot up the repository, pushing criteria
-         */
-        public function boot()
-        {
-            $this->pushCriteria(app(RequestCriteria::class));
-        }
+class DoctorExceptionDayRepository extends BaseRepository
+{
+    /**
+     * Specify Model class name
+     *
+     * @return string
+     */
+    public function model()
+    {
+        return ExceptionDays::class;
     }
+    /**
+     * Boot up the repository, pushing criteria
+     */
+    public function boot()
+    {
+        $this->pushCriteria(app(RequestCriteria::class));
+    }
+}

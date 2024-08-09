@@ -10,32 +10,32 @@ class FrontController extends Controller
   // 
   public function privacy()
   {
-    return view('frontend.pages.privacy');
+    return view('website.pages.privacy');
   }
   // 
   public function term()
   {
-    return view('frontend.pages.term');
+    return view('website.pages.term');
   }
   // 
   public function invoice()
   {
-    return view('frontend.pages.invoice');
+    return view('website.pages.invoice');
   }
   // 
   public function patient_details()
   {
-    return view('frontend.pages.patient_details');
+    return view('website.pages.patient_details');
   }
   // 
   public function success()
   {
-    return view('frontend.pages.success');
+    return view('website.pages.success');
   }
   // 
   public function checkout()
   {
-    return view('frontend.pages.checkout');
+    return view('website.pages.checkout');
   }
 
 

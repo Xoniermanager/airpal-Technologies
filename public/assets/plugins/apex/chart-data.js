@@ -18,7 +18,7 @@ if ($('#revenue-chart').length > 0) {
         plotOptions: {
             bar: {
                 horizontal: false,
-                columnWidth: '50%',
+                columnWidth: '100%',
                 endingShape: 'rounded'  
             },
         },
@@ -69,7 +69,7 @@ if ($('#appointment-chart').length > 0) {
       plotOptions: {
           bar: {
               horizontal: false,
-              columnWidth: '50%',
+              columnWidth: '100%',
               endingShape: 'rounded'  
           },
       },
@@ -127,7 +127,7 @@ var options = {
 },
   plotOptions: {
     bar: {
-      columnWidth: '45%',
+      columnWidth: '100%',
     }
   },
   dataLabels: {
@@ -170,7 +170,7 @@ var options = {
 plotOptions: {
   bar: {
     horizontal: false,
-    columnWidth: '55%',
+    columnWidth: '100%',
     endingShape: 'rounded'
   },
 },

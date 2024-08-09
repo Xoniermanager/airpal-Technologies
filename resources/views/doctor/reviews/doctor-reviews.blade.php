@@ -33,7 +33,7 @@
                                 <div class="patient-info">
                                     <h6><a href="javascript:void(0);">{{ $reviewDetails->patient->first_name }}</a>
                                     </h6>
-                                    <span>{{ date('Y-M-d', strtotime($reviewDetails->created_at)) }}</span>
+                                    <span>{{ date('j M Y', strtotime($reviewDetails->created_at)) }}</span>
                                 </div>
                             </div>
                             <div class="star-rated">

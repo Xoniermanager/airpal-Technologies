@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\QuestionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\Doctor\DoctorAppointmentAndRevenueGraphController;
 use App\Http\Controllers\Api\DoctorAwardController;
 use App\Http\Controllers\Api\DoctorSlotsController;
 use App\Http\Controllers\Api\DoctorProfileController;
@@ -24,7 +25,6 @@ use App\Http\Controllers\Api\Patient\PatientFavoriteDoctorController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
-
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
@@ -99,6 +99,12 @@ Route::middleware('authCheck')->group(function () {
         Route::controller(DoctorAppointmentConfigController::class)->group(function () {
             Route::get('get-appointment-config', 'getAppointmentConfig');
         });
+           
+        Route::controller(DoctorAppointmentAndRevenueGraphController::class)->group(function () {
+            Route::post('get-appointment-revenue-data', 'getAppointmentAndRevenueGraphData');
+            Route::post('get-revenue-data', 'getRevenueGraphData');
+        });
+
     });
 
     // patient routes starts here

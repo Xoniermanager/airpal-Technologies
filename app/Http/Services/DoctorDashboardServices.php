@@ -19,6 +19,10 @@ class DoctorDashboardServices
     {
       return $this->bookingRepository->getUniquePatientsCounterByDoctorId($userId);
     }
+    public function gettingTotalAttendedBookings($doctorId)
+    {
+      return $this->bookingRepository->gettingTotalAttendedBookings($doctorId);   
+    }
     public function getTodayAppointmentCounter($userId)
     {
       return $this->bookingRepository->getTodayAppointmentCounter($userId);
@@ -66,7 +70,7 @@ class DoctorDashboardServices
         ->get()
         ->groupBy('booking_date');
     }
-    public function gettingAppointmentGraphData($period)
+    public function gettingAppointmentGraphData($period,$doctorId)
     {   
         
         // Initialize period variables
@@ -76,7 +80,7 @@ class DoctorDashboardServices
         $bookingByDate  = array_fill(1, $daysInMonth, 0);
     
         // Fetch recent appointments
-        $appointments = $this->getAppointmentGraphDataByDoctorId(auth::id());
+        $appointments = $this->getAppointmentGraphDataByDoctorId($doctorId);
     
         foreach ($appointments as $appointment) {
             foreach ($appointment as $appointmentData) {

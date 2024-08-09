@@ -76,7 +76,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="change-password.html">
+                    <a href="{{ route('patient.change-password.index')}}">
                         <i class="fa-solid fa-key"></i>
                         <span>Change Password</span>
                     </a>

@@ -18,4 +18,6 @@ class InvoiceServices
     {
         return $this->bookingRepository->gettingPatientInvoices($patientId)->paginate(10);
     }
+    
+
 }

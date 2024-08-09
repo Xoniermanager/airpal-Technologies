@@ -19,7 +19,7 @@
                                     </thead>
                                     <tbody>
                                         @forelse ($patientInvoices as $patientInvoice )
-                                        <tr>
+                                        <tr>b
                                             <td>
                                                 <h2 class="table-avatar">
                                                     <a href="doctor-profile.html" class="avatar avatar-sm me-2">

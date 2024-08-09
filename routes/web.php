@@ -49,6 +49,7 @@ use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
 use App\Http\Controllers\TempController;
 use App\Http\Controllers\DoctorPatientChatController;
+use App\Http\Controllers\Patient\PatientFavoriteDoctorController;
 use App\Http\Controllers\Patient\PatientInvoiceController;
 
 // =============================== Login And SignUp Routes ==================================== //
@@ -363,7 +364,13 @@ Route::prefix('patients')->group(function () {
             Route::controller(PatientAuthController::class)->group(function () {
                 Route::get('change-password', 'changePasswordIndex')->name('patient.change-password.index');
                 Route::post('patient-change-password', 'patientChangePassword')->name('patient.change.password.index');
+            });
 
+            Route::controller(PatientFavoriteDoctorController::class)->group(function () {
+                Route::get('favorite', 'index')->name('patient.favorite.index');
+                // Route::get('favorite-doctors', 'getFavoriteDoctors');
+                // Route::post('add/favorite', 'addFavorite');
+                Route::post('remove/favorite', 'removeFavorite')->name('remove.doctor.favorite.list');
             });
 
             // Patient Profile Routes
@@ -373,7 +380,6 @@ Route::prefix('patients')->group(function () {
                 Route::post('profile-update', 'patientProfileUpdate')->name('patient-profile.update');
             });
             Route::controller(TempController::class)->group(function () {
-                Route::get('favorite', 'favorite')->name('patient.favorite.index');
                 Route::get('dependant', 'dependant')->name('patient.dependant.index');
                 Route::get('medical-records', 'medicalRecords')->name('patient.medical-records.index');
                 Route::get('medical-details', 'medicalDetails')->name('patient.medical-details.index');

@@ -1,5 +1,7 @@
 @extends('layouts.patient.main')
 @section('content')
+
+<div class="col-lg-5 col-xl-5">
     <div class="dashboard-header">
         <h3>Change Password</h3>
     </div>
@@ -36,6 +38,7 @@
             </div>
         </div>
     </form>
+</div>
 @endsection
 @section('javascript')
     <script>

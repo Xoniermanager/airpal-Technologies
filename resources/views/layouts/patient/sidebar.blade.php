@@ -40,7 +40,7 @@
                     </a>
                 </li>
                 <li class="{{ request()->routeIs('patient.medical-records.index') ? 'active' : '' }}">
-                    <a href="patient.medical-records.index">
+                    <a href="{{ route('patient.medical-records.index') }}">
                         <i class="fa-solid fa-money-bill-1"></i>
                         <span>Add Medical Records</span>
                     </a>

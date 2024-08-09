@@ -2,12 +2,12 @@
 
 namespace App\Http\Services;
 
-use App\Http\Repositories\patientDiaryAdditionalInfoRepository;
+use App\Http\Repositories\PatientDiaryAdditionalInfoRepository;
 
 class PatientDiaryAdditionalInfoService
 {
    public  $patientDiaryAdditionalInfoRepository;
-   public function __construct(patientDiaryAdditionalInfoRepository $patientDiaryAdditionalInfoRepository)
+   public function __construct(PatientDiaryAdditionalInfoRepository $patientDiaryAdditionalInfoRepository)
    {
       $this->patientDiaryAdditionalInfoRepository = $patientDiaryAdditionalInfoRepository;
    }

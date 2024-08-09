@@ -35,17 +35,17 @@ class PatientDiaryRequest extends FormRequest
             'reason_afternoon_medicine' => 'required_if:afternoon_medicine,==,0',
             'reason_night_medicine' => 'required_if:night_medicine,==,0',
             'total_sleep_hr' => 'required|decimal:0,2',
-            'oxygen_level' => 'required|decimal:0,2',
-            'weight' => 'required|decimal:0,2',
+            'oxygen_level' => 'nullable|required|decimal:0,2',
+            'weight' => 'nullable|required|decimal:0,2',
             'glucose' => 'nullable|sometimes|decimal:0,2',
-            'pulse_rate' => 'sometimes|decimal:0,2',
-            'bp' => 'sometimes|decimal:0,2',
-            'avg_body_temp' => 'sometimes|decimal:0,2',
-            'avg_heart_beat' => 'sometimes|decimal:0,2',
+            'pulse_rate' => 'nullable|sometimes|decimal:0,2',
+            'bp' => 'nullable|sometimes|decimal:0,2',
+            'avg_body_temp' => 'nullable|sometimes|decimal:0,2',
+            'avg_heart_beat' => 'nullable|sometimes|decimal:0,2',
             'note' => 'required|string',
             'health_progress' => 'required|in:Feeling Good,Feeling Better,Not Good,No Changes At All',
-            'side_effect' => 'sometimes|string',
-            'improvement' => 'sometimes|string'
+            'side_effect' => 'nullable|sometimes|string',
+            'improvement' => 'nullable|sometimes|string'
         ];
     }
 }

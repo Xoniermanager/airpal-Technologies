@@ -8,14 +8,15 @@
             <div class="profile-det-info">
                 <h3><a href="{{ route('patient-settings.index') }}">{{ auth()->user()->fullName }}</a></h3>
 
-                <span>{{ auth()->user()->gender ?? ''}} <i class="fa-solid fa-circle"></i> Age: {{ auth()->user()->getAgeAttribute ?? ''}} year</span>
+                <span>{{ auth()->user()->gender ?? '' }} <i class="fa-solid fa-circle"></i> Age:
+                    {{ auth()->user()->getAgeAttribute ?? '' }} year</span>
             </div>
         </div>
     </div>
     <div class="dashboard-widget">
         <nav class="dashboard-menu">
             <ul>
-                <li  class="{{ request()->routeIs('patient-dashboard.index') ? 'active' : '' }}">
+                <li class="{{ request()->routeIs('patient-dashboard.index') ? 'active' : '' }}">
                     <a href="{{ route('patient-dashboard.index') }}">
                         <i class="fa-solid fa-shapes"></i>
                         <span>Dashboard</span>
@@ -28,13 +29,13 @@
                     </a>
                 </li>
                 <li class="{{ request()->routeIs('patient.favorite.index') ? 'active' : '' }}">
-                    <a href="{{ route('patient.favorite.index')}}">
+                    <a href="{{ route('patient.favorite.index') }}">
                         <i class="fa-solid fa-user-doctor"></i>
                         <span>Favourites</span>
                     </a>
                 </li>
                 <li class="{{ request()->routeIs('patient.dependant.index') ? 'active' : '' }}">
-                    <a href="{{ route('patient.dependant.index')}}">
+                    <a href="{{ route('patient.dependant.index') }}">
                         <i class="fa-solid fa-user-plus"></i>
                         <span>Dependants</span>
                     </a>
@@ -64,7 +65,7 @@
                     </a>
                 </li>
                 <li class="{{ request()->routeIs('patient.medical-details.index') ? 'active' : '' }}">
-                    <a href="{{ route('patient.medical-details.index')}}">
+                    <a href="{{ route('patient.medical-details.index') }}">
                         <i class="fa-solid fa-shield-halved"></i>
                         <span>Medical Details</span>
                     </a>
@@ -81,13 +82,7 @@
                         <span>Change Password</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('get.all.review') }}">
-                        <i class="fa-solid fa-key"></i>
-                        <span>My Rating</span>
-                    </a>
-                </li>
-                <li>
+                <li class="{{ request()->routeIs('patient.diary.index') ? 'active' : '' }}">
                     <a href="{{ route('patient.diary.index') }}">
                         <i class="fa-solid fa-key"></i>
                         <span>Patient Diary</span>

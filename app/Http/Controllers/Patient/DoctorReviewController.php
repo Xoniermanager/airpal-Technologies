@@ -42,7 +42,7 @@ class DoctorReviewController extends Controller
     }
     public function getAllReview()
     {
-        $allReviewDetails = $this->doctorReviewService->getAllReviewByPatientId(Auth()->user()->id);
+        $allReviewDetails = $this->doctorReviewService->getAllReviewByPatientId(Auth::user()->id);
         return view('patients.reviews.all-review', compact('allReviewDetails'));
     }
 }

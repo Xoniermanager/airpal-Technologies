@@ -33,7 +33,7 @@
                     @forelse ($allDiaryDetails as $key => $diaryDetails)
                         <tr>
                             <td>{{ $key + 1 }}.</td>
-                            <td>{{ $diaryDetails->note }}</td>
+                            <td>{!! Str::limit($diaryDetails->note, 30, ' ...') !!}</td>
                             <td>{{ $diaryDetails->pulse_rate }}</td>
                             <td>{{ $diaryDetails->bp }}</td>
                             <td>{{ $diaryDetails->avg_body_temp }}</td>

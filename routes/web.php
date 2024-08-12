@@ -67,7 +67,7 @@ Route::controller(AdminAuthController::class)->group(function () {
 Route::prefix('doctor')->group(function () {
     Route::controller(DoctorAuthenticationController::class)->group(function () {
         // Route::get('login', 'doctorLogin')->name('doctor.doctor-login.index');
-    Route::get('logout', 'logout')->name('doctor.logout');
+        Route::get('logout', 'logout')->name('doctor.logout');
         Route::get('forget-password', 'forgetPasswordIndex')->name('doctor.forget.password.index');
         Route::post('send-otp', 'forgetPasswordSendOtp')->name('forget.password.send.otp');
         Route::get('reset-password', 'resetPasswordIndex')->name('reset.password.index');
@@ -133,8 +133,8 @@ Route::prefix('doctor')->group(function () {
         Route::controller(InvoiceController::class)->group(function () {
             Route::get('invoices', 'doctorInvoices')->name('doctor.doctor-invoices.index');
             Route::post('preview-invoice', 'previewInvoice')->name('preview.patient.invoice');
-            Route::post('download-invoice','downloadInvoice')->name('download.patient.invoice');
-            Route::get('revenue-report','getRevenueDetailForChart')->name('revenue.report');
+            Route::post('download-invoice', 'downloadInvoice')->name('download.patient.invoice');
+            Route::get('revenue-report', 'getRevenueDetailForChart')->name('revenue.report');
         });
         Route::controller(ReviewsController::class)->group(function () {
             Route::get('reviews', 'doctorReviews')->name('doctor.doctor-reviews.index');
@@ -176,8 +176,8 @@ Route::prefix('doctor')->group(function () {
             Route::post('change-password', 'changePassword')->name('doctor.change.password');
         });
         // Doctor Patient Chat
-        Route::controller(DoctorPatientChatController::class)->group(function(){
-            Route::get('chat','getDoctorAllChats')->name('patient.doctor.chat');
+        Route::controller(DoctorPatientChatController::class)->group(function () {
+            Route::get('chat', 'getDoctorAllChats')->name('patient.doctor.chat');
         });
     });
 });
@@ -311,7 +311,7 @@ Route::prefix('admin')->group(function () {
         Route::get('delete', 'destroy')->name('admin.social-media.type.delete');
     });
 
-    Route::controller(PatientListController::class)->group(function(){
+    Route::controller(PatientListController::class)->group(function () {
         Route::get('patient-list', 'patientList')->name('admin.patient-list.index');
         Route::post('filter-patients-by-doctor', 'getPatientListByDoctor')->name('filter.patients.by.doctor');
     });
@@ -326,9 +326,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/transactions-list', [TransactionController::class, 'transactionsList'])->name('admin.transactions-list.index');
     Route::get('/invoice-report', [InvoiceReportController::class, 'invoiceReport'])->name('admin.invoice-report.index');
     Route::get('/invoice', [InvoiceReportController::class, 'invoice'])->name('admin.invoice.index');
-
-
-
 });
 
 // =========================== End Admin Routes Start ================================= //
@@ -342,13 +339,13 @@ Route::prefix('patients')->group(function () {
             Route::controller(BookingController::class)->group(function () {
                 Route::post('patient-booking', 'patientBooking')->name('patient.booking');
                 Route::get('/check-auth', 'checkAuth')->name('check.auth');
+                Route::get('check-review', 'checkReviewByPatientId')->name('check.review');
             });
             // Patient Dashboard Routes
             Route::controller(PatientDashboardController::class)->group(function () {
                 Route::get('dashboard', 'patientDashboard')->name('patient-dashboard.index');
                 Route::get('accounts', 'patientAccounts')->name('patient-accounts.index');
                 Route::get('dependant', 'patientDependant')->name('patient-dependant.index');
-    
             });
             // Patient Appointments Routes
             Route::controller(PatientAppointmentsController::class)->group(function () {

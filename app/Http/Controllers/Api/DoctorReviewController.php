@@ -22,8 +22,14 @@ class DoctorReviewController extends Controller
         try {
             $data = $request->all();
             $data['patient_id'] = Auth::guard('api')->user()->id;
-            $doctorReviewDetails = $this->doctorReviewService->create($data);
-            if ($doctorReviewDetails) {
+            $checkDoctorReview = $this->doctorReviewService->checkReviewDoctorAndPatientid($data['patient_id'], $data['doctor_id']);
+            if ($checkDoctorReview > 0) {
+                return response()->json([
+                    'status' => false,
+                    'message' => "Unable to Add Review Because You Already Given Ready"
+                ], 400);
+            } else {
+                $doctorReviewDetails = $this->doctorReviewService->create($data);
                 return response()->json([
                     'status' => true,
                     'message' => "Review Added Successfully"

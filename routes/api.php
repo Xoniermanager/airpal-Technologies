@@ -19,8 +19,10 @@ use App\Http\Controllers\Api\DoctorAppointmentConfigController;
 use App\Http\Controllers\Api\Patient\AllListingController;
 use App\Http\Controllers\Api\Patient\DoctorFilterController;
 use App\Http\Controllers\Api\Patient\PatientDashboardController;
+use App\Http\Controllers\Api\Patient\PatientDiaryController;
 use App\Http\Controllers\Api\Patient\PatientProfileController;
 use App\Http\Controllers\Api\Patient\PatientFavoriteDoctorController;
+use App\Models\PatientDiary;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -94,17 +96,17 @@ Route::middleware('authCheck')->group(function () {
             Route::get('get-all-question', 'getAllQuestion');
             Route::post('update-question/{doctor_questions:id}', 'updateQuestion');
             Route::get('question-delete/{doctor_questions:id}', 'deleteQuestion');
+            Route::get('question-option-delete/{question_options:id}', 'deleteQuestionOption');
             Route::get('get-question-details/{doctor_questions:id}', 'getQuestionDetailsById');
         });
         Route::controller(DoctorAppointmentConfigController::class)->group(function () {
             Route::get('get-appointment-config', 'getAppointmentConfig');
         });
-           
+
         Route::controller(DoctorAppointmentAndRevenueGraphController::class)->group(function () {
             Route::post('get-appointment-revenue-data', 'getAppointmentAndRevenueGraphData');
             Route::post('get-revenue-data', 'getRevenueGraphData');
         });
-
     });
 
     // patient routes starts here
@@ -139,6 +141,12 @@ Route::middleware('authCheck')->group(function () {
             Route::get('get-all-review', 'getAllReview');
             Route::get('get-review-details/{doctor_reviews:id}', 'getReviewDetailById');
             Route::get('get-all-reviewby-doctor-id', 'getAllReviewByDoctorId');
+        });
+        Route::controller(PatientDiaryController::class)->group(function () {
+            Route::get('all-patient-diary', 'getAllPatientDiary');
+            Route::post('add-patient-diary', 'addPatientDiary');
+            Route::post('update-patient-diary/{patient_diaries:id}', 'updatePatientDiary');
+            Route::get('get-review-details/{patient_diaries:id}', 'getDiaryDetailsById');
         });
     });
     Route::get('privacy', [AuthController::class, 'privacyPolicy']);

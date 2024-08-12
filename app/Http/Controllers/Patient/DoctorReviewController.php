@@ -27,7 +27,7 @@ class DoctorReviewController extends Controller
                 return response()->json([
                     'status' => true,
                     'message' => "Review Added Successfully",
-                    'data'   =>  view("frontend.doctor.review", [
+                    'data'   =>  view("website.doctor.review", [
                         'allReviewDetails' => $this->doctorReviewService->getAllReviewByDoctorId($request->doctor_id)
                     ])->render()
                 ], 200);
@@ -42,7 +42,7 @@ class DoctorReviewController extends Controller
     }
     public function getAllReview()
     {
-        $allReviewDetails = $this->doctorReviewService->getAllReviewByPatientId(Auth()->user()->id);
-        return view('patients.all-review', compact('allReviewDetails'));
+        $allReviewDetails = $this->doctorReviewService->getAllReviewByPatientId(Auth::user()->id);
+        return view('patients.reviews.all-review', compact('allReviewDetails'));
     }
 }

@@ -164,4 +164,21 @@ class QuestionController extends Controller
             ], 500);
         }
     }
+
+    public function deleteQuestionOption($id)
+    {
+        try {
+            $this->questionOptionService->destroy($id);
+            return response()->json([
+                'status' => true,
+                'message' => "Option Deleted Successfully",
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                "status" => false,
+                "error" =>  $e->getMessage(),
+                "message" => "Unable to Delete this question"
+            ], 500);
+        }
+    }
 }

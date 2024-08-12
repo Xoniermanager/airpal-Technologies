@@ -7,11 +7,6 @@ use Illuminate\Http\Request;
 class TempController extends Controller
 {
     
-    public function favorite()
-    {
-        return view('patients.favourites');
-
-    }
     public function dependant()
     {
         return view('patients.patient-dependant');
@@ -19,7 +14,7 @@ class TempController extends Controller
     }
     public function medicalRecords()
     {
-        return view('patients.medical-reports');
+        return view('patients.medical-records.medical-records');
     }
     public function medicalDetails()
     {

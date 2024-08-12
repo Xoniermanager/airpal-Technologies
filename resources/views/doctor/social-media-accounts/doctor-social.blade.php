@@ -42,12 +42,12 @@
                                                     <div class="mb-3">
                                                         <label class="mb-2">Account Type</label>
                                                         <select class="form-control" name="account_type">
-                                                            <option value="facebook">Facebook</option>
-                                                            <option value="twitter">Twitter</option>
-                                                            <option value="instagram">Instagram</option>
-                                                            <option value="youtube">Youtube</option>
-                                                            <option value="whatsapp">Whatsapp</option>
-                                                            <option value="google">Google</option>
+                                                            <option value="">Select Account Type</option>
+                                                            @forelse ($socialMediaTypes as $socialMediaType)
+                                                            <option value="{{$socialMediaType->id}}">{{ $socialMediaType->name}}</option>
+                                                            @empty
+                                                            <option value="">Not Available</option>
+                                                            @endforelse
                                                         </select>
                                                     </div>
                                                 </div>
@@ -86,14 +86,13 @@
                                                 <div class="col-12">
                                                     <div class="mb-3">
                                                         <label class="mb-2">Account Type</label>
-                                                        <select class="form-control" name="account_type"
-                                                            id="account_type">
-                                                            <option value="facebook">Facebook</option>
-                                                            <option value="twitter">Twitter</option>
-                                                            <option value="instagram">Instagram</option>
-                                                            <option value="youtube">Youtube</option>
-                                                            <option value="whatsapp">Whatsapp</option>
-                                                            <option value="google">Google</option>
+                                                        <select class="form-control" name="account_type" id="account_type">
+                                                            <option value="">Select Account Type</option>
+                                                            @forelse ($socialMediaTypes as $socialMediaType)
+                                                            <option value="{{$socialMediaType->id}}">{{ $socialMediaType->name}}</option>
+                                                            @empty
+                                                            <option value="">Not Available</option>
+                                                            @endforelse
                                                         </select>
                                                     </div>
                                                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Carbon\Carbon;
 use App\Models\Service;
 use App\Models\Language;
 use App\Models\UserAddress;
@@ -50,6 +51,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+    protected $appends = ['age'];
 
     /**
      * Get the attributes that should be cast.
@@ -71,11 +73,28 @@ class User extends Authenticatable
         );
     }
 
+
+    public function getAgeAttribute(): Attribute
+    {
+        return new Attribute(
+            get: fn () => Carbon::parse($this->attributes['dob'])->age
+        );
+
+    }
     protected function imageUrl(): Attribute
     {
         return Attribute::make(
             get: fn ($value) =>  $value ? asset('images/' .  $value) : ''
         );
+    }
+    public function getFullAddressAttribute()
+    {
+        $address = $this->patientAddress; // Eager load the address relationship if necessary
+        if ($address) {
+            return $address->address . ', ' . $address->city . ', ' . $address->state . ' ' . $address->postal_code;
+        }
+
+        return 'No address available';
     }
 
     public function specializations()

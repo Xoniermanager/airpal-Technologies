@@ -1,8 +1,5 @@
 <?php
 namespace App\Http\Services;
-use App\Models\Country;
-use App\Models\socialMedia;
-use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Repositories\socialMediaRepository;
 
@@ -32,7 +29,6 @@ class SocialMediaService {
      {
       return $this->socialMediaRepository->where('doctor_id', Auth::id())->where('id',$id)->delete();
      }
-
      public function getSocialMediaPaginated()
      {
          return $this->socialMediaRepository->with('country')->paginate(10)->setPath(route('admin.index.socialMedia'));

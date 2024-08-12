@@ -28,7 +28,7 @@ class BookingRepository extends BaseRepository
     public function searchDoctorAppointments($filterParams)
     {
 
-        $query = $this->model->newQuery();
+        $query = $this->model->with('patient')->newQuery();
         $key   = $filterParams['key'];
 
         /*
@@ -70,10 +70,19 @@ class BookingRepository extends BaseRepository
 
         // Using search keyword to find appointments
         if (isset($filterParams['searchKey']) && !empty($filterParams['searchKey'])) {
-            $searchKey = $filterParams['searchKey'];
+
+            $searchKey = explode(' ', $filterParams['searchKey']);
             $query->whereHas('patient', function ($query) use ($searchKey) {
-                $query->where('first_name', 'like', "%{$searchKey}%");
-                $query->orWhere('last_name', 'like', "%{$searchKey}%");
+                $query->where('first_name', 'like', "%{$searchKey[0]}%");
+                $query->orWhere('last_name', 'like', "%{$searchKey[0]}%");
+                $query->orWhere('display_name', 'like', "%{$searchKey[0]}%");
+                if (count($searchKey) > 1) {
+                    foreach ($searchKey as $key) {
+                        $query->orWhere('first_name', 'like', "%{$key}%");
+                        $query->orWhere('last_name', 'like', "%{$key}%");
+                        $query->orWhere('display_name', 'like', "%{$key}%");
+                    }
+                }
             });
         }
         // Using search keyword to find appointments
@@ -112,14 +121,14 @@ class BookingRepository extends BaseRepository
     public function gettingTotalAttendedBookings($doctorId)
     {
         return $this->where('doctor_id', $doctorId)
-        ->whereDate('booking_date','<', Carbon::today())
-        ->where('status', '!=', 'cancelled')
-        ->count();   
+            ->whereDate('booking_date', '<', Carbon::today())
+            ->where('status', '!=', 'cancelled')
+            ->count();
     }
 
     public function getRecentAppointmentsByDoctorId($doctorId)
     {
-        return $this->where('doctor_id', $doctorId)
+        return $this->with('patient')->where('doctor_id', $doctorId)
             ->orderBy('created_at', 'desc')
             ->where('status', 'requested')
             ->take(4)
@@ -138,7 +147,7 @@ class BookingRepository extends BaseRepository
 
     public function getRecentPatientsByDoctorId($doctorId)
     {
-        return $this->where('doctor_id', $doctorId)
+        return $this->with('patient')->where('doctor_id', $doctorId)
             ->where('booking_date', '<', Carbon::now())
             ->distinct('patient_id')
             ->orderBy('booking_date', 'asc')
@@ -149,7 +158,7 @@ class BookingRepository extends BaseRepository
     public function getAllUpcomingAppointmentsByDoctorId($doctorId)
     {
         $todayDate = Carbon::now()->toDateString();
-        return  $this->where('doctor_id', $doctorId)
+        return  $this->with('patient')->where('doctor_id', $doctorId)
             ->where('booking_date', '>', $todayDate)
             ->where('status', '!=', 'cancelled')
             ->get();
@@ -167,5 +176,11 @@ class BookingRepository extends BaseRepository
         return  $this->where('doctor_id', $doctorId)
             ->where('status', '=', 'confirmed')
             ->get();
+    }
+
+    public function gettingPatientInvoices($patientId)
+    {
+        return $this->where('patient_id', $patientId)
+            ->where('status', '!=', 'cancelled');
     }
 }

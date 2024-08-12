@@ -22,7 +22,7 @@ class SpecialtyPageController extends Controller
     public function specialty_list()
     {
         $specialtiesByDoctorsCount =  $this->doctor_specialty->getSpecialtyGroupByDoctor();
-        return view('frontend.pages.specialties_list',['specialties' => $specialtiesByDoctorsCount ]);
+        return view('website.pages.specialties_list',['specialties' => $specialtiesByDoctorsCount ]);
     }
     
     public function specialty_detail($id)
@@ -30,7 +30,7 @@ class SpecialtyPageController extends Controller
         $doctorListBySpecialtyID   =   $this->doctor_specialty->doctorListBySpecialtyID($id);
         $specialtiesByDoctorsCount =  $this->doctor_specialty->getSpecialtyGroupByDoctor();
         $specialty =  $this->speciliazationServices->getSpecialtyByID($id);
-        return view('frontend.pages.specialty_detail',
+        return view('website.pages.specialty_detail',
                     ['specialty'=>$specialty ,
                     'specialties'=>$specialtiesByDoctorsCount, 
                     'doctorLists'=> $doctorListBySpecialtyID

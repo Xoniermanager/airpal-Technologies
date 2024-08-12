@@ -1,6 +1,3 @@
-{{-- @extends('layouts.doctor-frontend.main') --}}
-{{-- @extends('layouts.admin.main') --}}
-
 @extends('layouts.doctor.main')
 @section('content')
     @php

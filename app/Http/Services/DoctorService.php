@@ -4,16 +4,25 @@ namespace App\Http\Services;
 
 use App\Http\Services\BookingServices;
 use App\Http\Repositories\ServicesRepository;
+use App\Http\Repositories\UserRepository;
 
 class DoctorService
 {
     private  $servicesRepository;
     private  $bookingServices;
-    public function __construct(ServicesRepository $servicesRepository, BookingServices $bookingServices)
+    private $userRepository;
+    public function __construct(ServicesRepository $servicesRepository, BookingServices $bookingServices, UserRepository $userRepository)
     {
         $this->servicesRepository = $servicesRepository;
-        $this->bookingServices = $bookingServices;
+        $this->bookingServices    = $bookingServices;
+        $this->userRepository     = $userRepository;
     }
+
+    public function getAllDoctorsList()
+    {
+        return $this->userRepository->where('role',2)->get();
+    }
+
     public function addService($serviceData)
     {
         return $this->servicesRepository->create($serviceData);

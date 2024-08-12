@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace App\Http\Services;
 
 use Carbon\Carbon;
@@ -15,85 +16,81 @@ class DoctorDashboardServices
         $this->bookingRepository = $bookingRepository;
     }
 
-    public function getTotalPatientsCounter($userId)
+    public function getTotalPatientsCounter($doctorId)
     {
-      return $this->bookingRepository->getUniquePatientsCounterByDoctorId($userId);
+        return $this->bookingRepository->getUniquePatientsCounterByDoctorId($doctorId);
     }
     public function gettingTotalAttendedBookings($doctorId)
     {
-      return $this->bookingRepository->gettingTotalAttendedBookings($doctorId);   
+        return $this->bookingRepository->gettingTotalAttendedBookings($doctorId);
     }
-    public function getTodayAppointmentCounter($userId)
+    public function getTodayAppointmentCounter($doctorId)
     {
-      return $this->bookingRepository->getTodayAppointmentCounter($userId);
-    }
-
-    public function getAppointmentsByDoctorId($userId)
-    {
-        return $this->bookingRepository->getAppointmentsByDoctorId($userId);
+        return $this->bookingRepository->getTodayAppointmentCounter($doctorId);
     }
 
-    public function getRecentAppointments($userId)
+    public function getAppointmentsByDoctorId($doctorId)
     {
-        return $this->bookingRepository->getRecentAppointmentsByDoctorId($userId);
+        return $this->bookingRepository->getAppointmentsByDoctorId($doctorId);
+    }
+    public function getRecentAppointments($doctorId)
+    {
+        return $this->bookingRepository->getRecentAppointmentsByDoctorId($doctorId);
     }
 
-    public function getUpComingAppointment($userId)
+    public function getUpComingAppointment($doctorId)
     {
-        return $this->bookingRepository->getUpcomingAppointmentsByDoctorId($userId);
+        return $this->bookingRepository->getUpcomingAppointmentsByDoctorId($doctorId);
+    }
+    public function getRecentPatients($doctorId)
+    {
+        return $this->bookingRepository->getRecentPatientsByDoctorId($doctorId);
+    }
+    public function getTotalAppointment($doctorId)
+    {
+        return $this->bookingRepository->getTotalAppointmentByDoctorId($doctorId);
+    }
+    public function getAllUpcomingAppointments($doctorId)
+    {
+        return $this->bookingRepository->getAllUpcomingAppointmentsByDoctorId($doctorId);
+    }
+    public function getAllCanceledAppointments($doctorId)
+    {
+        return $this->bookingRepository->getAllCanceledAppointmentsByDoctorId($doctorId);
     }
 
-    public function getRecentPatients($userId)
+    public function getAllConfirmedAppointments($doctorId)
     {
-        return $this->bookingRepository->getRecentPatientsByDoctorId($userId);
-    }
-
-    public function getTotalAppointment($userId)
-    {
-        return $this->bookingRepository->getTotalAppointmentByDoctorId($userId);
-    }
-
-    public function getAllUpcomingAppointments($userId)
-    {
-        return $this->bookingRepository->getAllUpcomingAppointmentsByDoctorId($userId);
-    }
-    public function getAllCanceledAppointments($userId)
-    {
-        return $this->bookingRepository->getAllCanceledAppointmentsByDoctorId($userId);
-    }
-
-    public function getAllConfirmedAppointments($userId)
-    {
-        return $this->bookingRepository->getAllConfirmedAppointments($userId);
+        return $this->bookingRepository->getAllConfirmedAppointments($doctorId);
     }
 
     public function getAppointmentGraphDataByDoctorId($doctorId)
     {
         return $this->bookingRepository->where('doctor_id', $doctorId)
-        ->orderBy('booking_date')
-        ->get()
-        ->groupBy('booking_date');
+            ->orderBy('booking_date')
+            ->get()
+            ->groupBy('booking_date');
     }
+    public function gettingAppointmentGraphData($period, $doctorId)
+    {
 
-    public function gettingAppointmentGraphData($period)
-    {   
         // Initialize period variables
         $daysInMonth    = Carbon::now()->daysInMonth;
-        $bookingByMonth = array_fill(1, 12, 0); 
-        $bookingByYear  = array_fill(Carbon::now()->year, 11, 0); 
+        $bookingByMonth = array_fill(1, 12, 0);
+        $bookingByYear  = array_fill(Carbon::now()->year, 11, 0);
         $bookingByDate  = array_fill(1, $daysInMonth, 0);
-    
+
         // Fetch recent appointments
-        $appointments = $this->getAppointmentGraphDataByDoctorId(auth::id());
-    
+        $appointments = $this->getAppointmentGraphDataByDoctorId($doctorId);
+
         foreach ($appointments as $appointment) {
             foreach ($appointment as $appointmentData) {
                 $date = Carbon::parse($appointmentData->booking_date);
-    
+
                 if ($period === 'monthly' || $period === 'currentMonth') {
                     $month = (int)$date->format('n');
                     $bookingByMonth[$month] += 1; // Count bookings for each month
-    
+
                     if ($period === 'currentMonth' && $date->month === Carbon::now()->month) {
                         $day = (int)$date->format('j');
                         $bookingByDate[$day] += 1; // Count bookings for each day in the current month
@@ -123,7 +120,4 @@ class DoctorDashboardServices
         }
         return $result;
     }
-
-
-    
 }

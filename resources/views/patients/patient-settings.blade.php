@@ -7,10 +7,9 @@
                                 <div class="change-avatar img-upload">
                                     <div class="profile-img">
                                         @if (isset($patientDetails->image_url))
-                                            <img src="{{ $patientDetails->image_url }}" id="blah">
+                                            <img src="{{ $patientDetails->image_url }}" class="previewProfile">
                                         @else
-                                        <img src="" id="blah"  onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" >
-                                        {{-- <i class="fa-solid fa-file-image"></i> --}}
+                                        <img src=""  onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}'" >
                                         @endif
                                     </div>
                                     <div class="upload-img">
@@ -265,8 +264,25 @@
             const [file] = imgInp.files
             if (file) {
                 blah.src = URL.createObjectURL(file)
+            }}
+
+            document.getElementById('imgInp').addEventListener('change', function(event) {
+
+            const [file] = event.target.files; // Get the selected file
+            if (file) {
+                // Get all elements with the class 'previewProfile'
+                const previewImages = document.getElementsByClassName('previewProfile');
+                console.log(previewImages)
+                // Loop through each element and set the preview image
+                Array.from(previewImages).forEach((img, index) => {
+                    img.src = URL.createObjectURL(
+                    file); // Create a URL for the file and set it as the src of the img
+                    img.style.display = 'inline-block'; // Make sure the image is visible
+                });
             }
-        }
+        });
+
+        
     </script>
 
     @endsection

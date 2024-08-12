@@ -32,6 +32,7 @@ class DoctorDashboardServices
     {
         return $this->bookingRepository->getAppointmentsByDoctorId($userId);
     }
+
     public function getRecentAppointments($userId)
     {
         return $this->bookingRepository->getRecentAppointmentsByDoctorId($userId);
@@ -41,14 +42,17 @@ class DoctorDashboardServices
     {
         return $this->bookingRepository->getUpcomingAppointmentsByDoctorId($userId);
     }
+
     public function getRecentPatients($userId)
     {
         return $this->bookingRepository->getRecentPatientsByDoctorId($userId);
     }
+
     public function getTotalAppointment($userId)
     {
         return $this->bookingRepository->getTotalAppointmentByDoctorId($userId);
     }
+
     public function getAllUpcomingAppointments($userId)
     {
         return $this->bookingRepository->getAllUpcomingAppointmentsByDoctorId($userId);
@@ -70,9 +74,9 @@ class DoctorDashboardServices
         ->get()
         ->groupBy('booking_date');
     }
+
     public function gettingAppointmentGraphData($period)
     {   
-        
         // Initialize period variables
         $daysInMonth    = Carbon::now()->daysInMonth;
         $bookingByMonth = array_fill(1, 12, 0); 

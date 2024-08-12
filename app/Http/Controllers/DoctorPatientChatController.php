@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Services\DoctorPatientChatService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Services\DoctorPatientChatService;
 
 class DoctorPatientChatController extends Controller
 {
@@ -15,10 +16,36 @@ class DoctorPatientChatController extends Controller
         $this->doctorPatientChatService = $doctorPatientChatService;
     }
 
+    /**
+     * Start : Endpoints for Doctor Panel
+     */
     public function getDoctorAllChats()
     {
         $doctorId = Auth::id();
-        $doctorChats = $this->doctorPatientChatService->getDoctorAllChats($doctorId);
-        return view('doctor.chats.all-chats');
+        $doctorPatientChatLists = $this->doctorPatientChatService->getDoctorAllChatList($doctorId);
+
+        return view('doctor.chats.all-chats')
+        ->with('chatUsers',$doctorPatientChatLists['chatUsers']);
     }
+
+    public function searchPatientListInChat(Request $request)
+    {
+        
+        $doctorId = Auth::id();
+        $searchKey = (array_key_exists('search_patient',$request->all())) ? $request->search_patient : '';
+
+        $doctorPatientChatLists = $this->doctorPatientChatService->getDoctorAllChatList($doctorId,$searchKey);
+
+        $updatedChatUsersList = view('doctor.chats.user-chat-list')
+        ->with('chatUsers',$doctorPatientChatLists['chatUsers'])->render();
+
+        return [
+            'status'    =>  true,
+            'message'   =>  'Filtered patient chat list returned successfully!',
+            'data'      =>  $updatedChatUsersList
+        ];
+    }
+    /**
+     * End : Endpoints for Doctor Panel
+     */
 }

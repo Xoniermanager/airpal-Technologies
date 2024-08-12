@@ -3,9 +3,10 @@
 namespace App\Http\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
-use App\Models\User;
+use Prettus\Repository\Criteria\RequestCriteria;
+use App\Models\DoctorPatientChatHistory;
 
-class UserRepository extends BaseRepository
+class DoctorPatientChatHistoryRepository extends BaseRepository
 {
 
     /**
@@ -15,11 +16,6 @@ class UserRepository extends BaseRepository
      */
     public function model()
     {
-        return User::class;
+        return DoctorPatientChatHistory::class;
     }
-
-    // public function doctorDetails()
-    // {
-    //     return $this->specializations();
-    // }
 }

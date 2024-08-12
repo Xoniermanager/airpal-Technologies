@@ -158,4 +158,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(DoctorReview::class, 'doctor_id');
     }
+
+    /*
+    Get Sent Chat details
+    */
+    public function sentChatDetails()
+    {
+        return $this->hasMany(DoctorPatientChat::class,'sender_id','id');
+    }
+
+    /*
+    Get Received Chat details
+    */
+    public function receivedChatDetails()
+    {
+        return $this->hasMany(DoctorPatientChat::class,'receiver_id','id');
+    }
 }

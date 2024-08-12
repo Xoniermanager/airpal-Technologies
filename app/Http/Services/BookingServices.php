@@ -101,7 +101,8 @@ class BookingServices
       $queryDetails =  $this->bookingRepository->where('doctor_id', $id)->with('patient');
 
       // Using search keyword to find appointments
-      if (isset($searchKey) && !empty($searchKey)) {
+      if (isset($searchKey) && !empty($searchKey)) 
+      {
          $searchKey = explode(' ', $searchKey);
          $queryDetails = $queryDetails->whereHas('patient', function ($query) use ($searchKey) {
             $query->where('first_name', 'like', "%{$searchKey[0]}%");
@@ -147,10 +148,12 @@ class BookingServices
    {
       return $this->patientBookings($id)->where('booking_date', '>', Carbon::now()->toDateString())->with('user');
    }
+
    public function searchDoctorAppointments($filterParams)
    {
       return  $this->bookingRepository->searchDoctorAppointments($filterParams);
    }
+   
    public function searchPatientsAppointments($filterParams)
    {
       return  $this->bookingRepository->searchPatientsAppointments($filterParams);

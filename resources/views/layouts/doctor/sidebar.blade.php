@@ -76,7 +76,7 @@
                         <span>Specialties & Services</span>
                     </a>
                 </li> --}}
-                <li class="{{ request()->routeIs('doctor.appointment.config') ? 'active' : '' }}">
+                <li class="{{ request()->routeIs('patient.doctor.chat') ? 'active' : '' }}">
                     <a href="{{ route('patient.doctor.chat') }}">
                         <i class="fa fa-comments"></i>
                         <span>Chat</span>

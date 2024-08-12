@@ -17,4 +17,9 @@ class DoctorPatientChatRepository extends BaseRepository
     {
         return DoctorPatientChat::class;
     }
+
+    public function getChatDetails($senderId,$receiverId)
+    {
+        return $this->whereIn('sender_id',[$senderId])->whereIn('receiver_id',[$receiverId])->first();
+    }
 }

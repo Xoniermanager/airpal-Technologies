@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('body');
             $table->boolean('read')->default(0);
             $table->boolean('is_file')->default('0');
+            $table->date('message_sent_date');
             $table->timestamps();
         });
     }

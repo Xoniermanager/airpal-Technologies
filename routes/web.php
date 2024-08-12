@@ -1,15 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Jobs\UpdateDoctorRatingsAverageValue;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FaqsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TempController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\InstantController;
+use App\Jobs\UpdateDoctorRatingsAverageValue;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SlotsController;
 use App\Http\Controllers\Admin\StateController;
@@ -28,6 +29,7 @@ use App\Http\Controllers\HealthmonitoringController;
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\PatientListController;
 use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\DoctorPatientChatController;
 use App\Http\Controllers\Admin\InvoiceReportController;
 use App\Http\Controllers\Patient\PatientAuthController;
 use App\Http\Controllers\Admin\DoctorQuestionController;
@@ -39,6 +41,7 @@ use App\Http\Controllers\Doctor\DoctorDashboardController;
 use App\Http\Controllers\Patient\PatientProfileController;
 use App\Http\Controllers\Doctor\AppointmentConfigController;
 use App\Http\Controllers\Doctor\DoctorAppointmentController;
+use App\Http\Controllers\DoctorPatientChatHistoryController;
 use App\Http\Controllers\Patient\PatientDashboardController;
 use App\Http\Controllers\Doctor\DoctorPanelQuestionController;
 use App\Http\Controllers\Doctor\DoctorAuthenticationController;
@@ -47,8 +50,6 @@ use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
-use App\Http\Controllers\TempController;
-use App\Http\Controllers\DoctorPatientChatController;
 
 // =============================== Login And SignUp Routes ==================================== //
 /**
@@ -175,6 +176,12 @@ Route::prefix('doctor')->group(function () {
         // Doctor Patient Chat
         Route::controller(DoctorPatientChatController::class)->group(function(){
             Route::get('chat','getDoctorAllChats')->name('patient.doctor.chat');
+            Route::get('search-chat-users','searchPatientListInChat')->name('chat.search.patients');
+        });
+
+        Route::controller(DoctorPatientChatHistoryController::class)->group(function(){
+            Route::post('chat-history','getSelectedChatHistory')->name('chat.history');
+            Route::post('send-message','saveChatMessage')->name('send.message');
         });
     });
 });

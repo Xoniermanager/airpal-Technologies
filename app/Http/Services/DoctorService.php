@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use App\Http\Services\BookingServices;
 use App\Http\Repositories\ServicesRepository;
 
 class DoctorService

@@ -338,15 +338,15 @@ Route::prefix('admin')->group(function () {
 // =========================== End Admin Routes Start ================================= //
 
 // =========================== Patient Panel Start ===================== //
+Route::get('check-review',[BookingController::class, 'checkReviewByPatientId'])->name('check.review')->middleware('auth');
+
 
 Route::prefix('patients')->group(function () {
-
     Route::middleware(['role:patient'])->group(function () {
         Route::middleware(['auth'])->group(function () {
             Route::controller(BookingController::class)->group(function () {
                 Route::post('patient-booking', 'patientBooking')->name('patient.booking');
                 Route::get('/check-auth', 'checkAuth')->name('check.auth');
-                Route::get('check-review', 'checkReviewByPatientId')->name('check.review');
             });
             // Patient Dashboard Routes
             Route::controller(PatientDashboardController::class)->group(function () {

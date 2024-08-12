@@ -14,10 +14,10 @@ class ExperienceYearsObserver
     /**
      * Handle the DoctorExperience "created" event.
      */
-    private  $UserRepository;
-    public function __construct(UserRepository $UserRepository)
+    private  $userRepository;
+    public function __construct(UserRepository $userRepository)
     {
-      $this->UserRepository = $UserRepository;
+      $this->userRepository = $userRepository;
 
     }
     public function created(DoctorExperience $doctorExperience)

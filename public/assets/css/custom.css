@@ -322,6 +322,7 @@ h6 {
 
 .primary {
   background-color: #004cd4;
+  color: #fff;
 }
 
 html {
@@ -46155,11 +46156,16 @@ td.empty {
   border-bottom: none;
 
 }
-
-td {
-  border: 1px solid #ccc;
+i.fa.fa-star {
+  color: #c1c5cb;
+} 
+.titletex {
+  background: #004cd4;
+  color: #fff;
+  padding: 15px 20px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
-
 td.date h4 {
   margin: 0;
   height: 40px;
@@ -46419,6 +46425,15 @@ td.date.halfFull button {
 .modal-dialog {
     pointer-events: auto !important;
 }
+.custom-radio input {
+  height: 25px;
+  width: 25px;
+}
+.custom-radio {
+  display: flex;
+  gap: 8px;
+}
+
 
 .error
 {
@@ -46426,4 +46441,8 @@ td.date.halfFull button {
 }
 .min-w-200px {
   min-width: 200px;
+}
+
+.doctor-available-head {
+  display: none;
 }

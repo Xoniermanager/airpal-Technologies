@@ -168,10 +168,10 @@ class DoctorProfileController extends Controller
             ], 500);
         }
     }
-    public function getMyPatientByDoctorId()
+    public function getMyPatientByDoctorId(Request $request)
     {
         try {
-            $finalData = $this->doctorService->getAllPatientByDoctorId(Auth::guard('api')->user()->id);
+            $finalData = $this->doctorService->getAllPatientByDoctorId(Auth::guard('api')->user()->id, $request->search_key);
             return response()->json([
                 "status"  => "success",
                 "message" => "Get All Patients",

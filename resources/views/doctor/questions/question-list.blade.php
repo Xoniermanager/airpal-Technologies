@@ -47,8 +47,6 @@
         <div class="mt-3 d-flex justify-content-end">
             {{ $allQuestions->links() }}
         </div>
-
-
     </div>
 </div>
 

@@ -3,28 +3,33 @@
 namespace App\Http\Controllers\Patient;
 
 use Illuminate\Http\Request;
+use App\Http\Services\AuthServices;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Repositories\UserRepository;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\StorePatientRegistrationRequest;
 
 class PatientAuthController extends Controller
 {
   private $userRepository;
-  public function __construct(UserRepository $userRepository)
+  protected $authService;
+  public function __construct(UserRepository $userRepository,AuthServices $authService)
   {
     $this->userRepository = $userRepository;
+    $this->authService = $authService;
   }
+
 
   public function login()
   {
-    return view('frontend.pages.login');
+    return view('website.pages.login');
   }
   public function register()
   {
-    return view('frontend.pages.register');
+    return view('website.pages.register');
   }
 
   public function signUp(StorePatientRegistrationRequest $request)
@@ -90,4 +95,31 @@ class PatientAuthController extends Controller
     $request->session()->flash('success', 'You have been logged out.');
     return redirect(route('patient.login.index'));
   }
+
+  public function changePasswordIndex()
+  {
+    return view('patients.change-password');
+  }
+
+  public function patientChangePassword(ChangePasswordRequest $request)
+  {
+      $credential =  $request->validated();
+      try {
+          $response = $this->authService->changePassword(Auth::id(), $credential['password'],);
+          if ($response == true) {
+              return response()->json([
+                  'status'  => 200,
+                  'success' => true,
+                  'message' => "Password has been changed successfully"
+              ], 200);
+          }
+      } catch (\Throwable $th) {
+          return response()->json([
+              'success' => false,
+              'message' => $th->getMessage()
+          ], 500);
+      }
+  }
+
+
 }

@@ -19,8 +19,7 @@
     </div>
 
     {{-- This div make chart by chart.js with dynamic data --}}
-    {{-- <div id="chart_div"> </div> --}}
-    @include('doctor.invoices.invoice-chart')
+    <div id="chart_div"> </div>
     {{-- End --}}
     <input type="hidden" id="doctor-id" value="{{ auth()->user()->id }}">
 
@@ -64,12 +63,6 @@
                             <td>$0</td>
                             <td>
                                 <div class="action-item">
-                                    {{-- <a href="javascript:void(0);" data-bs-toggle="modal"
-                                                                data-bs-target="#invoice_view">
-                                                                <i class="fa-solid fa-link"></i>
-                                                            </a> --}}
-                                    {{-- {{ url('storage/images/'.$invoiceDetail->invoice_url) }} --}}
-
                                     @if (isset($invoiceDetail->invoice_url))
                                         <a href="javascript:void(0)" class="set-bg-color"
                                             onclick="printInvoice('{{ Storage::url($invoiceDetail->invoice_url) }}');">

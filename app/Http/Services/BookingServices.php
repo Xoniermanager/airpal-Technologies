@@ -158,7 +158,7 @@ class BookingServices
 
    public function doctorAppointmentSearch($searchKey, $doctorId)
    {
-      return $this->bookingRepository->where('doctor_id', 2)
+      return $this->bookingRepository->where('doctor_id', $doctorId)
          ->whereHas('patient', function ($query) use ($searchKey) {
             $query->where('first_name', 'like', "%{$searchKey}%");
          })->get();
@@ -289,7 +289,7 @@ class BookingServices
          ->groupBy('booking_date');
    }
 
-   public function gettingRevenueDetailForChart($period)
+   public function gettingRevenueDetailForChart($period, $doctorId)
    {
       // Initialize variables
       $daysInMonth = Carbon::now()->daysInMonth;
@@ -298,7 +298,7 @@ class BookingServices
       $revenueByDate  = array_fill(1, $daysInMonth, 0);
 
       // Fetch recent appointments
-      $appointments = $this->getAllRecentAppointmentsByDoctorId(Auth::id());
+      $appointments = $this->getAllRecentAppointmentsByDoctorId($doctorId);
 
       foreach ($appointments as $appointment) {
          foreach ($appointment as $appointmentData) {
@@ -339,5 +339,20 @@ class BookingServices
       }
 
       return $result;
+   }
+
+
+   public function getAllAppointmentsByDoctorId($doctorId)
+   {
+      return $this->bookingRepository->where('doctor_id', $doctorId)
+         ->with('patient')
+         ->get()
+         ->pluck('patient')
+         ->unique('id');
+   }
+
+   public function checkDoctorAndPatientIdDetails($patientId, $doctorId)
+   {
+      return $this->bookingRepository->where('doctor_id', $doctorId)->where('patient_id',$patientId)->count();
    }
 }

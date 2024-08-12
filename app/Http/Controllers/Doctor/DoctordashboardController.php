@@ -42,13 +42,13 @@ class DoctorDashboardController extends Controller
 
       // Pass all the data to the view
       return view('doctor.dashboard.doctor-dashboard', [
-        'totalPatientsCounter'    => $totalPatientsCounter,
-        'todayAppointmentCounter' => $todayAppointmentCounter,
-        'recentAppointments'      => $recentAppointments,
-        'upcomingAppointments'    => $upcomingAppointments,
-        'recentPatients'          => $recentPatients,
-        'totalAttendedBookings'   => $totalAttendedBookings,
-        'doctorDetails'           => $this->doctorDetails
+        'totalPatientsCounter'    => $totalPatientsCounter ?? 0,
+        'todayAppointmentCounter' => $todayAppointmentCounter ?? 0,
+        'recentAppointments'      => $recentAppointments ?? [],
+        'upcomingAppointments'    => $upcomingAppointments ?? '',
+        'recentPatients'          => $recentPatients ?? [],
+        'totalAttendedBookings'   => $totalAttendedBookings ?? [],
+        'doctorDetails'           => $this->doctorDetails ?? []
       ]);
     } catch (\Exception $e) {
       return response()->json([
@@ -93,15 +93,13 @@ class DoctorDashboardController extends Controller
   }
   public function getAppointmentGraphData(Request $request)
   {
-    return $this->doctorDashboardServices->gettingAppointmentGraphData($request->period);
+    return $this->doctorDashboardServices->gettingAppointmentGraphData($request->period,Auth::id());
   }
-  
-
   public function UpdateLatestAppointmentRequestAjax(UpdateLatestAppointmentStatus $request)
   {
-    $updateRequest   = $this->bookingServices->updateStatus($request->status, $request->id);
+    $updateRequest          = $this->bookingServices->updateStatus($request->status, $request->id);
+    $allAppointments        = $this->bookingServices->requestedAppointment(Auth::id())->get();
     $allRequestAppointments = $this->getRecentAppointments();
-    $allAppointments = $this->bookingServices->requestedAppointment(Auth::id())->get();
     if ($updateRequest) {
       return response()->json([
         'success'             =>  'Update successfully',

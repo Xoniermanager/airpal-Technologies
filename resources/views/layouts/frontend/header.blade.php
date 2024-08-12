@@ -160,7 +160,7 @@
                         <a class="dropdown-item" href="{{ route('doctor.doctor-profile.index') }}">Profile
                             Settings</a>
                         @else
-                        <a class="dropdown-item" href="{{ route('patient-profile.index') }}">Dashboard</a>
+                        <a class="dropdown-item" href="{{ route('patient-dashboard.index') }}">Dashboard</a>
                         <a class="dropdown-item" href="{{ route('patient-settings.index') }}">Profile Settings</a>
                         @endif
         

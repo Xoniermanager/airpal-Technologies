@@ -32,6 +32,7 @@
 <script src="{{ asset('admin/assets/jquery-validation/dist/jquery.validate.min.js') }}"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script>
     window.site_admin_base_url = '{{ env('SITE_ADMIN_BASE_URL') }}';

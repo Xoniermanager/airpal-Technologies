@@ -41,7 +41,7 @@
                     </a>
                 </li>
                 <li class="{{ request()->routeIs('patient.medical-records.index') ? 'active' : '' }}">
-                    <a href="patient.medical-records.index">
+                    <a href="{{ route('patient.medical-records.index') }}">
                         <i class="fa-solid fa-money-bill-1"></i>
                         <span>Add Medical Records</span>
                     </a>
@@ -77,7 +77,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="change-password.html">
+                    <a href="{{ route('patient.change-password.index')}}">
                         <i class="fa-solid fa-key"></i>
                         <span>Change Password</span>
                     </a>

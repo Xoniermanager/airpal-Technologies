@@ -26,7 +26,7 @@
                                     aria-controls="pills-appointment" aria-selected="true">Appointment</button>
                             </li>
                         </ul>
-                        <div class="tab-content w-100" id="v-pills-tabContent">
+                        <div class="tab-content w-100" id="v-pills-tabContent" style="height: 300px;">
                             <div class="tab-pane fade show active" id="pills-revenue" role="tabpanel" aria-labelledby="pills-revenue-tab">
                                 <div id="revenue-chart">
                                     <div class="search-header">

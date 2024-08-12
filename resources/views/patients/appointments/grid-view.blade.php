@@ -14,7 +14,7 @@ aria-labelledby="pills-upcoming-tab">
                             </a>
                             <div class="patient-info">
                                 <p>#Apt{{ $appointment->id }}</p>
-                                <h6><a href="{{ route('website.doctor.profile',['user' =>$appointment->user->id]) }}">Dr
+                                <h6><a href="{{ route('frontend.doctor.profile',['user' =>$appointment->user->id]) }}">Dr
                                     {{ $appointment->user->fullName }}</a></h6>
                                 <p class="visit">General Visit</p>
                             </div>

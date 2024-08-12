@@ -146,7 +146,7 @@ Route::middleware('authCheck')->group(function () {
             Route::get('all-patient-diary', 'getAllPatientDiary');
             Route::post('add-patient-diary', 'addPatientDiary');
             Route::post('update-patient-diary/{patient_diaries:id}', 'updatePatientDiary');
-            Route::get('get-review-details/{patient_diaries:id}', 'getDiaryDetailsById');
+            Route::get('get-patient-diary-details/{patient_diaries:id}', 'getDiaryDetailsById');
         });
     });
     Route::get('privacy', [AuthController::class, 'privacyPolicy']);

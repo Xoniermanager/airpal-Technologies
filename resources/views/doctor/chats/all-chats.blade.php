@@ -179,9 +179,9 @@
     {
         jQuery.ajax({
             type:'GET',
-            url:"{{ route('chat.search.patients') }}",
+            url:"{{ (auth()->user()->role == 2) ? route('chat.search.patients') : route('chat.search.doctors') }}",
             data: {
-                'search_patient':search_key,
+                'search': search_key,
                 '_token': "{{ csrf_token() }}"
             },
             dataType: 'json',

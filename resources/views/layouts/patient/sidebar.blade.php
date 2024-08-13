@@ -52,6 +52,12 @@
                         <span>My Rating</span>
                     </a>
                 </li>
+                <li class="{{ request()->routeIs('patient.doctor.chat') ? 'active' : '' }}">
+                    <a href="{{ route('patient.chat') }}">
+                        <i class="fa fa-comments"></i>
+                        <span>Chat</span>
+                    </a>
+                </li>
                 <li class="{{ request()->routeIs('patient-accounts.index') ? 'active' : '' }}">
                     <a href="{{ route('patient-accounts.index') }}">
                         <i class="fa-solid fa-file-contract"></i>

@@ -183,7 +183,7 @@ class User extends Authenticatable
     */
     public function sentChatDetails()
     {
-        return $this->hasMany(DoctorPatientChat::class,'sender_id','id');
+        return $this->hasOne(DoctorPatientChat::class,'sender_id','id');
     }
 
     /*
@@ -191,6 +191,6 @@ class User extends Authenticatable
     */
     public function receivedChatDetails()
     {
-        return $this->hasMany(DoctorPatientChat::class,'receiver_id','id');
+        return $this->hasOne(DoctorPatientChat::class,'receiver_id','id');
     }
 }

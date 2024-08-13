@@ -32,7 +32,7 @@ class DoctorPatientChatController extends Controller
     {
         
         $doctorId = Auth::id();
-        $searchKey = (array_key_exists('search_patient',$request->all())) ? $request->search_patient : '';
+        $searchKey = (array_key_exists('search',$request->all())) ? $request->search : '';
 
         $doctorPatientChatLists = $this->doctorPatientChatService->getDoctorAllChatList($doctorId,$searchKey);
 
@@ -47,5 +47,38 @@ class DoctorPatientChatController extends Controller
     }
     /**
      * End : Endpoints for Doctor Panel
+     */
+
+
+    /**
+     * Start : Endpoints for patient Panel
+     */
+    public function getPatientAllChats()
+    {
+        $patientId = Auth::id();
+        $doctorPatientChatLists = $this->doctorPatientChatService->getPatientAllChatList($patientId);
+
+        return view('doctor.chats.all-chats')
+        ->with('chatUsers',$doctorPatientChatLists['chatUsers']);
+    }
+
+    public function searchDoctorListInChat(Request $request)
+    {
+        
+        $patientId = Auth::id();
+        $searchKey = (array_key_exists('search',$request->all())) ? $request->search : '';
+
+        $doctorPatientChatLists = $this->doctorPatientChatService->getPatientAllChatList($patientId,$searchKey);
+        $updatedChatUsersList = view('doctor.chats.user-chat-list')
+        ->with('chatUsers',$doctorPatientChatLists['chatUsers'])->render();
+
+        return [
+            'status'    =>  true,
+            'message'   =>  'Filtered patient chat list returned successfully!',
+            'data'      =>  $updatedChatUsersList
+        ];
+    }
+    /**
+     * End : Endpoints for Patient Panel
      */
 }

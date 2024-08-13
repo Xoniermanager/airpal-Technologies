@@ -5,19 +5,20 @@
         $chatId = '';
         $lastTimeText = '';
         $lastText = '';
+      
         if($chatUser->sentChatDetails()->exists() || $chatUser->receivedChatDetails()->exists())
         {
             if($chatUser->sentChatDetails()->exists())
             {
-                $chatId = $chatUser->sentChatDetails[0]->id;
-                $lastText = $chatUser->sentChatDetails[0]->getLatestChatDetails->body;
-                $lastTimeText =  date_format($chatUser->sentChatDetails[0]->last_time_message,'Y-m-d')->diffForHumans();
+                $chatId = $chatUser->sentChatDetails->id;
+                $lastText = $chatUser->sentChatDetails->getLatestChatDetails->body;
+                $lastTimeText =  \Carbon\Carbon::Parse($chatUser->sentChatDetails->last_time_message)->diffForHumans();
             }
             else if($chatUser->receivedChatDetails()->exists())
             {
-                $chatId = $chatUser->receivedChatDetails[0]->id;
-                $lastText = $chatUser->receivedChatDetails[0]->getLatestChatDetails->body;
-                $lastTimeText =  \Carbon\Carbon::Parse($chatUser->receivedChatDetails[0]->last_time_message)->diffForHumans();
+                $chatId = $chatUser->receivedChatDetails->id;
+                $lastText = $chatUser->receivedChatDetails->getLatestChatDetails->body;
+                $lastTimeText =  \Carbon\Carbon::Parse($chatUser->receivedChatDetails->last_time_message)->diffForHumans();
             }
         }
         @endphp

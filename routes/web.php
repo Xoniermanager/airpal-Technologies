@@ -99,6 +99,14 @@ Route::controller(DoctorController::class)->group(function () {
     Route::get('doctor/success', [DoctorController::class, 'success'])->name('success.index');
 });
 
+
+// Common endpoints
+Route::middleware(['auth'])->group(function(){
+    Route::controller(DoctorPatientChatHistoryController::class)->group(function(){
+        Route::post('chat-history','getSelectedChatHistory')->name('chat.history');
+        Route::post('send-message','saveChatMessage')->name('send.message');
+    });
+});
 // =============================== Doctor Panel Start ==================================== //
 /**
  * Routes for doctor panel 
@@ -176,15 +184,11 @@ Route::prefix('doctor')->group(function () {
         Route::controller(DoctorAuthenticationController::class)->group(function () {
             Route::post('change-password', 'changePassword')->name('doctor.change.password');
         });
+
         // Doctor Patient Chat
         Route::controller(DoctorPatientChatController::class)->group(function(){
-            Route::get('chat','getDoctorAllChats')->name('patient.doctor.chat');
-            Route::get('search-chat-users','searchPatientListInChat')->name('chat.search.patients');
-        });
-
-        Route::controller(DoctorPatientChatHistoryController::class)->group(function(){
-            Route::post('chat-history','getSelectedChatHistory')->name('chat.history');
-            Route::post('send-message','saveChatMessage')->name('send.message');
+            Route::get('chat','getDoctorAllChats')->name('doctor.chat');
+            Route::get('search-chat-patients','searchPatientListInChat')->name('chat.search.patients');
         });
     });
 });
@@ -340,7 +344,6 @@ Route::prefix('admin')->group(function () {
 // =========================== Patient Panel Start ===================== //
 Route::get('check-review',[BookingController::class, 'checkReviewByPatientId'])->name('check.review')->middleware('auth');
 
-
 Route::prefix('patients')->group(function () {
     Route::middleware(['role:patient'])->group(function () {
         Route::middleware(['auth'])->group(function () {
@@ -397,6 +400,12 @@ Route::prefix('patients')->group(function () {
                 Route::post('create-diary', 'createDiary')->name('patient.diary.create');
                 Route::get('edit-diary/{patient_diaries:id}', 'editDiary')->name('patient.diary.edit');
                 Route::get('view-diary/{patient_diaries:id}', 'viewDiary')->name('patient.diary.view');
+            });
+
+            // Doctor Patient Chat
+            Route::controller(DoctorPatientChatController::class)->group(function(){
+                Route::get('chat','getPatientAllChats')->name('patient.chat');
+                Route::get('search-chat-doctors','searchDoctorListInChat')->name('chat.search.doctors');
             });
         });
     });

@@ -2,9 +2,10 @@
 
 namespace App\Http\Services;
 
+use Illuminate\Support\Facades\DB;
 use App\Http\Services\BookingServices;
-use App\Http\Repositories\ServicesRepository;
 use App\Http\Repositories\UserRepository;
+use App\Http\Repositories\ServicesRepository;
 
 class DoctorService
 {
@@ -81,5 +82,15 @@ class DoctorService
                 'allPatients' => array_merge($regularPatients, $newPatients),
             ];
         return  $finalArray;
+    }
+
+    public function getDoctorCountsGroupedByRatings()
+    {
+    return  $this->userRepository
+     ->select('allover_rating', DB::raw('count(*) as total_doctors'))
+     ->where('role',2)
+     ->orderby('allover_rating','asc')
+     ->groupBy('allover_rating')
+     ->get();
     }
 }

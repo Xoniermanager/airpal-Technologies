@@ -3,7 +3,6 @@
 namespace App\Http\Services;
 
 use Exception;
-use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use App\Http\Repositories\PatientDiaryRepository;
 
@@ -118,8 +117,8 @@ class PatientDiaryService
    {
       return $this->patientDiaryRepository->with(['patientAdditionalInfo', 'medicationHealthProgress'])->find($id);
    }
-   public function getDiaryDetailsToday()
+   public function getDiaryDetailsByDate($date,$patientId)
    {
-      return $this->patientDiaryRepository->with(['patientAdditionalInfo', 'medicationHealthProgress'])->whereDate('created_at', Carbon::today())->first();
+      return $this->patientDiaryRepository->with(['patientAdditionalInfo', 'medicationHealthProgress'])->where('patient_id',$patientId)->whereDate('created_at', $date)->first();
    }
 }

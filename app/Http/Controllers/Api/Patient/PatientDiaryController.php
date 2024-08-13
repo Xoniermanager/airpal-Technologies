@@ -42,12 +42,20 @@ class PatientDiaryController extends Controller
         try {
             $data = $request->all();
             $data['patient_id'] = Auth()->guard('api')->user()->id;
-            $response = $this->patientDiaryService->createDetails($data);
-            if ($response) {
+            $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate(date('Y-m-d'), $data['patient_id']);
+            if (isset($diaryDetails) && !empty($diaryDetails)) {
                 return response()->json([
-                    'status' => true,
-                    'message' => "Added Successfully"
-                ], 200);
+                    'status' => false,
+                    'message' => "Unable to Add Diary for Today Already Created"
+                ], 400);
+            } else {
+                $response = $this->patientDiaryService->createDetails($data);
+                if ($response) {
+                    return response()->json([
+                        'status' => true,
+                        'message' => "Added Successfully"
+                    ], 200);
+                }
             }
         } catch (Exception $e) {
             return response()->json([

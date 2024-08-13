@@ -25,19 +25,19 @@ class DoctorPatientChatController extends Controller
         $doctorPatientChatLists = $this->doctorPatientChatService->getDoctorAllChatList($doctorId);
 
         return view('doctor.chats.all-chats')
-        ->with('chatUsers',$doctorPatientChatLists['chatUsers']);
+            ->with('chatUsers', $doctorPatientChatLists['chatUsers']);
     }
 
     public function searchPatientListInChat(Request $request)
     {
-        
+
         $doctorId = Auth::id();
-        $searchKey = (array_key_exists('search',$request->all())) ? $request->search : '';
+        $searchKey = (array_key_exists('search', $request->all())) ? $request->search : '';
 
-        $doctorPatientChatLists = $this->doctorPatientChatService->getDoctorAllChatList($doctorId,$searchKey);
+        $doctorPatientChatLists = $this->doctorPatientChatService->getDoctorAllChatList($doctorId, $searchKey);
 
-        $updatedChatUsersList = view('doctor.chats.user-chat-list')
-        ->with('chatUsers',$doctorPatientChatLists['chatUsers'])->render();
+        $updatedChatUsersList = view('common_chat.user-chat-list')
+            ->with('chatUsers', $doctorPatientChatLists['chatUsers'])->render();
 
         return [
             'status'    =>  true,
@@ -58,19 +58,19 @@ class DoctorPatientChatController extends Controller
         $patientId = Auth::id();
         $doctorPatientChatLists = $this->doctorPatientChatService->getPatientAllChatList($patientId);
 
-        return view('doctor.chats.all-chats')
-        ->with('chatUsers',$doctorPatientChatLists['chatUsers']);
+        return view('patients.chats.all-chats')
+            ->with('chatUsers', $doctorPatientChatLists['chatUsers']);
     }
 
     public function searchDoctorListInChat(Request $request)
     {
-        
-        $patientId = Auth::id();
-        $searchKey = (array_key_exists('search',$request->all())) ? $request->search : '';
 
-        $doctorPatientChatLists = $this->doctorPatientChatService->getPatientAllChatList($patientId,$searchKey);
-        $updatedChatUsersList = view('doctor.chats.user-chat-list')
-        ->with('chatUsers',$doctorPatientChatLists['chatUsers'])->render();
+        $patientId = Auth::id();
+        $searchKey = (array_key_exists('search', $request->all())) ? $request->search : '';
+
+        $doctorPatientChatLists = $this->doctorPatientChatService->getPatientAllChatList($patientId, $searchKey);
+        $updatedChatUsersList = view('common_chat.user-chat-list')
+            ->with('chatUsers', $doctorPatientChatLists['chatUsers'])->render();
 
         return [
             'status'    =>  true,

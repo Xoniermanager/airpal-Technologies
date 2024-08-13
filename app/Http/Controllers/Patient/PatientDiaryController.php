@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Patient;
 
 use Exception;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PatientDiaryRequest;
@@ -18,12 +20,12 @@ class PatientDiaryController extends Controller
     }
     public function index()
     {
-        $allDiaryDetails = $this->patientDiaryService->getAllDiaryDetailsByPatientId(Auth::user()->id);
-        return view('patients.diary.list', compact('allDiaryDetails'));
+        $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate(Carbon::today(), Auth::user()->id);
+        return view('patients.diary.list', compact('diaryDetails'));
     }
     public function addDiary()
     {
-        $diaryDetails = $this->patientDiaryService->getDiaryDetailsToday();
+        $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate(Carbon::today(), Auth::user()->id);
         return view('patients.diary.add', compact('diaryDetails'));
     }
 
@@ -52,9 +54,12 @@ class PatientDiaryController extends Controller
         $diaryDetails = $this->patientDiaryService->getDiaryById($id);
         return view('patients.diary.add', compact('diaryDetails'));
     }
-    public function viewDiary($id)
+    public function getSearchFilterDiaryDetails(Request $request)
     {
-        $viewDiaryDetails = $this->patientDiaryService->getDiaryById($id);
-        return view('patients.diary.view', compact('viewDiaryDetails'));
+        $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate($request->date, Auth::user()->id);
+        return response()->json([
+            'success' => 'Searching',
+            'data'    =>  view('patients.diary.view_detail', compact('diaryDetails'))->render()
+        ]);
     }
 }

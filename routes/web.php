@@ -396,7 +396,7 @@ Route::prefix('patients')->group(function () {
                 Route::get('add-diary', 'addDiary')->name('patient.diary.add');
                 Route::post('create-diary', 'createDiary')->name('patient.diary.create');
                 Route::get('edit-diary/{patient_diaries:id}', 'editDiary')->name('patient.diary.edit');
-                Route::get('view-diary/{patient_diaries:id}', 'viewDiary')->name('patient.diary.view');
+                Route::get('get-filter-diary-details', 'getSearchFilterDiaryDetails')->name('patient.diary.filters');
             });
         });
     });

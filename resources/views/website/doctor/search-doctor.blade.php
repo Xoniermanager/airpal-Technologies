@@ -219,76 +219,21 @@
                                         <div id="collapseseven" class="collapse show">
                                             <div class="filter-collapse">
                                                 <ul>
-                                                    <li>
-                                                        <div class="custom_check rating_custom_check d-inline-flex">
-                                                            <input type="checkbox" name="online">
-                                                            <span class="checkmark"></span>
-                                                            <div class="rating">
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <span class="rating-count">(40)</span>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="custom_check rating_custom_check d-inline-flex">
-                                                            <input type="checkbox" name="online">
-                                                            <span class="checkmark"></span>
-                                                            <div class="rating">
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <span class="rating-count">(35)</span>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="custom_check rating_custom_check d-inline-flex">
-                                                            <input type="checkbox" name="online">
-                                                            <span class="checkmark"></span>
-                                                            <div class="rating">
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <span class="rating-count">(20)</span>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="custom_check rating_custom_check d-inline-flex">
-                                                            <input type="checkbox" name="online">
-                                                            <span class="checkmark"></span>
-                                                            <div class="rating">
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <span class="rating-count">(10)</span>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="custom_check rating_custom_check d-inline-flex">
-                                                            <input type="checkbox" name="online">
-                                                            <span class="checkmark"></span>
-                                                            <div class="rating">
-                                                                <i class="fas fa-star filled"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <span class="rating-count">(05)</span>
-                                                            </div>
-                                                        </div>
-                                                    </li>
+                                                    @foreach ($ratingsWithCounter as $rating => $totalDoctor)
+                                                        @if($totalDoctor > 0)
+                                                            <li>
+                                                                <label class="custom_check rating_custom_check d-inline-flex">
+                                                                    <input type="checkbox" name="rating_count"
+                                                                        value="{{ $rating }}">
+                                                                    <span class="checkmark"></span>
+                                                                    <div class="rating">
+                                                                        {!! getRatingHtml($rating) !!}
+                                                                        <span class="rating-count">({{ $totalDoctor }})</span>
+                                                                    </div>
+                                                                </label>
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
                                                 </ul>
                                             </div>
                                         </div>
@@ -536,18 +481,18 @@
 @section('javascript')
     <script src="http://127.0.0.1:8000/assets/js/jquery-3.7.1.min.js" type="text/javascript"></script>
     <script>
-        $('input[name="gender"], input[name="langauges"], input[name="experience"] ,input[name="speciality"],input[name="services"]')
+        $('input[name="gender"], input[name="langauges"], input[name="experience"] ,input[name="speciality"],input[name="services"],input[name="rating_count"]')
             .on('change', function() {
                 search_doctors();
             });
 
         function search_doctors() {
-
             genderCheckedValue = [];
             languagesCheckedValue = [];
             experienceCheckedValue = [];
             specialityCheckedValue = [];
             servicesCheckedValue = [];
+            ratingCheckedValue = [];
 
             $('input[name="gender"]:checkbox').each(function() {
                 if ($(this).is(':checked')) {
@@ -575,6 +520,11 @@
                     servicesCheckedValue.push($(this).val());
                 }
             });
+            $('input[name="rating_count"]:checkbox').each(function() {
+                if ($(this).is(':checked')) {
+                    ratingCheckedValue.push($(this).val());
+                }
+            });
 
             $.ajax({
                 url: "{{ route('doctors.search') }}",
@@ -585,6 +535,7 @@
                     'experience': experienceCheckedValue,
                     'specialty': specialityCheckedValue,
                     'services': servicesCheckedValue,
+                    'rating': ratingCheckedValue
                 },
                 success: function(res) {
                     if (res) {

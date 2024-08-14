@@ -46,7 +46,7 @@ use App\Http\Controllers\Patient\PatientAppointmentsController;
 use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
-use App\Http\Controllers\Admin\{AdminAuthController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
+use App\Http\Controllers\Admin\{AdminAuthController, AdminReviewController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
 use App\Http\Controllers\Patient\PatientDiaryController;
 use App\Http\Controllers\TempController;
 use App\Http\Controllers\DoctorPatientChatController;
@@ -66,7 +66,6 @@ Route::controller(AdminAuthController::class)->group(function () {
 
 Route::prefix('doctor')->group(function () {
     Route::controller(DoctorAuthenticationController::class)->group(function () {
-        // Route::get('login', 'doctorLogin')->name('doctor.doctor-login.index');
     Route::get('logout', 'logout')->name('doctor.logout');
         Route::get('forget-password', 'forgetPasswordIndex')->name('doctor.forget.password.index');
         Route::post('send-otp', 'forgetPasswordSendOtp')->name('forget.password.send.otp');
@@ -105,7 +104,7 @@ Route::controller(DoctorController::class)->group(function () {
  */
 
 Route::prefix('doctor')->group(function () {
-    Route::middleware(['role:doctor,'])->group(function () {
+    Route::middleware(['role:doctor'])->group(function () {
         Route::controller(DoctorDashboardController::class)->group(function () {
 
             Route::get('dashboard', 'doctorDashboard')->name('doctor.doctor-dashboard.index');
@@ -316,13 +315,18 @@ Route::prefix('admin')->group(function () {
         Route::post('filter-patients-by-doctor', 'getPatientListByDoctor')->name('filter.patients.by.doctor');
     });
 
+    Route::controller(AdminReviewController::class)->group(function(){
+        Route::get('/reviews', 'reviews')->name('admin.reviews.index');
+    });
+
+
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard.index');
     Route::get('/appointment-list', [AppointmentController::class, 'appointmentList'])->name('admin.appointment-list.index');
 
     Route::get('/profile/{user:id}', [ProfileController::class, 'profile'])->name('admin.profile.index');
     Route::get('/settings', [SettingsController::class, 'settings'])->name('admin.settings.index');
 
-    Route::get('/reviews', [AdminController::class, 'reviews'])->name('admin.reviews.index');
+
     Route::get('/transactions-list', [TransactionController::class, 'transactionsList'])->name('admin.transactions-list.index');
     Route::get('/invoice-report', [InvoiceReportController::class, 'invoiceReport'])->name('admin.invoice-report.index');
     Route::get('/invoice', [InvoiceReportController::class, 'invoice'])->name('admin.invoice.index');

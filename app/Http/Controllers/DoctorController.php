@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Services\BookingServices;
-use App\Http\Services\DoctorReviewService;
-use App\Http\Services\UserServices;
+use DateTime;
 use App\Models\User;
 use App\Models\Service;
 use App\Models\Language;
 use Illuminate\Http\Request;
+use App\Http\Services\UserServices;
+use App\Http\Services\DoctorService;
+use App\Http\Services\BookingServices;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Services\DoctorAppointmentConfigService;
+use App\Http\Services\DoctorReviewService;
 use App\Http\Services\SpecializationServices;
-use DateTime;
+use App\Http\Services\DoctorAppointmentConfigService;
 
 class DoctorController extends Controller
 {
@@ -22,24 +23,38 @@ class DoctorController extends Controller
   private $doctorSlotServices;
   private $bookingServices;
 
+  private $doctorService;
+
   private $doctorReviewService;
 
-  public function __construct(UserServices $user_services, SpecializationServices $specializationServices, DoctorAppointmentConfigService $doctorSlotServices, BookingServices $bookingServices, DoctorReviewService $doctorReviewService)
+  public function __construct(UserServices $user_services, 
+  SpecializationServices $specializationServices, 
+  DoctorAppointmentConfigService $doctorSlotServices, 
+  BookingServices $bookingServices, 
+  DoctorReviewService $doctorReviewService,
+  DoctorService $doctorService)
   {
     $this->user_services = $user_services;
     $this->bookingServices = $bookingServices;
     $this->specializationServices = $specializationServices;
     $this->doctorSlotServices =  $doctorSlotServices;
     $this->doctorReviewService =  $doctorReviewService;
+    $this->doctorService = $doctorService;
   }
 
   public function index()
   {
     $doctors     = $this->user_services->getDoctorDataForFrontend();
     $specialties = $this->specializationServices->all();
-    $specialties = $this->specializationServices->all();
-    $allRatingStars = $this->doctorReviewService->getAllRatingGroupByRatingNumber();
-    return view('website.doctor.search-doctor', ['doctors' =>  $doctors, 'languages' => Language::all(), 'specialties' => $specialties, 'services' => Service::all(), 'allRatingStars' => $allRatingStars]);
+    $allRatingStars = $this->doctorService->getDoctorCountsGroupedByRatings();
+
+    $ratingsWithCounter = array();
+    for($i=1; $i<=5; $i++)
+    {
+      $ratingsWithCounter[$i] = array_sum($allRatingStars->whereBetween('allover_rating',[$i - 0.5,$i])->pluck('total_doctors')->toArray());
+    }
+
+    return view('website.doctor.search-doctor', ['doctors' =>  $doctors, 'languages' => Language::all(), 'specialties' => $specialties, 'services' => Service::all(), 'ratingsWithCounter' => $ratingsWithCounter]);
   }
 
 

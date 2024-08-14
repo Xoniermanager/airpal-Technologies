@@ -47,12 +47,11 @@ class DoctorReviewService
 
    public function getAllRatingGroupByRatingNumber()
    {
-   
-   // return $this->doctorReviewRepository->get()->groupBy('rating');
    return  $this->doctorReviewRepository
-    ->select('rating', DB::raw('count(*) as total'))
+    ->select('rating', DB::raw('count(*) as total_rating'))
+    ->orderby('rating','asc')
     ->groupBy('rating')
-    ->pluck('total','rating');
+    ->get();
    }
 
    public function checkReviewDoctorAndPatientid($patientId,$doctorId)

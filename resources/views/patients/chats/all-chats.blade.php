@@ -1,4 +1,4 @@
-@extends('layouts.doctor.main')
+@extends('layouts.patient.main')
 @section('content')
 <div class=" main-chat-blk ">
     <div class="page-wrapper chat-page-wrapper chat-page-wrapper">

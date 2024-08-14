@@ -69,7 +69,8 @@ class BookingRepository extends BaseRepository
         }
 
         // Using search keyword to find appointments
-        if (isset($filterParams['searchKey']) && !empty($filterParams['searchKey'])) {
+        if (isset($filterParams['searchKey']) && !empty($filterParams['searchKey']))
+         {
 
             $searchKey = explode(' ', $filterParams['searchKey']);
             $query->whereHas('patient', function ($query) use ($searchKey) {

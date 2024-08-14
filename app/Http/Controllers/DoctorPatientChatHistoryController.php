@@ -36,7 +36,7 @@ class DoctorPatientChatHistoryController extends Controller
         return response()->json([
             'status'    =>  true,
             'message'   =>  'Chat history loaded successfully.',
-            'data'      =>  view('doctor.chats.chat-history-body',[
+            'data'      =>  view('common_chat.chat-history-body',[
                 'receiverDetails'       =>  $chatHistoryDetails['receiverDetails'],
                 'senderDetails'         =>  $chatHistoryDetails['senderDetails'],
                 'chatHistory'           =>  $chatHistoryDetails['chatHistory'],
@@ -53,7 +53,7 @@ class DoctorPatientChatHistoryController extends Controller
         return response()->json([
             'status'        =>  true,
             'message'       =>  'Message sent successfully!',
-            'data'          =>  view('doctor.chats.chat-history-body',[
+            'data'          =>  view('common_chat.chat-history-body',[
                 'receiverDetails'       =>  $updatedChatHistory['receiverDetails'],
                 'senderDetails'         =>  $updatedChatHistory['senderDetails'],
                 'chatHistory'           =>  $updatedChatHistory['chatHistory'],

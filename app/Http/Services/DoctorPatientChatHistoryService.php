@@ -2,9 +2,10 @@
 
 namespace App\Http\Services;
 
+use App\Events\MessageSent;
+use App\Http\Repositories\UserRepository;
 use App\Http\Repositories\DoctorPatientChatRepository;
 use App\Http\Repositories\DoctorPatientChatHistoryRepository;
-use App\Http\Repositories\UserRepository;
 
 class DoctorPatientChatHistoryService
 {
@@ -72,7 +73,7 @@ class DoctorPatientChatHistoryService
         }
 
         // At this point we have retrieved the chat id, now lets send the message
-        $this->doctorPatientChatHistoryRepository->create([
+        $sentMessageDetails = $this->doctorPatientChatHistoryRepository->create([
             'doctor_patient_chats_id'   =>  $chatId,
             'sender_id'         =>  $senderId,
             'receiver_id'       =>  $receiverId,
@@ -85,6 +86,7 @@ class DoctorPatientChatHistoryService
             'last_time_message' =>  now()
         ]);
 
+        broadcast(new MessageSent($sentMessageDetails));
         return $this->getSelectedChatHistory($senderId, $receiverId, $chatId);
     }
 }

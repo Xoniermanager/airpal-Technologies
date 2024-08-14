@@ -358,4 +358,12 @@ class BookingServices
    {
       return $this->bookingRepository->where('doctor_id', $doctorId)->where('patient_id',$patientId)->count();
    }
+
+   /**
+    * Getting the most recent or say future booking date for the selected doctor
+    */
+    public function retrieveLastBookingDate($doctorId)
+    {
+        return $this->bookingRepository->where('doctor_id', $doctorId)->orderBy('booking_date','desc')->first();
+    }
 }

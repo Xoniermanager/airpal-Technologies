@@ -96,7 +96,11 @@ Route::controller(PatientAuthController::class)->group(function () {
 Route::controller(DoctorController::class)->group(function () {
     Route::post('update-calender', 'updateCalendar')->name('update.calendar');
     Route::post('get-doctor-slots-by-date', 'getDoctorSlotsByDate')->name('getDoctorSlots.byId');
-    Route::get('doctor/success', [DoctorController::class, 'success'])->name('success.index');
+    Route::get('doctor/success', 'success')->name('success.index');
+
+    Route::get('get-latest-booking-date', 'retrieveLastBookingDate')->name('get.latest.booking.date');
+    
+
 });
 
 
@@ -329,6 +333,7 @@ Route::prefix('admin')->group(function () {
 
     Route::controller(AdminReviewController::class)->group(function(){
         Route::get('/reviews', 'reviews')->name('admin.reviews.index');
+        Route::post('/delete-review', 'deleteReviews')->name('admin.delete.review');
     });
 
 
@@ -445,8 +450,6 @@ Route::controller(DoctorReviewController::class)->group(function () {
     Route::post('add-doctor-review', 'addDoctorReview')->name('add.doctor.review');
     Route::get('get-all-review', 'getAllReview')->name('get.all.review');
 });
-
-
 
 Route::get('job', function () {
     UpdateDoctorRatingsAverageValue::dispatch();

@@ -364,4 +364,11 @@ class DoctorAppointmentConfigService
         $calendar .= "</table></div>";
         return $calendar;
     }
+
+
+    public function getSlotConfig($doctorId)
+    {
+        return $this->doctorSlotRepository->where('user_id', $doctorId)->first();
+    }
+
 }

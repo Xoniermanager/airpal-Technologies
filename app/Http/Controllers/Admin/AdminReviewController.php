@@ -21,4 +21,21 @@ class AdminReviewController extends Controller
         return view('admin.reviews',['allDoctorsReviewDetails'=> $allDoctorsReviewDetails]);
     }
 
+    public function deleteReviews(Request $request)
+    {
+        $deleted = $this->doctorReviewServices->deleteReview($request->id);
+        $updatedReviewList = $this->doctorReviewServices->all();
+        
+        if ($deleted) {
+            return response()->json([
+            'success' => 'Review deleted',
+            'data'   =>  view("admin.reviews.reviews-list", [
+                'allDoctorsReviewDetails' =>  $updatedReviewList
+            ])->render()
+            ]);
+        } else {
+            return response()->json(['error' => 'Something Went Wrong!! Please try again']);
+        }
+    }
+
 }

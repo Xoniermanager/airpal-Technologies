@@ -1881,6 +1881,7 @@ a.bg-danger:focus, a.bg-danger:hover, button.bg-danger:focus, button.bg-danger:h
 
 .btn-outline-primary {
   color: #004cd4;
+  border: 1px solid #004cd4;
   border-color: #004cd4;
 }
 .btn-outline-primary:hover {
@@ -46093,7 +46094,7 @@ select {
 
 /* booking calender css  */
 
-button.btn.btn-outline-primary.mb-3.w-100.booked {
+button.btn.btn-outline-primary.w-100.booked {
   background: red;
   color: white;
   cursor: none;
@@ -46524,4 +46525,7 @@ td.date.halfFull button {
 }
 .float-right {
   float: right;
+}
+.white-space-normal {
+  white-space: normal
 }

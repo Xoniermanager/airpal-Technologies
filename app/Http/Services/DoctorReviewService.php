@@ -58,4 +58,9 @@ class DoctorReviewService
    {
       return $this->doctorReviewRepository->where('patient_id',$patientId)->where('doctor_id',$doctorId)->count();
    }
+   
+   public function deleteReview($reviewId)
+   {
+      return $this->doctorReviewRepository->where('id',$reviewId)->delete();
+   }
 }

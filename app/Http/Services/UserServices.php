@@ -25,11 +25,11 @@ class UserServices
     return  $this->userRepository->with(['doctorAddress.states.country', 'specializations', 'educations', 'doctorExceptionDays', 'favoriteDoctor'])->get();
   }
 
-   public function getAllDoctorsList()
-   {
-      return $this->userRepository->where('role',2)->get();
-   }
-   
+  public function getAllDoctorsList()
+  {
+    return $this->userRepository->where('role', 2)->get();
+  }
+
   public function addDoctorPersonalDetails($data)
   {
     $filename = null;
@@ -63,7 +63,7 @@ class UserServices
   {
     return $this->userRepository->where('role', 2)->with(["experiences", "specializations", "services", 'favoriteDoctor', 'doctorReview'])->paginate(5);
   }
-  
+
   public function getDoctorDataById($id)
   {
     return $this->userRepository->where('id', $id)->with(["educations.course", "experiences.hospital", "workingHour", "specializations", "services", "workingHour.daysOfWeek", "language", 'awards.award', 'doctorAddress.country', 'doctorAddress.states', 'favoriteDoctor', 'doctorReview'])->first();
@@ -118,12 +118,18 @@ class UserServices
     $data['experience'] = array_key_exists('experience', $searchedKey) ? $searchedKey['experience'] : '';
     $data['specialty']  = array_key_exists('specialty', $searchedKey) ? $searchedKey['specialty'] : '';
     $data['services']  = array_key_exists('services', $searchedKey) ? $searchedKey['services'] : '';
+    $data['rating']  = array_key_exists('rating', $searchedKey) ? $searchedKey['rating'] : '';
+    $data['search']  = array_key_exists('searchKey', $searchedKey) ? $searchedKey['searchKey'] : '';
+
 
     $query = $this->userRepository->with(["educations.course", 'favoriteDoctor'])->newQuery();
+
+    // Search for doctor roles only
+    $query->where('role', 2);
+
     if (!empty($data['gender'])) {
       $query->whereIn('gender', $data['gender']);
     }
-
     if (!empty($data['languages'])) {
       $query->whereHas('language', function ($q) use ($data) {
         $q->whereIn('languages.id', $data['languages']);
@@ -154,7 +160,44 @@ class UserServices
         }
       });
     }
+    if (!empty($data['rating'])) {
+      foreach ($data['rating'] as $selectedRating) {
+        $query->orWhere('allover_rating', '>', $selectedRating - 1)
+          ->where('allover_rating', '<=', $selectedRating);
+      }
+    }
 
+    // Using provided search key to search in doctor name, speciality ans services
+    if (!empty($data['search'])) {
+
+      // Search in doctor first name and last name
+      $searchKey = explode(' ', $data['search']);
+      $query->where('first_name', 'like', "%{$searchKey[0]}%");
+      $query->orWhere('last_name', 'like', "%{$searchKey[0]}%");
+      $query->orWhere('display_name', 'like', "%{$searchKey[0]}%");
+      if (count($searchKey) > 1) {
+        foreach ($searchKey as $key) {
+          $query->orWhere('first_name', 'like', "%{$key}%");
+          $query->orWhere('last_name', 'like', "%{$key}%");
+          $query->orWhere('display_name', 'like', "%{$key}%");
+        }
+      }
+      // Search in speciality
+      if (!empty($data['specialty'])) {
+        $query->whereHas('specializations', function ($q) use ($data) {
+          $q->orWhereIn('specializations.name', $data['search']);
+        });
+      }
+
+      // Search in specializations
+      if (!empty($data['services'])) {
+        $query->whereHas('services', function ($q) use ($data) {
+          $q->orWhereIn('services.name', $data['search']);
+        });
+      }
+
+      $query->orWhere('gender', $data['search']);
+    }
     return $query->paginate(10);
   }
 

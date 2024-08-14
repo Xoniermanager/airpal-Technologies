@@ -101,7 +101,8 @@ class BookingServices
       $queryDetails =  $this->bookingRepository->where('doctor_id', $id)->with('patient');
 
       // Using search keyword to find appointments
-      if (isset($searchKey) && !empty($searchKey)) {
+      if (isset($searchKey) && !empty($searchKey)) 
+      {
          $searchKey = explode(' ', $searchKey);
          $queryDetails = $queryDetails->whereHas('patient', function ($query) use ($searchKey) {
             $query->where('first_name', 'like', "%{$searchKey[0]}%");
@@ -147,10 +148,12 @@ class BookingServices
    {
       return $this->patientBookings($id)->where('booking_date', '>', Carbon::now()->toDateString())->with('user');
    }
+
    public function searchDoctorAppointments($filterParams)
    {
       return  $this->bookingRepository->searchDoctorAppointments($filterParams);
    }
+   
    public function searchPatientsAppointments($filterParams)
    {
       return  $this->bookingRepository->searchPatientsAppointments($filterParams);
@@ -158,7 +161,7 @@ class BookingServices
 
    public function doctorAppointmentSearch($searchKey, $doctorId)
    {
-      return $this->bookingRepository->where('doctor_id', 2)
+      return $this->bookingRepository->where('doctor_id', $doctorId)
          ->whereHas('patient', function ($query) use ($searchKey) {
             $query->where('first_name', 'like', "%{$searchKey}%");
          })->get();
@@ -289,7 +292,7 @@ class BookingServices
          ->groupBy('booking_date');
    }
 
-   public function gettingRevenueDetailForChart($period,$doctorId)
+   public function gettingRevenueDetailForChart($period, $doctorId)
    {
       // Initialize variables
       $daysInMonth = Carbon::now()->daysInMonth;
@@ -344,10 +347,15 @@ class BookingServices
 
    public function getAllAppointmentsByDoctorId($doctorId)
    {
-    return $this->bookingRepository->where('doctor_id', $doctorId)
-    ->with('patient')
-    ->get()
-    ->pluck('patient')
-    ->unique('id') ;  
+      return $this->bookingRepository->where('doctor_id', $doctorId)
+         ->with('patient')
+         ->get()
+         ->pluck('patient')
+         ->unique('id');
+   }
+
+   public function checkDoctorAndPatientIdDetails($patientId, $doctorId)
+   {
+      return $this->bookingRepository->where('doctor_id', $doctorId)->where('patient_id',$patientId)->count();
    }
 }

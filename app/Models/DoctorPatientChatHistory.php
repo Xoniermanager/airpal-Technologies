@@ -15,6 +15,7 @@ class DoctorPatientChatHistory extends Model
         'receiver_id',
         'body',
         'read',
-        'is_file'
+        'is_file',
+        'message_sent_date'
     ];
 }

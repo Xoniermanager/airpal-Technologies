@@ -11,10 +11,11 @@ use App\Http\Services\BookingServices;
 class BookingController extends Controller
 {
     private $bookingServices;
-    public function __construct(BookingServices $bookingServices) {
+    public function __construct(BookingServices $bookingServices)
+    {
         $this->bookingServices = $bookingServices;
-     }
-     
+    }
+
     public function patientBooking(StoreBooking $request)
     {
         $data = $request->validated();
@@ -31,14 +32,21 @@ class BookingController extends Controller
         }
     }
     public function checkAuth()
-{
-    if (Auth::check()) {
-        return response()->json(['authenticated' => true]);
-    } else {
-        return response()->json(['authenticated' => false]);
+    {
+        if (Auth::check()) {
+            return response()->json(['authenticated' => true]);
+        } else {
+            return response()->json(['authenticated' => false]);
+        }
     }
-}
-
-
-
+    public function checkReviewByPatientId(Request $request)
+    {
+        $doctorId = $request->doctorId;
+        if (Auth::user()->role == 3) {
+            $checkReview = $this->bookingServices->checkDoctorAndPatientIdDetails(Auth::user()->id, $doctorId);
+        } else {
+            $checkReview = '0';
+        }
+        return response($checkReview);
+    }
 }

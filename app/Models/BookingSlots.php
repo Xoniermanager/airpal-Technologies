@@ -25,6 +25,12 @@ class BookingSlots extends Model
     {
         return $this->belongsTo(User::class, 'patient_id');
     }
+
+    public function doctor()
+    {
+        return $this->belongsTo(User::class, 'doctor_id','id');
+    }
+
     protected function image(): Attribute
     {
         return Attribute::make(

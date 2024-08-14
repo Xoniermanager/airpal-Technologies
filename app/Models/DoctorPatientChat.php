@@ -15,4 +15,24 @@ class DoctorPatientChat extends Model
         'last_time_message',
         'chat_status'
     ];
+
+    public function senderDetails()
+    {
+        return $this->belongsTo(User::class,'sender_id','id');
+    }
+
+    public function receiverDetails()
+    {
+        return $this->belongsTo(User::class,'receiver_id','id');
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(DoctorPatientChatHistory::class,'doctor_patient_chats_id','id');
+    }
+
+    public function getLatestChatDetails()
+    {
+        return $this->hasOne(DoctorPatientChatHistory::class,'doctor_patient_chats_id','id')->latest();
+    }
 }

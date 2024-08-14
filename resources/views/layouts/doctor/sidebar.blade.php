@@ -70,8 +70,8 @@
                         <span>My Patients</span>
                     </a>
                 </li>
-                <li class="{{ request()->routeIs('patient.doctor.chat') ? 'active' : '' }}">
-                    <a href="{{ route('patient.doctor.chat') }}">
+                <li class="{{ request()->routeIs('doctor.chat') ? 'active' : '' }}">
+                    <a href="{{ route('doctor.chat') }}">
                         <i class="fa fa-comments"></i>
                         <span>Chat</span>
                     </a>

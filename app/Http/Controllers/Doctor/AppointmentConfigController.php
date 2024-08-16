@@ -20,6 +20,7 @@ class AppointmentConfigController extends Controller
     {
         $userId = Auth::user()->id;
         $doctorAppointmentConfigDetails = $this->doctorSlotServices->getDoctorSlotConfiguration($userId);
+        
         // Check if $doctorAppointmentConfigDetails is null before accessing its properties
         $exceptionIds = $doctorAppointmentConfigDetails ? optional($doctorAppointmentConfigDetails->doctorExceptionDays)->pluck('exception_days_id') ?? collect() : collect();
         return view('doctor.appointments.appointment-config', [

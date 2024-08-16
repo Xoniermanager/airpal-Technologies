@@ -237,12 +237,12 @@
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link active" id="pills-revenue-tab" data-bs-toggle="pill"
                                             data-bs-target="#pills-revenue" type="button" role="tab"
-                                            aria-controls="pills-revenue" aria-selected="false">Hear Rate</button>
+                                            aria-controls="pills-revenue" aria-selected="false">Blood Presure</button>
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link" id="pills-appointment-tab" data-bs-toggle="pill"
                                             data-bs-target="#pills-appointment" type="button" role="tab"
-                                            aria-controls="pills-appointment" aria-selected="true">Blood Presure</button>
+                                            aria-controls="pills-appointment" aria-selected="true">Heart Rate</button>
                                     </li>
                                 </ul>
                             </div>
@@ -252,9 +252,13 @@
                                     <div id="revenue-chart">
                                         <div class="search-header">
                                             <select id="time-period-revenue" class="">
-                                                <option value="currentMonth">Current Month</option>
-                                                <option value="monthly">Monthly</option>
-                                                <option value="yearly">Yearly</option>
+                                                @for ($month = 1; $month <= 12; $month++)
+                                                    <option value="{{ $month }}" {{ $month == \Carbon\Carbon::now()->month ? 'selected' : '' }}>
+                                                        {{ $month }} - {{ \Carbon\Carbon::create()->month($month)->format('F') }}
+                                                    </option>
+                                                @endfor
+                                            </select>
+                                            
                                             </select>
                                         </div>
                                         <div id="revenue_chart_div" class="mb-4"></div>
@@ -263,10 +267,12 @@
                                 <div class="tab-pane fade active" id="pills-appointment" role="tabpanel"
                                     aria-labelledby="pills-appointment-tab">
                                     <div id="appointment-chart">
-                                        <select id="time-period-appointment" class="">
-                                            <option value="currentMonth">Current Month</option>
-                                            <option value="monthly">Monthly</option>
-                                            <option value="yearly">Yearly</option>
+                                        <select id="time-period-heartbeat" class="">
+                                            @for ($month = 1; $month <= 12; $month++)
+                                            <option value="{{ $month }}" {{ $month == \Carbon\Carbon::now()->month ? 'selected' : '' }}>
+                                                {{ $month }} - {{ \Carbon\Carbon::create()->month($month)->format('F') }}
+                                            </option>
+                                        @endfor
                                         </select>
                                         <div id="booking_chart_div"></div>
                                     </div>
@@ -998,121 +1004,49 @@
                 });
 
                 // Function to load booking data
-                function loadGraphBookingData(period) {
-                    // period = period ?? 'currentMonth';
-                    // $.ajax({
-                    //     url: "<?= route('doctor.booking.graphData') ?>",
-                    //     type: 'get',
-                    //     data: {
-                    //         'period': period
-                    //     },
-                    //     success: function(response) {
-                            graphBookingData = [
-                                [25, 5.240266007932762],
-                                [26, 5.253756507319332],
-                                [27, 5.22029650790401],
-                                [28, 5.268704059004204],
-                                [29, 5.233683845050076],
-                                [30, 5.289605815622391],
-                                [31, 5.232041091123958],
-                                [1, 5.2301254401862955],
-                                [2, 5.250722035402405],
-                                [3, 5.283736492427697],
-                                [4, 5.296890906826341],
-                                [5, 5.355039204322343],
-                                [6, 5.346735747035125],
-                                [7, 5.326231782387644],
-                                [8, 5.3273666240507165],
-                                [9, 5.328501949410373],
-                                [10, 5.291005414482904],
-                                [11, 5.317451861825049],
-                                [12, 5.3344712035425745],
-                                [13, 5.318865815686569],
-                                [14, 5.3273666240507165],
-                                [15, 5.327650410031998],
-                                [16, 5.33532534905194],
-                                [17, 5.294647171789238],
-                                [18, 5.243288403010766],
-                                [19, 5.2449386384155785],
-                                [20, 5.265097477347184],
-                                [21, 5.291005414482904],
-                                [22, 5.290165399493866],
-                                [23, 5.243013533000918],
-                                [24, 5.177591381675723],
-                                [25, 5.136106760580972],
-                                [26, 5.118754990317601],
-                                [27, 5.132943184294443],
-                                [28, 5.093984040401572],
-                                [29, 5.092946441953961],
-                                [1, 5.096580274206888]
-                            ];
-                            drawLogScalesBooking();
-                    //     },
-                    //     error: function(xhr, status, error) {
-                    //         console.error(error);
-                    //     }
-                    // });
+                function loadGraphHeartRate(period ) {
+                    period = period ?? new Date().getMonth() + 1;
+                    $.ajax({
+                        url: "<?= route('patient-heartbeat.graph.data') ?>",
+                        type: 'get',
+                        data: {
+                            'period': period
+                        },
+                        success: function(response) {
+                            graphBookingData = response;
+                            drawLogScalesHeartRate();
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                        }
+                    });
                 }
 
                 // Function to load revenue data
-                function loadGraphRevenueData(period) {
-                    // period = period ?? 'currentMonth';
-                    // $.ajax({
-                    //     url: "<?= route('revenue.report') ?>",
-                    //     type: 'get',
-                    //     data: {
-                    //         'period': period
-                    //     },
-                    //     success: function(response) {
-                            graphRevenueData = [
-                                [25, 5.240266007932762],
-                                [26, 5.253756507319332],
-                                [27, 5.22029650790401],
-                                [28, 5.268704059004204],
-                                [29, 5.233683845050076],
-                                [30, 5.289605815622391],
-                                [31, 5.232041091123958],
-                                [1, 5.2301254401862955],
-                                [2, 5.250722035402405],
-                                [3, 5.283736492427697],
-                                [4, 5.296890906826341],
-                                [5, 5.355039204322343],
-                                [6, 5.346735747035125],
-                                [7, 5.326231782387644],
-                                [8, 5.3273666240507165],
-                                [9, 5.328501949410373],
-                                [10, 5.291005414482904],
-                                [11, 5.317451861825049],
-                                [12, 5.3344712035425745],
-                                [13, 5.318865815686569],
-                                [14, 5.3273666240507165],
-                                [15, 5.327650410031998],
-                                [16, 5.33532534905194],
-                                [17, 5.294647171789238],
-                                [18, 5.243288403010766],
-                                [19, 5.2449386384155785],
-                                [20, 5.265097477347184],
-                                [21, 5.291005414482904],
-                                [22, 5.290165399493866],
-                                [23, 5.243013533000918],
-                                [24, 5.177591381675723],
-                                [25, 5.136106760580972],
-                                [26, 5.118754990317601],
-                                [27, 5.132943184294443],
-                                [28, 5.093984040401572],
-                                [29, 5.092946441953961],
-                                [1, 5.096580274206888]
-                            ];
-                            drawLogScalesRevenue();
-          
-                            
+                function loadGraphBloodPressure(period) {
+                    period = period ?? new Date().getMonth() + 1;
+                    $.ajax({
+                        url: "<?= route('patient-blood-pressure.graph.data') ?>",
+                        type: 'get',
+                        data: {
+                            'period': period
+                        },
+                        success: function(response) {
+                            graphRevenueData = response
+                            drawLogScalesBloodPressure();
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                        }
+                    });
+                           
                 }
 
                 // Function to draw booking chart
-                function drawLogScalesBooking() {
+                function drawLogScalesHeartRate() {
                     var data = new google.visualization.DataTable();
                     data.addColumn('number', 'X');
-                    data.addColumn('number', 'rate');
+                    data.addColumn('number', 'heart rate');
                     data.addRows(graphBookingData);
 
                     var view = new google.visualization.DataView(data);
@@ -1141,10 +1075,10 @@
                 }
 
                 // Function to draw revenue chart
-                function drawLogScalesRevenue() {
+                function drawLogScalesBloodPressure() {
                     var data = new google.visualization.DataTable();
                     data.addColumn('number', 'X');
-                    data.addColumn('number', 'rate');
+                    data.addColumn('number', 'blood pressure');
                     data.addRows(graphRevenueData);
 
                     var view = new google.visualization.DataView(data);
@@ -1174,20 +1108,21 @@
 
                 // Initialize charts on page load
                 google.charts.setOnLoadCallback(function() {
-                    loadGraphBookingData('currentMonth');
-                    loadGraphRevenueData('currentMonth');
+                    currentMonth  =new Date().getMonth() + 1;
+                    loadGraphHeartRate(currentMonth);
+                    loadGraphBloodPressure(currentMonth);
                 });
 
                 // Event listener for revenue time period change
                 $("#time-period-revenue").change(function() {
                     var period = $(this).val() ?? 'currentMonth';
-                    loadGraphRevenueData(period);
+                    loadGraphBloodPressure(period);
                 });
 
                 // Event listener for appointment time period change
-                $("#time-period-appointment").change(function() {
+                $("#time-period-heartbeat").change(function() {
                     var period = $(this).val() ?? 'currentMonth';
-                    loadGraphBookingData(period);
+                    loadGraphHeartRate(period);
                 });
             });
         </script>

@@ -226,13 +226,11 @@ class DoctorController extends Controller
   }
 
 
-
-  public function retrieveLastBookingDate()
+  public function retrieveLastBookingDate(Request $request)
   {
 
     $latestBookings = $this->bookingServices->retrieveLastBookingDate(Auth::id());
-    $slotConfig = $this->doctorSlotServices->getSlotConfig(Auth::id());
-
+    $slotConfig     = $this->doctorSlotServices->getSlotConfig(Auth::id());
 
     switch ($slotConfig->status) {
       case '0':
@@ -241,12 +239,13 @@ class DoctorController extends Controller
   
       case '1':
           // Code for when $slotConfig is '1' or active 
+          $this->doctorSlotServices->createSlot($request->all());
           break;
   
       case '2':
           // Here checking if config status is 2, that means future applied update
+          $this->doctorSlotServices->updateSlot($request->all());
           break;
-  
       default:
           // Code for any other value of $slotConfig
           break;

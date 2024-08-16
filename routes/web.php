@@ -366,6 +366,9 @@ Route::prefix('patients')->group(function () {
                 Route::get('dashboard', 'patientDashboard')->name('patient-dashboard.index');
                 Route::get('accounts', 'patientAccounts')->name('patient-accounts.index');
                 Route::get('dependant', 'patientDependant')->name('patient-dependant.index');
+                Route::get('patient-heartbeat-graph-data', 'patientHeartbeatGraphData')->name('patient-heartbeat.graph.data');
+                Route::get('patient-blood-pressure-graph-data', 'patientBloodPressureGraphData')->name('patient-blood-pressure.graph.data');
+
             });
             // Patient Appointments Routes
             Route::controller(PatientAppointmentsController::class)->group(function () {

@@ -24,7 +24,7 @@ class StoreDoctorExperienceRequest extends FormRequest
     {
         $userId = $this->input('user_id');
         $rules = [
-            'experience' => 'required|array',
+            'experience' => 'array',
             'experience.*.job_title' => 'required|string|max:255',
             'experience.*.location' => 'required|string|max:255',
             'experience.*.hospital' => [

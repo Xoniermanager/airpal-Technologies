@@ -77,13 +77,11 @@ class StoreDoctorEducationRequest extends FormRequest
     }
     protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
     {
-        $response = $this->expectsJson()
-            ? response()->json([
-                'status' => 'error',
-                'message' => $validator->errors()->first()
-            ], 422)
-            : redirect()->back()->withErrors($validator)->withInput();
-    
+        $response = new \Illuminate\Http\JsonResponse([
+            'status' => 'error',
+            'message' => $validator->errors()->first()
+        ], 422);
+
         throw new \Illuminate\Validation\ValidationException($validator, $response);
     }
     

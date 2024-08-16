@@ -110,7 +110,7 @@ class PatientDiaryService
 
    public function getAllDiaryDetailsByPatientId($patientId)
    {
-      return $this->patientDiaryRepository->where('patient_id', $patientId)->with(['patientAdditionalInfo', 'medicationHealthProgress'])->paginate(10);
+      return $this->patientDiaryRepository->where('patient_id', $patientId)->with(['patientAdditionalInfo', 'medicationHealthProgress'])->get();
    }
 
    public function getDiaryById($id)

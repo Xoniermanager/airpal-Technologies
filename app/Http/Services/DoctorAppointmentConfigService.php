@@ -364,11 +364,59 @@ class DoctorAppointmentConfigService
         $calendar .= "</table></div>";
         return $calendar;
     }
-
-
     public function getSlotConfig($doctorId)
     {
         return $this->doctorSlotRepository->where('user_id', $doctorId)->first();
     }
+
+    
+    public function createSlot($data)
+    {
+        DB::beginTransaction();
+        $now = Carbon::now();
+        try {
+            $payload = [
+                "user_id" => $data['doctor_id'],
+                "slot_duration" => $data['slot_duration'] ?? 0,
+                "cleanup_interval" => $data['cleanup_interval'] ?? 0,
+                "start_month" => isset($data['start_month']) ? $data['start_month'] : $now->startOfMonth()->format('d'),
+                "end_month" => isset($data['end_month']) ? $data['end_month'] : null,
+                "slots_in_advance" => $data['slots_in_advance'] ? $data['slots_in_advance'] : 30,
+                "start_slots_from_date" => isset($data['start_slots_from_date']) ? $data['start_slots_from_date'] : Carbon::today()->toDateString(),
+                "stop_slots_date" => $data['stop_slots_date']
+            ];
+
+            $this->doctorSlotRepository->create($payload);
+
+            if (isset($data['exception_day_ids'])) {
+                $currentExceptionDays = $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])->pluck('exception_days_id')->toArray();
+                $exceptionDayToRemove = array_diff($currentExceptionDays, $data['exception_day_ids']);
+                if (!empty($exceptionDayToRemove)) {
+                    $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])
+                        ->whereIn('exception_days_id', $exceptionDayToRemove)
+                        ->delete();
+                }
+
+                foreach ($data['exception_day_ids'] as $exception_day_id) {
+                    $exceptionData = [
+                        "doctor_id" => $data['doctor_id'],
+                        "exception_days_id" => $exception_day_id,
+                    ];
+                    $this->doctorExceptionDayRepository->updateOrCreate(
+                        ['doctor_id' => $data['doctor_id'], 'exception_days_id' => $exception_day_id],
+                        $exceptionData
+                    );
+                }
+            } else {
+                $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])->delete();
+            }
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
 
 }

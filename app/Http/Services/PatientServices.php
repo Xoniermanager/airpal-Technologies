@@ -15,11 +15,13 @@ class PatientServices
   private  $userRepository;
   private $bookingService;
   private $bookingRepository;
+  private $patientDiaryService;
 
-  public function __construct(UserRepository $userRepository, BookingServices $bookingService, BookingRepository $bookingRepository)
+  public function __construct(UserRepository $userRepository, BookingServices $bookingService, BookingRepository $bookingRepository,PatientDiaryService $patientDiaryService)
   {
     $this->userRepository = $userRepository;
     $this->bookingService = $bookingService;
+    $this->patientDiaryService = $patientDiaryService;
     $this->bookingRepository = $bookingRepository;
   }
   public function getAllPatientsList()
@@ -41,5 +43,10 @@ class PatientServices
     return $this->bookingRepository->where('patient_id', $patientId)
       ->where('booking_date', '<',Carbon::now())
       ->get();
+  }
+
+  public function patientHeartBeatGraph($patientId)
+  {
+     return $this->patientDiaryService->getAllDiaryDetailsByPatientId($patientId);
   }
 }

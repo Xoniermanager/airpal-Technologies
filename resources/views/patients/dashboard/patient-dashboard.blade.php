@@ -7,7 +7,7 @@
                     <div class="header-title">
                         <h5>Health Records</h5>
                     </div>
-     
+
                 </div>
                 <div class="dashboard-card-body">
                     <div class="row">
@@ -70,7 +70,7 @@
                                     </div>
                                 </div>
                                 <span class="health-percentage">Your health is 95% Normal</span>
-                                <a href="{{ route('patient.medical-details.index')}}" class="btn btn-dark w-100">View
+                                <a href="" class="btn btn-dark w-100">View
                                     Details<i class="fa-solid fa-chevron-right ms-2"></i></a>
                             </div>
                         </div>
@@ -166,8 +166,8 @@
                                             </p>
                                         </div>
                                         <div class="card-btns">
-                                            <a href="#" class="btn btn-gray"><i
-                                                    class="fa-solid fa-comment-dots"></i>Chat Now</a>
+                                            <a href="#" class="btn btn-gray"><i class="fa-solid fa-comment-dots"></i>Chat
+                                                Now</a>
                                             <a href="patient-appointments.html" class="btn btn-outline-primary"><i
                                                     class="fa-solid fa-calendar-check"></i>Attend</a>
                                         </div>
@@ -229,7 +229,7 @@
                             <div class="header-title">
                                 <h5>Analytics</h5>
                             </div>
-                  
+
                         </div>
                         <div class="dashboard-card-body">
                             <div class="chart-tab">
@@ -288,7 +288,7 @@
                             </div> --}}
                         </div>
                     </div>
-       
+
                     <div class="dashboard-card w-100">
                         <div class="dashboard-card-head">
                             <div class="header-title">
@@ -925,38 +925,41 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @forelse ($patientInvoicesList->take(8) as $patientInvoice )
-                                                    <tr>
-                                                        {{-- <td class="text-blue-600"><a href="#" data-bs-toggle="modal"
+                                                    @forelse ($patientInvoicesList->take(8) as $patientInvoice)
+                                                        <tr>
+                                                            {{-- <td class="text-blue-600"><a href="#" data-bs-toggle="modal"
                                                                 data-bs-target="#invoice_view">#Inv-2021</a>
                                                         </td> --}}
-                                                        <td>
-                                                            <h2 class="table-avatar">
-                                                                <a href="doctor-profile.html" class="avatar avatar-sm me-2">
-                                                                    <img class="avatar-img rounded-3"
-                                                                        src="../assets/img/doctors/doctor-thumb-21.jpg"
-                                                                        alt="">
-                                                                </a>
-                                                                <a href="doctor-profile.html">Dr.  {{  $patientInvoice->user->fullName}}</a>
-                                                            </h2>
-                                                        </td>
-                                                        <td>{{ date('j M Y', strtotime($patientInvoice->booking_date)) ?? '' }}
-                                                            {{-- {{ date('h:i A', strtotime($patientInvoice->slot_start_time)) ?? '' }} --}}
-                                                        </td>
-                                                        <td>{{ date('j M Y', strtotime($patientInvoice->created_at)) ?? '' }}</td>
-                                                        <td>${{$patientInvoice->user->payment ?? 0}}</td>
-                                                        <td>
-                                                            @if (isset($invoiceDetail->invoice_url))
-                                                            <a href="javascript:void(0)" class="set-bg-color"
-                                                                onclick="printInvoice('{{ Storage::url($invoiceDetail->invoice_url) }}');">
-                                                                <i class="fa-solid fa-print"></i>
-                                                            </a>
-                                                        @else
-                                                            <a href="javascript:void(0)">
-                                                                <i class="fa-solid fa-print"></i>
-                                                            </a>
-                                                        @endif
-                                                            {{-- <div class="action-item">
+                                                            <td>
+                                                                <h2 class="table-avatar">
+                                                                    <a href="doctor-profile.html"
+                                                                        class="avatar avatar-sm me-2">
+                                                                        <img class="avatar-img rounded-3"
+                                                                            src="../assets/img/doctors/doctor-thumb-21.jpg"
+                                                                            alt="">
+                                                                    </a>
+                                                                    <a href="doctor-profile.html">Dr.
+                                                                        {{ $patientInvoice->user->fullName }}</a>
+                                                                </h2>
+                                                            </td>
+                                                            <td>{{ date('j M Y', strtotime($patientInvoice->booking_date)) ?? '' }}
+                                                                {{-- {{ date('h:i A', strtotime($patientInvoice->slot_start_time)) ?? '' }} --}}
+                                                            </td>
+                                                            <td>{{ date('j M Y', strtotime($patientInvoice->created_at)) ?? '' }}
+                                                            </td>
+                                                            <td>${{ $patientInvoice->user->payment ?? 0 }}</td>
+                                                            <td>
+                                                                @if (isset($invoiceDetail->invoice_url))
+                                                                    <a href="javascript:void(0)" class="set-bg-color"
+                                                                        onclick="printInvoice('{{ Storage::url($invoiceDetail->invoice_url) }}');">
+                                                                        <i class="fa-solid fa-print"></i>
+                                                                    </a>
+                                                                @else
+                                                                    <a href="javascript:void(0)">
+                                                                        <i class="fa-solid fa-print"></i>
+                                                                    </a>
+                                                                @endif
+                                                                {{-- <div class="action-item">
                                                                 <a href="javascript:void(0);" data-bs-toggle="modal"
                                                                     data-bs-target="#invoice_view">
                                                                     <i class="fa-solid fa-link"></i>
@@ -965,12 +968,11 @@
                                                                     <i class="fa-solid fa-print"></i>
                                                                 </a>
                                                             </div> --}}
-                                                        </td>
-                                                    </tr> 
+                                                            </td>
+                                                        </tr>
                                                     @empty
-                                                        
                                                     @endforelse
-                             
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -1007,46 +1009,46 @@
                     //         'period': period
                     //     },
                     //     success: function(response) {
-                            graphBookingData = [
-                                [25, 5.240266007932762],
-                                [26, 5.253756507319332],
-                                [27, 5.22029650790401],
-                                [28, 5.268704059004204],
-                                [29, 5.233683845050076],
-                                [30, 5.289605815622391],
-                                [31, 5.232041091123958],
-                                [1, 5.2301254401862955],
-                                [2, 5.250722035402405],
-                                [3, 5.283736492427697],
-                                [4, 5.296890906826341],
-                                [5, 5.355039204322343],
-                                [6, 5.346735747035125],
-                                [7, 5.326231782387644],
-                                [8, 5.3273666240507165],
-                                [9, 5.328501949410373],
-                                [10, 5.291005414482904],
-                                [11, 5.317451861825049],
-                                [12, 5.3344712035425745],
-                                [13, 5.318865815686569],
-                                [14, 5.3273666240507165],
-                                [15, 5.327650410031998],
-                                [16, 5.33532534905194],
-                                [17, 5.294647171789238],
-                                [18, 5.243288403010766],
-                                [19, 5.2449386384155785],
-                                [20, 5.265097477347184],
-                                [21, 5.291005414482904],
-                                [22, 5.290165399493866],
-                                [23, 5.243013533000918],
-                                [24, 5.177591381675723],
-                                [25, 5.136106760580972],
-                                [26, 5.118754990317601],
-                                [27, 5.132943184294443],
-                                [28, 5.093984040401572],
-                                [29, 5.092946441953961],
-                                [1, 5.096580274206888]
-                            ];
-                            drawLogScalesBooking();
+                    graphBookingData = [
+                        [25, 5.240266007932762],
+                        [26, 5.253756507319332],
+                        [27, 5.22029650790401],
+                        [28, 5.268704059004204],
+                        [29, 5.233683845050076],
+                        [30, 5.289605815622391],
+                        [31, 5.232041091123958],
+                        [1, 5.2301254401862955],
+                        [2, 5.250722035402405],
+                        [3, 5.283736492427697],
+                        [4, 5.296890906826341],
+                        [5, 5.355039204322343],
+                        [6, 5.346735747035125],
+                        [7, 5.326231782387644],
+                        [8, 5.3273666240507165],
+                        [9, 5.328501949410373],
+                        [10, 5.291005414482904],
+                        [11, 5.317451861825049],
+                        [12, 5.3344712035425745],
+                        [13, 5.318865815686569],
+                        [14, 5.3273666240507165],
+                        [15, 5.327650410031998],
+                        [16, 5.33532534905194],
+                        [17, 5.294647171789238],
+                        [18, 5.243288403010766],
+                        [19, 5.2449386384155785],
+                        [20, 5.265097477347184],
+                        [21, 5.291005414482904],
+                        [22, 5.290165399493866],
+                        [23, 5.243013533000918],
+                        [24, 5.177591381675723],
+                        [25, 5.136106760580972],
+                        [26, 5.118754990317601],
+                        [27, 5.132943184294443],
+                        [28, 5.093984040401572],
+                        [29, 5.092946441953961],
+                        [1, 5.096580274206888]
+                    ];
+                    drawLogScalesBooking();
                     //     },
                     //     error: function(xhr, status, error) {
                     //         console.error(error);
@@ -1064,48 +1066,48 @@
                     //         'period': period
                     //     },
                     //     success: function(response) {
-                            graphRevenueData = [
-                                [25, 5.240266007932762],
-                                [26, 5.253756507319332],
-                                [27, 5.22029650790401],
-                                [28, 5.268704059004204],
-                                [29, 5.233683845050076],
-                                [30, 5.289605815622391],
-                                [31, 5.232041091123958],
-                                [1, 5.2301254401862955],
-                                [2, 5.250722035402405],
-                                [3, 5.283736492427697],
-                                [4, 5.296890906826341],
-                                [5, 5.355039204322343],
-                                [6, 5.346735747035125],
-                                [7, 5.326231782387644],
-                                [8, 5.3273666240507165],
-                                [9, 5.328501949410373],
-                                [10, 5.291005414482904],
-                                [11, 5.317451861825049],
-                                [12, 5.3344712035425745],
-                                [13, 5.318865815686569],
-                                [14, 5.3273666240507165],
-                                [15, 5.327650410031998],
-                                [16, 5.33532534905194],
-                                [17, 5.294647171789238],
-                                [18, 5.243288403010766],
-                                [19, 5.2449386384155785],
-                                [20, 5.265097477347184],
-                                [21, 5.291005414482904],
-                                [22, 5.290165399493866],
-                                [23, 5.243013533000918],
-                                [24, 5.177591381675723],
-                                [25, 5.136106760580972],
-                                [26, 5.118754990317601],
-                                [27, 5.132943184294443],
-                                [28, 5.093984040401572],
-                                [29, 5.092946441953961],
-                                [1, 5.096580274206888]
-                            ];
-                            drawLogScalesRevenue();
-          
-                            
+                    graphRevenueData = [
+                        [25, 5.240266007932762],
+                        [26, 5.253756507319332],
+                        [27, 5.22029650790401],
+                        [28, 5.268704059004204],
+                        [29, 5.233683845050076],
+                        [30, 5.289605815622391],
+                        [31, 5.232041091123958],
+                        [1, 5.2301254401862955],
+                        [2, 5.250722035402405],
+                        [3, 5.283736492427697],
+                        [4, 5.296890906826341],
+                        [5, 5.355039204322343],
+                        [6, 5.346735747035125],
+                        [7, 5.326231782387644],
+                        [8, 5.3273666240507165],
+                        [9, 5.328501949410373],
+                        [10, 5.291005414482904],
+                        [11, 5.317451861825049],
+                        [12, 5.3344712035425745],
+                        [13, 5.318865815686569],
+                        [14, 5.3273666240507165],
+                        [15, 5.327650410031998],
+                        [16, 5.33532534905194],
+                        [17, 5.294647171789238],
+                        [18, 5.243288403010766],
+                        [19, 5.2449386384155785],
+                        [20, 5.265097477347184],
+                        [21, 5.291005414482904],
+                        [22, 5.290165399493866],
+                        [23, 5.243013533000918],
+                        [24, 5.177591381675723],
+                        [25, 5.136106760580972],
+                        [26, 5.118754990317601],
+                        [27, 5.132943184294443],
+                        [28, 5.093984040401572],
+                        [29, 5.092946441953961],
+                        [1, 5.096580274206888]
+                    ];
+                    drawLogScalesRevenue();
+
+
                 }
 
                 // Function to draw booking chart

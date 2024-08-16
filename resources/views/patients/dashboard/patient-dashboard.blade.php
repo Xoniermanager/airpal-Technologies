@@ -7,7 +7,7 @@
                     <div class="header-title">
                         <h5>Health Records</h5>
                     </div>
-     
+
                 </div>
                 <div class="dashboard-card-body">
                     <div class="row">
@@ -70,7 +70,7 @@
                                     </div>
                                 </div>
                                 <span class="health-percentage">Your health is 95% Normal</span>
-                                <a href="{{ route('patient.medical-details.index')}}" class="btn btn-dark w-100">View
+                                <a href="" class="btn btn-dark w-100">View
                                     Details<i class="fa-solid fa-chevron-right ms-2"></i></a>
                             </div>
                         </div>
@@ -166,8 +166,8 @@
                                             </p>
                                         </div>
                                         <div class="card-btns">
-                                            <a href="#" class="btn btn-gray"><i
-                                                    class="fa-solid fa-comment-dots"></i>Chat Now</a>
+                                            <a href="#" class="btn btn-gray"><i class="fa-solid fa-comment-dots"></i>Chat
+                                                Now</a>
                                             <a href="patient-appointments.html" class="btn btn-outline-primary"><i
                                                     class="fa-solid fa-calendar-check"></i>Attend</a>
                                         </div>
@@ -229,7 +229,7 @@
                             <div class="header-title">
                                 <h5>Analytics</h5>
                             </div>
-                  
+
                         </div>
                         <div class="dashboard-card-body">
                             <div class="chart-tab">
@@ -294,7 +294,7 @@
                             </div> --}}
                         </div>
                     </div>
-       
+
                     <div class="dashboard-card w-100">
                         <div class="dashboard-card-head">
                             <div class="header-title">
@@ -931,38 +931,41 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @forelse ($patientInvoicesList->take(8) as $patientInvoice )
-                                                    <tr>
-                                                        {{-- <td class="text-blue-600"><a href="#" data-bs-toggle="modal"
+                                                    @forelse ($patientInvoicesList->take(8) as $patientInvoice)
+                                                        <tr>
+                                                            {{-- <td class="text-blue-600"><a href="#" data-bs-toggle="modal"
                                                                 data-bs-target="#invoice_view">#Inv-2021</a>
                                                         </td> --}}
-                                                        <td>
-                                                            <h2 class="table-avatar">
-                                                                <a href="doctor-profile.html" class="avatar avatar-sm me-2">
-                                                                    <img class="avatar-img rounded-3"
-                                                                        src="../assets/img/doctors/doctor-thumb-21.jpg"
-                                                                        alt="">
-                                                                </a>
-                                                                <a href="doctor-profile.html">Dr.  {{  $patientInvoice->user->fullName}}</a>
-                                                            </h2>
-                                                        </td>
-                                                        <td>{{ date('j M Y', strtotime($patientInvoice->booking_date)) ?? '' }}
-                                                            {{-- {{ date('h:i A', strtotime($patientInvoice->slot_start_time)) ?? '' }} --}}
-                                                        </td>
-                                                        <td>{{ date('j M Y', strtotime($patientInvoice->created_at)) ?? '' }}</td>
-                                                        <td>${{$patientInvoice->user->payment ?? 0}}</td>
-                                                        <td>
-                                                            @if (isset($invoiceDetail->invoice_url))
-                                                            <a href="javascript:void(0)" class="set-bg-color"
-                                                                onclick="printInvoice('{{ Storage::url($invoiceDetail->invoice_url) }}');">
-                                                                <i class="fa-solid fa-print"></i>
-                                                            </a>
-                                                        @else
-                                                            <a href="javascript:void(0)">
-                                                                <i class="fa-solid fa-print"></i>
-                                                            </a>
-                                                        @endif
-                                                            {{-- <div class="action-item">
+                                                            <td>
+                                                                <h2 class="table-avatar">
+                                                                    <a href="doctor-profile.html"
+                                                                        class="avatar avatar-sm me-2">
+                                                                        <img class="avatar-img rounded-3"
+                                                                            src="../assets/img/doctors/doctor-thumb-21.jpg"
+                                                                            alt="">
+                                                                    </a>
+                                                                    <a href="doctor-profile.html">Dr.
+                                                                        {{ $patientInvoice->user->fullName }}</a>
+                                                                </h2>
+                                                            </td>
+                                                            <td>{{ date('j M Y', strtotime($patientInvoice->booking_date)) ?? '' }}
+                                                                {{-- {{ date('h:i A', strtotime($patientInvoice->slot_start_time)) ?? '' }} --}}
+                                                            </td>
+                                                            <td>{{ date('j M Y', strtotime($patientInvoice->created_at)) ?? '' }}
+                                                            </td>
+                                                            <td>${{ $patientInvoice->user->payment ?? 0 }}</td>
+                                                            <td>
+                                                                @if (isset($invoiceDetail->invoice_url))
+                                                                    <a href="javascript:void(0)" class="set-bg-color"
+                                                                        onclick="printInvoice('{{ Storage::url($invoiceDetail->invoice_url) }}');">
+                                                                        <i class="fa-solid fa-print"></i>
+                                                                    </a>
+                                                                @else
+                                                                    <a href="javascript:void(0)">
+                                                                        <i class="fa-solid fa-print"></i>
+                                                                    </a>
+                                                                @endif
+                                                                {{-- <div class="action-item">
                                                                 <a href="javascript:void(0);" data-bs-toggle="modal"
                                                                     data-bs-target="#invoice_view">
                                                                     <i class="fa-solid fa-link"></i>
@@ -971,12 +974,11 @@
                                                                     <i class="fa-solid fa-print"></i>
                                                                 </a>
                                                             </div> --}}
-                                                        </td>
-                                                    </tr> 
+                                                            </td>
+                                                        </tr>
                                                     @empty
-                                                        
                                                     @endforelse
-                             
+
                                                 </tbody>
                                             </table>
                                         </div>

@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Support\Facades\Storage;
+
 function getRatingHtml($value)
 {
     $html = '';
@@ -52,4 +55,19 @@ function getRatingHtml($value)
                     <i class=$star_4></i>
                     <i class=$star_5></i>";
     return $html;
+}
+
+function uploadingImageorFile($file, String $path, $namePrefix = '')
+{
+    $image  = $namePrefix . '-' . time() . '.' . $file->getClientOriginalExtension();
+    $path = $path . '/' . $image;
+    Storage::disk('public')->put($path, file_get_contents($file));
+    return  $path;
+}
+function unlinkFileOrImage($file)
+{
+    if (file_exists(storage_path('app/public/') . $file)) {
+        unlink(storage_path('app/public/') . $file);
+    }
+    return true;
 }

@@ -50,6 +50,7 @@ use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, AdminReviewController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
+use App\Http\Controllers\Patient\MedicalRecordController;
 use App\Http\Controllers\Patient\PatientDiaryController;
 use App\Http\Controllers\Patient\PatientFavoriteDoctorController;
 use App\Http\Controllers\Patient\PatientInvoiceController;
@@ -105,15 +106,15 @@ Route::controller(DoctorController::class)->group(function () {
 
 
 // Common endpoints
-Route::middleware(['auth'])->group(function(){
-    Route::controller(DoctorPatientChatHistoryController::class)->group(function(){
-        Route::post('chat-history','getSelectedChatHistory')->name('chat.history');
-        Route::post('send-message','saveChatMessage')->name('send.message');
+Route::middleware(['auth'])->group(function () {
+    Route::controller(DoctorPatientChatHistoryController::class)->group(function () {
+        Route::post('chat-history', 'getSelectedChatHistory')->name('chat.history');
+        Route::post('send-message', 'saveChatMessage')->name('send.message');
     });
 });
 // =============================== Doctor Panel Start ==================================== //
 /**
- * Routes for doctor panel 
+ * Routes for doctor panel
  * doctor profile
  */
 
@@ -190,9 +191,9 @@ Route::prefix('doctor')->group(function () {
         });
 
         // Doctor Patient Chat
-        Route::controller(DoctorPatientChatController::class)->group(function(){
-            Route::get('chat','getDoctorAllChats')->name('doctor.chat');
-            Route::get('search-chat-patients','searchPatientListInChat')->name('chat.search.patients');
+        Route::controller(DoctorPatientChatController::class)->group(function () {
+            Route::get('chat', 'getDoctorAllChats')->name('doctor.chat');
+            Route::get('search-chat-patients', 'searchPatientListInChat')->name('chat.search.patients');
         });
     });
 });
@@ -202,7 +203,7 @@ Route::prefix('doctor')->group(function () {
 
 // =============================== Admin Routes Start ================================= //
 /**
- * Routes for Admin panel 
+ * Routes for Admin panel
  */
 Route::prefix('admin')->group(function () {
 
@@ -352,7 +353,7 @@ Route::prefix('admin')->group(function () {
 // =========================== End Admin Routes Start ================================= //
 
 // =========================== Patient Panel Start ===================== //
-Route::get('check-review',[BookingController::class, 'checkReviewByPatientId'])->name('check.review')->middleware('auth');
+Route::get('check-review', [BookingController::class, 'checkReviewByPatientId'])->name('check.review')->middleware('auth');
 
 Route::prefix('patients')->group(function () {
     Route::middleware(['role:patient'])->group(function () {
@@ -402,8 +403,17 @@ Route::prefix('patients')->group(function () {
             });
             Route::controller(TempController::class)->group(function () {
                 Route::get('dependant', 'dependant')->name('patient.dependant.index');
-                Route::get('medical-records', 'medicalRecords')->name('patient.medical-records.index');
-                Route::get('medical-details', 'medicalDetails')->name('patient.medical-details.index');
+            });
+
+            // Medical Record
+            Route::controller(MedicalRecordController::class)->group(function () {
+                Route::get('medical-records', 'medicalRecordsList')->name('patient.medical-records.index');
+                Route::get('add-medical-record', 'addMedicalRecord')->name('patient.medical-records.add');
+                Route::post('create-medical-record', 'createMedicalRecord')->name('patient.medical-records.create');
+                Route::get('edit-medical-record/{medical_records:id}', 'editMedicalRecord')->name('patient.medical-records.edit');
+                Route::post('update-medical-record/{medical_records:id}', 'updateMedicalRecord')->name('patient.medical-records.update');
+                Route::get('delete-medical-record/{medical_records:id}', 'deleteMedicalRecord');
+                Route::get('get-booking-details/{booking_slots:id}', 'getBookingDetails');
             });
 
             //Diary Module
@@ -416,9 +426,9 @@ Route::prefix('patients')->group(function () {
             });
 
             // Doctor Patient Chat
-            Route::controller(DoctorPatientChatController::class)->group(function(){
-                Route::get('chat','getPatientAllChats')->name('patient.chat');
-                Route::get('search-chat-doctors','searchDoctorListInChat')->name('chat.search.doctors');
+            Route::controller(DoctorPatientChatController::class)->group(function () {
+                Route::get('chat', 'getPatientAllChats')->name('patient.chat');
+                Route::get('search-chat-doctors', 'searchDoctorListInChat')->name('chat.search.doctors');
             });
         });
     });

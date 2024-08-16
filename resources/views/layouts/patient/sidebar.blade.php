@@ -70,12 +70,6 @@
                         <span>Invoices</span>
                     </a>
                 </li>
-                <li class="{{ request()->routeIs('patient.medical-details.index') ? 'active' : '' }}">
-                    <a href="{{ route('patient.medical-details.index') }}">
-                        <i class="fa-solid fa-shield-halved"></i>
-                        <span>Medical Details</span>
-                    </a>
-                </li>
                 <li class="{{ request()->routeIs('patient-settings.index') ? 'active' : '' }}">
                     <a href="{{ route('patient-settings.index') }}">
                         <i class="fa-solid fa-user-pen"></i>

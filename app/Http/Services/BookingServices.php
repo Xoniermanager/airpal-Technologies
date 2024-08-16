@@ -101,7 +101,7 @@ class BookingServices
       $queryDetails =  $this->bookingRepository->where('doctor_id', $id)->with('patient');
 
       // Using search keyword to find appointments
-      if (isset($searchKey) && !empty($searchKey)) 
+      if (isset($searchKey) && !empty($searchKey))
       {
          $searchKey = explode(' ', $searchKey);
          $queryDetails = $queryDetails->whereHas('patient', function ($query) use ($searchKey) {
@@ -135,7 +135,7 @@ class BookingServices
    }
    public function appointmentsById($id)
    {
-      return $this->bookingRepository->where('id', $id)->with('patient');
+      return $this->bookingRepository->where('id', $id)->with(['patient','doctor']);
    }
 
    public function doctorUpcomingBookings($id)
@@ -153,7 +153,7 @@ class BookingServices
    {
       return  $this->bookingRepository->searchDoctorAppointments($filterParams);
    }
-   
+
    public function searchPatientsAppointments($filterParams)
    {
       return  $this->bookingRepository->searchPatientsAppointments($filterParams);
@@ -245,7 +245,7 @@ class BookingServices
 
    public function getAllAppointmentCounter($id)
    {
-      // Here returning all patient type (status,upcoming,cancelled,confirmed) counter for (doctor profile) 
+      // Here returning all patient type (status,upcoming,cancelled,confirmed) counter for (doctor profile)
       return
          [
             'allAppointments'       => $this->doctorBookings($id)->count(),
@@ -259,7 +259,7 @@ class BookingServices
    public function getAllAppointmentPatientCounter($id)
    {
       $todayDate = Carbon::now()->toDateString();
-      // Here returning all patient type (status,upcoming,cancelled,confirmed) counter for (doctor profile) 
+      // Here returning all patient type (status,upcoming,cancelled,confirmed) counter for (doctor profile)
       return
          [
             'allAppointments'       => $this->bookingRepository->where('patient_id', $id)->with('patient')->count(),

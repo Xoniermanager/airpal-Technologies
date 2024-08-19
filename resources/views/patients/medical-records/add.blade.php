@@ -109,7 +109,7 @@
                     $('#booking_div').html(res);
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
-                    // Swal.fire("Error deleting!", "Please try again", "error");
+                    Swal.fire("Error deleting!", "Please try again", "error");
                 }
             });
         });

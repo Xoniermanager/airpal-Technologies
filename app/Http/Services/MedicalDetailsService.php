@@ -67,4 +67,11 @@ class MedicalDetailsService
             return ['status' => false, 'data' => $e->getmessage()];
         }
     }
+
+    public function searchFilterMedicalRecord($searchKey, $patientId)
+    {
+        $medicalRecord = $this->medicalRecordRepository->where('patient_id', $patientId)->newQuery();
+        $medicalRecord = $medicalRecord->where('name', 'like', "%{$searchKey}%")->orWhere('description', 'like', "%{$searchKey}%");
+        $medicalRecord->get();
+    }
 }

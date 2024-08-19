@@ -147,6 +147,7 @@ Route::middleware('authCheck')->group(function () {
             Route::post('add-patient-diary', 'addPatientDiary');
             Route::post('update-patient-diary/{patient_diaries:id}', 'updatePatientDiary');
             Route::get('get-patient-diary-details/{patient_diaries:id}', 'getDiaryDetailsById');
+            Route::get('check-today-patient-diary/{date}', 'checkTodayDateDiaryDetails');
         });
     });
     Route::get('privacy', [AuthController::class, 'privacyPolicy']);

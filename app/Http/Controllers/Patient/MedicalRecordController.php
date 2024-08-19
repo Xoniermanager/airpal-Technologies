@@ -97,4 +97,19 @@ class MedicalRecordController extends Controller
         $html .= '<p> <b> Note:</b> '  . $bookingDetails->note . '</p></li></ul></div>';
         return response($html);
     }
+
+    public function searchFilterMedicalRecord(Request $request)
+    {
+        try {
+            $filteredMedicalRecord = $this->medicalDetailsService->searchFilterMedicalRecord($request->search_key, Auth::user()->id);
+            return response()->json([
+                'success' => 'Filtering',
+                'data'    =>  view("patients.medical-records.all-medical-record", [
+                    'allMedicalRecord' =>  $filteredMedicalRecord,
+                ])->render()
+            ]);
+        } catch (Exception $e) {
+            return  $e->getMessage();
+        }
+    }
 }

@@ -84,7 +84,7 @@ class BookingServices
    }
    public function getPaginateData()
    {
-      return $this->bookingRepository->paginate(10)->setPath(route('admin.index.bookingServices'));
+      return $this->bookingRepository->paginate(12);
    }
    public function all()
    {

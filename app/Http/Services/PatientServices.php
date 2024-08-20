@@ -26,7 +26,7 @@ class PatientServices
   }
   public function getAllPatientsList()
   {
-    return $this->userRepository->where('role', 3)->get();
+    return $this->userRepository->where('role', 3)->paginate(12);
   }
   public function getPatientListByDoctor($doctorId)
   {

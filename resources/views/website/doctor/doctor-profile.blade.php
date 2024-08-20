@@ -44,9 +44,17 @@
                                 @php
                                     $slicedSpecializationsArray = $doctor->specializations;
                                 @endphp
-                                <p class="doc-department"><img
-                                        src="{{ URL::asset('assets/img/specialities/specialities-05.png') }}"
-                                        class="img-fluid" alt="Speciality">Dentist</p>
+                                <p class="doc-department">
+                                    @isset($doctor)
+                                        @forelse ($doctor->specializations as $specialization)
+                                            <span class="badge badge-info text-white">{{ $specialization->name }}</span>
+
+                                        @empty
+                                            <p>N/A</p>
+                                        @endforelse
+                                    @endisset
+
+                                </p>
                                 <div class="reviews-ratings">
                                     {!! getRatingHtml($doctor->allover_rating) !!}
                                     ({{ count($doctor->doctorReview) }} Reviews)
@@ -88,7 +96,7 @@
                             <div class="clini-infos">
                                 <ul>
                                     <li><i class="far fa-thumbs-up"></i> 99%</li>
-                                    <li><i class="far fa-comment"></i> 35 Feedback</li>
+                                    <li><i class="far fa-comment"></i> ({{ count($doctor->doctorReview) }}) Feedback</li>
                                     @if (isset($doctor->doctorAddress))
                                         <li><i class="fas fa-map-marker-alt"></i>
                                             {{ $doctor->doctorAddress->address ?? '' }}
@@ -109,8 +117,8 @@
                                 <a href="#" class="btn btn-white msg-btn">
                                     <i class="far fa-comment-alt"></i>
                                 </a>
-                                <a href="javascript:void(0)" class="btn btn-white call-btn" data-bs-toggle="modal"
-                                    data-bs-target="#voice_call">
+                                <a href="tel:{{ $doctor->phone ?? '' }}" class="btn btn-white call-btn"
+                                   >
                                     <i class="fas fa-phone"></i>
                                 </a>
                                 <a href="javascript:void(0)" class="btn btn-white call-btn" data-bs-toggle="modal"

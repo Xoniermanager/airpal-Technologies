@@ -11,7 +11,6 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\InstantController;
 use App\Jobs\UpdateDoctorRatingsAverageValue;
-use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\SlotsController;
 use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Admin\CountryController;
@@ -21,12 +20,11 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Doctor\InvoiceController;
 use App\Http\Controllers\Doctor\PatientController;
 use App\Http\Controllers\Doctor\ReviewsController;
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Doctor\DoctorNotification;
 use App\Http\Controllers\Patient\BookingController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\HealthmonitoringController;
-use App\Http\Controllers\Admin\AppointmentController;
+use App\Http\Controllers\Admin\AdminAppointmentController;
 use App\Http\Controllers\Admin\PatientListController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\DoctorPatientChatController;
@@ -49,7 +47,7 @@ use App\Http\Controllers\Patient\PatientAppointmentsController;
 use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
-use App\Http\Controllers\Admin\{AdminAuthController, AdminReviewController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
+use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
 use App\Http\Controllers\Patient\MedicalRecordController;
 use App\Http\Controllers\Patient\PatientDiaryController;
 use App\Http\Controllers\Patient\PatientFavoriteDoctorController;
@@ -66,23 +64,19 @@ Route::controller(AdminAuthController::class)->group(function () {
     Route::get('admin/logout', 'logout')->name('admin.logout');
 });
 
-Route::prefix('doctor')->group(function () {
+// these routes are used for without auth attempt 
+// Route::prefix('doctor')->group(function () {
     Route::controller(DoctorAuthenticationController::class)->group(function () {
-        // Route::get('login', 'doctorLogin')->name('doctor.doctor-login.index');
-        Route::get('logout', 'logout')->name('doctor.logout');
         Route::get('forget-password', 'forgetPasswordIndex')->name('doctor.forget.password.index');
         Route::post('send-otp', 'forgetPasswordSendOtp')->name('forget.password.send.otp');
         Route::get('reset-password', 'resetPasswordIndex')->name('reset.password.index');
         Route::post('reset-password', 'resetPassword')->name('reset.password');
-        Route::post('login', 'userLogin')->name('doctor.doctor-login');
     });
-});
+// });
 
 // common file for login Admin, Doctor, Patient
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-
-
 
 Route::controller(PatientAuthController::class)->group(function () {
     Route::get('/register', 'register')->name('register.index');
@@ -100,8 +94,6 @@ Route::controller(DoctorController::class)->group(function () {
     Route::get('doctor/success', 'success')->name('success.index');
 
     Route::get('get-latest-booking-date', 'retrieveLastBookingDate')->name('get.latest.booking.date');
-    
-
 });
 
 
@@ -186,8 +178,11 @@ Route::prefix('doctor')->group(function () {
             Route::get('doctor-question-filter', 'doctorQuestionFilter')->name('doctor.question.filter');
             Route::get('get-question-by-doctor-id', 'getQuestionByDoctorId')->name('get.question.doctor.id');
         });
+         
+        // these routes are used for with auth attempt 
         Route::controller(DoctorAuthenticationController::class)->group(function () {
             Route::post('change-password', 'changePassword')->name('doctor.change.password');
+            Route::get('logout', 'logout')->name('doctor.logout');
         });
 
         // Doctor Patient Chat
@@ -206,6 +201,10 @@ Route::prefix('doctor')->group(function () {
  * Routes for Admin panel
  */
 Route::prefix('admin')->group(function () {
+
+    Route::controller(AdminDashboardController::class)->group(function () {
+        Route::get('dashboard', 'index')->name('admin.dashboard.index');
+    });
 
     Route::prefix('faqs')->controller(FaqsController::class)->group(function () {
         Route::get('/', 'index')->name('admin.faqs.index');
@@ -279,6 +278,7 @@ Route::prefix('admin')->group(function () {
         Route::get('add', 'addDoctor')->name('admin.add-doctor');
         Route::get('edit/{user:id}', 'editDoctor')->name('admin.edit-doctor');
         Route::post('add', 'addPersonalDetails')->name('admin.add-personal-details');
+        Route::get('searching-doctor', 'searching')->name('admin.searching.doctor');
     });
 
     Route::prefix('doctor')->controller(DoctorEducationController::class)->group(function () {
@@ -328,18 +328,17 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::controller(PatientListController::class)->group(function () {
-        Route::get('patient-list', 'patientList')->name('admin.patient-list.index');
+        Route::get('patients', 'patientList')->name('admin.patient-list.index');
         Route::post('filter-patients-by-doctor', 'getPatientListByDoctor')->name('filter.patients.by.doctor');
     });
 
-    Route::controller(AdminReviewController::class)->group(function(){
+    Route::controller(AdminReviewController::class)->group(function () {
         Route::get('/reviews', 'reviews')->name('admin.reviews.index');
         Route::post('/delete-review', 'deleteReviews')->name('admin.delete.review');
     });
 
-
-    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard.index');
-    Route::get('/appointment-list', [AppointmentController::class, 'appointmentList'])->name('admin.appointment-list.index');
+    Route::get('/appointments', [AdminAppointmentController::class, 'appointmentList'])->name('admin.appointment-list.index');
+    Route::get('admin-appointment-filter',  [AdminAppointmentController::class, 'appointmentFilter'])->name('admin.appointment-filter');
 
     Route::get('/profile/{user:id}', [ProfileController::class, 'profile'])->name('admin.profile.index');
     Route::get('/settings', [SettingsController::class, 'settings'])->name('admin.settings.index');
@@ -369,7 +368,6 @@ Route::prefix('patients')->group(function () {
                 Route::get('dependant', 'patientDependant')->name('patient-dependant.index');
                 Route::get('patient-heartbeat-graph-data', 'patientHeartbeatGraphData')->name('patient-heartbeat.graph.data');
                 Route::get('patient-blood-pressure-graph-data', 'patientBloodPressureGraphData')->name('patient-blood-pressure.graph.data');
-
             });
             // Patient Appointments Routes
             Route::controller(PatientAppointmentsController::class)->group(function () {

@@ -21873,7 +21873,7 @@ a.mute-video.stop {
   margin-bottom: 20px;
 }
 .doctor-widget-one .clinic-details {
-  padding-bottom: 14px;
+  /* padding-bottom: 14px; */
 }
 .doctor-widget-one .doc-info-cont .reviews-ratings p {
   font-size: 12px;

@@ -72,7 +72,7 @@ class DoctorController extends Controller
 
     $topSpecializations = array_slice($specializationNames, 0, 2);
     $specializationsString = implode(', ', $topSpecializations);
-    return view('website.doctor.doctor-profile')
+  return view('website.doctor.doctor-profile')
       ->with('doctor', $doctor)
       ->with('specializationsString', $specializationsString)
       ->with('allReviewDetails', $this->doctorReviewService->getAllReviewByDoctorId($user->id));

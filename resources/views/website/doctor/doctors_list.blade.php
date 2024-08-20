@@ -23,9 +23,28 @@
                                                             href="{{ route('frontend.doctor.profile', ['user' => $doctor->id]) }}">{{ $doctor->first_name }}</a>
                                                         <i class="fas fa-circle-check"></i>
                                                     </h4>
+                                                    <span class="doc-speciality">
+                                                       ( @forelse ($doctor->educations as $education)
+                                                            {{ $education->course->name }}
+                                                            @if (!$loop->last)
+                                                                ,
+                                                            @endif
+                                                        @empty
+                                                            <p>N/A</p>
+                                                        @endforelse
+                                                       )
+                                                    </span>
+                                                    <div>
+                                                        @isset($doctor)
+                                                            @forelse ($doctor->specializations as $specialization)
+                                                                <span
+                                                                    class="badge badge-info text-white">{{ $specialization->name }}</span>
 
-                                                    <p class="doc-speciality">MBBS, Dentist</p>
-                                                    {{-- <p class="doc-speciality">{{$course}}</p> --}}
+                                                            @empty
+                                                                <p>N/A</p>
+                                                            @endforelse
+                                                        @endisset
+                                                    </div>
                                                     <div class="clinic-details">
                                                         <p class="doc-location">
                                                             @php
@@ -34,9 +53,6 @@
                                                                 $fullAddress = $address . ' ' . $city . ' india';
                                                                 $encodedAddress = str_replace(' ', '+', $fullAddress);
                                                             @endphp
-
-
-
 
                                                             @if (isset($doctor->doctorAddress))
                                                                 <p>
@@ -60,6 +76,16 @@
                                                             <i class="feather-award"></i>
                                                             <span>{{ $doctor->experience_years == 0 || $doctor->experience_years == null ? 'Experience Not Added' : $doctor->experience_years . ' Years of Experience' }}</span>
                                                         </p>
+                                                        <p class="doc-location">
+                                                            <i class="feather-phone"></i>
+                                                            <span>{{ $doctor->phone ?? 'Not available' }}</span>
+                                                          </p>
+                                                          <p class="doc-location">
+                                                            <i class="feather-mail"></i>
+                                                            <span>{{ $doctor->email ?? 'Not available' }}</span>
+                                                          </p>
+
+                                                   
                                                     </div>
                                                     <div class="reviews-ratings">
                                                         {!! getRatingHtml($doctor->allover_rating) !!}
@@ -79,9 +105,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            @empty
-                                <div>
-                                    <p>No Doctor Found</p>
-                                </div>
-                            @endforelse
-                        </div>
+                                @empty
+                                    <div>
+                                        <p>No Doctor Found</p>
+                                    </div>
+                                @endforelse
+                            </div>

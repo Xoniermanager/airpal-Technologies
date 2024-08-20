@@ -11,9 +11,9 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($socialMediaTypes as $socialMediaType)
+                @foreach ($socialMediaTypes as $key => $socialMediaType)
                 <tr>
-                    <td>{{ $socialMediaType->id }}</td>
+                    <td>{{ $key+1 }}</td>
                     <td>
                         <h2 class="table-avatar">
                             {{ $socialMediaType->name }}

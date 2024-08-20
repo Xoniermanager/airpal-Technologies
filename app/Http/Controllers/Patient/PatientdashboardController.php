@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Services\BookingServices;
 use App\Http\Services\InvoiceServices;
 use App\Http\Services\PatientServices;
+use App\Http\Services\PatientDiaryService;
+use App\Http\Services\MedicalDetailsService;
 use App\Http\Services\FavoriteDoctorServices;
 
 class PatientDashboardController extends Controller
@@ -16,25 +18,38 @@ class PatientDashboardController extends Controller
 
   private $favoriteDoctorServices;
   private $patientServices;
-
   private $invoiceServices;
+  private $medicalDetailsService;
+  private $patientDiaryService;
 
-  public function __construct(FavoriteDoctorServices $favoriteDoctorServices, PatientServices $patientServices, InvoiceServices $invoiceServices)
+
+  public function __construct(
+  FavoriteDoctorServices $favoriteDoctorServices, 
+  PatientServices $patientServices, 
+  InvoiceServices $invoiceServices,
+  MedicalDetailsService $medicalDetailsService,
+  PatientDiaryService $patientDiaryService
+  )
   {
     $this->patientServices = $patientServices;
     $this->invoiceServices = $invoiceServices;
     $this->favoriteDoctorServices = $favoriteDoctorServices;
+    $this->medicalDetailsService = $medicalDetailsService;
+    $this->patientDiaryService = $patientDiaryService;
   }
   public function patientDashboard()
   {
-    $patientId                = Auth::user()->id;
+    $patientId                 = Auth::user()->id;
     $patientHeartBeatGraphData = $this->patientServices->patientHeartBeatGraph($patientId);
+    $medicalDetailsRecords     = $this->medicalDetailsService->getMedicalRecordByPatientId(Auth::user()->id);
+
 
     $favoriteDoctorsList      = $this->favoriteDoctorServices->getAllFavoriteDoctors($patientId)->get();
     $patientPastBookings      = $this->patientServices->getPatientPastBookings($patientId);
     $patientUpcomingBookings  = $this->patientServices->getPatientBookings($patientId);
     $patientInvoicesList      = $this->invoiceServices->getAllPatientInvoice($patientId);
 
+    $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate(Carbon::today(), Auth::user()->id);
 
 
     return view(
@@ -44,7 +59,9 @@ class PatientDashboardController extends Controller
         'patientUpcomingBookings'   => $patientUpcomingBookings,
         'patientPastBookings'       => $patientPastBookings,
         'patientInvoicesList'       => $patientInvoicesList,
-        'patientHeartBeatGraphData' => $patientHeartBeatGraphData
+        'patientHeartBeatGraphData' => $patientHeartBeatGraphData,
+        'medicalRecords'            => $medicalDetailsRecords->take(5),
+        'diaryDetails'              => $diaryDetails
       ]
     );
   }

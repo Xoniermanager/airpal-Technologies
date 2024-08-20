@@ -28,7 +28,7 @@ class DoctorReviewService
       if (isset($searchKey['rating'])) {
          $allReviewDetails->orderBy('rating', $searchKey['rating']);
       }
-      return $allReviewDetails->get();
+      return $allReviewDetails->paginate(12);
    }
 
    public function getAllReviewByPatientId($patientId)

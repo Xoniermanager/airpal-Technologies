@@ -56,7 +56,9 @@
                 </tr>
             @empty
             @endforelse
-
         </tbody>
     </table>
+    <div class="mt-3 d-flex justify-content-end">
+        {{ $allDoctorsReviewDetails->links() }}
+    </div>
 </div>

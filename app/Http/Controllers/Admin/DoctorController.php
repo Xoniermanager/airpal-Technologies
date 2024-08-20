@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\{Service, DayOfWeek};
 use Illuminate\Support\Facades\Redis;
 use App\Http\Requests\StoreDoctorPersonalDetailRequest;
-use App\Http\Services\{CountryServices, UserServices, DoctorLanguageServices, SpecializationServices, DoctorSpecialityServices, DoctorServiceAddServices, StateServices};
+use App\Http\Services\{BookingServices, CountryServices, UserServices, DoctorLanguageServices, SpecializationServices, DoctorSpecialityServices, DoctorServiceAddServices, StateServices};
 
 class DoctorController extends Controller
 {
@@ -17,9 +17,9 @@ class DoctorController extends Controller
     private $specialization_services;
     private $doctor_speciality_services;
     private $doctor_service_add_services;
-
     private $countryServices;
     private $stateServices; 
+    private $bookingServices;
 
     public function __construct(
         UserServices $user_services,
@@ -29,6 +29,7 @@ class DoctorController extends Controller
         DoctorServiceAddServices $doctor_service_add_services,
         CountryServices $countryServices,
         StateServices $stateServices,
+        BookingServices $bookingServices
         
     ) {
         $this->user_services               = $user_services;
@@ -38,6 +39,7 @@ class DoctorController extends Controller
         $this->specialization_services     = $specialization_services;
         $this->doctor_speciality_services  = $doctor_speciality_services;
         $this->doctor_service_add_services = $doctor_service_add_services;
+        $this->bookingServices            = $bookingServices;
     }
     public function index()
     {
@@ -110,6 +112,18 @@ class DoctorController extends Controller
             'states'      => $states,
             'dayOfWeeks'  => $dayOfWeeks,
             'singleDoctorDetails' => $singleDoctorDetails,
+        ]);
+    }
+
+
+    public function searching(Request $request)
+    {
+        $filtered  = $this->user_services->searchDoctors($request->all());
+        return response()->json([
+            'message' => 'Retrieved Successfully!',
+            'data'   =>  view('admin.doctor-profile.doctor-list', [
+              'doctors' =>  $filtered
+            ])->render()
         ]);
     }
 }

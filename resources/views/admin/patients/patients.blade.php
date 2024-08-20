@@ -50,6 +50,9 @@
                                             @include('admin.patients.patient-list')
                                             </tbody>
                                         </table>
+                                        <div class="mt-3 d-flex justify-content-end">
+                                            {{ $patientList->links() }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

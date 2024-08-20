@@ -12,38 +12,39 @@
                 <div class="dashboard-card-body">
                     <div class="row">
                         <div class="col-sm-7">
+             
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="health-records icon-orange">
                                         <span><i class="fa-solid fa-heart"></i>Heart Rate</span>
-                                        <h3>140 Bpm <sup> 2%</sup></h3>
+                                        <h3>{{ $diaryDetails->pulse_rate  ?? ''}} Bpm <sup> 2%</sup></h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="health-records icon-amber">
                                         <span><i class="fa-solid fa-temperature-high"></i>Body
                                             Temprature</span>
-                                        <h3>37.5 C</h3>
+                                        <h3>{{ $diaryDetails->avg_body_temp  ?? ''}} C</h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="health-records icon-dark-blue">
                                         <span><i class="fa-solid fa-notes-medical"></i>Glucose
                                             Level</span>
-                                        <h3>70 - 90<sup> 6%</sup></h3>
+                                        <h3>{{ $diaryDetails->glucose  ?? ''}}<sup> 6%</sup></h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="health-records icon-blue">
                                         <span><i class="fa-solid fa-highlighter"></i>SPo2</span>
-                                        <h3>96%</h3>
+                                        <h3>{{ $diaryDetails->oxygen_level  ?? ''}}%</h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="health-records icon-red">
                                         <span><i class="fa-solid fa-syringe"></i>Blood
                                             Pressure</span>
-                                        <h3>100 mg/dl<sup> 2%</sup></h3>
+                                        <h3>{{ $diaryDetails->bp  ?? ''}} mg/dl<sup> 2%</sup></h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -54,7 +55,9 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="report-gen-date">
-                                        <p>Report generated on last visit : 25 Mar 2024 <span><i
+                                        <p>Report generated on last visit : 
+                                            {{ date('j M Y', strtotime(Carbon\Carbon::now()->toDateString())) ?? '' }}
+                                        <span><i
                                                     class="fa-solid fa-copy"></i></span></p>
                                     </div>
                                 </div>
@@ -70,8 +73,7 @@
                                     </div>
                                 </div>
                                 <span class="health-percentage">Your health is 95% Normal</span>
-                                <a href="" class="btn btn-dark w-100">View
-                                    Details<i class="fa-solid fa-chevron-right ms-2"></i></a>
+                                <a href="{{ route('patient.diary.index') }}" class="btn btn-dark w-100">View Details<i class="fa-solid fa-chevron-right ms-2"></i></a>
                             </div>
                         </div>
                     </div>
@@ -356,11 +358,11 @@
 
                             <nav class="patient-dash-tab border-0 pb-0 mb-3 mt-3">
                                 <ul class="nav nav-tabs-bottom">
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a class="nav-link active" href="#appoint-tab" data-bs-toggle="tab">Appointments</a>
-                                    </li>
+                                    </li> --}}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#medical-tab" data-bs-toggle="tab">Medical Records</a>
+                                        <a class="nav-link active" href="#medical-tab" data-bs-toggle="tab">Medical Records</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#prsc-tab" data-bs-toggle="tab">Prescriptions</a>
@@ -374,7 +376,7 @@
 
                             <div class="tab-content pt-0">
 
-                                <div id="appoint-tab" class="tab-pane fade show active">
+                                {{-- <div id="appoint-tab" class="tab-pane fade show active">
                                     <div class="custom-new-table">
                                         <div class="table-responsive">
                                             <table class="table table-hover table-center mb-0">
@@ -538,10 +540,10 @@
                                             </table>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
 
-                                <div class="tab-pane fade" id="medical-tab">
+                                <div class="tab-pane fade show active" id="medical-tab">
                                     <div class="custom-table">
                                         <div class="table-responsive">
                                             <table class="table table-center mb-0">
@@ -555,154 +557,36 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    @forelse ($medicalRecords as $key => $medicalRecord)
                                                     <tr>
-                                                        <td class="text-blue-600"><a href="javascript:void(0);">#MR-123</a>
+                                                        <td class="text-blue-600"><a href="javascript:void(0);">{{ $key+1 }}</a>
                                                         </td>
                                                         <td>
                                                             <a href="javascript:void(0);" class="lab-icon">
-                                                                <span><i class="fa-solid fa-paperclip"></i></span>Lab
-                                                                Report
+                                                                <span><i class="fa-solid fa-paperclip"></i></span>
+                                                                {{ $medicalRecord->name ?? '' }}
                                                             </a>
                                                         </td>
-                                                        <td>24 Mar 2024</td>
-                                                        <td>Glucose Test V12</td>
+                                                        <td> {{ $medicalRecord->date ?? '' }}</td>
+                                                        <td>{!! Str::limit($medicalRecord->description, 20, ' ...') !!}</td>
                                                         <td>
                                                             <div class="action-item">
-                                                                <a href="javascript:void(0);">
+                                                                <a href="{{ route('patient.medical-records.edit', $medicalRecord->id) }}">
                                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                                 </a>
-                                                                <a href="javascript:void(0);">
+                                                                <a href="{{ $medicalRecord->file }}" download>
                                                                     <i class="fa-solid fa-download"></i>
                                                                 </a>
-                                                                <a href="javascript:void(0);">
+                                                                <a href="#" onclick="delete_medical_record({{ $medicalRecord->id }})">
                                                                     <i class="fa-solid fa-trash-can"></i>
                                                                 </a>
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td class="text-blue-600"><a href="javascript:void(0);">#MR-124</a>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0);" class="lab-icon">
-                                                                <span><i class="fa-solid fa-paperclip"></i></span>Lab
-                                                                Report
-                                                            </a>
-                                                        </td>
-                                                        <td>27 Mar 2024</td>
-                                                        <td>Complete Blood Count(CBC)</td>
-                                                        <td>
-                                                            <div class="action-item">
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-download"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-trash-can"></i>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-blue-600"><a href="#">#MR-125</a></td>
-                                                        <td>
-                                                            <a href="javascript:void(0);" class="lab-icon">
-                                                                <span><i class="fa-solid fa-paperclip"></i></span>Lab
-                                                                Report
-                                                            </a>
-                                                        </td>
-                                                        <td>10 Apr 2024</td>
-                                                        <td>Echocardiogram</td>
-                                                        <td>
-                                                            <div class="action-item">
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-download"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-trash-can"></i>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-blue-600"><a href="javascript:void(0);">#MR-126</a>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0);" class="lab-icon">
-                                                                <span><i class="fa-solid fa-paperclip"></i></span>Lab
-                                                                Report
-                                                            </a>
-                                                        </td>
-                                                        <td>19 Apr 2024</td>
-                                                        <td>COVID-19 Test</td>
-                                                        <td>
-                                                            <div class="action-item">
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-download"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-trash-can"></i>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-blue-600"><a href="javascript:void(0);">#MR-127</a>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0);" class="lab-icon">
-                                                                <span><i class="fa-solid fa-paperclip"></i></span>Lab
-                                                                Report
-                                                            </a>
-                                                        </td>
-                                                        <td>27 Apr 2024</td>
-                                                        <td>Allergy Tests</td>
-                                                        <td>
-                                                            <div class="action-item">
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-download"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-trash-can"></i>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-blue-600"><a href="#">#MR-128</a></td>
-                                                        <td>
-                                                            <a href="javascript:void(0);" class="lab-icon">
-                                                                <span><i class="fa-solid fa-paperclip"></i></span>Lab
-                                                                Report
-                                                            </a>
-                                                        </td>
-                                                        <td>02 May 2024</td>
-                                                        <td>Lipid Panel </td>
-                                                        <td>
-                                                            <div class="action-item">
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-download"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-trash-can"></i>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                    @empty
+                                                        
+                                                    @endforelse
+                                            
                                                 </tbody>
                                             </table>
                                         </div>
@@ -1127,5 +1011,32 @@
                     loadGraphHeartRate(period);
                 });
             });
+
+            function delete_medical_record(id) {
+            event.preventDefault();
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/patients/delete-medical-record/' + id,
+                        type: "get",
+                        success: function(res) {
+                            $(".data-medical-record-id-" + id).remove();
+                            Swal.fire("Done!", "It was successfully deleted!", "success");
+                        },
+                        error: function(xhr, ajaxOptions, thrownError) {
+                            Swal.fire("Error deleting!", "Please try again", "error");
+                        }
+                    });
+                }
+            });
+        }
         </script>
     @endsection

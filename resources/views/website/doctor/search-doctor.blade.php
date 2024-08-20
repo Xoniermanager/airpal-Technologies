@@ -389,7 +389,7 @@
                                         </div>
                                     </div>
 
-
+{{-- 
                                     <div class="filter-btn apply-btn">
                                         <div class="row">
                                             <div class="col-6">
@@ -399,7 +399,7 @@
                                                 <a href="javascript:void(0);" class="btn btn-outline-primary">Reset</a>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                 </div>
                             </div>
@@ -420,7 +420,7 @@
                                         </div>
                                     </div>
                                     <div class="doctor-filter-option">
-                                        <div class="doctor-filter-sort">
+                                        {{-- <div class="doctor-filter-sort">
                                             <p>Sort</p>
                                             <div class="doctor-filter-select">
                                                 <select class="select">
@@ -431,7 +431,7 @@
                                                     <option>E to Z</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="doctor-filter-sort">
                                             <p class="filter-today d-flex align-items-center">
                                                 <i class="feather-calendar"></i> Today 10 Aug to 20 Aug

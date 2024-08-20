@@ -6,11 +6,10 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Services\BookingServices;
 use App\Http\Services\InvoiceServices;
 use App\Http\Services\PatientServices;
 use App\Http\Services\PatientDiaryService;
-use App\Http\Services\MedicalDetailsService;
+use App\Http\Services\MedicalRecordService;
 use App\Http\Services\FavoriteDoctorServices;
 
 class PatientDashboardController extends Controller
@@ -24,13 +23,12 @@ class PatientDashboardController extends Controller
 
 
   public function __construct(
-  FavoriteDoctorServices $favoriteDoctorServices, 
-  PatientServices $patientServices, 
-  InvoiceServices $invoiceServices,
-  MedicalDetailsService $medicalDetailsService,
-  PatientDiaryService $patientDiaryService
-  )
-  {
+    FavoriteDoctorServices $favoriteDoctorServices,
+    PatientServices $patientServices,
+    InvoiceServices $invoiceServices,
+    MedicalRecordService $medicalDetailsService,
+    PatientDiaryService $patientDiaryService
+  ) {
     $this->patientServices = $patientServices;
     $this->invoiceServices = $invoiceServices;
     $this->favoriteDoctorServices = $favoriteDoctorServices;
@@ -66,11 +64,11 @@ class PatientDashboardController extends Controller
     );
   }
 
-public function patientHeartbeatGraphData(Request $request)
-{
+  public function patientHeartbeatGraphData(Request $request)
+  {
     $period = $request->period;
     $patientId  = Auth::user()->id;
-    
+
     // Initialize period variables
     $daysInMonth = Carbon::now()->month((int)$period)->daysInMonth; // Get days for the specified month
     $bookingByDate = array_fill(1, $daysInMonth, 0);
@@ -79,34 +77,34 @@ public function patientHeartbeatGraphData(Request $request)
 
     foreach ($appointments as $appointment) {
       $date = Carbon::parse($appointment->created_at);
-        
-        if (is_numeric($period)) {
-            if ($date->month == $period) { // Check if the appointment is in the specified month
-                $day = (int)$date->format('j');
-                $bookingByDate[$day] += $appointment->avg_heart_beat; // Sum heartbeats for each day
-            }
-        } elseif ($period === 'yearly') {
-            $year = $date->year;
-            if (!isset($bookingByYear[$year])) {
-                $bookingByYear[$year] = 0;
-            }
-            $bookingByYear[$year] += 1;
+
+      if (is_numeric($period)) {
+        if ($date->month == $period) { // Check if the appointment is in the specified month
+          $day = (int)$date->format('j');
+          $bookingByDate[$day] += $appointment->avg_heart_beat; // Sum heartbeats for each day
         }
+      } elseif ($period === 'yearly') {
+        $year = $date->year;
+        if (!isset($bookingByYear[$year])) {
+          $bookingByYear[$year] = 0;
+        }
+        $bookingByYear[$year] += 1;
+      }
     }
 
     $result = [];
     if (is_numeric($period)) { // For specific month
-        foreach ($bookingByDate as $day => $count) {
-            $result[] = [$day, $count];
-        }
+      foreach ($bookingByDate as $day => $count) {
+        $result[] = [$day, $count];
+      }
     } elseif ($period === 'yearly') {
-        foreach ($bookingByYear as $year => $count) {
-            $result[] = [$year, $count];
-        }
+      foreach ($bookingByYear as $year => $count) {
+        $result[] = [$year, $count];
+      }
     }
 
     return $result;
-}
+  }
 
 
   // public function patientHeartbeatGraphData(Request $request)
@@ -165,7 +163,7 @@ public function patientHeartbeatGraphData(Request $request)
 
     $period = $request->period;
     $patientId  = Auth::user()->id;
-    
+
     // Initialize period variables
     $daysInMonth = Carbon::now()->month((int)$period)->daysInMonth; // Get days for the specified month
     $bookingByDate = array_fill(1, $daysInMonth, 0);
@@ -174,36 +172,159 @@ public function patientHeartbeatGraphData(Request $request)
 
     foreach ($appointments as $appointment) {
       $date = Carbon::parse($appointment->created_at);
-        
-        if (is_numeric($period)) {
-            if ($date->month == $period) { // Check if the appointment is in the specified month
-                $day = (int)$date->format('j');
-                $bookingByDate[$day] += $appointment->bp; // Sum heartbeats for each day
-            }
-        } elseif ($period === 'yearly') {
-            $year = $date->year;
-            if (!isset($bookingByYear[$year])) {
-                $bookingByYear[$year] = 0;
-            }
-            $bookingByYear[$year] += 1;
+
+      if (is_numeric($period)) {
+        if ($date->month == $period) { // Check if the appointment is in the specified month
+          $day = (int)$date->format('j');
+          $bookingByDate[$day] += $appointment->bp; 
         }
+      } elseif ($period === 'yearly') {
+        $year = $date->year;
+        if (!isset($bookingByYear[$year])) {
+          $bookingByYear[$year] = 0;
+        }
+        $bookingByYear[$year] += 1;
+      }
     }
 
     $result = [];
     if (is_numeric($period)) { // For specific month
-        foreach ($bookingByDate as $day => $count) {
-            $result[] = [$day, $count];
-        }
+      foreach ($bookingByDate as $day => $count) {
+        $result[] = [$day, $count];
+      }
     } elseif ($period === 'yearly') {
-        foreach ($bookingByYear as $year => $count) {
-            $result[] = [$year, $count];
-        }
+      foreach ($bookingByYear as $year => $count) {
+        $result[] = [$year, $count];
+      }
     }
 
     return $result;
-
   }
-  
+
+    public function patientBodyTempGraphData(Request $request)
+  {
+
+    $period = $request->period;
+    $patientId  = Auth::user()->id;
+
+    // Initialize period variables
+    $daysInMonth = Carbon::now()->month((int)$period)->daysInMonth; // Get days for the specified month
+    $bookingByDate = array_fill(1, $daysInMonth, 0);
+
+    $appointments = $this->patientServices->patientBodyTempGraph($patientId);
+
+    foreach ($appointments as $appointment) {
+      $date = Carbon::parse($appointment->created_at);
+
+      if (is_numeric($period)) {
+        if ($date->month == $period) { // Check if the appointment is in the specified month
+          $day = (int)$date->format('j');
+          $bookingByDate[$day] += $appointment->avg_body_temp; // Sum heartbeats for each day
+        }
+      } elseif ($period === 'yearly') {
+        $year = $date->year;
+        if (!isset($bookingByYear[$year])) {
+          $bookingByYear[$year] = 0;
+        }
+        $bookingByYear[$year] += 1;
+      }
+    }
+
+    $result = [];
+    if (is_numeric($period)) { // For specific month
+      foreach ($bookingByDate as $day => $count) {
+        $result[] = [$day, $count];
+      }
+    } elseif ($period === 'yearly') {
+      foreach ($bookingByYear as $year => $count) {
+        $result[] = [$year, $count];
+      }
+    }
+    return $result;
+  }
+
+  public function patientOxygenGraphData(Request $request)
+  {
+
+    $period = $request->period;
+    $patientId  = Auth::user()->id;
+
+    // Initialize period variables
+    $daysInMonth = Carbon::now()->month((int)$period)->daysInMonth; // Get days for the specified month
+    $bookingByDate = array_fill(1, $daysInMonth, 0);
+
+    $appointments = $this->patientServices->patientBodyTempGraph($patientId);
+
+    foreach ($appointments as $appointment) {
+      $date = Carbon::parse($appointment->created_at);
+
+      if (is_numeric($period)) {
+        if ($date->month == $period) { // Check if the appointment is in the specified month
+          $day = (int)$date->format('j');
+          $bookingByDate[$day] += $appointment->oxygen_level; // Sum heartbeats for each day
+        }
+      } elseif ($period === 'yearly') {
+        $year = $date->year;
+        if (!isset($bookingByYear[$year])) {
+          $bookingByYear[$year] = 0;
+        }
+        $bookingByYear[$year] += 1;
+      }
+    }
+
+    $result = [];
+    if (is_numeric($period)) { // For specific month
+      foreach ($bookingByDate as $day => $count) {
+        $result[] = [$day, $count];
+      }
+    } elseif ($period === 'yearly') {
+      foreach ($bookingByYear as $year => $count) {
+        $result[] = [$year, $count];
+      }
+    }
+    return $result;
+  }
+  public function patientGlucoseGraphData(Request $request)
+  {
+
+    $period = $request->period;
+    $patientId  = Auth::user()->id;
+
+    // Initialize period variables
+    $daysInMonth = Carbon::now()->month((int)$period)->daysInMonth; // Get days for the specified month
+    $bookingByDate = array_fill(1, $daysInMonth, 0);
+
+    $appointments = $this->patientServices->patientBodyTempGraph($patientId);
+
+    foreach ($appointments as $appointment) {
+      $date = Carbon::parse($appointment->created_at);
+
+      if (is_numeric($period)) {
+        if ($date->month == $period) { // Check if the appointment is in the specified month
+          $day = (int)$date->format('j');
+          $bookingByDate[$day] += $appointment->glucose; // Sum heartbeats for each day
+        }
+      } elseif ($period === 'yearly') {
+        $year = $date->year;
+        if (!isset($bookingByYear[$year])) {
+          $bookingByYear[$year] = 0;
+        }
+        $bookingByYear[$year] += 1;
+      }
+    }
+
+    $result = [];
+    if (is_numeric($period)) { // For specific month
+      foreach ($bookingByDate as $day => $count) {
+        $result[] = [$day, $count];
+      }
+    } elseif ($period === 'yearly') {
+      foreach ($bookingByYear as $year => $count) {
+        $result[] = [$year, $count];
+      }
+    }
+    return $result;
+  }
 
   public function patientAccounts()
   {

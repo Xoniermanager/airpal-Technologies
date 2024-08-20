@@ -49,4 +49,8 @@ class PatientServices
   {
      return $this->patientDiaryService->getAllDiaryDetailsByPatientId($patientId);
   }
+  public function patientBodyTempGraph($patientId)
+  {
+     return $this->patientDiaryService->getAllDiaryDetailsByPatientId($patientId);
+  }
 }

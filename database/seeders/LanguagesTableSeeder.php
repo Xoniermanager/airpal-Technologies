@@ -22,26 +22,50 @@ class LanguagesTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 1,
-                'name' => 'Hindi',
+                'name' => 'English',
                 'status' => 1,
-                'created_at' => '2024-05-24 04:29:40',
-                'updated_at' => '2024-05-24 04:29:40',
+                'created_at' => '2024-08-01 11:16:00',
+                'updated_at' => '2024-08-01 11:16:00',
             ),
             1 => 
             array (
                 'id' => 2,
-                'name' => 'English',
+                'name' => 'Spanish',
                 'status' => 1,
-                'created_at' => '2024-05-24 04:30:02',
-                'updated_at' => '2024-05-24 04:30:02',
+                'created_at' => '2024-08-01 11:16:00',
+                'updated_at' => '2024-08-01 11:16:00',
             ),
             2 => 
             array (
                 'id' => 3,
-                'name' => 'Urdu',
+                'name' => 'French',
                 'status' => 1,
-                'created_at' => '2024-05-24 04:30:30',
-                'updated_at' => '2024-05-24 04:30:30',
+                'created_at' => '2024-08-01 11:16:00',
+                'updated_at' => '2024-08-01 11:16:00',
+            ),
+            3 => 
+            array (
+                'id' => 4,
+                'name' => 'German',
+                'status' => 1,
+                'created_at' => '2024-08-01 11:16:00',
+                'updated_at' => '2024-08-01 11:16:00',
+            ),
+            4 => 
+            array (
+                'id' => 5,
+                'name' => 'Chinese',
+                'status' => 1,
+                'created_at' => '2024-08-01 11:16:00',
+                'updated_at' => '2024-08-01 11:16:00',
+            ),
+            5 => 
+            array (
+                'id' => 6,
+                'name' => 'Hindi',
+                'status' => 1,
+                'created_at' => '2024-08-01 11:16:00',
+                'updated_at' => '2024-08-01 11:16:00',
             ),
         ));
         

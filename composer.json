@@ -6,7 +6,9 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "barryvdh/laravel-dompdf": "^2.2",
         "laravel/framework": "^11.0",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "orangehill/iseed": "^3.0",
         "prettus/l5-repository": "^2.9",
@@ -31,7 +33,12 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "app/Helpers/CalculateExperience.php",
+            "app/Helpers/globalHelper.php"
+        ]
+        
     },
     "scripts": {
         "post-autoload-dump": [

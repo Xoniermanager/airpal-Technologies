@@ -17,21 +17,33 @@ class DoctorExperienceController extends Controller
     }
     public function addDoctorExperience(StoreDoctorExperienceRequest $request)
     {
-        // dd($request->all());
-        
-        $userId = $this->doctor_experience_service->addDoctorExperience($request->validated());
-
-        // if ($userId) {
-        //     return response()->json([
-        //         'success' => true,
-        //         'message' => 'Experience records added successfully',
-        //         'user_id' => $userId
-        //     ]);
-        // } else {
-        //     return response()->json([
-        //         'success' => false,
-        //         'message' => 'Failed to add experience records'
-        //     ], 500);
-        // }
+        $userId = $this->doctor_experience_service->addDoctorExperience($request->all());
+        if ($userId) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Experience records added successfully',
+                'user_id' => $userId
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to add experience records'
+            ], 500);
+        }
+    }
+    public function destroy(Request $request)
+    {
+        $userId = $request->input('id');
+        if ($this->doctor_experience_service->deleteDetails($userId)) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Experience records deleted successfully',
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to add experience records'
+            ], 500);
+        }
     }
 }

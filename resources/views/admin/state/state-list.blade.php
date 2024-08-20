@@ -7,6 +7,7 @@
                     <th>#</th>
                     <th>State</th>
                     <th>Country</th>
+                    <th>Created at</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -20,6 +21,7 @@
                             {{$state['country']['name']}}
                         </h2>
                     </td>
+                    <td>{{ $state['created_at'] }}</td>
                     <td>
                         <div class="actions">
                             <a class="btn btn-sm bg-success-light" data-id ="{{$state['name']}}" data-bs-toggle="modal"href="#edit_state" onclick="edit_state('{{$state['name']}}','{{$state['id']}}','{{$state['country']['id']}}')">

@@ -9,6 +9,6 @@ class AboutController extends Controller
 // 
 public function about()
 {
-  return view('pages.about');
+  return view('website.pages.about');
 }
 }

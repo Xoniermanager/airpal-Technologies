@@ -17,9 +17,10 @@ return new class extends Migration
             $table->unsignedBigInteger('hospital_id');
             $table->unsignedBigInteger('user_id');
             $table->string('location');
+            $table->string('certificates');
             $table->date('start_date');
             $table->date('end_date');
-            $table->text('job_desription');
+            $table->text('job_description');
             $table->boolean('currently_working')->default(1);
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('hospital_id')->references('id')->on('hospitals');

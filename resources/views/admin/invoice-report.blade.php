@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    @include('admin.include.head')
-</head>
-
-<body>
-
-    <div class="main-wrapper">
-    @include('admin.include.header')
-
+@extends('layouts.admin.main')
+@section('content')
+ 
         <div class="page-wrapper">
             <div class="content container-fluid">
 
@@ -48,11 +39,11 @@
                                                 <td>#PT001</td>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                                                        <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/patients/patient1.jpg"
-                                                                alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Charlene Reed </a>
+                                                                alt=""></a>
+                                                        <a href="">Charlene Reed </a>
                                                     </h2>
                                                 </td>
                                                 <td>$100.00</td>
@@ -78,11 +69,11 @@
                                                 <td>#PT002</td>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                                                        <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/patients/patient2.jpg"
-                                                                alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Travis Trimble </a>
+                                                                alt=""></a>
+                                                        <a href="">Travis Trimble </a>
                                                     </h2>
                                                 </td>
                                                 <td>$200.00</td>
@@ -108,11 +99,11 @@
                                                 <td>#PT003</td>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                                                        <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/patients/patient3.jpg"
-                                                                alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Carl Kelly</a>
+                                                                alt=""></a>
+                                                        <a href="">Carl Kelly</a>
                                                     </h2>
                                                 </td>
                                                 <td>$250.00</td>
@@ -138,11 +129,11 @@
                                                 <td>#PT004</td>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                                                        <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/patients/patient4.jpg"
-                                                                alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}"> Michelle Fairfax</a>
+                                                                alt=""></a>
+                                                        <a href=""> Michelle Fairfax</a>
                                                     </h2>
                                                 </td>
                                                 <td>$150.00</td>
@@ -168,11 +159,11 @@
                                                 <td>#PT005</td>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                                                        <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/patients/patient5.jpg"
-                                                                alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Gina Moore</a>
+                                                                alt=""></a>
+                                                        <a href="">Gina Moore</a>
                                                     </h2>
                                                 </td>
                                                 <td>$350.00</td>
@@ -198,11 +189,11 @@
                                                 <td>#PT006</td>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                                                        <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/patients/patient6.jpg"
-                                                                alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Elsie Gilley</a>
+                                                                alt=""></a>
+                                                        <a href="">Elsie Gilley</a>
                                                     </h2>
                                                 </td>
                                                 <td>$300.00</td>
@@ -228,11 +219,11 @@
                                                 <td>#PT007</td>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                                                        <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/patients/patient7.jpg"
-                                                                alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}"> Joan Gardner</a>
+                                                                alt=""></a>
+                                                        <a href=""> Joan Gardner</a>
                                                     </h2>
                                                 </td>
                                                 <td>$250.00</td>
@@ -258,11 +249,11 @@
                                                 <td>#PT008</td>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                                                        <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/patients/patient8.jpg"
-                                                                alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}"> Daniel Griffing</a>
+                                                                alt=""></a>
+                                                        <a href=""> Daniel Griffing</a>
                                                     </h2>
                                                 </td>
                                                 <td>$150.00</td>
@@ -288,11 +279,11 @@
                                                 <td>#PT009</td>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                                                        <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/patients/patient9.jpg"
-                                                                alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Walter Roberson</a>
+                                                                alt=""></a>
+                                                        <a href="">Walter Roberson</a>
                                                     </h2>
                                                 </td>
                                                 <td>$100.00</td>
@@ -318,11 +309,11 @@
                                                 <td>#PT010</td>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                                                        <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
                                                                 src="assets/img/patients/patient10.jpg"
-                                                                alt="User Image"></a>
-                                                        <a href="{{ route('admin.profile.index') }}">Robert Rhodes </a>
+                                                                alt=""></a>
+                                                        <a href="">Robert Rhodes </a>
                                                     </h2>
                                                 </td>
                                                 <td>$120.00</td>
@@ -425,4 +416,4 @@
         </div>
 
     </div>
-    @include('admin.include.footer')
+    @endsection

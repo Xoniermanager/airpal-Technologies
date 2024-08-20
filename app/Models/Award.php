@@ -9,4 +9,9 @@ class Award extends Model
 {
     use HasFactory;
     protected $fillable = ['name'];
+
+    public function doctorAward()
+    {
+        return $this->hasMany(DoctorAward::class, 'award_id');
+    }
 }

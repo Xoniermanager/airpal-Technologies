@@ -27,11 +27,8 @@ class SpecializationServices
       } catch (\Throwable $th) {
         //throw $th;
       }
-      
-
     }
     public function updateSpeciality($updateSpecialitiesRequest){
-        // dd($updateSpecialitiesRequest);
       try {
         $imageUrl = Specialization::find($updateSpecialitiesRequest->id)->image_url;
         $destinationPath = public_path('admin/specialization_image/') . $imageUrl; 
@@ -61,12 +58,28 @@ class SpecializationServices
       } 
       return $this->SpeciliazationRepository->delete($id);
     }
-
    
     public function getSpecialityPaginated()
     {
         return $this->SpeciliazationRepository->paginate(10)->setPath(route('admin.speciality.index'));
     } 
+    public function all()
+    {
+        return $this->SpeciliazationRepository->all();
+    } 
+
+    public function getSpecialitiesAjaxCall()
+    {
+        return $this->SpeciliazationRepository->all();
+    } 
+    public function StoreSpecialitiesByAjaxCall($data)
+    {
+        return  $this->SpeciliazationRepository->create($data);
+    } 
+
+    public function getSpecialtyByID($id)
+    {
+      return $this->SpeciliazationRepository->find($id);
+    }
 }
 
-?>

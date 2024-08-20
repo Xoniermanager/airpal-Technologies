@@ -1,32 +1,25 @@
-<div class="card-body">
-    <div class="table-responsive">
-        <table class="datatable table table-hover table-center mb-0">
-            <thead>
-                <tr>
-                    <th>Doctor Name</th>
-                    <th>Speciality</th>
-                    <th>Member Since</th>
-                    <th>Earned</th>
-                    <th>Account Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
+
+            <tbody id="doctor-list">
                 @foreach ($doctors as $doctor)
                 <tr>
                     <td>
                         <h2 class="table-avatar">
-                            <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2"><img
+                            <a href="{{ route('admin.profile.index', ['user' => $doctor->id]) }}" class="avatar avatar-sm me-2"><img
                                     class="avatar-img rounded-circle"
-                                    src="{{asset('images/'.$doctor->image_url)}}"
-                                    alt="User Image"
+                                    src="{{ $doctor['image_url'] }}"
+                                    alt=""
                                     onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" 
                                     >
                                 </a>
-                            <a href="{{ route('admin.profile.index') }}">{{$doctor->first_name}} {{$doctor->last_name}}</a>
+                            <a href="{{ route('admin.profile.index', ['user' => $doctor->id]) }}">{{$doctor->first_name}} {{$doctor->last_name}}</a>
                         </h2>
                     </td>
-                    <td>Dental</td>
+                    <td>
+                        @forelse ($doctor->specializations as $specializaion)
+                        <span>{{$specializaion->name}},</span>
+                        @empty
+                        <span>No Specialization available</span>
+                        @endforelse</td>
                     <?php
                         $createdAt =  $doctor->created_at;
                         $date = new DateTime($createdAt);
@@ -41,14 +34,14 @@
                         </div>
                     </td>
                     <td>
-                        <a href=""><button class="btn btn-secondary">Edit</button></a>
+                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}"><button class="btn btn-secondary">Edit</button></a>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
-        </table>
-        <div class="mt-3 d-flex justify-content-end">
+      
+        {{-- <div class="mt-3 d-flex justify-content-end">
             {{ $doctors->links() }}
-        </div>
-    </div>
-</div>
+        </div> --}}
+
+

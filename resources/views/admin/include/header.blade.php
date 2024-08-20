@@ -5,7 +5,7 @@
         <img src="assets/img/logo.png" alt="Logo">
     </a>
     <a href="{{ route('admin.dashboard.index') }}" class="logo logo-small">
-        <img src="assets/img/logo-small.png" alt="Logo" width="30" height="30">
+        <img src="assets/img/favicon.png" alt="Logo" width="30" height="30">
     </a>
 </div>
 
@@ -41,7 +41,7 @@
                         <a href="#">
                             <div class="notify-block d-flex">
                                 <span class="avatar avatar-sm flex-shrink-0">
-                                    <img class="avatar-img rounded-circle" alt="User Image"
+                                    <img class="avatar-img rounded-circle" alt=""
                                         src="assets/img/doctors/doctor-thumb-01.jpg">
                                 </span>
                                 <div class="media-body flex-grow-1">
@@ -57,7 +57,7 @@
                         <a href="#">
                             <div class="notify-block d-flex">
                                 <span class="avatar avatar-sm flex-shrink-0">
-                                    <img class="avatar-img rounded-circle" alt="User Image"
+                                    <img class="avatar-img rounded-circle" alt=""
                                         src="assets/img/patients/patient1.jpg">
                                 </span>
                                 <div class="media-body flex-grow-1">
@@ -74,7 +74,7 @@
                         <a href="#">
                             <div class="notify-block d-flex">
                                 <span class="avatar avatar-sm flex-shrink-0">
-                                    <img class="avatar-img rounded-circle" alt="User Image"
+                                    <img class="avatar-img rounded-circle" alt=""
                                         src="assets/img/patients/patient2.jpg">
                                 </span>
                                 <div class="media-body flex-grow-1">
@@ -91,7 +91,7 @@
                         <a href="#">
                             <div class="notify-block d-flex">
                                 <span class="avatar avatar-sm flex-shrink-0">
-                                    <img class="avatar-img rounded-circle" alt="User Image"
+                                    <img class="avatar-img rounded-circle" alt=""
                                         src="assets/img/patients/patient3.jpg">
                                 </span>
                                 <div class="media-body flex-grow-1">
@@ -120,7 +120,7 @@
         <div class="dropdown-menu">
             <div class="user-header">
                 <div class="avatar avatar-sm">
-                    <img src="assets/img/profiles/avatar-01.jpg" alt="User Image"
+                    <img src="assets/img/profiles/avatar-01.jpg" alt=""
                         class="avatar-img rounded-circle">
                 </div>
                 <div class="user-text">
@@ -128,9 +128,9 @@
                     <p class="text-muted mb-0">Administrator</p>
                 </div>
             </div>
-            <a class="dropdown-item" href="{{ route('admin.profile.index') }}">My Profile</a>
+            <a class="dropdown-item" href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">My Profile</a>
             <a class="dropdown-item" href="{{ route('admin.settings.index') }}">Settings</a>
-            <a class="dropdown-item" href="{{ route('login.index') }}">Logout</a>
+            <a class="dropdown-item" href="{{ route('doctor.logout') }}">Logout</a>
         </div>
     </li>
 
@@ -152,7 +152,10 @@
                             <a href="{{ route('admin.speciality.index') }}"><i class="fe fe-users"></i> <span>Specialities</span></a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.doctors.index') }}"><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
+                            <a href="{{ route('admin.index.doctors') }}"><i class="fe fe-user-plus"></i> <span>Doctors</span></a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.faqs.index') }}"><i class="fe fe-user-plus"></i> <span>Faqs</span></a>
                         </li>
                         <li>
                             <a href="{{ route('admin.patient-list.index') }}"><i class="fe fe-user"></i> <span>Patients</span></a>

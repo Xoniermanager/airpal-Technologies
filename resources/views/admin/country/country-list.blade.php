@@ -6,7 +6,8 @@
                 <tr>
                     <th>#</th>
                     <th>Country</th>
-                    <th>Actions</th>
+                    <th>Created at</th>
+                    <th class="text-right">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -15,7 +16,7 @@
                     <td>{{ $country->id }}</td>
                     <td>
                         <h2 class="table-avatar">
-                            {{-- <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2">
+                            {{-- <a href="" class="avatar avatar-sm me-2">
                                 <img class="avatar-img"
                                     src="{{ asset('admin/specialization_image/' . $data->image_url) }}"
                                     alt="img">
@@ -23,7 +24,8 @@
                             {{$country->name}}
                         </h2>
                     </td>
-                    <td>
+                    <td>{{ $country->created_at->format('d/m/Y') }}</td>
+                    <td class="text-right">
                         <div class="actions">
                             <a class="btn btn-sm bg-success-light" data-id ="{{$country->id}}" data-bs-toggle="modal"href="#edit_country" onclick="edit_country('{{$country->name}}','{{$country->id}}')">
                                 <i class="fe fe-pencil"></i> Edit
@@ -39,8 +41,14 @@
             </tbody>
         </table>
         <div class="mt-3 d-flex justify-content-end">
-            {{{ $countries->links() }}}
+            {{ $countries->links() }}
         </div>
 
     </div>
 </div>
+<style>
+    .text-right {
+        text-align: right;
+    }
+   
+</style>

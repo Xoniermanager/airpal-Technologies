@@ -6,6 +6,8 @@
                 <tr>
                     <th>#</th>
                     <th>Specialities</th>
+                    <th>Description</th>
+                    <th>Create At</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -15,14 +17,18 @@
                     <td>{{ $data->id }}</td>
                     <td>
                         <h2 class="table-avatar">
-                            <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2">
+                            <a href="" class="avatar avatar-sm me-2">
                                 <img class="avatar-img"
                                     src="{{ asset('admin/specialization_image/' . $data->image_url) }}"
+                                    onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" 
                                     alt="img">
                             </a>
                             {{$data->name}}
                         </h2>
                     </td>
+                    <td>{{ $data->description }}</td>
+
+                    <td>{{ $data->created_at->format('d/m/Y') }}</td>
                     <td>
                         <div class="actions">
                             <a class="btn btn-sm bg-success-light" data-id ="{{$data->id}}" data-bs-toggle="modal"href="#edit_specialities_details" onclick="edit_speciality('{{$data->name}}','{{$data->description}}','{{$data->image_url}}','{{$data->id}}')">

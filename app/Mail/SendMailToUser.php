@@ -12,12 +12,14 @@ class SendMailToUser extends Mailable
 {
     use Queueable, SerializesModels;
 
+    private $mailData;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($mailData)
     {
-        //
+        $this->mailData = $mailData;
     }
 
     /**
@@ -26,7 +28,7 @@ class SendMailToUser extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Successfully Password Changed!!',
+            subject: 'Login Otp',
         );
     }
 
@@ -36,7 +38,10 @@ class SendMailToUser extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email_template',
+            markdown: 'emails.login_otp',
+            with: [
+                'sentOtpDetails' => $this->mailData,
+            ],
         );
     }
 

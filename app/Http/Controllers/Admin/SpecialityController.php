@@ -60,4 +60,19 @@ public function deleteSpecialities(Specialization $specialization ,$id){
       ]);
     }
   }
+
+public function getSpecialitiesAjaxCall()
+{
+  $specialities = $this->specialiation_services->getSpecialitiesAjaxCall();
+  return json_encode($specialities);
+}
+
+public function storeSpecialityByAjaxCall(Request $request)
+{
+    $data =  json_decode($request->all()['models'])[0];
+   return $this->specialiation_services->StoreSpecialitiesByAjaxCall(['name'=> $data->name ]);
+
+}
+
+
 }

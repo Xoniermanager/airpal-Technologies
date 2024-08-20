@@ -15,8 +15,10 @@ class DoctorEducationController extends Controller
         $this->doctor_education_service     = $doctor_education_service;
     }
     public function addDoctorEducation(StoreDoctorEducationRequest $request)
-    {
-            if ( $this->doctor_education_service->addDoctorEducation($request->validated()))
+    {  
+      $addedDoctorEducation = $this->doctor_education_service->addDoctorEducation($request->all());
+
+            if ($addedDoctorEducation)
              {
                return response()->json([
                      "status"   => "success",
@@ -29,5 +31,20 @@ class DoctorEducationController extends Controller
                 "message"=> "Failed to insert doctor details"
                ]);
              }
+    }
+    public function destroy(Request $request)
+    {
+        $userId = $request->input('id');
+        if ($this->doctor_education_service->deleteDetails($userId)) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Education records deleted successfully',
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to add education records'
+            ], 500);
+        }
     }
 }

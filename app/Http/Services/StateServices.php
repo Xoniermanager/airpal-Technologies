@@ -9,6 +9,16 @@ class StateServices {
     public function __construct(StateRepository $stateRepository) {
         $this->stateRepository = $stateRepository;
      }
+
+     public function all()
+     {
+        return $this->stateRepository->all();
+     } 
+     public function getByCountryID($countryId)
+     {
+        return $this->stateRepository->where('country_id' , $countryId)->get();
+     } 
+
      public function addState($stateData)    
      {
       return $this->stateRepository->create($stateData);

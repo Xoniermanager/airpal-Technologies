@@ -65,4 +65,15 @@ class StateController extends Controller
 
      }
 
+     public function getStateByCountryID(Request $request)
+     {
+        $data = $request->all();
+        $states  = $this->state_service->getByCountryID($data['country_id']);
+            return response()->json([
+            'message' => 'states successfully retrieved',
+            'data' => $states
+        ]);
+    }
+        
+
 }

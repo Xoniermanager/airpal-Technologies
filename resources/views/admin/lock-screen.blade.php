@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    @include('include.head')
-</head>
-
-<body>
+@extends('layouts.admin.main')
+@section('content')
+ 
 
     <div class="main-wrapper login-body">
         <div class="login-wrapper">
@@ -17,7 +12,7 @@
                     <div class="login-right">
                         <div class="login-right-wrap">
                             <div class="lock-user">
-                                <img class="rounded-circle" src="assets/img/profiles/avatar-02.jpg" alt="User Image">
+                                <img class="rounded-circle" src="assets/img/profiles/avatar-02.jpg" alt="">
                                 <h4>John Doe</h4>
                             </div>
 
@@ -31,11 +26,11 @@
                             </form>
 
                             <div class="text-center dont-have">Sign in as a different user? <a
-                                    href="{{ route('login.index') }}">Login</a></div>
+                                    href="">Login</a></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @include('include.footer')
+    @endsection

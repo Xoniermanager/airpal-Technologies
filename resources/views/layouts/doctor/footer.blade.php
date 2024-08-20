@@ -32,7 +32,7 @@
                                 <ul>
                                     <li><a href="{{ url('appointment') }}">Appointments</a></li>
                                     <li><a href="{{ route('register.index') }}">Register</a></li>
-                                    <li><a href="{{ route('login.index') }}">Login</a></li>
+                                    <li><a href="">Login</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -125,7 +125,6 @@
     </svg>
 </div>
 
-<script src="{{asset('assets/js/jquery-3.7.1.min.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
 
 <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
 
@@ -139,13 +138,17 @@
 <script src="{{asset('assets/js/slick.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
 
 <script src="{{asset('assets/js/aos.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
-
-<script src="{{asset('assets/js/counter.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
-
 <script src="{{asset('assets/js/backToTop.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
 
 <script src="{{asset('assets/js/script.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
 <script src="{{ asset('assets/js/rocket-loader.min.js') }}" data-cf-settings="572446aacaa112e2d4b8af55-|49" defer>
+
+<script src="{{asset('admin/assets/plugins/slimscroll/jquery.slimscroll.min.js')}}" type="cd1ed460c5054330c2effc78-text/javascript"></script>
+<script src="{{asset('admin/assets/plugins/datatables/jquery.dataTables.min.js')}}" type="cd1ed460c5054330c2effc78-text/javascript"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
 </script>
 
 </body>

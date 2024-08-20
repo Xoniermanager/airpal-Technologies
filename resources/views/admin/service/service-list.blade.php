@@ -6,6 +6,7 @@
                 <tr>
                     <th>#</th>
                     <th>Service</th>
+                    <th>Created At</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -18,6 +19,7 @@
                             {{$service->name}}
                         </h2>
                     </td>
+                    <td>{{ $service->created_at->format('d/m/Y') }}</td>
                     <td>
                         <div class="actions">
                             <a class="btn btn-sm bg-success-light" data-id ="{{$service->id}}" data-bs-toggle="modal"href="#edit_service" onclick="edit_service('{{$service->name}}','{{$service->id}}')">

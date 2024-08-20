@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    @include('include.head')
-</head>
-
-<body>
-
-    <div class="main-wrapper">
-    @include('include.header') 
-       
-
+@extends('layouts.admin.main')
+@section('content')
+ 
         <div class="page-wrapper">
             <div class="content container-fluid">
 
@@ -41,27 +31,27 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="avatar avatar-xxl">
-                                            <img class="avatar-img rounded-circle" alt="User Image"
+                                            <img class="avatar-img rounded-circle" alt=""
                                                 src="assets/img/profiles/avatar-02.jpg">
                                         </div>
                                         <div class="avatar avatar-xl">
-                                            <img class="avatar-img rounded-circle" alt="User Image"
+                                            <img class="avatar-img rounded-circle" alt=""
                                                 src="assets/img/profiles/avatar-02.jpg">
                                         </div>
                                         <div class="avatar avatar-lg">
-                                            <img class="avatar-img rounded-circle" alt="User Image"
+                                            <img class="avatar-img rounded-circle" alt=""
                                                 src="assets/img/profiles/avatar-02.jpg">
                                         </div>
                                         <div class="avatar">
-                                            <img class="avatar-img rounded-circle" alt="User Image"
+                                            <img class="avatar-img rounded-circle" alt=""
                                                 src="assets/img/profiles/avatar-02.jpg">
                                         </div>
                                         <div class="avatar avatar-sm">
-                                            <img class="avatar-img rounded-circle" alt="User Image"
+                                            <img class="avatar-img rounded-circle" alt=""
                                                 src="assets/img/profiles/avatar-02.jpg">
                                         </div>
                                         <div class="avatar avatar-xs">
-                                            <img class="avatar-img rounded-circle" alt="User Image"
+                                            <img class="avatar-img rounded-circle" alt=""
                                                 src="assets/img/profiles/avatar-02.jpg">
                                         </div>
                                     </div>
@@ -74,15 +64,15 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="avatar avatar-online">
-                                            <img class="avatar-img rounded-circle" alt="User Image"
+                                            <img class="avatar-img rounded-circle" alt=""
                                                 src="assets/img/profiles/avatar-02.jpg">
                                         </div>
                                         <div class="avatar avatar-offline">
-                                            <img class="avatar-img rounded-circle" alt="User Image"
+                                            <img class="avatar-img rounded-circle" alt=""
                                                 src="assets/img/profiles/avatar-02.jpg">
                                         </div>
                                         <div class="avatar avatar-away">
-                                            <img class="avatar-img rounded-circle" alt="User Image"
+                                            <img class="avatar-img rounded-circle" alt=""
                                                 src="assets/img/profiles/avatar-02.jpg">
                                         </div>
                                     </div>
@@ -95,11 +85,11 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="avatar">
-                                            <img class="avatar-img rounded" alt="User Image"
+                                            <img class="avatar-img rounded" alt=""
                                                 src="assets/img/profiles/avatar-02.jpg">
                                         </div>
                                         <div class="avatar">
-                                            <img class="avatar-img rounded-circle" alt="User Image"
+                                            <img class="avatar-img rounded-circle" alt=""
                                                 src="assets/img/profiles/avatar-02.jpg">
                                         </div>
                                     </div>
@@ -114,15 +104,15 @@
                                         <div class="avatar-group">
                                             <div class="avatar">
                                                 <img class="avatar-img rounded-circle border border-white"
-                                                    alt="User Image" src="assets/img/profiles/avatar-02.jpg">
+                                                    alt="" src="assets/img/profiles/avatar-02.jpg">
                                             </div>
                                             <div class="avatar">
                                                 <img class="avatar-img rounded-circle border border-white"
-                                                    alt="User Image" src="assets/img/profiles/avatar-03.jpg">
+                                                    alt="" src="assets/img/profiles/avatar-03.jpg">
                                             </div>
                                             <div class="avatar">
                                                 <img class="avatar-img rounded-circle border border-white"
-                                                    alt="User Image" src="assets/img/profiles/avatar-04.jpg">
+                                                    alt="" src="assets/img/profiles/avatar-04.jpg">
                                             </div>
                                             <div class="avatar">
                                                 <span class="avatar-title rounded-circle border border-white">CF</span>
@@ -1707,4 +1697,4 @@
         </div>
 
     </div>
-    @include('include.footer')
+    @endsection

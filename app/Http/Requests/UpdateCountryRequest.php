@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCountryRequest extends FormRequest
@@ -22,8 +23,8 @@ class UpdateCountryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'country_id'      =>  ['required', 'exists:countries,id'],
-            'name'            =>  ['required','string','unique:countries'],
+            'country_id'      =>  'required|exists:countries,id',
+            'name'            =>  'required|string|unique:countries,name,' . $this->country_id,
         ];
     }
 }

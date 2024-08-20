@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Service;
 use App\Http\Requests\{StoreServiceRequest,UpdateServiceRequest};
-use App\Http\Services\DoctorServiceServices;
+use App\Http\Services\DoctorService;
 
 class ServiceController extends Controller
 {
     private $doctor_service_services;
 
-    public function __construct(DoctorServiceServices $doctor_service_services){
+    public function __construct(DoctorService $doctor_service_services){
         $this->doctor_service_services = $doctor_service_services;
     }
     public function index()
@@ -22,7 +22,6 @@ class ServiceController extends Controller
     }
     public function store(StoreServiceRequest $request)
     {
-        // dd($request->all());
         if ($this->doctor_service_services->addService($request->validated())) {
             return response()->json([
                 'message' => 'Add Successfully!',
@@ -54,5 +53,19 @@ class ServiceController extends Controller
                 ])->render()
             ]);
         }
+    }
+
+    public function getServiceAjaxCall()
+    {
+    $service = $this->doctor_service_services->getServiceAjaxCall();
+    return json_encode($service);
+    }
+
+    public function storeServiceByAjaxCall(Request $request)
+    {
+        $data =  json_decode($request->all()['models'])[0];
+       return $this->doctor_service_services->addService(['name'=> $data->name ]);
+
+
     }
 }

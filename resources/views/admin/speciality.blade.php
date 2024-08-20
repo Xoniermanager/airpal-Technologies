@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-@include('admin.include.head')
-</head>
-
-<body>
-
-    <div class="main-wrapper">
-    @include('admin.include.header')
+@extends('layouts.admin.main')
+@section('content')
+ 
         <div class="page-wrapper">
             <div class="content container-fluid">
                 <div class="page-header">
@@ -45,12 +37,12 @@
                                                 <td>#SP001</td>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2">
+                                                        <a href="" class="avatar avatar-sm me-2">
                                                             <img class="avatar-img"
                                                                 src="assets/img/specialities/specialities-01.png"
                                                                 alt="Speciality">
                                                         </a>
-                                                        <a href="{{ route('admin.profile.index') }}">Urology</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Urology</a>
                                                     </h2>
                                                 </td>
                                                 <td>
@@ -70,12 +62,12 @@
                                                 <td>#SP002</td>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2">
+                                                        <a href="" class="avatar avatar-sm me-2">
                                                             <img class="avatar-img"
                                                                 src="assets/img/specialities/specialities-02.png"
                                                                 alt="Speciality">
                                                         </a>
-                                                        <a href="{{ route('admin.profile.index') }}">Neurology</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Neurology</a>
                                                     </h2>
                                                 </td>
                                                 <td>
@@ -95,12 +87,12 @@
                                                 <td>#SP003</td>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2">
+                                                        <a href="" class="avatar avatar-sm me-2">
                                                             <img class="avatar-img"
                                                                 src="assets/img/specialities/specialities-03.png"
                                                                 alt="Speciality">
                                                         </a>
-                                                        <a href="{{ route('admin.profile.index') }}">Orthopedic</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Orthopedic</a>
                                                     </h2>
                                                 </td>
                                                 <td>
@@ -120,12 +112,12 @@
                                                 <td>#SP004</td>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2">
+                                                        <a href="" class="avatar avatar-sm me-2">
                                                             <img class="avatar-img"
                                                                 src="assets/img/specialities/specialities-04.png"
                                                                 alt="Speciality">
                                                         </a>
-                                                        <a href="{{ route('admin.profile.index') }}">Cardiologist</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Cardiologist</a>
                                                     </h2>
                                                 </td>
                                                 <td>
@@ -145,12 +137,12 @@
                                                 <td>#SP005</td>
                                                 <td>
                                                     <h2 class="table-avatar">
-                                                        <a href="{{ route('admin.profile.index') }}" class="avatar avatar-sm me-2">
+                                                        <a href="" class="avatar avatar-sm me-2">
                                                             <img class="avatar-img"
                                                                 src="assets/img/specialities/specialities-05.png"
                                                                 alt="Speciality">
                                                         </a>
-                                                        <a href="{{ route('admin.profile.index') }}">Dentist</a>
+                                                        <a href="{{ route('admin.edit-doctor', ['user' => $doctor->id]) }}">Dentist</a>
                                                     </h2>
                                                 </td>
                                                 <td>
@@ -255,4 +247,4 @@
         </div>
 
     </div>
-    @include('admin.include.footer')
+    @endsection

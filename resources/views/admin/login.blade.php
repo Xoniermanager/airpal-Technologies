@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
- <head>
- @include('include.head')
-</head>
-<body>
-
+@extends('layouts.admin.main')
+@section('content')
+ 
 <div class="main-wrapper login-body">
 <div class="login-wrapper">
 <div class="container">
@@ -48,4 +44,4 @@
 </div>
 </div>
 
-@include('include.footer')
+@endsection

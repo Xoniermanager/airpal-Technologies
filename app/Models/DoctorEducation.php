@@ -10,7 +10,7 @@ use App\Models\Course;
 class DoctorEducation extends Model
 {
     use HasFactory;
-    protected $fillable = ['institute_name','course_id','user_id','start_date','end_date'];
+    protected $fillable = ['institute_name','course_id','user_id','start_date','end_date','certificates'];
 
     public function user()
     {
@@ -18,6 +18,6 @@ class DoctorEducation extends Model
     }
     public function course()
     {
-        return $this->belongsTo(Course::class);
+        return $this->belongsTo(Course::class,'course_id',"id");
     }
 }

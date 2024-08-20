@@ -1,17 +1,9 @@
-<!DOCTYPE html>
-<html lang="zxx">
-
-<head> @include('include.head')
-</head>
-
-<body>
-
-    <div class="main-wrapper">
-        @include('patients.include.header')
+@extends('layouts.patient.main')
+@section('content')
         <div class="onboard-wrapper">
             <div class="left-panel">
                 <div class="onboarding-logo text-center">
-                    <a href="{{ route('patients.patient-dashboard.index') }}"><img src="../assets/img/logo-light.png" class="img-fluid" alt="logo"></a>
+                    <a href="{{ route('patient-dashboard.index') }}"><img src="../assets/img/logo-light.png" class="img-fluid" alt="logo"></a>
                 </div>
                 <div class="onboard-img">
                     <img src="../assets/img/onboard-img/onb-slide-img.png" class="img-fluid" alt="onboard-slider">
@@ -877,7 +869,7 @@
                                                 </div>
                                                 <div class="modal-footer id-pop-footer text-center">
                                                     <div class="onboarding-btn pop-btn ">
-                                                        <a href="{{ route('patients.patient-dashboard.index') }}">Go to Dashboard</a>
+                                                        <a href="{{ route('patient-dashboard.index') }}">Go to Dashboard</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -897,4 +889,4 @@
 
 
     </div>
-    @include('include.footer')
+@endsection

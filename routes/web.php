@@ -401,6 +401,7 @@ Route::prefix('patients')->group(function () {
                 Route::post('update-medical-record/{medical_records:id}', 'updateMedicalRecord')->name('patient.medical-records.update');
                 Route::get('delete-medical-record/{medical_records:id}', 'deleteMedicalRecord');
                 Route::get('get-booking-details/{booking_slots:id}', 'getBookingDetails');
+                Route::get('medical-records-filter', 'searchFilterMedicalRecord');
             });
 
             //Diary Module

@@ -7,23 +7,23 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Services\BookingServices;
-use App\Http\Services\MedicalDetailsService;
+use App\Http\Services\MedicalRecordService;
 use App\Http\Requests\MedicalRecordRequest;
 
 class MedicalRecordController extends Controller
 {
     public $bookingService;
 
-    public $medicalDetailsService;
+    public $medicalRecordService;
 
-    public function __construct(BookingServices $bookingService, MedicalDetailsService $medicalDetailsService)
+    public function __construct(BookingServices $bookingService, MedicalRecordService $medicalRecordService)
     {
         $this->bookingService = $bookingService;
-        $this->medicalDetailsService = $medicalDetailsService;
+        $this->medicalRecordService = $medicalRecordService;
     }
     public function medicalRecordsList()
     {
-        $allMedicalRecord = $this->medicalDetailsService->getMedicalRecordByPatientId(Auth::user()->id);
+        $allMedicalRecord = $this->medicalRecordService->getMedicalRecordByPatientId(Auth::user()->id);
         return view('patients.medical-records.list', compact('allMedicalRecord'));
     }
 
@@ -38,7 +38,7 @@ class MedicalRecordController extends Controller
         try {
             $data = $request->all();
             $data['patient_id'] = Auth::user()->id;
-            $response = $this->medicalDetailsService->createDetails($data);
+            $response = $this->medicalRecordService->createDetails($data);
             if ($response['status'] == true) {
                 return redirect(route('patient.medical-records.index'))->with(['success' => "Your Medical Record Has Been Created"]);
             } else {
@@ -51,7 +51,7 @@ class MedicalRecordController extends Controller
 
     public function editMedicalRecord($id)
     {
-        $medicalRecordDetail = $this->medicalDetailsService->getMedicalRecordById($id);
+        $medicalRecordDetail = $this->medicalRecordService->getMedicalRecordById($id);
         $allBookingDetails =  $this->bookingService->patientBookings(Auth::user()->id)->get();
         return view('patients.medical-records.edit', compact('medicalRecordDetail', 'allBookingDetails'));
     }
@@ -60,7 +60,7 @@ class MedicalRecordController extends Controller
     {
         try {
             $data = $request->all();
-            $response = $this->medicalDetailsService->updateDetails($data, $id);
+            $response = $this->medicalRecordService->updateDetails($data, $id);
             if ($response['status'] == true) {
                 return redirect(route('patient.medical-records.index'))->with(['success' => "Your Medical Record Has Been Updated"]);
             } else {
@@ -74,7 +74,7 @@ class MedicalRecordController extends Controller
     public function deleteMedicalRecord($id)
     {
         try {
-            $response = $this->medicalDetailsService->deleteDetails($id);
+            $response = $this->medicalRecordService->deleteDetails($id);
             if ($response['status'] == true) {
                 return back()->with(['success' => "Your Medical Record Has Been Deleted"]);
             } else {
@@ -96,5 +96,20 @@ class MedicalRecordController extends Controller
         $html .= '<p><i class="fa-solid fa-clock"></i>' . date('h:i A', strtotime($bookingDetails->slot_start_time)) . ' - ' . date('h:i A', strtotime($bookingDetails->slot_start_time)) . '</p>';
         $html .= '<p> <b> Note:</b> '  . $bookingDetails->note . '</p></li></ul></div>';
         return response($html);
+    }
+
+    public function searchFilterMedicalRecord(Request $request)
+    {
+        try {
+            $allMedicalRecord = $this->medicalRecordService->searchFilterMedicalRecord($request->all(), Auth::user()->id);
+            return response()->json([
+                'success' => 'Searching',
+                'data'    =>  view("patients.medical-records.all-medical-record", compact('allMedicalRecord'))->render()
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'error'    =>  $e->getMessage()
+            ]);
+        }
     }
 }

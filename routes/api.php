@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\DoctorWorkingHourController;
 use App\Http\Controllers\Api\DoctorAppointmentConfigController;
 use App\Http\Controllers\Api\Patient\AllListingController;
 use App\Http\Controllers\Api\Patient\DoctorFilterController;
+use App\Http\Controllers\Api\Patient\MedicalRecordApiController;
 use App\Http\Controllers\Api\Patient\PatientDashboardController;
 use App\Http\Controllers\Api\Patient\PatientDiaryController;
 use App\Http\Controllers\Api\Patient\PatientProfileController;
@@ -148,6 +149,15 @@ Route::middleware('authCheck')->group(function () {
             Route::post('update-patient-diary/{patient_diaries:id}', 'updatePatientDiary');
             Route::get('get-patient-diary-details/{patient_diaries:id}', 'getDiaryDetailsById');
             Route::get('check-today-patient-diary/{date}', 'checkTodayDateDiaryDetails');
+        });
+        Route::controller(MedicalRecordApiController::class)->group(function () {
+            Route::get('medical-records', 'medicalRecordsList');
+            Route::post('create-medical-record', 'createMedicalRecord');
+            Route::get('edit-medical-record/{medical_records:id}', 'editMedicalRecord');
+            Route::post('update-medical-record/{medical_records:id}', 'updateMedicalRecord');
+            Route::get('delete-medical-record/{medical_records:id}', 'deleteMedicalRecord');
+            Route::get('medical-records-filter', 'searchFilterMedicalRecord');
+            Route::get('get-booking-slot', 'getBookingDetailsByPatientId');
         });
     });
     Route::get('privacy', [AuthController::class, 'privacyPolicy']);

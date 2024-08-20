@@ -19,10 +19,14 @@
                 <input type="text" class="form-control" placeholder="Search" id="search">
                 <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
             </div>
-            <div>
-                <a href="{{ route('patient.medical-records.add') }}" class="btn btn-primary prime-btn">Add Medical
-                    Record</a>
-            </div>
+                    <div class="input-block dash-search-input mb-3">
+                        <input type="date" class="form-control" id="date">
+                    </div>
+                    <div class="input-block dash-search-input ">
+                        <a href="{{ route('patient.medical-records.add') }}" class="btn btn-primary prime-btn">Add
+                            Medical
+                            Record</a>
+                    </div>
         </div>
         @include('patients.medical-records.all-medical-record')
     </div>
@@ -53,21 +57,24 @@
                 }
             });
         }
-
-        $('#search').on('keyup', function() {
+        jQuery("#search").on('keyup', function() {
+            search_filter_results();
+        });
+        jQuery("#date").on('change', function() {
+            search_filter_results();
+        });
+        function search_filter_results() {
             $.ajax({
+                type: 'GET',
                 url: '/patients/medical-records-filter',
-                type: "get",
                 data: {
-                    "search_key": this.value
+                    'date': $('#date').val(),
+                    'search': $('#search').val()
                 },
-                success: function(res) {
-                    $('#medical_record_list').replaceWith(res.data);
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    // Swal.fire("Error deleting!", "Please try again", "error");
+                success: function(response) {
+                    $('#medical_record_list').replaceWith(response.data);
                 }
             });
-        });
+        }
     </script>
 @endsection

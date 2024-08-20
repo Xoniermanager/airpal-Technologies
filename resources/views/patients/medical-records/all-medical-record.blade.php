@@ -34,7 +34,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td class="text-denger">No Medical Record</td>
+                            <td class="text-center" colspan="5"><h4 class="text-danger ">No Medical Record</h4></td>
                         </tr>
                     @endforelse
                 </tbody>

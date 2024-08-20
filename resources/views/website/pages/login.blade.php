@@ -33,7 +33,7 @@
                                         </div>
                                         <span class="text-denger" id="password_error" style="color: red">
                                         <div class="text-end">
-                                            <a class="forgot-link" href="">Forgot
+                                            <a class="forgot-link" href="{{ route('doctor.forget.password.index') }}">Forgot
                                                 Password ?</a>
                                         </div>
                                         <button class="btn btn-primary w-100 btn-lg login-btn"

@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Http\Client\Request;
 use App\Helpers\CalculateExperience;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Repositories\UserRepository;
@@ -260,4 +261,22 @@ class UserServices
             ]
         );
     }
+
+    public function searchDoctors($data)
+    {
+        $query = $this->userRepository->newQuery();
+    
+        // Static condition for role = 2 (assumed to be 'doctor')
+        $query->where('role', 2);
+    
+        if (!empty($data['searchKey'])) {
+            $query->where(function ($q) use ($data) {
+                $q->where('first_name', 'like', '%' . $data['searchKey'] . '%')
+                  ->orWhere('last_name', 'like', '%' . $data['searchKey'] . '%');
+            });
+        }    
+        return $query->get();
+    }
+    
+    
 }

@@ -12,38 +12,39 @@
                 <div class="dashboard-card-body">
                     <div class="row">
                         <div class="col-sm-7">
+             
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="health-records icon-orange">
                                         <span><i class="fa-solid fa-heart"></i>Heart Rate</span>
-                                        <h3>140 Bpm <sup> 2%</sup></h3>
+                                        <h3>{{ $diaryDetails->pulse_rate  ?? ''}} Bpm <sup> 2%</sup></h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="health-records icon-amber">
                                         <span><i class="fa-solid fa-temperature-high"></i>Body
                                             Temprature</span>
-                                        <h3>37.5 C</h3>
+                                        <h3>{{ $diaryDetails->avg_body_temp  ?? ''}} C</h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="health-records icon-dark-blue">
                                         <span><i class="fa-solid fa-notes-medical"></i>Glucose
                                             Level</span>
-                                        <h3>70 - 90<sup> 6%</sup></h3>
+                                        <h3>{{ $diaryDetails->glucose  ?? ''}}<sup> 6%</sup></h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="health-records icon-blue">
                                         <span><i class="fa-solid fa-highlighter"></i>SPo2</span>
-                                        <h3>96%</h3>
+                                        <h3>{{ $diaryDetails->oxygen_level  ?? ''}}%</h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="health-records icon-red">
                                         <span><i class="fa-solid fa-syringe"></i>Blood
                                             Pressure</span>
-                                        <h3>100 mg/dl<sup> 2%</sup></h3>
+                                        <h3>{{ $diaryDetails->bp  ?? ''}} mg/dl<sup> 2%</sup></h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -54,7 +55,9 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="report-gen-date">
-                                        <p>Report generated on last visit : 25 Mar 2024 <span><i
+                                        <p>Report generated on last visit : 
+                                            {{ date('j M Y', strtotime(Carbon\Carbon::now()->toDateString())) ?? '' }}
+                                        <span><i
                                                     class="fa-solid fa-copy"></i></span></p>
                                     </div>
                                 </div>
@@ -70,8 +73,7 @@
                                     </div>
                                 </div>
                                 <span class="health-percentage">Your health is 95% Normal</span>
-                                <a href="" class="btn btn-dark w-100">View
-                                    Details<i class="fa-solid fa-chevron-right ms-2"></i></a>
+                                <a href="{{ route('patient.diary.index') }}" class="btn btn-dark w-100">View Details<i class="fa-solid fa-chevron-right ms-2"></i></a>
                             </div>
                         </div>
                     </div>
@@ -237,12 +239,12 @@
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link active" id="pills-revenue-tab" data-bs-toggle="pill"
                                             data-bs-target="#pills-revenue" type="button" role="tab"
-                                            aria-controls="pills-revenue" aria-selected="false">Hear Rate</button>
+                                            aria-controls="pills-revenue" aria-selected="false">Blood Presure</button>
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link" id="pills-appointment-tab" data-bs-toggle="pill"
                                             data-bs-target="#pills-appointment" type="button" role="tab"
-                                            aria-controls="pills-appointment" aria-selected="true">Blood Presure</button>
+                                            aria-controls="pills-appointment" aria-selected="true">Heart Rate</button>
                                     </li>
                                 </ul>
                             </div>
@@ -252,9 +254,13 @@
                                     <div id="revenue-chart">
                                         <div class="search-header">
                                             <select id="time-period-revenue" class="">
-                                                <option value="currentMonth">Current Month</option>
-                                                <option value="monthly">Monthly</option>
-                                                <option value="yearly">Yearly</option>
+                                                @for ($month = 1; $month <= 12; $month++)
+                                                    <option value="{{ $month }}" {{ $month == \Carbon\Carbon::now()->month ? 'selected' : '' }}>
+                                                        {{ $month }} - {{ \Carbon\Carbon::create()->month($month)->format('F') }}
+                                                    </option>
+                                                @endfor
+                                            </select>
+                                            
                                             </select>
                                         </div>
                                         <div id="revenue_chart_div" class="mb-4"></div>
@@ -263,10 +269,12 @@
                                 <div class="tab-pane fade active" id="pills-appointment" role="tabpanel"
                                     aria-labelledby="pills-appointment-tab">
                                     <div id="appointment-chart">
-                                        <select id="time-period-appointment" class="">
-                                            <option value="currentMonth">Current Month</option>
-                                            <option value="monthly">Monthly</option>
-                                            <option value="yearly">Yearly</option>
+                                        <select id="time-period-heartbeat" class="">
+                                            @for ($month = 1; $month <= 12; $month++)
+                                            <option value="{{ $month }}" {{ $month == \Carbon\Carbon::now()->month ? 'selected' : '' }}>
+                                                {{ $month }} - {{ \Carbon\Carbon::create()->month($month)->format('F') }}
+                                            </option>
+                                        @endfor
                                         </select>
                                         <div id="booking_chart_div"></div>
                                     </div>
@@ -350,11 +358,11 @@
 
                             <nav class="patient-dash-tab border-0 pb-0 mb-3 mt-3">
                                 <ul class="nav nav-tabs-bottom">
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a class="nav-link active" href="#appoint-tab" data-bs-toggle="tab">Appointments</a>
-                                    </li>
+                                    </li> --}}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#medical-tab" data-bs-toggle="tab">Medical Records</a>
+                                        <a class="nav-link active" href="#medical-tab" data-bs-toggle="tab">Medical Records</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#prsc-tab" data-bs-toggle="tab">Prescriptions</a>
@@ -368,7 +376,7 @@
 
                             <div class="tab-content pt-0">
 
-                                <div id="appoint-tab" class="tab-pane fade show active">
+                                {{-- <div id="appoint-tab" class="tab-pane fade show active">
                                     <div class="custom-new-table">
                                         <div class="table-responsive">
                                             <table class="table table-hover table-center mb-0">
@@ -532,10 +540,10 @@
                                             </table>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
 
-                                <div class="tab-pane fade" id="medical-tab">
+                                <div class="tab-pane fade show active" id="medical-tab">
                                     <div class="custom-table">
                                         <div class="table-responsive">
                                             <table class="table table-center mb-0">
@@ -549,154 +557,36 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    @forelse ($medicalRecords as $key => $medicalRecord)
                                                     <tr>
-                                                        <td class="text-blue-600"><a href="javascript:void(0);">#MR-123</a>
+                                                        <td class="text-blue-600"><a href="javascript:void(0);">{{ $key+1 }}</a>
                                                         </td>
                                                         <td>
                                                             <a href="javascript:void(0);" class="lab-icon">
-                                                                <span><i class="fa-solid fa-paperclip"></i></span>Lab
-                                                                Report
+                                                                <span><i class="fa-solid fa-paperclip"></i></span>
+                                                                {{ $medicalRecord->name ?? '' }}
                                                             </a>
                                                         </td>
-                                                        <td>24 Mar 2024</td>
-                                                        <td>Glucose Test V12</td>
+                                                        <td> {{ $medicalRecord->date ?? '' }}</td>
+                                                        <td>{!! Str::limit($medicalRecord->description, 20, ' ...') !!}</td>
                                                         <td>
                                                             <div class="action-item">
-                                                                <a href="javascript:void(0);">
+                                                                <a href="{{ route('patient.medical-records.edit', $medicalRecord->id) }}">
                                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                                 </a>
-                                                                <a href="javascript:void(0);">
+                                                                <a href="{{ $medicalRecord->file }}" download>
                                                                     <i class="fa-solid fa-download"></i>
                                                                 </a>
-                                                                <a href="javascript:void(0);">
+                                                                <a href="#" onclick="delete_medical_record({{ $medicalRecord->id }})">
                                                                     <i class="fa-solid fa-trash-can"></i>
                                                                 </a>
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td class="text-blue-600"><a href="javascript:void(0);">#MR-124</a>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0);" class="lab-icon">
-                                                                <span><i class="fa-solid fa-paperclip"></i></span>Lab
-                                                                Report
-                                                            </a>
-                                                        </td>
-                                                        <td>27 Mar 2024</td>
-                                                        <td>Complete Blood Count(CBC)</td>
-                                                        <td>
-                                                            <div class="action-item">
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-download"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-trash-can"></i>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-blue-600"><a href="#">#MR-125</a></td>
-                                                        <td>
-                                                            <a href="javascript:void(0);" class="lab-icon">
-                                                                <span><i class="fa-solid fa-paperclip"></i></span>Lab
-                                                                Report
-                                                            </a>
-                                                        </td>
-                                                        <td>10 Apr 2024</td>
-                                                        <td>Echocardiogram</td>
-                                                        <td>
-                                                            <div class="action-item">
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-download"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-trash-can"></i>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-blue-600"><a href="javascript:void(0);">#MR-126</a>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0);" class="lab-icon">
-                                                                <span><i class="fa-solid fa-paperclip"></i></span>Lab
-                                                                Report
-                                                            </a>
-                                                        </td>
-                                                        <td>19 Apr 2024</td>
-                                                        <td>COVID-19 Test</td>
-                                                        <td>
-                                                            <div class="action-item">
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-download"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-trash-can"></i>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-blue-600"><a href="javascript:void(0);">#MR-127</a>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:void(0);" class="lab-icon">
-                                                                <span><i class="fa-solid fa-paperclip"></i></span>Lab
-                                                                Report
-                                                            </a>
-                                                        </td>
-                                                        <td>27 Apr 2024</td>
-                                                        <td>Allergy Tests</td>
-                                                        <td>
-                                                            <div class="action-item">
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-download"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-trash-can"></i>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-blue-600"><a href="#">#MR-128</a></td>
-                                                        <td>
-                                                            <a href="javascript:void(0);" class="lab-icon">
-                                                                <span><i class="fa-solid fa-paperclip"></i></span>Lab
-                                                                Report
-                                                            </a>
-                                                        </td>
-                                                        <td>02 May 2024</td>
-                                                        <td>Lipid Panel </td>
-                                                        <td>
-                                                            <div class="action-item">
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-download"></i>
-                                                                </a>
-                                                                <a href="javascript:void(0);">
-                                                                    <i class="fa-solid fa-trash-can"></i>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                    @empty
+                                                        
+                                                    @endforelse
+                                            
                                                 </tbody>
                                             </table>
                                         </div>
@@ -1000,121 +890,49 @@
                 });
 
                 // Function to load booking data
-                function loadGraphBookingData(period) {
-                    // period = period ?? 'currentMonth';
-                    // $.ajax({
-                    //     url: "<?= route('doctor.booking.graphData') ?>",
-                    //     type: 'get',
-                    //     data: {
-                    //         'period': period
-                    //     },
-                    //     success: function(response) {
-                    graphBookingData = [
-                        [25, 5.240266007932762],
-                        [26, 5.253756507319332],
-                        [27, 5.22029650790401],
-                        [28, 5.268704059004204],
-                        [29, 5.233683845050076],
-                        [30, 5.289605815622391],
-                        [31, 5.232041091123958],
-                        [1, 5.2301254401862955],
-                        [2, 5.250722035402405],
-                        [3, 5.283736492427697],
-                        [4, 5.296890906826341],
-                        [5, 5.355039204322343],
-                        [6, 5.346735747035125],
-                        [7, 5.326231782387644],
-                        [8, 5.3273666240507165],
-                        [9, 5.328501949410373],
-                        [10, 5.291005414482904],
-                        [11, 5.317451861825049],
-                        [12, 5.3344712035425745],
-                        [13, 5.318865815686569],
-                        [14, 5.3273666240507165],
-                        [15, 5.327650410031998],
-                        [16, 5.33532534905194],
-                        [17, 5.294647171789238],
-                        [18, 5.243288403010766],
-                        [19, 5.2449386384155785],
-                        [20, 5.265097477347184],
-                        [21, 5.291005414482904],
-                        [22, 5.290165399493866],
-                        [23, 5.243013533000918],
-                        [24, 5.177591381675723],
-                        [25, 5.136106760580972],
-                        [26, 5.118754990317601],
-                        [27, 5.132943184294443],
-                        [28, 5.093984040401572],
-                        [29, 5.092946441953961],
-                        [1, 5.096580274206888]
-                    ];
-                    drawLogScalesBooking();
-                    //     },
-                    //     error: function(xhr, status, error) {
-                    //         console.error(error);
-                    //     }
-                    // });
+                function loadGraphHeartRate(period ) {
+                    period = period ?? new Date().getMonth() + 1;
+                    $.ajax({
+                        url: "<?= route('patient-heartbeat.graph.data') ?>",
+                        type: 'get',
+                        data: {
+                            'period': period
+                        },
+                        success: function(response) {
+                            graphBookingData = response;
+                            drawLogScalesHeartRate();
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                        }
+                    });
                 }
 
                 // Function to load revenue data
-                function loadGraphRevenueData(period) {
-                    // period = period ?? 'currentMonth';
-                    // $.ajax({
-                    //     url: "<?= route('revenue.report') ?>",
-                    //     type: 'get',
-                    //     data: {
-                    //         'period': period
-                    //     },
-                    //     success: function(response) {
-                    graphRevenueData = [
-                        [25, 5.240266007932762],
-                        [26, 5.253756507319332],
-                        [27, 5.22029650790401],
-                        [28, 5.268704059004204],
-                        [29, 5.233683845050076],
-                        [30, 5.289605815622391],
-                        [31, 5.232041091123958],
-                        [1, 5.2301254401862955],
-                        [2, 5.250722035402405],
-                        [3, 5.283736492427697],
-                        [4, 5.296890906826341],
-                        [5, 5.355039204322343],
-                        [6, 5.346735747035125],
-                        [7, 5.326231782387644],
-                        [8, 5.3273666240507165],
-                        [9, 5.328501949410373],
-                        [10, 5.291005414482904],
-                        [11, 5.317451861825049],
-                        [12, 5.3344712035425745],
-                        [13, 5.318865815686569],
-                        [14, 5.3273666240507165],
-                        [15, 5.327650410031998],
-                        [16, 5.33532534905194],
-                        [17, 5.294647171789238],
-                        [18, 5.243288403010766],
-                        [19, 5.2449386384155785],
-                        [20, 5.265097477347184],
-                        [21, 5.291005414482904],
-                        [22, 5.290165399493866],
-                        [23, 5.243013533000918],
-                        [24, 5.177591381675723],
-                        [25, 5.136106760580972],
-                        [26, 5.118754990317601],
-                        [27, 5.132943184294443],
-                        [28, 5.093984040401572],
-                        [29, 5.092946441953961],
-                        [1, 5.096580274206888]
-                    ];
-                    drawLogScalesRevenue();
-
-
+                function loadGraphBloodPressure(period) {
+                    period = period ?? new Date().getMonth() + 1;
+                    $.ajax({
+                        url: "<?= route('patient-blood-pressure.graph.data') ?>",
+                        type: 'get',
+                        data: {
+                            'period': period
+                        },
+                        success: function(response) {
+                            graphRevenueData = response
+                            drawLogScalesBloodPressure();
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                        }
+                    });
+                           
                 }
 
                 // Function to draw booking chart
-                function drawLogScalesBooking() {
+                function drawLogScalesHeartRate() {
                     var data = new google.visualization.DataTable();
                     data.addColumn('number', 'X');
-                    data.addColumn('number', 'rate');
+                    data.addColumn('number', 'heart rate');
                     data.addRows(graphBookingData);
 
                     var view = new google.visualization.DataView(data);
@@ -1143,10 +961,10 @@
                 }
 
                 // Function to draw revenue chart
-                function drawLogScalesRevenue() {
+                function drawLogScalesBloodPressure() {
                     var data = new google.visualization.DataTable();
                     data.addColumn('number', 'X');
-                    data.addColumn('number', 'rate');
+                    data.addColumn('number', 'blood pressure');
                     data.addRows(graphRevenueData);
 
                     var view = new google.visualization.DataView(data);
@@ -1176,21 +994,49 @@
 
                 // Initialize charts on page load
                 google.charts.setOnLoadCallback(function() {
-                    loadGraphBookingData('currentMonth');
-                    loadGraphRevenueData('currentMonth');
+                    currentMonth  =new Date().getMonth() + 1;
+                    loadGraphHeartRate(currentMonth);
+                    loadGraphBloodPressure(currentMonth);
                 });
 
                 // Event listener for revenue time period change
                 $("#time-period-revenue").change(function() {
                     var period = $(this).val() ?? 'currentMonth';
-                    loadGraphRevenueData(period);
+                    loadGraphBloodPressure(period);
                 });
 
                 // Event listener for appointment time period change
-                $("#time-period-appointment").change(function() {
+                $("#time-period-heartbeat").change(function() {
                     var period = $(this).val() ?? 'currentMonth';
-                    loadGraphBookingData(period);
+                    loadGraphHeartRate(period);
                 });
             });
+
+            function delete_medical_record(id) {
+            event.preventDefault();
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/patients/delete-medical-record/' + id,
+                        type: "get",
+                        success: function(res) {
+                            $(".data-medical-record-id-" + id).remove();
+                            Swal.fire("Done!", "It was successfully deleted!", "success");
+                        },
+                        error: function(xhr, ajaxOptions, thrownError) {
+                            Swal.fire("Error deleting!", "Please try again", "error");
+                        }
+                    });
+                }
+            });
+        }
         </script>
     @endsection

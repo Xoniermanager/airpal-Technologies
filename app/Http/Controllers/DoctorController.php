@@ -9,6 +9,7 @@ use App\Models\Language;
 use Illuminate\Http\Request;
 use App\Http\Services\UserServices;
 use App\Http\Services\DoctorService;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Services\BookingServices;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Services\DoctorReviewService;
@@ -27,13 +28,14 @@ class DoctorController extends Controller
 
   private $doctorReviewService;
 
-  public function __construct(UserServices $user_services, 
-  SpecializationServices $specializationServices, 
-  DoctorAppointmentConfigService $doctorSlotServices, 
-  BookingServices $bookingServices, 
-  DoctorReviewService $doctorReviewService,
-  DoctorService $doctorService)
-  {
+  public function __construct(
+    UserServices $user_services,
+    SpecializationServices $specializationServices,
+    DoctorAppointmentConfigService $doctorSlotServices,
+    BookingServices $bookingServices,
+    DoctorReviewService $doctorReviewService,
+    DoctorService $doctorService
+  ) {
     $this->user_services = $user_services;
     $this->bookingServices = $bookingServices;
     $this->specializationServices = $specializationServices;
@@ -49,9 +51,8 @@ class DoctorController extends Controller
     $allRatingStars = $this->doctorService->getDoctorCountsGroupedByRatings();
 
     $ratingsWithCounter = array();
-    for($i=1; $i<=5; $i++)
-    {
-      $ratingsWithCounter[$i] = array_sum($allRatingStars->whereBetween('allover_rating',[$i - 0.5,$i])->pluck('total_doctors')->toArray());
+    for ($i = 1; $i <= 5; $i++) {
+      $ratingsWithCounter[$i] = array_sum($allRatingStars->whereBetween('allover_rating', [$i - 0.5, $i])->pluck('total_doctors')->toArray());
     }
 
     return view('website.doctor.search-doctor', ['doctors' =>  $doctors, 'languages' => Language::all(), 'specialties' => $specialties, 'services' => Service::all(), 'ratingsWithCounter' => $ratingsWithCounter]);
@@ -71,7 +72,7 @@ class DoctorController extends Controller
 
     $topSpecializations = array_slice($specializationNames, 0, 2);
     $specializationsString = implode(', ', $topSpecializations);
-    return view('website.doctor.doctor-profile')
+  return view('website.doctor.doctor-profile')
       ->with('doctor', $doctor)
       ->with('specializationsString', $specializationsString)
       ->with('allReviewDetails', $this->doctorReviewService->getAllReviewByDoctorId($user->id));
@@ -199,7 +200,7 @@ class DoctorController extends Controller
         $slotClass = $isBooked ? ' booked' : '';
 
         $html .= '<div class="slot-group">';
-        $html .= '<button class="btn btn-outline-primary mb-3 w-100' . $slotClass;
+        $html .= '<button class="btn btn-outline-primary mb-2 w-100' . $slotClass;
         $html .= $isBooked ? ' disabled' : '';
         $html .= '" onclick="splitButton(this)">' . htmlspecialchars($slot) . '</button>';
         $html .= '<div class="additional-buttons hidden mb-2">';
@@ -222,5 +223,35 @@ class DoctorController extends Controller
     $doctorName      = $this->user_services->getDoctorDataById(session('doctorId'))->fullName ?? '';
 
     return view('doctor.success', compact('bookingDate', 'bookingSlotTime', 'doctorName'));
+  }
+
+
+  public function retrieveLastBookingDate(Request $request)
+  {
+
+    $latestBookings = $this->bookingServices->retrieveLastBookingDate(Auth::id());
+    $slotConfig     = $this->doctorSlotServices->getSlotConfig(Auth::id());
+
+    switch ($slotConfig->status) {
+      case '0':
+          // Code for when $slotConfig is '0' or closed
+          break;
+  
+      case '1':
+          // Code for when $slotConfig is '1' or active 
+          $this->doctorSlotServices->createSlot($request->all());
+          break;
+  
+      case '2':
+          // Here checking if config status is 2, that means future applied update
+          $this->doctorSlotServices->updateSlot($request->all());
+          break;
+      default:
+          // Code for any other value of $slotConfig
+          break;
+  }
+  
+
+    dd($latestBookings);
   }
 }

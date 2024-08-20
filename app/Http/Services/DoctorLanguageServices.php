@@ -37,7 +37,7 @@ class DoctorLanguageServices
   
       public function addOrUpdateDoctorLanguage($userId, $languages) {
 
-         $currentLanguages = $this->doctorLanguageRepository->where('user_id', $userId)->pluck('language_id')->toArray();
+         $currentLanguages  = $this->doctorLanguageRepository->where('user_id', $userId)->pluck('language_id')->toArray();
          $languagesToAddOrUpdate  = array_diff($languages, $currentLanguages);
          $languagesToRemove   = array_diff($currentLanguages, $languages);
    

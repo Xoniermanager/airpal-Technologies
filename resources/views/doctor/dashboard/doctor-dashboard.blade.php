@@ -422,7 +422,7 @@
             function drawLogScalesBooking() {
                 var data = new google.visualization.DataTable();
                 data.addColumn('number', 'X');
-                data.addColumn('number', 'rate');
+                data.addColumn('number', 'appointments');
                 data.addRows(graphBookingData);
 
                 var view = new google.visualization.DataView(data);

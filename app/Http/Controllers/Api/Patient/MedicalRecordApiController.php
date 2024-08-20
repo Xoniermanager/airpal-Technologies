@@ -126,10 +126,20 @@ class MedicalRecordApiController extends Controller
     public function getBookingDetailsByPatientId()
     {
         try {
-            $allBookingDetails =  $this->bookingService->patientBookings(Auth()->guard('api')->user()->id)->get();
+            $allBookingDetails =  $this->bookingService->patientBookings(Auth()->guard('api')->user()->id)->with('doctor')->get();
+            $finalPayload = [];
+            foreach ($allBookingDetails as $bookingDetails) {
+                $finalPayload[] =
+                    [
+                        'id' => $bookingDetails->id,
+                        'name' => $bookingDetails->booking_date . ' && ' . $bookingDetails->slot_start_time . ' - ' . $bookingDetails->slot_end_time,
+                        'note' => $bookingDetails->note,
+                        'doctor_details' => $bookingDetails->doctor,
+                    ];
+            }
             return response()->json([
                 "status" => true,
-                'data'    => $allBookingDetails
+                'data'    => $finalPayload
             ]);
         } catch (Exception $e) {
             return response()->json([

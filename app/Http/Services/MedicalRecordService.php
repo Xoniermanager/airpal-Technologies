@@ -5,7 +5,7 @@ namespace App\Http\Services;
 use App\Http\Repositories\MedicalRecordRepository;
 use Exception;
 
-class MedicalDetailsService
+class MedicalRecordService
 {
     private  $medicalRecordRepository;
     public function __construct(MedicalRecordRepository $medicalRecordRepository)
@@ -66,5 +66,17 @@ class MedicalDetailsService
         } catch (Exception $e) {
             return ['status' => false, 'data' => $e->getmessage()];
         }
+    }
+
+    public function searchFilterMedicalRecord($data, $patientId)
+    {
+        $medicalRecord = $this->medicalRecordRepository->where('patient_id', $patientId)->newQuery();
+        if (!empty($data['search'])) {
+            $medicalRecord = $medicalRecord->where('name', 'like', "%{$data['search']}%")->orWhere('description', 'like', "%{$data['search']}%");
+        }
+        if (!empty($data['date'])) {
+            $medicalRecord = $medicalRecord->whereDate('created_at', $data['date']);
+        }
+        return $medicalRecord->orderBy('id', 'desc')->paginate(10);
     }
 }

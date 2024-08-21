@@ -234,11 +234,11 @@
                                 </div>
                             </div>
       
-                                    {{-- glucose graph tab show data --}}
+                                {{-- glucose graph tab show data --}}
                                 <div class="tab-pane fade active" id="glucose" role="tabpanel"
                                         aria-labelledby="glucose-tab">
                                         <div id="glucose-chart">
-                                            <select id="time-period-heartbeat" class="">
+                                            <select id="time-period-body-glucose" class="">
                                                 @for ($month = 1; $month <= 12; $month++)
                                                     <option value="{{ $month }}"
                                                         {{ $month == \Carbon\Carbon::now()->month ? 'selected' : '' }}>
@@ -254,7 +254,7 @@
                                 <div class="tab-pane fade active" id="oxygen" role="tabpanel"
                                 aria-labelledby="oxygen-tab">
                                 <div id="oxygen-chart">
-                                    <select id="time-period-oxygen" class="">
+                                    <select id="time-period-body-oxygen" class="">
                                         @for ($month = 1; $month <= 12; $month++)
                                             <option value="{{ $month }}"
                                                 {{ $month == \Carbon\Carbon::now()->month ? 'selected' : '' }}>
@@ -295,7 +295,7 @@
                             <div class="dashboard-card-head">
                                 <div class="header-title">
                                     <h5><span class="card-head-icon"><i
-                                                class="fa-solid fa-calendar-days"></i></span>Appointments
+                                                class="fa-solid fa-calendar-days"></i></span>Upcomming Appointments
                                     </h5>
                                 </div>
                                 <div class="card-view-link">
@@ -345,47 +345,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="dashboard-card w-100">
-                            <div class="dashboard-card-head">
-                                <div class="header-title">
-                                    <h5>Past Appointments</h5>
-                                </div>
-                                <div class="card-view-link">
-                                    <div class="owl-nav slide-nav2 text-end nav-control">
-                                    </div>
-                                </div>
-                            </div>
-                            @forelse ($patientPastBookings->take(2) as $patientPastBookings)
-                                <div class="appointment-dash-card">
-                                    <div class="doctor-fav-list">
-                                        <div class="doctor-info-profile">
-                                            <a href="#" class="table-avatar">
-                                                <img src="{{ $patientPastBookings->user->image_url }}" alt="Img">
-                                            </a>
-                                            <div class="doctor-name-info">
-                                                <h5><a href="#">Dr.{{ $patientPastBookings->user->fullName ?? '' }}</a>
-                                                </h5>
-                                                <span>Dentist</span>
-                                            </div>
-                                        </div>
-                                        <a href="#" class="cal-plus-icon"><i class="fa-solid fa-hospital"></i></a>
-                                    </div>
-                                    <div class="date-time">
-                                        <p><i class="fa-solid fa-clock"></i>
-                                            {{ date('j M Y', strtotime($patientPastBookings->booking_date)) ?? '' }} -
-                                            {{ date('h:i A', strtotime($patientPastBookings->slot_start_time)) ?? '' }}
-                                        </p>
-                                    </div>
-                                    <div class="card-btns">
-                                        <a href="#" class="btn btn-gray"><i class="fa-solid fa-comment-dots"></i>Chat
-                                            Now</a>
-                                        <a href="patient-appointments.html" class="btn btn-outline-primary"><i
-                                                class="fa-solid fa-calendar-check"></i>Attend</a>
-                                    </div>
-                                </div>
-                            @empty
-                            @endforelse
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-7">
@@ -434,6 +393,47 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="dashboard-card w-100">
+                        <div class="dashboard-card-head">
+                            <div class="header-title">
+                                <h5>Past Appointments</h5>
+                            </div>
+                            <div class="card-view-link">
+                                <div class="owl-nav slide-nav2 text-end nav-control">
+                                </div>
+                            </div>
+                        </div>
+                        @forelse ($patientPastBookings->take(2) as $patientPastBookings)
+                            <div class="appointment-dash-card">
+                                <div class="doctor-fav-list">
+                                    <div class="doctor-info-profile">
+                                        <a href="#" class="table-avatar">
+                                            <img src="{{ $patientPastBookings->user->image_url }}" alt="Img">
+                                        </a>
+                                        <div class="doctor-name-info">
+                                            <h5><a href="#">Dr.{{ $patientPastBookings->user->fullName ?? '' }}</a>
+                                            </h5>
+                                            <span>Dentist</span>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="cal-plus-icon"><i class="fa-solid fa-hospital"></i></a>
+                                </div>
+                                <div class="date-time">
+                                    <p><i class="fa-solid fa-clock"></i>
+                                        {{ date('j M Y', strtotime($patientPastBookings->booking_date)) ?? '' }} -
+                                        {{ date('h:i A', strtotime($patientPastBookings->slot_start_time)) ?? '' }}
+                                    </p>
+                                </div>
+                                <div class="card-btns">
+                                    <a href="#" class="btn btn-gray"><i class="fa-solid fa-comment-dots"></i>Chat
+                                        Now</a>
+                                    <a href="patient-appointments.html" class="btn btn-outline-primary"><i
+                                            class="fa-solid fa-calendar-check"></i>Attend</a>
+                                </div>
+                            </div>
+                        @empty
+                        @endforelse
                     </div>
                 </div>
                 <div class="col-xl-12 d-flex">
@@ -943,15 +943,20 @@
                                                                 </td>
                                                                 <td>${{ $patientInvoice->user->payment ?? 0 }}</td>
                                                                 <td>
-                                                                    @if (isset($invoiceDetail->invoice_url))
+                                    
+                                                                    @if (isset($patientInvoice->invoice_url))
+                                                                    <div class="action-item">
                                                                         <a href="javascript:void(0)" class="set-bg-color"
-                                                                            onclick="printInvoice('{{ Storage::url($invoiceDetail->invoice_url) }}');">
+                                                                            onclick="printInvoice('{{ Storage::url($patientInvoice->invoice_url) }}');">
                                                                             <i class="fa-solid fa-print"></i>
                                                                         </a>
+                                                                    </div>
                                                                     @else
+                                                                    <div class="action-item">
                                                                         <a href="javascript:void(0)">
                                                                             <i class="fa-solid fa-print"></i>
                                                                         </a>
+                                                                    </div>
                                                                     @endif
                                                                     {{-- <div class="action-item">
                                                                 <a href="javascript:void(0);" data-bs-toggle="modal"
@@ -1322,5 +1327,24 @@
                         }
                     });
                 }
+                function printInvoice(url) {
+                    var printWindow = window.open(url, '_blank');
+                    printWindow.onload = function() {
+                        printWindow.print();
+                    };
+                }
+                
             </script>
+                <style>
+                    a.set-bg-color {
+                        background-color: #004cd4;
+                        color: white;
+                    }
+            
+                    .page-item.active .page-link {
+                        background-color: #004cd4;
+                        border-color: #004cd4;
+                        color: white;
+                    }
+                </style>
         @endsection

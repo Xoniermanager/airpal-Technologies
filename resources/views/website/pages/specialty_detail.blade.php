@@ -89,7 +89,7 @@
                             <div class="doc-pro-img">
                                 <a href="{{ route('frontend.doctor.profile',['user' => $doctor->user_id]) }}">
                                     <div class="doctor-profile-img">
-                                        <img src="{{asset('images/'.$doctor->user->image_url )}}" class="img-fluid"
+                                        <img src="{{ $doctor->user->image_url}}" class="img-fluid"
                                         alt=""
                                         onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" 
                                             >
@@ -112,7 +112,7 @@
                                         @empty
                                         <p>N/A</p>
                                         @endforelse
-                                         <p>Specialty - <span>{{$doctor->specialty->name ?? ''}}</span></p>
+                                         <p>Specialty - <span class="badge badge-info text-white">{{$doctor->specialty->name ?? ''}}</span></p>
                                         <div class="location border-top pt-3">
                                         {{-- <p><i class="fas fa-map-marker-alt"></i> San Diego, USA</p> --}}
 

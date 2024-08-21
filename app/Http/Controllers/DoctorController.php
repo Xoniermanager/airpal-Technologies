@@ -6,7 +6,9 @@ use DateTime;
 use App\Models\User;
 use App\Models\Service;
 use App\Models\Language;
+use App\Models\BookingSlots;
 use Illuminate\Http\Request;
+use App\Jobs\GenerateInvoicePdf;
 use App\Http\Services\UserServices;
 use App\Http\Services\DoctorService;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +17,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Services\DoctorReviewService;
 use App\Http\Services\SpecializationServices;
 use App\Http\Services\DoctorAppointmentConfigService;
+use App\Jobs\GenerateAllInvoices;
 
 class DoctorController extends Controller
 {
@@ -253,5 +256,11 @@ class DoctorController extends Controller
   
 
     dd($latestBookings);
+  }
+
+
+  public function generateAllInvoices(Request $request)
+  {
+    GenerateAllInvoices::dispatch();  
   }
 }

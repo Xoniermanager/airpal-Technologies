@@ -471,4 +471,15 @@ Route::get('job', function () {
     UpdateDoctorRatingsAverageValue::dispatch();
     return 'job executes';
 });
+
+
+
+
+
+Route::controller(DoctorController::class)->group(function () {
+    Route::get('generateAllInvoices', 'generateAllInvoices')->name('generate.all.invoices');
+
+});
+
+
 // ============================== End Frontend Website Routes ===================== //

@@ -51,7 +51,6 @@ class PatientDiaryService
             $response = ['status' => true, 'data' => $patientDiaryDetails];
             return $response;
         } catch (Exception $e) {
-            dd($e->getmessage());
             $response = ['status' => false, 'data' => $e->getmessage()];
             return $response;
         }

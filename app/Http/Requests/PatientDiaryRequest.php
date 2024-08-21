@@ -3,15 +3,15 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-// use App\Traits\ExceptionHandle;
+ use App\Traits\ExceptionHandle;
 
 class PatientDiaryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
-    // use ExceptionHandle;
-    
+    use ExceptionHandle;
+
     public function authorize(): bool
     {
         return true;

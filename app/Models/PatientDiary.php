@@ -9,7 +9,7 @@ class PatientDiary extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['patient_id', 'note', 'report_date', 'morning_breakfast', 'afternoon_lunch', 'night_dinner', 'morning_medicine', 'afternoon_medicine', 'night_medicine', 'pulse_rate', 'bp', 'avg_body_temp', 'avg_heart_beat', 'glucose', 'total_sleep_hr','pulse_rate','oxygen_level','weight'];
+    protected $fillable = ['patient_id', 'note', 'morning_breakfast', 'afternoon_lunch', 'night_dinner', 'morning_medicine', 'afternoon_medicine', 'night_medicine', 'pulse_rate', 'bp', 'avg_body_temp', 'avg_heart_beat', 'glucose', 'total_sleep_hr','pulse_rate','oxygen_level','weight'];
 
     public function patient()
     {

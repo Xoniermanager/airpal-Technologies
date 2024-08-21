@@ -23,7 +23,6 @@ use App\Http\Controllers\Api\Patient\PatientDashboardController;
 use App\Http\Controllers\Api\Patient\PatientDiaryController;
 use App\Http\Controllers\Api\Patient\PatientProfileController;
 use App\Http\Controllers\Api\Patient\PatientFavoriteDoctorController;
-use App\Models\PatientDiary;
 
 Route::get('/user', function (Request $request) {
     return $request->user();

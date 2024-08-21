@@ -12,10 +12,13 @@
                                                             class="img-fluid" alt="John Doe">
                                                     </a>
                                                     <div class="favourite-btn">
-                                                        <input type="checkbox" id="heart-{{ $doctor->id }}"  style="    display: none;
-"
-                                                               onclick="toggleFavorite({{ $doctor->id }}, {{ auth()->user()->id }}, this)"
-                                                               @if(in_array($doctor->id, $favoriteDoctorsList)) checked @endif>
+                                                        <input type="checkbox" id="heart-{{ $doctor->id }}" style="display: none"
+                                                               @if(Auth::check()) 
+                                                                   onclick="toggleFavorite({{ $doctor->id }}, {{ auth()->user()->id }}, this)"
+                                                                   @if(in_array($doctor->id, $favoriteDoctorsList)) checked @endif
+                                                               @else
+                                                                   {{-- onclick="alert('Please log in to favorite doctors.');"  --}}
+                                                               @endif>
                                                         <label for="heart-{{ $doctor->id }}">❤</label>
                                                     </div>
                                                     

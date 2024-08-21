@@ -98,14 +98,14 @@
                                         <div class="form-wrap">
                                             <label class="col-form-label">Address <span
                                                     class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="address[street]" value="{{$patientDetails->doctorAddress->address}}">
+                                            <input type="text" class="form-control" name="address[street]" value="{{$patientDetails->doctorAddress->address ?? ''}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-wrap">
                                             <label class="col-form-label">City <span
                                                     class="text-danger">*</span></label>
-                                            <input type="text" class="form-control"  name="address[city]" value="{{$patientDetails->doctorAddress->city}}">
+                                            <input type="text" class="form-control"  name="address[city]" value="{{$patientDetails->doctorAddress->city  ?? ''}}">
                                         </div>
                                     </div>
 
@@ -154,7 +154,7 @@
                                         <div class="form-wrap">
                                             <label class="col-form-label">Pincode <span
                                                     class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" name="address[pincode]" value="{{$patientDetails->doctorAddress->pin_code}}">
+                                            <input type="number" class="form-control" name="address[pincode]" value="{{$patientDetails->doctorAddress->pin_code ?? ''}}">
                                         </div>
                                     </div>
                                 </div>

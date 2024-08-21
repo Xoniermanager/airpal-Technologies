@@ -53,26 +53,31 @@ class DoctorController extends Controller
 
   public function index()
   {
-      $doctors = $this->user_services->getDoctorDataForFrontend();
-      $specialties = $this->specializationServices->all();
-      $allRatingStars = $this->doctorService->getDoctorCountsGroupedByRatings();
-  
-      $patientId = Auth::user()->id;
-      $favoriteDoctorsList = $this->favoriteDoctorServices->getAllFavoriteDoctors($patientId)->pluck('doctor_id')->toArray();
-  
-      $ratingsWithCounter = [];
-      for ($i = 1; $i <= 5; $i++) {
-          $ratingsWithCounter[$i] = array_sum($allRatingStars->whereBetween('allover_rating', [$i - 0.5, $i])->pluck('total_doctors')->toArray());
-      }
-  
-      return view('website.doctor.search-doctor', [
-          'doctors' => $doctors,
-          'languages' => Language::all(),
-          'specialties' => $specialties,
-          'services' => Service::all(),
-          'ratingsWithCounter' => $ratingsWithCounter,
-          'favoriteDoctorsList' => $favoriteDoctorsList
-      ]);
+    $doctors = $this->user_services->getDoctorDataForFrontend();
+    $specialties = $this->specializationServices->all();
+    $allRatingStars = $this->doctorService->getDoctorCountsGroupedByRatings();
+    
+    // Check if the user is authenticated
+    if (Auth::check()) {
+        $patientId = Auth::user()->id;
+        $favoriteDoctorsList = $this->favoriteDoctorServices->getAllFavoriteDoctors($patientId)->pluck('doctor_id')->toArray();
+    } else {
+        $favoriteDoctorsList = []; // No favorite doctors if not logged in
+    }
+
+    $ratingsWithCounter = [];
+    for ($i = 1; $i <= 5; $i++) {
+        $ratingsWithCounter[$i] = array_sum($allRatingStars->whereBetween('allover_rating', [$i - 0.5, $i])->pluck('total_doctors')->toArray());
+    }
+
+    return view('website.doctor.search-doctor', [
+        'doctors' => $doctors,
+        'languages' => Language::all(),
+        'specialties' => $specialties,
+        'services' => Service::all(),
+        'ratingsWithCounter' => $ratingsWithCounter,
+        'favoriteDoctorsList' => $favoriteDoctorsList
+    ]);
   }
   
 

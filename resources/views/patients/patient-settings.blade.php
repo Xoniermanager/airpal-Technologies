@@ -112,7 +112,7 @@
                                     <div class="col-md-6">
                                         <div class="form-wrap">
                                             <label class="col-form-label">Country</label>  
-                                            <select class="form-control select" name="address[country]" >
+                                            <select class="form-control select" name="address[country]" id="country" >
                                                 <option value="">Select Country </option>
                                                 @forelse ($countries as $country )
                                                 <option value="{{ $country->id }}"

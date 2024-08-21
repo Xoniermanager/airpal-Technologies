@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="zxx">
+@extends('layouts.frontend.main')
+@section('content')
 
-<head>
-    @include('include.head')
-</head>
-
-<body>
-    <div class="main-wrapper">
-        @include('include.header')
         <div class="breadcrumb-bar-two">
             <div class="container">
                 <div class="row align-items-center inner-banner">
@@ -53,4 +46,4 @@
             </div>
         </div>
 
-        @include('include.footer')
+        @endsection

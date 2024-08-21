@@ -366,8 +366,12 @@ Route::prefix('patients')->group(function () {
                 Route::get('dashboard', 'patientDashboard')->name('patient-dashboard.index');
                 Route::get('accounts', 'patientAccounts')->name('patient-accounts.index');
                 Route::get('dependant', 'patientDependant')->name('patient-dependant.index');
+
                 Route::get('patient-heartbeat-graph-data', 'patientHeartbeatGraphData')->name('patient-heartbeat.graph.data');
                 Route::get('patient-blood-pressure-graph-data', 'patientBloodPressureGraphData')->name('patient-blood-pressure.graph.data');
+                Route::get('patient-body-temp-graph-data', 'patientBodyTempGraphData')->name('patient-body-temp.graph.data');
+                Route::get('patient-body-glucose-graph-data', 'patientGlucoseGraphData')->name('patient-body-glucose.graph.data');
+                Route::get('patient-body-oxygen-graph-data', 'patientOxygenGraphData')->name('patient-body-oxygen.graph.data');
             });
             // Patient Appointments Routes
             Route::controller(PatientAppointmentsController::class)->group(function () {
@@ -467,4 +471,15 @@ Route::get('job', function () {
     UpdateDoctorRatingsAverageValue::dispatch();
     return 'job executes';
 });
+
+
+
+
+
+Route::controller(DoctorController::class)->group(function () {
+    Route::get('generateAllInvoices', 'generateAllInvoices')->name('generate.all.invoices');
+
+});
+
+
 // ============================== End Frontend Website Routes ===================== //

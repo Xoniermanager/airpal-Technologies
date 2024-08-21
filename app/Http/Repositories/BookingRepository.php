@@ -182,6 +182,6 @@ class BookingRepository extends BaseRepository
     public function gettingPatientInvoices($patientId)
     {
         return $this->where('patient_id', $patientId)
-            ->where('status', '!=', 'cancelled');
+            ->where('status', '=', 'confirmed');
     }
 }

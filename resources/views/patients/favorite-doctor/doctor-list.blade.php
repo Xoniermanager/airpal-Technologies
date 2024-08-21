@@ -5,11 +5,18 @@
         <div class="col-md-6 col-lg-4">
             <div class="profile-widget patient-favour">
                 <div class="fav-head">
-                    <a href="javascript:void(0)"
+                    {{-- <a href="javascript:void(0)"
                         onclick="removeFromFavorites({{ $favoriteDoctor->doctor_id }},{{ $favoriteDoctor->patient_id }})"
                         class="fav-btn favourite-btn">
                         <span class="favourite-icon favourite"><i class="fa-solid fa-heart"></i></span>
-                    </a>
+                    </a> --}}
+                    <label class="fav-checkbox-container fav-btn favourite-btn">
+                        <input type="checkbox" 
+                               onchange="removeFromFavorites({{ $favoriteDoctor->doctor_id }}, {{ $favoriteDoctor->patient_id }})"
+                               {{ $favoriteDoctor->is_favorite ? 'checked' : '' }} />
+                        <span class="checkbox-custom"><i class="fa-solid fa-heart"></i></span>
+                    </label>
+                    
                     <div class="doc-img">
                         <a href="doctor-profile.html">
                             <img class="img-fluid" src="{{ $favoriteDoctor->doctor->image_url ?? '' }}" alt="Img">
@@ -73,3 +80,28 @@
         @endforelse
 </div>
 </div>
+
+
+<style>
+    .fav-checkbox-container {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.checkbox-custom {
+    display: flex;
+    align-items: center;
+    font-size: 1.5em; /* Adjust size as needed */
+    color: #f00; /* Color for the heart icon */
+}
+
+.checkbox-custom i {
+    /* Add any additional styles for the icon */
+}
+
+input[type="checkbox"] {
+    display: none; /* Hide the default checkbox */
+}
+
+    </style>

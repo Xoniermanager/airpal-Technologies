@@ -112,7 +112,7 @@
             </div>
         </div>
 
-<div class="col-xl-5 d-flex">
+<div class="col-md-5">
     <div class="dashboard-card w-100">
         <div class="dashboard-card-head">
             <div class="header-title">

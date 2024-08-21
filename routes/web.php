@@ -392,9 +392,8 @@ Route::prefix('patients')->group(function () {
 
             Route::controller(PatientFavoriteDoctorController::class)->group(function () {
                 Route::get('favorite', 'index')->name('patient.favorite.index');
-                // Route::get('favorite-doctors', 'getFavoriteDoctors');
-                // Route::post('add/favorite', 'addFavorite');
-                Route::post('remove/favorite', 'removeFavorite')->name('remove.doctor.favorite.list');
+                Route::post('update-favorite', 'update')->name('patient.update.favorite');
+                Route::post('remove-favorite', 'removeFavorite')->name('remove.doctor.favorite.list');
             });
 
             // Patient Profile Routes

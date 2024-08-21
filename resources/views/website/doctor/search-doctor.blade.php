@@ -544,5 +544,29 @@
                 }
             })
         }
+
+function toggleFavorite(doctorId, userId, checkbox) {
+    const isChecked = $(checkbox).is(':checked');
+
+    console.log(`Doctor ID: ${doctorId}, User ID: ${userId}, Checked: ${isChecked}`);
+
+    $.ajax({
+        url: "{{route('patient.update.favorite')}}", 
+        type: 'POST',
+        data: {
+            doctor_id: doctorId,
+            patient_id: userId,
+            liked: isChecked,
+            _token: '{{ csrf_token() }}' 
+        },
+        success: function(response) {
+            console.log('Favorite status updated:', response);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+        }
+    });
+}
+
     </script>
 @endsection

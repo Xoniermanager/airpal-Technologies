@@ -12,10 +12,15 @@
                                                             class="img-fluid" alt="John Doe">
                                                     </a>
                                                     <div class="favourite-btn">
-                                                        <a href="javascript:void(0)" class="favourite-icon">
-                                                            <i class="fas fa-heart"></i>
-                                                        </a>
+                                                        <input type="checkbox" id="heart" 
+                                                               onclick="toggleFavorite({{ $doctor->id }}, {{ auth()->user()->id }}, this)"
+                                                               @if(in_array($doctor->id, $favoriteDoctorsList)) checked @endif>
+                                                               <label for="heart">
+                                                                
+                                                            </label>
                                                     </div>
+                                                    
+                                                    
                                                 </div>
                                                 <div class="doc-info-cont">
                                                     <h4 class="doc-name">
@@ -111,3 +116,61 @@
                                     </div>
                                 @endforelse
                             </div>
+
+ <style>
+
+.favourite-btn {
+    display: flex;
+	justify-content: center;
+	align-items: center;
+	/* height: 100vh; */
+}
+
+/*      CHECKBOX         */
+
+input[type="checkbox"] {
+    display: none;
+}
+
+
+input[type="checkbox"] + label {
+    position: relative;
+    padding-left: 35px;
+    display: inline-block;
+    font-size: 20px;
+}
+ 
+input[type="checkbox"] + label:before {
+    content: "\1F90D"; /* Unicode for black heart emoji */
+    color: white;    
+    font-size: 16px;  
+    margin-right: 5px; 
+    top: -11px;
+    left: -8px;
+    border: 1px solid transparent;    
+    padding: 10px;
+    border-radius: 3px;
+    display: block;
+    position: absolute;
+	transition:  .5s ease;
+}
+ 
+input[type="checkbox"]:checked + label:before {
+    border: 1px solid transparent;
+    background-color: transparent;
+}
+ 
+input[type="checkbox"]:checked + label:after {
+    content: '\2764';
+    font-size: 20px;
+    line-height: 1;
+    position: absolute;
+    top: 1px;
+    left: 2px;
+    color: red;
+    transform: scaleY(1.4) scaleX(.9);
+    transition: .5s ease;
+}
+
+/*                       */
+ </style>         

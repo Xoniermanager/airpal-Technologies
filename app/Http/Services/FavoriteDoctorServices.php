@@ -24,16 +24,21 @@ class FavoriteDoctorServices
         ->where('patient_id',$data['patient_id'])
         ->first();
     }
-    public function addFavoriteDoctor($data)
+    public function addFavoriteDoctor(array $data)
     {
-        return $this->favoriteDoctorRepository->updateOrCreate(
-            [
-                'patient_id' => $data['patient_id'], 
-                'doctor_id'  => $data['doctor_id']
-            ],
-            $data
-        );
+        if ($data['liked'] === 'true') {
+            return $this->favoriteDoctorRepository->updateOrCreate(
+                [
+                    'patient_id' => $data['patient_id'],
+                    'doctor_id' => $data['doctor_id']
+                ],
+                $data
+            );
+        } else {
+           return $this->removeFavoriteDoctor($data);
+        }
     }
+    
     public function removeFavoriteDoctor($data)
     {
         return $this->favoriteDoctorRepository

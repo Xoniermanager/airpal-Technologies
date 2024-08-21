@@ -1,5 +1,5 @@
                         <div id="doctors_list">
-                            @forelse ($doctors as $doctor)
+                            @forelse ($doctors as $key => $doctor)
                                 <div class="card doctor-card">
                                     <div class="card-body">
                                         <div class="doctor-widget-one">
@@ -12,12 +12,11 @@
                                                             class="img-fluid" alt="John Doe">
                                                     </a>
                                                     <div class="favourite-btn">
-                                                        <input type="checkbox" id="heart" 
+                                                        <input type="checkbox" id="heart-{{ $doctor->id }}"  style="    display: none;
+"
                                                                onclick="toggleFavorite({{ $doctor->id }}, {{ auth()->user()->id }}, this)"
                                                                @if(in_array($doctor->id, $favoriteDoctorsList)) checked @endif>
-                                                               <label for="heart">
-                                                                
-                                                            </label>
+                                                        <label for="heart-{{ $doctor->id }}">❤</label>
                                                     </div>
                                                     
                                                     
@@ -117,60 +116,34 @@
                                 @endforelse
                             </div>
 
- <style>
-
-.favourite-btn {
-    display: flex;
-	justify-content: center;
-	align-items: center;
-	/* height: 100vh; */
-}
-
-/*      CHECKBOX         */
-
-input[type="checkbox"] {
-    display: none;
-}
-
-
-input[type="checkbox"] + label {
-    position: relative;
-    padding-left: 35px;
-    display: inline-block;
-    font-size: 20px;
-}
- 
-input[type="checkbox"] + label:before {
-    content: "\1F90D"; /* Unicode for black heart emoji */
-    color: white;    
-    font-size: 16px;  
-    margin-right: 5px; 
-    top: -11px;
-    left: -8px;
-    border: 1px solid transparent;    
-    padding: 10px;
-    border-radius: 3px;
-    display: block;
-    position: absolute;
-	transition:  .5s ease;
-}
- 
-input[type="checkbox"]:checked + label:before {
-    border: 1px solid transparent;
-    background-color: transparent;
-}
- 
-input[type="checkbox"]:checked + label:after {
-    content: '\2764';
-    font-size: 20px;
-    line-height: 1;
-    position: absolute;
-    top: 1px;
-    left: 2px;
-    color: red;
-    transform: scaleY(1.4) scaleX(.9);
-    transition: .5s ease;
-}
-
-/*                       */
- </style>         
+                            <style>
+                    
+                            
+                                label[for^="heart-"] {
+                                    color: #aab8c2;
+                                    cursor: pointer;
+                                    font-size: 20px;
+                                    height: 29px;
+                                    width: 31px;
+                                    padding-left: 6px;
+                                    border-radius: 47px;
+                                    background: white;
+                                    align-self: center;
+                                    /* transition: color 0.2s ease-in-out; */
+                                }
+                            
+                                label[for^="heart-"]:hover {
+                                    color: grey;
+                                }
+                            
+                                label[for^="heart-"]::selection,
+                                label[for^="heart-"]::moz-selection {
+                                    color: none;
+                                    background: transparent;
+                                }
+                            
+                                input[id^="heart-"]:checked + label {
+                                    color: #e2264d;
+                                    will-change: font-size;
+                                }
+                            </style>

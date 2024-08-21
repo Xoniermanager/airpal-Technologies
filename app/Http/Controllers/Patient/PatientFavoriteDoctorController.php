@@ -34,7 +34,7 @@ class PatientFavoriteDoctorController extends Controller
     {
         try {
             $this->favoriteDoctorServices->addFavoriteDoctor($request->all());
-            return response()->json(['success' => true, 'message' => 'Favorite doctor added successfully.']);
+            return response()->json(['success' => true, 'message' => 'Favorite doctor updated successfully.']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'Failed to add favorite doctor.', 'error' => $e->getMessage()], 500);
         }

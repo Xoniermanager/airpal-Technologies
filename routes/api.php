@@ -23,7 +23,6 @@ use App\Http\Controllers\Api\Patient\PatientDashboardController;
 use App\Http\Controllers\Api\Patient\PatientDiaryController;
 use App\Http\Controllers\Api\Patient\PatientProfileController;
 use App\Http\Controllers\Api\Patient\PatientFavoriteDoctorController;
-use App\Models\PatientDiary;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -139,6 +138,7 @@ Route::middleware('authCheck')->group(function () {
         });
         Route::controller(DoctorReviewController::class)->group(function () {
             Route::post('add-doctor-review', 'addDoctorReview');
+            Route::post('update-doctor-review', 'updateDoctorReview');
             Route::get('get-all-review', 'getAllReview');
             Route::get('get-review-details/{doctor_reviews:id}', 'getReviewDetailById');
             Route::get('get-all-reviewby-doctor-id', 'getAllReviewByDoctorId');

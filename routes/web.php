@@ -66,24 +66,31 @@ Route::controller(AdminAuthController::class)->group(function () {
 
 // these routes are used for without auth attempt 
 // Route::prefix('doctor')->group(function () {
-    Route::controller(DoctorAuthenticationController::class)->group(function () {
+    // Route::controller(DoctorAuthenticationController::class)->group(function () {
+    //     Route::get('forget-password', 'forgetPasswordIndex')->name('doctor.forget.password.index');
+    //     Route::post('send-otp', 'forgetPasswordSendOtp')->name('forget.password.send.otp');
+    //     Route::get('reset-password', 'resetPasswordIndex')->name('reset.password.index');
+    //     Route::post('reset-password', 'resetPassword')->name('reset.password');
+    // });
+// });
+
+    // common file for login Admin, Doctor, Patient
+    Route::controller(AuthController::class)->group(function () {
+        Route::post('login', 'login')->name('login');
+        Route::post('logout', 'logout')->name('logout');
+
+        Route::get('/login', 'index')->name('login.index');
         Route::get('forget-password', 'forgetPasswordIndex')->name('doctor.forget.password.index');
         Route::post('send-otp', 'forgetPasswordSendOtp')->name('forget.password.send.otp');
         Route::get('reset-password', 'resetPasswordIndex')->name('reset.password.index');
         Route::post('reset-password', 'resetPassword')->name('reset.password');
     });
-// });
 
-// common file for login Admin, Doctor, Patient
-Route::post('login', [AuthController::class, 'login'])->name('login');
-Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-
-Route::controller(PatientAuthController::class)->group(function () {
-    Route::get('/register', 'register')->name('register.index');
-    Route::post('/register', 'signUp')->name('patient.register');
-    Route::get('/login', 'login')->name('patient.login.index');
-    Route::get('/logout', 'logout')->name('patient.logout');
-});
+    Route::controller(PatientAuthController::class)->group(function () {
+        Route::get('/register', 'register')->name('register.index');
+        Route::post('/register', 'signUp')->name('patient.register');
+        Route::get('/logout', 'logout')->name('patient.logout');
+    });
 
 // =============================== End Login And SignUp Routes ==================================== //
 
@@ -103,6 +110,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('chat-history', 'getSelectedChatHistory')->name('chat.history');
         Route::post('send-message', 'saveChatMessage')->name('send.message');
     });
+});
+
+Route::controller(DiseaseDetailsController::class)->group(function () {
+    Route::get('/disease-details', 'diseaseDetails')->name('doctor.disease-details');
+    Route::post('/appointment-query', 'storeAppointmentQueries')->name('doctor.appointment.query');
 });
 // =============================== Doctor Panel Start ==================================== //
 /**
@@ -128,10 +140,7 @@ Route::prefix('doctor')->group(function () {
         Route::controller(AccountsDetailsController::class)->group(function () {
             Route::get('accounts', 'doctorAccounts')->name('doctor.doctor-accounts.index');
         });
-        Route::controller(DiseaseDetailsController::class)->group(function () {
-            Route::get('/disease-details', 'diseaseDetails')->name('doctor.disease-details');
-            Route::post('/appointment-query', 'storeAppointmentQueries')->name('doctor.appointment.query');
-        });
+
         Route::controller(PatientController::class)->group(function () {
             Route::get('patient', 'doctorPatient')->name('doctor.doctor-patients.index');
             Route::get('get-search-filter', 'getSearchFilterData')->name('getsearch.filter.data');
@@ -166,6 +175,8 @@ Route::prefix('doctor')->group(function () {
             Route::post('update-appointment-status', 'UpdateAppointmentStatus')->name('doctor.status.appointment');
             Route::get('filter-appointment-request', 'filterRequestAppointments')->name('filter.appointment.request');
             Route::get('appointment-search', 'doctorAppointmentSearch')->name('doctor.appointment-search');
+
+            Route::get('appointment-details', 'patientAppointmentsDetails')->name('patient-appointment-details.index');
         });
 
         Route::prefix('questions')->controller(DoctorPanelQuestionController::class)->group(function () {
@@ -190,6 +201,8 @@ Route::prefix('doctor')->group(function () {
             Route::get('chat', 'getDoctorAllChats')->name('doctor.chat');
             Route::get('search-chat-patients', 'searchPatientListInChat')->name('chat.search.patients');
         });
+
+
     });
 });
 // =============================== End Doctor Panel Start ===================================== //

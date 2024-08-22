@@ -56,7 +56,7 @@
                                         <span class="text-danger" id="gender_error"></span>
                                     </div>
                                     <div class="text-end">
-                                        <a class="forgot-link" href="{{ route('patient.login.index') }}">Already have an
+                                        <a class="forgot-link" href="{{ route('login.index') }}">Already have an
                                             account?</a>
                                     </div>
                                     <button class="btn btn-primary w-100 btn-lg login-btn" type="submit">Signup</button>

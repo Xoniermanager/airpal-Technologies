@@ -60,6 +60,7 @@ class PatientProfileController extends Controller
     {
         try {
             $data = $request->all();
+            $data['doctor_id'] = Auth::id();
             $patientDetails     = $this->userServices->updatePatient($data);
             $addedDoctorAddress = $this->doctor_address_services->createOrUpdateAddress($data['address']);
             if ($patientDetails && $addedDoctorAddress) {

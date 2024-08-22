@@ -16,7 +16,6 @@ aria-labelledby="pills-upcoming-tab" >
             <div class="ribbon ribbon-spo"><span>Today</span></div>
             @elseif (\Carbon\Carbon::parse($booking->booking_date)->gt(\Carbon\Carbon::now()))
             <div class="ribbon ribbon-pop"><span>Upcoming</span></div>
-
             @endif
         <ul>
             <li>

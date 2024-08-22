@@ -6,10 +6,10 @@
                             <div class="setting-card">
                                 <div class="change-avatar img-upload">
                                     <div class="profile-img">
-                                        @if (isset($patientDetails->image_url))
+                                        @if (auth()->user()->image_url)
                                             <img src="{{ $patientDetails->image_url }}" class="previewProfile">
                                         @else
-                                        <img src=""  onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}'" >
+                                        <img class="rounded-circle previewProfile" src="{{ asset('assets/img/user.jpg')}}" width="31"> 
                                         @endif
                                     </div>
                                     <div class="upload-img">
@@ -52,6 +52,7 @@
                                             <label class="col-form-label">Date of Birth <span
                                                     class="text-danger">*</span></label>
                                             <input type="date" class="form-control" name="dob" value="{{$patientDetails->dob ?? ''}}" >
+                                            <span class="text-danger" id="dob_error"></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6">
@@ -59,6 +60,7 @@
                                             <label class="col-form-label">Phone Number <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" class="form-control" value="{{$patientDetails->phone ?? ''}}" name="phone">
+                                            <span class="text-danger" id="phone_error"></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6">
@@ -66,6 +68,7 @@
                                             <label class="col-form-label">Email Address <span
                                                     class="text-danger">*</span></label>
                                             <input type="email" class="form-control" value="{{$patientDetails->email ?? ''}}" name="email" readonly>
+                                            <span class="text-danger" id="email_error"></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6">
@@ -73,6 +76,7 @@
                                             <label class="col-form-label">Blood Group <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" class="form-control"  name="blood_group"  value="{{$patientDetails->blood_group ?? ''}}">
+                                            <span class="text-danger" id="blood_group_error"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -84,7 +88,7 @@
                                                 <option value="Male"   {{ isset($patientDetails->gender) ? ($patientDetails->gender == 'Male'? 'selected':'')   : ''}}>Male</option>
                                                 <option value="Female" {{ isset($patientDetails->gender) ? ($patientDetails->gender == 'Female'? 'selected':'') : ''}}>Female</option>
                                             </select>
-                                            {{-- <span class="text-danger" id="gender_error"></span> --}}
+                                            <span class="text-danger" id="gender_error"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -99,6 +103,7 @@
                                             <label class="col-form-label">Address <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" class="form-control" name="address[street]" value="{{$patientDetails->doctorAddress->address ?? ''}}">
+                                            <span class="text-danger" id="address_street_error"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -106,6 +111,7 @@
                                             <label class="col-form-label">City <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" class="form-control"  name="address[city]" value="{{$patientDetails->doctorAddress->city  ?? ''}}">
+                                            <span class="text-danger" id="address_city_error"></span>
                                         </div>
                                     </div>
 
@@ -125,7 +131,7 @@
                                                 <option>Not avaiable please create it first</option>  
                                                 @endforelse
                                             </select> 
-                                            <span class="text-danger" id="country_error"></span>
+                                            <span class="text-danger" id="address_country_error"></span>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
@@ -146,7 +152,7 @@
                                                      <option>Not avaiable please create it first</option>  
                                                      @endforelse
                                                 </select> 
-                                                    <span class="text-danger" id="states_error"></span>
+                                                    <span class="text-danger" id="address_states_error"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -155,6 +161,7 @@
                                             <label class="col-form-label">Pincode <span
                                                     class="text-danger">*</span></label>
                                             <input type="number" class="form-control" name="address[pincode]" value="{{$patientDetails->doctorAddress->pin_code ?? ''}}">
+                                            <span class="text-danger" id="address_pincode_error"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -216,17 +223,21 @@
 
                         error: function(error_messages) {
                             var errors = error_messages.responseJSON;
-                            $.each(errors.errors, function(key, value) {
-                                $('#' + key + '_error').html(value)
-                            .show(); // Show the error message
-                            });
+                                $.each(errors.errors, function(key, value) {
+                                    // Replace dot (.) with underscore (_) in the key
+                                    var formattedKey = key.replace(/\./g, '_');
+                                    console.log('#' + formattedKey + '_error');
+                                    // Use the formatted key to find the element by ID and set the error message
+                                    $('#' + formattedKey + '_error').html(value).show(); // Show the error message
+                                });
+
                             if (errorTimeout) {
                                 clearTimeout(errorTimeout);
                             }
                             // Set timeout to remove the error messages after 2 seconds
                             errorTimeout = setTimeout(function() {
                                 $('.text-danger').fadeOut();
-                            }, 2000);
+                            }, 3000);
                         }
 
                     });

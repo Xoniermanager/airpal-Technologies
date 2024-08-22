@@ -63,8 +63,7 @@
 
                                                             @if (isset($doctor->doctorAddress))
                                                                 <p>
-                                                                    <i class="feather-map-pin"></i> <span>0.9</span> mi
-                                                                    - {{ $doctor->doctorAddress->city ?? '' }}
+                                                                    <i class="feather-map-pin"></i> {{ $doctor->doctorAddress->city ?? '' }}
                                                                     {{ ',' . $doctor->doctorAddress->states->country->name ?? '' }}
                                                                     <a href="https://www.google.com/maps?q={{ $encodedAddress }}"
                                                                         target="_blank" style="color: blue">Get

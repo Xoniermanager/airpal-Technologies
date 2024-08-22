@@ -48,7 +48,7 @@ class PatientAuthController extends Controller
       if ($userCreated) {
         return response()->json([
           "success"   => true,
-          "redirect_url" => route('patient.login.index'),
+          "redirect_url" => route('login.index'),
           "message" => "Patient successfully registered!"
         ]);
       }
@@ -93,7 +93,7 @@ class PatientAuthController extends Controller
   {
     Auth::logout();
     $request->session()->flash('success', 'You have been logged out.');
-    return redirect(route('patient.login.index'));
+    return redirect(route('login.index'));
   }
 
   public function changePasswordIndex()

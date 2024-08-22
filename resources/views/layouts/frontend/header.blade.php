@@ -43,7 +43,7 @@
                         <a href="{{ route('register.index') }}" class="btn reg-btn"><i class="feather-user"></i>Register</a>
                     </li>
                     <li class="register-btn">
-                        <a href="{{ route('patient.login.index') }}" class="btn btn-primary log-btn"><i
+                        <a href="{{ route('login.index') }}" class="btn btn-primary log-btn"><i
                                 class="feather-lock"></i>Login</a>
                     </li>
                     @endguest

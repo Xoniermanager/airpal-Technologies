@@ -19,7 +19,7 @@ class RoleMiddleware
 
         $roleMap = [
             'admin'   => ['id' => 1, 'login_route' => 'admin.login.index'],
-            'doctor'  => ['id' => 2, 'login_route' => 'patient.login.index'],
+            'doctor'  => ['id' => 2, 'login_route' => 'login.index'],
             'patient' => ['id' => 3, 'login_route' => 'patients.login'],
         ];
 

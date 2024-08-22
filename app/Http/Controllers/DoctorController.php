@@ -126,12 +126,35 @@ class DoctorController extends Controller
       'rating'      =>  'sometimes|integer|between:1,5'
     ]);
 
+    $doctors = $this->user_services->getDoctorDataForFrontend();
+    $specialties = $this->specializationServices->all();
+    $allRatingStars = $this->doctorService->getDoctorCountsGroupedByRatings();
+    
+    // Check if the user is authenticated
+    if (Auth::check()) {
+        $patientId = Auth::user()->id;
+        $favoriteDoctorsList = $this->favoriteDoctorServices->getAllFavoriteDoctors($patientId)->pluck('doctor_id')->toArray();
+    } else {
+        $favoriteDoctorsList = []; // No favorite doctors if not logged in
+    }
+
+    $ratingsWithCounter = [];
+    for ($i = 1; $i <= 5; $i++) {
+        $ratingsWithCounter[$i] = array_sum($allRatingStars->whereBetween('allover_rating', [$i - 0.5, $i])->pluck('total_doctors')->toArray());
+    }
+
+
     $searchedItems = $this->user_services->searchInDoctors($request->all());
     if ($searchedItems) {
       return response()->json([
         'success' => 'Searching',
         'data'   =>  view("website.doctor.doctors_list", [
-          'doctors' =>  $searchedItems
+          'doctors' =>  $searchedItems,
+          'languages' => Language::all(),
+          'specialties' => $specialties,
+          'services' => Service::all(),
+          'ratingsWithCounter' => $ratingsWithCounter,
+          'favoriteDoctorsList' => $favoriteDoctorsList
         ])->render()
       ]);
     } else {

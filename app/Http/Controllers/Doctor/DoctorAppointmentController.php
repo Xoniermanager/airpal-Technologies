@@ -23,6 +23,7 @@ class DoctorAppointmentController extends Controller
     $this->bookingServices = $bookingServices;
     $this->doctorDashboardServices = $doctorDashboardServices;
   }
+  
 
   public function doctorAppointments()
   {

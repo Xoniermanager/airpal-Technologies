@@ -4,6 +4,17 @@ aria-labelledby="pills-upcoming-tab">
     @forelse ($appointments as $appointment )
     <div class="col-xl-4 col-lg-6 col-md-12 d-flex">
         <div class="appointment-wrap appointment-grid-wrap">
+            @if ($appointment->status == 'confirmed')
+            <div class="ribbon ribbon-new"><span>Confirmed</span>
+            </div>
+            @elseif ($appointment->status == 'cancelled')
+            <div class="ribbon ribbon-hot"><span>Cancelled</span>
+            </div>
+            @elseif ($appointment->booking_date == \Carbon\Carbon::now()->toDateString())
+            <div class="ribbon ribbon-spo"><span>Today</span></div>
+            @elseif (\Carbon\Carbon::parse($appointment->booking_date)->gt(\Carbon\Carbon::now()))
+            <div class="ribbon ribbon-pop"><span>Upcoming</span></div>
+            @endif
             <ul>
                 <li>
                     <div class="appointment-grid-head">

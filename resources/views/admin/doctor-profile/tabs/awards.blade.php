@@ -221,9 +221,15 @@
             </div>
         @endforelse
         <div class="modal-btn text-end">
-            <input type="hidden" value="{{ Auth::user() ? Auth::user()->id : Request::segment(4)}}" name="user_id" id="doctor_user_id">
+            @if (isset($userId))
+            <input type="hidden" value="{{$userId ?? ''}}" name="user_id" id="doctor_user_id">  
+            @else
+            <input type="hidden" value="{{Request::segment(4)}}" name="user_id" id="doctor_user_id"> 
+            @endif
+            <button class="btn btn-primary prime-btn">Save Changes</button>
+            {{-- <input type="hidden" value="{{ Auth::user() ? Auth::user()->id : Request::segment(4)}}" name="user_id" id="doctor_user_id">
             <button type="submit" class="btn btn-primary prime-btn">Save
-                Changes</button>
+                Changes</button> --}}
         </div>
     </form>
 </div>

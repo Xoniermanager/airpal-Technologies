@@ -3,7 +3,7 @@ aria-labelledby="pills-upcoming-tab">
 <div class="row">
     @forelse ($appointments as $appointment )
     <div class="col-xl-4 col-lg-6 col-md-12 d-flex">
-        <div class="appointment-wrap appointment-grid-wrap">
+        <div class="appointment-wrap appointment-grid-wrap position-relative">
             @if ($appointment->status == 'confirmed')
             <div class="ribbon ribbon-new"><span>Confirmed</span>
             </div>

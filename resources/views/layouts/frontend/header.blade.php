@@ -40,7 +40,7 @@
                     <li class="login-link"><a href="{{ url('login') }}">Login / Signup</a></li>
                     @guest
                     <li class="register-btn">
-                        <a href="{{ route('register.index') }}" class="btn reg-btn"><i class="feather-user"></i>Register</a>
+                        <a href="{{ route('choose') }}" class="btn reg-btn"><i class="feather-user"></i>Register</a>
                     </li>
                     <li class="register-btn">
                         <a href="{{ route('login.index') }}" class="btn btn-primary log-btn"><i
@@ -157,11 +157,13 @@
                         </div>
                         @if(auth()->user()->role == 2)
                         <a class="dropdown-item" href="{{ route('doctor.doctor-dashboard.index') }}">Dashboard</a>
-                        <a class="dropdown-item" href="{{ route('doctor.doctor-profile.index') }}">Profile
-                            Settings</a>
-                        @else
+                        <a class="dropdown-item" href="{{ route('doctor.doctor-profile.index') }}">Profile Settings</a>
+                        @elseif ((auth()->user()->role == 3))
                         <a class="dropdown-item" href="{{ route('patient-dashboard.index') }}">Dashboard</a>
                         <a class="dropdown-item" href="{{ route('patient-settings.index') }}">Profile Settings</a>
+                        @elseif ((auth()->user()->role == 1))
+                        <a class="dropdown-item" href="{{ route('admin.dashboard.index') }}">Dashboard</a>
+                        <a class="dropdown-item" href="{{ route('admin.settings.index') }}">Profile Settings</a>
                         @endif
         
                         <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>

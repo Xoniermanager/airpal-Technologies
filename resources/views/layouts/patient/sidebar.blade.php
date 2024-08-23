@@ -5,8 +5,8 @@
                 {{-- <img src="{{ auth()->user()->image_url }}" id="blah"> --}}
                 {{-- <img src="../assets/img/doctors-dashboard/profile-06.jpg" alt=""> --}}
 
-                @if (auth()->user()->image_url)
-                <img class="rounded-circle" src="{{ auth()->user()->image_url }}" width="31"  id="blah"> 
+                @if(auth()->user()->image_url)
+                <img class="rounded-circle" src="{{ auth()->user()->image_url ?? '' }}" width="31"  id="blah"> 
                 @else
                 <img class="rounded-circle" src="{{ asset('assets/img/user.jpg')}}" width="31"  id="blah"> 
                 @endif

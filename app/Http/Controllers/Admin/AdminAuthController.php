@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,20 @@ class AdminAuthController extends Controller
     }
     public function login(AuthCheckRequest $request){
         try {
+
             $credentials = $request->only('email', 'password');
+            $user        = User::where('email', $credentials['email'])->first();
+            $redirectUrl = route('login');
+
+            if ($user && $user->role != 1) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'you are not super-admin go to common dashboard.',
+                    'redirect_url' => $redirectUrl
+                ]);
+            }
+            else
+            {            
             if (Auth::attempt($credentials)) {
                 if(auth()->user()->role == 1)
                 {
@@ -24,8 +38,9 @@ class AdminAuthController extends Controller
                         "message"  => "Admin logged in successfully!"
                     ]);
                 }
-
             } 
+            }
+
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
@@ -39,6 +54,6 @@ class AdminAuthController extends Controller
         Auth::logout();
         $request->session()->flash('success', 'You have been logged out.');
 
-        return redirect(route('doctor.doctor-login'));
+        return redirect(route('admin.login.index'));
     }
 }

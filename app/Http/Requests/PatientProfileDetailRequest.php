@@ -2,8 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Traits\ExceptionHandle;
+use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
 
 class PatientProfileDetailRequest extends FormRequest
@@ -32,7 +33,13 @@ class PatientProfileDetailRequest extends FormRequest
             'last_name' => 'string',
             'dob' => 'date',
             'phone' => 'required',
-            'email' => 'required|email',
+            'email'        => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')->ignore($this->doctor_id),
+            ],
             'gender' => 'required|in:Male,Female',
             'blood_group' => 'sometimes',
             'password' => 'sometimes',
@@ -44,7 +51,6 @@ class PatientProfileDetailRequest extends FormRequest
             'address.states' => 'required|exists:states,id',
             'address.pincode' => 'required',
         ];
-
     }
     function messages()
     {
@@ -72,6 +78,5 @@ class PatientProfileDetailRequest extends FormRequest
             'address.states.exists' => 'The selected state is invalid. Please select a valid state.',
             'address.pincode.required' => 'The pincode field is required.'
         ];
-        
     }
 }

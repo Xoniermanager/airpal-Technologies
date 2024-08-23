@@ -3,6 +3,10 @@
                     Start : Manage Doctor Personal Profiles Details From Kendo 
 ================================================================================
 */
+
+var site_base_url = window.location.origin;
+site_base_url     = site_base_url +'/'
+
 function addItemToMultiSelect(widgetId, value) {
     var widget = jQuery("#" + widgetId).getKendoMultiSelect();
     var dataSource = widget.dataSource;
@@ -165,16 +169,15 @@ function initializeKendoDropdownSelectForAward(selector,selectedAward = '',award
 
 
 function createAwardDataSource() {
-
     return new kendo.data.DataSource({
         batch: true,
         transport: {
             read: {
-                url: site_admin_base_url + "award",
+                url: site_base_url + "award",
                 dataType: "json"
             },
             create: {
-                url: site_admin_base_url + "award/ajax-create",
+                url: site_base_url + "award/ajax-create",
                 dataType: "json"
             },
             parameterMap: function(options, operation) {
@@ -251,7 +254,7 @@ function createAwardDataSource() {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: site_admin_base_url + 'doctor/delete-award', // Adjust this URL to your route
+                    url: site_base_url + 'doctor/delete-award', // Adjust this URL to your route
                     type: 'get',
                     data: {
                         id: awardId
@@ -409,11 +412,11 @@ const addEducation = (function() {
         batch: true,
         transport: {
             read: {
-                url: site_admin_base_url + "course",
+                url: site_base_url + "course",
                 dataType: "json"
             },
             create: {
-                url: site_admin_base_url + "course/ajax-create",
+                url: site_base_url + "course/ajax-create",
                 dataType: "json"
             },
             parameterMap: function(options, operation) {
@@ -484,7 +487,7 @@ jQuery("#course").kendoDropDownList({
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: site_admin_base_url + "doctor/delete-education", // Adjust this URL to your route
+                    url: site_base_url + "doctor/delete-education", // Adjust this URL to your route
                     type: 'get',
                     data: {
                         id: educationId
@@ -672,11 +675,11 @@ const addExperience = (function() {
     batch: true,
     transport: {
         read: {
-            url: site_admin_base_url + "hospital",
+            url: site_base_url + "hospital",
             dataType: "json"
         },
         create: {
-            url: site_admin_base_url + "hospital/ajax-create",
+            url: site_base_url + "hospital/ajax-create",
             dataType: "json"
         },
         parameterMap: function(options, operation) {
@@ -772,7 +775,7 @@ function addHospital(widgetId, value) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: site_admin_base_url +  "doctor/delete-experience", // Adjust this URL to your route
+                url: site_base_url +  "doctor/delete-experience", // Adjust this URL to your route
                 type: 'get',
                 data: {
                     id: experienceId

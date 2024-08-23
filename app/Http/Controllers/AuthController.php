@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Services\AuthServices;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +27,19 @@ class AuthController extends Controller
     public function login(AuthCheckRequest $request)
     {
         $credentials = $request->only('email', 'password');
+        // Retrieve the user by email
+        $user = User::where('email', $credentials['email'])->first();
+        $redirectUrl = route('admin.login.index');
+
+        // Check if the user exists and if they are a Super Admin (role_id = 1)
+        if ($user && $user->role == 1) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Super Admin should log in via the Super Admin login page.',
+                'redirect_url' => $redirectUrl
+            ]);
+        }
+    
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $redirectUrl = '';
@@ -34,8 +48,6 @@ class AuthController extends Controller
                 $redirectUrl = route('doctor.doctor-dashboard.index');
             } elseif ($user->isPatient()) {
                 $redirectUrl = route('patient-dashboard.index');
-            } elseif ($user->isAdmin()) {
-                $redirectUrl = route('admin.dashboard.index');
             }
     
             return response()->json([
@@ -47,13 +59,11 @@ class AuthController extends Controller
     
         return response()->json([
             'success' => false,
-            'message' => 'The provided credentials do not match our records.',
-            'errors' => [
-                'email' => 'Invalid email or password.'
-            ]
-        ], 422);
+            'message' => 'Login failed. Please check your credentials and try again.',
+        ]);
     }
     
+
 
 public function logout(Request $request)
 {

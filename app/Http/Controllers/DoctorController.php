@@ -306,4 +306,14 @@ class DoctorController extends Controller
   {
     GenerateAllInvoices::dispatch();  
   }
+
+  public function choose()
+  {
+    return view('website.pages.choose');
+  }
+
+  public function doctorRegistrationIndex()
+  {
+    return view('website.pages.doctor-register');
+  }
 }

@@ -18,7 +18,6 @@
          //dd('workingids',$workingHour['start_time']);
         // $daydetails = $userWorkingHourDetails->toArray();
     @endphp
-    
     <form id="doctorWorkingHourFormData" method="post" enctype="multipart/form-data">
         @csrf
         <div class="business-wrap">
@@ -118,9 +117,15 @@
 
 
         <div class="modal-btn text-end">
-            <a href="#" class="btn btn-gray">Cancel</a>
+            @if (isset($userWorkingHourDetails))
+            <input type="hidden" value="{{$userWorkingHourDetails[0]->user_id ?? ''}}" name="user_id" id="doctor_user_id">  
+            @else
+            <input type="hidden" value="{{Request::segment(4)}}" name="user_id" id="doctor_user_id"> 
+            @endif
+            <button class="btn btn-primary prime-btn">Save Changes</button>
+            {{-- <a href="#" class="btn btn-gray">Cancel</a>
             <input type="hidden" value="{{ Auth::user() ? Auth::user()->id : Request::segment(4)}}" name="user_id" id="doctor_user_id">
-            <button type="submit" class="btn btn-primary prime-btn">Save Changes</button>
+            <button type="submit" class="btn btn-primary prime-btn">Save Changes</button> --}}
         </div>
     </form>
 </div>

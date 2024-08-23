@@ -2443,8 +2443,7 @@ a.bg-danger:focus, a.bg-danger:hover, button.bg-danger:focus, button.bg-danger:h
   color: #bbb;
 }
 .form-focus .form-control {
-  height: 50px;
-  padding: 21px 12px 6px;
+  height: 50px; 
 }
 .form-focus .form-control:focus ~ .focus-label, .form-focus .form-control:-webkit-autofill ~ .focus-label {
   opacity: 1;

@@ -375,4 +375,9 @@ class BookingServices
     {
         return $this->bookingRepository->where('doctor_id', $doctorId)->orderBy('booking_date','desc')->first();
     }
+
+    public function getPatientAllConfirmBookings($patientId)
+    {
+      return $this->bookingRepository->getPatientAllConfirmedAppointments($patientId);
+    }
 }

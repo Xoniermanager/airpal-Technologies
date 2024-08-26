@@ -204,12 +204,15 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-wrap">
                                                 <label class="col-form-label">Award Certificates</label>
-                                                <input type="file" class="form-control" id="certificatesID"
-                                                    name="awards[0][certificates]"
-                                                    value= "{{ $singleAwardDetail->certificates ?? ' ' }}">
+                                                <input type="file" class="form-control certificatesInput" id="certificatesID" name="awards[0][certificates]" value= "{{ $singleAwardDetail->certificates ?? ' ' }}" data-preview-id="award_preview">
                                                 <small class="text-secondary">Recommended image size is <b> pdf, image
                                                     </b></small>
-                                                <span class="text-danger" id="awards_0_certificates_error"></span>
+                                                <span class="text-danger" id="awards_certificates_error"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-wrap" id="award_preview">
+                                                    <img src="" alt="certificate image" width="300" height="200" style="border-radius:20px;">
                                             </div>
                                         </div>
                                     </div>

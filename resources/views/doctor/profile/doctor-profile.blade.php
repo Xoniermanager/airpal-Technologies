@@ -733,8 +733,6 @@
             }
         });
 
-
-
         document.addEventListener('DOMContentLoaded', function() {
             // Function to handle file input change dynamically
             const handleFileInputChange = () => {

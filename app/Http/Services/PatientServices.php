@@ -28,6 +28,14 @@ class PatientServices
   {
     return $this->userRepository->where('role', 3)->paginate(12);
   }
+
+
+  public function getPatientsDetailByID($id)
+  {
+    return $this->userRepository->where('role', 3)->where('id',$id)->first();
+  }
+
+
   public function getPatientListByDoctor($doctorId)
   {
     return $this->bookingService->getAllAppointmentsByDoctorId($doctorId);
@@ -52,5 +60,10 @@ class PatientServices
   public function patientBodyTempGraph($patientId)
   {
      return $this->patientDiaryService->getAllDiaryDetailsByPatientId($patientId);
+  }
+
+  public function getAllPatientBookings($patientId)
+  {
+    return $this->bookingService->getPatientAllConfirmBookings($patientId);
   }
 }

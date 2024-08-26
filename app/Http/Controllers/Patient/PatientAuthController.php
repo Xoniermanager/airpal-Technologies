@@ -38,7 +38,7 @@ class PatientAuthController extends Controller
       $userCreated = $this->userRepository->create([
         'first_name' => $request->first_name,
         'last_name'  => $request->last_name ?? '',
-        'phone'      => $request->phone_number,
+        'phone'      => $request->phone,
         'password'   => Hash::make($request->password),
         'email'  => $request->email,
         'gender' => $request->gender,

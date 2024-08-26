@@ -200,13 +200,19 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-wrap">
                                                 <label class="mb-2">Education Certificates</label>
-                                                <input type="file" class="form-control"
-                                                    name="education[0][certificates]">
+                                                <input type="file" class="form-control certificatesInput"
+                                                    name="education[0][certificates]" data-preview-id="education_preview">
                                                 <small class="text-secondary">Recommended image size is <b>pdf,
                                                         image</b></small>
                                                 <span class="text-danger" id="education_0_certificates_error"></span>
                                             </div>
 
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-wrap" id="education_preview">
+                                                    <img src="" alt="certificate image" width="300" height="200" style="border-radius:20px;">
+                                            </div>
                                         </div>
                                     </div>
 

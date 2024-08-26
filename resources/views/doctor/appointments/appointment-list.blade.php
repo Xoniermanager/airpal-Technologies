@@ -21,13 +21,13 @@ aria-labelledby="pills-upcoming-tab" >
             <li>
                 <div class="appointment-grid-head">
                     <div class="patinet-information">
-                        <a href="{{ route('doctor.appointments.index') }}">
+                        <a href="{{ route('doctor-patient-profile',['id' => $booking->patient->id]) }}">
                             <img src="{{ $booking->patient->image_url}}" id="blah">
                         </a>
                         <div class="patient-info">
                             {{-- <p>#Apt0001</p> --}}
                             <h6><a
-                                    href="{{ route('doctor.appointments.index') }}">{{$booking->patient->fullName}}</a>
+                                    href="{{ route('doctor-patient-profile',['id' => $booking->patient->id]) }}">{{$booking->patient->fullName}}</a>
                             </h6>
                         </div>
                     </div>

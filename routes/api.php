@@ -37,6 +37,19 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('forget-password', 'forgetPassword');
 });
 
+
+// doctor registration
+Route::controller(DoctorProfileController::class)->prefix('doctor')->group(function () {
+    Route::post('create', 'createOrUpdate');
+});
+
+// patient registration
+Route::controller(AuthController::class)->prefix('patient')->group(function () {
+    Route::post('profile/create', 'register');
+});
+
+
+
 Route::middleware('authCheck')->group(function () {
 
     Route::prefix('doctor')->group(function () {
@@ -47,7 +60,6 @@ Route::middleware('authCheck')->group(function () {
 
         Route::controller(DoctorProfileController::class)->group(function () {
             Route::get('profile', 'profile');
-            Route::post('create', 'createOrUpdate');
             Route::post('address/update', 'updateAddress');
             Route::get('get-my-patient', 'getMyPatientByDoctorId');
         });
@@ -116,7 +128,6 @@ Route::middleware('authCheck')->group(function () {
         });
         Route::controller(PatientProfileController::class)->group(function () {
             Route::get('profile', 'patientProfile');
-            Route::post('profile/update', 'updateProfile');
         });
         Route::controller(PatientFavoriteDoctorController::class)->group(function () {
             Route::get('favorite-doctors', 'getFavoriteDoctors');

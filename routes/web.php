@@ -138,6 +138,7 @@ Route::prefix('doctor')->group(function () {
         Route::controller(PatientController::class)->group(function () {
             Route::get('patient', 'doctorPatient')->name('doctor.doctor-patients.index');
             Route::get('get-search-filter', 'getSearchFilterData')->name('getsearch.filter.data');
+            Route::get('patient-profile/{id}', 'patientProfile')->name('doctor-patient-profile');
         });
         Route::controller(InvoiceController::class)->group(function () {
             Route::get('invoices', 'doctorInvoices')->name('doctor.doctor-invoices.index');
@@ -195,6 +196,8 @@ Route::prefix('doctor')->group(function () {
             Route::get('chat', 'getDoctorAllChats')->name('doctor.chat');
             Route::get('search-chat-patients', 'searchPatientListInChat')->name('chat.search.patients');
         });
+
+
     });
 });
 // =============================== End Doctor Panel Start ===================================== //

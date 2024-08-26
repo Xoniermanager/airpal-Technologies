@@ -293,15 +293,21 @@
 
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form-wrap">
-                                            <label class="col-form-label">Education Certificates</label>
-                                            <input type="file" class="form-control" id="certificatesID"
-                                                name="experience[0][certificates]"
+                                            <label class="col-form-label">Experience Certificates</label>
+                                            <input type="file" class="form-control certificatesInput" 
+                                                name="experience[0][certificates]" data-preview-id="exp_preview"
                                                 value= "{{ $singleExperiencesDetails->certificates ?? ' ' }}">
                                             <small class="text-secondary">Recommended image size is <b> pdf, image
                                                 </b></small>
-                                            <span class="text-danger" id="education_0_certificates_error"></span>
+                                            <span class="text-danger" id="experience_certificates_error"></span>
                                         </div>
                                         <div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="form-wrap" id="exp_preview">
+                                                <img src="" alt="certificate image" width="300" height="200" style="border-radius:20px;">
                                         </div>
                                     </div>
                             

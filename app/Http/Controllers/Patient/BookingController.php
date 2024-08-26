@@ -43,7 +43,7 @@ class BookingController extends Controller
     {
         $doctorId = $request->doctorId;
         if (Auth::user()->role == 3) {
-            $checkReview = $this->bookingServices->checkDoctorAndPatientIdDetails(Auth::user()->id, $doctorId);
+            $checkReview = $this->bookingServices->getAllBookingDetailsByDoctorAndPatientId(Auth::user()->id, $doctorId)->count();
         } else {
             $checkReview = '0';
         }

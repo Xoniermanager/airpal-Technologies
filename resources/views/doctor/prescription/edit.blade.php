@@ -27,7 +27,7 @@
                                 @foreach ($allBookingDetails as $bookingDetail)
                                     <option value="{{ $bookingDetail->id }}"
                                         {{ $prescriptionDetails->booking_slot_id == $bookingDetail->id ? 'selected' : '' }}>
-                                        {{ $bookingDetail->booking_date }} &
+                                        {{ date('j M Y', strtotime($bookingDetail->booking_date)) }} &
                                         {{ date('h:i A', strtotime($bookingDetail->slot_start_time)) }} -
                                         {{ date('h:i A', strtotime($bookingDetail->slot_end_time)) }}</option>
                                 @endforeach

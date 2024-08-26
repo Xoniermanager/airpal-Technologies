@@ -34,12 +34,12 @@
                         <span>Favourites</span>
                     </a>
                 </li>
-                <li class="{{ request()->routeIs('patient.dependant.index') ? 'active' : '' }}">
+                {{-- <li class="{{ request()->routeIs('patient.dependant.index') ? 'active' : '' }}">
                     <a href="{{ route('patient.dependant.index') }}">
                         <i class="fa-solid fa-user-plus"></i>
                         <span>Dependants</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="{{ request()->routeIs('patient.medical-records.index') ? 'active' : '' }}">
                     <a href="{{ route('patient.medical-records.index') }}">
                         <i class="fa-solid fa-money-bill-1"></i>
@@ -68,12 +68,6 @@
                     <a href="{{ route('patient-invoices.index') }}">
                         <i class="fa-solid fa-file-lines"></i>
                         <span>Invoices</span>
-                    </a>
-                </li>
-                <li class="{{ request()->routeIs('patient.medical-details.index') ? 'active' : '' }}">
-                    <a href="{{ route('patient.medical-details.index') }}">
-                        <i class="fa-solid fa-shield-halved"></i>
-                        <span>Medical Details</span>
                     </a>
                 </li>
                 <li class="{{ request()->routeIs('patient-settings.index') ? 'active' : '' }}">

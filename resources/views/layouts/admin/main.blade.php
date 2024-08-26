@@ -32,8 +32,7 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/css/custom.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('/assets/css/custom.css') }}" type="text/css">
 
-
-    {{-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> --}}
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> --}}
     <link href="https://kendo.cdn.telerik.com/themes/7.2.1/default/default-main.css" rel="stylesheet" />
     <script src="https://kendo.cdn.telerik.com/2024.1.319/js/kendo.all.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">

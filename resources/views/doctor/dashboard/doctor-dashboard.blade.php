@@ -53,9 +53,9 @@
                     </div>
                 </div>
             </div>
-          
+
         </div>
-    </div> 
+    </div>
 </div>
 
 
@@ -112,7 +112,7 @@
             </div>
         </div>
 
-<div class="col-xl-5 d-flex">
+<div class="col-md-5">
     <div class="dashboard-card w-100">
         <div class="dashboard-card-head">
             <div class="header-title">
@@ -148,7 +148,7 @@
     </div>
 </div>
         <div class="col-xl-7 d-flex">
-          
+
             <div class="dashboard-main-col w-100">
                 @if (!empty($upcomingAppointments))
                     <div class="upcoming-appointment-card">
@@ -195,7 +195,7 @@
             </div>
         </div>
     </div>
-  
+
     <div class="modal fade" id="invoice-preview" aria-hidden="true" role="dialog" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div id="show-patient-invoice"></div>
@@ -208,7 +208,7 @@
                 <img src="{{ asset('assets/img/loading.gif') }}"
                     style="height: 120px;
     position: relative;
-    left: 46%; 
+    left: 46%;
     top: 35%;" id="spin-loader">
             </div>
             <form id="invoiceForm"
@@ -422,7 +422,7 @@
             function drawLogScalesBooking() {
                 var data = new google.visualization.DataTable();
                 data.addColumn('number', 'X');
-                data.addColumn('number', 'rate');
+                data.addColumn('number', 'appointments');
                 data.addRows(graphBookingData);
 
                 var view = new google.visualization.DataView(data);

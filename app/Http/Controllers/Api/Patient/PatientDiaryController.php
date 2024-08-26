@@ -107,4 +107,23 @@ class PatientDiaryController extends Controller
             ], 500);
         }
     }
+
+    public function checkTodayDateDiaryDetails($date)
+    {
+        try {
+            $patientId = Auth()->guard('api')->user()->id;
+            $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate($date, $patientId);
+            return response()->json([
+                'status' => true,
+                'date' => $diaryDetails,
+                'message' => "Retrieved Diary Details"
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                "status" => false,
+                "error" =>  $e->getMessage(),
+                "message" => "Unable to Find"
+            ], 500);
+        }
+    }
 }

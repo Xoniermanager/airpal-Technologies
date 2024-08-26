@@ -84,7 +84,7 @@ class BookingServices
    }
    public function getPaginateData()
    {
-      return $this->bookingRepository->paginate(10)->setPath(route('admin.index.bookingServices'));
+      return $this->bookingRepository->paginate(12);
    }
    public function all()
    {
@@ -101,7 +101,7 @@ class BookingServices
       $queryDetails =  $this->bookingRepository->where('doctor_id', $id)->with('patient');
 
       // Using search keyword to find appointments
-      if (isset($searchKey) && !empty($searchKey)) 
+      if (isset($searchKey) && !empty($searchKey))
       {
          $searchKey = explode(' ', $searchKey);
          $queryDetails = $queryDetails->whereHas('patient', function ($query) use ($searchKey) {
@@ -135,7 +135,7 @@ class BookingServices
    }
    public function appointmentsById($id)
    {
-      return $this->bookingRepository->where('id', $id)->with('patient');
+      return $this->bookingRepository->where('id', $id)->with(['patient','doctor']);
    }
 
    public function doctorUpcomingBookings($id)
@@ -153,7 +153,7 @@ class BookingServices
    {
       return  $this->bookingRepository->searchDoctorAppointments($filterParams);
    }
-   
+
    public function searchPatientsAppointments($filterParams)
    {
       return  $this->bookingRepository->searchPatientsAppointments($filterParams);
@@ -245,21 +245,27 @@ class BookingServices
 
    public function getAllAppointmentCounter($id)
    {
-      // Here returning all patient type (status,upcoming,cancelled,confirmed) counter for (doctor profile) 
+      $allAppointments       = $this->doctorBookings($id)->count();
+      $todayAppointments     =  $this->bookingRepository->getTodayAppointmentCounter($id);
+      $cancelledAppointments = $this->bookingRepository->getAllCanceledAppointmentsByDoctorId($id)->count();
+      $confirmedAppointments = $this->bookingRepository->getAllConfirmedAppointments($id)->count();
+      $upcomingAppointments  = $this->bookingRepository->getAllUpcomingAppointmentsByDoctorId($id)->count();
+   
+      // Here returning all patient type (status,upcoming,cancelled,confirmed) counter for (doctor profile)
       return
          [
-            'allAppointments'       => $this->doctorBookings($id)->count(),
-            'todayAppointments'     => $this->bookingRepository->getTodayAppointmentCounter($id) ?? 0,
-            'upcomingAppointments'  => $this->bookingRepository->getAllUpcomingAppointmentsByDoctorId($id)->count() ?? 0,
-            'confirmedAppointments' => $this->bookingRepository->getAllConfirmedAppointments($id)->count() ?? 0,
-            'cancelledAppointments' => $this->bookingRepository->getAllCanceledAppointmentsByDoctorId($id)->count() ?? 0,
+            'allAppointments'       => $allAppointments ?? 0,
+            'todayAppointments'     => $todayAppointments ?? 0,
+            'upcomingAppointments'  => $upcomingAppointments ?? 0,
+            'confirmedAppointments' => $confirmedAppointments ?? 0,
+            'cancelledAppointments' => $cancelledAppointments ?? 0,
          ];
    }
 
    public function getAllAppointmentPatientCounter($id)
    {
       $todayDate = Carbon::now()->toDateString();
-      // Here returning all patient type (status,upcoming,cancelled,confirmed) counter for (doctor profile) 
+      // Here returning all patient type (status,upcoming,cancelled,confirmed) counter for (doctor profile)
       return
          [
             'allAppointments'       => $this->bookingRepository->where('patient_id', $id)->with('patient')->count(),
@@ -358,4 +364,12 @@ class BookingServices
    {
       return $this->bookingRepository->where('doctor_id', $doctorId)->where('patient_id',$patientId)->count();
    }
+
+   /**
+    * Getting the most recent or say future booking date for the selected doctor
+    */
+    public function retrieveLastBookingDate($doctorId)
+    {
+        return $this->bookingRepository->where('doctor_id', $doctorId)->orderBy('booking_date','desc')->first();
+    }
 }

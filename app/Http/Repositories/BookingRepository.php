@@ -28,8 +28,9 @@ class BookingRepository extends BaseRepository
     public function searchDoctorAppointments($filterParams)
     {
 
+
         $query = $this->model->with('patient')->newQuery();
-        $key   = $filterParams['key'];
+        $key   = $filterParams['key'] ?? '';
 
         /*
         Managing filter for :
@@ -52,7 +53,6 @@ class BookingRepository extends BaseRepository
                 $query->where('status', 'confirmed');
                 break;
         }
-
         // Using selected date filter from calendar
         if (isset($filterParams['dateSearch']) && !empty($filterParams['dateSearch'])) {
             $query->where('booking_date', '=', $filterParams['dateSearch']);
@@ -182,6 +182,6 @@ class BookingRepository extends BaseRepository
     public function gettingPatientInvoices($patientId)
     {
         return $this->where('patient_id', $patientId)
-            ->where('status', '!=', 'cancelled');
+            ->where('status', '=', 'confirmed');
     }
 }

@@ -258,7 +258,7 @@
                             <div class="col-6 col-sm-12">
                                 <div class="diarybox mb-2">
                                     <h4>How you are feeling during Medication ?</h4>
-                                    <p class="">{{ $diaryDetails->medicationHealthProgress->health_progress }}<i
+                                    <p class="">{{ $diaryDetails->medicationHealthProgress->health_progress ?? '' }}<i
                                             class="float-right fa fa-check-circle text-success"></i>
                                     </p>
                                 </div>
@@ -267,14 +267,14 @@
                                 <div class="diarybox mb-2">
                                     <h4>Any Side Effect you noticed while during Medication
                                         ?</h4>
-                                    <p class="">{{ $diaryDetails->medicationHealthProgress->side_effect }}</p>
+                                    <p class="">{{ $diaryDetails->medicationHealthProgress->side_effect ?? '' }}</p>
                                 </div>
                             </div>
                             <div class="col-6 col-sm-12">
                                 <div class="diarybox mb-2">
                                     <h4>Any Improvement you noticed while during Medication
                                         ?</h4>
-                                    <p class="">{{ $diaryDetails->medicationHealthProgress->improvement }}</p>
+                                    <p class="">{{ $diaryDetails->medicationHealthProgress->improvement ?? '' }}</p>
                                 </div>
                             </div>
                         </div>

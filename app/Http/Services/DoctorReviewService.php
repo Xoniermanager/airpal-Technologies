@@ -28,7 +28,7 @@ class DoctorReviewService
       if (isset($searchKey['rating'])) {
          $allReviewDetails->orderBy('rating', $searchKey['rating']);
       }
-      return $allReviewDetails->get();
+      return $allReviewDetails->paginate(12);
    }
 
    public function getAllReviewByPatientId($patientId)
@@ -57,5 +57,10 @@ class DoctorReviewService
    public function checkReviewDoctorAndPatientid($patientId,$doctorId)
    {
       return $this->doctorReviewRepository->where('patient_id',$patientId)->where('doctor_id',$doctorId)->count();
+   }
+
+   public function deleteReview($reviewId)
+   {
+      return $this->doctorReviewRepository->where('id',$reviewId)->delete();
    }
 }

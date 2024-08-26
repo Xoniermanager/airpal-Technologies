@@ -36,7 +36,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DoctorServicesTableSeeder::class);
         $this->call(DoctorSocialMediaAccountsTableSeeder::class);
         $this->call(DoctorSpecialitiesTableSeeder::class);
-        $this->call(DoctorSpecializationsTableSeeder::class);
         $this->call(DoctorWorkingHoursTableSeeder::class);
         $this->call(DoctorAppointmentConfigsTableSeeder::class);
         $this->call(ExceptionDaysTableSeeder::class);

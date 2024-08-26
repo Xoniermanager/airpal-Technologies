@@ -6,6 +6,11 @@
                 <div class="dashboard-card-head">
                     <div class="header-title">
                         <h5>Health Records</h5>
+                        <div class="report-gen-date">
+                            <p>Report generated on last visit :
+                                {{ date('j M Y', strtotime($diaryDetails->updated_at ?? '')) ?? '' }}
+                            </p>
+                        </div>
                     </div>
 
                 </div>
@@ -17,48 +22,64 @@
                                 <div class="col-lg-6">
                                     <div class="health-records icon-orange">
                                         <span><i class="fa-solid fa-heart"></i>Heart Rate</span>
-                                        <h3>{{ $diaryDetails->pulse_rate ?? 'N/A' }} Bpm <sup> 2%</sup></h3>
+                                        <h3>{{ $diaryDetails->pulse_rate ?? 'N/A' }} Bpm
+                                            <sup
+                                                class="{{ ($diaryDetails->percentage['avg_heart_beat'] ?? 0) > 0 ? 'percentage-color-green' : 'percentage-color-red' }}">
+                                                {{ $diaryDetails->percentage['avg_heart_beat'] ?? 0 }}%
+                                            </sup>
+                                        </h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="health-records icon-amber">
                                         <span><i class="fa-solid fa-temperature-high"></i>Body
                                             Temprature</span>
-                                        <h3>{{ $diaryDetails->avg_body_temp ?? 'N/A' }} C</h3>
+                                        <h3>{{ $diaryDetails->avg_body_temp ?? 'N/A' }} C
+                                            <sup
+                                                class="{{ ($diaryDetails->percentage['avg_body_temp'] ?? 0) > 0 ? 'percentage-color-green' : 'percentage-color-red' }}">
+                                                {{ $diaryDetails->percentage['avg_body_temp'] ?? 0 }}%
+                                            </sup>
+                                        </h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="health-records icon-dark-blue">
                                         <span><i class="fa-solid fa-notes-medical"></i>Glucose
                                             Level</span>
-                                        <h3>{{ $diaryDetails->glucose ?? 'N/A' }}<sup> 6%</sup></h3>
+                                        <h3>{{ $diaryDetails->glucose ?? 'N/A' }}
+                                            <sup
+                                                class="{{ ($diaryDetails->percentage['glucose'] ?? 0) > 0 ? 'percentage-color-green' : 'percentage-color-red' }}">
+                                                {{ $diaryDetails->percentage['glucose'] ?? 0 }}%
+                                            </sup>
+                                        </h3>
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="health-records icon-blue">
                                         <span><i class="fa-solid fa-highlighter"></i>SPo2</span>
-                                        <h3>{{ $diaryDetails->oxygen_level ?? 'N/A' }}%</h3>
+                                        <h3>{{ $diaryDetails->oxygen_level ?? 'N/A' }}% <sup>
+                                                <sup
+                                                    class="{{ ($diaryDetails->percentage['oxygen_level'] ?? 0) > 0 ? 'percentage-color-green' : 'percentage-color-red' }}">
+                                                    {{ $diaryDetails->percentage['oxygen_level'] ?? 0 }}%
+                                                </sup></h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="health-records icon-red">
                                         <span><i class="fa-solid fa-syringe"></i>Blood
                                             Pressure</span>
-                                        <h3>{{ $diaryDetails->bp ?? 'N/A' }} mg/dl<sup> 2%</sup></h3>
+                                        <h3>{{ $diaryDetails->bp ?? 'N/A' }} mg/dl
+                                            <sup class="{{ ($diaryDetails->percentage['bp'] ?? 0) > 0 ? 'percentage-color-green' : 'percentage-color-red' }}">
+                                                {{ $diaryDetails->percentage['bp'] ?? 0 }}%
+                                            </sup>
+                                        </h3>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="health-records icon-purple">
                                         <span><i class="fa-solid fa-user-pen"></i>BMI </span>
                                         <h3>20.1 kg/m2</h3>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="report-gen-date">
-                                        <p>Report generated on last visit :
-                                            {{ date('j M Y', strtotime(Carbon\Carbon::now()->toDateString())) ?? '' }}
-                                            <span><i class="fa-solid fa-copy"></i></span>
-                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -84,8 +105,8 @@
         <div class="col-xl-4 d-flex">
             <div class="favorites-dashboard w-100">
                 <div class="book-appointment-head">
-                    <h3><span>Book a new</span>Appointment</h3>
-                    <span class="add-icon"><a href="#"><i class="fa-solid fa-circle-plus"></i></a></span>
+                    <a href="{{route('doctors.index')}}"><h3><span>Book a new</span>Appointment</h3></a>
+                    <span class="add-icon"><a href="{{route('doctors.index')}}"><i class="fa-solid fa-circle-plus"></i></a></span>
                 </div>
                 <div class="dashboard-card w-100">
                     <div class="dashboard-card-head">
@@ -346,7 +367,7 @@
                 </div>
             </div>
             <div class="col-md-7">
-                <div class="dashboard-card w-100">
+                {{-- <div class="dashboard-card w-100">
                     <div class="dashboard-card-head">
                         <div class="header-title">
                             <h5>Dependant</h5>
@@ -389,7 +410,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="dashboard-card w-100">
                     <div class="dashboard-card-head">
                         <div class="header-title">
@@ -1342,6 +1363,14 @@
                 background-color: #004cd4;
                 border-color: #004cd4;
                 color: white;
+            }
+
+            sup.percentage-color-red {
+                color: red !important;
+            }
+
+            sup.percentage-color-green {
+                color: green !important;
             }
         </style>
     @endsection

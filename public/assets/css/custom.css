@@ -327,7 +327,7 @@ h6 {
 
 html {
   height: 100%;
-} 
+}
 body {
   font-family: "Nunito", sans-serif;
   background-color: #ffffff;
@@ -10346,7 +10346,7 @@ header.header.header-custom.header-fixed.header-one  {
   bottom: 0;
 }
 
- 
+
 .work-info {
   -webkit-box-align: start;
   -ms-flex-align: start;
@@ -19451,7 +19451,7 @@ header.header.header-custom.header-fixed.header-one  {
   border: 1px solid #f0f0f0;
   border-radius: 4px;
   padding: 28px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; 
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
 }
 @media (max-width: 767.98px) {
@@ -27029,7 +27029,7 @@ span.refund {
   background: #F0F4F7 url("../img/bg/store-bg.png") no-repeat;
   background-position: top right;
 }
- 
+
 @media (max-width: 568px) {
   .store-tab {
     flex-direction: column;
@@ -36332,11 +36332,11 @@ ul.benifits-col li i {
   display: none;
 }
 
- 
+
 .left-panel {
   background-color: #0C4F8A;
   width: 25%;
-  padding: 45px; 
+  padding: 45px;
   flex-direction: column;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -36351,7 +36351,7 @@ ul.benifits-col li i {
 }
 
 .right-panel {
-  width: 75%; 
+  width: 75%;
   align-items: center;
   justify-content: center;
   padding: 0 15px;
@@ -36606,7 +36606,7 @@ li:hover .onboarding-list h6 {
 .passcode-wrap textarea {
   background-color: #F5F6FA;
   border: 1px solid #E6E9F4;
-  border-radius: 5px; 
+  border-radius: 5px;
   height: 54px;
   text-align: center;
   color: #354052;
@@ -37432,7 +37432,7 @@ input:checked + .tog-slider:before {
     font-size: 16px;
     padding: 14px 22px;
   }
-   
+
   .modal.show .modal-dialog.id-upload {
     max-width: 400px;
   }
@@ -45819,8 +45819,8 @@ ul li {
   top: 35px;
   z-index: 1;
   opacity: 0;
-} 
-select { 
+}
+select {
     border-color: #E2E8F0;
     border-radius: 6px;
     min-height: 40px;
@@ -45895,7 +45895,7 @@ select {
 }
 
 .doctor-profile-widget {
-  margin-bottom: 48px; 
+  margin-bottom: 48px;
 }
 i.fas.fa-map-marker-alt {
 color: blue;
@@ -46045,7 +46045,7 @@ h1#monthYear {
     border-left: 1px solid #ccc;
   border-right: 1px solid #ccc; /* Add this line */
   border-bottom: 1px solid #ccc; /* Add this line */
-    border-top: 1px solid #ccc; 
+    border-top: 1px solid #ccc;
   align-items: flex-start; /* Add this line */
   justify-content: flex-start; /* Add this line */
     position: relative; /* Add this line */
@@ -46089,7 +46089,7 @@ select {
   margin-right: 2rem;
   padding: 1rem;
   padding-right: 2rem;
-} 
+}
 
 /* booking calender css  */
 
@@ -46158,7 +46158,7 @@ td.empty {
 }
 i.fa.fa-star {
   color: #c1c5cb;
-} 
+}
 .titletex {
   background: #004cd4;
   color: #fff;
@@ -46431,7 +46431,7 @@ td.date.halfFull button {
 }
 .custom-radio {
   display: flex;
-  gap: 8px;
+  gap: 5px;
 }
 
 
@@ -46527,4 +46527,107 @@ td.date.halfFull button {
 }
 .white-space-normal {
   white-space: normal
+}
+.notify-block.d-flex .avatar {
+  height: 50px;
+  width: 50px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+.btn-xs {
+  font-size: 12px;
+  padding: 2px 8px;
+}
+table.no-padding-table td {
+  padding: 0 !important;
+}
+.ml-10px {
+  margin-left: 10px;
+}
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
+}
+.w-250px
+{
+  width: 250px;
+}
+.panel {
+  background: #eee;
+  border-radius: 10px;
+  padding: 15px 10px;
+  margin-bottom: 10px;
+}
+.customecheckbox input {
+  height: 25px;
+  width: 20px;
+  margin-bottom: 5px;
+}
+img.search-loader {
+  position: absolute;
+  top: 45%; 
+  z-index: 999;
+  left: 43%;
+}
+.loaderbox {
+  width: 100%;
+  text-align: center;
+  margin: auto; 
+}
+/* .loaderbox1 {
+  text-align: center;
+  margin: auto;
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 2;
+  cursor: pointer;
+} */
+.notify-block.d-flex .avatar {
+    height: 50px;
+    width: 50px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+.btn-xs {
+    font-size: 12px;
+    padding: 2px 8px;
+}
+table.no-padding-table td {
+    padding: 0 !important;
+}
+.ml-10px {
+    margin-left: 10px;
+}
+.float-left {
+    float: left;
+}
+.float-right {
+    float: right;
+}
+.w-250px
+{
+    width: 250px;
+}
+.panel {
+    background: #eee;
+    border-radius: 10px;
+    padding: 15px 10px;
+    margin-bottom: 10px;
+}
+
+.customecheckbox input {
+    height: 25px;
+    width: 20px;
+    margin-bottom: 5px;
 }

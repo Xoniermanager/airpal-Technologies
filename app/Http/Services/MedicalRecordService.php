@@ -63,7 +63,8 @@ class MedicalRecordService
                 unlinkFileOrImage($medicalRecordDetails->getRawOriginal('file'));
             }
             return ['status' => true, 'data' => $medicalRecordDetails->delete()];
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             return ['status' => false, 'data' => $e->getmessage()];
         }
     }

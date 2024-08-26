@@ -15,7 +15,10 @@
             </div>
         </div>
     </div>
-
+    <div class="loaderbox1"></div>
+    <div class="loaderbox">
+    <img src="{{ asset('assets/img/loader-rolling.gif') }}" class="search-loader">
+    </div>
     <div class="doctor-content content">
         <div class="container">
 
@@ -481,6 +484,7 @@
 @section('javascript')
     <script src="http://127.0.0.1:8000/assets/js/jquery-3.7.1.min.js" type="text/javascript"></script>
     <script>
+        $('.search-loader').hide();
         $('input[name="gender"], input[name="langauges"], input[name="experience"] ,input[name="speciality"],input[name="services"],input[name="rating_count"]')
             .on('change', function() {
                 search_doctors();
@@ -537,9 +541,14 @@
                     'services': servicesCheckedValue,
                     'rating': ratingCheckedValue
                 },
+                beforeSend: function(){
+                    $('.search-loader').show();
+                },
                 success: function(res) {
                     if (res) {
+                        $('.search-loader').hide();
                         jQuery('#doctors_list').replaceWith(res.data);
+                        jQuery('#doctors_list').hide().delay(200).fadeIn();
                     }
                 }
             })

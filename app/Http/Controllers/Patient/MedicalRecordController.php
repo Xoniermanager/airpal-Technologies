@@ -76,9 +76,15 @@ class MedicalRecordController extends Controller
         try {
             $response = $this->medicalRecordService->deleteDetails($id);
             if ($response['status'] == true) {
-                return back()->with(['success' => "Your Medical Record Has Been Deleted"]);
+                return response()->json([
+                    'status' =>   true,
+                    'data'    =>  view('patients.medical-records.all-medical-record')->with(['allMedicalRecord' => $this->medicalRecordService->getMedicalRecordByPatientId(Auth::user()->id)])->render()
+                ]);
             } else {
-                return back()->with(['error' => $response['data']]);
+                return response()->json([
+                    'status' => false,
+                    'error'    =>  $response['data']
+                ]);
             }
         } catch (Exception $e) {
             return back()->with(['error' => $e->getmessage()]);

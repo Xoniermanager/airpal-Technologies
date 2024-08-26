@@ -380,4 +380,9 @@ class BookingServices
     {
       return $this->bookingRepository->getPatientAllConfirmedAppointments($patientId);
     }
+
+    public function getAllAppointmentDetailsByDoctorId($doctorId)
+    {
+        return $this->bookingRepository->where('doctor_id',$doctorId)->with('patient')->get();
+    }
 }

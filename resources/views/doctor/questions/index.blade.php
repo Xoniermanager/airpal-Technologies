@@ -222,6 +222,7 @@
                         success: function(response) {
                             swal.fire("Done!", response.message, "success");
                             $('#add_question').modal('hide');
+                            console.log($('#addQuestionForm'));
                             $('#addQuestionForm')[0].reset();
                             $('#question_list').replaceWith(response.data);
                         },

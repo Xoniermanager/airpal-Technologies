@@ -46577,7 +46577,7 @@ img.search-loader {
   text-align: center;
   margin: auto; 
 }
-/* .loaderbox1 {
+.loaderbox1 {
   text-align: center;
   margin: auto;
   position: fixed;
@@ -46591,7 +46591,7 @@ img.search-loader {
   background-color: rgba(255, 255, 255, 0.5);
   z-index: 2;
   cursor: pointer;
-} */
+}
 .notify-block.d-flex .avatar {
     height: 50px;
     width: 50px;

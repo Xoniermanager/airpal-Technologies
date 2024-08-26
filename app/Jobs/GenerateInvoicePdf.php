@@ -34,7 +34,7 @@ class GenerateInvoicePdf implements ShouldQueue
           $doctorId = $this->bookingDetail->doctor_id;
           
           $pdf = Pdf::loadView('invoice.invoice-template', ['bookingDetail' => $this->bookingDetail]);
-          $fileName = 'invoice-pdf-' . time() . '.pdf';
+          $fileName = 'invoice-pdf-' . $bookingDetail->id . '.pdf';
           $invoicePath = 'public/' . $doctorId . '/invoices/' . $fileName;
       
           // Ensure the directory exists

@@ -20,15 +20,18 @@ class BookedSlotMailJob implements ShouldQueue
      */
     
      private $mailData;
-     public function __construct($mailData) {
-         $this->mailData   = $mailData;
- 
+     private $pdfPath;
+
+     public function __construct($mailData,$pdfPath)
+     {
+         $this->mailData = $mailData;
+         $this->pdfPath  = $pdfPath;
      }
     /**
      * Execute the job.
      */
     public function handle(): void
     {
-        Mail::to("yashxoniertechnologies@gmail.com")->send(new SendMailBookedSlots($this->mailData));
+        Mail::to("xonier.puneet@gmail.com")->send(new SendMailBookedSlots($this->mailData,$this->pdfPath));
     }
 }

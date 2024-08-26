@@ -16,19 +16,18 @@ aria-labelledby="pills-upcoming-tab" >
             <div class="ribbon ribbon-spo"><span>Today</span></div>
             @elseif (\Carbon\Carbon::parse($booking->booking_date)->gt(\Carbon\Carbon::now()))
             <div class="ribbon ribbon-pop"><span>Upcoming</span></div>
-
             @endif
         <ul>
             <li>
                 <div class="appointment-grid-head">
                     <div class="patinet-information">
-                        <a href="{{ route('doctor.appointments.index') }}">
+                        <a href="{{ route('doctor-patient-profile',['id' => $booking->patient->id]) }}">
                             <img src="{{ $booking->patient->image_url}}" id="blah">
                         </a>
                         <div class="patient-info">
                             {{-- <p>#Apt0001</p> --}}
                             <h6><a
-                                    href="{{ route('doctor.appointments.index') }}">{{$booking->patient->fullName}}</a>
+                                    href="{{ route('doctor-patient-profile',['id' => $booking->patient->id]) }}">{{$booking->patient->fullName}}</a>
                             </h6>
                         </div>
                     </div>

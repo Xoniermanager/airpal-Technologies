@@ -9,15 +9,16 @@ use App\Models\Language;
 use App\Models\BookingSlots;
 use Illuminate\Http\Request;
 use App\Jobs\GenerateInvoicePdf;
+use App\Jobs\GenerateAllInvoices;
 use App\Http\Services\UserServices;
 use App\Http\Services\DoctorService;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Services\BookingServices;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Services\DoctorReviewService;
+use App\Http\Services\FavoriteDoctorServices;
 use App\Http\Services\SpecializationServices;
 use App\Http\Services\DoctorAppointmentConfigService;
-use App\Jobs\GenerateAllInvoices;
 
 class DoctorController extends Controller
 {
@@ -30,6 +31,7 @@ class DoctorController extends Controller
   private $doctorService;
 
   private $doctorReviewService;
+      private $favoriteDoctorServices;
 
   public function __construct(
     UserServices $user_services,
@@ -37,7 +39,8 @@ class DoctorController extends Controller
     DoctorAppointmentConfigService $doctorSlotServices,
     BookingServices $bookingServices,
     DoctorReviewService $doctorReviewService,
-    DoctorService $doctorService
+    DoctorService $doctorService,
+    FavoriteDoctorServices $favoriteDoctorServices
   ) {
     $this->user_services = $user_services;
     $this->bookingServices = $bookingServices;
@@ -45,21 +48,38 @@ class DoctorController extends Controller
     $this->doctorSlotServices =  $doctorSlotServices;
     $this->doctorReviewService =  $doctorReviewService;
     $this->doctorService = $doctorService;
+    $this->favoriteDoctorServices = $favoriteDoctorServices;
   }
 
   public function index()
   {
-    $doctors     = $this->user_services->getDoctorDataForFrontend();
+    $doctors = $this->user_services->getDoctorDataForFrontend();
     $specialties = $this->specializationServices->all();
     $allRatingStars = $this->doctorService->getDoctorCountsGroupedByRatings();
-
-    $ratingsWithCounter = array();
-    for ($i = 1; $i <= 5; $i++) {
-      $ratingsWithCounter[$i] = array_sum($allRatingStars->whereBetween('allover_rating', [$i - 0.5, $i])->pluck('total_doctors')->toArray());
+    
+    // Check if the user is authenticated
+    if (Auth::check()) {
+        $patientId = Auth::user()->id;
+        $favoriteDoctorsList = $this->favoriteDoctorServices->getAllFavoriteDoctors($patientId)->pluck('doctor_id')->toArray();
+    } else {
+        $favoriteDoctorsList = []; // No favorite doctors if not logged in
     }
 
-    return view('website.doctor.search-doctor', ['doctors' =>  $doctors, 'languages' => Language::all(), 'specialties' => $specialties, 'services' => Service::all(), 'ratingsWithCounter' => $ratingsWithCounter]);
+    $ratingsWithCounter = [];
+    for ($i = 1; $i <= 5; $i++) {
+        $ratingsWithCounter[$i] = array_sum($allRatingStars->whereBetween('allover_rating', [$i - 0.5, $i])->pluck('total_doctors')->toArray());
+    }
+
+    return view('website.doctor.search-doctor', [
+        'doctors' => $doctors,
+        'languages' => Language::all(),
+        'specialties' => $specialties,
+        'services' => Service::all(),
+        'ratingsWithCounter' => $ratingsWithCounter,
+        'favoriteDoctorsList' => $favoriteDoctorsList
+    ]);
   }
+  
 
 
   public function doctorProfile(User $user)
@@ -106,12 +126,35 @@ class DoctorController extends Controller
       'rating'      =>  'sometimes|integer|between:1,5'
     ]);
 
+    $doctors = $this->user_services->getDoctorDataForFrontend();
+    $specialties = $this->specializationServices->all();
+    $allRatingStars = $this->doctorService->getDoctorCountsGroupedByRatings();
+    
+    // Check if the user is authenticated
+    if (Auth::check()) {
+        $patientId = Auth::user()->id;
+        $favoriteDoctorsList = $this->favoriteDoctorServices->getAllFavoriteDoctors($patientId)->pluck('doctor_id')->toArray();
+    } else {
+        $favoriteDoctorsList = []; // No favorite doctors if not logged in
+    }
+
+    $ratingsWithCounter = [];
+    for ($i = 1; $i <= 5; $i++) {
+        $ratingsWithCounter[$i] = array_sum($allRatingStars->whereBetween('allover_rating', [$i - 0.5, $i])->pluck('total_doctors')->toArray());
+    }
+
+
     $searchedItems = $this->user_services->searchInDoctors($request->all());
     if ($searchedItems) {
       return response()->json([
         'success' => 'Searching',
         'data'   =>  view("website.doctor.doctors_list", [
-          'doctors' =>  $searchedItems
+          'doctors' =>  $searchedItems,
+          'languages' => Language::all(),
+          'specialties' => $specialties,
+          'services' => Service::all(),
+          'ratingsWithCounter' => $ratingsWithCounter,
+          'favoriteDoctorsList' => $favoriteDoctorsList
         ])->render()
       ]);
     } else {
@@ -262,5 +305,15 @@ class DoctorController extends Controller
   public function generateAllInvoices(Request $request)
   {
     GenerateAllInvoices::dispatch();  
+  }
+
+  public function choose()
+  {
+    return view('website.pages.choose');
+  }
+
+  public function doctorRegistrationIndex()
+  {
+    return view('website.pages.doctor-register');
   }
 }

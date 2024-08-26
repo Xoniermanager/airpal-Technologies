@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Services;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Repositories\socialMediaRepository;
+use App\Http\Repositories\SocialMediaRepository;
 
 class SocialMediaService {
     private  $socialMediaRepository;

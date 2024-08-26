@@ -50,14 +50,17 @@ class BookingServices
       $bookedSlot  =  $this->bookingRepository->create($payload);
       if ($bookedSlot) {
 
+         $pdfPath = storage_path('app/public/' . $data->doctor_id . '/invoices/invoice-pdf-' . $bookedSlot->id . '.pdf');
+
+         
          // generating invoice against booking
          GenerateInvoicePdf::dispatch($bookedSlot);
 
          // sending mail with invoice attachments
-         BookedSlotMailJob::dispatch($bookedSlot);
+         BookedSlotMailJob::dispatch($bookedSlot,$pdfPath);
 
          $encryptedBookingId = Crypt::encryptString($bookedSlot->id);
-         $base64Encoded = base64_encode($encryptedBookingId);
+         $base64Encoded  = base64_encode($encryptedBookingId);
          $urlSafeEncoded = urlencode($base64Encoded);
          $url = route('doctor.disease-details', ['booking_id' => $urlSafeEncoded]);
 
@@ -371,5 +374,10 @@ class BookingServices
     public function retrieveLastBookingDate($doctorId)
     {
         return $this->bookingRepository->where('doctor_id', $doctorId)->orderBy('booking_date','desc')->first();
+    }
+
+    public function getPatientAllConfirmBookings($patientId)
+    {
+      return $this->bookingRepository->getPatientAllConfirmedAppointments($patientId);
     }
 }

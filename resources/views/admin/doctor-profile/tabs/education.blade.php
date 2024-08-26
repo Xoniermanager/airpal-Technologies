@@ -5,7 +5,6 @@
     }
 
 @endphp
-
 <div class="tab-pane fade" id="education_tab">
     <div class="dashboard-header border-0 mb-0">
         <h3>Education</h3>
@@ -201,13 +200,19 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-wrap">
                                                 <label class="mb-2">Education Certificates</label>
-                                                <input type="file" class="form-control"
-                                                    name="education[0][certificates]">
+                                                <input type="file" class="form-control certificatesInput"
+                                                    name="education[0][certificates]" data-preview-id="education_preview">
                                                 <small class="text-secondary">Recommended image size is <b>pdf,
                                                         image</b></small>
                                                 <span class="text-danger" id="education_0_certificates_error"></span>
                                             </div>
 
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-wrap" id="education_preview">
+                                                    <img src="" alt="certificate image" width="300" height="200" style="border-radius:20px;">
+                                            </div>
                                         </div>
                                     </div>
 
@@ -219,8 +224,14 @@
             </div>
         @endforelse  
         <div class="modal-btn text-end">
-            <input type="hidden" value="{{ Auth::user() ? Auth::user()->id : Request::segment(4)}}" name="user_id" id="doctor_user_id">
-            <button class="btn btn-primary prime-btn" id="doctorEducationform">Save Changes</button>
+            @if (isset($userId))
+            <input type="hidden" value="{{ $userId ?? ''}}" name="user_id" id="doctor_user_id">  
+            @else
+            <input type="hidden" value="{{Request::segment(4)}}" name="user_id" id="doctor_user_id"> 
+            @endif
+            <button class="btn btn-primary prime-btn">Save Changes</button>
+            {{-- <input type="hidden" value="{{ Auth::user() ? Auth::user()->id : Request::segment(4)}}" name="user_id" id="doctor_user_id">
+            <button class="btn btn-primary prime-btn" id="doctorEducationform">Save Changes</button> --}}
         </div>
     </form>
 </div>

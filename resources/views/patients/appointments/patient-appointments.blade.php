@@ -81,7 +81,7 @@
 @section('javascript')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-        $("#pSearchKey").keyup(function() {
+        $("#searchKey").keyup(function() {
             filter();
         });
 
@@ -102,7 +102,7 @@
         function filter(page_no = 1) {
             let key = jQuery('#selected-filter').text();
             let patientId = jQuery('#patient-id').text();
-            let pSearchKey = jQuery('#pSearchKey').val();
+            let searchKey = jQuery('#searchKey').val();
             let dateSearch = jQuery('#dateSearch').val();
             $.ajax({
                 url: "<?= route('patient.appointment.filter') ?>?page=" + page_no,
@@ -110,7 +110,7 @@
                 data: {
                     'key': key,
                     'patientId': patientId,
-                    'pSearchKey': pSearchKey,
+                    'pSearchKey': searchKey,
                     'dateSearch': dateSearch,
                     'page_no': page_no,
                     '_token': '{{ csrf_token() }}'

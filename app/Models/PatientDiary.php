@@ -18,10 +18,10 @@ class PatientDiary extends Model
 
     public function patientAdditionalInfo()
     {
-        return $this->hasmany(PatientDiaryAdditionalInfo::class, 'patient_diary_id', 'id');
+        return $this->hasMany(PatientDiaryAdditionalInfo::class, 'patient_diary_id', 'id');
     }
     public function medicationHealthProgress()
     {
-        return $this->hasone(MedicationHealthProgress::class, 'patient_diary_id', 'id');
+        return $this->hasOne(MedicationHealthProgress::class, 'patient_diary_id', 'id');
     }
 }

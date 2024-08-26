@@ -19,10 +19,8 @@ aria-labelledby="pills-upcoming-tab">
                 <li>
                     <div class="appointment-grid-head">
                         <div class="patinet-information">
-                            <a href="patient-upcoming-appointment.html">
                                 <img src="{{ $appointment->user->image_url}}" class="img-fluid"
-                                alt=""   onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" >
-                            </a>
+                                alt="" onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" >
                             <div class="patient-info">
                                 <p>#Apt{{ $appointment->id }}</p>
                                 <h6><a href="{{ route('frontend.doctor.profile',['user' =>$appointment->user->id]) }}">Dr

@@ -46528,3 +46528,29 @@ td.date.halfFull button {
 .white-space-normal {
   white-space: normal
 }
+img.search-loader {
+  position: absolute;
+  top: 45%; 
+  z-index: 999;
+  left: 43%;
+}
+.loaderbox {
+  width: 100%;
+  text-align: center;
+  margin: auto; 
+}
+/* .loaderbox1 {
+  text-align: center;
+  margin: auto;
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 2;
+  cursor: pointer;
+} */

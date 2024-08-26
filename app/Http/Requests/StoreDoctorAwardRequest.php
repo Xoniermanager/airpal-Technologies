@@ -2,11 +2,13 @@
 
 namespace App\Http\Requests;
 
+use App\Traits\ExceptionHandle;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreDoctorAwardRequest extends FormRequest
 {
+    use ExceptionHandle;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -68,20 +70,5 @@ class StoreDoctorAwardRequest extends FormRequest
             'awards.*.certificates.mimes' => 'The certificate must be a file of type: jpeg, jpg , bmp, png, gif, svg, or pdf.',
             'awards.*.certificates.max' => 'The certificate may not be greater than 2048 kilobytes.',
         ];
-    }
-
-    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
-    {
-        $response = $this->expectsJson() 
-            ? new \Illuminate\Http\JsonResponse([
-                'status' => 'error',
-                'message' => $validator->errors()->first()
-            ], 422)
-            : redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-
-        throw new \Illuminate\Validation\ValidationException($validator, $response);
     }
 }

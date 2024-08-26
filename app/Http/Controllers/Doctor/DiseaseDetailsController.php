@@ -37,6 +37,7 @@ class DiseaseDetailsController extends Controller
 
       $bookedAppointment = $this->bookingServices->getBookingSlotById($bookingId)->first();
       $doctorQuestions   = $this->user_services->getDoctorQuestionById($bookedAppointment->doctor_id);
+      // dd($doctorQuestions );
       return view('doctor.disease-details', ['doctorQuestions' => $doctorQuestions,'booking_id'=> $bookedAppointment->id]); 
     } 
     public function storeAppointmentQueries(AppointmentQueriesRequest $request)

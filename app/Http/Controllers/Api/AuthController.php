@@ -9,17 +9,22 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AuthCheckRequest;
-use App\Http\Requests\ChangePasswordRequest;
+use App\Http\Repositories\UserRepository;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\ChangePasswordRequest;
+use App\Http\Requests\StorePatientRegistrationRequest;
 
 class AuthController extends Controller
 {
+ 
+    private $userRepository;
     protected $authService;
-    public function __construct(AuthServices $authService)
+    public function __construct(UserRepository $userRepository,AuthServices $authService)
     {
-        $this->authService = $authService;
+      $this->userRepository = $userRepository;
+      $this->authService = $authService;
     }
-
+  
     public function login(AuthCheckRequest $request)
     {
         try {
@@ -36,7 +41,6 @@ class AuthController extends Controller
             ], 500);
         }
     }
-
     public function resendOtp(AuthCheckRequest $request)
     {
         try {
@@ -150,6 +154,38 @@ class AuthController extends Controller
                 'success' => false,
                 'message' => $th->getMessage()
             ], 500);
+        }
+    }
+
+    public function register(StorePatientRegistrationRequest $request)
+    {
+        try {
+            $userCreated = $this->userRepository->create([
+                'first_name' => $request->first_name,
+                'last_name'  => $request->last_name ?? '',
+                'phone'      => $request->phone,
+                'password'   => Hash::make($request->password),
+                'email'      => $request->email,
+                'gender'     => $request->gender,
+                'role'       => 3,
+            ]);
+
+            if ($userCreated) {
+                return response()->json([
+                    "success"   => true,
+                    "message"   => "Patient successfully registered!",
+                    "data"      => $userCreated 
+                ]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'message' => 'An error occurred while updating the patient profile.',
+                    'status'  => 'false',
+                    'error'   => $e->getMessage()
+                ],
+                500
+            );
         }
     }
 }

@@ -51,11 +51,12 @@
                             <input type="hidden" value="{{ $booking_id }}" name="booking_id">
                             <div class="setting-card">
                                 <div class="row">
+                    
                                     @forelse ($doctorQuestions->doctorQuestions as $question)
                                         <div class="col-lg-12">
                                             <div class="form-wrap">
                                                 <label class="col-form-label">
-                                                    <span class="text-danger">*</span> {{ $question->questions }}
+                                                    <span class="text-danger">*</span> {{ $question->question }}
                                                 </label>
                                                 @if ($question->answer_type == 'optional')
                                                     <div class="d-flex">

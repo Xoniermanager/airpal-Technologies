@@ -184,4 +184,12 @@ class BookingRepository extends BaseRepository
         return $this->where('patient_id', $patientId)
             ->where('status', '=', 'confirmed');
     }
+
+
+    public function getPatientAllConfirmedAppointments($patientId)
+    {
+        return  $this->where('patient_id', $patientId)
+            ->where('status', '=', 'confirmed')
+            ->get();
+    }
 }

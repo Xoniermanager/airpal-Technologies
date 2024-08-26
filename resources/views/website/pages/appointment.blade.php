@@ -176,6 +176,7 @@
                                             <span class="checkmark"></span> No
                                         </label>
                                     </div>
+                               
                                     <div class="forms-block">
                                         <label class="form-group-title">Description</label>
                                         <textarea class="form-control" placeholder="Enter Your Reason" name="description"></textarea>
@@ -217,6 +218,7 @@
                                                 Next<i class="feather-arrow-right-circle"></i>
                                             </button>
                                         </div>
+                                        <span id ="appointment_error" class="text-danger"></span>
                                     </div>
                                 </form>
                             </div>
@@ -251,12 +253,6 @@
                                                 @endisset
                                             </div>
                                         </div>
-                                        <div class="booking-doctor-right">
-                                            <p>
-                                                <i class="fas fa-circle-check"></i>
-                                                <a href="doctor-profile.html">Edit</a>
-                                            </p>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -268,11 +264,6 @@
                                                 <li>Booking Date: <span class="booking_date"></span></li>
                                                 <li>Booking Time: <span class="booking_slot_time"></span></li>
                                             </ul>
-                                        </div>
-                                        <div class="booking-doctor-right">
-                                            <p>
-                                                <a href="appointment.html">Edit</a>
-                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -364,12 +355,11 @@
                                     console.log(site_base_url);
                                     window.location.href = successUrl;
                                 }
-
                             },
                             error: function(error_messages) {
-                                Swal.fire("Error!", "Something Went Wrong", "error");
                                 var errors = error_messages.responseJSON;
                                 $.each(errors.errors, function(key, value) {
+                                    console.log('#' + key + '_error',value);
                                     $('#' + key + '_error').html(value);
                                 })
 

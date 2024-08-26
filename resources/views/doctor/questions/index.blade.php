@@ -177,297 +177,296 @@
     </div>
 @endsection
 @section('javascript')
-<script>
-    // Clear all selected options if question type gets changed
-    $(document).ready(function() {
-        $("body").on('change', '.answer_type', function() {
-            // console.log('clicked');
-            /*
-            Removing all selected options on change of question type.
-            Remove disabled class to allow add new options
-            */
-            jQuery('.addMoreOptions').html('');
-            $('.addMoreBtn').removeClass('disabled');
-            let selecteOption = $(this).find("option:selected").text();
-            // console.log("selecteOption : " + selecteOption);
-            if (selecteOption == 'text') {
-                jQuery('.show-add-more-options').hide();
-                jQuery('.addMoreOptionsEdit').hide();
-            } else {
-                jQuery('.show-add-more-options').show();
-                jQuery('.addMoreOptionsEdit').show();
-            }
-        });
+    <script>
+        // Clear all selected options if question type gets changed
+        $(document).ready(function() {
+            $("body").on('change', '.answer_type', function() {
+                // console.log('clicked');
+                /*
+                Removing all selected options on change of question type.
+                Remove disabled class to allow add new options
+                */
+                jQuery('.addMoreOptions').html('');
+                $('.addMoreBtn').removeClass('disabled');
+                let selecteOption = $(this).find("option:selected").text();
+                // console.log("selecteOption : " + selecteOption);
+                if (selecteOption == 'text') {
+                    jQuery('.show-add-more-options').hide();
+                    jQuery('.addMoreOptionsEdit').hide();
+                } else {
+                    jQuery('.show-add-more-options').show();
+                    jQuery('.addMoreOptionsEdit').show();
+                }
+            });
 
-        $("#addQuestionForm").validate({
-            rules: {
-                doctor: "required",
-                specialty: "required",
-                answer_type: "required",
-                question: "required",
-            },
-            messages: {
-                doctor: "Please select a doctor!",
-                specialty: "Please select a specialty!",
-                answer_type: "Please select an answer type!",
-                question: "Please enter a question!",
-            },
-            submitHandler: function(form) {
-                var formData = $(form).serialize();
-                console.log(formData);
-                $.ajax({
-                    url: "{{ route('admin.add.questions') }}",
-                    type: 'post',
-                    data: formData,
-                    success: function(response) {
-                        swal.fire("Done!", response.message, "success");
-                        $('#add_question').modal('hide');
-                        // $('#addQuestionForm')[0].reset();
-                        $('#question_list').replaceWith(response.data);
-                    },
-                    error: function(error_messages) {
-                        var errors = error_messages.responseJSON;
-                        $.each(errors.errors, function(key, value) {
-                            var id = key.replace(/\./g, '_');
-                            console.log('#' + id + '_error');
-                            $('#' + id + '_error').html(value);
-                            remove_error_div(id);
-                        });
-                    }
-                });
-            }
-        });
-
-        $(document).on('click', '.delete-question', function() {
-            var id = $(this).attr('data-id');
-            $("#delete-question-id").val(id);
-        });
-
-        $(document).on('click', '.confirm-delete', function(e) {
-            e.preventDefault();
-            var id = $("#delete-question-id").val();
-            if (id != '') {
-                $.ajax({
-                    method: 'post',
-                    type: 'delete',
-                    data: {
-                        '_token': '{{ csrf_token() }}',
-                        'id': id
-                    },
-
-                    url: "{{ route('doctor.delete-questions') }}",
-                    success: function(response) {
-                        swal.fire("Done!", response.message, "success");
-                        $('#delete-question').modal('hide');
-                        $('#question_list').replaceWith(response.data);
-                    }
-                });
-            }
-        });
-
-        $(document).on('click', '.close-form-add', function() {
-            $('#edit_question').hide();
-            $('#editQuestionForm')[0].reset();
-            $('#addQuestionForm')[0].reset();
-        });
-
-        // Function to remove server error message div after 5 seconds
-        function remove_error_div(error_ele_id) {
-            setTimeout(function() {
-                $("#" + error_ele_id + "_error").html('');
-            }, 5000);
-        }
-    });
-
-    function edit_question(question_id) {
-        jQuery.ajax({
-            type: 'GET',
-            url: '{{ route('doctor.get.question.html') }}',
-            data: {
-                'question_id': question_id,
-                '_token': '{{ csrf_token() }}',
-            },
-            dataType: 'json',
-            success: function(response) {
-                jQuery('#edit_question').html(response.data);
-                update_question_options();
-            },
-            error: function(error_data) {
-
-            }
-        });
-
-        $('#edit_question').addClass('show').css('display', 'block').attr('aria-hidden', 'false');
-    }
-
-    // Function to handle adding options dynamically
-    function add_options(id) {
-        if (id) {
-            var currentOptions = jQuery('.addMoreOptionsEdit .option-details');
-        } else {
-            var currentOptions = jQuery('.addMoreOptions .option-details');
-        }
-        counter = currentOptions.length;
-        console.log("counter : " + counter)
-        var options_html =
-            '<div class="col-md-6  option-details">' +
-            '<div class="row panel panel-body">' +
-            '<div class="col-md-10 form-group">' +
-            '<label for="">Option ' + (counter + 1) + '</label>' +
-            '<input class="form-control" type="text" name="options[' + counter + '][value]">' +
-            '<span class="text-danger" id="options_' + counter + '_value_error"></span>' +
-            '</div>' +
-            '<div class="col-md-2 form-group mt-4">' +
-            '<a onclick="remove_options(this)" class="btn btn-danger btn-sm float-right">' +
-            '<i class="fa fa-minus"></i></a>' +
-            '</div>' +
-            '</div>' +
-            '</div>';
-
-        if (id) {
-            $('.addMoreOptionsEdit').append(options_html);
-        } else {
-            $('.addMoreOptions').append(options_html);
-        }
-
-        counter += 1;
-        if (counter >= 4) {
-            $('.addMoreBtn').addClass('disabled');
-        }
-    }
-    var site_admin_base_url = "{{ env('SITE_ADMIN_BASE_URL') }}";
-
-    function remove_options(this_ele, id) {
-
-        if (id != null) {
-            event.preventDefault();
-            Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
-            }).then((result) => {
-                if (result.isConfirmed) {
+            $("#addQuestionForm").validate({
+                rules: {
+                    doctor: "required",
+                    specialty: "required",
+                    answer_type: "required",
+                    question: "required",
+                },
+                messages: {
+                    doctor: "Please select a doctor!",
+                    specialty: "Please select a specialty!",
+                    answer_type: "Please select an answer type!",
+                    question: "Please enter a question!",
+                },
+                submitHandler: function(form) {
+                    var formData = $(form).serialize();
+                    console.log(formData);
                     $.ajax({
-                        url: site_admin_base_url + 'questions-options/delete',
-                        type: "post",
-                        data: {
-                            '_token': '{{ csrf_token() }}',
-                            'id': id
+                        url: "{{ route('admin.add.questions') }}",
+                        type: 'post',
+                        data: formData,
+                        success: function(response) {
+                            swal.fire("Done!", response.message, "success");
+                            $('#add_question').modal('hide');
+                            $('#addQuestionForm')[0].reset();
+                            $('#question_list').replaceWith(response.data);
                         },
-                        success: function(res) {
-                            Swal.fire("Done!", "It was successfully deleted!", "success");
-                            $(this_ele).closest('.option-details').remove();
-
-                        },
-                        error: function(xhr, ajaxOptions, thrownError) {
-                            Swal.fire("Error deleting!", "Please try again", "error");
+                        error: function(error_messages) {
+                            var errors = error_messages.responseJSON;
+                            $.each(errors.errors, function(key, value) {
+                                var id = key.replace(/\./g, '_');
+                                console.log('#' + id + '_error');
+                                $('#' + id + '_error').html(value);
+                                remove_error_div(id);
+                            });
                         }
                     });
                 }
             });
-        } else {
-            $(this_ele).closest('.option-details').remove();
-            setTimeout(function() {
 
-                var currentOptions = jQuery('.addMoreOptions .option-details');
-                console.log("Testing remove counter" + currentOptions.length);
-                if (currentOptions.length < 4) {
-                    $('.addMoreBtn').removeClass('disabled');
+            $(document).on('click', '.delete-question', function() {
+                var id = $(this).attr('data-id');
+                $("#delete-question-id").val(id);
+            });
+
+            $(document).on('click', '.confirm-delete', function(e) {
+                e.preventDefault();
+                var id = $("#delete-question-id").val();
+                if (id != '') {
+                    $.ajax({
+                        method: 'post',
+                        type: 'delete',
+                        data: {
+                            '_token': '{{ csrf_token() }}',
+                            'id': id
+                        },
+
+                        url: "{{ route('doctor.delete-questions') }}",
+                        success: function(response) {
+                            swal.fire("Done!", response.message, "success");
+                            $('#delete-question').modal('hide');
+                            $('#question_list').replaceWith(response.data);
+                        }
+                    });
                 }
-            }, 1000);
+            });
+
+            $(document).on('click', '.close-form-add', function() {
+                $('#edit_question').hide();
+                $('#editQuestionForm')[0].reset();
+                $('#addQuestionForm')[0].reset();
+            });
+
+            // Function to remove server error message div after 5 seconds
+            function remove_error_div(error_ele_id) {
+                setTimeout(function() {
+                    $("#" + error_ele_id + "_error").html('');
+                }, 5000);
+            }
+        });
+
+        function edit_question(question_id) {
+            jQuery.ajax({
+                type: 'GET',
+                url: '{{ route('doctor.get.question.html') }}',
+                data: {
+                    'question_id': question_id,
+                    '_token': '{{ csrf_token() }}',
+                },
+                dataType: 'json',
+                success: function(response) {
+                    jQuery('#edit_question').html(response.data);
+                    update_question_options();
+                },
+                error: function(error_data) {
+
+                }
+            });
+
+            $('#edit_question').addClass('show').css('display', 'block').attr('aria-hidden', 'false');
         }
-    }
 
-    function update_question_options() {
-        $("#editQuestionForm").validate({
-            rules: {
-                doctor: "required",
-                specialty: "required",
-                answer_type: "required",
-                questions: "required",
-            },
-            messages: {
-                doctor: "Please select a doctor!",
-                specialty: "Please select a specialty!",
-                answer_type: "Please select an answer type!",
-                questions: "Please enter a question!",
-            },
-            submitHandler: function(form) {
-                var formData = $(form).serialize();
-                console.log(formData);
-                $.ajax({
-                    url: "{{ route('admin.questions.update') }}",
-                    type: 'post',
-                    data: formData,
-                    success: function(response) {
-                        console.log(response)
-                        swal.fire("Done!", response.message, "success");
-                        $('#edit_question').modal().hide();
+        // Function to handle adding options dynamically
+        function add_options(id) {
+            if (id) {
+                var currentOptions = jQuery('.addMoreOptionsEdit .option-details');
+            } else {
+                var currentOptions = jQuery('.addMoreOptions .option-details');
+            }
+            counter = currentOptions.length;
+            console.log("counter : " + counter)
+            var options_html =
+                '<div class="col-md-6  option-details">' +
+                '<div class="row panel panel-body">' +
+                '<div class="col-md-10 form-group">' +
+                '<label for="">Option ' + (counter + 1) + '</label>' +
+                '<input class="form-control" type="text" name="options[' + counter + '][value]">' +
+                '<span class="text-danger" id="options_' + counter + '_value_error"></span>' +
+                '</div>' +
+                '<div class="col-md-2 form-group mt-4">' +
+                '<a onclick="remove_options(this)" class="btn btn-danger btn-sm float-right">' +
+                '<i class="fa fa-minus"></i></a>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
 
-                        $('#question_list').replaceWith(response.data);
-                    },
-                    error: function(error_messages) {
-                        var errors = error_messages.responseJSON;
-                        $.each(errors.errors, function(key, value) {
-                            var id = key.replace(/\./g, '_');
-                            console.log('#' + id + '_error');
-                            $('#' + id + '_error').html(value);
+            if (id) {
+                $('.addMoreOptionsEdit').append(options_html);
+            } else {
+                $('.addMoreOptions').append(options_html);
+            }
 
+            counter += 1;
+            if (counter >= 4) {
+                $('.addMoreBtn').addClass('disabled');
+            }
+        }
+        var site_admin_base_url = "{{ env('SITE_ADMIN_BASE_URL') }}";
+
+        function remove_options(this_ele, id) {
+
+            if (id != null) {
+                event.preventDefault();
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: site_admin_base_url + 'questions-options/delete',
+                            type: "post",
+                            data: {
+                                '_token': '{{ csrf_token() }}',
+                                'id': id
+                            },
+                            success: function(res) {
+                                Swal.fire("Done!", "It was successfully deleted!", "success");
+                                $(this_ele).closest('.option-details').remove();
+
+                            },
+                            error: function(xhr, ajaxOptions, thrownError) {
+                                Swal.fire("Error deleting!", "Please try again", "error");
+                            }
                         });
-
                     }
                 });
+            } else {
+                $(this_ele).closest('.option-details').remove();
+                setTimeout(function() {
+
+                    var currentOptions = jQuery('.addMoreOptions .option-details');
+                    console.log("Testing remove counter" + currentOptions.length);
+                    if (currentOptions.length < 4) {
+                        $('.addMoreBtn').removeClass('disabled');
+                    }
+                }, 1000);
             }
+        }
+
+        function update_question_options() {
+            $("#editQuestionForm").validate({
+                rules: {
+                    doctor: "required",
+                    specialty: "required",
+                    answer_type: "required",
+                    questions: "required",
+                },
+                messages: {
+                    doctor: "Please select a doctor!",
+                    specialty: "Please select a specialty!",
+                    answer_type: "Please select an answer type!",
+                    questions: "Please enter a question!",
+                },
+                submitHandler: function(form) {
+                    var formData = $(form).serialize();
+                    console.log(formData);
+                    $.ajax({
+                        url: "{{ route('admin.questions.update') }}",
+                        type: 'post',
+                        data: formData,
+                        success: function(response) {
+                            console.log(response)
+                            swal.fire("Done!", response.message, "success");
+                            $('#edit_question').modal().hide();
+
+                            $('#question_list').replaceWith(response.data);
+                        },
+                        error: function(error_messages) {
+                            var errors = error_messages.responseJSON;
+                            $.each(errors.errors, function(key, value) {
+                                var id = key.replace(/\./g, '_');
+                                console.log('#' + id + '_error');
+                                $('#' + id + '_error').html(value);
+
+                            });
+
+                        }
+                    });
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            $('#specialty, #answerType').on('change', function() {
+                search_question();
+            });
         });
-    }
 
-    $(document).ready(function() {
-        $('#specialty, #answerType').on('change', function() {
-            search_question();
-        });
-    });
+        function search_question() {
+            let doctorId = $('#doctor').val();
+            let answerType = $('#answerType').val();
+            let specialty = $('#specialty').val();
+            console.log(doctorId);
 
-    function search_question() {
-        let doctorId = $('#doctor').val();
-        let answerType = $('#answerType').val();
-        let specialty = $('#specialty').val();
-        console.log(doctorId);
+            $.ajax({
+                url: "{{ route('doctor.question.filter') }}", // Correct way to use route in Blade template
+                type: 'GET',
+                data: {
+                    doctorId: doctorId,
+                    answerType: answerType,
+                    specialty: specialty,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    jQuery('#question_list').replaceWith(response.data);
+                    jQuery('#question_list').hide().delay(200).fadeIn();
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+    </script>
 
-        $.ajax({
-            url: "{{ route('doctor.question.filter') }}", // Correct way to use route in Blade template
-            type: 'GET',
-            data: {
-                doctorId: doctorId,
-                answerType: answerType,
-                specialty: specialty,
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(response) {
-                jQuery('#question_list').replaceWith(response.data);
-                jQuery('#question_list').hide().delay(200).fadeIn();
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        });
-    }
-</script>
+    <style>
+        .box {
+            color: #fff;
+            padding: 20px;
+            display: none;
+            margin-top: 20px;
+        }
 
-<style>
-    .box {
-        color: #fff;
-        padding: 20px;
-        display: none;
-        margin-top: 20px;
-    }
-
-    .text-hide-show {
-        display: none;
-    }
-</style>
-
+        .text-hide-show {
+            display: none;
+        }
+    </style>
 @endsection

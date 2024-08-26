@@ -226,7 +226,7 @@ class UserServices
     public function updatePatient($data)
     {
         $filename = null;
-        $payload   = [
+        $payload = [
             "first_name"   => $data["first_name"],
             "last_name"    => $data["last_name"],
             "display_name" => $data["display_name"] ?? '',
@@ -238,7 +238,7 @@ class UserServices
             "role"         => 3,
             "description"  => $data["description"] ?? '',
         ];
-
+    
         if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
             $file     = $data['image'];
             $filename = time() . '.' . $file->getClientOriginalExtension();
@@ -246,13 +246,14 @@ class UserServices
             $file->move($destinationPath, $filename);
             $payload['image_url'] = $filename;
         }
+    
         $user = $this->userRepository->updateOrCreate(
-            ['email' => $data["email"]],
+            ['id' => $data["doctor_id"]],
             $payload
         );
         $message = $user->wasRecentlyCreated ? 'Patient created successfully.' : 'Patient updated successfully.';
         $status  = $user->wasRecentlyCreated ? 'created' : 'updated';
-
+    
         return response()->json(
             [
                 'message' => $message,
@@ -261,7 +262,7 @@ class UserServices
             ]
         );
     }
-
+    
     public function searchDoctors($data)
     {
         $query = $this->userRepository->newQuery();

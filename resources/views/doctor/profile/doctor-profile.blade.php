@@ -16,6 +16,7 @@
             $userWorkingHourDetails = $singleDoctorDetails['workingHour'];
             $userAddressDetails = $singleDoctorDetails->address;
             $userAwardsDetails = $singleDoctorDetails['awards'];
+            $userId = $singleDoctorDetails->id;
         }
 
     @endphp
@@ -71,7 +72,7 @@
     <script src="{{ asset('admin/assets/custom-js/add_doctor.js') }}"></script>
     <script>
         $(document).ready(function() {
-            var site_admin_base_url = "{{ env('SITE_ADMIN_BASE_URL') }}";
+        var site_base_url = "{{ env('SITE_BASE_URL') }}";
 
             function updateCharCount() {
                 var length = $("#description").val().length;
@@ -522,11 +523,11 @@
                 batch: true,
                 transport: {
                     read: {
-                        url: site_admin_base_url + "language",
+                        url: site_base_url + "language",
                         dataType: "json"
                     },
                     create: {
-                        url: site_admin_base_url + "language/ajax-create",
+                        url: site_base_url + "language/ajax-create",
                         dataType: "json"
                     },
                     parameterMap: function(options, operation) {
@@ -558,11 +559,11 @@
                 batch: true,
                 transport: {
                     read: {
-                        url: site_admin_base_url + "specialities/get-speciality",
+                        url: site_base_url + "specialities/get-speciality",
                         dataType: "json"
                     },
                     create: {
-                        url: site_admin_base_url + "specialities/create-speciality",
+                        url: site_base_url + "specialities/create-speciality",
                         dataType: "json"
                     },
                     parameterMap: function(options, operation) {
@@ -591,11 +592,11 @@
                 batch: true,
                 transport: {
                     read: {
-                        url: site_admin_base_url + "service/get-service",
+                        url: site_base_url + "service/get-service",
                         dataType: "json"
                     },
                     create: {
-                        url: site_admin_base_url + "service/ajax-create",
+                        url: site_base_url + "service/ajax-create",
                         dataType: "json"
                     },
                     parameterMap: function(options, operation) {
@@ -731,8 +732,6 @@
                 });
             }
         });
-
-
 
         document.addEventListener('DOMContentLoaded', function() {
             // Function to handle file input change dynamically

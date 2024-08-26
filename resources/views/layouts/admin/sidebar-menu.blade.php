@@ -114,17 +114,33 @@
 
             <li class="nav-item dropdown has-arrow">
                 <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                    <span class="user-img"><img class="rounded-circle" src="assets/img/profiles/avatar-01.jpg"
-                            width="31"></span>
+                    <span class="user-img">
+                        @isset(auth()->user()->image_url)
+                            @if (auth()->user()->image_url)
+                                <img class="rounded-circle" src="{{ auth()->user()->image_url }}" width="31"
+                                    id="blah">
+                            @else
+                                <img class="rounded-circle" src="{{ asset('assets/img/user.jpg') }}" width="31"
+                                    id="blah">
+                            @endif
+                        @endisset
+                    </span>
                 </a>
                 <div class="dropdown-menu">
                     <div class="user-header">
                         <div class="avatar avatar-sm">
-                            <img src="{{ asset('assets/img/profiles/avatar-01.jpg') }}" alt=""
-                                class="avatar-img rounded-circle">
+                            @isset(auth()->user()->image_url)
+                                @if (auth()->user()->image_url)
+                                    <img class="rounded-circle" src="{{ auth()->user()->image_url }}" width="31"
+                                        id="blah">
+                                @else
+                                    <img class="rounded-circle" src="{{ asset('assets/img/user.jpg') }}" width="31"
+                                        id="blah">
+                                @endif
+                            @endisset
                         </div>
                         <div class="user-text">
-                            <h6>{{ auth()->user()->name ?? '' }}</h6>
+                            <h6>{{ auth()->user()->fullName ?? '' }}</h6>
                             <p class="text-muted mb-0">Administrator</p>
                         </div>
                     </div>
@@ -218,18 +234,17 @@
                     </li>
 
                     <li class="menu-item" data-url="{{ route('admin.social.media.index') }}">
-                        <a href="{{ route('admin.social.media.index') }}" ><i class="far fa-sticky-note"></i> 
+                        <a href="{{ route('admin.social.media.index') }}"><i class="far fa-sticky-note"></i>
                             <span>Social Media</span>
                         </a>
                     </li>
 
                     <li class="menu-item" data-url="{{ route('admin.index.state') }}">
-                        <a href="{{ route('admin.index.state') }}"><i
-                                class="fe fe-flag"></i> <span>State</span></a>
+                        <a href="{{ route('admin.index.state') }}"><i class="fe fe-flag"></i> <span>State</span></a>
                     </li>
                     <li class="menu-item" data-url="{{ route('admin.questions.index') }}">
                         <a href="{{ route('admin.questions.index') }}">
-                            <i class="fe fe-question"></i><span> Doctor's Questions</span> 
+                            <i class="fe fe-question"></i><span> Doctor's Questions</span>
                         </a>
                     </li>
 

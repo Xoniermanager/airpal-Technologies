@@ -65,7 +65,6 @@ class DoctorController extends Controller
     }
     public function addPersonalDetails(StoreDoctorPersonalDetailRequest $request)
     {
-
         try {
                 $userData = $request->validated();
                 $user = $this->user_services->updateOrCreateDoctor($userData);
@@ -76,7 +75,12 @@ class DoctorController extends Controller
                     $addedSpecialties  = $this->doctor_speciality_services->addOrUpdateDoctorSpecialities($userId, $request->specialities);
                     $addedServices     = $this->doctor_service_add_services->addOrUpdateDoctorServices($userId, $request->services);
                     if ($addedLanguages && $addedSpecialties && $addedServices) {
-                        return  json_decode($user->content());
+                        // return  json_decode($user->content());
+                        return response()->json([
+                            "success"      => true,
+                            "redirect_url" => route('login.index'),
+                            "message" => "Doctor successfully registered!"
+                          ]);
                     } else {
                         return 0;
                     }

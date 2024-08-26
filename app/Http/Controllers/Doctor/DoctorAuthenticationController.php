@@ -55,7 +55,7 @@ class DoctorAuthenticationController extends Controller
         Auth::logout();
         $request->session()->flash('success', 'You have been logged out.');
 
-        return redirect(route('patient.login.index'));
+        return redirect(route('login.index'));
     }
 
     public function forgetPasswordSendOtp(Request $request)
@@ -85,7 +85,7 @@ class DoctorAuthenticationController extends Controller
 
     public function forgetPasswordIndex()
     {
-        return view('doctor.account.forgot-password');
+        return view('website.pages.forgot-password');
     }
 
     public function resetPasswordIndex(Request $request)

@@ -87,7 +87,7 @@
                     <div class="form-wrap">
                         <label class="col-form-label">Email Address <span
                                 class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="email" value="{{$singleDoctorDetails->email ?? '' }}" readonly>
+                        <input type="text" class="form-control" name="email" value="{{$singleDoctorDetails->email ?? '' }}">
                         <span class="text-danger" id="email_error"></span>
                     </div>
                 </div>
@@ -200,6 +200,7 @@
         
         
         <div class="modal-btn text-end">
+            <input type="hidden" value="{{ auth()->user()->id }}" name="doctor_id">
             <a href="#" class="btn btn-gray">Cancel</a>
             <button type="submit" class="btn btn-primary prime-btn">Save Changes</button>
         </div>

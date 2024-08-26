@@ -135,16 +135,22 @@
                     <li class="nav-item dropdown has-arrow logged-item">
                         <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                             <span class="user-img">
-                                <img class="rounded-circle"
-                                    src="{{ auth()->user()->image_url }}"
-                                    width="31" alt="Darren Elder">
+                                @if (auth()->user()->image_url)
+                                <img class="rounded-circle" src="{{ auth()->user()->image_url }}" width="31"> 
+                                @else
+                                <img class="rounded-circle" src="{{ asset('assets/img/user.jpg')}}" width="31"> 
+                                @endif
+                        
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <div class="user-header">
                                 <div class="avatar avatar-sm">
-                                    <img src="{{ auth()->user()->image_url }}"
-                                        alt="" class="avatar-img rounded-circle">
+                                    @if (auth()->user()->image_url)
+                                    <img class="rounded-circle" src="{{ auth()->user()->image_url }}" width="31"> 
+                                    @else
+                                    <img class="rounded-circle" src="{{ asset('assets/img/user.jpg')}}" width="31"> 
+                                    @endif
                                 </div>
                                 <div class="user-text">
                                     <h6>Dr {{ auth()->user()->fullName }}</h6>

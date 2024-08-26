@@ -32,9 +32,9 @@
                                             <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
-                                        {{-- <div class="text-end">
+                                        <div class="text-end">
                                             <a class="forgot-link" href="">Remember your password?</a>
-                                        </div> --}}
+                                        </div>
                                         <button class="btn btn-primary w-100 btn-lg login-btn" type="submit">Send Otp</button>
                                     </form>
                                 </div>

@@ -17,7 +17,7 @@
                                         <p class="small text-muted">Enter your email to get a password reset link</p>
                                     </div>
 
-                                    <form action="{{ route('forgot-password.sendOtp') }}" method="post">
+                                    <form action="{{ route('forget.password.send.otp') }}" method="post">
                                         @csrf
                                         <div class="mb-3 form-focus">
                                             <input type="email" class="form-control floating" name="email">

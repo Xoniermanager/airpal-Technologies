@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Traits\ExceptionHandle;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreDoctorEducationRequest extends FormRequest
 {
+    use ExceptionHandle;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -75,14 +77,6 @@ class StoreDoctorEducationRequest extends FormRequest
             'education.*.end_date.after'        => 'End time must be after the start time for all selected days.'
         ];
     }
-    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
-    {
-        $response = new \Illuminate\Http\JsonResponse([
-            'status' => 'error',
-            'message' => $validator->errors()->first()
-        ], 422);
 
-        throw new \Illuminate\Validation\ValidationException($validator, $response);
-    }
     
 }

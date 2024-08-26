@@ -48,6 +48,7 @@ use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
+use App\Http\Controllers\Doctor\PrescriptionController;
 use App\Http\Controllers\Patient\MedicalRecordController;
 use App\Http\Controllers\Patient\PatientDiaryController;
 use App\Http\Controllers\Patient\PatientFavoriteDoctorController;
@@ -64,14 +65,14 @@ Route::controller(AdminAuthController::class)->group(function () {
     Route::get('admin/logout', 'logout')->name('admin.logout');
 });
 
-// these routes are used for without auth attempt 
+// these routes are used for without auth attempt
 // Route::prefix('doctor')->group(function () {
-    Route::controller(DoctorAuthenticationController::class)->group(function () {
-        Route::get('forget-password', 'forgetPasswordIndex')->name('doctor.forget.password.index');
-        Route::post('send-otp', 'forgetPasswordSendOtp')->name('forget.password.send.otp');
-        Route::get('reset-password', 'resetPasswordIndex')->name('reset.password.index');
-        Route::post('reset-password', 'resetPassword')->name('reset.password');
-    });
+Route::controller(DoctorAuthenticationController::class)->group(function () {
+    Route::get('forget-password', 'forgetPasswordIndex')->name('doctor.forget.password.index');
+    Route::post('send-otp', 'forgetPasswordSendOtp')->name('forget.password.send.otp');
+    Route::get('reset-password', 'resetPasswordIndex')->name('reset.password.index');
+    Route::post('reset-password', 'resetPassword')->name('reset.password');
+});
 // });
 
 // common file for login Admin, Doctor, Patient
@@ -178,8 +179,8 @@ Route::prefix('doctor')->group(function () {
             Route::get('doctor-question-filter', 'doctorQuestionFilter')->name('doctor.question.filter');
             Route::get('get-question-by-doctor-id', 'getQuestionByDoctorId')->name('get.question.doctor.id');
         });
-         
-        // these routes are used for with auth attempt 
+
+        // these routes are used for with auth attempt
         Route::controller(DoctorAuthenticationController::class)->group(function () {
             Route::post('change-password', 'changePassword')->name('doctor.change.password');
             Route::get('logout', 'logout')->name('doctor.logout');
@@ -189,6 +190,19 @@ Route::prefix('doctor')->group(function () {
         Route::controller(DoctorPatientChatController::class)->group(function () {
             Route::get('chat', 'getDoctorAllChats')->name('doctor.chat');
             Route::get('search-chat-patients', 'searchPatientListInChat')->name('chat.search.patients');
+        });
+
+        //Prescription for patient
+        Route::prefix('prescription')->controller(PrescriptionController::class)->group(function () {
+            Route::get('/index', 'index')->name('prescription.index');
+            Route::get('/add', 'add')->name('prescription.add');
+            Route::post('/create', 'create')->name('prescription.create');
+            Route::get('/edit/{prescriptions:id}', 'edit')->name('prescription.edit');
+            Route::post('/update/{prescriptions:id}', 'update')->name('prescription.update');
+            Route::get('/delete/{prescriptions:id}', 'delete')->name('prescription.delete');
+            Route::get('/delete/medicine-details/{prescription_medicine_details:id}', 'deleteMedicine');
+            Route::get('/search/filter', 'searchFilterPrescriptionDetails')->name('prescription.search.filter');
+            Route::get('/get-booking-details-patient', 'getAllBookingDetailsByPatient')->name('get.booking.details.patient');
         });
     });
 });
@@ -478,7 +492,6 @@ Route::get('job', function () {
 
 Route::controller(DoctorController::class)->group(function () {
     Route::get('generateAllInvoices', 'generateAllInvoices')->name('generate.all.invoices');
-
 });
 
 

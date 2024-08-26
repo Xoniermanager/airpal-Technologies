@@ -1,7 +1,11 @@
-@extends('layouts.patient.main')
+@extends('layouts.doctor.main')
 @section('content')
     <div class="dashboard-header">
-        <h3>Medical Records</h3>
+        <h3>Prescription</h3>
+        <div class="input-block dash-search-input ">
+            <a href="{{ route('prescription.add') }}" class="btn btn-primary prime-btn">
+                Add Prescription</a>
+        </div>
     </div>
     <div class="tab-content pt-0">
         @if (session('error'))
@@ -19,16 +23,25 @@
                 <input type="text" class="form-control" placeholder="Search" id="search">
                 <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
             </div>
+            <div class="input-block dash-search-input mb-3 w-250px">
+                <select class="form-select" id="patient_details">
+                    <option value="">Select Patient</option>
+                    @foreach ($allPatientDetails as $patientDetails)
+                        <option value="{{ $patientDetails->id }}">{{ $patientDetails->first_name }}
+                            {{ $patientDetails->last_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="input-block mb-3 w-250px" id="booking_html" style="display:none">
+                <select class="form-select" id="booking_details">
+                </select>
+            </div>
             <div class="input-block dash-search-input mb-3">
                 <input type="date" class="form-control" id="date">
             </div>
-            <div class="input-block dash-search-input ">
-                <a href="{{ route('patient.medical-records.add') }}" class="btn btn-primary prime-btn">Add
-                    Medical
-                    Record</a>
-            </div>
+
         </div>
-        @include('patients.medical-records.all-medical-record')
+        @include('doctor.prescription.all-prescription')
     </div>
     <script>
         function delete_medical_record(id) {
@@ -44,7 +57,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: '/patients/delete-medical-record/' + id,
+                        url: '/doctor/prescription/delete/' + id,
                         type: "get",
                         success: function(res) {
                             if (res.status == true) {
@@ -67,14 +80,42 @@
         jQuery("#date").on('change', function() {
             search_filter_results();
         });
-
+        jQuery("#patient_details").on('change', function() {
+            search_filter_results();
+            $.ajax({
+                type: "GET",
+                url: "{{ route('get.booking.details.patient') }}",
+                data: {
+                    'patient_id': this.value,
+                },
+                success: function(response) {
+                    $('#booking_html').show();
+                    var select = $('#booking_details');
+                    select.html('');
+                    select.append(response.data);
+                },
+                error: function() {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Somethiong went Wrong!! Please try again"
+                    });
+                    return false;
+                }
+            });
+        });
+        jQuery("#booking_details").on('change', function() {
+            search_filter_results();
+        });
         function search_filter_results() {
             $.ajax({
-                type: 'GET',
-                url: '/patients/medical-records-filter',
+                type: "GET",
+                url: "{{ route('prescription.search.filter') }}",
                 data: {
                     'date': $('#date').val(),
-                    'search': $('#search').val()
+                    'search': $('#search').val(),
+                    'booking_detail_id': $('#booking_details').val(),
+                    'patient_detail_id': $('#patient_details').val()
                 },
                 success: function(response) {
                     $('#medical_record_list').replaceWith(response.data);

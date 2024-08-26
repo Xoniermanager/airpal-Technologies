@@ -96,7 +96,7 @@
 </div>
 
 @endsection
-
+<script src="{{ asset('/js/echo.js') }}"></script>
 @section('javascript')
 <script>
     var current_chat_user = 0;
@@ -134,7 +134,7 @@
     }
 
 
-    // Send message ans update chat history body
+    // Send message and update chat history body
     jQuery(function(){
         jQuery('#send-message-form').validate({
             rules: {
@@ -197,5 +197,6 @@
         });
     }
     
+    // Receive new chat notification 
 </script>
 @endsection

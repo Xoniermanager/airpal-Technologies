@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Models\DoctorPatientChatHistory;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -14,13 +13,14 @@ use Illuminate\Queue\SerializesModels;
 class MessageSent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
+    
+    public $message;
     /**
      * Create a new event instance.
      */
-    public function __construct(public DoctorPatientChatHistory $message)
+    public function __construct($message)
     {
-        
+        $this->message = $message;
     }
 
     /**

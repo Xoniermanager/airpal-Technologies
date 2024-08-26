@@ -19,44 +19,37 @@ class DoctorPatientChatService
     }
 
 
-    public function getDoctorAllChatList($doctorId, $searchPatient=null)
+    public function getDoctorsChatList($doctorId, $searchPatient=null)
     {
-        if($searchPatient !=  null && !empty($searchPatient))
-        {
-            $doctorLinkedPatients = $this->bookingSlots->select('patient_id')->distinct()
-            ->where('doctor_id',$doctorId)
-            ->whereHas('patient', function($query) use($searchPatient){
-                $searchKeys = explode(' ',$searchPatient);
-                $query->where('first_name','like',"%$searchKeys[0]%")
-                ->orWhere('last_name','like',"%$searchKeys[0]%");
-
-                if($searchKeys > 1)
-                {
-                    foreach($searchKeys as $searchKey)
-                    {
-                        $query->orWhere('first_name','like',"%$searchKey[0]%")
-                        ->orWhere('last_name','like',"%$searchKey[0]%");
-                    }
-                }
-                return $query;
-            })->get()->pluck('patient_id')->toArray();
-        }
-        else
-        {
-            $doctorLinkedPatients = $this->bookingSlots->select('patient_id')->distinct()->where('doctor_id',$doctorId)->get()->pluck('patient_id')->toArray();
-        }
        
         $chatUsers = User::with(['sentChatDetails','receivedChatDetails'])
-                    ->whereIn('id',$doctorLinkedPatients)
-                    ->orderBy(DoctorPatientChat::select('last_time_message')->whereColumn('users.id','doctor_patient_chats.sender_id'),'desc')
-                    ->orderBy(DoctorPatientChat::select('last_time_message')->whereColumn('users.id','doctor_patient_chats.receiver_id'),'desc')
-                    ->get();
+                    ->whereIn('role',2);
+                    // ->orderBy(DoctorPatientChat::select('last_time_message')->whereColumn('users.id','doctor_patient_chats.sender_id')->first(),'desc')
+                    // ->orderBy(DoctorPatientChat::select('last_time_message')->whereColumn('users.id','doctor_patient_chats.receiver_id'),'desc')
+        if($searchPatient != null)
+        {
+            if(count($searchKeys) > 1)
+            {
+                $query->where('first_name','like',"%$searchKeys[0]%")
+                    ->where('last_name','like',"%$searchKeys[1]%");
+            }
+            else
+            {
+                $query->orWhere('first_name','like',"%$searchDoctor%")
+                ->orWhere('last_name','like',"%$searchDoctor%");
+            }
+            $chatUsers->
+        }
+        {
+            $chatUsers 
+        }
+        
         return [
             'chatUsers'   =>  $chatUsers,
         ];
     }
 
-    public function getPatientAllChatList($patientId, $searchDoctor=null)
+    public function getPatientsChatList($patientId, $searchDoctor=null)
     {
         if($searchDoctor !=  null && !empty($searchDoctor))
         {
@@ -64,16 +57,15 @@ class DoctorPatientChatService
             ->where('patient_id',$patientId)
             ->whereHas('doctor', function($query) use($searchDoctor){
                 $searchKeys = explode(' ',$searchDoctor);
-                $query->where('first_name','like',"%$searchKeys[0]%")
-                ->orWhere('last_name','like',"%$searchKeys[0]%");
-
-                if($searchKeys > 1)
+                if(count($searchKeys) > 1)
                 {
-                    foreach($searchKeys as $searchKey)
-                    {
-                        $query->where('first_name','like',"%$searchKey[0]%")
-                        ->orWhere('last_name','like',"%$searchKey[0]%");
-                    }
+                    $query->where('first_name','like',"%$searchKeys[0]%")
+                        ->where('last_name','like',"%$searchKeys[1]%");
+                }
+                else
+                {
+                    $query->orWhere('first_name','like',"%$searchDoctor%")
+                    ->orWhere('last_name','like',"%$searchDoctor%");
                 }
                 return $query;  
             })->get()->pluck('doctor_id')->toArray();

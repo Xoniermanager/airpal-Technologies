@@ -22,7 +22,7 @@ class DoctorPatientChatController extends Controller
     public function getDoctorAllChats()
     {
         $doctorId = Auth::id();
-        $doctorPatientChatLists = $this->doctorPatientChatService->getDoctorAllChatList($doctorId);
+        $doctorPatientChatLists = $this->doctorPatientChatService->getDoctorsChatList($doctorId);
 
         return view('doctor.chats.all-chats')
             ->with('chatUsers', $doctorPatientChatLists['chatUsers']);
@@ -34,7 +34,7 @@ class DoctorPatientChatController extends Controller
         $doctorId = Auth::id();
         $searchKey = (array_key_exists('search', $request->all())) ? $request->search : '';
 
-        $doctorPatientChatLists = $this->doctorPatientChatService->getDoctorAllChatList($doctorId, $searchKey);
+        $doctorPatientChatLists = $this->doctorPatientChatService->getDoctorsChatList($doctorId, $searchKey);
 
         $updatedChatUsersList = view('common_chat.user-chat-list')
             ->with('chatUsers', $doctorPatientChatLists['chatUsers'])->render();
@@ -56,7 +56,7 @@ class DoctorPatientChatController extends Controller
     public function getPatientAllChats()
     {
         $patientId = Auth::id();
-        $doctorPatientChatLists = $this->doctorPatientChatService->getPatientAllChatList($patientId);
+        $doctorPatientChatLists = $this->doctorPatientChatService->getPatientsChatList($patientId);
 
         return view('patients.chats.all-chats')
             ->with('chatUsers', $doctorPatientChatLists['chatUsers']);
@@ -68,7 +68,7 @@ class DoctorPatientChatController extends Controller
         $patientId = Auth::id();
         $searchKey = (array_key_exists('search', $request->all())) ? $request->search : '';
 
-        $doctorPatientChatLists = $this->doctorPatientChatService->getPatientAllChatList($patientId, $searchKey);
+        $doctorPatientChatLists = $this->doctorPatientChatService->getPatientsChatList($patientId, $searchKey);
         $updatedChatUsersList = view('common_chat.user-chat-list')
             ->with('chatUsers', $doctorPatientChatLists['chatUsers'])->render();
 

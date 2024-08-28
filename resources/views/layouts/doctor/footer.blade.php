@@ -141,8 +141,8 @@
 <script src="{{asset('assets/js/backToTop.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
 
 <script src="{{asset('assets/js/script.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
-<script src="{{ asset('assets/js/rocket-loader.min.js') }}" data-cf-settings="572446aacaa112e2d4b8af55-|49" defer>
-
+<script src="{{ asset('assets/js/rocket-loader.min.js') }}" data-cf-settings="572446aacaa112e2d4b8af55-|49" defer></script>
+<script src="{{asset('/assets/common-assets/js/common-script.js')}}"></script>
 <script src="{{asset('admin/assets/plugins/slimscroll/jquery.slimscroll.min.js')}}" type="cd1ed460c5054330c2effc78-text/javascript"></script>
 <script src="{{asset('admin/assets/plugins/datatables/jquery.dataTables.min.js')}}" type="cd1ed460c5054330c2effc78-text/javascript"></script>
 

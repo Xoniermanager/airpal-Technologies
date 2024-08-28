@@ -53,7 +53,7 @@ class DoctorPatientChatController extends Controller
     /**
      * Start : Endpoints for patient Panel
      */
-    public function getPatientAllChats()
+    public function getPatientsChatList()
     {
         $patientId = Auth::id();
         $doctorPatientChatLists = $this->doctorPatientChatService->getPatientsChatList($patientId);
@@ -69,6 +69,7 @@ class DoctorPatientChatController extends Controller
         $searchKey = (array_key_exists('search', $request->all())) ? $request->search : '';
 
         $doctorPatientChatLists = $this->doctorPatientChatService->getPatientsChatList($patientId, $searchKey);
+        
         $updatedChatUsersList = view('common_chat.user-chat-list')
             ->with('chatUsers', $doctorPatientChatLists['chatUsers'])->render();
 

@@ -3,10 +3,6 @@
                     Start : Manage Doctor Personal Profiles Details From Kendo 
 ================================================================================
 */
-
-var site_base_url = window.location.origin;
-site_base_url = site_base_url + "/";
-
 function addItemToMultiSelect(widgetId, value) {
     var widget = jQuery("#" + widgetId).getKendoMultiSelect();
     var dataSource = widget.dataSource;
@@ -226,11 +222,11 @@ function createAwardDataSource() {
         batch: true,
         transport: {
             read: {
-                url: site_base_url + "award",
+                url: site_base_url + "/award",
                 dataType: "json",
             },
             create: {
-                url: site_base_url + "award/ajax-create",
+                url: site_base_url + "/award/ajax-create",
                 dataType: "json",
             },
             parameterMap: function (options, operation) {
@@ -303,7 +299,7 @@ function deleteAwards(awardId = "", button) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: site_base_url + "doctor/delete-award", // Adjust this URL to your route
+                url: site_base_url + "/doctor/delete-award", // Adjust this URL to your route
                 type: "get",
                 data: {
                     id: awardId,
@@ -476,11 +472,11 @@ function createCourseDataSource() {
         batch: true,
         transport: {
             read: {
-                url: site_base_url + "course",
+                url: site_base_url + "/course",
                 dataType: "json",
             },
             create: {
-                url: site_base_url + "course/ajax-create",
+                url: site_base_url + "/course/ajax-create",
                 dataType: "json",
             },
             parameterMap: function (options, operation) {
@@ -547,7 +543,7 @@ function deleteEducation(educationId = "", button) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: site_base_url + "doctor/delete-education", // Adjust this URL to your route
+                url: site_base_url + "/doctor/delete-education", // Adjust this URL to your route
                 type: "get",
                 data: {
                     id: educationId,
@@ -750,11 +746,11 @@ function hospitalDataSource() {
         batch: true,
         transport: {
             read: {
-                url: site_base_url + "hospital",
+                url: site_base_url + "/hospital",
                 dataType: "json",
             },
             create: {
-                url: site_base_url + "hospital/ajax-create",
+                url: site_base_url + "/hospital/ajax-create",
                 dataType: "json",
             },
             parameterMap: function (options, operation) {
@@ -849,7 +845,7 @@ function deleteExperience(experienceId = "", button) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: site_base_url + "doctor/delete-experience", // Adjust this URL to your route
+                url: site_base_url + "/doctor/delete-experience", // Adjust this URL to your route
                 type: "get",
                 data: {
                     id: experienceId,

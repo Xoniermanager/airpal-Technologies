@@ -11,28 +11,35 @@ class DoctorPatientChatHistoryService
 {
     private $doctorPatientChatHistoryRepository;
     private $doctorPatientChatRepository;
+    private $doctorPatientChatService;
     private $userRepository;
 
-    public function __construct(DoctorPatientChatHistoryRepository $doctorPatientChatHistoryRepository, DoctorPatientChatRepository $doctorPatientChatRepository,UserRepository $userRepository)
+    public function __construct(DoctorPatientChatHistoryRepository $doctorPatientChatHistoryRepository, 
+    DoctorPatientChatRepository $doctorPatientChatRepository,
+    UserRepository $userRepository,
+    DoctorPatientChatService $doctorPatientChatService)
     {
         $this->doctorPatientChatHistoryRepository = $doctorPatientChatHistoryRepository;
         $this->doctorPatientChatRepository = $doctorPatientChatRepository;
         $this->userRepository = $userRepository;
+        $this->doctorPatientChatService = $doctorPatientChatService;
     }
 
 
-    public function getSelectedChatHistory($senderId, $receiverId, $chatId=null)
+    public function getSelectedChatHistory($senderId, $receiverId)
     {
-        $chatHistory = [];
+        $chatHistory = $this->doctorPatientChatHistoryRepository
+        ->where(['sender_id'    =>  $senderId, 'receiver_id'    =>  $receiverId])
+        ->orWhere('receiver_id','=',$senderId)
+        ->where('sender_id','=',$receiverId);
 
-        if($chatId != null)
-        {
-            $chatHistory = $this->doctorPatientChatHistoryRepository->where('doctor_patient_chats_id',$chatId)->orderBy('message_sent_date','asc')->get()->groupBy('message_sent_date');
-        }
-        // dd($chatHistory);    
+        // $chatHistory->update(['read' =>  1]);
+
+        $chatHistory =  $chatHistory->orderBy('message_sent_date','asc')->take(60)->get()->groupBy('message_sent_date');
+
         $senderDetails = $this->userRepository->findOrFail($senderId);
         $receiverDetails = $this->userRepository->findOrFail($receiverId);
-
+        
         return [
             'chatHistory'       =>  $chatHistory,
             'senderDetails'     =>  $senderDetails,
@@ -58,14 +65,13 @@ class DoctorPatientChatHistoryService
         if($chatId == '')
         {
             // check if chat id exists
-            $chatDetails = $this->doctorPatientChatRepository->getChatDetails($senderId,$receiverId);
+            $chatDetails = $this->doctorPatientChatService->getChatDetails($senderId,$receiverId);
 
             if(!$chatDetails)
             {
                 $chatDetails = $this->doctorPatientChatRepository->create([
                     'sender_id'         =>  $senderId,
-                    'receiver_id'       =>  $receiverId,
-                    'last_time_message' =>  now(),
+                    'receiver_id'       =>  $receiverId
                 ]);
             }
             
@@ -83,7 +89,7 @@ class DoctorPatientChatHistoryService
 
         // Update last time sent message in chat details
         $this->doctorPatientChatRepository->where('id', $chatId)->update([
-            'last_time_message' =>  now()
+            'last_message_id' =>  $sentMessageDetails->id
         ]);
 
         broadcast(new MessageSent($sentMessageDetails));

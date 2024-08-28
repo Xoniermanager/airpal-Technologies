@@ -471,7 +471,7 @@ Route::prefix('patients')->group(function () {
 
             // Doctor Patient Chat
             Route::controller(DoctorPatientChatController::class)->group(function () {
-                Route::get('chat', 'getPatientAllChats')->name('patient.chat');
+                Route::get('chat', 'getPatientsChatList')->name('patient.chat');
                 Route::get('search-chat-doctors', 'searchDoctorListInChat')->name('chat.search.doctors');
             });
         });

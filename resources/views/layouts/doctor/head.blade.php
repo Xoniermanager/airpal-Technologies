@@ -12,6 +12,7 @@
 <meta property="twitter:url" content="">
 <meta name="twitter:title" content="">
 <meta name="twitter:description" content="">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <meta name="twitter:image" content="{{ asset('assets/img/logo.png') }}">
 <link rel="shortcut icon" href="{{ asset('assets/img/favicon.png') }}" type="image/x-icon">
 <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
@@ -22,11 +23,12 @@
 <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/aos.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
-
+<!-- Loading default app.css and app.js -->
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+<script src="{{ asset('js/app.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link href="https://kendo.cdn.telerik.com/themes/7.2.1/default/default-main.css" rel="stylesheet" />
 <script src="https://kendo.cdn.telerik.com/2024.1.319/js/kendo.all.min.js"></script>
-{{-- <script src="{{ asset('/assets/js/jquery-3.7.1.min.js') }}"></script> --}}
 <script src="{{ asset('admin/assets/js/jquery-ui.js') }}"></script>
 <script src="{{ asset('admin/assets/js/jquery-ui.css') }}"></script>
 
@@ -35,6 +37,7 @@
 
 <script>
     window.site_admin_base_url = '{{ env('SITE_ADMIN_BASE_URL') }}';
+    window.site_base_url = '{{ env('APP_URL') }}';
 </script>
 <script src="{{ asset('admin/assets/custom-js/add_doctor.js') }}"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

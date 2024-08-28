@@ -120,6 +120,6 @@ class PatientDiaryService
     }
     public function getDiaryDetailsByDate($date, $patientId)
     {
-        return $this->patientDiaryRepository->with(['patientAdditionalInfo', 'medicationHealthProgress'])->where('patient_id', $patientId)->whereDate('created_at', $date)->first();
+        return $this->patientDiaryRepository->where('patient_id', $patientId)->whereDate('created_at', $date)->with(['patientAdditionalInfo', 'medicationHealthProgress'])->first();
     }
 }

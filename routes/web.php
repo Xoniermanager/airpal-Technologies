@@ -48,6 +48,7 @@ use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
+use App\Http\Controllers\Doctor\PrescriptionController;
 use App\Http\Controllers\Patient\MedicalRecordController;
 use App\Http\Controllers\Patient\PatientDiaryController;
 use App\Http\Controllers\Patient\PatientFavoriteDoctorController;
@@ -197,7 +198,18 @@ Route::prefix('doctor')->group(function () {
             Route::get('search-chat-patients', 'searchPatientListInChat')->name('chat.search.patients');
         });
 
-
+        //Prescription for patient
+        Route::prefix('prescription')->controller(PrescriptionController::class)->group(function () {
+            Route::get('/index', 'index')->name('prescription.index');
+            Route::get('/add', 'add')->name('prescription.add');
+            Route::post('/create', 'create')->name('prescription.create');
+            Route::get('/edit/{prescriptions:id}', 'edit')->name('prescription.edit');
+            Route::post('/update/{prescriptions:id}', 'update')->name('prescription.update');
+            Route::get('/delete/{prescriptions:id}', 'delete')->name('prescription.delete');
+            Route::get('/delete/medicine-details/{prescription_medicine_details:id}', 'deleteMedicine');
+            Route::get('/search/filter', 'searchFilterPrescriptionDetails')->name('prescription.search.filter');
+            Route::get('/get-booking-details-patient', 'getAllBookingDetailsByPatient')->name('get.booking.details.patient');
+        });
     });
 });
 // =============================== End Doctor Panel Start ===================================== //
@@ -520,6 +532,12 @@ Route::get('job', function () {
 });
 
 
+
+
+
+Route::controller(DoctorController::class)->group(function () {
+    Route::get('generateAllInvoices', 'generateAllInvoices')->name('generate.all.invoices');
+});
 
 
 // ============================== End Frontend Website Routes ===================== //

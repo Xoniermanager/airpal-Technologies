@@ -13,6 +13,7 @@
 <meta name="twitter:title" content="">
 <meta name="twitter:description" content="">
 <meta name="twitter:image" content="{{ asset('assets/img/logo.png') }}">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="shortcut icon" href="{{ asset('assets/img/favicon.png') }}" type="image/x-icon">
 <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/fontawesome.min.css') }}">
@@ -30,14 +31,15 @@
 <script src="{{ asset('admin/assets/js/jquery-ui.js') }}"></script>
 <script src="{{ asset('admin/assets/js/jquery-ui.css') }}"></script>
 <script src="{{ asset('admin/assets/jquery-validation/dist/jquery.validate.min.js') }}"></script>
+<!-- Loading default app.css and app.js -->
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script>
     window.site_admin_base_url = '{{ env('SITE_ADMIN_BASE_URL') }}';
+    window.site_base_url = '{{ env('APP_URL') }}';
 </script>
-<script src="{{ asset('admin/assets/custom-js/add_doctor.js') }}"></script>
-
 
 <title>Airpal Technology</title>

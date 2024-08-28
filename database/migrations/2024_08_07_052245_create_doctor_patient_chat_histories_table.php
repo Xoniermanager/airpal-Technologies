@@ -24,6 +24,11 @@ return new class extends Migration
             $table->date('message_sent_date');
             $table->timestamps();
         });
+
+        Schema::table('doctor_patient_chats', function(Blueprint $table){
+            $table->unsignedBigInteger('last_message_id')->nullable();
+            $table->foreign('last_message_id')->references('id')->on('doctor_patient_chat_histories');
+        });
     }
 
     /**

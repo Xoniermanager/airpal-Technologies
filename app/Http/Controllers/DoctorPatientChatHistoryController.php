@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GetSelectedChatHistoryRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\SendMessageRequest;
 use App\Http\Services\DoctorPatientChatService;
 use App\Http\Services\DoctorPatientChatHistoryService;
@@ -20,18 +22,12 @@ class DoctorPatientChatHistoryController extends Controller
         $this->doctorPatientChatHistoryService = $doctorPatientChatHistoryService;
     }
 
-    public function getSelectedChatHistory(Request $request)
+    public function getSelectedChatHistory(GetSelectedChatHistoryRequest $request)
     {
         $senderId = Auth::user()->id;
         $receiverId = $request->receiver_user_id;
-        $chatId = null;
 
-        if(array_key_exists('chat_id',$request->all()) && !empty($request->chat_id))
-        {
-            $chatId = $request->chat_id;
-        }
-
-        $chatHistoryDetails = $this->doctorPatientChatHistoryService->getSelectedChatHistory($senderId, $receiverId, $chatId);
+        $chatHistoryDetails = $this->doctorPatientChatHistoryService->getSelectedChatHistory($senderId, $receiverId);
 
         return response()->json([
             'status'    =>  true,

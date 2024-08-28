@@ -12,7 +12,7 @@ class DoctorPatientChat extends Model
     protected $fillable = [
         'sender_id',
         'receiver_id',
-        'last_time_message',
+        'last_time_id',
         'chat_status'
     ];
 

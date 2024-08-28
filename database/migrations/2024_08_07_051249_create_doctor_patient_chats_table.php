@@ -15,10 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('sender_id');
             $table->unsignedBigInteger('receiver_id');
-            $table->dateTime('last_time_message');
-            $table->boolean('chat_status')->default(1);
             $table->foreign('sender_id')->references('id')->on('users');
             $table->foreign('receiver_id')->references('id')->on('users');
+            $table->boolean('chat_status')->default(1);
             $table->timestamps();
         });
     }

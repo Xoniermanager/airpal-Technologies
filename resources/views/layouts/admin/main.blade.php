@@ -17,6 +17,7 @@
     <meta name="twitter:title" content="">
     <meta name="twitter:description" content="">
     <meta name="twitter:image" content="{{ asset('/assets/img/logo.png') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Airpal Technology</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/assets/img/favicon.png') }}">
 
@@ -42,8 +43,11 @@
     <script src="{{ asset('admin/assets/jquery-validation/dist/jquery.validate.min.js') }}"></script>
     <script>
         window.site_admin_base_url = '{{ env('SITE_ADMIN_BASE_URL') }}';
+        window.site_base_url = '{{ env('APP_URL') }}';
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Loading default app.css and app.js -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         .k-list-item.k-selected,
         .k-selected.k-list-optionlabel {

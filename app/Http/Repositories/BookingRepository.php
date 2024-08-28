@@ -44,13 +44,16 @@ class BookingRepository extends BaseRepository
                     ->where('status', '!=', 'cancelled');
                 break;
             case 'upcoming':
-                $query->where('booking_date', '>', Carbon::now()->toDateString())->where('status', '!=', 'cancelled');
+                $query->where('booking_date', '>', Carbon::now()->toDateString())->whereNotIn('status', ['cancelled', 'completed']);
                 break;
             case 'cancelled':
                 $query->where('status', 'cancelled');
                 break;
             case 'confirmed':
                 $query->where('status', 'confirmed');
+                break;
+            case 'completed':
+                $query->where('status', 'completed');
                 break;
         }
         // Using selected date filter from calendar
@@ -159,11 +162,23 @@ class BookingRepository extends BaseRepository
     public function getAllUpcomingAppointmentsByDoctorId($doctorId)
     {
         $todayDate = Carbon::now()->toDateString();
-        return  $this->with('patient')->where('doctor_id', $doctorId)
+        return $this->with('patient')
+            ->where('doctor_id', $doctorId)
             ->where('booking_date', '>', $todayDate)
-            ->where('status', '!=', 'cancelled')
+            ->whereNotIn('status', ['cancelled', 'completed'])
             ->get();
     }
+    
+
+    public function getAllCompletedAppointmentsByDoctorId($doctorId)
+    {
+    
+        return  $this->where('doctor_id', $doctorId)
+            ->where('status','completed')
+            ->get();
+    }
+
+    
 
     public function getAllCanceledAppointmentsByDoctorId($doctorId)
     {
@@ -190,6 +205,7 @@ class BookingRepository extends BaseRepository
     {
         return  $this->where('patient_id', $patientId)
             ->where('status', '=', 'confirmed')
+            ->orderby('booking_date','DESC')
             ->get();
     }
 }

@@ -90,10 +90,7 @@
                             <div class="chart-over-all-report">
                                 <h5>Overall Report</h5>
                                 <div class="circle-bar circle-bar3 report-chart">
-                                    <div class="circle-graph3" data-percent="66">
-                                        <p>Last visit
-                                            25 Mar 2024</p>
-                                    </div>
+                  
                                 </div>
                                 <span class="health-percentage">Your health is 95% Normal</span>
                                 <a href="{{ route('patient.diary.index') }}" class="btn btn-dark w-100">View Details<i

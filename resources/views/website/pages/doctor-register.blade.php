@@ -1,16 +1,12 @@
 @extends('layouts.frontend.main')
 @section('content')
     <div class="content top-space">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
-                <div class="col-md-9 offset-md-1">
-
-                    <div class="account-content">
+                <div class="col-md-9 m-auto">
+                    <div class="login-right">
                         <div class="row align-items-center justify-content-center">
-                            <div class="col-md-7 col-lg-6 login-left">
-                                <img src="{{ URL::asset('assets/img/login-banner.png') }}" class="img-fluid">
-                            </div>
-                            <div class="col-md-12 col-lg-6 login-right">
+                            <div class="col-md-12 col-lg-6">
                                 <div class="login-header">
                                     <h3> Registeration</h3>
                                 </div>
@@ -99,6 +95,9 @@
                                 </form>
 
 
+                            </div>
+                            <div class="col-md-6 col-lg-6">
+                                <img src="{{ URL::asset('assets/img/doc-register.jpg') }}" class="img-fluid">
                             </div>
                         </div>
                     </div>

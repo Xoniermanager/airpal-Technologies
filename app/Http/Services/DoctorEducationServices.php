@@ -20,6 +20,7 @@ class DoctorEducationServices
 
 public function addDoctorEducation($data)
 {
+
     $userId  = $data['user_id'];
     $results = [];
 
@@ -31,25 +32,6 @@ public function addDoctorEducation($data)
             'end_date'         => $education['end_date']
         ];
 
-        if (isset($education['certificates']) && !empty($education['certificates'])) {
-            $file = $education['certificates'];
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $destinationPath = public_path('images');
-            $file->move($destinationPath, $filename);
-            $payload['certificates'] = $filename;
-
-            // Delete the old certificate if exists
-            $imageUrl = $this->doctor_education_repository
-                ->where('user_id', $userId)
-                ->where('course_id', $education['course'])
-                ->first();
-            if (isset($imageUrl->certificates)) {
-                $destinationPath = public_path('images/' . $imageUrl->certificates);
-                if (File::exists($destinationPath)) {
-                    unlink($destinationPath);
-                }
-            }
-        }
         // Check if the education entry already exists
         $existingEntry = $this->doctor_education_repository
             ->where('id', $education['id'] ?? null)
@@ -57,11 +39,23 @@ public function addDoctorEducation($data)
             ->first();
 
         if (!empty($existingEntry)) {
+
+            if (isset($education['certificates']) && !empty($education['certificates'])) {
+                if ($existingEntry->certificates != null) {
+                    unlinkFileOrImage($existingEntry->getRawOriginal('certificates'));
+                }
+                $payload['certificates'] = uploadingImageorFile($education['certificates'], 'certificates', $education['name']);
+            }
+
             $result = $this->doctor_education_repository
                 ->where('id', $education['id'] ?? null)
                 ->where('user_id', $userId)
                 ->update($payload);
         } else {
+
+            if (isset($education['certificates']) && !empty($education['certificates'])) {
+                $payload['certificates'] = uploadingImageorFile($education['certificates'], 'certificates', $education['name']);
+            }
             $result = $this->doctor_education_repository->create(array_merge($payload, [
                 'user_id' => $userId
             ]));

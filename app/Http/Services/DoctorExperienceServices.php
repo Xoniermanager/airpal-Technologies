@@ -29,36 +29,28 @@ class DoctorExperienceServices
                 'job_description' => $experience['description']
             ];
 
-            if (isset($experience['certificates'])) {
-                $file = $experience['certificates'];
-                $filename = time() . '.' . $file->getClientOriginalExtension();
-                $destinationPath = public_path('images');
-                $file->move($destinationPath, $filename);
-                $payload['certificates'] = $filename;
-
-                // Delete the old certificate if exists
-                $imageUrl = $this->doctor_experience_repository
-                    ->where('user_id', $userId)
-                    ->where('hospital_id', $experience['hospital'])
-                    ->first();
-                if (isset($imageUrl->certificates)) {
-                    $oldCertificatePath = public_path('images/' . $imageUrl->certificates);
-                    if (File::exists($oldCertificatePath)) {
-                        unlink($oldCertificatePath);
-                    }
-                }
-            }
             // Check if the experience entry already exists
             $existingEntry = $this->doctor_experience_repository
                 ->where('id', $experience['id'] ?? null)
                 ->where('user_id', $userId)
                 ->first();
             if ($existingEntry) {
+
+                if (isset($experience['certificates']) && !empty($experience['certificates'])) {
+                    if ($existingEntry->certificates != null) {
+                        unlinkFileOrImage($existingEntry->getRawOriginal('certificates'));
+                    }
+                    $payload['certificates'] = uploadingImageorFile($experience['certificates'], 'certificates', $experience['job_title']);
+                }
+
                 $this->doctor_experience_repository
                     ->where('id', $experience['id'] ?? null)
                     ->where('user_id', $userId)
                     ->update($payload);
             } else {
+                if (isset($experience['certificates']) && !empty($experience['certificates'])) {
+                    $payload['certificates'] = uploadingImageorFile($experience['certificates'], 'certificates', $experience['job_title']);
+                }
                 $this->doctor_experience_repository->create(array_merge($payload, [
                     'user_id' => $userId
                 ]));

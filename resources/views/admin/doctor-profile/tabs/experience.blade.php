@@ -172,7 +172,7 @@
                                         </div>
                                         <div class="col-lg-6 col-md-6">
                                             @php
-                                                $filePath = asset('images') . '/' . $singleExperiencesDetails->certificates;
+                                                $filePath = $singleExperiencesDetails->certificates;
                                                 $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
                                             @endphp
                                         

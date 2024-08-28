@@ -33,11 +33,12 @@
                             <select name="booking_slot_id" class="form-control" id="booking_slot_id">
                                 <option value="">Please Select the Booking</option>
                                 @foreach ($allBookingDetails as $bookingDetail)
-                                    <option value="{{ $bookingDetail->id }}"
-                                        {{ old('booking_slot_id') == $bookingDetail->id ? 'selected' : '' }}>
-                                        {{ date('j M Y', strtotime($bookingDetail->booking_date)) }} &
-                                        {{ date('h:i A', strtotime($bookingDetail->slot_start_time)) }} -
-                                        {{ date('h:i A', strtotime($bookingDetail->slot_end_time)) }}</option>
+                                <option value="{{ $bookingDetail->id }}"
+                                    {{ old('booking_slot_id', $bookingId) == $bookingDetail->id ? 'selected' : '' }}>
+                                    {{ date('j M Y', strtotime($bookingDetail->booking_date)) }} &
+                                    {{ date('h:i A', strtotime($bookingDetail->slot_start_time)) }} -
+                                    {{ date('h:i A', strtotime($bookingDetail->slot_end_time)) }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
@@ -46,7 +47,7 @@
                         @enderror
                     </div>
                     <div class="mb-3 col-6 col-sm-6">
-                        <p class="mb-2">Start Date *</p>
+                        <p class="mb-2">Medication Start Date *</p>
                         <div>
                             <input type="date" name="start_date" class="form-control" value="{{ old('start_date') }}">
                         </div>
@@ -55,7 +56,7 @@
                         @enderror
                     </div>
                     <div class="mb-3 col-6 col-sm-6">
-                        <p class="mb-2">End Date *</p>
+                        <p class="mb-2">Medication End Date *</p>
                         <div>
                             <input type="date" name="end_date" class="form-control" value="{{ old('end_date') }}">
                         </div>

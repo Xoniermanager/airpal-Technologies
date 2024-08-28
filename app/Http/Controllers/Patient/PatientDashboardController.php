@@ -47,7 +47,7 @@ class PatientDashboardController extends Controller
 
     $favoriteDoctorsList      = $this->favoriteDoctorServices->getAllFavoriteDoctors($patientId)->get();
     $patientPastBookings      = $this->patientServices->getPatientPastBookings($patientId);
-    $patientUpcomingBookings  = $this->patientServices->getPatientBookings($patientId)->take(4);
+    $patientUpcomingBookings  = $this->patientServices->getPatientBookings($patientId)->take(2);
     $patientInvoicesList      = $this->invoiceServices->getAllPatientInvoice($patientId);
 
     $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate(Carbon::now(), Auth::user()->id);
@@ -57,8 +57,6 @@ class PatientDashboardController extends Controller
         $currentDate  = Carbon::today();
         $diaryDetails = $this->getValidatePreviewsDateDiaryDetail($currentDate);
     }
-
-    $diaryDetailsDayAfter = $this->getValidatePreviewsDateDiaryDetail($diaryDetails->created_at);
 
     $diaryDetailsDayAfter = $this->getValidatePreviewsDateDiaryDetail($diaryDetails->created_at);
 

@@ -10,6 +10,7 @@
                 <h3><a href="{{ route('doctor.doctor-profile.index') }}"> {{ auth()->user()->fullName }}</a></h3>
                 <div class="patient-details">
                     <h5 class="mb-0">
+                        
                         @isset($doctorDetails)
                             @forelse ($doctorDetails->educations as $education)
                                 {{ $education->course->name }}
@@ -139,10 +140,10 @@
                         <span>Change Password</span>
                     </a>
                 </li>
-                <li class="{{ request()->routeIs('prescription.index') ? 'active' : '' }}">
+                <li class="{{ request()->is('doctor/prescription/*') ? 'active' : '' }}">
                     <a href="{{ route('prescription.index') }}">
-                        <i class="fa-solid fa-key"></i>
-                        <span>Prescription</span>
+                        <i class="fa-solid fa-user-injured"></i>
+                        <span>My Prescriptions</span>
                     </a>
                 </li>
                 <li>

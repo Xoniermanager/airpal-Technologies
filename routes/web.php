@@ -400,6 +400,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/transactions-list', [TransactionController::class, 'transactionsList'])->name('admin.transactions-list.index');
         Route::get('/invoice-report', [InvoiceReportController::class, 'invoiceReport'])->name('admin.invoice-report.index');
         Route::get('/invoice', [InvoiceReportController::class, 'invoice'])->name('admin.invoice.index');
+        
     });
 });
 
@@ -461,23 +462,23 @@ Route::prefix('patients')->group(function () {
             });
 
             // Medical Record
-            Route::controller(MedicalRecordController::class)->group(function () {
-                Route::get('medical-records', 'medicalRecordsList')->name('patient.medical-records.index');
-                Route::get('add-medical-record', 'addMedicalRecord')->name('patient.medical-records.add');
-                Route::post('create-medical-record', 'createMedicalRecord')->name('patient.medical-records.create');
-                Route::get('edit-medical-record/{medical_records:id}', 'editMedicalRecord')->name('patient.medical-records.edit');
-                Route::post('update-medical-record/{medical_records:id}', 'updateMedicalRecord')->name('patient.medical-records.update');
-                Route::get('delete-medical-record/{medical_records:id}', 'deleteMedicalRecord');
+            Route::controller(MedicalRecordController::class)->prefix('medical-records')->group(function () {
+                Route::get('list', 'medicalRecordsList')->name('patient.medical-records.index');
+                Route::get('add', 'addMedicalRecord')->name('patient.medical-records.add');
+                Route::post('add', 'createMedicalRecord')->name('patient.medical-records.create');
+                Route::get('edit/{medical_records:id}', 'editMedicalRecord')->name('patient.medical-records.edit');
+                Route::post('update/{medical_records:id}', 'updateMedicalRecord')->name('patient.medical-records.update');
+                Route::get('delete/{medical_records:id}', 'deleteMedicalRecord');
                 Route::get('get-booking-details/{booking_slots:id}', 'getBookingDetails');
-                Route::get('medical-records-filter', 'searchFilterMedicalRecord');
+                Route::get('medical-records-filter', 'searchFilterMedicalRecord')->name('medical.records.filtering');
             });
 
             //Diary Module
-            Route::controller(PatientDiaryController::class)->group(function () {
-                Route::get('index-diary', 'index')->name('patient.diary.index');
-                Route::get('add-diary', 'addDiary')->name('patient.diary.add');
-                Route::post('create-diary', 'createDiary')->name('patient.diary.create');
-                Route::get('edit-diary/{patient_diaries:id}', 'editDiary')->name('patient.diary.edit');
+            Route::controller(PatientDiaryController::class)->prefix('diary')->group(function () {
+                Route::get('index', 'index')->name('patient.diary.index');
+                Route::get('add','addDiary')->name('patient.diary.add');
+                Route::post('add','createDiary')->name('patient.diary.create');
+                Route::get('edit/{patient_diaries:id}', 'editDiary')->name('patient.diary.edit');
                 Route::get('get-filter-diary-details', 'getSearchFilterDiaryDetails')->name('patient.diary.filters');
             });
 

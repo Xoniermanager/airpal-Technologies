@@ -79,7 +79,7 @@
                             <div class="doc-pro-img">
                                 <a href="#">
                                     <div class="doctor-profile-img">
-                                        <a href="{{route('frontend.doctor.profile',['user'=> $doctor->id])}}">
+                                        <a href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">
                                         <img src="{{ $doctor['image_url'] }}" class="img-fluid" alt="Ruby Perrin" 
                                         onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" 
                                         >
@@ -91,13 +91,12 @@
                             <div class="doc-content">
                                 <div class="doc-pro-info">
                                     <div class="doc-pro-name">
-                                        <a href="#">{{ $doctor->first_name ?? '' }} {{ $doctor->last_name ?? '' }}</a>
+                                        <a href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">{{ $doctor->fullName }}</a>
                                         @forelse ($doctor->specializations as $specializaion)
                                         <span>{{$specializaion->name}},</span>
                                         @empty
                                         <span>No Specialization available</span>
                                         @endforelse
-                                        {{-- <p><span>{{$doctor->specializations[0]->name ?? ''}}</span></p> --}}
                                     </div>
                                     <div class="reviews-ratings">
                                         <p>

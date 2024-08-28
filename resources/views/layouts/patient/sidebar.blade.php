@@ -46,7 +46,7 @@
                         <span>Dependants</span>
                     </a>
                 </li> --}}
-                <li class="{{ request()->routeIs('patient.medical-records.index') ? 'active' : '' }}">
+                <li class="{{ request()->is('patients/medical-records/*') ? 'active' : '' }}">
                     <a href="{{ route('patient.medical-records.index') }}">
                         <i class="fa-solid fa-money-bill-1"></i>
                         <span>Add Medical Records</span>
@@ -88,7 +88,7 @@
                         <span>Change Password</span>
                     </a>
                 </li>
-                <li class="{{ request()->routeIs('patient.diary.index') ? 'active' : '' }}">
+                <li class="{{ request()->is('patients/diary/*') ? 'active' : '' }}">
                     <a href="{{ route('patient.diary.index') }}">
                         <i class="fa-solid fa-key"></i>
                         <span>Patient Diary</span>

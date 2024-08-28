@@ -71,7 +71,7 @@
         function search_filter_results() {
             $.ajax({
                 type: 'GET',
-                url: '/patients/medical-records-filter',
+                url: "{{route('medical.records.filtering')}}",
                 data: {
                     'date': $('#date').val(),
                     'search': $('#search').val()

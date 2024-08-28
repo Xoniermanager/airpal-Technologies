@@ -29,8 +29,7 @@
                                     src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}'>
                             </div>
                             <div class="doc-info-cont">
-                                <h4 class="doc-name">{{ $doctor->first_name }} {{ $doctor->last_name }}</h4>
-                                {{-- <p class="doc-speciality">{{$specializationsString}}</p> --}}
+                                <h4 class="doc-name">{{ $doctor->first_name }} {{ $doctor->last_name }}</h4>  
                                 <p class="doc-speciality" style="font-weight:600">
                                     @forelse ($doctor->educations as $education)
                                         {{ $education->course->name }}
@@ -44,7 +43,7 @@
                                 @php
                                     $slicedSpecializationsArray = $doctor->specializations;
                                 @endphp
-                                <p class="doc-department">
+                                {{-- <p class="doc-department">
                                     @isset($doctor)
                                         @forelse ($doctor->specializations as $specialization)
                                             <span class="badge badge-info text-white">{{ $specialization->name }}</span>
@@ -54,7 +53,8 @@
                                         @endforelse
                                     @endisset
 
-                                </p>
+                                </p> --}}
+
                                 <div class="reviews-ratings">
                                     {!! getRatingHtml($doctor->allover_rating) !!}
                                     ({{ count($doctor->doctorReview) }} Reviews)
@@ -88,8 +88,9 @@
                                         <span>{{ $specializaion->name }}</span>
                                     @empty
                                         <span>No Specialization available</span>
-                                    @endforelse
+                                    @endforelse 
                                 </div>
+              
                             </div>
                         </div>
                         <div class="doc-info-right">
@@ -111,9 +112,10 @@
                                 </ul>
                             </div>
                             <div class="doctor-action">
-                                <a href="javascript:void(0)" class="btn btn-white fav-btn">
-                                    <i class="far fa-bookmark"></i>
-                                </a>
+                            <!-- Add an ID or unique class to the <a> tag to target it -->
+                            <a href="#" class="btn btn-white fav-btn" id="copyLink" data-url="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">
+                                <i class="fa-solid fa-copy"></i>
+                            </a>                                
                                 <a href="#" class="btn btn-white msg-btn">
                                     <i class="far fa-comment-alt"></i>
                                 </a>
@@ -127,7 +129,7 @@
                                 </a>
                             </div>
                             <div class="clinic-booking mb-2">
-                                <a class="apt-btn" href="#">Book Appointment</a>
+                                <a class="apt-btn" href="{{ route('appointment.index',['id' => Crypt::encrypt($doctor->id)]) }}">Book Appointment</a>
                             </div>
                         </div>
                     </div>
@@ -180,7 +182,7 @@
                                                             <div class="timeline-content">
                                                                 <a href="#"
                                                                     class="name">{{ $education->institute_name }}</a>
-                                                                <div>BDS</div>
+                                                                <div> {{ $education->course->name }}</div>
                                                                 <span class="time">
                                                                     <?php
                                                                     $startYear = date('Y', strtotime($education->start_date));
@@ -651,4 +653,37 @@
             }
         });
     </script>
+
+<script>
+    // Wait for the DOM content to be fully loaded before running the script
+    document.addEventListener('DOMContentLoaded', function() {
+        // Select the <a> tag using its ID or class
+        const copyLink = document.getElementById('copyLink');
+
+        // Ensure that the copyLink is selected correctly
+        if (copyLink) {
+            // Add a click event listener to the link
+            copyLink.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent the default action of the link (navigation)
+
+                // Get the URL from the data attribute
+                const url = copyLink.getAttribute('data-url');
+
+                if (url) {
+                    // Use the Clipboard API to copy the URL
+                    navigator.clipboard.writeText(url).then(() => {
+                        // Show a success message (using alert for simplicity)
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                } else {
+                    console.error('No URL found to copy.');
+                }
+            });
+        } else {
+            console.error('Copy link element not found.');
+        }
+    });
+</script>
+
 @endsection

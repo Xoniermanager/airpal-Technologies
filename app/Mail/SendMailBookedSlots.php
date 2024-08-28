@@ -19,10 +19,12 @@ class SendMailBookedSlots extends Mailable
      */
 
      private $mailData;
+     private $pdfPath;
 
-     public function __construct($mailData)
+     public function __construct($mailData,$pdfPath)
      {
          $this->mailData = $mailData;
+         $this->pdfPath  = $pdfPath;
      }
  
     /**
@@ -54,7 +56,7 @@ class SendMailBookedSlots extends Mailable
      * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */public function attachments(): array
 {
-    $filePath = storage_path('app/public/1/invoices/invoice-pdf-1722523333.pdf');
+    $filePath = $this->pdfPath;
     
     \Log::info('Attempting to access file at path:', ['path' => $filePath]);
     

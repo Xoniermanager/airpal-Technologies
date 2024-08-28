@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use Exception;
 use Illuminate\Support\Arr;
 use App\Http\Repositories\PatientDiaryRepository;
+use App\Models\PatientDiary;
 
 class PatientDiaryService
 {
@@ -23,7 +24,7 @@ class PatientDiaryService
     {
         try {
             $patientDiaryPayload = Arr::except($data, ['_token', 'reason_morning_breakfast', 'reason_afternoon_lunch', 'reason_night_dinner', 'reason_morning_medicine', 'reason_afternoon_medicine', 'reason_night_medicine', 'health_progress', 'side_effect', 'improvement']);
-            $patientDiaryDetails = $this->patientDiaryRepository->create($patientDiaryPayload);
+            $patientDiaryDetails = PatientDiary::create($patientDiaryPayload);
             if ($patientDiaryDetails) {
                 $medicationHealtPayload = Arr::only($data, ['health_progress', 'side_effect', 'improvement']);
                 $medicationHealtPayload['patient_diary_id'] = $patientDiaryDetails->id;
@@ -119,6 +120,6 @@ class PatientDiaryService
     }
     public function getDiaryDetailsByDate($date, $patientId)
     {
-        return $this->patientDiaryRepository->with(['patientAdditionalInfo', 'medicationHealthProgress'])->where('patient_id', $patientId)->whereDate('created_at', $date)->first();
+        return $this->patientDiaryRepository->where('patient_id', $patientId)->whereDate('created_at', $date)->with(['patientAdditionalInfo', 'medicationHealthProgress'])->first();
     }
 }

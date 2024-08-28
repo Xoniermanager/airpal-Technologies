@@ -2,34 +2,38 @@
     <div class="widget-profile pro-widget-content">
         <div class="profile-info-widget">
             <a href="{{ route('doctor.doctor-profile.index') }}" class="booking-doc-img">
- 
-                <img src="{{ auth()->user()->image_url}}" id="blah"  class="previewProfile">
+
+                <img src="{{ auth()->user()->image_url }}" id="blah" class="previewProfile">
             </a>
 
             <div class="profile-det-info">
-                <h3><a href="{{ route('doctor.doctor-profile.index') }}"> {{ auth()->user()->fullName}}</a></h3>
+                <h3><a href="{{ route('doctor.doctor-profile.index') }}"> {{ auth()->user()->fullName }}</a></h3>
                 <div class="patient-details">
                     <h5 class="mb-0">
+                        
                         @isset($doctorDetails)
                             @forelse ($doctorDetails->educations as $education)
-                            {{$education->course->name}}
-                            @if( !$loop->last),@endif
+                                {{ $education->course->name }}
+                                @if (!$loop->last)
+                                    ,
+                                @endif
                             @empty
-                            <p>N/A</p>
+                                <p>N/A</p>
                             @endforelse
                         @endisset
 
                     </h5>
                 </div>
                 @isset($doctorDetails)
-                @forelse ($doctorDetails->specializations as $specialization)
-                <span class="badge doctor-role-badge"><i class="fa-solid fa-circle"></i>{{$specialization->name}}</span>
-  
-                @empty
-                <p>N/A</p>
-                @endforelse
+                    @forelse ($doctorDetails->specializations as $specialization)
+                        <span class="badge doctor-role-badge"><i
+                                class="fa-solid fa-circle"></i>{{ $specialization->name }}</span>
+
+                    @empty
+                        <p>N/A</p>
+                    @endforelse
                 @endisset
-            
+
             </div>
         </div>
     </div>
@@ -55,7 +59,7 @@
                     <a href="{{ route('doctor.doctor-request.index') }}">
                         <i class="fa-solid fa-calendar-check"></i>
                         <span>Appointment Requests</span>
-                        <small class="unread-msg" id="appointmentRequestCounter">{{  $appointmentCounter }}</small>
+                        <small class="unread-msg" id="appointmentRequestCounter">{{ $appointmentCounter }}</small>
                     </a>
                 </li>
                 <li class="{{ request()->routeIs('doctor.appointments.index') ? 'active' : '' }}">
@@ -136,6 +140,12 @@
                         <span>Change Password</span>
                     </a>
                 </li>
+                <li class="{{ request()->is('doctor/prescription/*') ? 'active' : '' }}">
+                    <a href="{{ route('prescription.index') }}">
+                        <i class="fa-solid fa-user-injured"></i>
+                        <span>My Prescriptions</span>
+                    </a>
+                </li>
                 <li>
                     <a href="{{ route('doctor.logout') }}">
                         <i class="fa-solid fa-calendar-check"></i>
@@ -145,5 +155,5 @@
             </ul>
         </nav>
     </div>
-    
+
 </div>

@@ -87,9 +87,9 @@
                     <div class="col-md-3">
                         <div class="doctor-profile-widget">
                             <div class="doc-pro-img">
-                                <a href="{{ route('frontend.doctor.profile',['user' => $doctor->user_id]) }}">
+                                <a href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">
                                     <div class="doctor-profile-img">
-                                        <img src="{{asset('images/'.$doctor->user->image_url )}}" class="img-fluid"
+                                        <img src="{{ $doctor->user->image_url}}" class="img-fluid"
                                         alt=""
                                         onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" 
                                             >
@@ -100,7 +100,7 @@
 
                                 <div class="listing-profile-details p-3 d-block">
                                 <div class="doctors-body">
-                                    <a href="{{ route('frontend.doctor.profile',['user' => $doctor->user_id]) }}">
+                                    <a href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">
                                         <h4>Dr. {{$doctor->user->first_name ?? ''}} {{$doctor->user->last_name ?? ''}} </h4>
                                     </a>
                                     <p>
@@ -112,7 +112,7 @@
                                         @empty
                                         <p>N/A</p>
                                         @endforelse
-                                         <p>Specialty - <span>{{$doctor->specialty->name ?? ''}}</span></p>
+                                         <p>Specialty - <span class="badge badge-info text-white">{{$doctor->specialty->name ?? ''}}</span></p>
                                         <div class="location border-top pt-3">
                                         {{-- <p><i class="fas fa-map-marker-alt"></i> San Diego, USA</p> --}}
 

@@ -33,14 +33,20 @@
                             <td>{{ date('j M Y', strtotime($patientInvoice->booking_date)) ?? '' }}</td>
                             <td>$300</td>
                             <td>
+                                @if (isset($patientInvoice->invoice_url))
                                 <div class="action-item">
-                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#invoice_view">
-                                        <i class="fa-solid fa-link"></i>
-                                    </a>
-                                    <a href="javascript:void(0);">
+                                    <a href="javascript:void(0)" class="set-bg-color"
+                                        onclick="printInvoice('{{ Storage::url($patientInvoice->invoice_url) }}');">
                                         <i class="fa-solid fa-print"></i>
                                     </a>
                                 </div>
+                                @else
+                                <div class="action-item">
+                                    <a href="javascript:void(0)">
+                                        <i class="fa-solid fa-print"></i>
+                                    </a>
+                                </div>
+                                @endif
                             </td>
                         </tr>
                     @empty
@@ -84,4 +90,31 @@
             {{ $patientInvoices->links() }}
         </div>
     </div>
+
+
+    @endsection
+
+    @section('javascript')
+    <script>
+
+    function printInvoice(url) {
+        var printWindow = window.open(url, '_blank');
+        printWindow.onload = function() {
+            printWindow.print();
+        };
+    }
+    
+</script>
+    <style>
+        a.set-bg-color {
+            background-color: #004cd4;
+            color: white;
+        }
+
+        .page-item.active .page-link {
+            background-color: #004cd4;
+            border-color: #004cd4;
+            color: white;
+        }
+    </style>
 @endsection

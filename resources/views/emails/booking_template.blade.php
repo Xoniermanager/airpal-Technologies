@@ -94,7 +94,7 @@
 																					<p style="    font-family: 'Poppins';margin: 0;
 																					font-size: 16px;
 																					text-align: left;
-																					line-height: 25px;">  Dr. Jane Smith </p>
+																					line-height: 25px;">  Dr. {{$BookingDetails->user->fullName}} </p>
 																				</td>
 																			</tr>
 																			<tr>

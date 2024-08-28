@@ -82,13 +82,9 @@ class UserServices
             "role"         => 2,
             "description"  => $data["description"] ?? '',
         ];
-        if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
 
-            $file     = $data['image'];
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $destinationPath = public_path('images');
-            $file->move($destinationPath, $filename);
-            $payload['image_url'] = $filename;
+        if (isset($data['image']) && !empty($data['image'])) {
+            $payload['image_url'] = uploadingImageorFile($data['image'], 'profile-image', $data['first_name']);
         }
 
         if (isset($data['password'])) {
@@ -171,19 +167,15 @@ class UserServices
         }
 
         // Using provided search key to search in doctor name, speciality ans services
-        if (!empty($data['search']))
-        {
+        if (!empty($data['search'])) {
             // Search in doctor first name and last name
             $searchKey = explode(' ', $data['search']);
 
-            if (count($searchKey) > 1)
-            {
+            if (count($searchKey) > 1) {
                 $query->where('first_name', 'like', "%{$searchKey[0]}%");
                 $query->where('last_name', 'like', "%{$searchKey[1]}%");
                 $query->orWhere('display_name', 'like', "%{$data['search']}%");
-            }
-            else
-            {
+            } else {
                 $query->where('first_name', 'like', "%{$data['search']}%");
                 $query->orWhere('last_name', 'like', "%{$data['search']}%");
                 $query->orWhere('display_name', 'like', "%{$data['search']}%");
@@ -196,7 +188,7 @@ class UserServices
 
             // Search in specializations
             $query->orWhereHas('services', function ($q) use ($data) {
-                $q->where('services.name','like', "%{$data['search']}%");
+                $q->where('services.name', 'like', "%{$data['search']}%");
             });
 
             // Search in eduction
@@ -226,7 +218,7 @@ class UserServices
     public function updatePatient($data)
     {
         $filename = null;
-        $payload   = [
+        $payload = [
             "first_name"   => $data["first_name"],
             "last_name"    => $data["last_name"],
             "display_name" => $data["display_name"] ?? '',
@@ -239,44 +231,50 @@ class UserServices
             "description"  => $data["description"] ?? '',
         ];
 
-        if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
-            $file     = $data['image'];
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $destinationPath = public_path('images');
-            $file->move($destinationPath, $filename);
-            $payload['image_url'] = $filename;
-        }
-        $user = $this->userRepository->updateOrCreate(
-            ['email' => $data["email"]],
-            $payload
-        );
-        $message = $user->wasRecentlyCreated ? 'Patient created successfully.' : 'Patient updated successfully.';
-        $status  = $user->wasRecentlyCreated ? 'created' : 'updated';
+        $user = $this->userRepository->find($data['doctor_id']);
 
-        return response()->json(
-            [
-                'message' => $message,
-                'status'  => $status,
-                'id'      => $user->id
-            ]
-        );
+        if ($user) {
+            if (isset($data['image']) && !empty($data['image'])) {
+                if ($user->image_url != null) {
+                    unlinkFileOrImage($user->getRawOriginal('image_url'));
+                }
+                $payload['image_url'] = uploadingImageorFile($data['image'], 'profile-image', $data['first_name']);
+            }
+
+            // User exists, perform update
+            $user->update($payload);
+            $message = 'Patient updated successfully.';
+            $status = 'updated';
+        } else {
+            // User does not exist, perform create
+            if (isset($data['image']) && !empty($data['image'])) {
+                $payload['image_url'] = uploadingImageorFile($data['image'], 'profile-image', $data['first_name']);
+            }
+            $user = $this->userRepository->create($payload);
+            $message = 'Patient created successfully.';
+            $status = 'created';
+        }
+
+        return response()->json([
+            'message' => $message,
+            'status' => $status,
+            'id' => $user->id
+        ]);
     }
 
     public function searchDoctors($data)
     {
         $query = $this->userRepository->newQuery();
-    
+
         // Static condition for role = 2 (assumed to be 'doctor')
         $query->where('role', 2);
-    
+
         if (!empty($data['searchKey'])) {
             $query->where(function ($q) use ($data) {
                 $q->where('first_name', 'like', '%' . $data['searchKey'] . '%')
-                  ->orWhere('last_name', 'like', '%' . $data['searchKey'] . '%');
+                    ->orWhere('last_name', 'like', '%' . $data['searchKey'] . '%');
             });
-        }    
+        }
         return $query->get();
     }
-    
-    
 }

@@ -6,13 +6,18 @@ use DateTime;
 use App\Models\User;
 use App\Models\Service;
 use App\Models\Language;
+use App\Models\BookingSlots;
 use Illuminate\Http\Request;
+use App\Jobs\GenerateInvoicePdf;
+use App\Jobs\GenerateAllInvoices;
 use App\Http\Services\UserServices;
 use App\Http\Services\DoctorService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use App\Http\Services\BookingServices;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Services\DoctorReviewService;
+use App\Http\Services\FavoriteDoctorServices;
 use App\Http\Services\SpecializationServices;
 use App\Http\Services\DoctorAppointmentConfigService;
 
@@ -27,6 +32,7 @@ class DoctorController extends Controller
   private $doctorService;
 
   private $doctorReviewService;
+  private $favoriteDoctorServices;
 
   public function __construct(
     UserServices $user_services,
@@ -34,7 +40,8 @@ class DoctorController extends Controller
     DoctorAppointmentConfigService $doctorSlotServices,
     BookingServices $bookingServices,
     DoctorReviewService $doctorReviewService,
-    DoctorService $doctorService
+    DoctorService $doctorService,
+    FavoriteDoctorServices $favoriteDoctorServices
   ) {
     $this->user_services = $user_services;
     $this->bookingServices = $bookingServices;
@@ -42,26 +49,50 @@ class DoctorController extends Controller
     $this->doctorSlotServices =  $doctorSlotServices;
     $this->doctorReviewService =  $doctorReviewService;
     $this->doctorService = $doctorService;
+    $this->favoriteDoctorServices = $favoriteDoctorServices;
   }
 
   public function index()
   {
-    $doctors     = $this->user_services->getDoctorDataForFrontend();
+    $doctors = $this->user_services->getDoctorDataForFrontend();
     $specialties = $this->specializationServices->all();
     $allRatingStars = $this->doctorService->getDoctorCountsGroupedByRatings();
 
-    $ratingsWithCounter = array();
+    // Check if the user is authenticated
+    if (Auth::check()) {
+      $patientId = Auth::user()->id;
+      $favoriteDoctorsList = $this->favoriteDoctorServices->getAllFavoriteDoctors($patientId)->pluck('doctor_id')->toArray();
+    } else {
+      $favoriteDoctorsList = []; // No favorite doctors if not logged in
+    }
+
+    $ratingsWithCounter = [];
     for ($i = 1; $i <= 5; $i++) {
       $ratingsWithCounter[$i] = array_sum($allRatingStars->whereBetween('allover_rating', [$i - 0.5, $i])->pluck('total_doctors')->toArray());
     }
 
-    return view('website.doctor.search-doctor', ['doctors' =>  $doctors, 'languages' => Language::all(), 'specialties' => $specialties, 'services' => Service::all(), 'ratingsWithCounter' => $ratingsWithCounter]);
+    return view('website.doctor.search-doctor', [
+      'doctors' => $doctors,
+      'languages' => Language::all(),
+      'specialties' => $specialties,
+      'services' => Service::all(),
+      'ratingsWithCounter' => $ratingsWithCounter,
+      'favoriteDoctorsList' => $favoriteDoctorsList
+    ]);
   }
 
 
-  public function doctorProfile(User $user)
-  {
 
+  public function doctorProfile(User $encryptedId)
+  {
+    $encryptedId = request('user');
+        try {
+          $decryptedId = Crypt::decrypt($encryptedId);
+      } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+          abort(404, 'Invalid doctor ID');
+      }
+
+    $user = User::findOrFail($decryptedId);
     $doctor = $user->load('specializations', 'services', 'educations.course', 'experiences', 'workingHour.daysOfWeek', 'awards.award', 'doctorAddress.states.country', 'doctorReview.patient');
 
     $doctorSpecializations = ($doctor->specializations)->toArray();
@@ -72,14 +103,20 @@ class DoctorController extends Controller
 
     $topSpecializations = array_slice($specializationNames, 0, 2);
     $specializationsString = implode(', ', $topSpecializations);
-  return view('website.doctor.doctor-profile')
+    return view('website.doctor.doctor-profile')
       ->with('doctor', $doctor)
       ->with('specializationsString', $specializationsString)
       ->with('allReviewDetails', $this->doctorReviewService->getAllReviewByDoctorId($user->id));
   }
 
-  public function appointment($id)
+  public function appointment($encryptedId)
   {
+    try {
+      $id = Crypt::decrypt($encryptedId);
+  } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+      abort(404, 'Invalid doctor ID');
+  }
+
     $doctor = $this->user_services->getDoctorDataById($id);
     $doctorSlotConfigDetails = $this->doctorSlotServices->getDoctorSlotConfiguration($doctor->id);
     if (isset($doctorSlotConfigDetails)) {
@@ -103,12 +140,35 @@ class DoctorController extends Controller
       'rating'      =>  'sometimes|integer|between:1,5'
     ]);
 
+    $doctors = $this->user_services->getDoctorDataForFrontend();
+    $specialties = $this->specializationServices->all();
+    $allRatingStars = $this->doctorService->getDoctorCountsGroupedByRatings();
+
+    // Check if the user is authenticated
+    if (Auth::check()) {
+      $patientId = Auth::user()->id;
+      $favoriteDoctorsList = $this->favoriteDoctorServices->getAllFavoriteDoctors($patientId)->pluck('doctor_id')->toArray();
+    } else {
+      $favoriteDoctorsList = []; // No favorite doctors if not logged in
+    }
+
+    $ratingsWithCounter = [];
+    for ($i = 1; $i <= 5; $i++) {
+      $ratingsWithCounter[$i] = array_sum($allRatingStars->whereBetween('allover_rating', [$i - 0.5, $i])->pluck('total_doctors')->toArray());
+    }
+
+
     $searchedItems = $this->user_services->searchInDoctors($request->all());
     if ($searchedItems) {
       return response()->json([
         'success' => 'Searching',
         'data'   =>  view("website.doctor.doctors_list", [
-          'doctors' =>  $searchedItems
+          'doctors' =>  $searchedItems,
+          'languages' => Language::all(),
+          'specialties' => $specialties,
+          'services' => Service::all(),
+          'ratingsWithCounter' => $ratingsWithCounter,
+          'favoriteDoctorsList' => $favoriteDoctorsList
         ])->render()
       ]);
     } else {
@@ -234,24 +294,40 @@ class DoctorController extends Controller
 
     switch ($slotConfig->status) {
       case '0':
-          // Code for when $slotConfig is '0' or closed
-          break;
-  
+        // Code for when $slotConfig is '0' or closed
+        break;
+
       case '1':
-          // Code for when $slotConfig is '1' or active 
-          $this->doctorSlotServices->createSlot($request->all());
-          break;
-  
+        // Code for when $slotConfig is '1' or active 
+        $this->doctorSlotServices->createSlot($request->all());
+        break;
+
       case '2':
-          // Here checking if config status is 2, that means future applied update
-          $this->doctorSlotServices->updateSlot($request->all());
-          break;
+        // Here checking if config status is 2, that means future applied update
+        $this->doctorSlotServices->updateSlot($request->all());
+        break;
       default:
-          // Code for any other value of $slotConfig
-          break;
-  }
-  
+        // Code for any other value of $slotConfig
+        break;
+    }
+
 
     dd($latestBookings);
+  }
+
+
+  public function generateAllInvoices(Request $request)
+  {
+    GenerateAllInvoices::dispatch();
+  }
+
+  public function choose()
+  {
+    return view('website.pages.choose');
+  }
+
+  public function doctorRegistrationIndex()
+  {
+    return view('website.pages.doctor-register');
   }
 }

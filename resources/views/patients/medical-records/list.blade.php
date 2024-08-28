@@ -19,14 +19,14 @@
                 <input type="text" class="form-control" placeholder="Search" id="search">
                 <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
             </div>
-                    <div class="input-block dash-search-input mb-3">
-                        <input type="date" class="form-control" id="date">
-                    </div>
-                    <div class="input-block dash-search-input ">
-                        <a href="{{ route('patient.medical-records.add') }}" class="btn btn-primary prime-btn">Add
-                            Medical
-                            Record</a>
-                    </div>
+            <div class="input-block dash-search-input mb-3">
+                <input type="date" class="form-control" id="date">
+            </div>
+            <div class="input-block dash-search-input ">
+                <a href="{{ route('patient.medical-records.add') }}" class="btn btn-primary prime-btn">Add
+                    Medical
+                    Record</a>
+            </div>
         </div>
         @include('patients.medical-records.all-medical-record')
     </div>
@@ -47,8 +47,12 @@
                         url: '/patients/delete-medical-record/' + id,
                         type: "get",
                         success: function(res) {
-                            $(".data-medical-record-id-" + id).remove();
-                            Swal.fire("Done!", "It was successfully deleted!", "success");
+                            if (res.status == true) {
+                                $('#medical_record_list').replaceWith(res.data)
+                                Swal.fire("Done!", "It was successfully deleted!", "success");
+                            } else {
+                                Swal.fire("Error deleting!", "Please try again", "error");
+                            }
                         },
                         error: function(xhr, ajaxOptions, thrownError) {
                             Swal.fire("Error deleting!", "Please try again", "error");
@@ -63,10 +67,11 @@
         jQuery("#date").on('change', function() {
             search_filter_results();
         });
+
         function search_filter_results() {
             $.ajax({
                 type: 'GET',
-                url: '/patients/medical-records-filter',
+                url: "{{route('medical.records.filtering')}}",
                 data: {
                     'date': $('#date').val(),
                     'search': $('#search').val()

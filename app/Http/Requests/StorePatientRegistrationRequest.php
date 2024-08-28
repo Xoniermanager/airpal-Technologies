@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Traits\ExceptionHandle;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePatientRegistrationRequest extends FormRequest
 {
+    use ExceptionHandle;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -25,7 +27,7 @@ class StorePatientRegistrationRequest extends FormRequest
             'first_name'   => 'required|string|max:255',
             'last_name'    => 'required|string|max:255',
             'email'        => 'required|string|email|max:255|unique:users',
-            'phone_number' => 'required|digits_between:8,12',
+            'phone'        => 'required|digits_between:8,12',
             'password'     => 'required|string|min:8|max:30',
             'gender'       => 'required|string',
         ];

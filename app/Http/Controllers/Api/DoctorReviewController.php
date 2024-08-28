@@ -97,4 +97,22 @@ class DoctorReviewController extends Controller
             ], 500);
         }
     }
+
+    public function updateDoctorReview(Request $request)
+    {
+        try {
+            $data = $request->all();
+            $doctorReviewDetails = $this->doctorReviewService->create($data);
+            return response()->json([
+                'status' => true,
+                'message' => "Review Updated Successfully"
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                "status" => false,
+                "error" =>  $e->getMessage(),
+                "message" => "Unable to Updated Review"
+            ], 500);
+        }
+    }
 }

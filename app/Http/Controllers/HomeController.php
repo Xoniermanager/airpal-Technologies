@@ -29,9 +29,8 @@ class HomeController extends Controller
   public function home()
   {
 
-    $doctors = $this->user_services->all();
-   // dd(   $doctors);
     $specialtiesByDoctorsCount =  $this->doctor_specialty->getSpecialtyGroupByDoctor();
+    $doctors =  $this->user_services->getDoctorDataForFrontend();
     $allFaqs =  $this->faqsServices->all();
 
     return view('website.pages.home',['doctorList' => $doctors , 'specialties' => $specialtiesByDoctorsCount , 'allFaqs'=>$allFaqs]);

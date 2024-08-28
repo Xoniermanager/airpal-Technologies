@@ -13,7 +13,7 @@
                 </thead>
                 <tbody>
                     @forelse ($allMedicalRecord as $key => $medicalRecord)
-                        <tr class="data-medical-record-id-{{ $medicalRecord->id }}">
+                        <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $medicalRecord->name }}</td>
                             <td>{{ $medicalRecord->date }}</td>

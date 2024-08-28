@@ -3,15 +3,19 @@
                     Start : Manage Doctor Personal Profiles Details From Kendo 
 ================================================================================
 */
+
+var site_base_url = window.location.origin;
+site_base_url = site_base_url + "/";
+
 function addItemToMultiSelect(widgetId, value) {
     var widget = jQuery("#" + widgetId).getKendoMultiSelect();
     var dataSource = widget.dataSource;
 
     dataSource.add({
-        name: value
+        name: value,
     });
 
-    dataSource.one("sync", function() {
+    dataSource.one("sync", function () {
         widget.select(dataSource.data().length - 1);
     });
 
@@ -19,9 +23,56 @@ function addItemToMultiSelect(widgetId, value) {
     currentValue.push(dataSource.data().total - 1);
     widget.value(currentValue);
 
-    widget.trigger('change');
+    widget.trigger("change");
     dataSource.sync();
 }
+const handleFileInputChange = () => {
+    const fileInputs = document.querySelectorAll(".certificatesInput");
+
+    fileInputs.forEach((input) => {
+        input.addEventListener("change", function (evt) {
+            const file = this.files[0];
+            const previewId = this.getAttribute("data-preview-id");
+            console.log(previewId);
+            const previewElement = document.getElementById(previewId);
+            console.log(previewElement);
+            if (file) {
+                const fileType = file.type;
+                let previewContent = "";
+
+                if (fileType === "application/pdf") {
+                    // Create object element for PDF preview
+                    previewContent = `
+                <object data="${URL.createObjectURL(
+                    file
+                )}" type="application/pdf" width="300" height="200">
+                    <p>It appears you don't have a PDF plugin for this browser.
+                        <a href="${URL.createObjectURL(
+                            file
+                        )}" target="_blank">Click here to download the PDF file.</a>
+                    </p>
+                </object>
+                <a href="${URL.createObjectURL(
+                    file
+                )}" target="_blank" class="btn btn-primary prime-btn">Click to download PDF</a>
+            `;
+                } else if (fileType.startsWith("image/")) {
+                    // Create img element for image preview
+                    previewContent = `<img src="${URL.createObjectURL(
+                        file
+                    )}" alt="certificate image" width="300" height="200">`;
+                }
+
+                console.log(previewElement);
+                // Update the preview element with the new content
+                previewElement.innerHTML = previewContent;
+                console.log(
+                    `File uploaded for ${this.id} and displayed in ${previewId}`
+                );
+            }
+        });
+    });
+};
 
 /*
 ================================================================================
@@ -29,19 +80,17 @@ function addItemToMultiSelect(widgetId, value) {
 ================================================================================
 */
 
-
-
 /*
 ============================================================================
                     Start : Manage Flat Date Picker 
 ============================================================================
 */
 function initializeFlatDatePicker() {
-    const datepickers = document.querySelectorAll('.flat-picker');
-    datepickers.forEach(picker => {
+    const datepickers = document.querySelectorAll(".flat-picker");
+    datepickers.forEach((picker) => {
         flatpickr(picker, {
             enableTime: false,
-            dateFormat: "Y-m-d"
+            dateFormat: "Y-m-d",
         });
     });
 }
@@ -51,7 +100,6 @@ function initializeFlatDatePicker() {
 ============================================================================
 */
 
-
 /*
 ============================================================================
                     Start : Manage Awards in kendo list
@@ -60,17 +108,15 @@ function initializeFlatDatePicker() {
 
 // Add awards section  div/container
 
-
-
-const addAward = (function() {
-    let awardCount  = 1; 
-    return function(userAwardCount) {
+const addAward = (function () {
+    let awardCount = 1;
+    return function (userAwardCount) {
         if (awardCount === undefined && userAwardCount !== undefined) {
             awardCount = userAwardCount + 1;
         }
-        const accordion = document.getElementById('addNewAwardTabItem');
-        const newEntry = document.createElement('div');
-        newEntry.classList.add('accordion-item', 'award-entry');
+        const accordion = document.getElementById("addNewAwardTabItem");
+        const newEntry = document.createElement("div");
+        newEntry.classList.add("accordion-item", "award-entry");
         const headingId = `heading${awardCount}`;
         const collapseId = `collapse${awardCount}`;
         const awardSelectorId = `award${awardCount}`;
@@ -125,17 +171,22 @@ const addAward = (function() {
                                                                     <span class="text-danger" id="awards_${awardCount}_description_error"></span>
                                                                 </div>
                                                             </div>
+      
                                                             <div class="col-lg-6 col-md-6">
-                                                            <div class="form-wrap">
-                                                                <label class="col-form-label">Education Certificates</label>
-                                                                <input type="file" class="form-control" id="certificatesID"
-                                                                    name="awards[${awardCount}][certificates]"
-                                                                    >
-                                                                <small class="text-secondary">Recommended image size is <b> pdf, image
-                                                                    </b></small>
-                                                                <span class="text-danger" id="awards_${awardCount}_certificates_error"></span>
+                                                                <div class="form-wrap">
+                                                                    <label class="mb-2">awards Certificates</label>
+                                                                    <input type="file" class="form-control certificatesInput"  name="awards[${awardCount}][certificates]" data-preview-id="award_preview${awardCount}" id="certificatesID${awardCount}">
+                                                                    <small class="text-secondary">Recommended image size is <b>pdf, image</b></small>
+                                                                </div>
                                                             </div>
-                                                        </div>
+
+                                                            <div class="col-lg-6 col-md-6">
+                                                                <div class="form-wrap" id="award_preview${awardCount}">
+                                                                        <img src="" alt="certificate image" width="300" height="200" style="border-radius:20px;">
+                                                                </div>
+                                                            </div>
+
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -145,133 +196,146 @@ const addAward = (function() {
                                 </div>`;
         awardCount++;
         accordion.appendChild(newEntry);
-        initializeKendoDropdownSelectForAward(`#${awardSelectorId}` ,awardNoAwardTemplate);
+        initializeKendoDropdownSelectForAward(
+            `#${awardSelectorId}`,
+            awardNoAwardTemplate
+        );
         initializeFlatDatePicker();
+        handleFileInputChange();
     };
 })();
 
-// Initialize Awards list 
-function initializeKendoDropdownSelectForAward(selector,selectedAward = '',awardNoAwardTemplate = ''
+// Initialize Awards list
+function initializeKendoDropdownSelectForAward(
+    selector,
+    selectedAward = "",
+    awardNoAwardTemplate = ""
 ) {
     jQuery(selector).kendoDropDownList({
         filter: "startswith",
         dataTextField: "name",
         dataValueField: "id",
         dataSource: createAwardDataSource(),
-        value: selectedAward , 
+        value: selectedAward,
         noDataTemplate: jQuery("#noAwardTemplate").html(),
     });
 }
 
-
 function createAwardDataSource() {
-
     return new kendo.data.DataSource({
         batch: true,
         transport: {
             read: {
-                url: site_admin_base_url + "award",
-                dataType: "json"
+                url: site_base_url + "award",
+                dataType: "json",
             },
             create: {
-                url: site_admin_base_url + "award/ajax-create",
-                dataType: "json"
+                url: site_base_url + "award/ajax-create",
+                dataType: "json",
             },
-            parameterMap: function(options, operation) {
+            parameterMap: function (options, operation) {
                 if (operation !== "read" && options.models) {
                     return {
-                        models: kendo.stringify(options.models)
+                        models: kendo.stringify(options.models),
                     };
                 }
-            }
+            },
         },
         schema: {
             model: {
                 id: "id",
                 fields: {
                     id: {
-                        type: "number"
+                        type: "number",
                     },
                     name: {
-                        type: "string"
-                    }
-                }
-            }
-        }
+                        type: "string",
+                    },
+                },
+            },
+        },
     });
 }
 
-
-
-
 // Add new Awards using kendo ajax
-    function addAwardData(widgetId, value) {
-        
-        var widget = jQuery("#" + widgetId).getKendoDropDownList();
-        var dataSource = widget.dataSource;
-        dataSource.add({
-            id:dataSource.data().length + 1,
-            name: value
-        });
-        dataSource.one("sync", function() {
-            widget.select(dataSource.data().length + 1);
-        });
-        dataSource.sync();
-        dataSource.add({
-            name: value
-        });
-        dataSource.sync();
-    }
-
-    jQuery("#award").kendoDropDownList({
-        filter: "startswith",
-        dataTextField: "name",
-        dataValueField: "id",
-        dataSource: createAwardDataSource(),
-        // value: selectedAward , 
-        noDataTemplate: jQuery("#noAwardTemplate").html(),
+function addAwardData(widgetId, value) {
+    var widget = jQuery("#" + widgetId).getKendoDropDownList();
+    var dataSource = widget.dataSource;
+    dataSource.add({
+        id: dataSource.data().length + 1,
+        name: value,
     });
+    dataSource.one("sync", function () {
+        widget.select(dataSource.data().length + 1);
+    });
+    dataSource.sync();
+    dataSource.add({
+        name: value,
+    });
+    dataSource.sync();
+}
 
-    function deleteAwards(awardId='',button) {
-        const entry = button.closest('.accordion-item');
-        if (!awardId) {
-            console.error('Experience ID not found');
-            const entry = button.closest('.accordion-item');
-            entry.remove();
-            return;
-        }
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: site_admin_base_url + 'doctor/delete-award', // Adjust this URL to your route
-                    type: 'get',
-                    data: {
-                        id: awardId
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            entry.remove();
-                            Swal.fire("Deleted!", "Experience deleted successfully.", "success");
-                        } else {
-                            Swal.fire("Error!", "Error deleting experience.", "error");
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('AJAX Error:', status, error);
-                        Swal.fire("Error!", "An error occurred while deleting the experience.", "error");
-                    }
-                });
-            }
-        });
+jQuery("#award").kendoDropDownList({
+    filter: "startswith",
+    dataTextField: "name",
+    dataValueField: "id",
+    dataSource: createAwardDataSource(),
+    // value: selectedAward ,
+    noDataTemplate: jQuery("#noAwardTemplate").html(),
+});
+
+function deleteAwards(awardId = "", button) {
+    const entry = button.closest(".accordion-item");
+    if (!awardId) {
+        console.error("Experience ID not found");
+        const entry = button.closest(".accordion-item");
+        entry.remove();
+        return;
     }
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: site_base_url + "doctor/delete-award", // Adjust this URL to your route
+                type: "get",
+                data: {
+                    id: awardId,
+                },
+                success: function (response) {
+                    if (response.success) {
+                        entry.remove();
+                        Swal.fire(
+                            "Deleted!",
+                            "Experience deleted successfully.",
+                            "success"
+                        );
+                    } else {
+                        Swal.fire(
+                            "Error!",
+                            "Error deleting experience.",
+                            "error"
+                        );
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error:", status, error);
+                    Swal.fire(
+                        "Error!",
+                        "An error occurred while deleting the experience.",
+                        "error"
+                    );
+                },
+            });
+        }
+    });
+}
 
 /*
 ============================================================================
@@ -279,35 +343,30 @@ function createAwardDataSource() {
 ============================================================================
 */
 
-
-
-
-
-
 /*
 ============================================================================
                     Start : Manage Education in kendo list
 ============================================================================
 */
 
-let educationCount    = 1;
+let educationCount = 1;
 // Get all Education and list them in kendo ui
 
-const addEducation = (function() {
+const addEducation = (function () {
     // Initialize the counter
     let educationCount;
 
     // Return the actual function that will be called
-    return function(userEducationCount) {
+    return function (userEducationCount) {
         // If educationCount is not yet set and a user-provided count is given, set the educationCount to it
         if (educationCount === undefined && userEducationCount !== undefined) {
             educationCount = userEducationCount + 1;
         }
 
-        const accordion = document.getElementById('addNewEducationTabItem');
+        const accordion = document.getElementById("addNewEducationTabItem");
         console.log(accordion);
-        const newEntry  = document.createElement('div');
-        newEntry.classList.add('accordion-item', 'education-entry');
+        const newEntry = document.createElement("div");
+        newEntry.classList.add("accordion-item", "education-entry");
         const headingId = `heading${educationCount}`;
         const collapseId = `collapse${educationCount}`;
         const courseSelectorId = `course${educationCount}`;
@@ -370,11 +429,17 @@ const addEducation = (function() {
                                                         <div class="col-lg-6 col-md-6">
                                                             <div class="form-wrap">
                                                             <label class="mb-2">Education Certificates</label>
-                                                            <input type="file" class="form-control certificatesInput"   name="education[${educationCount}][certificates]">
+                                                            <input type="file" class="form-control certificatesInput"  name="education[${educationCount}][certificates]" data-preview-id="education_preview${educationCount}" id="certificatesID${educationCount}">
                                                             <small class="text-secondary">Recommended image size is <b>pdf, image</b></small>
                                                         </div>
-                                                        
                                                     </div>
+
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="form-wrap" id="education_preview${educationCount}">
+                                                                <img src="" alt="certificate image" width="300" height="200" style="border-radius:20px;">
+                                                
+                                                        </div>
+                                                </div>
                                                 </div>
                                                
                                                 
@@ -387,124 +452,134 @@ const addEducation = (function() {
         accordion.appendChild(newEntry);
         initializeKendoDropdownSelectForEducation(`#${courseSelectorId}`);
         initializeFlatDatePicker();
+        handleFileInputChange();
     };
 })();
 
-
 // Initialize Education list
-    function initializeKendoDropdownSelectForEducation(selector, selectedEducation='') {
-        $(selector).kendoDropDownList({
-            filter: "startswith",
-            dataTextField: "name",
-            dataValueField: "id",
-            dataSource: createCourseDataSource(),
-            value: selectedEducation ,
-            noDataTemplate: $("#noCourseTemplate").html()
-        });
-    }
+function initializeKendoDropdownSelectForEducation(
+    selector,
+    selectedEducation = ""
+) {
+    $(selector).kendoDropDownList({
+        filter: "startswith",
+        dataTextField: "name",
+        dataValueField: "id",
+        dataSource: createCourseDataSource(),
+        value: selectedEducation,
+        noDataTemplate: $("#noCourseTemplate").html(),
+    });
+}
 
-    function createCourseDataSource() {
-        return new kendo.data.DataSource({
-
+function createCourseDataSource() {
+    return new kendo.data.DataSource({
         batch: true,
         transport: {
             read: {
-                url: site_admin_base_url + "course",
-                dataType: "json"
+                url: site_base_url + "course",
+                dataType: "json",
             },
             create: {
-                url: site_admin_base_url + "course/ajax-create",
-                dataType: "json"
+                url: site_base_url + "course/ajax-create",
+                dataType: "json",
             },
-            parameterMap: function(options, operation) {
+            parameterMap: function (options, operation) {
                 if (operation !== "read" && options.models) {
-                    return { models: kendo.stringify(options.models)};
+                    return { models: kendo.stringify(options.models) };
                 }
-            }
+            },
         },
         schema: {
             model: {
                 id: "id",
                 fields: {
                     id: { type: "number" },
-                    name: { type: "string" }
-                }
-            }
-        }
+                    name: { type: "string" },
+                },
+            },
+        },
     });
 }
-
-
 
 jQuery("#course").kendoDropDownList({
     filter: "startswith",
     dataTextField: "name",
     dataValueField: "id",
     dataSource: createCourseDataSource(),
-    noDataTemplate: jQuery("#noCourseTemplate").html()
+    noDataTemplate: jQuery("#noCourseTemplate").html(),
 });
 
 // Add new Education using kendo ajax
-    function addCourse(widgetId, value) {
-        var widget = jQuery("#" + widgetId).getKendoDropDownList();
-        var dataSource = widget.dataSource;
-        dataSource.add({
-            id:dataSource.data().length + 1,
-            name: value
-        });
-        dataSource.one("sync", function() {
-            widget.select(dataSource.data().length + 1);
-        });
-        dataSource.sync();
-        dataSource.add({
-            name: value
-        });
-        dataSource.sync();
-    };
+function addCourse(widgetId, value) {
+    var widget = jQuery("#" + widgetId).getKendoDropDownList();
+    var dataSource = widget.dataSource;
+    dataSource.add({
+        id: dataSource.data().length + 1,
+        name: value,
+    });
+    dataSource.one("sync", function () {
+        widget.select(dataSource.data().length + 1);
+    });
+    dataSource.sync();
+    dataSource.add({
+        name: value,
+    });
+    dataSource.sync();
+}
 
-
-
-    // Delete Experience 
-    function deleteEducation(educationId='',button) {
-        const entry = button.closest('.accordion-item');
-        if (!educationId) {
-            console.error('Experience ID not found');
-            const entry = button.closest('.accordion-item');
-            entry.remove();
-            return;
-        }
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: site_admin_base_url + "doctor/delete-education", // Adjust this URL to your route
-                    type: 'get',
-                    data: {
-                        id: educationId
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            entry.remove();
-                            Swal.fire("Deleted!", "Experience deleted successfully.", "success");
-                        } else {
-                            Swal.fire("Error!", "Error deleting experience.", "error");
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('AJAX Error:', status, error);
-                        Swal.fire("Error!", "An error occurred while deleting the experience.", "error");
-                    }
-                });
-            }
-        });
+// Delete Experience
+function deleteEducation(educationId = "", button) {
+    const entry = button.closest(".accordion-item");
+    if (!educationId) {
+        console.error("Experience ID not found");
+        const entry = button.closest(".accordion-item");
+        entry.remove();
+        return;
     }
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: site_base_url + "doctor/delete-education", // Adjust this URL to your route
+                type: "get",
+                data: {
+                    id: educationId,
+                },
+                success: function (response) {
+                    if (response.success) {
+                        entry.remove();
+                        Swal.fire(
+                            "Deleted!",
+                            "Experience deleted successfully.",
+                            "success"
+                        );
+                    } else {
+                        Swal.fire(
+                            "Error!",
+                            "Error deleting experience.",
+                            "error"
+                        );
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error:", status, error);
+                    Swal.fire(
+                        "Error!",
+                        "An error occurred while deleting the experience.",
+                        "error"
+                    );
+                },
+            });
+        }
+    });
+}
 
 /*
 ============================================================================
@@ -512,29 +587,26 @@ jQuery("#course").kendoDropDownList({
 ============================================================================
 */
 
-
-
-
-
 /*
 ============================================================================
                     Start : Manage Hospitals/Experience in kendo list
 ============================================================================
 */
 
-let experienceCount   = 1;
-
-const addExperience = (function() {
+const addExperience = (function () {
     let experienceCount;
 
-    return function(userExperienceCount) {
-        if (experienceCount === undefined && userExperienceCount !== undefined) {
+    return function (userExperienceCount) {
+        if (
+            experienceCount === undefined &&
+            userExperienceCount !== undefined
+        ) {
             experienceCount = userExperienceCount + 1;
         }
 
-        const accordion = document.getElementById('addNewExperienceTabItem');
-        const newEntry = document.createElement('div');
-        newEntry.classList.add('accordion-item', 'experince-entry');
+        const accordion = document.getElementById("addNewExperienceTabItem");
+        const newEntry = document.createElement("div");
+        newEntry.classList.add("accordion-item", "experince-entry");
         const headingId = `heading${experienceCount}`;
         const collapseId = `collapse${experienceCount}`;
         const hospitalSelectorId = `hospital${experienceCount}`;
@@ -634,9 +706,8 @@ const addExperience = (function() {
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form-wrap">
                                             <label class="col-form-label">Education Certificates</label>
-                                            <input type="file" class="form-control" id="certificatesID"
-                                                name="experience[${experienceCount}][certificates]"
-                                                >
+                                            <input type="file" class="form-control certificatesInput"
+                                                name="experience[${experienceCount}][certificates]"data-preview-id="exp_preview${experienceCount}" id="certificatesID${experienceCount}"  >
                                             <small class="text-secondary">Recommended image size is <b> pdf, image
                                                 </b></small>
                                             <span class="text-danger" id="education_${experienceCount}_certificates_error"></span>
@@ -644,6 +715,14 @@ const addExperience = (function() {
                                         <div>
                                         </div>
                                     </div>
+
+                                       <div class="col-lg-6 col-md-6">
+                                                    <div class="form-wrap" id="exp_preview${experienceCount}">
+                                                            <img src="" alt="certificate image" width="300" height="200" style="border-radius:20px;">
+                                            
+                                                    </div>
+
+                                    
 
                                     
                                     </div>
@@ -657,59 +736,61 @@ const addExperience = (function() {
         accordion.appendChild(newEntry);
         initializeKendoMultiSelectForExperience(`#${hospitalSelectorId}`);
         initializeFlatDatePicker();
+        handleFileInputChange();
     };
 })();
 
-
 // Get all hospitals and list them in kendo ui
-
 
 // Initialize hospitals list
 // hospitalDataSource = new kendo.data.DataSource({
 
-    function hospitalDataSource() {
-        return new kendo.data.DataSource({
-    batch: true,
-    transport: {
-        read: {
-            url: site_admin_base_url + "hospital",
-            dataType: "json"
-        },
-        create: {
-            url: site_admin_base_url + "hospital/ajax-create",
-            dataType: "json"
-        },
-        parameterMap: function(options, operation) {
-            if (operation !== "read" && options.models) {
-                return {
-                    models: kendo.stringify(options.models)
-                };
-            }
-        }
-    },
-    schema: {
-        model: {
-            id: "id",
-            fields: {
-                id: {
-                    type: "number"
-                },
-                name: {
-                    type: "string"
+function hospitalDataSource() {
+    return new kendo.data.DataSource({
+        batch: true,
+        transport: {
+            read: {
+                url: site_base_url + "hospital",
+                dataType: "json",
+            },
+            create: {
+                url: site_base_url + "hospital/ajax-create",
+                dataType: "json",
+            },
+            parameterMap: function (options, operation) {
+                if (operation !== "read" && options.models) {
+                    return {
+                        models: kendo.stringify(options.models),
+                    };
                 }
-            }
-        }
-    }
-});
-    }
-function initializeKendoMultiSelectForExperience(selector,selectedHospital='') {
+            },
+        },
+        schema: {
+            model: {
+                id: "id",
+                fields: {
+                    id: {
+                        type: "number",
+                    },
+                    name: {
+                        type: "string",
+                    },
+                },
+            },
+        },
+    });
+}
+function initializeKendoMultiSelectForExperience(
+    selector,
+    selectedHospital = ""
+) {
     jQuery(selector).kendoDropDownList({
         filter: "startswith",
         dataTextField: "name",
         dataValueField: "id",
         dataSource: hospitalDataSource(),
         value: selectedHospital,
-        noDataTemplate: jQuery("#noHospitalTemplate").html()
+        noDataTemplate: jQuery("#noHospitalTemplate").html(),
     });
 }
 
@@ -718,46 +799,42 @@ jQuery("#hospital").kendoDropDownList({
     dataTextField: "name",
     dataValueField: "id",
     dataSource: hospitalDataSource(),
-    value: hospitalIds ?? '',
-    noDataTemplate: jQuery("#noHospitalTemplate").html()
+    value: hospitalIds ?? "",
+    noDataTemplate: jQuery("#noHospitalTemplate").html(),
 });
 
-var hospitalIds = jQuery('#doctorhospitalID').text();
-var doctorAwardsIds = jQuery('#doctorAwardsIds').text();
+var hospitalIds = jQuery("#doctorhospitalID").text();
+var doctorAwardsIds = jQuery("#doctorAwardsIds").text();
 if (doctorAwardsIds.length > 1) {
     var arraydoctorAwardsIds = JSON.parse(doctorAwardsIds);
     var awardValue = "" + arraydoctorAwardsIds.join(",") + "";
-    var awardArrs = awardValue.split(',');
+    var awardArrs = awardValue.split(",");
 }
-
-
-
 
 // Add new hospital using kendo ajax
 function addHospital(widgetId, value) {
-
     var widget = jQuery("#" + widgetId).getKendoDropDownList();
     var dataSource = widget.dataSource;
     dataSource.add({
-        id:dataSource.data().length + 1,
-        name: value
+        id: dataSource.data().length + 1,
+        name: value,
     });
-    dataSource.one("sync", function() {
+    dataSource.one("sync", function () {
         widget.select(dataSource.data().length + 1);
     });
     dataSource.sync();
     dataSource.add({
-        name: value
+        name: value,
     });
     dataSource.sync();
 }
- // delete Experience
+// delete Experience
 
- function deleteExperience(experienceId='', button) {
-    const entry = button.closest('.accordion-item');
+function deleteExperience(experienceId = "", button) {
+    const entry = button.closest(".accordion-item");
     if (!experienceId) {
-        console.error('Experience ID not found');
-        const entry = button.closest('.accordion-item');
+        console.error("Experience ID not found");
+        const entry = button.closest(".accordion-item");
         entry.remove();
         return;
     }
@@ -768,27 +845,39 @@ function addHospital(widgetId, value) {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
+        confirmButtonText: "Yes, delete it!",
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: site_admin_base_url +  "doctor/delete-experience", // Adjust this URL to your route
-                type: 'get',
+                url: site_base_url + "doctor/delete-experience", // Adjust this URL to your route
+                type: "get",
                 data: {
-                    id: experienceId
+                    id: experienceId,
                 },
-                success: function(response) {
+                success: function (response) {
                     if (response.success) {
                         entry.remove();
-                        Swal.fire("Deleted!", "Experience deleted successfully.", "success");
+                        Swal.fire(
+                            "Deleted!",
+                            "Experience deleted successfully.",
+                            "success"
+                        );
                     } else {
-                        Swal.fire("Error!", "Error deleting experience.", "error");
+                        Swal.fire(
+                            "Error!",
+                            "Error deleting experience.",
+                            "error"
+                        );
                     }
                 },
-                error: function(xhr, status, error) {
-                    console.error('AJAX Error:', status, error);
-                    Swal.fire("Error!", "An error occurred while deleting the experience.", "error");
-                }
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error:", status, error);
+                    Swal.fire(
+                        "Error!",
+                        "An error occurred while deleting the experience.",
+                        "error"
+                    );
+                },
             });
         }
     });
@@ -798,9 +887,3 @@ function addHospital(widgetId, value) {
                     End : Manage Hospitals/Experience in kendo list
 ============================================================================
 */
-
-
-
-
-
-

@@ -92,13 +92,12 @@
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
+
 @endsection
 
 @section('javascript')
 <script>
-    var site_admin_base_url = "{{ env('SITE_ADMIN_BASE_URL') }}";
-
-
+    var site_base_url = "{{ env('SITE_BASE_URL') }}";
     // //script for applying custom validation on jquery ui plugin 
     // $.validator.addMethod("greaterThan", function(value, element, params) {
     //     var startMonth = $(params).val();
@@ -265,7 +264,7 @@
         batch: true,
         transport: {
             read: {
-                url: site_admin_base_url + "slots/getWeekDays",
+                url: site_base_url + "doctor/slots/getWeekDays",
                 dataType: "json"
             },
             parameterMap: function(options, operation) {

@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Patient;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Services\UserServices;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PatientProfileDetailRequest;
 use App\Http\Services\StateServices;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Services\CountryServices;
 use App\Http\Services\DoctorAddressServices;
+use App\Http\Requests\PatientProfileDetailRequest;
 use App\Http\Requests\StoreDoctorPersonalDetailRequest;
 
 class PatientProfileController extends Controller
@@ -45,23 +46,27 @@ class PatientProfileController extends Controller
     }
     public function patientProfileUpdate(PatientProfileDetailRequest $request)
     {
+        $data = $request->all();
+        $data['doctor_id'] = Auth::id();
+
         try {
-            $data = $request->all();
-            $patientDetails = $this->userServices->updatePatient($data);
-            $addedDoctorAddress = $this->doctor_address_services->createOrUpdateAddress($data['address']);
+            DB::beginTransaction(); // Start the transaction
+            $this->userServices->updatePatient($data);
+            $this->doctor_address_services->createOrUpdateAddress($data['address']);
+            DB::commit(); // Commit the transaction
 
             return response()->json(
                 [
                     'message' => 'Patient updated successfully.',
                     'status'  => true,
-                    // 'data'      => $patientDetails
                 ]
             );
         } catch (\Exception $e) {
+            DB::rollBack(); // Rollback the transaction if an error occurs
             return response()->json(
                 [
                     'message' => 'An error occurred while updating the patient profile.',
-                    'status'  => 'false',
+                    'status'  => false,
                     'error'   => $e->getMessage()
                 ],
                 500

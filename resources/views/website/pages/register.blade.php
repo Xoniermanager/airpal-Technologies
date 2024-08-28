@@ -43,9 +43,9 @@
                                         <span class="text-danger" id="password_error"></span>
                                     </div>
                                     <div class="mb-4 form-focus">
-                                        <input type="text" class="form-control floating" name="phone_number">
+                                        <input type="text" class="form-control floating" name="phone">
                                         <label class="focus-label">Mobile Number</label>
-                                        <span class="text-danger" id="phone_number_error"></span>
+                                        <span class="text-danger" id="phone_error"></span>
                                     </div>
                                     <div>
                                         <select name="gender" class="form-control" style="font-size: 14px">
@@ -56,7 +56,7 @@
                                         <span class="text-danger" id="gender_error"></span>
                                     </div>
                                     <div class="text-end">
-                                        <a class="forgot-link" href="{{ route('patient.login.index') }}">Already have an
+                                        <a class="forgot-link" href="{{ route('login.index') }}">Already have an
                                             account?</a>
                                     </div>
                                     <button class="btn btn-primary w-100 btn-lg login-btn" type="submit">Signup</button>
@@ -88,7 +88,7 @@
                         required: true,
                         email: true
                     },
-                    phone_number: {
+                    phone: {
                         required: true,
                         digits: true,
                         minlength: 8,
@@ -114,7 +114,7 @@
                         required: "Please enter a valid email address",
                         email: "Please enter a valid email address"
                     },
-                    phone_number: {
+                    phone: {
                         required: "Please enter your phone number",
                         digits: "Please enter only digits",
                         minlength: "Phone number must be at least 8 digits long",

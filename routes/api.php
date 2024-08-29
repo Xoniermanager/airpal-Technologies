@@ -49,7 +49,6 @@ Route::controller(AuthController::class)->prefix('patient')->group(function () {
 });
 
 
-
 Route::middleware('authCheck')->group(function () {
 
     Route::prefix('doctor')->group(function () {
@@ -59,7 +58,7 @@ Route::middleware('authCheck')->group(function () {
         });
 
         Route::controller(DoctorProfileController::class)->group(function () {
-            Route::get('profile', 'profile');
+        
             Route::post('address/update', 'updateAddress');
             Route::get('get-my-patient', 'getMyPatientByDoctorId');
         });
@@ -123,9 +122,9 @@ Route::middleware('authCheck')->group(function () {
 
     // patient routes starts here
     Route::prefix('patient')->group(function () {
-        // Route::controller(PatientDashboardController::class)->group(function () {
-        //     Route::get('get-dashboard-data', 'getDashBoardData');
-        // });
+        Route::controller(PatientDashboardController::class)->group(function () {
+            Route::get('get-dashboard-data', 'getDashBoardData');
+        });
         Route::controller(PatientProfileController::class)->group(function () {
             Route::get('profile', 'patientProfile');
         });
@@ -172,11 +171,4 @@ Route::middleware('authCheck')->group(function () {
         });
     });
     Route::get('privacy', [AuthController::class, 'privacyPolicy']);
-});
-
-
-Route::prefix('patient')->group(function () {
-    Route::controller(PatientDashboardController::class)->group(function () {
-        Route::get('get-dashboard-data', 'getDashBoardData');
-    });
 });

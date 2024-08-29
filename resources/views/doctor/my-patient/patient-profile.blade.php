@@ -51,15 +51,84 @@
 
                             <div class="tab-content pt-0">
 
-                                <div id="pat_appointments" class="tab-pane fade show active">
-                                    <div class="search-header">
-                                        {{-- <div class="search-field">
-                                            <input type="text" class="form-control" placeholder="Search">
-                                            <span class="search-icon"><i
-                                                    class="fa-solid fa-magnifying-glass"></i></span>
-                                        </div> --}}
+                                <div id="pat_appointments" class="tab-pane fade show active" role="tabpanel">
+                                    <div class="custom-table card-body">
+                                        <ul>
+                                            @forelse ($patientBooking as $booking)
+                                                @php
+                                                    $baseHue = 216; // Hue value for #004cd4
+                                                    $saturation = 100; // Saturation for a vibrant color
+                                                    $lightness = 41; // Initial lightness
+                                        
+                                                    // Adjust the hue or lightness dynamically based on the loop index
+                                                    $currentHue = ($baseHue + $loop->index * 10) % 360; // Change hue for a color shift
+                                                    $currentLightness = min($lightness + ($loop->index * 5), 70); // Gradually increase lightness
+                                        
+                                                    // Construct the HSL color string
+                                                    $accentColor = "hsl($currentHue, $saturation%, $currentLightness%)";
+                                                @endphp
+                                        
+                                                <li style="--accent-color: {{ $accentColor }}">
+                                                    <div class="date">{{ date('j M Y', strtotime($booking->booking_date)) ?? '' }}</div>
+                                                    <div class="appointment-wrap appointment-grid-wrap">
+                                                        <div class="patinet-information mb-3">
+                                                            <img src="{{ $booking->user->image_url ?? '' }}" alt="">
+                                                            <div class="patient-info">
+                                                              <a href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($booking->user->id)]) }}"><h5 class="mb-0">Dr. {{ $booking->user->fullName ?? '' }}</h5></a>
+                                                               
+                                                                    @isset($doctorDetails)
+                                                                    @forelse ($doctorDetails->educations as $education)
+                                                                      <span class="badge badge-info text-white">  {{ $education->course->name }}</span>
+                                                                    @empty
+                                                                        <p>N/A</p>
+                                                                    @endforelse
+                                                                @endisset
+                                                               
+                                                            </div>
+                                                        </div>
+                                                        <h4 class="">General Visit</h4>
+                                                        <p class="mb-1"><b>Symptoms:</b> {{ $booking->symptoms ?? 'N/A' }}</p>
+                                                        <p class="mb-1"><b>Booking on: </b>{{ date('j M Y', strtotime($booking->booking_date)) ?? '' }}</p>
+                                                        <p class="mb-1"><b>Time:</b> {{ date('h:i A', strtotime($booking->slot_start_time)) ?? '' }}- {{ date('h:i A', strtotime($booking->slot_end_time)) ?? '' }}</p>
+                                                        <p class="mb-1"> <b>Note: </b> {{ $booking->note ?? 'N/A' }}</p>
+                                        
+                                                        <div style="border-top: 1px dashed #000;padding-top: 5px;margin-top: 13px;">
+                                                            <span class="float-right mt-2">Booked on: {{ date('j M Y', strtotime($booking->created_at)) ?? '' }}</span>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </li>
+                                            @empty
+                                                <div><p>Not Found</p></div>
+                                            @endforelse
+                                        </ul>
+                                        
+                                        {{-- <ul>
+                                            @forelse ($patientBooking as $booking )
+                                            <li style="--accent-color:#41516C">
+                                                <div class="date">{{ date('j M Y', strtotime($booking->booking_date)) ?? '' }}</div>
+                                                <div class="appointment-wrap appointment-grid-wrap">
+                                                    <div class="patinet-information mb-3">
+                                                        <img src="{{ $booking->user->image_url ?? '' }}" alt="">
+                                                        <div class="patient-info">
+                                                            <h5 class="mb-0">Dr. {{  $booking->user->fullName ?? '' }}</h5>
+                                                            <span>Booking: {{ date('j M Y', strtotime($booking->booking_date)) ?? '' }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <h4 class="">General Visit  </h4>
+                                                    <div class="">Lorem ipsum dolor sit, amet consectetur adipisicing
+                                                        elit. Quos adipisci nobis nostrum vero nihil veniam.</div>
+                                                </div>
+                                            </li>
+                                            @empty
+                                    
+                                            <div><p>Not Found</p></div>
+                               
+                                        @endforelse
+                                        </ul> --}}
                                     </div>
-                                    <div class="custom-table">
+                                </div>
+                                    {{-- <div class="custom-table">
                                         <div class="table-responsive">
                                             <table class="table table-center mb-0">
                                                 <thead>
@@ -117,8 +186,8 @@
                     
                                             </table>
                                         </div>
-                                    </div>
-                                </div>
+                                    </div> --}}
+                                {{-- </div> --}}
 
 {{-- 
                                 <div class="tab-pane fade" id="prescription">

@@ -153,7 +153,7 @@
                                     @endif
                                 </div>
                                 <div class="user-text">
-                                    <h6>Dr {{ auth()->user()->fullName }}</h6>
+                                    <h6>{{ auth()->user()->fullName }}</h6>
                                     <p class="text-success mb-0">Available</p>
                                 </div>
                             </div>

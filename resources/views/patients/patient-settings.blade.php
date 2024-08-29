@@ -167,6 +167,7 @@
                                 </div>
                             </div>
                             <input type="hidden"  value ="{{$patientDetails->id ?? ''}}" name="address[user_id]">
+                            <input type="hidden"  value ="{{$patientDetails->id ?? ''}}" name="doctor_id">
                             <div class="modal-btn text-end">
                                 <a href="#" class="btn btn-gray">Cancel</a>
                                 <button type="submit" class="btn btn-primary prime-btn">Save Changes</button>

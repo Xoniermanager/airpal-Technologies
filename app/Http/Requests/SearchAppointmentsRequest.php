@@ -22,7 +22,7 @@ class SearchAppointmentsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'key'       =>  'required|in:all,today,upcoming,cancelled,confirmed',
+            'key'       =>  'required|in:all,today,upcoming,cancelled,confirmed,completed',
             'doctorId'  =>  'required|exists:users,id',
             'searchKey' =>  'string|max:255|nullable',
             'dateSearch' =>  'date|nullable',

@@ -42,7 +42,7 @@
                                 <li>
                                     <div class="appointment-grid-head">
                                         <div class="patinet-information">
-                                            <a href="{{ route('doctor.doctor-patients.index') }}">
+                                            <a href="{{ route('doctor-patient-profile', ['id' => Crypt::encrypt($patientDetails['patient_details']->id)]) }}"">
                                                 <img src="{{ $patientDetails['patient_details']->image_url }}"
                                                     id="blah"
                                                     onerror="this.src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}">
@@ -51,7 +51,7 @@
                                             <div class="patient-info">
                                                 {{-- <p>#Apt0001</p> --}}
                                                 <h6><a
-                                                        href="{{ route('doctor.doctor-patients.index') }}">{{ $patientDetails['patient_details']->fullName }}</a>
+                                                        href="{{ route('doctor-patient-profile', ['id' => Crypt::encrypt($patientDetails['patient_details']->id)]) }}"">{{ $patientDetails['patient_details']->fullName }}</a>
                                                 </h6>
                                                 <ul>
                                                     {{-- <li>Age : 42</li> --}}
@@ -121,7 +121,7 @@
                                 <li>
                                     <div class="appointment-grid-head">
                                         <div class="patinet-information">
-                                            <a href="{{ route('doctor.doctor-patients.index') }}">
+                                            <a href="{{ route('doctor-patient-profile', ['id' => Crypt::encrypt($patientDetails['patient_details']->id)]) }}">
                                                 <img src="{{ $patientDetails['patient_details']->image_url }}"
                                                     id="blah"
                                                     onerror="this.src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}">
@@ -130,7 +130,7 @@
                                             <div class="patient-info">
                                                 {{-- <p>#Apt0001</p> --}}
                                                 <h6><a
-                                                        href="{{ route('doctor.doctor-patients.index') }}">{{ $patientDetails['patient_details']->fullName }}</a>
+                                                        href="{{ route('doctor-patient-profile', ['id' => Crypt::encrypt($patientDetails['patient_details']->id)]) }}">{{ $patientDetails['patient_details']->fullName }}</a>
                                                 </h6>
                                                 <ul>
                                                     {{-- <li>Age : 42</li> --}}
@@ -202,7 +202,7 @@
                                 <li>
                                     <div class="appointment-grid-head">
                                         <div class="patinet-information">
-                                            <a href="{{ route('doctor.doctor-patients.index') }}">
+                                            <a href="{{ route('doctor-patient-profile', ['id' => Crypt::encrypt($patientDetails['patient_details']->id)]) }}">
                                                 <img src="{{ $patientDetails['patient_details']->image_url }}"
                                                     id="blah"
                                                     onerror="this.src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}">
@@ -211,7 +211,7 @@
                                             <div class="patient-info">
                                                 {{-- <p>#Apt0001</p> --}}
                                                 <h6><a
-                                                        href="{{ route('doctor.doctor-patients.index') }}">{{ $patientDetails['patient_details']->fullName }}</a>
+                                                    href="{{ route('doctor-patient-profile', ['id' => Crypt::encrypt($patientDetails['patient_details']->id)]) }}">{{ $patientDetails['patient_details']->fullName }}</a>
                                                 </h6>
                                                 <ul>
                                                     {{-- <li>Age : 42</li> --}}

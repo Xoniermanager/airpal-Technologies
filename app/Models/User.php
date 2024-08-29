@@ -69,7 +69,7 @@ class User extends Authenticatable
     protected function fullName(): Attribute
     {
         return new Attribute(
-            get: fn () => $this->first_name . ' ' . $this->last_name
+            get: fn() => $this->first_name . ' ' . $this->last_name
         );
     }
 
@@ -77,16 +77,16 @@ class User extends Authenticatable
     public function getAgeAttribute(): Attribute
     {
         return new Attribute(
-            get: fn () => Carbon::parse($this->attributes['dob'])->age
+            get: fn() => Carbon::parse($this->attributes['dob'])->age
         );
-
     }
     protected function imageUrl(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) =>  $value ? asset('images/' .  $value) : ''
+            get: fn($value) => url("storage/" .  $value)
         );
     }
+
     public function getFullAddressAttribute()
     {
         $address = $this->patientAddress; // Eager load the address relationship if necessary
@@ -183,7 +183,7 @@ class User extends Authenticatable
     */
     public function sentChatDetails()
     {
-        return $this->hasOne(DoctorPatientChat::class,'sender_id','id');
+        return $this->hasOne(DoctorPatientChat::class, 'sender_id', 'id');
     }
 
     /*
@@ -191,6 +191,6 @@ class User extends Authenticatable
     */
     public function receivedChatDetails()
     {
-        return $this->hasOne(DoctorPatientChat::class,'receiver_id','id');
+        return $this->hasOne(DoctorPatientChat::class, 'receiver_id', 'id');
     }
 }

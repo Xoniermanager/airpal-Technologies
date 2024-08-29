@@ -42,5 +42,10 @@ class BookingSlots extends Model
         return $this->hasOne(Payments::class, 'booking_id');
     }
 
+    public function prescription()
+    {
+        return $this->hasOne(Prescription::class , 'booking_slot_id');
+    }
+
 
 }

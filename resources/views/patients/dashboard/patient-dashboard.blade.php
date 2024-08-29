@@ -3,13 +3,15 @@
     <div class="row">
         <div class="col-xl-8 d-flex">
             <div class="dashboard-card w-100">
-                <div class="dashboard-card-head">
+                <div class="dashboard-card-head d-block">
                     <div class="header-title">
-                        <h5>Health Records</h5>
-                        <div class="report-gen-date">
-                            <p>Report generated on last visit :
+                        <h5>Health Records
+                         <small class="float-right">Report generated on last visit :
                                 {{ date('j M Y', strtotime($diaryDetails->updated_at ?? '')) ?? '' }}
-                            </p>
+                            </small>
+                            </h5>
+                        <div class="report-gen-date">
+                           
                         </div>
                     </div>
 
@@ -88,10 +90,7 @@
                             <div class="chart-over-all-report">
                                 <h5>Overall Report</h5>
                                 <div class="circle-bar circle-bar3 report-chart">
-                                    <div class="circle-graph3" data-percent="66">
-                                        <p>Last visit
-                                            25 Mar 2024</p>
-                                    </div>
+                  
                                 </div>
                                 <span class="health-percentage">Your health is 95% Normal</span>
                                 <a href="{{ route('patient.diary.index') }}" class="btn btn-dark w-100">View Details<i

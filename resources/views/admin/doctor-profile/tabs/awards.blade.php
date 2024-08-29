@@ -88,7 +88,7 @@
 </div>
 <div class="col-lg-6 col-md-6">
     @php
-        $filePath = asset('images') . '/' . $singleAwardDetail->certificates;
+        $filePath = $singleAwardDetail->certificates;
         $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
     @endphp
 

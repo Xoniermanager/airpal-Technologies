@@ -6,7 +6,7 @@
                                             <div class="doc-info-left">
                                                 <div class="doctor-img">
                                                     <a
-                                                        href="{{ route('frontend.doctor.profile', ['user' => $doctor->id]) }}">
+                                                        href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">
                                                         <img src="{{ $doctor['image_url'] }}"
                                                             onerror="this.src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}';"
                                                             class="img-fluid" alt="John Doe">
@@ -27,7 +27,7 @@
                                                 <div class="doc-info-cont">
                                                     <h4 class="doc-name">
                                                         <a
-                                                            href="{{ route('frontend.doctor.profile', ['user' => $doctor->id]) }}">{{ $doctor->first_name }}</a>
+                                                            href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">{{ $doctor->first_name }}</a>
                                                         <i class="fas fa-circle-check"></i>
                                                     </h4>
                                                     <span class="doc-speciality">
@@ -102,7 +102,7 @@
                                             <div class="doc-info-right">
                                                 <div class="clinic-booking book-appoint">
                                                     <a class="btn btn-primary"
-                                                        href="{{ route('appointment.index', ['id' => $doctor->id]) }}">Book
+                                                        href="{{ route('appointment.index',['id' => Crypt::encrypt($doctor->id)]) }}">Book
                                                         Appointment</a>
                                                     <a class="btn btn-primary-light" href="#">Book Online
                                                         Consultation</a>

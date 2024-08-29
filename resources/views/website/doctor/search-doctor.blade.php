@@ -15,9 +15,11 @@
             </div>
         </div>
     </div>
-    <div class="loaderbox1"></div>
-    <div class="loaderbox">
-    <img src="{{ asset('assets/img/loader-rolling.gif') }}" class="search-loader">
+    <div class="loaderonload">
+        <div class="loaderbox1"></div>
+        <div class="loaderbox">
+            <img src="{{ asset('assets/img/loader-rolling.gif') }}" class="search-loader">
+        </div>
     </div>
     <div class="doctor-content content">
         <div class="container">
@@ -223,15 +225,17 @@
                                             <div class="filter-collapse">
                                                 <ul>
                                                     @foreach ($ratingsWithCounter as $rating => $totalDoctor)
-                                                        @if($totalDoctor > 0)
+                                                        @if ($totalDoctor > 0)
                                                             <li>
-                                                                <label class="custom_check rating_custom_check d-inline-flex">
+                                                                <label
+                                                                    class="custom_check rating_custom_check d-inline-flex">
                                                                     <input type="checkbox" name="rating_count"
                                                                         value="{{ $rating }}">
                                                                     <span class="checkmark"></span>
                                                                     <div class="rating">
                                                                         {!! getRatingHtml($rating) !!}
-                                                                        <span class="rating-count">({{ $totalDoctor }})</span>
+                                                                        <span
+                                                                            class="rating-count">({{ $totalDoctor }})</span>
                                                                     </div>
                                                                 </label>
                                                             </li>
@@ -392,7 +396,7 @@
                                         </div>
                                     </div>
 
-{{-- 
+                                    {{-- 
                                     <div class="filter-btn apply-btn">
                                         <div class="row">
                                             <div class="col-6">
@@ -484,7 +488,7 @@
 @section('javascript')
     <script src="http://127.0.0.1:8000/assets/js/jquery-3.7.1.min.js" type="text/javascript"></script>
     <script>
-        $('.search-loader').hide();
+        $('.loaderonload').hide();
         $('input[name="gender"], input[name="langauges"], input[name="experience"] ,input[name="speciality"],input[name="services"],input[name="rating_count"]')
             .on('change', function() {
                 search_doctors();
@@ -541,41 +545,41 @@
                     'services': servicesCheckedValue,
                     'rating': ratingCheckedValue
                 },
-                beforeSend: function(){
-                    $('.search-loader').show();
-                },
+                // beforeSend: function(){
+                //     $('.loaderonload').show();
+
+                // },
                 success: function(res) {
                     if (res) {
-                        $('.search-loader').hide();
+                        $('.loaderonload').hide();
                         jQuery('#doctors_list').replaceWith(res.data);
-                        jQuery('#doctors_list').hide().delay(200).fadeIn();
+                        jQuery('#doctors_list').hide().delay(100).fadeIn();
                     }
                 }
             })
         }
 
-function toggleFavorite(doctorId, userId, checkbox) {
-    const isChecked = $(checkbox).is(':checked');
+        function toggleFavorite(doctorId, userId, checkbox) {
+            const isChecked = $(checkbox).is(':checked');
 
-    console.log(`Doctor ID: ${doctorId}, User ID: ${userId}, Checked: ${isChecked}`);
+            console.log(`Doctor ID: ${doctorId}, User ID: ${userId}, Checked: ${isChecked}`);
 
-    $.ajax({
-        url: "{{route('patient.update.favorite')}}", 
-        type: 'POST',
-        data: {
-            doctor_id: doctorId,
-            patient_id: userId,
-            liked: isChecked,
-            _token: '{{ csrf_token() }}' 
-        },
-        success: function(response) {
-            console.log('Favorite status updated:', response);
-        },
-        error: function(xhr, status, error) {
-            console.error('Error:', error);
+            $.ajax({
+                url: "{{ route('patient.update.favorite') }}",
+                type: 'POST',
+                data: {
+                    doctor_id: doctorId,
+                    patient_id: userId,
+                    liked: isChecked,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    console.log('Favorite status updated:', response);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
         }
-    });
-}
-
     </script>
 @endsection

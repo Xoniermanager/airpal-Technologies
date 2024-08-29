@@ -48,6 +48,13 @@
                             onclick="appointment_filter(this)">Confirmed<span>{{ $counters['confirmedAppointments'] }}
                             </span></button>
                     </li>
+
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="completed" type="button"
+                            onclick="appointment_filter(this)">completed<span>{{ $counters['completedAppointments'] ?? 0 }}
+                            </span></button>
+                    </li>
+
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="cancelled" type="button"
                             onclick="appointment_filter(this)">Cancelled<span>{{ $counters['cancelledAppointments'] }}

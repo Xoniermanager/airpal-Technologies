@@ -18,5 +18,9 @@ class Prescription extends Model
     {
         return $this->belongsTo(BookingSlots::class,'booking_slot_id');
     }
+    public function appointment()
+    {
+        return $this->belongsTo(BookingSlots::class);
+    }
 
 }

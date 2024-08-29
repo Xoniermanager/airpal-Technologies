@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use App\Http\Services\BookingServices;
 use App\Http\Requests\PrescriptionRequest;
 use App\Http\Services\PrescriptionService;
@@ -28,8 +29,14 @@ class PrescriptionController extends Controller
     }
     public function add()
     {
+        $encryptedBookingId = request('bookingId');
+        try {
+            $bookingId = Crypt::decrypt($encryptedBookingId);
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            abort(404, 'Invalid booking ID');
+        }
         $allBookingDetails =  $this->bookingService->getAllAppointmentDetailsByDoctorId(Auth::user()->id);
-        return view('doctor.prescription.add', compact('allBookingDetails'));
+        return view('doctor.prescription.add', compact('allBookingDetails', 'bookingId' ));
     }
     public function create(PrescriptionRequest $prescriptionDetails)
     {
@@ -45,10 +52,15 @@ class PrescriptionController extends Controller
             return back()->with(['error' => $e->getmessage()]);
         }
     }
-    public function edit($prescriptionId)
+    public function edit($encryptPrescriptionId)
     {
+        try {
+            $prescriptionId = Crypt::decrypt($encryptPrescriptionId);
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            abort(404, 'Invalid prescription ID');
+        }
         $prescriptionDetails =  $this->prescriptionService->getPrescriptionDetailsById($prescriptionId);
-        $allBookingDetails =  $this->bookingService->getAllAppointmentDetailsByDoctorId(Auth::user()->id);
+        $allBookingDetails   =  $this->bookingService->getAllAppointmentDetailsByDoctorId(Auth::user()->id);
         return view('doctor.prescription.edit', compact('prescriptionDetails', 'allBookingDetails'));
     }
     public function update(PrescriptionRequest $prescriptionDetails, $prescriptionId)

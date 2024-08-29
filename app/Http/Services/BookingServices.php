@@ -252,6 +252,7 @@ class BookingServices
       $todayAppointments     =  $this->bookingRepository->getTodayAppointmentCounter($id);
       $cancelledAppointments = $this->bookingRepository->getAllCanceledAppointmentsByDoctorId($id)->count();
       $confirmedAppointments = $this->bookingRepository->getAllConfirmedAppointments($id)->count();
+      $completedAppointments  = $this->bookingRepository->getAllCompletedAppointmentsByDoctorId($id)->count();
       $upcomingAppointments  = $this->bookingRepository->getAllUpcomingAppointmentsByDoctorId($id)->count();
 
       // Here returning all patient type (status,upcoming,cancelled,confirmed) counter for (doctor profile)
@@ -262,6 +263,7 @@ class BookingServices
             'upcomingAppointments'  => $upcomingAppointments ?? 0,
             'confirmedAppointments' => $confirmedAppointments ?? 0,
             'cancelledAppointments' => $cancelledAppointments ?? 0,
+            'completedAppointments' => $completedAppointments ?? 0
          ];
    }
 
@@ -379,5 +381,10 @@ class BookingServices
     public function getPatientAllConfirmBookings($patientId)
     {
       return $this->bookingRepository->getPatientAllConfirmedAppointments($patientId);
+    }
+
+    public function getAllAppointmentDetailsByDoctorId($doctorId)
+    {
+        return $this->bookingRepository->where('doctor_id',$doctorId)->with('patient')->get();
     }
 }

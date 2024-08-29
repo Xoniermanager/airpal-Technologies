@@ -123,9 +123,9 @@ Route::middleware('authCheck')->group(function () {
 
     // patient routes starts here
     Route::prefix('patient')->group(function () {
-        Route::controller(PatientDashboardController::class)->group(function () {
-            Route::get('get-dashboard-data', 'getDashBoardData');
-        });
+        // Route::controller(PatientDashboardController::class)->group(function () {
+        //     Route::get('get-dashboard-data', 'getDashBoardData');
+        // });
         Route::controller(PatientProfileController::class)->group(function () {
             Route::get('profile', 'patientProfile');
         });
@@ -172,4 +172,11 @@ Route::middleware('authCheck')->group(function () {
         });
     });
     Route::get('privacy', [AuthController::class, 'privacyPolicy']);
+});
+
+
+Route::prefix('patient')->group(function () {
+    Route::controller(PatientDashboardController::class)->group(function () {
+        Route::get('get-dashboard-data', 'getDashBoardData');
+    });
 });

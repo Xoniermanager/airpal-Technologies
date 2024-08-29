@@ -76,7 +76,7 @@ function refresh_chat_list(search_key = '')
     
 // Receive new chat notification 
 jQuery('document').ready(function(){
-    Echo.private('chat.{{ auth()->user()->id }}')
+    window.Echo.private('chat.{{ auth()->user()->id }}')
     .listen('MessageSent', (data) => {
         refresh_chat_list();
 

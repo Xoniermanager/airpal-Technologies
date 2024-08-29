@@ -31,6 +31,8 @@
                 <div class="last-chat-time">
                     <small class="text-muted">{{ $lastMessageDate }}</small>
                     <div class="chat-pin">
+                    <p class='typing typing-{{ $chatUser->id }}'>typing...</p>
+                    
                         <!-- <i class="fa-solid fa-check-double green-check"></i> -->
                     </div>
                 </div>

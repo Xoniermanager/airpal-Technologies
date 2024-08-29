@@ -76,7 +76,7 @@ function refresh_chat_list(search_key = '')
     
 // Receive new chat notification 
 jQuery('document').ready(function(){
-    Echo.private('chat.{{ auth()->user()->id }}')
+    window.Echo.private('chat.{{ auth()->user()->id }}')
     .listen('MessageSent', (data) => {
         refresh_chat_list();
 
@@ -86,6 +86,17 @@ jQuery('document').ready(function(){
         {
             load_chat_history(current_chat_user);
         }
+    });
+
+    Echo.private('chat.{{ auth()->user()->id }}')
+    .listenForWhisper('typing',(event)   =>  {
+        jQuery('.typing-'+event.user_id).show();
+        jQuery('.remove-typing').show();
+
+        setTimeout(function(){
+            jQuery('.typing-'+event.user_id).hide();
+            jQuery('.remove-typing').remove();
+        },8000);
     });
 });
 </script>

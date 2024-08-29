@@ -91,6 +91,17 @@ jQuery('document').ready(function(){
             load_chat_history(current_chat_user);
         }
     });
+
+    Echo.private('chat.{{ auth()->user()->id }}')
+    .listenForWhisper('typing',(event)   =>  {
+        jQuery('.typing-'+event.user_id).show();
+        jQuery('.messages').append('<div class="chats remove-typing"> <div class="chat-content"> Typing...</div></div>');
+
+        setTimeout(function(){
+            jQuery('.typing-'+event.user_id).hide();
+            // jQuery('.remove-typing').remove();
+        },8000);
+    });
 });
 </script>
 @endsection

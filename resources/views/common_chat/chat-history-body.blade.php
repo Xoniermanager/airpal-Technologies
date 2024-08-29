@@ -87,6 +87,7 @@
                         @endphp
                         <span class="chat-date"> {{ $dateText . ' (' . \Carbon\Carbon::parse($chatDate)->diffForHumans() . ')' }}</span>
                     </div>
+                    @php $messageCounter = 0; @endphp
                     @foreach($chats as $chat)
                         @if($chat->sender_id != auth()->user()->id)
                         <div class="chats">
@@ -95,7 +96,7 @@
                             </div>
                             <div class="chat-content">
                                 <div class="chat-profile-name">
-                                    <h6>{{ $receiverDetails->first_name . ' ' . $receiverDetails->last_name }}<span>{{ \Carbon\Carbon::parse($chat->created_at)->diffForHumans() }}</span></h6>
+                                    <h6>{{ $receiverDetails->first_name . ' ' . $receiverDetails->last_name}}<span>{{ \Carbon\Carbon::parse($chat->created_at)->diffForHumans() }}</span></h6>
                                     <div class="chat-action-btns ms-3">
                                         <div class="chat-action-col">
                                             <a class="#" href="#" data-bs-toggle="dropdown">
@@ -183,6 +184,24 @@
                             </div>
                             <div class="chat-avatar">
                                 <img src="{{ $senderDetails->image_url }}" class="dreams_chat" alt="image">
+                            </div>
+                        </div>
+                        @endif
+
+                        @php $messageCounter++; @endphp
+
+                        @if( $chats->count() === $messageCounter)
+                        <div class="chats remove-typing">
+                            <div class="chat-avatar">
+                                <img src="{{ $receiverDetails->image_url }}" class="dreams_chat" alt="image">
+                            </div>
+                            <div class="chat-content">
+                                <div class="chat-profile-name">
+                                    <h6>{{ $receiverDetails->first_name . ' ' . $receiverDetails->last_name}}</h6>
+                                </div>
+                                <div class="message-content">
+                                    typing...
+                                </div>
                             </div>
                         </div>
                         @endif

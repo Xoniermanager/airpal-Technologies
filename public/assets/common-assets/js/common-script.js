@@ -3,7 +3,11 @@
                 Start: Chat Scripts
 =====================================================================
 */
-
+jQuery('document').ready(function(){
+    jQuery('.typing').hide();
+    jQuery('.remove-typing').css('display','none');
+    console.log("test : " + jQuery('.remove-typing').html());
+});
 // Search doctors/patients from doctor panel
 jQuery('#search_chat_users').on('keyup', function(){
     let search_text = jQuery(this).val().trim();
@@ -17,19 +21,6 @@ function set_current_chat_user(selected_user)
 {
     current_chat_user = selected_user;
 }
-
-// Enable send message button after entering some text
-jQuery('body').on('keyup','input[name="message"]', function(){
-    let sendMessageText = jQuery(this).val().trim();
-    if(sendMessageText.length > 0)
-    {
-        jQuery('.send-btn').attr('disabled',false);
-    }
-    else
-    {
-        jQuery('.send-btn').attr('disabled',true);
-    }
-});
 
 // Loading selected chat history
 console.log("site_base_url : " + window.site_base_url);

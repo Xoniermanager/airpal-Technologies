@@ -18,11 +18,8 @@ class PatientDashboardServices
       $this->patientServices = $patientServices;
    }
 
-   public function patientHealthGraphsData($data)
+   public function patientHealthGraphsData($period,$patientId)
    {
-      $period    = $request->period;
-      $patientId = Auth::user()->id;
-
       $healthGraphsData  = [
         'heartBeat'     =>  $this->patientHeartbeatGraphData($period,$patientId),
         'bloodPressure' =>  $this->patientBloodPressureGraphData($period,$patientId),
@@ -32,7 +29,6 @@ class PatientDashboardServices
       ];
   
       return $healthGraphsData;
-
    }
 
    public function patientHeartbeatGraphData($period ,$patientId)

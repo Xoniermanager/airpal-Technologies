@@ -150,6 +150,14 @@ class DoctorPanelQuestionController extends Controller
       ])->render()
     ]);
   }
+  public function destroy(Request $request)
+  {
+    if ($this->questionOptionServices->destroy($request->id)) {
+      return response()->json([
+        'message'  =>  'Delete Successfully!'
+      ]);
+    }
+  }
 
 
 }

@@ -40,9 +40,9 @@
                                     {{-- <li class="nav-item">
                                         <a class="nav-link" href="#prescription" data-bs-toggle="tab">Prescription</a>
                                     </li> --}}
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a class="nav-link" href="#medical" data-bs-toggle="tab">Medical Records</a>
-                                    </li>
+                                    </li> --}}
                                     {{-- <li class="nav-item">
                                         <a class="nav-link" href="#billing" data-bs-toggle="tab">Billing</a>
                                     </li> --}}
@@ -88,12 +88,33 @@
                                                         </div>
                                                         <h4 class="">General Visit</h4>
                                                         <p class="mb-1"><b>Symptoms:</b> {{ $booking->symptoms ?? 'N/A' }}</p>
-                                                        <p class="mb-1"><b>Booking on: </b>{{ date('j M Y', strtotime($booking->booking_date)) ?? '' }}</p>
+                                                        <p class="mb-1"><b>Appointment: </b>{{ date('j M Y', strtotime($booking->booking_date)) ?? '' }}</p>
+                                                        <p class="mb-1 "><b>status: </b>
+                                                            <span class="badge text-white 
+                                                                @if($booking->status == 'confirmed')
+                                                                    badge-success
+                                                                @elseif($booking->status == 'completed')
+                                                                    badge-primary
+                                                                @elseif($booking->status == 'rejected')
+                                                                    badge-danger
+                                                                @elseif($booking->status == 'requested')
+                                                                    badge-warning
+                                                                @else
+                                                                    badge-secondary
+                                                                @endif
+                                                            ">
+                                                                {{ ucfirst($booking->status) }}
+                                                            </span>
+
+                                                        </p>
                                                         <p class="mb-1"><b>Time:</b> {{ date('h:i A', strtotime($booking->slot_start_time)) ?? '' }}- {{ date('h:i A', strtotime($booking->slot_end_time)) ?? '' }}</p>
                                                         <p class="mb-1"> <b>Note: </b> {{ $booking->note ?? 'N/A' }}</p>
-                                        
+                                                        
+
                                                         <div style="border-top: 1px dashed #000;padding-top: 5px;margin-top: 13px;">
-                                                            <span class="float-right mt-2">Booked on: {{ date('j M Y', strtotime($booking->created_at)) ?? '' }}</span>
+
+                                                            <span class="float-left mt-2"> {!! $booking->getPrescriptionButton() !!}</span>
+                                                            <span class="float-right mt-3">Booked on: {{ date('j M Y', strtotime($booking->created_at)) ?? '' }}</span>
                                                         </div>
                                                         
                                                     </div>
@@ -380,15 +401,11 @@
                                     </div>
 
                                 </div> --}}
-
+{{-- 
 
                                 <div class="tab-pane fade" id="medical">
                                     <div class="search-header">
-                                        {{-- <div class="search-field">
-                                            <input type="text" class="form-control" placeholder="Search">
-                                            <span class="search-icon"><i
-                                                    class="fa-solid fa-magnifying-glass"></i></span>
-                                        </div> --}}
+
                                         <div>
                                             <a href="#" data-bs-toggle="modal"
                                                 data-bs-target="#add_medical_records"
@@ -446,36 +463,7 @@
                                             </table>
                                         </div>
                                     </div>
-
-                                    {{-- <div class="pagination dashboard-pagination">
-                                        <ul>
-                                            <li>
-                                                <a href="#" class="page-link"><i
-                                                        class="fa-solid fa-chevron-left"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="page-link">1</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="page-link active">2</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="page-link">3</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="page-link">4</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="page-link">...</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="page-link"><i
-                                                        class="fa-solid fa-chevron-right"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div> --}}
-
-                                </div>
+                                </div> --}}
 
 
                                 {{-- <div class="tab-pane" id="billing">

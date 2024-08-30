@@ -3333,7 +3333,7 @@ th.table-head-days {
 }
 
 .card-body {
-  padding: 1.5rem;
+  padding: 1rem;
 }
 @media (max-width: 575.98px) {
   .card-body {
@@ -21378,6 +21378,7 @@ a.mute-video.stop {
 
 .clinic-details {
   margin-bottom: 15px;
+  margin-top:12px;
 }
 .clinic-details h5 {
   font-weight: normal;
@@ -21886,7 +21887,7 @@ a.mute-video.stop {
 }
 .doctor-widget-one .doc-location {
   font-weight: 500;
-  margin-bottom: 14px;
+  margin-bottom: 4px;
 }
 .doctor-widget-one .doc-location:last-child {
   margin-bottom: 0;

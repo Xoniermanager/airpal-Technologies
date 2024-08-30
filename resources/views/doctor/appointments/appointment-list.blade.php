@@ -12,7 +12,7 @@
                         </div>
                     @elseif ($booking->booking_date == \Carbon\Carbon::now()->toDateString())
                         <div class="ribbon ribbon-spo"><span>Today</span></div>
-                    @elseif (\Carbon\Carbon::parse($booking->booking_date)->gt(\Carbon\Carbon::now()) && $booking->status !='completed')
+                    @elseif (\Carbon\Carbon::parse($booking->booking_date)->gt(\Carbon\Carbon::now()) && $booking->status != 'completed')
                         <div class="ribbon ribbon-pop"><span>Upcoming</span></div>
                     @endif
                     <ul>
@@ -24,7 +24,7 @@
                                     </a>
                                     <div class="patient-info">
                                         <h6><a
-                                            href="{{ route('doctor-patient-profile', ['id' => Crypt::encrypt($booking->patient->id)]) }}">{{ $booking->patient->fullName }}</a>
+                                                href="{{ route('doctor-patient-profile', ['id' => Crypt::encrypt($booking->patient->id)]) }}">{{ $booking->patient->fullName }}</a>
                                         </h6>
                                     </div>
                                 </div>
@@ -68,23 +68,7 @@
                                     prescription</a>
                                 
                             </div> --}}
-                            @if ($booking->status == 'completed' )
-                            @if (isset($booking->prescription))
-                            <div class="appointment-start">
-                                <a class="btn btn-primary"
-                                    href="{{ route('prescription.edit', Crypt::encrypt($booking->prescription->id)) }}">Prescription</a>
-                            </div> 
-                            @else
-                            <div class="appointment-start">
-                                <a class="btn btn-light" href="{{ route('prescription.add',['bookingId' =>Crypt::encrypt($booking->id)]) }}">Prescription</a>
-                            </div>
-                            
-                            {{-- <div class="appointment-start">
-                                <a class="btn btn-primary"
-                                    href="{{ route('prescription.add',['id'=> $booking->prescription->id]) }}">Prescription</a>
-                            </div> --}}
-                            @endif
-                            @endif
+                            {!! $booking->getPrescriptionButton() !!}
                         </li>
                     </ul>
                 </div>

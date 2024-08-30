@@ -53,37 +53,41 @@ class PatientDashboardController extends Controller
     $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate(Carbon::now(), Auth::user()->id);
 
     if (!$diaryDetails) {
-        Log::info('No diary details found for today. Checking previous month.');
-        $currentDate  = Carbon::today();
-        $diaryDetails = $this->getValidatePreviewsDateDiaryDetail($currentDate);
+      Log::info('No diary details found for today. Checking previous month.');
+      $currentDate  = Carbon::today();
+      $diaryDetails = $this->getValidatePreviewsDateDiaryDetail($currentDate);
     }
 
+    if ($diaryDetails) {
 
-    $diaryDetailsDayAfter = $this->getValidatePreviewsDateDiaryDetail($diaryDetails->created_at);
-    $comparedDate = Carbon::parse($diaryDetails->created_at);
-    $comparedDate = $comparedDate->subDay();
-    $percentageChanges = [];
+      $diaryDetailsDayAfter = $this->getValidatePreviewsDateDiaryDetail($diaryDetails->created_at);
+      $comparedDate = Carbon::parse($diaryDetails->created_at);
+      $comparedDate = $comparedDate->subDay();
+      $percentageChanges = [];
 
-    $attributes = ['pulse_rate', 'oxygen_level','bp', 'avg_body_temp', 'avg_heart_beat','glucose','weight','total_sleep_hr'];
+      $attributes = ['pulse_rate', 'oxygen_level', 'bp', 'avg_body_temp', 'avg_heart_beat', 'glucose', 'weight', 'total_sleep_hr'];
 
-    foreach ($attributes as $attribute) {
-      $currentValue = $diaryDetails->$attribute ?? null;
-      $previousValue = $diaryDetailsDayAfter->$attribute ?? null;
-  
-      if ($currentValue !== null && $previousValue !== null && $previousValue != 0) {
+      foreach ($attributes as $attribute) {
+        $currentValue = $diaryDetails->$attribute ?? null;
+        $previousValue = $diaryDetailsDayAfter->$attribute ?? null;
+
+        if ($currentValue !== null && $previousValue !== null && $previousValue != 0) {
           $percentageChange = (($currentValue - $previousValue) / $previousValue) * 100;
           $percentageChanges[$attribute] = round($percentageChange, 2); // Round to 2 decimal places
-      } elseif ($previousValue === null && $currentValue !== null) {
+        } elseif ($previousValue === null && $currentValue !== null) {
           $percentageChanges[$attribute] = 100.00; // Indicating a 100% increase from no data
-      } elseif ($currentValue === null && $previousValue !== null) {
+        } elseif ($currentValue === null && $previousValue !== null) {
           $percentageChanges[$attribute] = -100.00; // Indicating a 100% decrease to no data
-      } else {
+        } else {
           $percentageChanges[$attribute] = 'N/A';
+        }
       }
-  }
-  
-    
-    $diaryDetails['percentage'] = $percentageChanges;
+
+      $diaryDetails['percentage'] = $percentageChanges;
+    } else {
+      $diaryDetails['percentage'] = [];
+    }
+
 
     return view(
       'patients.dashboard.patient-dashboard',
@@ -102,32 +106,31 @@ class PatientDashboardController extends Controller
 
   public function getValidatePreviewsDateDiaryDetail($currentDate, $diaryDetails = null)
   {
-    while (!$diaryDetails) 
-    {
-        Log::info('Checking diary details for date: ' . $currentDate->toDateString());
+    while (!$diaryDetails) {
+      Log::info('Checking diary details for date: ' . $currentDate->toDateString());
 
-            // Define your specific date
-        $specificDate = Carbon::parse($currentDate); // Replace with your specific date
-        $oneDayBeforeSpecificDate = $specificDate->subDay();
-        $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate($oneDayBeforeSpecificDate, Auth::user()->id);
+      // Define your specific date
+      $specificDate = Carbon::parse($currentDate); // Replace with your specific date
+      $oneDayBeforeSpecificDate = $specificDate->subDay();
+      $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate($oneDayBeforeSpecificDate, Auth::user()->id);
+      if ($diaryDetails) {
+        Log::info('Diary details found for date: ' . $currentDate->toDateString());
+        break; // Exit the loop if a record is found
+      }
+
+      // Move to the previous day
+      $currentDate = $currentDate->subDay();
+
+      // If we have checked all days in the current month, move to the previous month
+      if ($currentDate->isLastOfMonth()) {
+        // Move to the last day of the previous month
+        $previousMonthDate = $currentDate->startOfMonth()->subDay();
+        $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate($previousMonthDate, Auth::user()->id);
         if ($diaryDetails) {
-            Log::info('Diary details found for date: ' . $currentDate->toDateString());
-            break; // Exit the loop if a record is found
+          break; // Exit the loop if a record is found
         }
-
-        // Move to the previous day
-        $currentDate = $currentDate->subDay();
-
-        // If we have checked all days in the current month, move to the previous month
-        if ($currentDate->isLastOfMonth()) {
-            // Move to the last day of the previous month
-            $previousMonthDate = $currentDate->startOfMonth()->subDay();
-            $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate($previousMonthDate, Auth::user()->id);
-            if ($diaryDetails) {
-                break; // Exit the loop if a record is found
-            }
-            break;
-        }
+        break;
+      }
     }
     return $diaryDetails;
   }

@@ -58,11 +58,13 @@ class PatientDashboardController extends Controller
         $diaryDetails = $this->getValidatePreviewsDateDiaryDetail($currentDate);
     }
 
-    $diaryDetailsDayAfter = $this->getValidatePreviewsDateDiaryDetail($diaryDetails->created_at);
 
+    $diaryDetailsDayAfter = $this->getValidatePreviewsDateDiaryDetail($diaryDetails->created_at);
+    $comparedDate = Carbon::parse($diaryDetails->created_at);
+    $comparedDate = $comparedDate->subDay();
     $percentageChanges = [];
 
-    $attributes = ['pulse_rate', 'oxygen_level','bp', 'avg_body_temp', 'avg_heart_beat','glucose'];
+    $attributes = ['pulse_rate', 'oxygen_level','bp', 'avg_body_temp', 'avg_heart_beat','glucose','weight','total_sleep_hr'];
 
     foreach ($attributes as $attribute) {
       $currentValue = $diaryDetails->$attribute ?? null;
@@ -82,6 +84,7 @@ class PatientDashboardController extends Controller
   
     
     $diaryDetails['percentage'] = $percentageChanges;
+
     return view(
       'patients.dashboard.patient-dashboard',
       [
@@ -91,7 +94,8 @@ class PatientDashboardController extends Controller
         'patientInvoicesList'       => $patientInvoicesList,
         'patientHeartBeatGraphData' => $patientHeartBeatGraphData,
         'medicalRecords'            => $medicalDetailsRecords->take(5),
-        'diaryDetails'              => $diaryDetails
+        'diaryDetails'              => $diaryDetails,
+        'comparedDate'              => $comparedDate
       ]
     );
   }
@@ -106,7 +110,6 @@ class PatientDashboardController extends Controller
         $specificDate = Carbon::parse($currentDate); // Replace with your specific date
         $oneDayBeforeSpecificDate = $specificDate->subDay();
         $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate($oneDayBeforeSpecificDate, Auth::user()->id);
-
         if ($diaryDetails) {
             Log::info('Diary details found for date: ' . $currentDate->toDateString());
             break; // Exit the loop if a record is found

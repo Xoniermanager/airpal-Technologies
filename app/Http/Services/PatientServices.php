@@ -62,8 +62,8 @@ class PatientServices
      return $this->patientDiaryService->getAllDiaryDetailsByPatientId($patientId);
   }
 
-  public function getAllPatientBookings($patientId)
+  public function getAllPatientBookings($patientId,$doctorId)
   {
-    return $this->bookingService->getPatientAllConfirmBookings($patientId);
+    return $this->bookingService->getPatientAllConfirmBookings($patientId,$doctorId);
   }
 }

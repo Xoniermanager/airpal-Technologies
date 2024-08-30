@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Patient;
 use Illuminate\Http\Request;
 use App\Http\Services\UserServices;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SearchDoctorRequest;
 
 class DoctorFilterController extends Controller
 {
@@ -16,15 +17,17 @@ class DoctorFilterController extends Controller
     $this->user_services = $user_services;
   }
 
-  public function doctorSearch(Request $request)
+  public function doctorSearch(SearchDoctorRequest $request)
   {
+    dd($request->all());
     try {
-      $searchedItems = $this->user_services->searchInDoctors($request->all());
+      $searchedItems = $this->user_services->searchInDoctors($request->validated());
       if ($searchedItems) {
         return response()->json([
           "status"  => "success",
           "message" => "searching ...",
-          "data"    => $searchedItems
+          "data"    => $searchedItems['data'],
+          "doctorsCount"    => $searchedItems['doctorsCount']
         ]);
       }
     } catch (\Throwable $th) {

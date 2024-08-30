@@ -31,7 +31,7 @@ class PatientDashboardController extends Controller
     $this->bookingServices = $bookingServices;
     $this->userServices = $userServices;
     $this->patientServices = $patientServices;
-    $this->$patientDashboardServices = $patientDashboardServices;
+    $this->patientDashboardServices = $patientDashboardServices;
     $this->patientDiaryService = $patientDiaryService;
   }
   public function getDashBoardData()
@@ -39,9 +39,6 @@ class PatientDashboardController extends Controller
     try {
 
       $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate(Carbon::now(), Auth()->guard('api')->user()->id);
-
-      // $patientHealthGraphsData = 
-
       if ($diaryDetails) {
 
         $diaryDetailsDayAfter = $this->getValidatePreviewsDateDiaryDetail($diaryDetails->created_at);
@@ -63,11 +60,12 @@ class PatientDashboardController extends Controller
             $percentageChanges[$attribute] = 'N/A';
           }
         }
+        $patientHealthGraphsData = $this->patientDashboardServices->patientHealthGraphsData(now()->month,Auth()->guard('api')->user()->id); 
+
         $diaryDetails['percentage'] = $percentageChanges;
       } else {
         $diaryDetails['percentage']  = '';
       }
-
 
       $data =
         [
@@ -75,7 +73,9 @@ class PatientDashboardController extends Controller
           'recommendedDoctors'   =>  $this->getRecommendedDoctors() ?? '',
           'popularDoctors'       =>  $this->getPopularDoctors() ?? '',
           'diaryDetails'         =>  $diaryDetails,
+          'patientHealthGraphsData' => $patientHealthGraphsData ?? ''
         ];
+        
       if ($data) {
         return response()->json([
           "status"  => "success",

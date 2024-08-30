@@ -153,6 +153,7 @@
             event.currentTarget.classList.add("active");
         }
 
+        // For ajax requests add active class on selected page
         $(document).on('click', '.pagination a', function(e) {
             e.preventDefault();
             var page_no = $(this).attr('href').split('page=')[1];

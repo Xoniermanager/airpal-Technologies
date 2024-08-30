@@ -201,10 +201,10 @@ class BookingRepository extends BaseRepository
     }
 
 
-    public function getPatientAllConfirmedAppointments($patientId)
+    public function getPatientAllAppointmentsBasedOnDoctor($patientId,$doctorId)
     {
         return  $this->where('patient_id', $patientId)
-            ->where('status', '=', 'confirmed')
+                ->where('doctor_id', $doctorId)
             ->orderby('booking_date','DESC')
             ->get();
     }

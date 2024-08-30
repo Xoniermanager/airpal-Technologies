@@ -163,6 +163,7 @@
                                     </p>
                                 </li>
                                 <li class="appointment-action">
+                             
                                     <div class="patient-book">
                                         <p><i class="fa-solid fa-calendar-days"></i> Last Booked
                                             <span>{{ date('j M Y', strtotime($lastBookingDate)) }}</span>

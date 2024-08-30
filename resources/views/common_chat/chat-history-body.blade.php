@@ -202,7 +202,7 @@
                                 <div class="message-content">
                                     typing...
                                 </div>
-                            </div>
+                            </div> 
                         </div>
                         @endif
                     @endforeach

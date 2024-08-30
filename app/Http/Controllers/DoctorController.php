@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Services\BookingServices;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\SearchDoctorRequest;
 use App\Http\Services\DoctorReviewService;
 use App\Http\Services\FavoriteDoctorServices;
 use App\Http\Services\SpecializationServices;
@@ -128,18 +129,8 @@ class DoctorController extends Controller
     return view('website.pages.appointment', ['doctorDetails' => $doctor, 'calender' => $returnCalendar]);
   }
 
-  public function search(Request $request)
+  public function search(SearchDoctorRequest $request)
   {
-    Validator::make($request->all(), [
-      'gender'      =>  'sometimes|in:male,female',
-      'languages'   =>  'sometimes|exists:languages,id',
-      'experience'  =>  'sometimes|in:"1-5","5-10"',
-      'specialty'   =>  'sometimes|exists:specializations,id',
-      'services'    =>  'sometimes|exists:services,id',
-      'availability'  =>  'sometimes|integer|in:1,2,7,30',
-      'rating'      =>  'sometimes|integer|between:1,5'
-    ]);
-
     $doctors = $this->user_services->getDoctorDataForFrontend();
     $specialties = $this->specializationServices->all();
     $allRatingStars = $this->doctorService->getDoctorCountsGroupedByRatings();
@@ -158,12 +149,14 @@ class DoctorController extends Controller
     }
 
 
-    $searchedItems = $this->user_services->searchInDoctors($request->all());
+    $searchedItems = $this->user_services->searchInDoctors($request->validated());
+
     if ($searchedItems) {
       return response()->json([
         'success' => 'Searching',
+        'doctorsCount' =>  $searchedItems['doctorsCount'],
         'data'   =>  view("website.doctor.doctors_list", [
-          'doctors' =>  $searchedItems,
+          'doctors' =>  $searchedItems['data'],
           'languages' => Language::all(),
           'specialties' => $specialties,
           'services' => Service::all(),

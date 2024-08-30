@@ -18,10 +18,10 @@
                 </div>
                 <div class="dashboard-card-body">
                     <div class="row">
-                        <div class="col-sm-7">
+                        <div class="col-sm-12">
 
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="health-records icon-orange">
                                         <span><i class="fa-solid fa-heart"></i>Heart Rate</span>
                                         <h3>{{ $diaryDetails->pulse_rate ?? 'N/A' }} Bpm
@@ -32,7 +32,7 @@
                                         </h3>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="health-records icon-amber">
                                         <span><i class="fa-solid fa-temperature-high"></i>Body
                                             Temprature</span>
@@ -44,7 +44,7 @@
                                         </h3>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="health-records icon-dark-blue">
                                         <span><i class="fa-solid fa-notes-medical"></i>Glucose
                                             Level</span>
@@ -57,7 +57,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="health-records icon-blue">
                                         <span><i class="fa-solid fa-highlighter"></i>SPo2</span>
                                         <h3>{{ $diaryDetails->oxygen_level ?? 'N/A' }}% <sup>
@@ -67,7 +67,7 @@
                                                 </sup></h3>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="health-records icon-red">
                                         <span><i class="fa-solid fa-syringe"></i>Blood
                                             Pressure</span>
@@ -78,26 +78,45 @@
                                         </h3>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="health-records icon-purple">
                                         <span><i class="fa-solid fa-user-pen"></i>BMI </span>
                                         <h3>20.1 kg/m2</h3>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-5">
-                            <div class="chart-over-all-report">
-                                <h5>Overall Report</h5>
-                                <div class="circle-bar circle-bar3 report-chart">
-                  
+   
+
+                                <div class="col-lg-4">
+                                    <div class="health-records icon-red">
+                                        <span><i class="fa-solid fa-syringe"></i>Weight
+                                            </span>
+                                        <h3>{{ $diaryDetails['total_sleep_hr'] ?? 'N/A' }}
+                                            <sup class="{{ ($diaryDetails->percentage['total_sleep_hr'] ?? 0) > 0 ? 'percentage-color-green' : 'percentage-color-red' }}">
+                                                {{ $diaryDetails->percentage['total_sleep_hr'] ?? 0 }}%
+                                            </sup>
+                                        </h3>
+                                    </div>
                                 </div>
-                                <span class="health-percentage">Your health is 95% Normal</span>
-                                <a href="{{ route('patient.diary.index') }}" class="btn btn-dark w-100">View Details<i
-                                        class="fa-solid fa-chevron-right ms-2"></i></a>
+                                <div class="col-lg-4">
+                                    <div class="health-records icon-red">
+                                        <span><i class="fa-solid fa-syringe"></i>Weight
+                                            </span>
+                                        <h3>{{ $diaryDetails['weight'] ?? 'N/A' }}
+                                            <sup class="{{ ($diaryDetails->percentage['weight'] ?? 0) > 0 ? 'percentage-color-green' : 'percentage-color-red' }}">
+                                                {{ $diaryDetails->percentage['weight'] ?? 0 }}%
+                                            </sup>
+                                        </h3>
+                                    </div>
+                                </div>
+    
                             </div>
                         </div>
                     </div>
+                    <span class="float-left mt-2">As compared with previous day records of  :
+                        {{ date('j M Y', strtotime($comparedDate ?? '')) ?? '' }}
+                    </span>
+                    <span  class="float-right"><a href="{{ route('patient.diary.index') }}" class="btn btn-dark w-100">View Details<i
+                        class="fa-solid fa-chevron-right ms-2"></i></a></span>
                 </div>
             </div>
         </div>

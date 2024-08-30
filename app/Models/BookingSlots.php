@@ -4,6 +4,7 @@ namespace App\Models;
 
 
 use App\Models\Payments;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -47,5 +48,27 @@ class BookingSlots extends Model
         return $this->hasOne(Prescription::class , 'booking_slot_id');
     }
 
+    public function getPrescriptionButton()
+    {
+        $prescriptionButton = '';
+        if ($this->status == 'completed')
+        {
+            if (isset($this->prescription))
+            {
+                $prescriptionButton .= '<div class="appointment-start">';
+                $prescriptionButton .= '<a class="btn btn-primary text-white"
+                        href=" '. route('prescription.edit', Crypt::encrypt($this->prescription->id)) .'">Prescription</a>';
+                $prescriptionButton .= '</div>';
+            }
+            else
+            {
+            $prescriptionButton .= '<div class="appointment-start">';
+            $prescriptionButton .= '<a class="btn btn-light"
+                        href="'. route('prescription.add', ['bookingId' => Crypt::encrypt($this->id)]) .'">Prescription</a>';
+            $prescriptionButton .= '</div>';
+            }
+        }
 
+        return $prescriptionButton;
+    }
 }

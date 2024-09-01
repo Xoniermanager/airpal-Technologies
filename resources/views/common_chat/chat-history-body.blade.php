@@ -191,7 +191,7 @@
                         @php $messageCounter++; @endphp
 
                         @if( $chats->count() === $messageCounter)
-                        <div class="chats remove-typing">
+                        <div style="display:none" class="chats remove-typing{{ $receiverDetails->id }}">
                             <div class="chat-avatar">
                                 <img src="{{ $receiverDetails->image_url }}" class="dreams_chat" alt="image">
                             </div>

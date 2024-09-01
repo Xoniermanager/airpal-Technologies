@@ -5,11 +5,6 @@
         <div class="col-md-6 col-lg-4">
             <div class="profile-widget patient-favour">
                 <div class="fav-head">
-                    {{-- <a href="javascript:void(0)"
-                        onclick="removeFromFavorites({{ $favoriteDoctor->doctor_id }},{{ $favoriteDoctor->patient_id }})"
-                        class="fav-btn favourite-btn">
-                        <span class="favourite-icon favourite"><i class="fa-solid fa-heart"></i></span>
-                    </a> --}}
                     <label class="fav-checkbox-container fav-btn favourite-btn">
                         <input type="checkbox" 
                                onchange="removeFromFavorites({{ $favoriteDoctor->doctor_id }}, {{ $favoriteDoctor->patient_id }})"

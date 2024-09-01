@@ -99,7 +99,7 @@ class PatientDashboardController extends Controller
         'patientHeartBeatGraphData' => $patientHeartBeatGraphData,
         'medicalRecords'            => $medicalDetailsRecords->take(5),
         'diaryDetails'              => $diaryDetails,
-        'comparedDate'              => $comparedDate
+        'comparedDate'              => $comparedDate ?? ''
       ]
     );
   }

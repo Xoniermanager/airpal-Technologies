@@ -22,7 +22,8 @@ class GetSelectedChatHistoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'receiver_user_id'  =>  'required|integer|exists:users,id'
+            'receiver_user_id'  =>  'required|integer|exists:users,id',
+            'read_status'       =>  'required|boolean'
         ];
     }
 }

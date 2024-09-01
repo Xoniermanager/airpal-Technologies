@@ -3,11 +3,6 @@
                 Start: Chat Scripts
 =====================================================================
 */
-jQuery('document').ready(function(){
-    jQuery('.typing').hide();
-    jQuery('.remove-typing').css('display','none');
-    console.log("test : " + jQuery('.remove-typing').html());
-});
 // Search doctors/patients from doctor panel
 jQuery('#search_chat_users').on('keyup', function(){
     let search_text = jQuery(this).val().trim();
@@ -23,8 +18,7 @@ function set_current_chat_user(selected_user)
 }
 
 // Loading selected chat history
-console.log("site_base_url : " + window.site_base_url);
-function load_chat_history(receiver_user_id)
+function load_chat_history(receiver_user_id,read_status=0)
 {
     set_current_chat_user(receiver_user_id);
     jQuery('#receiver_id').val(receiver_user_id);
@@ -37,6 +31,7 @@ function load_chat_history(receiver_user_id)
         data:{
             '_token':jQuery('meta[name="csrf-token"]').attr('content'),
             'receiver_user_id':receiver_user_id,
+            'read_status':read_status
         },
         dataType:'json',
         success: function(response){
@@ -52,9 +47,28 @@ function load_chat_history(receiver_user_id)
         complete: function(){
             setTimeout(function(){
                 jQuery('#receiver_id').val(receiver_user_id);
+
+                // remove message unread counter from user list
+                if(read_status)
+                    {
+                        jQuery('.unread-counter-'+receiver_user_id).remove();
+                    }
             },1500);
         }
     });
+}
+
+function update_user_online_status(users)
+{
+    Object.keys(users).forEach(key  =>  {
+        jQuery('.online-'+users[key]['id']).addClass('avatar-online');
+    });
+    // console.log(users);
+}
+
+function make_user_offline(user)
+{
+    jQuery('.online-'+user['id']).removeClass('avatar-online');
 }
 /*
 =====================================================================

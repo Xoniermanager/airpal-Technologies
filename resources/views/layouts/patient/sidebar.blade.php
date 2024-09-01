@@ -48,13 +48,13 @@
                 </li> --}}
                 <li class="{{ request()->is('patients/medical-records/*') ? 'active' : '' }}">
                     <a href="{{ route('patient.medical-records.index') }}">
-                        <i class="fa-solid fa-money-bill-1"></i>
+                        <i class="fa-sharp fa-solid fa-stethoscope"></i>
                         <span>Add Medical Records</span>
                     </a>
                 </li>
                 <li class="{{ request()->routeIs('get.all.review') ? 'active' : '' }}">
                     <a href="{{ route('get.all.review') }}">
-                        <i class="fa-solid fa-key"></i>
+                        <i class="fa-solid fa-star"></i>
                         <span>My Rating</span>
                     </a>
                 </li>
@@ -90,14 +90,14 @@
                 </li>
                 <li class="{{ request()->is('patients/diary/*') ? 'active' : '' }}">
                     <a href="{{ route('patient.diary.index') }}">
-                        <i class="fa-solid fa-key"></i>
+                    <i class="fa-solid fa-book"></i>
                         <span>Patient Diary</span>
                     </a>
                 </li>
                 <li>
                 <li class="{{ request()->routeIs('patient.logout') ? 'active' : '' }}">
                     <a href="{{ route('patient.logout') }}">
-                        <i class="fa-solid fa-calendar-check"></i>
+                        <i class="fa-solid fa-right-from-bracket"></i>
                         <span>Logout</span>
                     </a>
                 </li>

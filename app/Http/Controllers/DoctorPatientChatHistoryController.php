@@ -26,8 +26,9 @@ class DoctorPatientChatHistoryController extends Controller
     {
         $senderId = Auth::user()->id;
         $receiverId = $request->receiver_user_id;
+        $readStatus = $request->read_status;
 
-        $chatHistoryDetails = $this->doctorPatientChatHistoryService->getSelectedChatHistory($senderId, $receiverId);
+        $chatHistoryDetails = $this->doctorPatientChatHistoryService->getSelectedChatHistory($senderId, $receiverId,$readStatus);
 
         return response()->json([
             'status'    =>  true,

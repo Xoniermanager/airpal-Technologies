@@ -162,3 +162,24 @@
         });
     </script>
 @endsection
+<style>
+    .tabs {
+        display: flex;
+        cursor: pointer;
+    }
+
+    .tabs .active a {
+        background-color: #004cd4 !important;
+        color: #fff;
+    }
+
+    .tab-content {
+        display: none;
+        /* border: 1px solid #ccc; */
+        padding: 10px;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+</style>

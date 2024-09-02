@@ -76,8 +76,4 @@ class BookingSlots extends Model
     {
        return  route('doctor-patient-profile', ['id' => Crypt::encrypt($this->patient->id)]);
     }
-
-
-
-
 }

@@ -35,8 +35,7 @@ class PrescriptionController extends Controller
         } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
             abort(404, 'Invalid booking ID');
         }
-        $allBookingDetails =  $this->bookingService->getAllAppointmentDetailsByDoctorId(Auth::user()->id);
-        return view('doctor.prescription.add', compact('allBookingDetails', 'bookingId' ));
+        return view('doctor.prescription.add', compact('bookingId'));
     }
     public function create(PrescriptionRequest $prescriptionDetails)
     {
@@ -56,12 +55,11 @@ class PrescriptionController extends Controller
     {
         try {
             $prescriptionId = Crypt::decrypt($encryptPrescriptionId);
+            $prescriptionDetails =  $this->prescriptionService->getPrescriptionDetailsById($prescriptionId);
+            return view('doctor.prescription.edit', compact('prescriptionDetails'));
         } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
             abort(404, 'Invalid prescription ID');
         }
-        $prescriptionDetails =  $this->prescriptionService->getPrescriptionDetailsById($prescriptionId);
-        $allBookingDetails   =  $this->bookingService->getAllAppointmentDetailsByDoctorId(Auth::user()->id);
-        return view('doctor.prescription.edit', compact('prescriptionDetails', 'allBookingDetails'));
     }
     public function update(PrescriptionRequest $prescriptionDetails, $prescriptionId)
     {
@@ -125,6 +123,43 @@ class PrescriptionController extends Controller
             ]);
         }
     }
+    public function deletePrescriptionTest($testDetailsId)
+    {
+        try {
+            $response = $this->prescriptionService->deleteTestDetailsById($testDetailsId);
+            if ($response['status'] == true) {
+                return response()->json(['status' => true, 'message' => "Deleted Successfully"]);
+            } else {
+                return response()->json(['status' => false, 'message' => 'Please Try Again']);
+            }
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getmessage()]);
+        }
+    }
+
+    public function view($encryptPrescriptionId)
+    {
+        try {
+            $prescriptionId = Crypt::decrypt($encryptPrescriptionId);
+            $prescriptionDetails =  $this->prescriptionService->getPrescriptionDetailsById($prescriptionId);
+            $webView = true;
+            return view('doctor.prescription.view', compact('prescriptionDetails', 'webView'));
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            abort(404, 'Invalid prescription ID');
+        }
+    }
+
+    public function downloadPrescriptionPdf($encryptPrescriptionId)
+    {
+        try {
+            $prescriptionId = Crypt::decrypt($encryptPrescriptionId);
+            $pdf = $this->prescriptionService->downloadPrescriptionPdf($prescriptionId);
+            return $pdf->download('prescription.pdf');
+        } catch (\Exception $e) {
+            return back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
     public function getAllBookingDetailsByPatient(Request $request)
     {
         try {

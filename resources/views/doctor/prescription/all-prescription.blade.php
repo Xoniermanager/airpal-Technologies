@@ -48,16 +48,14 @@
                                                     class="btn btn-success btn-xs m-1">{{ $medicineDetails->quantity }}</span>
                                             </td>
                                             <td>
-                                                 <span
+                                                <span
                                                     class="btn btn-warning btn-xs m-1">{{ $medicineDetails->frequency }}</span>
                                             </td>
                                             <td>
                                                 @if ($medicineDetails->meal_status == 1)
-                                                <span
-                                                class="btn btn-info btn-xs m-1">Yes</span>
+                                                    <span class="btn btn-info btn-xs m-1">Yes</span>
                                                 @else
-                                                <span
-                                                class="btn btn-danger btn-xs m-1">No</span>
+                                                    <span class="btn btn-danger btn-xs m-1">No</span>
                                                 @endif
                                             </td>
                                         </tr>
@@ -69,11 +67,13 @@
                             <td>{!! Str::limit($prescriptionDetails->description, 10, ' ...') !!}</td>
                             <td>
                                 <div class="action-item">
-                                    <a href="{{ route('prescription.edit', $prescriptionDetails->id) }}">
+                                    <a
+                                        href="{{ route('prescription.edit', Crypt::encrypt($prescriptionDetails->id)) }}">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                    <a href="">
-                                        <i class="fa-solid fa-eye"></i>
+                                    <a
+                                        href="{{ route('prescription.view', Crypt::encrypt($prescriptionDetails->id)) }}">
+                                        <i class="fa-solid fa fa-eye"></i>
                                     </a>
                                     <a href="#" onclick="delete_medical_record({{ $prescriptionDetails->id }})">
                                         <i class="fa-solid fa-trash-can"></i>

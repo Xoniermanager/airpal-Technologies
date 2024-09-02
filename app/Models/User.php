@@ -243,13 +243,13 @@ class User extends Authenticatable
          foreach ($this->socialMediaAccounts as $account) {
              $platform = $account->socialMediaAccountType->name;
              $url = $account->link;
-             
+
              $iconClass = ($platform) ? "fab fa-".strtolower($platform)."-square" : "fab fa-globe";
              $html .= '<li class="mr-1"><a href="' . $url . '" target="_blank"><i class="' . $iconClass . '"></i></a></li>';
          }
- 
+
          $html .= '</ul>';
- 
+
          return $html;
      }
 }

@@ -23,10 +23,20 @@ class SiteConfigRequest extends FormRequest
     {
         return [
             
+            // 'config' => 'required|array',
+            // 'config.*.' => 'array|in:"site_name","site_url","admin_email","admin_phone" ,"website_logo","website_favicon","website_description" ',
+            // 'config.*.name' => 'required',
+            // 'config.*.value' => 'required'
+
             'config' => 'required|array',
-            'config.*.' => 'array|in:"site_name","site_url","admin_email","admin_phone" ,"website_logo","website_favicon","website_description" ',
+            'config.*.' => 'array|in:"website_name","website_url","admin_email","admin_phone","website_description"',
             'config.*.name' => 'required',
-            'config.*.value' => 'required'
+            'config.*.value' => 'required',
+            'config.website_logo.name' =>  'string',
+            'config.website_logo.value' =>  'nullable|mimes:jpeg,jpg,bmp,png,gif,svg,pdf|max:2048',
+
+            'config.website_favicon.name' =>  'string',
+            'config.website_favicon.value' =>  'nullable|mimes:jpeg,jpg,bmp,png,gif,svg,pdf|max:2048',
         ];
     }
 }

@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Services\BookingServices;
-use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Requests\PrescriptionRequest;
 use App\Http\Services\PrescriptionService;
 
@@ -56,11 +55,11 @@ class PrescriptionController extends Controller
     {
         try {
             $prescriptionId = Crypt::decrypt($encryptPrescriptionId);
+            $prescriptionDetails =  $this->prescriptionService->getPrescriptionDetailsById($prescriptionId);
+            return view('doctor.prescription.edit', compact('prescriptionDetails'));
         } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
             abort(404, 'Invalid prescription ID');
         }
-        $prescriptionDetails =  $this->prescriptionService->getPrescriptionDetailsById($prescriptionId);
-        return view('doctor.prescription.edit', compact('prescriptionDetails'));
     }
     public function update(PrescriptionRequest $prescriptionDetails, $prescriptionId)
     {
@@ -144,7 +143,6 @@ class PrescriptionController extends Controller
             $prescriptionId = Crypt::decrypt($encryptPrescriptionId);
             $prescriptionDetails =  $this->prescriptionService->getPrescriptionDetailsById($prescriptionId);
             $webView = true;
-            // dd($prescriptionDetails->bookingSlot->user);
             return view('doctor.prescription.view', compact('prescriptionDetails', 'webView'));
         } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
             abort(404, 'Invalid prescription ID');
@@ -155,8 +153,7 @@ class PrescriptionController extends Controller
     {
         try {
             $prescriptionId = Crypt::decrypt($encryptPrescriptionId);
-            $prescriptionDetails =  $this->prescriptionService->getPrescriptionDetailsById($prescriptionId);
-            $pdf = PDF::loadView('prescription_pdf_temp', ['webView' => false, 'prescriptionDetails' => $prescriptionDetails]);
+            $pdf = $this->prescriptionService->downloadPrescriptionPdf($prescriptionId);
             return $pdf->download('prescription.pdf');
         } catch (\Exception $e) {
             return back()->with(['error' => $e->getMessage()]);

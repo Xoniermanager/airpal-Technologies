@@ -105,6 +105,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('chat-history', 'getSelectedChatHistory')->name('chat.history');
         Route::post('send-message', 'saveChatMessage')->name('send.message');
     });
+    Route::controller(PrescriptionController::class)->group(function () {
+        Route::get('/download-pdf/{prescriptions:id}', 'downloadPrescriptionPdf')->name('prescription.pdf.download');
+    });
 });
 
 Route::controller(DiseaseDetailsController::class)->group(function () {
@@ -211,7 +214,6 @@ Route::prefix('doctor')->group(function () {
             Route::get('/delete/medicine-details/{prescription_medicine_details:id}', 'deleteMedicine');
             Route::get('/delete/test-details/{prescription_tests:id}', 'deletePrescriptionTest');
             Route::get('/search/filter', 'searchFilterPrescriptionDetails')->name('prescription.search.filter');
-            Route::get('/download-pdf/{prescriptions:id}', 'downloadPrescriptionPdf')->name('prescription.pdf.download');
             Route::get('/get-booking-details-patient', 'getAllBookingDetailsByPatient')->name('get.booking.details.patient');
         });
     });
@@ -229,7 +231,7 @@ Route::prefix('specialities')->controller(SpecialityController::class)->group(fu
     Route::get('/get-speciality', 'getSpecialitiesAjaxCall');
 });
 
-    // common route for doctor and admin
+// common route for doctor and admin
 Route::middleware(['auth'])->group(function () {
 
     Route::prefix('language')->controller(LanguageController::class)->group(function () {
@@ -404,7 +406,6 @@ Route::prefix('admin')->group(function () {
         Route::get('/transactions-list', [TransactionController::class, 'transactionsList'])->name('admin.transactions-list.index');
         Route::get('/invoice-report', [InvoiceReportController::class, 'invoiceReport'])->name('admin.invoice-report.index');
         Route::get('/invoice', [InvoiceReportController::class, 'invoice'])->name('admin.invoice.index');
-
     });
 });
 
@@ -437,6 +438,7 @@ Route::prefix('patients')->group(function () {
                 Route::get('appointments', 'patientAppointments')->name('patient-appointments.index');
                 Route::get('appointment-details', 'patientAppointmentDetails')->name('patient-appointment-details.index');
                 Route::get('patient-appointment-filter', 'patientAppointmentFilter')->name('patient.appointment.filter');
+                Route::get('view-prescripton-{prescriptions:id}', 'viewPrescription')->name('patient.prescription.view');
             });
 
             Route::controller(PatientInvoiceController::class)->group(function () {
@@ -480,8 +482,8 @@ Route::prefix('patients')->group(function () {
             //Diary Module
             Route::controller(PatientDiaryController::class)->prefix('diary')->group(function () {
                 Route::get('index', 'index')->name('patient.diary.index');
-                Route::get('add','addDiary')->name('patient.diary.add');
-                Route::post('add','createDiary')->name('patient.diary.create');
+                Route::get('add', 'addDiary')->name('patient.diary.add');
+                Route::post('add', 'createDiary')->name('patient.diary.create');
                 Route::get('edit/{patient_diaries:id}', 'editDiary')->name('patient.diary.edit');
                 Route::get('get-filter-diary-details', 'getSearchFilterDiaryDetails')->name('patient.diary.filters');
             });
@@ -509,14 +511,14 @@ Route::controller(DoctorController::class)->group(function () {
     Route::get('choose', 'choose')->name('choose');
     Route::get('doctor-register', 'doctorRegistrationIndex')->name('doctor.register.index');
 });
-    Route::get('/', [HomeController::class, 'home'])->name('home.index');
-    Route::get('/specialty-list', [SpecialtyPageController::class, 'specialty_list'])->name('specialty.list');
-    Route::get('/specialty-detail/{id}', [SpecialtyPageController::class, 'specialty_detail'])->name('specialty.detail');
-    Route::get('/about', [AboutController::class, 'about'])->name('about.index');
-    Route::get('/faqs', [FaqsController::class, 'faqPageIndex'])->name('faqs.index');
-    Route::get('/contact', [ContactController::class, 'contact'])->name('contact.index');
-    Route::get('/health_monitoring', [HealthMonitoringController::class, 'health_monitoring'])->name('health_monitoring.index');
-    Route::get('/instant', [InstantController::class, 'instant'])->name('instant.index');
+Route::get('/', [HomeController::class, 'home'])->name('home.index');
+Route::get('/specialty-list', [SpecialtyPageController::class, 'specialty_list'])->name('specialty.list');
+Route::get('/specialty-detail/{id}', [SpecialtyPageController::class, 'specialty_detail'])->name('specialty.detail');
+Route::get('/about', [AboutController::class, 'about'])->name('about.index');
+Route::get('/faqs', [FaqsController::class, 'faqPageIndex'])->name('faqs.index');
+Route::get('/contact', [ContactController::class, 'contact'])->name('contact.index');
+Route::get('/health_monitoring', [HealthMonitoringController::class, 'health_monitoring'])->name('health_monitoring.index');
+Route::get('/instant', [InstantController::class, 'instant'])->name('instant.index');
 
 Route::controller(FrontController::class)->group(function () {
     Route::get('/privacy', 'privacy')->name('privacy.index');

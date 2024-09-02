@@ -24,6 +24,8 @@ use App\Http\Controllers\Api\Patient\MedicalRecordApiController;
 use App\Http\Controllers\Api\Patient\PatientDashboardController;
 use App\Http\Controllers\Api\Patient\PatientFavoriteDoctorController;
 use App\Http\Controllers\Api\Doctor\DoctorAppointmentAndRevenueGraphController;
+use App\Http\Controllers\Api\PrescriptionApiController;
+use App\Models\Prescription;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -59,7 +61,6 @@ Route::middleware('authCheck')->group(function () {
         });
 
         Route::controller(DoctorProfileController::class)->group(function () {
-        
             Route::post('profile', 'profile');
             Route::post('address/update', 'updateAddress');
             Route::get('get-my-patient', 'getMyPatientByDoctorId');
@@ -122,10 +123,22 @@ Route::middleware('authCheck')->group(function () {
         });
 
         // Doctor chat api get chat list, get chat history and send message
-        Route::controller(DoctorChatController::class)->group(function(){
-            Route::get('get-chat-list','getChatList');
-            Route::get('get-chat-history','getChatHistory');
-            Route::post('send-message','sendMessage');
+        Route::controller(DoctorChatController::class)->group(function () {
+            Route::get('get-chat-list', 'getChatList');
+            Route::get('get-chat-history', 'getChatHistory');
+            Route::post('send-message', 'sendMessage');
+        });
+
+        Route::prefix('prescription')->controller(PrescriptionApiController::class)->group(function () {
+            Route::get('/prescription/list', 'getAllPrescription');
+            Route::get('/view/{prescriptions:id}', 'viewPrescription');
+            Route::post('/create', 'createPrescription');
+            Route::post('/update/{prescriptions:id}', 'updatePrescription');
+            Route::get('/delete/{prescriptions:id}', 'deletePrescription');
+            Route::get('/delete/medicine/{prescription_medicine_details:id}', 'deleteMedicine');
+            Route::get('/delete/test/{prescription_tests:id}', 'deletePrescriptionTest');
+            Route::get('/search/filter', 'searchFilterPrescriptionDetails');
+            Route::get('/download/pdf/{prescriptions:id}', 'downloadPdfPrescription');
         });
     });
 
@@ -181,10 +194,10 @@ Route::middleware('authCheck')->group(function () {
         });
 
         // Doctor chat api get chat list, get chat history and send message
-        Route::controller(DoctorChatController::class)->group(function(){
-            Route::get('get-chat-list','getChatList');
-            Route::get('get-chat-history','getChatHistory');
-            Route::post('send-message','sendMessage');
+        Route::controller(DoctorChatController::class)->group(function () {
+            Route::get('get-chat-list', 'getChatList');
+            Route::get('get-chat-history', 'getChatHistory');
+            Route::post('send-message', 'sendMessage');
         });
     });
     Route::get('privacy', [AuthController::class, 'privacyPolicy']);

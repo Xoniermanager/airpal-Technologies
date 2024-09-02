@@ -1,6 +1,8 @@
 @extends('layouts.patient.main')
 @section('content')
-    @php $patientId  = auth()->user()->id; @endphp
+    @php
+        $patientId = auth()->user()->id;
+    @endphp
     <div class="dashboard-header">
         <h3>Appointments</h3>
         <ul class="header-list-btns">

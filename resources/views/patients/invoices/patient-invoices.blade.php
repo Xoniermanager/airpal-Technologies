@@ -22,11 +22,11 @@
                         <tr>
                             <td>
                                 <h2 class="table-avatar">
-                                    <a href="doctor-profile.html" class="avatar avatar-sm me-2">
-                                        <img class="avatar-img rounded-3" src="../assets/img/doctors/doctor-thumb-21.jpg"
+                                    <a href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($patientInvoice->user->id) ]) }}" class="avatar avatar-sm me-2">
+                                        <img class="avatar-img rounded-3" src="{{ $patientInvoice->user->image_url }}"
                                             alt="">
                                     </a>
-                                    <a href="doctor-profile.html">{{ $patientInvoice->user->fullName }}</a>
+                                    <a href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($patientInvoice->user->id) ]) }}">{{ $patientInvoice->user->fullName }}</a>
                                 </h2>
                             </td>
                             <td>{{ date('j M Y', strtotime($patientInvoice->created_at)) ?? '' }}</td>

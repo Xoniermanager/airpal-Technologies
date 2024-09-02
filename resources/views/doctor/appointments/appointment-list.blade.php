@@ -19,7 +19,7 @@
                         <li>
                             <div class="appointment-grid-head">
                                 <div class="patinet-information">
-                                    <a href="{{ route('doctor-patient-profile', ['id' => $booking->patient->id]) }}">
+                                    <a href="{{ route('doctor-patient-profile', ['id' => Crypt::encrypt($booking->patient->id)]) }}">
                                         <img src="{{ $booking->patient->image_url }}" id="blah">
                                     </a>
                                     <div class="patient-info">

@@ -95,7 +95,7 @@
 
             </div>
         </div>
-        <div class="col-xl-8 d-flex">
+        <div class="col-xl-8">
             <div class="dashboard-card w-100">
                 <div class="dashboard-card-head">
                     <div class="header-title">
@@ -125,11 +125,11 @@
                 @forelse ($recentPatients as $recentPatient)
                     <div class="col-md-6">
                         <div class="recent-patient-grid">
-                            <a href="{{ route('doctor.doctor-patients.index') }}" class="patient-img">
+                            <a href="{{$recentPatient->patientProfileUrl()}}" class="patient-img">
                                 <img src="{{ $recentPatient->patient->image_url }}">
 
                             </a>
-                            <h5><a href="{{ route('doctor.doctor-patients.index') }}"></a>
+                            <h5><a href="{{$recentPatient->patientProfileUrl()}}"></a>
                             </h5>
                             <span>Patient ID : PAT{{ $recentPatient->id }}</span>
                             <div class="date-info">

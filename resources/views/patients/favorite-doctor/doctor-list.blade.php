@@ -13,13 +13,13 @@
                     </label>
                     
                     <div class="doc-img">
-                        <a href="doctor-profile.html">
+                        <a href="{{ route('frontend.doctor.profile',['user' => Crypt::encrypt($favoriteDoctor->doctor->id)]) }}">
                             <img class="img-fluid" src="{{ $favoriteDoctor->doctor->image_url ?? '' }}" alt="Img">
                         </a>
                     </div>
                     <div class="pro-content">
                         <h3 class="title">
-                            <a href="doctor-profile.html">Dr. {{ $favoriteDoctor->doctor->fullName }}</a>
+                            <a href="{{ route('frontend.doctor.profile',['user' => Crypt::encrypt($favoriteDoctor->doctor->id)]) }}">Dr. {{ $favoriteDoctor->doctor->fullName }}</a>
                             <i class="fas fa-check-circle verified"></i>
                         </h3>
                         <p class="speciality">
@@ -31,7 +31,7 @@
                                 @endforelse
                             @endisset
                         </p>
-                        <p class="speciality">
+                        <p class="speciality mb-0">
                             @isset($favoriteDoctor->doctor)
                                 @forelse ($favoriteDoctor->doctor->educations as $education)
                                     <b>{{ $education->course->name }}</b>
@@ -54,17 +54,10 @@
                         </ul>
                     </div>
                 </div>
-                <div class="fav-footer">
-                    <div class="row row-sm">
-                        <div class="col-6">
-                            <a href="{{ route('frontend.doctor.profile', ['user' => $favoriteDoctor->doctor->id]) }}"
-                                class="btn view-btn">View Details</a>
-                        </div>
-                        <div class="col-6">
-                            <a href="{{ route('appointment.index', ['id' => $favoriteDoctor->doctor->id]) }}"
-                                class="btn book-btn">Book Now</a>
-                        </div>
-                    </div>
+                <div class="fav-footer d-flex"> 
+                         {!! $favoriteDoctor->doctor->profileButton() !!}
+                         {!! $favoriteDoctor->doctor->bookNowButton() !!}
+                    
                 </div>
             </div>
         </div>

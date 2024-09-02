@@ -13,6 +13,6 @@ class SocialMediaType extends Model
     public function socialMedia()
     {
         return $this->hasOne(DoctorSocialMediaAccounts::class, 'id');
-
     }
+
 }

@@ -5,13 +5,18 @@
             <div class="dashboard-card w-100">
                 <div class="dashboard-card-head d-block">
                     <div class="header-title">
+
                         <h5>Health Records
-                         <small class="float-right">Report generated on last visit :
-                                {{ date('j M Y', strtotime($diaryDetails->updated_at ?? '')) ?? '' }}
-                            </small>
-                            </h5>
+                            @if ($diaryDetails)
+                                <small class="float-right">Report generated on record :
+                                    {{ date('j M Y', strtotime($diaryDetails->created_at)) }}
+                                </small>
+                            @else
+                                <small class="float-right">Record Not Found</small>
+                            @endif
+                        </h5>
                         <div class="report-gen-date">
-                           
+
                         </div>
                     </div>
 
@@ -72,7 +77,8 @@
                                         <span><i class="fa-solid fa-syringe"></i>Blood
                                             Pressure</span>
                                         <h3>{{ $diaryDetails->bp ?? 'N/A' }} mg/dl
-                                            <sup class="{{ ($diaryDetails->percentage['bp'] ?? 0) > 0 ? 'percentage-color-green' : 'percentage-color-red' }}">
+                                            <sup
+                                                class="{{ ($diaryDetails->percentage['bp'] ?? 0) > 0 ? 'percentage-color-green' : 'percentage-color-red' }}">
                                                 {{ $diaryDetails->percentage['bp'] ?? 0 }}%
                                             </sup>
                                         </h3>
@@ -84,14 +90,15 @@
                                         <h3>20.1 kg/m2</h3>
                                     </div>
                                 </div>
-   
+
 
                                 <div class="col-lg-4">
                                     <div class="health-records icon-red">
                                         <span><i class="fa-solid fa-syringe"></i>Weight
-                                            </span>
+                                        </span>
                                         <h3>{{ $diaryDetails['total_sleep_hr'] ?? 'N/A' }}
-                                            <sup class="{{ ($diaryDetails->percentage['total_sleep_hr'] ?? 0) > 0 ? 'percentage-color-green' : 'percentage-color-red' }}">
+                                            <sup
+                                                class="{{ ($diaryDetails->percentage['total_sleep_hr'] ?? 0) > 0 ? 'percentage-color-green' : 'percentage-color-red' }}">
                                                 {{ $diaryDetails->percentage['total_sleep_hr'] ?? 0 }}%
                                             </sup>
                                         </h3>
@@ -100,31 +107,38 @@
                                 <div class="col-lg-4">
                                     <div class="health-records icon-red">
                                         <span><i class="fa-solid fa-syringe"></i>Weight
-                                            </span>
+                                        </span>
                                         <h3>{{ $diaryDetails['weight'] ?? 'N/A' }}
-                                            <sup class="{{ ($diaryDetails->percentage['weight'] ?? 0) > 0 ? 'percentage-color-green' : 'percentage-color-red' }}">
+                                            <sup
+                                                class="{{ ($diaryDetails->percentage['weight'] ?? 0) > 0 ? 'percentage-color-green' : 'percentage-color-red' }}">
                                                 {{ $diaryDetails->percentage['weight'] ?? 0 }}%
                                             </sup>
                                         </h3>
                                     </div>
                                 </div>
-    
+
                             </div>
                         </div>
                     </div>
-                    <span class="float-left mt-2">As compared with previous day records of  :
-                        {{ date('j M Y', strtotime($comparedDate ?? '')) ?? '' }}
-                    </span>
-                    <span  class="float-right"><a href="{{ route('patient.diary.index') }}" class="btn btn-dark w-100">View Details<i
-                        class="fa-solid fa-chevron-right ms-2"></i></a></span>
+                    @if($comparedDateRecordDetails)
+                        <span class="float-left mt-2">As compared with previous day records of :
+                            {{ date('j M Y', strtotime($comparedDateRecordDetails->created_at ?? '')) ?? '' }}
+                        </span>
+                    @endif
+                    
+                    <span class="float-right"><a href="{{ route('patient.diary.index') }}" class="btn btn-dark w-100">View
+                            Details<i class="fa-solid fa-chevron-right ms-2"></i></a></span>
                 </div>
             </div>
         </div>
         <div class="col-xl-4 d-flex">
             <div class="favorites-dashboard w-100">
                 <div class="book-appointment-head">
-                    <a href="{{route('doctors.index')}}"><h3><span>Book a new</span>Appointment</h3></a>
-                    <span class="add-icon"><a href="{{route('doctors.index')}}"><i class="fa-solid fa-circle-plus"></i></a></span>
+                    <a href="{{ route('doctors.index') }}">
+                        <h3><span>Book a new</span>Appointment</h3>
+                    </a>
+                    <span class="add-icon"><a href="{{ route('doctors.index') }}"><i
+                                class="fa-solid fa-circle-plus"></i></a></span>
                 </div>
                 <div class="dashboard-card w-100">
                     <div class="dashboard-card-head">
@@ -138,14 +152,14 @@
                     <div class="dashboard-card-body">
                         @forelse ($favoriteDoctors->take(4)  as $favoriteDoctor)
                             <div class="doctor-fav-list">
-                                <div class="doctor-info-profile">
-                                    <a href="{{ route('frontend.doctor.profile', ['user' => $favoriteDoctor->doctor->id]) }}"
+                                <div class="doctor-info-profile fav-doc">
+                                    <a href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($favoriteDoctor->doctor->id) ]) }}"
                                         class="table-avatar">
                                         <img src="{{ $favoriteDoctor->doctor->image_url ?? '' }}" alt="Img">
                                     </a>
                                     <div class="doctor-name-info">
                                         <h5><a
-                                                href="{{ route('frontend.doctor.profile', ['user' => $favoriteDoctor->doctor->id]) }}">Dr.
+                                                href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($favoriteDoctor->doctor->id) ]) }}">Dr.
                                                 {{ $favoriteDoctor->doctor->fullName }}</a></h5>
                                         @isset($favoriteDoctor->doctor)
                                             @forelse ($favoriteDoctor->doctor->specializations as $specialization)
@@ -156,7 +170,7 @@
                                         @endisset
                                     </div>
                                 </div>
-                                <a href="{{ route('appointment.index', ['id' => $favoriteDoctor->doctor->id]) }}"
+                                <a href="{{ route('appointment.index', ['id' => Crypt::encrypt($favoriteDoctor->doctor->id) ]) }}"
                                     class="cal-plus-icon"><i class="fa-solid fa-calendar-plus"></i></a>
                             </div>
                             @empty
@@ -348,7 +362,7 @@
                                     <div class="appointment-dash-card">
                                         <div class="doctor-fav-list">
                                             <div class="doctor-info-profile">
-                                                <a href="#" class="table-avatar">
+                                                <a href="{{ $patientUpcomingBooking->doctorProfileUrl() }}" class="table-avatar">
                                                     <img src="{{ $patientUpcomingBooking->user->image_url }}" alt="Img">
                                                 </a>
                                                 <div class="doctor-name-info">
@@ -358,7 +372,14 @@
                                                     <span>Dentist</span>
                                                 </div>
                                             </div>
-                                            <a href="#" class="cal-plus-icon"><i class="fa-solid fa-hospital"></i></a>
+                                            <div class="card-btns">
+                                                <a href="#" class="btn btn-gray"><i
+                                                        class="fa-solid fa-comment-dots"></i>Chat
+                                                    Now</a>
+                                                <a href="patient-appointments.html" class="btn btn-outline-primary"><i
+                                                        class="fa-solid fa-calendar-check"></i>Attend</a>
+                                            </div>
+
                                         </div>
                                         <div class="date-time">
                                             <p><i class="fa-solid fa-clock"></i>
@@ -367,13 +388,7 @@
                                                 {{ date('h:i A', strtotime($patientUpcomingBooking->slot_start_time)) ?? '' }}
                                             </p>
                                         </div>
-                                        <div class="card-btns">
-                                            <a href="#" class="btn btn-gray"><i
-                                                    class="fa-solid fa-comment-dots"></i>Chat
-                                                Now</a>
-                                            <a href="patient-appointments.html" class="btn btn-outline-primary"><i
-                                                    class="fa-solid fa-calendar-check"></i>Attend</a>
-                                        </div>
+                                        
                                     </div>
                                 @empty
                                 @endforelse
@@ -443,28 +458,36 @@
                         <div class="appointment-dash-card">
                             <div class="doctor-fav-list">
                                 <div class="doctor-info-profile">
-                                    <a href="#" class="table-avatar">
+                                    <a href="{{ $patientPastBookings->doctorProfileUrl() }}" class="table-avatar">
                                         <img src="{{ $patientPastBookings->user->image_url }}" alt="Img">
                                     </a>
                                     <div class="doctor-name-info">
-                                        <h5><a href="#">Dr.{{ $patientPastBookings->user->fullName ?? '' }}</a>
+                                        <h5><a href="{{ $patientPastBookings->doctorProfileUrl() }}">Dr.{{ $patientPastBookings->user->fullName ?? '' }}</a>
                                         </h5>
                                         <span>Dentist</span>
+                                        <div class="date-time">
+                                            <p><i class="fa-solid fa-clock"></i>
+                                                {{ date('j M Y', strtotime($patientPastBookings->booking_date)) ?? '' }} -
+                                                {{ date('h:i A', strtotime($patientPastBookings->slot_start_time)) ?? '' }}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                                <a href="#" class="cal-plus-icon"><i class="fa-solid fa-hospital"></i></a>
+                               <div>
+                                {!! $favoriteDoctor->doctor->profileButton() !!}
+                                {!! $favoriteDoctor->doctor->bookNowButton() !!}
+                               </div>
+                                
                             </div>
-                            <div class="date-time">
-                                <p><i class="fa-solid fa-clock"></i>
-                                    {{ date('j M Y', strtotime($patientPastBookings->booking_date)) ?? '' }} -
-                                    {{ date('h:i A', strtotime($patientPastBookings->slot_start_time)) ?? '' }}
-                                </p>
-                            </div>
-                            <div class="card-btns">
-                                <a href="#" class="btn btn-gray"><i class="fa-solid fa-comment-dots"></i>Chat
+                            
+                            <div >
+                               
+                                {{-- <a href="#" class="btn btn-gray"><i class="fa-solid fa-comment-dots"></i>Chat
                                     Now</a>
+
                                 <a href="patient-appointments.html" class="btn btn-outline-primary"><i
-                                        class="fa-solid fa-calendar-check"></i>Attend</a>
+                                        class="fa-solid fa-calendar-check"></i>Attend</a> --}}
+
                             </div>
                         </div>
                     @empty
@@ -961,13 +984,13 @@
                                                         </td> --}}
                                                             <td>
                                                                 <h2 class="table-avatar">
-                                                                    <a href="doctor-profile.html"
+                                                                    <a href="{{ $patientInvoice->doctorProfileUrl() }}"
                                                                         class="avatar avatar-sm me-2">
                                                                         <img class="avatar-img rounded-3"
-                                                                            src="../assets/img/doctors/doctor-thumb-21.jpg"
+                                                                            src="{{ $patientInvoice->user->image_url }}"
                                                                             alt="">
                                                                     </a>
-                                                                    <a href="doctor-profile.html">Dr.
+                                                                    <a href="{{ $patientInvoice->doctorProfileUrl() }}">Dr.
                                                                         {{ $patientInvoice->user->fullName }}</a>
                                                                 </h2>
                                                             </td>

@@ -29,13 +29,13 @@ class BookingSlots extends Model
 
     public function doctor()
     {
-        return $this->belongsTo(User::class, 'doctor_id','id');
+        return $this->belongsTo(User::class, 'doctor_id', 'id');
     }
 
     protected function image(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) =>  $value ? asset('appointment_booking/' .  $value) : ''
+            get: fn($value) =>  $value ? asset('appointment_booking/' .  $value) : ''
         );
     }
     public function payments()
@@ -45,30 +45,39 @@ class BookingSlots extends Model
 
     public function prescription()
     {
-        return $this->hasOne(Prescription::class , 'booking_slot_id');
+        return $this->hasOne(Prescription::class, 'booking_slot_id');
     }
 
     public function getPrescriptionButton()
     {
         $prescriptionButton = '';
-        if ($this->status == 'completed')
-        {
-            if (isset($this->prescription))
-            {
+        if ($this->status == 'completed') {
+            if (isset($this->prescription)) {
                 $prescriptionButton .= '<div class="appointment-start">';
-                $prescriptionButton .= '<a class="btn btn-primary text-white"
-                        href=" '. route('prescription.edit', Crypt::encrypt($this->prescription->id)) .'">Prescription</a>';
+                $prescriptionButton .= '<a class="btn btn-primary text-white" href=" ' . route('prescription.edit', Crypt::encrypt($this->prescription->id)) . '">Prescription</a>';
                 $prescriptionButton .= '</div>';
-            }
-            else
-            {
-            $prescriptionButton .= '<div class="appointment-start">';
-            $prescriptionButton .= '<a class="btn btn-light"
-                        href="'. route('prescription.add', ['bookingId' => Crypt::encrypt($this->id)]) .'">Prescription</a>';
-            $prescriptionButton .= '</div>';
+            } else {
+                $prescriptionButton .= '<div class="appointment-start">';
+                $prescriptionButton .= '<a class="btn btn-light"
+                        href="' . route('prescription.add', ['bookingId' => Crypt::encrypt($this->id)]) . '">Prescription</a>';
+                $prescriptionButton .= '</div>';
             }
         }
 
         return $prescriptionButton;
     }
+
+
+    public function doctorProfileUrl()
+    {
+        return  route('frontend.doctor.profile', ['user' => Crypt::encrypt($this->user->id) ]);
+    }
+    public function patientProfileUrl()
+    {
+       return  route('doctor-patient-profile', ['id' => Crypt::encrypt($this->patient->id)]);
+    }
+
+
+
+
 }

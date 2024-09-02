@@ -2263,33 +2263,37 @@ table.table td h2 .table-avatar,
 
 /******* COMPONENTS ******/
 .view-btn {
-  color: #004cd4;
-  font-size: 13px;
-  border: 2px solid #004cd4;
-  text-align: center;
-  display: block;
-  font-weight: 500;
-  padding: 6px;
+    color: #004cd4;
+    font-size: 13px;
+    border: 2px solid #004cd4;
+    text-align: center;
+    display: block;
+    font-weight: 500;
+    padding: 6px;
 }
-.view-btn:hover, .view-btn:focus {
-  background-color: #004cd4;
-  color: #ffffff;
+
+.view-btn:hover,
+.view-btn:focus {
+    background-color: #004cd4;
+    color: #ffffff;
 }
 
 .book-btn {
-  background-color: #004cd4;
-  border: 2px solid #004cd4;
-  color: #ffffff;
-  font-size: 13px;
-  text-align: center;
-  display: block;
-  font-weight: 500;
-  padding: 6px;
+    background-color: #004cd4;
+    border: 2px solid #004cd4;
+    color: #ffffff;
+    font-size: 13px;
+    text-align: center;
+    display: block;
+    font-weight: 500;
+    padding: 6px;
 }
-.book-btn:hover, .book-btn:focus {
-  background-color: #004cd4;
-  border-color: #004cd4;
-  color: #ffffff;
+
+.book-btn:hover,
+.book-btn:focus {
+    background-color: #004cd4;
+    border-color: #004cd4;
+    color: #ffffff;
 }
 
 .submit-btn-bottom {
@@ -5094,7 +5098,7 @@ th.table-head-days {
 }
 
 .card-body {
-  padding: 1rem;
+    padding: 1rem;
 }
 
 @media (max-width: 575.98px) {
@@ -11845,9 +11849,9 @@ header.header.header-custom.header-fixed.header-one {
 }
 
 .profile-widget .rating {
-  color: #757575;
-  font-size: 14px;
-  margin-bottom: 5px !important;
+    color: #757575;
+    font-size: 14px;
+    margin-bottom: 5px !important;
 }
 
 .profile-widget .rating i {
@@ -11893,9 +11897,9 @@ header.header.header-custom.header-fixed.header-one {
 }
 
 .profile-widget .pro-content p.speciality {
-  font-size: 13px;
-  color: #757575;
-  margin-bottom: 5px;
+    font-size: 13px;
+    color: #757575;
+    margin-bottom: 5px;
 }
 
 .profile-widget .pro-content .rating {
@@ -11914,12 +11918,12 @@ header.header.header-custom.header-fixed.header-one {
 }
 
 .profile-widget .pro-content .available-info {
-  font-size: 13px;
-  color: #757575;
-  font-weight: 400;
-  list-style: none;
-  margin: auto auto 5px;
-  padding: 0;
+    font-size: 13px;
+    color: #757575;
+    font-weight: 400;
+    list-style: none;
+    margin: auto auto 5px;
+    padding: 0;
 }
 
 .profile-widget .pro-content .available-info li i {
@@ -18432,14 +18436,16 @@ header.header.header-custom.header-fixed.header-one {
 }
 
 .doctor-fav-list .doctor-info-profile .table-avatar img {
-  width: 100px;
-  height: 100px;
-  border-radius: 5px;
-  margin-right: 10px;
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    margin-right: 10px;
 }
+
 .doctor-name-info {
-  padding-left: 10px;
+    padding-left: 10px;
 }
+
 .doctor-fav-list .doctor-info-profile .doctor-name-info h5 {
     margin-bottom: 0px;
 }
@@ -18554,10 +18560,10 @@ header.header.header-custom.header-fixed.header-one {
 }
 
 .appointment-dash-card .date-time p {
-  color: #334155;
-  display: flex;
-  align-items: center;
-  margin: 0;
+    color: #334155;
+    display: flex;
+    align-items: center;
+    margin: 0;
 }
 
 .appointment-dash-card .date-time p i {
@@ -26098,8 +26104,8 @@ a.mute-video.stop {
 }
 
 .clinic-details {
-  margin-bottom: 15px;
-  margin-top:12px;
+    margin-bottom: 15px;
+    margin-top: 12px;
 }
 
 .clinic-details h5 {
@@ -26683,8 +26689,8 @@ a.mute-video.stop {
 }
 
 .doctor-widget-one .doc-location {
-  font-weight: 500;
-  margin-bottom: 4px;
+    font-weight: 500;
+    margin-bottom: 4px;
 }
 
 .doctor-widget-one .doc-location:last-child {
@@ -54348,32 +54354,32 @@ ul li {
 }
 
 .profile-widget.patient-favour .fav-head .doc-img {
-  width: auto;
-  margin: auto;
-  border-radius: 10px;
-  text-align: center;
+    width: auto;
+    margin: auto;
+    border-radius: 10px;
+    text-align: center;
 }
 
 .profile-widget.patient-favour .fav-head .doc-img img {
-  width: 100%;
-  height: 140px;
-  border-radius: 10px;
-  object-fit: cover;
-  margin: auto;
+    width: 100%;
+    height: 140px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin: auto;
 }
 
 .profile-widget.patient-favour .fav-head .fav-btn {
-  opacity: 1;
-  visibility: visible;
-  background-color: #F8FAFC;
-  transform: unset;
-  -webkit-transform: unset;
-  -ms-transform: unset;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  top: 30px;
-  right: 30px;
+    opacity: 1;
+    visibility: visible;
+    background-color: #F8FAFC;
+    transform: unset;
+    -webkit-transform: unset;
+    -ms-transform: unset;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    top: 30px;
+    right: 30px;
 }
 
 .profile-widget.patient-favour .fav-head .fav-btn .favourite-icon.favourite {
@@ -54381,10 +54387,10 @@ ul li {
 }
 
 .profile-widget.patient-favour .fav-head .pro-content .title {
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: #0F172A;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #0F172A;
 }
 
 .profile-widget.patient-favour .fav-head .pro-content .title a {
@@ -54438,17 +54444,17 @@ ul li {
 }
 
 .profile-widget.patient-favour .fav-head .pro-content .last-book p {
-  text-align: center;
-  font-size: 14px;
-  margin: 0;
-  color: #0F172A;
+    text-align: center;
+    font-size: 14px;
+    margin: 0;
+    color: #0F172A;
 
 }
 
 .profile-widget.patient-favour .fav-footer {
-  padding: 15px;
-  display: flex;
-  justify-content: space-evenly;
+    padding: 15px;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .profile-widget.patient-favour .fav-footer .btn {
@@ -55667,74 +55673,190 @@ table.no-padding-table td {
     top: 50%;
     transform: translate(50%, -50%);
     right: calc(100% + var(--col-gap) + var(--line-w) / 2);
-  }
-  /* title descr */
-  #pat_appointments ul li .title,
-  #pat_appointments ul li .descr {
-  background: var(--bgColor);
-  position: relative;
-  padding-inline: 1.5rem;
-  }
-  #pat_appointments ul li .title {
-  overflow: hidden;
-  padding-block-start: 1.5rem;
-  padding-block-end: 1rem;
-  font-weight: 500;
-  }
-  #pat_appointments ul li .descr {
-  padding-block-end: 1.5rem;
-  font-weight: 300;
-  }
-  /* shadows */
-  #pat_appointments ul li .title::before,
-  #pat_appointments ul li .descr::before {
-  content: "";
-  position: absolute;
-  width: 90%;
-  height: 0.5rem;
-  background: rgba(0, 0, 0, 0.1);
-  left: 50%;
-  border-radius: 50%;
-  filter: blur(4px);
-  transform: translate(-50%, 50%);
-  }
-  #pat_appointments ul li .title::before {
-  bottom: calc(100% + 0.125rem);
-  }
-  #pat_appointments ul li .descr::before {
-  z-index: -1;
-  bottom: 0.25rem;
-  }
-  @media (min-width: 40rem) {
-      #pat_appointments ul {
-      grid-template-columns: 1fr var(--line-w) 1fr;
-  }
-  #pat_appointments ul::before {
-      grid-column: 2;
-  }
-  #pat_appointments ul li:nth-child(odd) {
-      grid-column: 1;
-  }
-  #pat_appointments ul li:nth-child(even) {
-      grid-column: 3;
-  }
-  /* start second card */
-  #pat_appointments ul li:nth-child(2) {
-      grid-row: 2/4;
-  }
-  #pat_appointments  ul li:nth-child(odd) .date::before {
-      clip-path: polygon(0 0, 100% 0, 100% 100%);
-      left: 0;
-  }
-  #pat_appointments ul li:nth-child(odd) .date::after {
-      transform: translate(-50%, -50%);
-      left: calc(100% + var(--col-gap) + var(--line-w) / 2);
-  }
-  ul li:nth-child(odd) .date {
-      border-radius: 0 calc(var(--dateH) / 2) calc(var(--dateH) / 2) 0;
-  }
-  ul li:nth-child(even) .date {
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
-  }
-  }
+}
+
+/* title descr */
+#pat_appointments ul li .title,
+#pat_appointments ul li .descr {
+    background: var(--bgColor);
+    position: relative;
+    padding-inline: 1.5rem;
+}
+
+#pat_appointments ul li .title {
+    overflow: hidden;
+    padding-block-start: 1.5rem;
+    padding-block-end: 1rem;
+    font-weight: 500;
+}
+
+#pat_appointments ul li .descr {
+    padding-block-end: 1.5rem;
+    font-weight: 300;
+}
+
+/* shadows */
+#pat_appointments ul li .title::before,
+#pat_appointments ul li .descr::before {
+    content: "";
+    position: absolute;
+    width: 90%;
+    height: 0.5rem;
+    background: rgba(0, 0, 0, 0.1);
+    left: 50%;
+    border-radius: 50%;
+    filter: blur(4px);
+    transform: translate(-50%, 50%);
+}
+
+#pat_appointments ul li .title::before {
+    bottom: calc(100% + 0.125rem);
+}
+
+#pat_appointments ul li .descr::before {
+    z-index: -1;
+    bottom: 0.25rem;
+}
+
+@media (min-width: 40rem) {
+    #pat_appointments ul {
+        grid-template-columns: 1fr var(--line-w) 1fr;
+    }
+
+    #pat_appointments ul::before {
+        grid-column: 2;
+    }
+
+    #pat_appointments ul li:nth-child(odd) {
+        grid-column: 1;
+    }
+
+    #pat_appointments ul li:nth-child(even) {
+        grid-column: 3;
+    }
+
+    /* start second card */
+    #pat_appointments ul li:nth-child(2) {
+        grid-row: 2/4;
+    }
+
+    #pat_appointments ul li:nth-child(odd) .date::before {
+        clip-path: polygon(0 0, 100% 0, 100% 100%);
+        left: 0;
+    }
+
+    #pat_appointments ul li:nth-child(odd) .date::after {
+        transform: translate(-50%, -50%);
+        left: calc(100% + var(--col-gap) + var(--line-w) / 2);
+    }
+
+    ul li:nth-child(odd) .date {
+        border-radius: 0 calc(var(--dateH) / 2) calc(var(--dateH) / 2) 0;
+    }
+
+    ul li:nth-child(even) .date {
+        border-top-left-radius: 50px;
+        border-bottom-left-radius: 50px;
+    }
+}
+
+.panelbtn {
+    display: inline-block;
+    background: #007afe;
+    position: absolute;
+    top: -20px;
+    padding: 5px 15px;
+    border-radius: 10px;
+    color: #fff;
+    left: 35px;
+    min-width: 150px;
+    text-align: center;
+    font-size: 17px;
+}
+
+.panel.panel-body .card {
+    border-radius: 30px;
+}
+
+.tabs {
+    display: flex;
+    cursor: pointer;
+}
+
+.tabs .active a {
+    background-color: #004cd4 !important;
+    color: #fff;
+}
+
+.tab-content {
+    display: none;
+    /* border: 1px solid #ccc; */
+    padding: 10px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.doctor-info-profile.fav-doc img {
+    height: 35px !important;
+    width: 35px !important;
+}
+
+.mr-1 {
+    margin-right: 3px;
+}
+
+i.fab.fa-facebook-square {
+    color: blue;
+}
+
+i.fab.fa-instagram-square {
+    color: indianred;
+}
+
+i.fab.fa-twitter-square {
+    color: skyblue;
+}
+
+i.fab.fa-youtube-square {
+    color: red;
+}
+
+.panelbtn {
+    display: inline-block;
+    background: #007afe;
+    position: absolute;
+    top: -20px;
+    padding: 5px 15px;
+    border-radius: 10px;
+    color: #fff;
+    left: 35px;
+    min-width: 150px;
+    text-align: center;
+    font-size: 17px;
+}
+
+.panel.panel-body .card {
+    border-radius: 30px;
+}
+
+.tabs {
+    display: flex;
+    cursor: pointer;
+}
+
+.tabs .active a {
+    background-color: #004cd4 !important;
+    color: #fff;
+}
+
+.tab-content {
+    display: none;
+    /* border: 1px solid #ccc; */
+    padding: 10px;
+}
+
+.tab-content.active {
+    display: block;
+}

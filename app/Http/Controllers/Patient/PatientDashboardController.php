@@ -58,7 +58,7 @@ class PatientDashboardController extends Controller
         $diaryDetails = $this->getValidatePreviewsDateDiaryDetail($currentDate);
     }
 
-    $diaryDetailsDayAfter = $this->getValidatePreviewsDateDiaryDetail($diaryDetails->created_at);
+    // $diaryDetailsDayAfter = $this->getValidatePreviewsDateDiaryDetail($diaryDetails->created_at);
 
     $percentageChanges = [];
 
@@ -67,7 +67,7 @@ class PatientDashboardController extends Controller
     foreach ($attributes as $attribute) {
       $currentValue = $diaryDetails->$attribute ?? null;
       $previousValue = $diaryDetailsDayAfter->$attribute ?? null;
-  
+
       if ($currentValue !== null && $previousValue !== null && $previousValue != 0) {
           $percentageChange = (($currentValue - $previousValue) / $previousValue) * 100;
           $percentageChanges[$attribute] = round($percentageChange, 2); // Round to 2 decimal places
@@ -79,8 +79,8 @@ class PatientDashboardController extends Controller
           $percentageChanges[$attribute] = 'N/A';
       }
   }
-  
-    
+
+
     $diaryDetails['percentage'] = $percentageChanges;
     return view(
       'patients.dashboard.patient-dashboard',
@@ -98,7 +98,7 @@ class PatientDashboardController extends Controller
 
   public function getValidatePreviewsDateDiaryDetail($currentDate, $diaryDetails = null)
   {
-    while (!$diaryDetails) 
+    while (!$diaryDetails)
     {
         Log::info('Checking diary details for date: ' . $currentDate->toDateString());
 

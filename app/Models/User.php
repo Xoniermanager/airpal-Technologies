@@ -193,4 +193,16 @@ class User extends Authenticatable
     {
         return $this->hasOne(DoctorPatientChat::class, 'receiver_id', 'id');
     }
+
+    public function doctorEducation()
+    {
+        if ($this->educations)
+            foreach ($this->educations as $education) {
+                return $education->course->name;
+            }
+        else
+        {
+            return '<p>No Details Available</p>';
+        }
+    }
 }

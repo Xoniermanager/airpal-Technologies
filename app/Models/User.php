@@ -11,6 +11,7 @@ use App\Models\DoctorEducation;
 use App\Models\DoctorExperience;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\DoctorWorkingHours;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -193,4 +194,62 @@ class User extends Authenticatable
     {
         return $this->hasOne(DoctorPatientChat::class, 'receiver_id', 'id');
     }
+
+
+    public function bookNowButton()
+    {
+        $bookNowButton = '';
+        $bookNowButton .= '<div class="mb-2">';
+        $bookNowButton .= '<a href="' . route('appointment.index', ['id' => Crypt::encrypt($this->id)]) . '" class="btn book-btn">Book Now</a>';
+        $bookNowButton .= '</div>';
+
+        return $bookNowButton;
+    }
+
+    public function profileButton()
+    {
+        $profileButton = '';
+        $profileButton .= '<div class="mb-2">';
+        $profileButton .= '<a href="' . route('frontend.doctor.profile', ['user' => Crypt::encrypt($this->id)]) . '" class="btn view-btn">View Details</a>';
+
+        $profileButton .= '</div>';
+
+        return $profileButton;
+    }
+
+    public function doctorEducation()
+    {
+        if ($this->educations)
+            foreach ($this->educations as $education) {
+                return $education->course->name;
+            }
+        else {
+            return '<p> Not found </p>';
+        }
+    }
+
+
+    public function socialMediaAccounts()
+    {
+        return $this->hasMany(DoctorSocialMediaAccounts::class,'doctor_id');
+    }
+
+     // Method to generate the HTML list of social media accounts
+     public function DoctorSocialMediaAccountsList()
+     {
+
+
+         $html = '<ul class="social-media-list d-flex mt-2 mb-1">';
+         foreach ($this->socialMediaAccounts as $account) {
+             $platform = $account->socialMediaAccountType->name;
+             $url = $account->link;
+             
+             $iconClass = ($platform) ? "fab fa-".strtolower($platform)."-square" : "fab fa-globe";
+             $html .= '<li class="mr-1"><a href="' . $url . '" target="_blank"><i class="' . $iconClass . '"></i></a></li>';
+         }
+ 
+         $html .= '</ul>';
+ 
+         return $html;
+     }
 }

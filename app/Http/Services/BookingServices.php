@@ -288,10 +288,14 @@ class BookingServices
             'confirmedAppointments' => $this->bookingRepository->where('patient_id', $id)
                ->where('status', '=', 'confirmed')
                ->get()->count(),
-            'cancelledAppointments' => $this->bookingRepository->where('doctor_id', $id)
+
+            'cancelledAppointments' => $this->bookingRepository->where('patient_id', $id)
                ->where('status', '=', 'cancelled')
                ->get()->count(),
-         ];
+
+            'completedAppointments' => $this->bookingRepository->where('patient_id', $id)
+            ->where('status', '=', 'completed')
+            ->get()->count(),            ];
    }
 
    public function getAllRecentAppointmentsByDoctorId($doctorId)

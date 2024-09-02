@@ -41,6 +41,7 @@ class PatientDashboardController extends Controller
   }
   public function patientDashboard()
   {
+    $diaryDetailsDayAfter = [];
     $patientId                 = Auth::user()->id;
     $patientHeartBeatGraphData = $this->patientServices->patientHeartBeatGraph($patientId);
     $medicalDetailsRecords     = $this->medicalRecordService->getMedicalRecordByPatientId(Auth::user()->id);
@@ -51,43 +52,31 @@ class PatientDashboardController extends Controller
     $patientInvoicesList       = $this->invoiceServices->getAllPatientInvoice($patientId);
 
     $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate(Carbon::now(), Auth::user()->id);
-
-    if (!$diaryDetails) {
-      Log::info('No diary details found for today. Checking previous month.');
-      $currentDate  = Carbon::today();
-      $diaryDetails = $this->getValidatePreviewsDateDiaryDetail($currentDate);
-    }
-
-    if ($diaryDetails) {
-
+    
+    if ($diaryDetails) 
+    {
       $diaryDetailsDayAfter = $this->getValidatePreviewsDateDiaryDetail($diaryDetails->created_at);
-      $comparedDate = Carbon::parse($diaryDetails->created_at);
-      $comparedDate = $comparedDate->subDay();
       $percentageChanges = [];
 
       $attributes = ['pulse_rate', 'oxygen_level', 'bp', 'avg_body_temp', 'avg_heart_beat', 'glucose', 'weight', 'total_sleep_hr'];
 
-      foreach ($attributes as $attribute) {
-        $currentValue = $diaryDetails->$attribute ?? null;
-        $previousValue = $diaryDetailsDayAfter->$attribute ?? null;
+        foreach ($attributes as $attribute) {
+          $currentValue = $diaryDetails->$attribute ?? null;
+          $previousValue = $diaryDetailsDayAfter->$attribute ?? null;
 
-        if ($currentValue !== null && $previousValue !== null && $previousValue != 0) {
-          $percentageChange = (($currentValue - $previousValue) / $previousValue) * 100;
-          $percentageChanges[$attribute] = round($percentageChange, 2); // Round to 2 decimal places
-        } elseif ($previousValue === null && $currentValue !== null) {
-          $percentageChanges[$attribute] = 100.00; // Indicating a 100% increase from no data
-        } elseif ($currentValue === null && $previousValue !== null) {
-          $percentageChanges[$attribute] = -100.00; // Indicating a 100% decrease to no data
-        } else {
-          $percentageChanges[$attribute] = 'N/A';
+          if ($currentValue !== null && $previousValue !== null && $previousValue != 0) {
+            $percentageChange = (($currentValue - $previousValue) / $previousValue) * 100;
+            $percentageChanges[$attribute] = round($percentageChange, 2); // Round to 2 decimal places
+          } elseif ($previousValue === null && $currentValue !== null) {
+            $percentageChanges[$attribute] = 100.00; // Indicating a 100% increase from no data
+          } elseif ($currentValue === null && $previousValue !== null) {
+            $percentageChanges[$attribute] = -100.00; // Indicating a 100% decrease to no data
+          } else {
+            $percentageChanges[$attribute] = 'N/A';
+          }
         }
-      }
-
       $diaryDetails['percentage'] = $percentageChanges;
-    } else {
-      $diaryDetails['percentage'] = [];
     }
-
 
     return view(
       'patients.dashboard.patient-dashboard',
@@ -99,7 +88,7 @@ class PatientDashboardController extends Controller
         'patientHeartBeatGraphData' => $patientHeartBeatGraphData,
         'medicalRecords'            => $medicalDetailsRecords->take(5),
         'diaryDetails'              => $diaryDetails,
-        'comparedDate'              => $comparedDate
+        'comparedDateRecordDetails' => $diaryDetailsDayAfter
       ]
     );
   }

@@ -47,7 +47,7 @@ use App\Http\Controllers\Patient\PatientAppointmentsController;
 use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
-use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
+use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSiteConfigController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
 use App\Http\Controllers\Doctor\PrescriptionController;
 use App\Http\Controllers\Patient\MedicalRecordController;
 use App\Http\Controllers\Patient\PatientDiaryController;
@@ -395,7 +395,7 @@ Route::prefix('admin')->group(function () {
         Route::get('admin-appointment-filter',  [AdminAppointmentController::class, 'appointmentFilter'])->name('admin.appointment-filter');
 
         Route::get('/profile/{user:id}', [ProfileController::class, 'profile'])->name('admin.profile.index');
-        Route::get('/settings', [SettingsController::class, 'settings'])->name('admin.settings.index');
+        Route::get('/settings', [AdminSiteConfigController::class, 'settings'])->name('admin.settings.index');
 
 
         Route::get('/transactions-list', [TransactionController::class, 'transactionsList'])->name('admin.transactions-list.index');
@@ -535,6 +535,9 @@ Route::get('job', function () {
 
 
 
+Route::controller(AdminSiteConfigController::class)->group(function () {
+    Route::post('add', 'addWebsiteConfig')->name('add.website.configs');
+});
 
 
 Route::controller(DoctorController::class)->group(function () {

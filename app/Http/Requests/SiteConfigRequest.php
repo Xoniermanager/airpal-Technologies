@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SearchPatientAppointments extends FormRequest
+class SiteConfigRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,11 @@ class SearchPatientAppointments extends FormRequest
     public function rules(): array
     {
         return [
-            'key'       =>  'required|in:all,today,upcoming,cancelled,confirmed,completed',
-            'patientId'  =>  'required|exists:users,id',
-            'pSearchKey' =>  'string|max:255|nullable',
-            'dateSearch' =>  'date|nullable',
+            
+            'config' => 'required|array',
+            'config.*.' => 'array|in:"site_name","site_url","admin_email","admin_phone" ,"website_logo","website_favicon","website_description" ',
+            'config.*.name' => 'required',
+            'config.*.value' => 'required'
         ];
     }
 }

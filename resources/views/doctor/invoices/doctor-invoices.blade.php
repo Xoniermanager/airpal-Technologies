@@ -45,11 +45,11 @@
                         <tr>
                             <td>
                                 <h2 class="table-avatar">
-                                    <a href="{{ route('doctor.doctor-profile.index') }}" class="avatar avatar-sm me-2">
+                                    <a href="{{ route('doctor-patient-profile', ['id' => Crypt::encrypt($invoiceDetail->patient->id)]) }}" class="avatar avatar-sm me-2">
                                         <img class="avatar-img rounded-3" src="{{ $invoiceDetail->patient->image_url }}"
                                             alt="">
                                     </a>
-                                    <a href="{{ route('doctor.doctor-profile.index') }}">
+                                    <a href="{{ route('doctor-patient-profile', ['id' => Crypt::encrypt($invoiceDetail->patient->id)]) }}">
                                         {{ $invoiceDetail->patient->fullName ?? '' }}
                                     </a>
                                 </h2>

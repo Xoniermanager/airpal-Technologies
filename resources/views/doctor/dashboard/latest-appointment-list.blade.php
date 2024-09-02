@@ -5,13 +5,12 @@
         <tr>
             <td>
                 <div class="patient-info-profile">
-                    <a href="{{ route('doctor.appointments.index') }}" class="table-avatar">
+                    <a href="{{$appointment->patientProfileUrl()}}" class="table-avatar">
                         <img src="{{ $appointment->patient->image_url }}">
                     </a>
                     <div class="patient-name-info">
                         <span>#PAT{{ $appointment->id }}</span>
-                        <h5><a
-                                href="{{ route('doctor.appointments.index') }}">{{ $appointment->patient->FullName }}</a>
+                        <h5><a href=" {{ $appointment->patientProfileUrl()}}">{{ $appointment->patient->FullName }}</a>
                         </h5>
                     </div>
                 </div>

@@ -29,20 +29,23 @@
                                     src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}'>
                             </div>
                             <div class="doc-info-cont">
-                                <h4 class="doc-name">{{ $doctor->first_name }} {{ $doctor->last_name }}</h4>  
-                                <p class="doc-speciality" style="font-weight:600">
+                                <h4 class="doc-name">{{ $doctor->first_name }} {{ $doctor->last_name }} 
+                                <span class="doc-speciality">
                                     @forelse ($doctor->educations as $education)
-                                        {{ $education->course->name }}
+                                       ( {{ $education->course->name }}
                                         @if (!$loop->last)
                                             ,
                                         @endif
+                                       )
                                     @empty
                                         <p>N/A</p>
                                     @endforelse
-                                </p>
+                                </span>
+                            </h4> 
                                 @php
                                     $slicedSpecializationsArray = $doctor->specializations;
                                 @endphp
+                                {!! $doctor->DoctorSocialMediaAccountsList() !!}
                                 {{-- <p class="doc-department">
                                     @isset($doctor)
                                         @forelse ($doctor->specializations as $specialization)
@@ -90,27 +93,9 @@
                                         <span>No Specialization available</span>
                                     @endforelse 
                                 </div>
-              
                             </div>
                         </div>
                         <div class="doc-info-right">
-                            <div class="clini-infos">
-                                <ul>
-                                    <li><i class="far fa-thumbs-up"></i> 99%</li>
-                                    <li><i class="far fa-comment"></i> ({{ count($doctor->doctorReview) }}) Feedback</li>
-                                    @if (isset($doctor->doctorAddress))
-                                        <li><i class="fas fa-map-marker-alt"></i>
-                                            {{ $doctor->doctorAddress->address ?? '' }}
-                                            {{ ',' . $doctor->doctorAddress->city ?? '' }}
-                                            {{ ',' . $doctor->doctorAddress->states->name ?? '' }}
-                                            {{ ',' . $doctor->doctorAddress->states->country->name ?? '' }} </li>
-                                    @else
-                                        <li><i class="fas fa-map-marker-alt"></i></li>
-                                    @endif
-
-                                    <li><i class="far fa-money-bill-alt"></i> $100 per hour </li>
-                                </ul>
-                            </div>
                             <div class="doctor-action">
                             <!-- Add an ID or unique class to the <a> tag to target it -->
                             <a href="#" class="btn btn-white fav-btn" id="copyLink" data-url="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">
@@ -687,3 +672,10 @@
 </script>
 
 @endsection
+
+<style>
+    .doctor-img img {
+    height: 162px !important;
+    object-fit: cover;
+}
+</style>

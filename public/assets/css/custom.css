@@ -1027,22 +1027,22 @@ p:last-child  {
 
 /******* COMPONENTS ******/
 .view-btn {
-  color: #0de0fe;
+  color: #004cd4;
   font-size: 13px;
-  border: 2px solid #0de0fe;
+  border: 2px solid #004cd4;
   text-align: center;
   display: block;
   font-weight: 500;
   padding: 6px;
 }
 .view-btn:hover, .view-btn:focus {
-  background-color: #0de0fe;
+  background-color: #004cd4;
   color: #ffffff;
 }
 
 .book-btn {
-  background-color: #0de0fe;
-  border: 2px solid #0de0fe;
+  background-color: #004cd4;
+  border: 2px solid #004cd4;
   color: #ffffff;
   font-size: 13px;
   text-align: center;
@@ -1051,8 +1051,8 @@ p:last-child  {
   padding: 6px;
 }
 .book-btn:hover, .book-btn:focus {
-  background-color: #01cae4;
-  border-color: #01cae4;
+  background-color: #004cd4;
+  border-color: #004cd4;
   color: #ffffff;
 }
 
@@ -9054,7 +9054,7 @@ header.header.header-custom.header-fixed.header-one  {
 .profile-widget .rating {
   color: #757575;
   font-size: 14px;
-  margin-bottom: 15px !important;
+  margin-bottom: 5px !important;
 }
 .profile-widget .rating i {
   font-size: 14px;
@@ -9094,8 +9094,7 @@ header.header.header-custom.header-fixed.header-one  {
 .profile-widget .pro-content p.speciality {
   font-size: 13px;
   color: #757575;
-  margin-bottom: 5px;
-  min-height: 40px;
+  margin-bottom: 5px; 
 }
 .profile-widget .pro-content .rating {
   list-style: none;
@@ -9114,7 +9113,7 @@ header.header.header-custom.header-fixed.header-one  {
   color: #757575;
   font-weight: 400;
   list-style: none;
-  margin: auto auto 15px;
+  margin: auto auto 5px;
   padding: 0;
 }
 .profile-widget .pro-content .available-info li i {
@@ -14808,10 +14807,13 @@ header.header.header-custom.header-fixed.header-one  {
   flex-shrink: 0;
 }
 .doctor-fav-list .doctor-info-profile .table-avatar img {
-  width: 36px;
-  height: 36px;
+  width: 100px;
+  height: 100px;
   border-radius: 5px;
   margin-right: 10px;
+}
+.doctor-name-info {
+  padding-left: 10px;
 }
 .doctor-fav-list .doctor-info-profile .doctor-name-info h5 {
   margin-bottom: 0px;
@@ -14917,7 +14919,7 @@ header.header.header-custom.header-fixed.header-one  {
   color: #334155;
   display: flex;
   align-items: center;
-  margin: 24px 0;
+  margin: 0;
 }
 .appointment-dash-card .date-time p i {
   margin-right: 5px;
@@ -45550,15 +45552,17 @@ ul li {
   border-bottom: 1px solid #E2E8F0;
 }
 .profile-widget.patient-favour .fav-head .doc-img {
-  width: 80px;
-  margin: 0 auto 5px;
+  width: auto;
+  margin: auto;
   border-radius: 10px;
+  text-align: center;
 }
 .profile-widget.patient-favour .fav-head .doc-img img {
-  width: 80px;
-  height: 80px;
+  width: 100%;
+  height: 140px;
   border-radius: 10px;
   object-fit: cover;
+  margin: auto;
 }
 .profile-widget.patient-favour .fav-head .fav-btn {
   opacity: 1;
@@ -45570,8 +45574,8 @@ ul li {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  top: 20px;
-  right: 20px;
+  top: 30px;
+  right: 30px;
 }
 .profile-widget.patient-favour .fav-head .fav-btn .favourite-icon.favourite {
   color: #EA580C;
@@ -45579,8 +45583,7 @@ ul li {
 .profile-widget.patient-favour .fav-head .pro-content .title {
   text-align: center;
   font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 10px;
+  font-weight: 600; 
   color: #0F172A;
 }
 .profile-widget.patient-favour .fav-head .pro-content .title a {
@@ -45630,9 +45633,12 @@ ul li {
   font-size: 14px;
   margin: 0;
   color: #0F172A;
+
 }
 .profile-widget.patient-favour .fav-footer {
   padding: 15px;
+  display: flex;
+  justify-content: space-evenly;
 }
 .profile-widget.patient-favour .fav-footer .btn {
   font-size: 17px;
@@ -46782,3 +46788,26 @@ table.no-padding-table td {
     border-bottom-left-radius: 50px;
   }
   }
+  .doctor-info-profile.fav-doc img {
+    height: 35px !important;
+    width: 35px !important;
+}
+
+.mr-1 {
+  margin-right: 3px;
+}
+
+i.fab.fa-facebook-square {
+  color: blue;
+}
+
+
+i.fab.fa-instagram-square {
+  color: indianred;
+}
+i.fab.fa-twitter-square {
+  color: skyblue;
+}
+i.fab.fa-youtube-square {
+  color: red;
+}

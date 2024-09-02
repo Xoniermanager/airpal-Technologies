@@ -10,25 +10,13 @@
                 <h3><a href="{{ route('doctor.doctor-profile.index') }}"> {{ auth()->user()->fullName }}</a></h3>
                 <div class="patient-details">
                     <h5 class="mb-0">
-                        
-                        @isset($doctorDetails)
-                            @forelse ($doctorDetails->educations as $education)
-                                {{ $education->course->name }}
-                                @if (!$loop->last)
-                                    ,
-                                @endif
-                            @empty
-                                <p>N/A</p>
-                            @endforelse
-                        @endisset
-
+                        {{ $doctorDetails->doctorEducation() }}
                     </h5>
                 </div>
                 @isset($doctorDetails)
                     @forelse ($doctorDetails->specializations as $specialization)
                         <span class="badge doctor-role-badge"><i
                                 class="fa-solid fa-circle"></i>{{ $specialization->name }}</span>
-
                     @empty
                         <p>N/A</p>
                     @endforelse

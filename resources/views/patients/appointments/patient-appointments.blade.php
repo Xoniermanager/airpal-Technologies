@@ -49,6 +49,11 @@
                             </span></button>
                     </li>
                     <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="completed" type="button"
+                            onclick="appointment_filter(this)">Completed<span>{{ $counters['completedAppointments'] ?? 0 }}
+                            </span></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
                         <button class="nav-link" id="cancelled" type="button"
                             onclick="appointment_filter(this)">Cancelled<span>{{ $counters['cancelledAppointments'] ?? 0 }}
                             </span></button>
@@ -79,7 +84,6 @@
 @endsection
 
 @section('javascript')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
         $("#searchKey").keyup(function() {
             filter();

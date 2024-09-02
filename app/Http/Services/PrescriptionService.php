@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Support\Arr;
 use App\Http\Repositories\PrescriptionRepository;
 use App\Models\PrescriptionMedicineDetail;
+use App\Models\PrescriptionTest;
 
 class PrescriptionService
 {
@@ -23,13 +24,24 @@ class PrescriptionService
     public function create($data)
     {
         try {
-            $prescriptionPayload = Arr::except($data, ['_token', 'medicine_detail']);
+            $prescriptionPayload = Arr::except($data, ['_token', 'medicine_detail', 'test']);
+            if (isset($data['advice']) && count($data['advice']) > 0) {
+                $prescriptionPayload['advice'] = implode(',', $data['advice']);
+            }
             $prescriptionDetails = $this->prescriptionRepository->create($prescriptionPayload);
             foreach ($data['medicine_detail'] as $medicineDetails) {
                 $freq = implode(',', $medicineDetails['frequency']);
                 $medicineDetails['frequency'] = $freq;
                 $medicineDetails['prescription_id'] = $prescriptionDetails->id;
                 PrescriptionMedicineDetail::create($medicineDetails);
+            }
+            if (isset($data['test']) && count($data['test']) > 0) {
+                foreach ($data['test'] as $testDetails) {
+                    if (!empty($testDetails->name) && !empty($testDetails->description)) {
+                        $testDetails['prescription_id'] = $prescriptionDetails->id;
+                        PrescriptionTest::create($testDetails);
+                    }
+                }
             }
             return ['status' => true, 'data' => $prescriptionDetails];
         } catch (Exception $e) {
@@ -47,13 +59,16 @@ class PrescriptionService
 
     public function getPrescriptionDetailsById($prescriptionId)
     {
-        return $this->prescriptionRepository->with(['prescriptionMedicineDetail', 'bookingSlot'])->find($prescriptionId);
+        return $this->prescriptionRepository->with(['prescriptionMedicineDetail', 'prescriptionTest','bookingSlot'])->find($prescriptionId);
     }
 
     public function update($data, $prescriptionId)
     {
         try {
-            $prescriptionPayload = Arr::except($data, ['_token', 'medicine_detail']);
+            $prescriptionPayload = Arr::except($data, ['_token', 'medicine_detail', 'test']);
+            if (isset($data['advice']) && count($data['advice']) > 0) {
+                $prescriptionPayload['advice'] = implode(',', $data['advice']);
+            }
             $prescriptionDetails = $this->prescriptionRepository->find($prescriptionId)->update($prescriptionPayload);
             PrescriptionMedicineDetail::where('prescription_id', $prescriptionId)->delete();
             foreach ($data['medicine_detail'] as $medicineDetails) {
@@ -61,6 +76,19 @@ class PrescriptionService
                 $medicineDetails['frequency'] = $freq;
                 $medicineDetails['prescription_id'] = $prescriptionId;
                 PrescriptionMedicineDetail::create($medicineDetails);
+            }
+            if (isset($data['test']) && count($data['test']) > 0) {
+
+                $filtered = array_filter($data['test'], function ($key) {
+                    return $key['name'] != '' || $key['description'] != null;
+                });
+                if (count($filtered) > 1) {
+                    PrescriptionTest::where('prescription_id', $prescriptionId)->delete();
+                    foreach ($data['test'] as $testDetails) {
+                        $testDetails['prescription_id'] = $prescriptionId;
+                        PrescriptionTest::create($testDetails);
+                    }
+                }
             }
             return ['status' => true, 'data' => $prescriptionDetails];
         } catch (Exception $e) {
@@ -83,8 +111,17 @@ class PrescriptionService
     public function deleteMedicineDetailsById($medicineDetailsId)
     {
         try {
-            $prescriptionDetails = PrescriptionMedicineDetail::find($medicineDetailsId)->delete();
-            return ['status' =>  $prescriptionDetails];
+            $medicalDetails = PrescriptionMedicineDetail::find($medicineDetailsId)->delete();
+            return ['status' =>  $medicalDetails];
+        } catch (Exception $e) {
+            return ['status' => false, 'error' => $e->getmessage()];
+        }
+    }
+    public function deleteTestDetailsById($testDetailsId)
+    {
+        try {
+            $testDetails = PrescriptionTest::find($testDetailsId)->delete();
+            return ['status' =>  $testDetails];
         } catch (Exception $e) {
             return ['status' => false, 'error' => $e->getmessage()];
         }

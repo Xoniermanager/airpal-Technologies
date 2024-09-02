@@ -30,7 +30,6 @@
         <div class="appointment-tabs">
             <ul class="nav nav-pills inner-tab " id="pills-tab" role="tablist">
                 <ul class="nav nav-pills inner-tab" id="pills-tab" role="tablist">
-
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="all" type="button"
                             onclick="appointment_filter(this)">All<span>{{ $counters['allAppointments'] ?? 0 }}</span></button>
@@ -59,8 +58,6 @@
                             </span></button>
                     </li>
                 </ul>
-
-
             </ul>
         </div>
         <div class="filter-head">
@@ -73,12 +70,12 @@
             </div>
         </div>
     </div>
-        <div id="grid-view" class="tab-content appointment-tab-content active">
-            @include('patients.appointments.grid-view')
-        </div>
-        <div id="list-view" class="tab-content appointment-tab-content">
-            @include('patients.appointments.list-view')
-        </div>
+    <div id="grid-view" class="tab-content appointment-tab-content active">
+        @include('patients.appointments.grid-view')
+    </div>
+    <div id="list-view" class="tab-content appointment-tab-content">
+        @include('patients.appointments.list-view')
+    </div>
 
     </div>
 @endsection
@@ -152,7 +149,7 @@
             }
 
             // Show the current tab and add an active class to the clicked tab
-            console.log( document.getElementById(tabName));
+            console.log(document.getElementById(tabName));
             document.getElementById(tabName).classList.add("active");
             event.currentTarget.classList.add("active");
         }
@@ -165,25 +162,3 @@
         });
     </script>
 @endsection
-
-<style>
-    .tabs {
-        display: flex;
-        cursor: pointer;
-    }
-
-    .tabs .active a {
-        background-color: #004cd4 !important;
-        color: #fff;
-    }
-
-    .tab-content {
-        display: none;
-        /* border: 1px solid #ccc; */
-        padding: 10px;
-    }
-
-    .tab-content.active {
-        display: block;
-    }
-</style>

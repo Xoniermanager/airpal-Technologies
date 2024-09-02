@@ -27,14 +27,12 @@ class BookingRepository extends BaseRepository
 
     public function searchDoctorAppointments($filterParams)
     {
-
-
         $query = $this->model->with('patient')->newQuery();
         $key   = $filterParams['key'] ?? '';
 
         /*
         Managing filter for :
-            1. today appointments, 
+            1. today appointments,
             2. upcoming appointments and
             3. cancelled appointments
         */
@@ -72,8 +70,7 @@ class BookingRepository extends BaseRepository
         }
 
         // Using search keyword to find appointments
-        if (isset($filterParams['searchKey']) && !empty($filterParams['searchKey']))
-         {
+        if (isset($filterParams['searchKey']) && !empty($filterParams['searchKey'])) {
 
             $searchKey = explode(' ', $filterParams['searchKey']);
             $query->whereHas('patient', function ($query) use ($searchKey) {
@@ -168,18 +165,15 @@ class BookingRepository extends BaseRepository
             ->whereNotIn('status', ['cancelled', 'completed'])
             ->get();
     }
-    
+
 
     public function getAllCompletedAppointmentsByDoctorId($doctorId)
     {
-    
+
         return  $this->where('doctor_id', $doctorId)
-            ->where('status','completed')
+            ->where('status', 'completed')
             ->get();
     }
-
-    
-
     public function getAllCanceledAppointmentsByDoctorId($doctorId)
     {
         return  $this->where('doctor_id', $doctorId)

@@ -76,14 +76,14 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('reset-password', 'resetPassword')->name('reset.password');
 });
 
-// patient registration 
+// patient registration
 Route::controller(PatientAuthController::class)->group(function () {
     Route::get('patient/register', 'register')->name('register.index');
     Route::post('/register', 'signUp')->name('patient.register');
     Route::get('/logout', 'logout')->name('patient.logout');
 });
 
-// doctor registration 
+// doctor registration
 Route::prefix('doctor')->group(function () {
     Route::controller(AdminDoctorController::class)->group(function () {
         Route::post('add', 'addPersonalDetails')->name('admin.add-personal-details');
@@ -187,7 +187,7 @@ Route::prefix('doctor')->group(function () {
             Route::get('get-question-by-doctor-id', 'getQuestionByDoctorId')->name('get.question.doctor.id');
         });
 
-        // these routes are used for with auth attempt 
+        // these routes are used for with auth attempt
         Route::controller(DoctorAuthenticationController::class)->group(function () {
             Route::post('change-password', 'changePassword')->name('doctor.change.password');
             Route::get('logout', 'logout')->name('doctor.logout');
@@ -205,10 +205,13 @@ Route::prefix('doctor')->group(function () {
             Route::get('/add', 'add')->name('prescription.add');
             Route::post('/create', 'create')->name('prescription.create');
             Route::get('/edit/{prescriptions:id}', 'edit')->name('prescription.edit');
+            Route::get('/view/{prescriptions:id}', 'view')->name('prescription.view');
             Route::post('/update/{prescriptions:id}', 'update')->name('prescription.update');
             Route::get('/delete/{prescriptions:id}', 'delete')->name('prescription.delete');
             Route::get('/delete/medicine-details/{prescription_medicine_details:id}', 'deleteMedicine');
+            Route::get('/delete/test-details/{prescription_tests:id}', 'deletePrescriptionTest');
             Route::get('/search/filter', 'searchFilterPrescriptionDetails')->name('prescription.search.filter');
+            Route::get('/download-pdf/{prescriptions:id}', 'downloadPrescriptionPdf')->name('prescription.pdf.download');
             Route::get('/get-booking-details-patient', 'getAllBookingDetailsByPatient')->name('get.booking.details.patient');
         });
     });
@@ -299,7 +302,7 @@ Route::middleware(['auth'])->group(function () {
  */
 Route::prefix('admin')->group(function () {
 
-    // admin routes 
+    // admin routes
     Route::middleware(['role:admin'])->group(function () {
         Route::controller(AdminDashboardController::class)->group(function () {
             Route::get('dashboard', 'index')->name('admin.dashboard.index');
@@ -401,7 +404,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/transactions-list', [TransactionController::class, 'transactionsList'])->name('admin.transactions-list.index');
         Route::get('/invoice-report', [InvoiceReportController::class, 'invoiceReport'])->name('admin.invoice-report.index');
         Route::get('/invoice', [InvoiceReportController::class, 'invoice'])->name('admin.invoice.index');
-        
+
     });
 });
 

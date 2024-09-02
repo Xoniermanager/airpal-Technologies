@@ -5,13 +5,13 @@
         <ul>
             <li>
                 <div class="patinet-information">
-                    <a href="#">
+                    <a href="{{$booking->patientProfileUrl()}}">
                         <img src="{{ $booking->patient->image_url}}"
                             alt="">
                     </a>
                     <div class="patient-info">
                         <p>#Apt0001</p>
-                        <h6><a href="#">{{ $booking->patient->fullName }} </a></h6>
+                        <h6><a href="{{$booking->patientProfileUrl()}}">{{ $booking->patient->fullName }} </a></h6>
                         <div class="mail-info-patient">
                             <ul>
                                 <li><i class="fa-solid fa-envelope"></i><a

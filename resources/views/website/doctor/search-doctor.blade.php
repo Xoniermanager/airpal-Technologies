@@ -43,7 +43,7 @@
                                                 <ul>
                                                     <li>
                                                         <label class="custom_check d-inline-flex">
-                                                            <input type="checkbox" name="gender" value="Male"
+                                                            <input type="checkbox" name="gender" value="male"
                                                                 id="male">
                                                             <span class="checkmark"></span>
                                                             Male Gender
@@ -51,7 +51,7 @@
                                                     </li>
                                                     <li>
                                                         <label class="custom_check d-inline-flex">
-                                                            <input type="checkbox" name="gender" value="Female"
+                                                            <input type="checkbox" name="gender" value="female"
                                                                 id="female">
                                                             <span class="checkmark"></span>
                                                             Female Gender
@@ -63,7 +63,7 @@
                                     </div>
 
 
-                                    <div class="filter-grid">
+                                    {{-- <div class="filter-grid">
                                         <h4>
                                             <a href="#collapsetwo" data-bs-toggle="collapse"
                                                 class="collapsed">Availability</a>
@@ -127,7 +127,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
 
                                     <div class="filter-grid">
@@ -247,7 +247,7 @@
                                     </div>
 
 
-                                    <div class="filter-grid">
+                                    {{-- <div class="filter-grid">
                                         <h4>
                                             <a href="#collapsesix" data-bs-toggle="collapse">Online Consultation</a>
                                         </h4>
@@ -285,97 +285,14 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                    </div>
-
-
-                                    {{-- <div class="filter-grid">
-                                    <h4>
-                                        <a href="#collapseseven" data-bs-toggle="collapse">By Rating</a>
-                                    </h4>
-                                    <div id="collapseseven" class="collapse show">
-                                        <div class="filter-collapse">
-                                            <ul>
-                                                <li>
-                                                    <div class="custom_check rating_custom_check d-inline-flex">
-                                                        <input type="checkbox" name="online">
-                                                        <span class="checkmark"></span>
-                                                        <div class="rating">
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <span class="rating-count">(40)</span>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="custom_check rating_custom_check d-inline-flex">
-                                                        <input type="checkbox" name="online">
-                                                        <span class="checkmark"></span>
-                                                        <div class="rating">
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <span class="rating-count">(35)</span>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="custom_check rating_custom_check d-inline-flex">
-                                                        <input type="checkbox" name="online">
-                                                        <span class="checkmark"></span>
-                                                        <div class="rating">
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <span class="rating-count">(20)</span>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="custom_check rating_custom_check d-inline-flex">
-                                                        <input type="checkbox" name="online">
-                                                        <span class="checkmark"></span>
-                                                        <div class="rating">
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <span class="rating-count">(10)</span>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="custom_check rating_custom_check d-inline-flex">
-                                                        <input type="checkbox" name="online">
-                                                        <span class="checkmark"></span>
-                                                        <div class="rating">
-                                                            <i class="fas fa-star filled"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <span class="rating-count">(05)</span>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div> --}}
+                                    </div> --}}
 
 
                                     <div class="filter-grid">
                                         <h4>
                                             <a href="#collapseeight" data-bs-toggle="collapse">Languages</a>
                                         </h4>
-                                        <div id="collapseeight" class="collapse">
+                                        <div id="collapseeight" class="collapse show">
                                             <div class="filter-collapse">
                                                 <ul>
 
@@ -416,15 +333,15 @@
                                 <div class="doctor-filter-inner">
                                     <div>
                                         <div class="doctors-found">
-                                            <p><span>100 Doctors found for:</span> Dentist in San francisco, California</p>
+                                            <p><span class="found-doctors-count">{{ $doctors->count() }}</span> Doctors found</p>
                                         </div>
-                                        <div class="doctor-filter-availability">
+                                        {{-- <div class="doctor-filter-availability">
                                             <p>Availability</p>
                                             <div class="status-toggle status-tog">
                                                 <input type="checkbox" id="status_6" class="check">
                                                 <label for="status_6" class="checktoggle">checkbox</label>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="doctor-filter-option">
                                         {{-- <div class="doctor-filter-sort">
@@ -468,13 +385,6 @@
                             </div>
                             @include('website.doctor.doctors_list')
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="mt-3 d-flex justify-content-end">
-                                    {{ $doctors->links() }}
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-12 theiaStickySidebar map-right">
@@ -488,13 +398,16 @@
 @section('javascript')
     <script src="http://127.0.0.1:8000/assets/js/jquery-3.7.1.min.js" type="text/javascript"></script>
     <script>
+
         $('.loaderonload').hide();
         $('input[name="gender"], input[name="langauges"], input[name="experience"] ,input[name="speciality"],input[name="services"],input[name="rating_count"]')
-            .on('change', function() {
+            .on('change', function(event) {
+                event.preventDefault();
                 search_doctors();
             });
 
-        function search_doctors() {
+        function search_doctors(page_no = 1) 
+        {
             genderCheckedValue = [];
             languagesCheckedValue = [];
             experienceCheckedValue = [];
@@ -505,36 +418,42 @@
             $('input[name="gender"]:checkbox').each(function() {
                 if ($(this).is(':checked')) {
                     genderCheckedValue.push($(this).val());
+             
                 }
             });
             $('input[name="langauges"]:checkbox').each(function() {
                 if ($(this).is(':checked')) {
                     languagesCheckedValue.push($(this).val());
+             
                 }
             });
             $('input[name="experience"]:checkbox').each(function() {
                 if ($(this).is(':checked')) {
                     experienceCheckedValue.push($(this).val());
+             
                 }
             });
             $('input[name="speciality"]:checkbox').each(function() {
                 if ($(this).is(':checked')) {
                     specialityCheckedValue.push($(this).val());
+     
                 }
             });
 
             $('input[name="services"]:checkbox').each(function() {
                 if ($(this).is(':checked')) {
                     servicesCheckedValue.push($(this).val());
+     
                 }
             });
             $('input[name="rating_count"]:checkbox').each(function() {
                 if ($(this).is(':checked')) {
                     ratingCheckedValue.push($(this).val());
+      
                 }
             });
 
-            $.ajax({
+                $.ajax({
                 url: "{{ route('doctors.search') }}",
                 type: 'get',
                 data: {
@@ -543,7 +462,8 @@
                     'experience': experienceCheckedValue,
                     'specialty': specialityCheckedValue,
                     'services': servicesCheckedValue,
-                    'rating': ratingCheckedValue
+                    'rating': ratingCheckedValue,
+                    'page':page_no
                 },
                 // beforeSend: function(){
                 //     $('.loaderonload').show();
@@ -554,10 +474,18 @@
                         $('.loaderonload').hide();
                         jQuery('#doctors_list').replaceWith(res.data);
                         jQuery('#doctors_list').hide().delay(100).fadeIn();
+                        jQuery('.found-doctors-count').text(res.doctorsCount);
                     }
                 }
             })
         }
+
+        // For ajax requests add active class on selected page
+        $(document).on('click', '.pagination a', function(e) {
+            e.preventDefault();
+            var page_no = $(this).attr('href').split('page=')[1];
+            search_doctors(page_no);
+        });
 
         function toggleFavorite(doctorId, userId, checkbox) {
             const isChecked = $(checkbox).is(':checked');

@@ -79,27 +79,55 @@ function refresh_chat_list(search_key = '')
 }
 
 // Receive new chat notification 
+let userOnline = [];
 jQuery('document').ready(function(){
+    window.Echo.join('chat.online.0')
+    .here((users)   =>  {
+        userOnline = [...users];
+        update_user_online_status(userOnline);
+        })
+    .joining((user) =>  {
+        userOnline.push(user);
+        update_user_online_status(userOnline);
+        })
+    .leaving((user) =>  {
+        make_user_offline(user);
+        userOnline.splice(userOnline.indexOf(user),1);
+        update_user_online_status(userOnline);
+        })
+    .error((error)  =>  {
+        console.log(error);
+    });
+
     window.Echo.private('chat.{{ auth()->user()->id }}')
     .listen('MessageSent', (data) => {
+        // Message received, now refresh chat users list
         refresh_chat_list();
-        // do what you need to do based on the event name and data
-        console.log('Event listened');
 
+        // If the chat is already opened for the user from where message has received update chat history
         if(data.message.sender_id == current_chat_user)
         {
-            load_chat_history(current_chat_user);
+            // Passing second param as 1 means message for opened chat will be marked as read
+            load_chat_history(current_chat_user,1);
         }
     });
 
-    Echo.private('chat.{{ auth()->user()->id }}')
+    window.Echo.private('chat.{{ auth()->user()->id }}')
     .listenForWhisper('typing',(event)   =>  {
         jQuery('.typing-'+event.user_id).show();
-        jQuery('.messages').append('<div class="chats remove-typing"> <div class="chat-content"> Typing...</div></div>');
+        if(event.user_id == current_chat_user)
+        {
+            jQuery('.remove-typing'+event.user_id).show();
+            $('.slimscroll-chat-body').scrollTop(1000000);
+        }
 
         setTimeout(function(){
             jQuery('.typing-'+event.user_id).hide();
-            // jQuery('.remove-typing').remove();
+            if(event.user_id == current_chat_user)
+        {
+            jQuery('.remove-typing'+event.user_id).hide();
+            $('.slimscroll-chat-body').scrollTop(1000000);
+        }
         },8000);
     });
 });

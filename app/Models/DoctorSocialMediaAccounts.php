@@ -12,8 +12,15 @@ class DoctorSocialMediaAccounts extends Model
 
     protected $fillable = ['doctor_id','account_type','link','status'];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
     public function socialMediaAccountType()
     {
         return $this->belongsTo(SocialMediaType::class ,'account_type');
     }
+
+
 }

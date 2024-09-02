@@ -16,14 +16,14 @@
                                          <tr>
                                              <td>
                                                  <div class="patient-info-profile">
-                                                     <a href="{{ route('doctor.doctor-invoices.index') }}"
+                                                     <a href="{{$recentAppointments->patientProfileUrl()}}"
                                                          class="table-avatar">
                                                          <img src="{{ $recentAppointments->patient->image_url }}"
                                                              alt="Img">
 
                                                      </a>
                                                      <div class="patient-name-info">
-                                                         <h5><a href="{{ route('doctor.doctor-invoices.index') }}">{{ $recentAppointments->patient->fullName }}
+                                                         <h5><a href="{{$recentAppointments->patientProfileUrl()}}">{{ $recentAppointments->patient->fullName }}
                                                              </a>
                                                          </h5>
                                                      </div>

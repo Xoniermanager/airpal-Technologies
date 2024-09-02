@@ -62,7 +62,7 @@ class UserServices
 
     public function getDoctorDataForFrontend()
     {
-        return $this->userRepository->where('role', 2)->with(["experiences", "specializations", "services", 'favoriteDoctor', 'doctorReview'])->paginate(5);
+        return $this->userRepository->where('role', 2)->with(["experiences", "specializations", "services", 'favoriteDoctor', 'doctorReview'])->paginate(6);
     }
 
     public function getDoctorDataById($id)
@@ -161,8 +161,8 @@ class UserServices
         }
         if (!empty($data['rating'])) {
             foreach ($data['rating'] as $selectedRating) {
-                $query->orWhere('allover_rating', '>', $selectedRating - 1)
-                    ->where('allover_rating', '<=', $selectedRating);
+                $query->where('allover_rating', '>', $selectedRating - 1)
+                    ->Where('allover_rating', '<=', $selectedRating);
             }
         }
 
@@ -197,7 +197,11 @@ class UserServices
             });
         }
         // return $query->toRawSql();
-        return $query->paginate(10);
+        $doctorsCount = $query->count();
+        return [
+            'data'  =>  $query->paginate(6),
+            'doctorsCount' =>  $doctorsCount
+        ];
     }
 
     public function getDoctorQuestionById($id)
@@ -231,8 +235,7 @@ class UserServices
             "description"  => $data["description"] ?? '',
         ];
 
-        $user = $this->userRepository->find($data['doctor_id']);
-
+        $user = $this->userRepository->find($data['user_id']);
         if ($user) {
             if (isset($data['image']) && !empty($data['image'])) {
                 if ($user->image_url != null) {

@@ -174,15 +174,6 @@ class BookingRepository extends BaseRepository
             ->where('status', 'completed')
             ->get();
     }
-
-    public function getAllCompletedAppointmentsByPatientId($patientId)
-    {
-
-        return  $this->where('patient_id', $patientId)
-            ->where('status', 'completed')
-            ->get();
-    }
-
     public function getAllCanceledAppointmentsByDoctorId($doctorId)
     {
         return  $this->where('doctor_id', $doctorId)
@@ -204,11 +195,11 @@ class BookingRepository extends BaseRepository
     }
 
 
-    public function getPatientAllConfirmedAppointments($patientId)
+    public function getPatientAllAppointmentsBasedOnDoctor($patientId,$doctorId)
     {
         return  $this->where('patient_id', $patientId)
-            ->where('status', '=', 'confirmed')
-            ->orderby('booking_date', 'DESC')
+                ->where('doctor_id', $doctorId)
+            ->orderby('booking_date','DESC')
             ->get();
     }
 }

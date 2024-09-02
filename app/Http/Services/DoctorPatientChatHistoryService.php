@@ -26,14 +26,17 @@ class DoctorPatientChatHistoryService
     }
 
 
-    public function getSelectedChatHistory($senderId, $receiverId)
+    public function getSelectedChatHistory($senderId, $receiverId, $readStatus)
     {
         $chatHistory = $this->doctorPatientChatHistoryRepository
         ->where(['sender_id'    =>  $senderId, 'receiver_id'    =>  $receiverId])
         ->orWhere('receiver_id','=',$senderId)
         ->where('sender_id','=',$receiverId);
 
-        // $chatHistory->update(['read' =>  1]);
+        if($readStatus)
+        {
+            $chatHistory->update(['read' =>  1]);
+        }
 
         $chatHistory =  $chatHistory->orderBy('message_sent_date','asc')->take(60)->get()->groupBy('message_sent_date');
 
@@ -84,6 +87,7 @@ class DoctorPatientChatHistoryService
             'sender_id'         =>  $senderId,
             'receiver_id'       =>  $receiverId,
             'body'              =>  $message,
+            'read'              =>  0,
             'message_sent_date' =>  date('Y-m-d')
         ]);
 
@@ -93,6 +97,6 @@ class DoctorPatientChatHistoryService
         ]);
 
         broadcast(new MessageSent($sentMessageDetails));
-        return $this->getSelectedChatHistory($senderId, $receiverId, $chatId);
+        return $this->getSelectedChatHistory($senderId, $receiverId,0);
     }
 }

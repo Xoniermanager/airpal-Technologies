@@ -21,14 +21,13 @@
                             <td>{{ $key + 1 }}.</td>
                             <td>
                                 <h2 class="table-avatar">
-                                    <a href="{{ route('frontend.doctor.profile', $reviewDetails->doctor_id, $reviewDetails) }}"
+                                    <a href="{{ route('frontend.doctor.profile', Crypt::encrypt($reviewDetails->doctor_id), $reviewDetails) }}"
                                         class="avatar avatar-sm me-2">
                                         <img class="avatar-img rounded-3" src="{{ $reviewDetails->doctor->image_url }}"
                                             alt="User Image">
                                     </a>
-                                    <span class="fs-6 text-dark">{{ $reviewDetails->doctor->display_name }}<br>
-                                        <a
-                                            href="{{ route('frontend.doctor.profile', $reviewDetails->doctor_id, $reviewDetails) }}">{{ $reviewDetails->doctor->email }}</a>
+                                    <span class="fs-6 text-dark"><a href="{{ route('frontend.doctor.profile', Crypt::encrypt($reviewDetails->doctor_id), $reviewDetails) }}">{{ $reviewDetails->doctor->display_name }}<br></a>
+                                        <a href="emailto:{{ $reviewDetails->doctor->email }}">{{ $reviewDetails->doctor->email }}</a>
                                         </h5>
                                 </h2>
                             </td>
@@ -36,7 +35,10 @@
                             <td>
                                 {!! getRatingHtml($reviewDetails->rating) !!}
                             </td>
-                            <td>{{ $reviewDetails->review }}</td>
+                            <td>
+
+                                {!! Str::limit($reviewDetails->review, 30, ' ...') !!}
+                            </td>
                         </tr>
                     @empty
                         <tr>

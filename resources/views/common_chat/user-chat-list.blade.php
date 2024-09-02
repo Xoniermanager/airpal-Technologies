@@ -15,16 +15,16 @@
             $lastMessageDate =  \Carbon\Carbon::Parse($chatUser->last_message_date)->diffForHumans();
         }
         @endphp
-        <li id="chat-user-{{ $chatUser->id }}" class="user-list-item" onclick="load_chat_history('{{ $chatUser->id }}')">
-        <a href="javascript:void(0);">
-            <div class="avatar avatar-online">
+        <li id="chat-user-{{ $chatUser->id }}" class="user-list-item">
+        <a  href="javascript:void(0);" onclick="load_chat_history('{{ $chatUser->id }}',1)">
+            <div class="avatar online-{{ $chatUser->id }}">
                 <img src="{{ $chatUser->image_url }}" alt="image">
             </div>
             <div class="users-list-body">
                 <div>
                     <h5>{{ $chatUser->first_name }} {{ $chatUser->last_name }}</h5>
                     @if($chatUser->unreadCounter > 0)
-                        <span> {{ $chatUser->unreadCounter }} </span>
+                        <span class='unread-counter-{{ $chatUser->id }}'> {{ $chatUser->unreadCounter }} </span>
                     @endif
                     <p>{{ $lastMessageText }}</p>
                 </div>
@@ -40,5 +40,4 @@
         </a>
     </li>
     @endforeach
-    
-
+</ul>

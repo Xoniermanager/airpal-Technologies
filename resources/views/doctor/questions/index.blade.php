@@ -216,7 +216,7 @@
                     var formData = $(form).serialize();
                     console.log(formData);
                     $.ajax({
-                        url: "{{ route('admin.add.questions') }}",
+                        url: "{{ route('doctor.add.questions') }}",
                         type: 'post',
                         data: formData,
                         success: function(response) {
@@ -353,7 +353,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: site_admin_base_url + 'questions-options/delete',
+                            url: '{{ route('doctor.delete-questions-options') }}',
                             type: "post",
                             data: {
                                 '_token': '{{ csrf_token() }}',
@@ -401,7 +401,7 @@
                     var formData = $(form).serialize();
                     console.log(formData);
                     $.ajax({
-                        url: "{{ route('admin.questions.update') }}",
+                        url: "{{ route('doctor.questions.update') }}",
                         type: 'post',
                         data: formData,
                         success: function(response) {

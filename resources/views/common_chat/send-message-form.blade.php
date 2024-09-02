@@ -90,3 +90,7 @@
         });
     }
 </script>
+
+<style>
+    .typing{display:none;}
+</style>

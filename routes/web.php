@@ -47,7 +47,7 @@ use App\Http\Controllers\Patient\PatientAppointmentsController;
 use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
-use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
+use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSiteConfigController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
 use App\Http\Controllers\Doctor\PrescriptionController;
 use App\Http\Controllers\Patient\MedicalRecordController;
 use App\Http\Controllers\Patient\PatientDiaryController;
@@ -181,6 +181,7 @@ Route::prefix('doctor')->group(function () {
             Route::get('get-question-details', 'getQuestionDetailsHTML')->name('doctor.get.question.html');
             Route::post('update', 'update')->name('doctor.questions.update');
             Route::post('delete', 'deleteQuestion')->name('doctor.delete-questions');
+            Route::post('option-delete', 'destroy')->name('doctor.delete-questions-options');
 
             Route::get('doctor-question-filter', 'doctorQuestionFilter')->name('doctor.question.filter');
             Route::get('get-question-by-doctor-id', 'getQuestionByDoctorId')->name('get.question.doctor.id');
@@ -345,12 +346,12 @@ Route::prefix('admin')->group(function () {
             Route::post('delete', 'destroy')->name('admin.delete-questions');
         });
 
-        Route::prefix('questions-options')->controller(QuestionsOptionsController::class)->group(function () {
-            Route::get('/', 'index')->name('admin.questions-options.index');
-            Route::post('create', 'store')->name('admin.add.questions-options');
-            Route::post('update', 'update')->name('admin.questions-options.update');
-            Route::post('delete', 'destroy')->name('admin.delete-questions-options');
-        });
+        // Route::prefix('questions-options')->controller(QuestionsOptionsController::class)->group(function () {
+        //     Route::get('/', 'index')->name('admin.questions-options.index');
+        //     Route::post('create', 'store')->name('admin.add.questions-options');
+        //     Route::post('update', 'update')->name('admin.questions-options.update');
+        //     Route::post('delete', 'destroy')->name('admin.delete-questions-options');
+        // });
 
 
         Route::prefix('faqs')->controller(FaqsController::class)->group(function () {
@@ -397,7 +398,7 @@ Route::prefix('admin')->group(function () {
         Route::get('admin-appointment-filter',  [AdminAppointmentController::class, 'appointmentFilter'])->name('admin.appointment-filter');
 
         Route::get('/profile/{user:id}', [ProfileController::class, 'profile'])->name('admin.profile.index');
-        Route::get('/settings', [SettingsController::class, 'settings'])->name('admin.settings.index');
+        Route::get('/settings', [AdminSiteConfigController::class, 'settings'])->name('admin.settings.index');
 
 
         Route::get('/transactions-list', [TransactionController::class, 'transactionsList'])->name('admin.transactions-list.index');
@@ -508,14 +509,14 @@ Route::controller(DoctorController::class)->group(function () {
     Route::get('choose', 'choose')->name('choose');
     Route::get('doctor-register', 'doctorRegistrationIndex')->name('doctor.register.index');
 });
-Route::get('/', [HomeController::class, 'home'])->name('home.index');
-Route::get('/specialty-list', [SpecialtyPageController::class, 'specialty_list'])->name('specialty.list');
-Route::get('/specialty-detail/{id}', [SpecialtyPageController::class, 'specialty_detail'])->name('specialty.detail');
-Route::get('/about', [AboutController::class, 'about'])->name('about.index');
-Route::get('/faqs', [FaqsController::class, 'faqPageIndex'])->name('faqs.index');
-Route::get('/contact', [ContactController::class, 'contact'])->name('contact.index');
-Route::get('/health_monitoring', [HealthMonitoringController::class, 'health_monitoring'])->name('health_monitoring.index');
-Route::get('/instant', [InstantController::class, 'instant'])->name('instant.index');
+    Route::get('/', [HomeController::class, 'home'])->name('home.index');
+    Route::get('/specialty-list', [SpecialtyPageController::class, 'specialty_list'])->name('specialty.list');
+    Route::get('/specialty-detail/{id}', [SpecialtyPageController::class, 'specialty_detail'])->name('specialty.detail');
+    Route::get('/about', [AboutController::class, 'about'])->name('about.index');
+    Route::get('/faqs', [FaqsController::class, 'faqPageIndex'])->name('faqs.index');
+    Route::get('/contact', [ContactController::class, 'contact'])->name('contact.index');
+    Route::get('/health_monitoring', [HealthMonitoringController::class, 'health_monitoring'])->name('health_monitoring.index');
+    Route::get('/instant', [InstantController::class, 'instant'])->name('instant.index');
 
 Route::controller(FrontController::class)->group(function () {
     Route::get('/privacy', 'privacy')->name('privacy.index');
@@ -537,6 +538,9 @@ Route::get('job', function () {
 
 
 
+Route::controller(AdminSiteConfigController::class)->group(function () {
+    Route::post('add', 'addWebsiteConfig')->name('add.website.configs');
+});
 
 
 Route::controller(DoctorController::class)->group(function () {

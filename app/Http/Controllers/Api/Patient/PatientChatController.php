@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\Patient;
 
-use App\Http\Requests\GetSelectedChatHistoryRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\SendMessageRequest;
 use App\Http\Services\DoctorPatientChatService;
+use App\Http\Requests\GetSelectedChatHistoryRequest;
 use App\Http\Services\DoctorPatientChatHistoryService;
 
-class DoctorPatientChatHistoryController extends Controller
+class PatientChatController extends Controller
 {
-    
     private $doctorPatientChatService;
     private $doctorPatientChatHistoryService;
 
@@ -22,13 +20,34 @@ class DoctorPatientChatHistoryController extends Controller
         $this->doctorPatientChatHistoryService = $doctorPatientChatHistoryService;
     }
 
-    public function getSelectedChatHistory(GetSelectedChatHistoryRequest $request)
+    public function getChatList(Request $request)
     {
-        $senderId = Auth::user()->id;
-        $receiverId = $request->receiver_user_id;
-        $readStatus = $request->read_status;
 
-        $chatHistoryDetails = $this->doctorPatientChatHistoryService->getSelectedChatHistory($senderId, $receiverId,$readStatus);
+        $patientId = Auth()->Guard('api')->user()->id;
+        $searchKey = (array_key_exists('search', $request->all())) ? $request->search : '';
+
+        $doctorPatientChatLists = $this->doctorPatientChatService->getPatientsChatList($patientId, $searchKey);
+        
+        $updatedChatUsersList = view('common_chat.user-chat-list')
+            ->with('chatUsers', $doctorPatientChatLists['chatUsers'])->render();
+
+        return [
+            'status'    =>  true,
+            'message'   =>  'Filtered patient chat list returned successfully!',
+            'data'      =>  $updatedChatUsersList
+        ];
+    }
+
+
+    /**
+     * Get chat history for selected receiver id and currently logged in user id
+     */
+    public function getChatHistory(GetSelectedChatHistoryRequest $request)
+    {
+        $senderId = Auth()->Guard('api')->user()->id;
+        $receiverId = $request->receiver_user_id;
+
+        $chatHistoryDetails = $this->doctorPatientChatHistoryService->getSelectedChatHistory($senderId, $receiverId);
 
         return response()->json([
             'status'    =>  true,
@@ -41,10 +60,13 @@ class DoctorPatientChatHistoryController extends Controller
         ]);
     }
 
-    public function saveChatMessage(SendMessageRequest $sendMessageRequest)
+    /**
+     * Send message to receiver
+     */
+    public function sendMessage(SendMessageRequest $sendMessageRequest)
     {
         $data = $sendMessageRequest->validated();
-        $data['sender_id'] = Auth::id();
+        $data['sender_id'] = Auth()->guard('api')->user()->id;
         $updatedChatHistory = $this->doctorPatientChatHistoryService->saveChatMessage($data);
 
         return response()->json([

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Services\UserServices;
 use App\Http\Controllers\Controller;
 use App\Http\Services\DoctorService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Services\PatientServices;
 use App\Http\Services\MedicalRecordService;
@@ -36,7 +37,7 @@ class PatientController extends Controller
         abort(404, 'Invalid prescription ID');
     }
     $patientDetail  = $this->patientServices->getPatientsDetailByID($id);
-    $patientBooking = $this->patientServices->getAllPatientBookings($id);
+    $patientBooking = $this->patientServices->getAllPatientBookings($id, Auth::id());
     $medicalDetailsRecords = $this->medicalRecordService->getMedicalRecordByPatientId($id);
     return view('doctor.my-patient.patient-profile', ['patientDetail' => $patientDetail, 'patientBooking' => $patientBooking,'medicalRecords' => $medicalDetailsRecords]);
   }

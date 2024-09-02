@@ -290,7 +290,9 @@ class BookingServices
                 'cancelledAppointments' => $this->bookingRepository->where('doctor_id', $patientId)
                     ->where('status', '=', 'cancelled')
                     ->get()->count(),
-                'completedAppointments'  => $this->bookingRepository->getAllCompletedAppointmentsByPatientId($patientId)->count()
+                'completedAppointments' => $this->bookingRepository->where('patient_id', $patientId)
+                    ->where('status', '=', 'completed')
+                    ->get()->count(),
             ];
     }
 
@@ -378,9 +380,9 @@ class BookingServices
         return $this->bookingRepository->where('doctor_id', $doctorId)->orderBy('booking_date', 'desc')->first();
     }
 
-    public function getPatientAllConfirmBookings($patientId)
+    public function getPatientAllConfirmBookings($patientId, $doctorId)
     {
-        return $this->bookingRepository->getPatientAllConfirmedAppointments($patientId);
+        return $this->bookingRepository->getPatientAllAppointmentsBasedOnDoctor($patientId, $doctorId);
     }
 
     public function getAllAppointmentDetailsByDoctorId($doctorId)

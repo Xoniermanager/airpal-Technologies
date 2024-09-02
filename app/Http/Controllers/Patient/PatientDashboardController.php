@@ -41,6 +41,7 @@ class PatientDashboardController extends Controller
   }
   public function patientDashboard()
   {
+    $diaryDetailsDayAfter = [];
     $patientId                 = Auth::user()->id;
     $patientHeartBeatGraphData = $this->patientServices->patientHeartBeatGraph($patientId);
     $medicalDetailsRecords     = $this->medicalRecordService->getMedicalRecordByPatientId(Auth::user()->id);
@@ -52,17 +53,12 @@ class PatientDashboardController extends Controller
 
     $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate(Carbon::now(), Auth::user()->id);
 
-    if (!$diaryDetails) {
-        Log::info('No diary details found for today. Checking previous month.');
-        $currentDate  = Carbon::today();
-        $diaryDetails = $this->getValidatePreviewsDateDiaryDetail($currentDate);
-    }
+    if ($diaryDetails)
+    {
+      $diaryDetailsDayAfter = $this->getValidatePreviewsDateDiaryDetail($diaryDetails->created_at);
+      $percentageChanges = [];
 
-    // $diaryDetailsDayAfter = $this->getValidatePreviewsDateDiaryDetail($diaryDetails->created_at);
-
-    $percentageChanges = [];
-
-    $attributes = ['pulse_rate', 'oxygen_level','bp', 'avg_body_temp', 'avg_heart_beat','glucose'];
+      $attributes = ['pulse_rate', 'oxygen_level', 'bp', 'avg_body_temp', 'avg_heart_beat', 'glucose', 'weight', 'total_sleep_hr'];
 
     foreach ($attributes as $attribute) {
       $currentValue = $diaryDetails->$attribute ?? null;
@@ -91,7 +87,8 @@ class PatientDashboardController extends Controller
         'patientInvoicesList'       => $patientInvoicesList,
         'patientHeartBeatGraphData' => $patientHeartBeatGraphData,
         'medicalRecords'            => $medicalDetailsRecords->take(5),
-        'diaryDetails'              => $diaryDetails
+        'diaryDetails'              => $diaryDetails,
+        'comparedDateRecordDetails' => $diaryDetailsDayAfter
       ]
     );
   }
@@ -102,29 +99,28 @@ class PatientDashboardController extends Controller
     {
         Log::info('Checking diary details for date: ' . $currentDate->toDateString());
 
-            // Define your specific date
-        $specificDate = Carbon::parse($currentDate); // Replace with your specific date
-        $oneDayBeforeSpecificDate = $specificDate->subDay();
-        $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate($oneDayBeforeSpecificDate, Auth::user()->id);
+      // Define your specific date
+      $specificDate = Carbon::parse($currentDate); // Replace with your specific date
+      $oneDayBeforeSpecificDate = $specificDate->subDay();
+      $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate($oneDayBeforeSpecificDate, Auth::user()->id);
+      if ($diaryDetails) {
+        Log::info('Diary details found for date: ' . $currentDate->toDateString());
+        break; // Exit the loop if a record is found
+      }
 
+      // Move to the previous day
+      $currentDate = $currentDate->subDay();
+
+      // If we have checked all days in the current month, move to the previous month
+      if ($currentDate->isLastOfMonth()) {
+        // Move to the last day of the previous month
+        $previousMonthDate = $currentDate->startOfMonth()->subDay();
+        $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate($previousMonthDate, Auth::user()->id);
         if ($diaryDetails) {
-            Log::info('Diary details found for date: ' . $currentDate->toDateString());
-            break; // Exit the loop if a record is found
+          break; // Exit the loop if a record is found
         }
-
-        // Move to the previous day
-        $currentDate = $currentDate->subDay();
-
-        // If we have checked all days in the current month, move to the previous month
-        if ($currentDate->isLastOfMonth()) {
-            // Move to the last day of the previous month
-            $previousMonthDate = $currentDate->startOfMonth()->subDay();
-            $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate($previousMonthDate, Auth::user()->id);
-            if ($diaryDetails) {
-                break; // Exit the loop if a record is found
-            }
-            break;
-        }
+        break;
+      }
     }
     return $diaryDetails;
   }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetSelectedChatHistoryRequest extends FormRequest
+class SearchDoctorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,13 @@ class GetSelectedChatHistoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'receiver_user_id'  =>  'required|integer|exists:users,id',
-            'read_status'       =>  'required|boolean'
+            'gender'      =>  'sometimes|array|in:male,female',
+            'specialty'   =>  'sometimes|exists:specializations,id',
+            'services'    =>  'sometimes|exists:services,id',
+            'experience'  =>  'sometimes|array|in:"1-5","5-10"',
+            'rating'      =>  'sometimes|array|in:1,2,3,4,5',
+            'languages'   =>  'sometimes|exists:languages,id',
+            'searchKey'   =>  'sometimes|string',
         ];
     }
 }

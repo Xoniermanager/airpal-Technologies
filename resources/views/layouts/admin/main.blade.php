@@ -16,10 +16,10 @@
     <meta property="twitter:asset" content="">
     <meta name="twitter:title" content="">
     <meta name="twitter:description" content="">
-    <meta name="twitter:image" content="{{ asset('/assets/img/logo.png') }}">
+    <meta name="twitter:image" content="{{ site('website_logo') ?? '' }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Airpal Technology</title>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/assets/img/favicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ site('website_favicon') ?? '' }}">
 
     <link rel="stylesheet" href="{{ asset('/assets/css/bootstrap.min.css') }}">
 

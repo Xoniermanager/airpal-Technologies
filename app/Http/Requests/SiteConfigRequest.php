@@ -29,7 +29,7 @@ class SiteConfigRequest extends FormRequest
             // 'config.*.value' => 'required'
 
             'config' => 'required|array',
-            'config.*.' => 'array|in:"website_name","website_url","admin_email","admin_phone","website_description"',
+            'config.*.' => 'array|in:"website_name","website_url","admin_email","admin_phone","website_description","copyright","admin_address"',
             'config.*.name' => 'required',
             'config.*.value' => 'required',
             'config.website_logo.name' =>  'string',

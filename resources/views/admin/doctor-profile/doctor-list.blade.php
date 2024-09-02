@@ -40,8 +40,7 @@
                 @endforeach
             </tbody>
       
-        {{-- <div class="mt-3 d-flex justify-content-end">
-            {{ $doctors->links() }}
-        </div> --}}
+
+           
 
 

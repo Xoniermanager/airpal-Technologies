@@ -49,31 +49,48 @@
                                         <input type="hidden" value="admin_phone" class="form-control" name="config[admin_phone][name]">
                                         <input type="text" class="form-control" name="config[admin_phone][value]" value="{{ $configData['admin_phone'] ?? '' }}">
                                     </div>
+                                   
 
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-4 mb-3">
                                         <label class="mb-2">Website Logo</label>
                                         <input type="hidden" value="website_logo" class="form-control" name="config[website_logo][name]">
                                         <input type="file" class="form-control" name="config[website_logo][value]"  value="{{ $configData['website_logo'] ?? '' }}" id="imgInp">
                                         <small class="text-secondary">Recommended image size is <b>150px x 150px</b></small>
+                                        
+
+                                    </div>
+                                    <div class="col-md-2 mb-3">
                                         @if(isset($configData['website_logo']))
                                             <img src="{{$configData['website_logo'] }}" alt="Current Logo" style="width: 150px;" id="blah">
                                         @endif
-
                                     </div>
-                                    <div class="col-md-6 mb-0">
+                                    <div class="col-md-4 mb-0">
                                         <label class="mb-2">Favicon</label>
                                         <input type="hidden" value="website_favicon" class="form-control" name="config[website_favicon][name]">
                                         <input type="file" class="form-control" name="config[website_favicon][value]" value="{{ $configData['website_favicon'] ?? '' }}" >
 
-                                        @if(isset($configData['website_favicon']))
-                                        <img src="{{ asset($configData['website_favicon']) }}" alt="Current Favicon" style="width: 32px;">
-                                        @endif
+                                      
                                         <small class="text-secondary">Recommended image size is <b>16px x 16px</b> or <b>32px x 32px</b></small><br>
+                                    </div>
+                                    <div class="col-md-2 mb-3">
+                                        @if(isset($configData['website_favicon']))
+                                        <img src="{{ asset($configData['website_favicon']) }}" alt="Current Favicon" style="width: 150px;">
+                                        @endif
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="mb-2">CopyRight</label>
+                                        <input type="hidden" value="copyright" class="form-control" name="config[copyright][name]">
+                                        <input type="text" class="form-control" name="config[copyright][value]" value="{{ $configData['copyright'] ?? '' }}">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="mb-2">Admin Address</label>
+                                        <input type="hidden" value="admin_address" class="form-control" name="config[admin_address][name]">
+                                        <input type="text" class="form-control" name="config[admin_address][value]" value="{{ $configData['admin_address'] ?? '' }}">
                                     </div>
                                     <div class="col-md-12 mb-3">
                                         <label class="mb-2">Website description</label>
-                                        <input type="hidden" value="website_description" class="form-control" name="config[website_description][name]"  name="config[website_description][value]">
-                                        <textarea rows="10" class="form-control" name="config[website_description][value]" value="{{ $configData['website_description'] ?? '' }}" >{{ $configData['website_description'] ?? '' }}</textarea>
+                                        <input type="hidden" value="website_description" class="form-control h-100px" name="config[website_description][name]"  name="config[website_description][value]">
+                                        <textarea rows="10" class="form-control h-100px" name="config[website_description][value]" value="{{ $configData['website_description'] ?? '' }}" >{{ $configData['website_description'] ?? '' }}</textarea>
                                     </div>
                                     <div class="col-md-2">
                                         <button type="submit" class="form-control btn btn-primary text-white">Submit</button>

@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\DoctorWorkingHourController;
 use App\Http\Controllers\Api\BookAppointmentApiController;
 use App\Http\Controllers\Api\Patient\AllListingController;
 use App\Http\Controllers\Api\Patient\DoctorChatController;
+use App\Http\Controllers\Api\Patient\PatientChatController;
 use App\Http\Controllers\Api\Patient\DoctorFilterController;
 use App\Http\Controllers\Api\Patient\PatientDiaryController;
 use App\Http\Controllers\Api\Patient\PatientProfileController;
@@ -181,7 +182,7 @@ Route::middleware('authCheck')->group(function () {
         });
 
         // Doctor chat api get chat list, get chat history and send message
-        Route::controller(DoctorChatController::class)->group(function(){
+        Route::controller(PatientChatController::class)->group(function(){
             Route::get('get-chat-list','getChatList');
             Route::get('get-chat-history','getChatHistory');
             Route::post('send-message','sendMessage');

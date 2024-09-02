@@ -503,7 +503,7 @@ Route::controller(DoctorController::class)->group(function () {
     Route::get('/search-doctor', 'index')->name('doctors.index');
     Route::get('/search', 'search')->name('doctors.search');
     Route::get('generateAllInvoices', 'generateAllInvoices')->name('generate.all.invoices');
-    Route::get('choose', 'choose')->name('choose');
+    Route::get('select-role', 'choose')->name('choose');
     Route::get('doctor-register', 'doctorRegistrationIndex')->name('doctor.register.index');
 });
     Route::get('/', [HomeController::class, 'home'])->name('home.index');
@@ -511,7 +511,13 @@ Route::controller(DoctorController::class)->group(function () {
     Route::get('/specialty-detail/{id}', [SpecialtyPageController::class, 'specialty_detail'])->name('specialty.detail');
     Route::get('/about', [AboutController::class, 'about'])->name('about.index');
     Route::get('/faqs', [FaqsController::class, 'faqPageIndex'])->name('faqs.index');
-    Route::get('/contact', [ContactController::class, 'contact'])->name('contact.index');
+   
+    Route::controller(ContactController::class)->group(function () {
+        Route::get('/contact', 'contact')->name('contact.index');
+        Route::post('/send-mail', 'contactUs')->name('contact.us');
+        Route::get('/thank-you', 'thankYou')->name('thank.you');
+    }); 
+
     Route::get('/health_monitoring', [HealthMonitoringController::class, 'health_monitoring'])->name('health_monitoring.index');
     Route::get('/instant', [InstantController::class, 'instant'])->name('instant.index');
 

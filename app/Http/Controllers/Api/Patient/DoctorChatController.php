@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\Patient;
 
-use App\Http\Requests\GetSelectedChatHistoryRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\SendMessageRequest;
 use App\Http\Services\DoctorPatientChatService;
+use App\Http\Requests\GetSelectedChatHistoryRequest;
 use App\Http\Services\DoctorPatientChatHistoryService;
 
-class DoctorPatientChatHistoryController extends Controller
+class DoctorChatController extends Controller
 {
-    
     private $doctorPatientChatService;
     private $doctorPatientChatHistoryService;
 
@@ -22,39 +20,63 @@ class DoctorPatientChatHistoryController extends Controller
         $this->doctorPatientChatHistoryService = $doctorPatientChatHistoryService;
     }
 
-    public function getSelectedChatHistory(GetSelectedChatHistoryRequest $request)
-    {
-        $senderId = Auth::user()->id;
-        $receiverId = $request->receiver_user_id;
-        $readStatus = $request->read_status;
 
-        $chatHistoryDetails = $this->doctorPatientChatHistoryService->getSelectedChatHistory($senderId, $receiverId,$readStatus);
+    /**
+     * Search Patients list using first name and last name
+     */
+    public function getChatList(Request $request)
+    {
+
+        $doctorId = Auth()->Guard('api')->user()->id;
+        $searchKey = (array_key_exists('search', $request->all())) ? $request->search : '';
+
+        $doctorPatientChatLists = $this->doctorPatientChatService->getDoctorsChatList($doctorId, $searchKey);
+
+        return [
+            'status'    =>  true,
+            'message'   =>  'Filtered patient chat list returned successfully!',
+            'data'      =>  $doctorPatientChatLists
+        ];
+    }
+
+    /**
+     * Get chat history for selected receiver id and currently logged in user id
+     */
+    public function getChatHistory(GetSelectedChatHistoryRequest $request)
+    {
+        $senderId = Auth()->Guard('api')->user()->id;
+        $receiverId = $request->receiver_user_id;
+
+        $chatHistoryDetails = $this->doctorPatientChatHistoryService->getSelectedChatHistory($senderId, $receiverId);
 
         return response()->json([
             'status'    =>  true,
             'message'   =>  'Chat history loaded successfully.',
-            'data'      =>  view('common_chat.chat-history-body',[
+            'data'      =>  [
                 'receiverDetails'       =>  $chatHistoryDetails['receiverDetails'],
                 'senderDetails'         =>  $chatHistoryDetails['senderDetails'],
                 'chatHistory'           =>  $chatHistoryDetails['chatHistory'],
-            ])->render()
+            ]
         ]);
     }
 
-    public function saveChatMessage(SendMessageRequest $sendMessageRequest)
+    /**
+     * Send message to receiver
+     */
+    public function sendMessage(SendMessageRequest $sendMessageRequest)
     {
         $data = $sendMessageRequest->validated();
-        $data['sender_id'] = Auth::id();
+        $data['sender_id'] = Auth()->Guard('api')->user()->id;
         $updatedChatHistory = $this->doctorPatientChatHistoryService->saveChatMessage($data);
 
         return response()->json([
             'status'        =>  true,
             'message'       =>  'Message sent successfully!',
-            'data'          =>  view('common_chat.chat-history-body',[
+            'data'          =>  [
                 'receiverDetails'       =>  $updatedChatHistory['receiverDetails'],
                 'senderDetails'         =>  $updatedChatHistory['senderDetails'],
                 'chatHistory'           =>  $updatedChatHistory['chatHistory'],
-            ])->render()
+            ]
         ]);
     }
 }

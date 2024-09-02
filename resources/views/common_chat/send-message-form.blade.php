@@ -40,6 +40,25 @@
     </form>
 </div>
 <script>
+
+    // Enable send message button after entering some text
+    jQuery('body').on('keyup','input[name="message"]', function(){
+        let sendMessageText = jQuery(this).val().trim();
+        if(sendMessageText.length > 0)
+        {
+            jQuery('.send-btn').attr('disabled',false);
+            Echo.private('chat.'+current_chat_user)
+                .whisper('typing',{
+                    user_id:'{{ auth()->id() }}'
+                });
+        }
+        else
+        {
+            jQuery('.send-btn').attr('disabled',true);
+        }
+    });
+
+
     // Send message and update chat history body
     function send_message(event)
     {
@@ -71,3 +90,7 @@
         });
     }
 </script>
+
+<style>
+    .typing{display:none;}
+</style>

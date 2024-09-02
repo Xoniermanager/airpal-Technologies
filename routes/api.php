@@ -1,28 +1,29 @@
 <?php
 
-use App\Http\Controllers\Api\BookAppointmentApiController;
-use App\Http\Controllers\Api\QuestionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\Doctor\DoctorAppointmentAndRevenueGraphController;
+use App\Http\Controllers\Api\QuestionController;
 use App\Http\Controllers\Api\DoctorAwardController;
 use App\Http\Controllers\Api\DoctorSlotsController;
+use App\Http\Controllers\Api\DoctorReviewController;
 use App\Http\Controllers\Api\DoctorProfileController;
+use App\Http\Controllers\Api\DoctorDashboardController;
 use App\Http\Controllers\Api\DoctorEducationController;
 use App\Http\Controllers\Api\DoctorExperienceController;
 use App\Http\Controllers\Api\DoctorAppointmentController;
-use App\Http\Controllers\Api\DoctorDashboardController;
-use App\Http\Controllers\Api\DoctorReviewController;
 use App\Http\Controllers\Api\DoctorWorkingHourController;
-use App\Http\Controllers\Api\DoctorAppointmentConfigController;
+use App\Http\Controllers\Api\BookAppointmentApiController;
 use App\Http\Controllers\Api\Patient\AllListingController;
+use App\Http\Controllers\Api\Patient\DoctorChatController;
 use App\Http\Controllers\Api\Patient\DoctorFilterController;
-use App\Http\Controllers\Api\Patient\MedicalRecordApiController;
-use App\Http\Controllers\Api\Patient\PatientDashboardController;
 use App\Http\Controllers\Api\Patient\PatientDiaryController;
 use App\Http\Controllers\Api\Patient\PatientProfileController;
+use App\Http\Controllers\Api\DoctorAppointmentConfigController;
+use App\Http\Controllers\Api\Patient\MedicalRecordApiController;
+use App\Http\Controllers\Api\Patient\PatientDashboardController;
 use App\Http\Controllers\Api\Patient\PatientFavoriteDoctorController;
+use App\Http\Controllers\Api\Doctor\DoctorAppointmentAndRevenueGraphController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -119,6 +120,13 @@ Route::middleware('authCheck')->group(function () {
             Route::post('get-appointment-revenue-data', 'getAppointmentAndRevenueGraphData');
             Route::post('get-revenue-data', 'getRevenueGraphData');
         });
+
+        // Doctor chat api get chat list, get chat history and send message
+        Route::controller(DoctorChatController::class)->group(function(){
+            Route::get('get-chat-list','getChatList');
+            Route::get('get-chat-history','getChatHistory');
+            Route::post('send-message','sendMessage');
+        });
     });
 
     // patient routes starts here
@@ -170,6 +178,13 @@ Route::middleware('authCheck')->group(function () {
             Route::get('delete-medical-record/{medical_records:id}', 'deleteMedicalRecord');
             Route::get('medical-records-filter', 'searchFilterMedicalRecord');
             Route::get('get-booking-slot', 'getBookingDetailsByPatientId');
+        });
+
+        // Doctor chat api get chat list, get chat history and send message
+        Route::controller(DoctorChatController::class)->group(function(){
+            Route::get('get-chat-list','getChatList');
+            Route::get('get-chat-history','getChatHistory');
+            Route::post('send-message','sendMessage');
         });
     });
     Route::get('privacy', [AuthController::class, 'privacyPolicy']);

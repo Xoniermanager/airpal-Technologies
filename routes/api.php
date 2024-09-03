@@ -27,6 +27,8 @@ use App\Http\Controllers\Api\Patient\PatientFavoriteDoctorController;
 use App\Http\Controllers\Api\Doctor\DoctorAppointmentAndRevenueGraphController;
 use App\Http\Controllers\Api\PrescriptionApiController;
 
+Route::get('get-meeting-Details/{booking_slots:meeting_id}', [BookAppointmentApiController::class, 'getMeetingDetails']);
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -169,7 +171,6 @@ Route::controller(AuthController::class)->prefix('patient')->group(function () {
             Route::post('book-appointment', 'bookingAppointment');
             Route::post('cancel-appointment/{booking_slots:id}', 'cancelAppointment');
             Route::get('upcoming-all-appointment', 'allUpcomingAppointment');
-            Route::get('get-meeting-Details/{booking_slots:meeting_id}', 'getMeetingDetails');
         });
         Route::controller(DoctorReviewController::class)->group(function () {
             Route::post('add-doctor-review', 'addDoctorReview');

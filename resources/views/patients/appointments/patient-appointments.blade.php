@@ -1,6 +1,8 @@
 @extends('layouts.patient.main')
 @section('content')
-    @php $patientId  = auth()->user()->id; @endphp
+    @php
+        $patientId = auth()->user()->id;
+    @endphp
     <div class="dashboard-header">
         <h3>Appointments</h3>
         <ul class="header-list-btns">
@@ -162,3 +164,24 @@
         });
     </script>
 @endsection
+<style>
+    .tabs {
+        display: flex;
+        cursor: pointer;
+    }
+
+    .tabs .active a {
+        background-color: #004cd4 !important;
+        color: #fff;
+    }
+
+    .tab-content {
+        display: none;
+        /* border: 1px solid #ccc; */
+        padding: 10px;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+</style>

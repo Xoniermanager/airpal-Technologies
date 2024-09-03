@@ -27,7 +27,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <table class="datatable table table-hover table-center mb-0">
+                                <table class="table table-hover table-center mb-0">
                                     <thead>
                                         <tr>
                                             <th>Doctor Name</th>
@@ -40,6 +40,9 @@
                                     </thead>
                                     @include('admin.doctor-profile.doctor-list')
                                 </table>
+                                <div class="mt-3 d-flex justify-content-end">
+                                    {{ $doctors->links() }}
+                                </div>
                             </div>
                         </div>
                     </div>

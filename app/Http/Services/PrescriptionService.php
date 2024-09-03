@@ -7,6 +7,7 @@ use Illuminate\Support\Arr;
 use App\Http\Repositories\PrescriptionRepository;
 use App\Models\PrescriptionMedicineDetail;
 use App\Models\PrescriptionTest;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PrescriptionService
 {
@@ -59,7 +60,7 @@ class PrescriptionService
 
     public function getPrescriptionDetailsById($prescriptionId)
     {
-        return $this->prescriptionRepository->with(['prescriptionMedicineDetail', 'prescriptionTest','bookingSlot'])->find($prescriptionId);
+        return $this->prescriptionRepository->with(['prescriptionMedicineDetail', 'prescriptionTest', 'bookingSlot'])->find($prescriptionId);
     }
 
     public function update($data, $prescriptionId)
@@ -157,11 +158,6 @@ class PrescriptionService
         if (isset($searchKey['date']) && !empty($searchKey['date'])) {
             $allPrescriptionDetails->whereDate('created_at', $searchKey['date']);
         }
-        if (isset($searchKey['meal_status'])) {
-            $allPrescriptionDetails->whereHas('prescriptionMedicineDetail', function ($q) use ($searchKey) {
-                $q->where('meal_status', $searchKey['meal_status']);
-            });
-        }
         if (isset($searchKey['patient_detail_id'])) {
             $patientId = $searchKey['patient_detail_id'];
             $allPrescriptionDetails->orWhereHas('bookingSlot.patient', function ($q) use ($patientId) {
@@ -172,5 +168,11 @@ class PrescriptionService
             $allPrescriptionDetails->where('booking_slot_id', $searchKey['booking_detail_id']);
         }
         return $allPrescriptionDetails->orderBy('id', 'desc')->paginate(10);
+    }
+
+    public function downloadPrescriptionPdf($prescriptionId)
+    {
+        $prescriptionDetails =  $this->getPrescriptionDetailsById($prescriptionId);
+        return PDF::loadView('prescription_pdf_temp', ['webView' => false, 'prescriptionDetails' => $prescriptionDetails]);
     }
 }

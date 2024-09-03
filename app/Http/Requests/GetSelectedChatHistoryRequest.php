@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Traits\ExceptionHandle;
 use Illuminate\Foundation\Http\FormRequest;
 
 class GetSelectedChatHistoryRequest extends FormRequest
 {
+    use ExceptionHandle;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -23,7 +25,7 @@ class GetSelectedChatHistoryRequest extends FormRequest
     {
         return [
             'receiver_user_id'  =>  'required|integer|exists:users,id',
-            'read_status'       =>  'required|boolean'
+            'read_status'       =>  'boolean'
         ];
     }
 }

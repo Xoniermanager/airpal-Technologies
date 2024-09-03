@@ -66,9 +66,11 @@
                                 <a href="{{ route('doctor.appointments.index') }}" class="start-link">
                                     <i class="fa-solid fa-prescription"></i>
                                     prescription</a>
-                                
+
                             </div> --}}
                             {!! $booking->getPrescriptionButton() !!}
+                            {!! $booking->getMeetingButton()!!}
+
                         </li>
                     </ul>
                 </div>

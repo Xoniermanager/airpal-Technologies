@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\DoctorWorkingHourController;
 use App\Http\Controllers\Api\BookAppointmentApiController;
 use App\Http\Controllers\Api\Patient\AllListingController;
 use App\Http\Controllers\Api\Patient\DoctorChatController;
+use App\Http\Controllers\Api\Patient\PatientChatController;
 use App\Http\Controllers\Api\Patient\DoctorFilterController;
 use App\Http\Controllers\Api\Patient\PatientDiaryController;
 use App\Http\Controllers\Api\Patient\PatientProfileController;
@@ -24,6 +25,8 @@ use App\Http\Controllers\Api\Patient\MedicalRecordApiController;
 use App\Http\Controllers\Api\Patient\PatientDashboardController;
 use App\Http\Controllers\Api\Patient\PatientFavoriteDoctorController;
 use App\Http\Controllers\Api\Doctor\DoctorAppointmentAndRevenueGraphController;
+use App\Http\Controllers\Api\PrescriptionApiController;
+use App\Models\Prescription;
 use App\Http\Controllers\Api\Patient\PatientChatController;
 
 Route::get('/user', function (Request $request) {
@@ -51,7 +54,7 @@ Route::controller(AuthController::class)->prefix('patient')->group(function () {
 });
 
 
-Route::middleware('authCheck')->group(function () {
+// Route::middleware('authCheck')->group(function () {
 
     Route::prefix('doctor')->group(function () {
         Route::post('change-password', [AuthController::class, 'changePassword']);
@@ -60,7 +63,6 @@ Route::middleware('authCheck')->group(function () {
         });
 
         Route::controller(DoctorProfileController::class)->group(function () {
-        
             Route::post('profile', 'profile');
             Route::post('address/update', 'updateAddress');
             Route::get('get-my-patient', 'getMyPatientByDoctorId');
@@ -123,10 +125,22 @@ Route::middleware('authCheck')->group(function () {
         });
 
         // Doctor chat api get chat list, get chat history and send message
-        Route::controller(DoctorChatController::class)->group(function(){
-            Route::get('get-chat-list','getChatList');
-            Route::get('get-chat-history','getChatHistory');
-            Route::post('send-message','sendMessage');
+        Route::controller(DoctorChatController::class)->group(function () {
+            Route::get('get-chat-list', 'getChatList');
+            Route::get('get-chat-history', 'getChatHistory');
+            Route::post('send-message', 'sendMessage');
+        });
+
+        Route::prefix('prescription')->controller(PrescriptionApiController::class)->group(function () {
+            Route::get('/prescription/list', 'getAllPrescription');
+            Route::get('/view/{prescriptions:id}', 'viewPrescription');
+            Route::post('/create', 'createPrescription');
+            Route::post('/update/{prescriptions:id}', 'updatePrescription');
+            Route::get('/delete/{prescriptions:id}', 'deletePrescription');
+            Route::get('/delete/medicine/{prescription_medicine_details:id}', 'deleteMedicine');
+            Route::get('/delete/test/{prescription_tests:id}', 'deletePrescriptionTest');
+            Route::get('/search/filter', 'searchFilterPrescriptionDetails');
+            Route::get('/download/pdf/{prescriptions:id}', 'downloadPdfPrescription');
         });
     });
 
@@ -134,6 +148,7 @@ Route::middleware('authCheck')->group(function () {
     Route::prefix('patient')->group(function () {
         Route::controller(PatientDashboardController::class)->group(function () {
             Route::get('get-dashboard-data', 'getDashBoardData');
+            Route::get('patient-health-graph-data', 'patientHealthGraphData');
         });
         Route::controller(PatientProfileController::class)->group(function () {
             Route::get('profile', 'patientProfile');
@@ -156,6 +171,7 @@ Route::middleware('authCheck')->group(function () {
             Route::post('book-appointment', 'bookingAppointment');
             Route::post('cancel-appointment/{booking_slots:id}', 'cancelAppointment');
             Route::get('upcoming-all-appointment', 'allUpcomingAppointment');
+            Route::get('get-meeting-Details/{booking_slots:meeting_id}', 'getMeetingDetails');
         });
         Route::controller(DoctorReviewController::class)->group(function () {
             Route::post('add-doctor-review', 'addDoctorReview');
@@ -181,7 +197,7 @@ Route::middleware('authCheck')->group(function () {
             Route::get('get-booking-slot', 'getBookingDetailsByPatientId');
         });
 
-        // Doctor chat api get chat list, get chat history and send message
+        // Patient chat api get chat list, get chat history and send message
         Route::controller(PatientChatController::class)->group(function(){
             Route::get('get-chat-list','getChatList');
             Route::get('get-chat-history','getChatHistory');
@@ -189,4 +205,4 @@ Route::middleware('authCheck')->group(function () {
         });
     });
     Route::get('privacy', [AuthController::class, 'privacyPolicy']);
-});
+// });

@@ -55777,27 +55777,6 @@ table.no-padding-table td {
 .panel.panel-body .card {
     border-radius: 30px;
 }
-
-.tabs {
-    display: flex;
-    cursor: pointer;
-}
-
-.tabs .active a {
-    background-color: #004cd4 !important;
-    color: #fff;
-}
-
-.tab-content {
-    display: none;
-    /* border: 1px solid #ccc; */
-    padding: 10px;
-}
-
-.tab-content.active {
-    display: block;
-}
-
 .doctor-info-profile.fav-doc img {
     height: 35px !important;
     width: 35px !important;
@@ -55839,24 +55818,4 @@ i.fab.fa-youtube-square {
 
 .panel.panel-body .card {
     border-radius: 30px;
-}
-
-.tabs {
-    display: flex;
-    cursor: pointer;
-}
-
-.tabs .active a {
-    background-color: #004cd4 !important;
-    color: #fff;
-}
-
-.tab-content {
-    display: none;
-    /* border: 1px solid #ccc; */
-    padding: 10px;
-}
-
-.tab-content.active {
-    display: block;
 }

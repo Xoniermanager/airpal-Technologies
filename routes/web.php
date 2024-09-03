@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\UpdateMeetingIdJob;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FaqsController;
@@ -24,18 +25,22 @@ use App\Http\Controllers\Doctor\DoctorNotification;
 use App\Http\Controllers\Patient\BookingController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\HealthmonitoringController;
-use App\Http\Controllers\Admin\AdminAppointmentController;
 use App\Http\Controllers\Admin\PatientListController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\DoctorPatientChatController;
 use App\Http\Controllers\Admin\InvoiceReportController;
+use App\Http\Controllers\Doctor\PrescriptionController;
 use App\Http\Controllers\Patient\PatientAuthController;
 use App\Http\Controllers\Admin\DoctorQuestionController;
 use App\Http\Controllers\Patient\DoctorReviewController;
+use App\Http\Controllers\Patient\PatientDiaryController;
 use App\Http\Controllers\Doctor\DiseaseDetailsController;
+use App\Http\Controllers\Patient\MedicalRecordController;
+use App\Http\Controllers\Admin\AdminAppointmentController;
 use App\Http\Controllers\Admin\QuestionsOptionsController;
 use App\Http\Controllers\Doctor\AccountsDetailsController;
 use App\Http\Controllers\Doctor\DoctorDashboardController;
+use App\Http\Controllers\Patient\PatientInvoiceController;
 use App\Http\Controllers\Patient\PatientProfileController;
 use App\Http\Controllers\Doctor\AppointmentConfigController;
 use App\Http\Controllers\Doctor\DoctorAppointmentController;
@@ -44,15 +49,11 @@ use App\Http\Controllers\Patient\PatientDashboardController;
 use App\Http\Controllers\Doctor\DoctorPanelQuestionController;
 use App\Http\Controllers\Doctor\DoctorAuthenticationController;
 use App\Http\Controllers\Patient\PatientAppointmentsController;
+use App\Http\Controllers\Patient\PatientFavoriteDoctorController;
 use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
-use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSiteConfigController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
-use App\Http\Controllers\Doctor\PrescriptionController;
-use App\Http\Controllers\Patient\MedicalRecordController;
-use App\Http\Controllers\Patient\PatientDiaryController;
-use App\Http\Controllers\Patient\PatientFavoriteDoctorController;
-use App\Http\Controllers\Patient\PatientInvoiceController;
+use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSiteConfigController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController, TestimonialController};
 
 // =============================== Login And SignUp Routes ==================================== //
 /**
@@ -104,6 +105,9 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(DoctorPatientChatHistoryController::class)->group(function () {
         Route::post('chat-history', 'getSelectedChatHistory')->name('chat.history');
         Route::post('send-message', 'saveChatMessage')->name('send.message');
+    });
+    Route::controller(PrescriptionController::class)->group(function () {
+        Route::get('/download-pdf/{prescriptions:id}', 'downloadPrescriptionPdf')->name('prescription.pdf.download');
     });
 });
 
@@ -211,7 +215,6 @@ Route::prefix('doctor')->group(function () {
             Route::get('/delete/medicine-details/{prescription_medicine_details:id}', 'deleteMedicine');
             Route::get('/delete/test-details/{prescription_tests:id}', 'deletePrescriptionTest');
             Route::get('/search/filter', 'searchFilterPrescriptionDetails')->name('prescription.search.filter');
-            Route::get('/download-pdf/{prescriptions:id}', 'downloadPrescriptionPdf')->name('prescription.pdf.download');
             Route::get('/get-booking-details-patient', 'getAllBookingDetailsByPatient')->name('get.booking.details.patient');
         });
     });
@@ -229,7 +232,7 @@ Route::prefix('specialities')->controller(SpecialityController::class)->group(fu
     Route::get('/get-speciality', 'getSpecialitiesAjaxCall');
 });
 
-    // common route for doctor and admin
+// common route for doctor and admin
 Route::middleware(['auth'])->group(function () {
 
     Route::prefix('language')->controller(LanguageController::class)->group(function () {
@@ -400,10 +403,18 @@ Route::prefix('admin')->group(function () {
         Route::get('/profile/{user:id}', [ProfileController::class, 'profile'])->name('admin.profile.index');
         Route::get('/settings', [AdminSiteConfigController::class, 'settings'])->name('admin.settings.index');
 
-
         Route::get('/transactions-list', [TransactionController::class, 'transactionsList'])->name('admin.transactions-list.index');
         Route::get('/invoice-report', [InvoiceReportController::class, 'invoiceReport'])->name('admin.invoice-report.index');
         Route::get('/invoice', [InvoiceReportController::class, 'invoice'])->name('admin.invoice.index');
+
+        Route::get('/invoice', [InvoiceReportController::class, 'invoice'])->name('admin.invoice.index');
+
+
+        Route::prefix('testimonial')->controller(TestimonialController::class)->group(function()
+        {
+            Route::get('/','index')->name('admin.testimonial.index'); 
+            Route::get('get', 'getTestimonials')->name('admin.testimonial.list'); 
+        });
 
     });
 });
@@ -437,6 +448,7 @@ Route::prefix('patients')->group(function () {
                 Route::get('appointments', 'patientAppointments')->name('patient-appointments.index');
                 Route::get('appointment-details', 'patientAppointmentDetails')->name('patient-appointment-details.index');
                 Route::get('patient-appointment-filter', 'patientAppointmentFilter')->name('patient.appointment.filter');
+                Route::get('view-prescripton-{prescriptions:id}', 'viewPrescription')->name('patient.prescription.view');
             });
 
             Route::controller(PatientInvoiceController::class)->group(function () {
@@ -480,8 +492,8 @@ Route::prefix('patients')->group(function () {
             //Diary Module
             Route::controller(PatientDiaryController::class)->prefix('diary')->group(function () {
                 Route::get('index', 'index')->name('patient.diary.index');
-                Route::get('add','addDiary')->name('patient.diary.add');
-                Route::post('add','createDiary')->name('patient.diary.create');
+                Route::get('add', 'addDiary')->name('patient.diary.add');
+                Route::post('add', 'createDiary')->name('patient.diary.create');
                 Route::get('edit/{patient_diaries:id}', 'editDiary')->name('patient.diary.edit');
                 Route::get('get-filter-diary-details', 'getSearchFilterDiaryDetails')->name('patient.diary.filters');
             });
@@ -506,7 +518,7 @@ Route::controller(DoctorController::class)->group(function () {
     Route::get('/search-doctor', 'index')->name('doctors.index');
     Route::get('/search', 'search')->name('doctors.search');
     Route::get('generateAllInvoices', 'generateAllInvoices')->name('generate.all.invoices');
-    Route::get('choose', 'choose')->name('choose');
+    Route::get('select-role', 'choose')->name('choose');
     Route::get('doctor-register', 'doctorRegistrationIndex')->name('doctor.register.index');
 });
     Route::get('/', [HomeController::class, 'home'])->name('home.index');
@@ -514,7 +526,13 @@ Route::controller(DoctorController::class)->group(function () {
     Route::get('/specialty-detail/{id}', [SpecialtyPageController::class, 'specialty_detail'])->name('specialty.detail');
     Route::get('/about', [AboutController::class, 'about'])->name('about.index');
     Route::get('/faqs', [FaqsController::class, 'faqPageIndex'])->name('faqs.index');
-    Route::get('/contact', [ContactController::class, 'contact'])->name('contact.index');
+
+    Route::controller(ContactController::class)->group(function () {
+        Route::get('/contact', 'contact')->name('contact.index');
+        Route::post('/send-mail', 'contactUs')->name('contact.us');
+        Route::get('/thank-you', 'thankYou')->name('thank.you');
+    });
+
     Route::get('/health_monitoring', [HealthMonitoringController::class, 'health_monitoring'])->name('health_monitoring.index');
     Route::get('/instant', [InstantController::class, 'instant'])->name('instant.index');
 
@@ -532,7 +550,8 @@ Route::controller(DoctorReviewController::class)->group(function () {
 });
 
 Route::get('job', function () {
-    UpdateDoctorRatingsAverageValue::dispatch();
+    // UpdateDoctorRatingsAverageValue::dispatch();
+    UpdateMeetingIdJob::dispatch();
     return 'job executes';
 });
 

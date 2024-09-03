@@ -87,11 +87,11 @@ class DoctorController extends Controller
   public function doctorProfile(User $encryptedId)
   {
     $encryptedId = request('user');
-        try {
-          $decryptedId = Crypt::decrypt($encryptedId);
-      } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
-          abort(404, 'Invalid doctor ID');
-      }
+    try {
+      $decryptedId = Crypt::decrypt($encryptedId);
+    } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+      abort(404, 'Invalid doctor ID');
+    }
 
     $user = User::findOrFail($decryptedId);
     $doctor = $user->load('specializations', 'services', 'educations.course', 'experiences', 'workingHour.daysOfWeek', 'awards.award', 'doctorAddress.states.country', 'doctorReview.patient');
@@ -114,9 +114,9 @@ class DoctorController extends Controller
   {
     try {
       $id = Crypt::decrypt($encryptedId);
-  } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+    } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
       abort(404, 'Invalid doctor ID');
-  }
+    }
 
     $doctor = $this->user_services->getDoctorDataById($id);
     $doctorSlotConfigDetails = $this->doctorSlotServices->getDoctorSlotConfiguration($doctor->id);
@@ -323,4 +323,69 @@ class DoctorController extends Controller
   {
     return view('website.pages.doctor-register');
   }
+
+
+
+  // public function DoctorList() {}
+
+
+  // public function SliderDesign()
+  // {
+
+  //   echo '<section class="our-doctors-section">';
+  //   echo '    <div class="container">';
+  //   echo '        <div class="row">';
+  //   echo '            <div class="col-md-6 aos" data-aos="fade-up">';
+  //   echo '                <div class="section-heading">';
+  //   echo '                    <h2>Top Doctors</h2>';
+  //   echo '                    <p>Access to expert physicians and surgeons, advanced technologies and top-quality surgery facilities right here.</p>';
+  //   echo '                </div>';
+  //   echo '            </div>';
+  //   echo '            <div class="col-md-6 text-end aos" data-aos="fade-up">';
+  //   echo '                <div class="owl-nav slide-nav-2 text-end nav-control"></div>';
+  //   echo '            </div>';
+  //   echo '        </div>';
+  //   echo '        <div class="owl-carousel our-doctors owl-theme aos" data-aos="fade-up">';
+
+
+
+  //   echo '            <div class="item">';
+  //   echo '                <div class="our-doctors-card">';
+  //   echo '                    <div class="doctors-header">';
+  //   echo '                        <a href="#"><img src="' . URL::asset('assets/img/doctors/doctor-01.jpg') . '" alt="Ruby Perrin" class="img-fluid"></a>';
+  //   echo '                    </div>';
+  //   echo '                    <div class="doctors-body">';
+  //   echo '                        <div class="rating">';
+  //   echo '                            <i class="fas fa-star filled"></i>';
+  //   echo '                            <i class="fas fa-star filled"></i>';
+  //   echo '                            <i class="fas fa-star filled"></i>';
+  //   echo '                            <i class="fas fa-star filled"></i>';
+  //   echo '                            <i class="fas fa-star filled"></i>';
+  //   echo '                            <span class="d-inline-block average-ratings">3.5</span>';
+  //   echo '                        </div>';
+  //   echo '                        <a href="#">';
+  //   echo '                            <h4>Dr. Ruby Perrin</h4>';
+  //   echo '                        </a>';
+  //   echo '                        <p>BDS, MDS - Oral & Maxillofacial Surgery</p>';
+  //   echo '                        <div class="location d-flex">';
+  //   echo '                            <p><i class="fas fa-map-marker-alt"></i> Georgia, USA</p>';
+  //   echo '                            <p class="ms-auto"><i class="fas fa-user-md"></i> 450 Consultations</p>';
+  //   echo '                        </div>';
+  //   echo '                        <div class="row row-sm">';
+  //   echo '                            <div class="col-6">';
+  //   echo '                                <a href="#" class="btn view-btn" tabindex="0">View Profile</a>';
+  //   echo '                            </div>';
+  //   echo '                            <div class="col-6">';
+  //   echo '                                <a href="#" class="btn book-btn" tabindex="0">Book Now</a>';
+  //   echo '                            </div>';
+  //   echo '                        </div>';
+  //   echo '                    </div>';
+  //   echo '                </div>';
+  //   echo '            </div>';
+
+
+  //   echo '        </div>';
+  //   echo '    </div>';
+  //   echo '</section>';
+  // }
 }

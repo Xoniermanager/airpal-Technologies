@@ -2,10 +2,10 @@
 @section('content')
     <div class="dashboard-header">
         <h3>Prescription</h3>
-        <div class="input-block dash-search-input ">
+        {{-- <div class="input-block dash-search-input ">
             <a href="{{ route('prescription.add') }}" class="btn btn-primary prime-btn">
                 Add Prescription</a>
-        </div>
+        </div> --}}
     </div>
     <div class="tab-content pt-0">
         @if (session('error'))
@@ -39,7 +39,6 @@
             <div class="input-block dash-search-input mb-3">
                 <input type="date" class="form-control" id="date">
             </div>
-
         </div>
         @include('doctor.prescription.all-prescription')
     </div>
@@ -107,6 +106,7 @@
         jQuery("#booking_details").on('change', function() {
             search_filter_results();
         });
+
         function search_filter_results() {
             $.ajax({
                 type: "GET",

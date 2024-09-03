@@ -162,7 +162,7 @@
                                                     <h2 class="table-avatar">
                                                         <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
-                                                                src="assets/img/doctors/doctor-thumb-01.jpg"
+                                                                src="{{$doctor->image_url ?? '' }}"
                                                                 alt=""></a>
                                                         <a href="">Dr. {{ $doctor->fullName }}</a>
                                                     </h2>
@@ -222,7 +222,7 @@
                                                     <h2 class="table-avatar">
                                                         <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
-                                                                src="assets/img/patients/patient1.jpg" alt=""></a>
+                                                                src="{{$patient->image_url ?? '' }}" alt=""></a>
                                                         <a href="">{{ $patient->fullName }} </a>
                                                     </h2>
                                                 </td>
@@ -272,7 +272,7 @@
                                                     <h2 class="table-avatar">
                                                         <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
-                                                                src="assets/img/doctors/doctor-thumb-01.jpg"
+                                                                src="{{$appointment->user->image_url ?? '' }}"
                                                                 alt=""></a>
                                                         <a href="">Dr. {{ $appointment->user->fullName }}</a>
                                                     </h2>
@@ -282,7 +282,7 @@
                                                     <h2 class="table-avatar">
                                                         <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
-                                                                src="assets/img/patients/patient1.jpg" alt=""></a>
+                                                                src="{{$appointment->patient->image_url ?? '' }}" alt=""></a>
                                                         <a href="">{{ $appointment->patient->fullName }} </a>
                                                     </h2>
                                                 </td>

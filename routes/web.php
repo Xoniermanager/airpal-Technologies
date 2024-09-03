@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\UpdateMeetingIdJob;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FaqsController;
@@ -24,18 +25,22 @@ use App\Http\Controllers\Doctor\DoctorNotification;
 use App\Http\Controllers\Patient\BookingController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\HealthmonitoringController;
-use App\Http\Controllers\Admin\AdminAppointmentController;
 use App\Http\Controllers\Admin\PatientListController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\DoctorPatientChatController;
 use App\Http\Controllers\Admin\InvoiceReportController;
+use App\Http\Controllers\Doctor\PrescriptionController;
 use App\Http\Controllers\Patient\PatientAuthController;
 use App\Http\Controllers\Admin\DoctorQuestionController;
 use App\Http\Controllers\Patient\DoctorReviewController;
+use App\Http\Controllers\Patient\PatientDiaryController;
 use App\Http\Controllers\Doctor\DiseaseDetailsController;
+use App\Http\Controllers\Patient\MedicalRecordController;
+use App\Http\Controllers\Admin\AdminAppointmentController;
 use App\Http\Controllers\Admin\QuestionsOptionsController;
 use App\Http\Controllers\Doctor\AccountsDetailsController;
 use App\Http\Controllers\Doctor\DoctorDashboardController;
+use App\Http\Controllers\Patient\PatientInvoiceController;
 use App\Http\Controllers\Patient\PatientProfileController;
 use App\Http\Controllers\Doctor\AppointmentConfigController;
 use App\Http\Controllers\Doctor\DoctorAppointmentController;
@@ -44,15 +49,11 @@ use App\Http\Controllers\Patient\PatientDashboardController;
 use App\Http\Controllers\Doctor\DoctorPanelQuestionController;
 use App\Http\Controllers\Doctor\DoctorAuthenticationController;
 use App\Http\Controllers\Patient\PatientAppointmentsController;
+use App\Http\Controllers\Patient\PatientFavoriteDoctorController;
 use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSiteConfigController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
-use App\Http\Controllers\Doctor\PrescriptionController;
-use App\Http\Controllers\Patient\MedicalRecordController;
-use App\Http\Controllers\Patient\PatientDiaryController;
-use App\Http\Controllers\Patient\PatientFavoriteDoctorController;
-use App\Http\Controllers\Patient\PatientInvoiceController;
 
 // =============================== Login And SignUp Routes ==================================== //
 /**
@@ -534,7 +535,8 @@ Route::controller(DoctorReviewController::class)->group(function () {
 });
 
 Route::get('job', function () {
-    UpdateDoctorRatingsAverageValue::dispatch();
+    // UpdateDoctorRatingsAverageValue::dispatch();
+    UpdateMeetingIdJob::dispatch();
     return 'job executes';
 });
 

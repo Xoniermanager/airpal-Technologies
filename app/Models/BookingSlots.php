@@ -15,7 +15,7 @@ class BookingSlots extends Model
 
     use HasFactory;
     protected $table = 'booking_slots';
-    protected $fillable = ['doctor_id', 'patient_id', 'booking_date', 'slot_start_time', 'slot_end_time', 'attachment', 'insurance', 'note', 'status', 'image', 'symptoms'];
+    protected $fillable = ['doctor_id', 'patient_id', 'booking_date', 'slot_start_time', 'slot_end_time', 'attachment', 'insurance', 'note', 'status', 'image', 'symptoms', 'meeting_id'];
 
     public function user()
     {
@@ -70,10 +70,32 @@ class BookingSlots extends Model
 
     public function doctorProfileUrl()
     {
-        return  route('frontend.doctor.profile', ['user' => Crypt::encrypt($this->user->id) ]);
+        return  route('frontend.doctor.profile', ['user' => Crypt::encrypt($this->user->id)]);
     }
     public function patientProfileUrl()
     {
-       return  route('doctor-patient-profile', ['id' => Crypt::encrypt($this->patient->id)]);
+        return  route('doctor-patient-profile', ['id' => Crypt::encrypt($this->patient->id)]);
+    }
+
+    protected function meetingId(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) =>  $value ? (env('MEETING_LINK', '') . '/' . $value) : ''
+        );
+    }
+
+    public function getMeetingButton()
+    {
+        $buttonHtml = '';
+        if ($this->status = 'confirmed') {
+            if ($this->booking_date == date('Y-m-d')) {
+                if (strtotime($this->slot_start_time) - 900 <= time() && strtotime($this->slot_end_time) >= time()) {
+                    $buttonHtml .= '<div class="appointment-detail-btn">
+                    <a href="' . $this->meeting_id . '" class="start-link"><i
+                            class="fa-solid fa-calendar-check me-1"></i>Attend</a></div>';
+                }
+            }
+        }
+        return $buttonHtml;
     }
 }

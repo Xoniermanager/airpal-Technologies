@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Services\BookingServices;
+use App\Models\BookingSlots;
 use Illuminate\Support\Facades\Validator;
 
 class BookAppointmentApiController extends Controller
@@ -110,6 +111,30 @@ class BookAppointmentApiController extends Controller
                 "status" => false,
                 "error" =>  $e->getMessage(),
                 "message" => "Unable to find Appointment"
+            ], 500);
+        }
+    }
+    public function getMeetingDetails($meetingId)
+    {
+        try {
+            $bookingDetails = $this->bookingAppointmentServices->getBookingDetailsByMeetingId($meetingId);
+            if (!empty($bookingDetails)) {
+                return response()->json([
+                    'status' => true,
+                    'message' => "Retrieved Meeting Details",
+                    'data' => $bookingDetails
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => true,
+                    'message' => "No Details Found for this Meeting Id",
+                ], 401);
+            }
+        } catch (Exception $e) {
+            return response()->json([
+                "status" => false,
+                "error" =>  $e->getMessage(),
+                "message" => "Unable to find Meeting Details"
             ], 500);
         }
     }

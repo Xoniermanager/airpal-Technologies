@@ -47,7 +47,7 @@ use App\Http\Controllers\Patient\PatientAppointmentsController;
 use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
-use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSiteConfigController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController};
+use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSiteConfigController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController, TestimonialController};
 use App\Http\Controllers\Doctor\PrescriptionController;
 use App\Http\Controllers\Patient\MedicalRecordController;
 use App\Http\Controllers\Patient\PatientDiaryController;
@@ -406,6 +406,16 @@ Route::prefix('admin')->group(function () {
         Route::get('/transactions-list', [TransactionController::class, 'transactionsList'])->name('admin.transactions-list.index');
         Route::get('/invoice-report', [InvoiceReportController::class, 'invoiceReport'])->name('admin.invoice-report.index');
         Route::get('/invoice', [InvoiceReportController::class, 'invoice'])->name('admin.invoice.index');
+
+        Route::get('/invoice', [InvoiceReportController::class, 'invoice'])->name('admin.invoice.index');
+
+
+        Route::prefix('testimonial')->controller(TestimonialController::class)->group(function()
+        {
+            Route::get('/', 'index')->name('admin.testimonial.index'); 
+            Route::get('get', 'getTestimonials')->name('admin.testimonial.list'); 
+        });
+
     });
 });
 

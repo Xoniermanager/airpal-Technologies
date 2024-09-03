@@ -67,16 +67,16 @@
                         <div class="social-icon">
                             <ul>
                                 <li>
-                                    <a href="javascript:void(0);"><i class="fab fa-facebook"></i></a>
+                                    <a href="{{ site('facebook_link') }}" target="_blank"><i class="fab fa-facebook"></i></a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);"><i class="fab fa-instagram"></i></a>
+                                    <a href="{{ site('instagram_link') }}" target="_blank"><i class="fab fa-instagram"></i></a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);"><i class="fab fa-twitter"></i></a>
+                                    <a href="{{ site('twitter_link') }}" target="_blank"><i class="fab fa-twitter"></i></a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="{{ site('linkedin_link') }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                                 </li>
                             </ul>
                         </div>

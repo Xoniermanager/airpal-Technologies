@@ -169,7 +169,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'bp' => 180.0,
                 'avg_body_temp' => 33.0,
                 'avg_heart_beat' => 66.0,
-                'glucose' => NULL,
+                'glucose' => 120.0,
                 'created_at' => '2024-08-20 00:00:00',
                 'updated_at' => '2024-08-20 00:00:00',
             ),
@@ -241,28 +241,6 @@ class PatientDiariesTableSeeder extends Seeder
             ),
             10 => 
             array (
-                'id' => 11,
-                'patient_id' => 7,
-                'note' => 'No',
-                'total_sleep_hr' => 6.0,
-                'morning_breakfast' => 1,
-                'afternoon_lunch' => 1,
-                'night_dinner' => 1,
-                'morning_medicine' => 1,
-                'afternoon_medicine' => 1,
-                'night_medicine' => 1,
-                'pulse_rate' => 65.0,
-                'oxygen_level' => 96.0,
-                'weight' => 72.0,
-                'bp' => 186.0,
-                'avg_body_temp' => 36.0,
-                'avg_heart_beat' => 55.0,
-                'glucose' => NULL,
-                'created_at' => '2024-08-24 00:00:00',
-                'updated_at' => '2024-08-24 00:00:00',
-            ),
-            11 => 
-            array (
                 'id' => 12,
                 'patient_id' => 7,
                 'note' => 'No',
@@ -283,29 +261,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-08-25 00:00:00',
                 'updated_at' => '2024-08-25 00:00:00',
             ),
-            12 => 
-            array (
-                'id' => 13,
-                'patient_id' => 7,
-                'note' => 'No',
-                'total_sleep_hr' => 6.0,
-                'morning_breakfast' => 1,
-                'afternoon_lunch' => 1,
-                'night_dinner' => 1,
-                'morning_medicine' => 1,
-                'afternoon_medicine' => 1,
-                'night_medicine' => 1,
-                'pulse_rate' => 67.0,
-                'oxygen_level' => 94.0,
-                'weight' => 72.0,
-                'bp' => 184.0,
-                'avg_body_temp' => 38.0,
-                'avg_heart_beat' => 74.0,
-                'glucose' => NULL,
-                'created_at' => '2024-08-26 00:00:00',
-                'updated_at' => '2024-08-26 00:00:00',
-            ),
-            13 => 
+            11 => 
             array (
                 'id' => 14,
                 'patient_id' => 7,
@@ -323,11 +279,11 @@ class PatientDiariesTableSeeder extends Seeder
                 'bp' => 183.0,
                 'avg_body_temp' => 39.0,
                 'avg_heart_beat' => 62.0,
-                'glucose' => NULL,
+                'glucose' => 120.0,
                 'created_at' => '2024-08-27 00:00:00',
-                'updated_at' => '2024-08-27 00:00:00',
+                'updated_at' => '2024-08-27 09:09:32',
             ),
-            14 => 
+            12 => 
             array (
                 'id' => 15,
                 'patient_id' => 7,
@@ -341,20 +297,20 @@ class PatientDiariesTableSeeder extends Seeder
                 'night_medicine' => 1,
                 'pulse_rate' => 69.0,
                 'oxygen_level' => 92.0,
-                'weight' => 72.0,
+                'weight' => 70.0,
                 'bp' => 182.0,
                 'avg_body_temp' => 40.0,
-                'avg_heart_beat' => 56.0,
+                'avg_heart_beat' => 66.0,
                 'glucose' => NULL,
                 'created_at' => '2024-08-28 00:00:00',
                 'updated_at' => '2024-08-28 00:00:00',
             ),
-            15 => 
+            13 => 
             array (
                 'id' => 16,
                 'patient_id' => 7,
                 'note' => 'No',
-                'total_sleep_hr' => 6.0,
+                'total_sleep_hr' => 8.0,
                 'morning_breakfast' => 1,
                 'afternoon_lunch' => 1,
                 'night_dinner' => 1,
@@ -367,11 +323,11 @@ class PatientDiariesTableSeeder extends Seeder
                 'bp' => 181.0,
                 'avg_body_temp' => 41.0,
                 'avg_heart_beat' => 67.0,
-                'glucose' => NULL,
+                'glucose' => 122.0,
                 'created_at' => '2024-08-29 00:00:00',
                 'updated_at' => '2024-08-29 00:00:00',
             ),
-            16 => 
+            14 => 
             array (
                 'id' => 17,
                 'patient_id' => 7,
@@ -393,7 +349,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-08-30 00:00:00',
                 'updated_at' => '2024-08-30 00:00:00',
             ),
-            17 => 
+            15 => 
             array (
                 'id' => 18,
                 'patient_id' => 7,
@@ -415,7 +371,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-08-31 00:00:00',
                 'updated_at' => '2024-08-31 00:00:00',
             ),
-            18 => 
+            16 => 
             array (
                 'id' => 39,
                 'patient_id' => 7,
@@ -437,7 +393,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-01 00:00:00',
                 'updated_at' => '2024-07-01 00:00:00',
             ),
-            19 => 
+            17 => 
             array (
                 'id' => 40,
                 'patient_id' => 7,
@@ -459,7 +415,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-02 00:00:00',
                 'updated_at' => '2024-07-02 00:00:00',
             ),
-            20 => 
+            18 => 
             array (
                 'id' => 41,
                 'patient_id' => 7,
@@ -481,7 +437,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-03 00:00:00',
                 'updated_at' => '2024-07-03 00:00:00',
             ),
-            21 => 
+            19 => 
             array (
                 'id' => 42,
                 'patient_id' => 7,
@@ -503,7 +459,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-04 00:00:00',
                 'updated_at' => '2024-07-04 00:00:00',
             ),
-            22 => 
+            20 => 
             array (
                 'id' => 43,
                 'patient_id' => 7,
@@ -525,7 +481,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-05 00:00:00',
                 'updated_at' => '2024-07-05 00:00:00',
             ),
-            23 => 
+            21 => 
             array (
                 'id' => 44,
                 'patient_id' => 7,
@@ -547,7 +503,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-06 00:00:00',
                 'updated_at' => '2024-07-06 00:00:00',
             ),
-            24 => 
+            22 => 
             array (
                 'id' => 45,
                 'patient_id' => 7,
@@ -569,7 +525,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-07 00:00:00',
                 'updated_at' => '2024-07-07 00:00:00',
             ),
-            25 => 
+            23 => 
             array (
                 'id' => 46,
                 'patient_id' => 7,
@@ -591,7 +547,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-08 00:00:00',
                 'updated_at' => '2024-07-08 00:00:00',
             ),
-            26 => 
+            24 => 
             array (
                 'id' => 47,
                 'patient_id' => 7,
@@ -613,7 +569,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-09 00:00:00',
                 'updated_at' => '2024-07-09 00:00:00',
             ),
-            27 => 
+            25 => 
             array (
                 'id' => 48,
                 'patient_id' => 7,
@@ -635,7 +591,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-10 00:00:00',
                 'updated_at' => '2024-07-10 00:00:00',
             ),
-            28 => 
+            26 => 
             array (
                 'id' => 49,
                 'patient_id' => 7,
@@ -657,7 +613,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-11 00:00:00',
                 'updated_at' => '2024-07-11 00:00:00',
             ),
-            29 => 
+            27 => 
             array (
                 'id' => 50,
                 'patient_id' => 7,
@@ -679,7 +635,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-12 00:00:00',
                 'updated_at' => '2024-07-12 00:00:00',
             ),
-            30 => 
+            28 => 
             array (
                 'id' => 51,
                 'patient_id' => 7,
@@ -701,7 +657,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-13 00:00:00',
                 'updated_at' => '2024-07-13 00:00:00',
             ),
-            31 => 
+            29 => 
             array (
                 'id' => 52,
                 'patient_id' => 7,
@@ -723,7 +679,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-14 00:00:00',
                 'updated_at' => '2024-07-14 00:00:00',
             ),
-            32 => 
+            30 => 
             array (
                 'id' => 53,
                 'patient_id' => 7,
@@ -745,7 +701,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-15 00:00:00',
                 'updated_at' => '2024-07-15 00:00:00',
             ),
-            33 => 
+            31 => 
             array (
                 'id' => 54,
                 'patient_id' => 7,
@@ -767,7 +723,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-16 00:00:00',
                 'updated_at' => '2024-07-16 00:00:00',
             ),
-            34 => 
+            32 => 
             array (
                 'id' => 55,
                 'patient_id' => 7,
@@ -789,7 +745,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-17 00:00:00',
                 'updated_at' => '2024-07-17 00:00:00',
             ),
-            35 => 
+            33 => 
             array (
                 'id' => 56,
                 'patient_id' => 7,
@@ -811,7 +767,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-18 00:00:00',
                 'updated_at' => '2024-07-18 00:00:00',
             ),
-            36 => 
+            34 => 
             array (
                 'id' => 57,
                 'patient_id' => 7,
@@ -833,7 +789,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-19 00:00:00',
                 'updated_at' => '2024-07-19 00:00:00',
             ),
-            37 => 
+            35 => 
             array (
                 'id' => 58,
                 'patient_id' => 7,
@@ -855,7 +811,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-20 00:00:00',
                 'updated_at' => '2024-07-20 00:00:00',
             ),
-            38 => 
+            36 => 
             array (
                 'id' => 59,
                 'patient_id' => 7,
@@ -877,7 +833,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-21 00:00:00',
                 'updated_at' => '2024-07-21 00:00:00',
             ),
-            39 => 
+            37 => 
             array (
                 'id' => 60,
                 'patient_id' => 7,
@@ -899,7 +855,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-22 00:00:00',
                 'updated_at' => '2024-07-22 00:00:00',
             ),
-            40 => 
+            38 => 
             array (
                 'id' => 61,
                 'patient_id' => 7,
@@ -921,7 +877,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-23 00:00:00',
                 'updated_at' => '2024-07-23 00:00:00',
             ),
-            41 => 
+            39 => 
             array (
                 'id' => 62,
                 'patient_id' => 7,
@@ -943,7 +899,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-24 00:00:00',
                 'updated_at' => '2024-07-24 00:00:00',
             ),
-            42 => 
+            40 => 
             array (
                 'id' => 63,
                 'patient_id' => 7,
@@ -965,29 +921,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-25 00:00:00',
                 'updated_at' => '2024-07-25 00:00:00',
             ),
-            43 => 
-            array (
-                'id' => 64,
-                'patient_id' => 7,
-                'note' => 'No',
-                'total_sleep_hr' => 6.0,
-                'morning_breakfast' => 1,
-                'afternoon_lunch' => 1,
-                'night_dinner' => 1,
-                'morning_medicine' => 1,
-                'afternoon_medicine' => 1,
-                'night_medicine' => 1,
-                'pulse_rate' => 85.0,
-                'oxygen_level' => 73.0,
-                'weight' => 72.0,
-                'bp' => 161.0,
-                'avg_body_temp' => 59.0,
-                'avg_heart_beat' => 67.0,
-                'glucose' => NULL,
-                'created_at' => '2024-07-26 00:00:00',
-                'updated_at' => '2024-07-26 00:00:00',
-            ),
-            44 => 
+            41 => 
             array (
                 'id' => 65,
                 'patient_id' => 7,
@@ -1009,7 +943,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-27 00:00:00',
                 'updated_at' => '2024-07-27 00:00:00',
             ),
-            45 => 
+            42 => 
             array (
                 'id' => 66,
                 'patient_id' => 7,
@@ -1031,7 +965,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-28 00:00:00',
                 'updated_at' => '2024-07-28 00:00:00',
             ),
-            46 => 
+            43 => 
             array (
                 'id' => 67,
                 'patient_id' => 7,
@@ -1053,7 +987,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-29 00:00:00',
                 'updated_at' => '2024-07-29 00:00:00',
             ),
-            47 => 
+            44 => 
             array (
                 'id' => 68,
                 'patient_id' => 7,
@@ -1075,7 +1009,7 @@ class PatientDiariesTableSeeder extends Seeder
                 'created_at' => '2024-07-30 00:00:00',
                 'updated_at' => '2024-07-30 00:00:00',
             ),
-            48 => 
+            45 => 
             array (
                 'id' => 69,
                 'patient_id' => 7,
@@ -1096,6 +1030,50 @@ class PatientDiariesTableSeeder extends Seeder
                 'glucose' => NULL,
                 'created_at' => '2024-07-31 00:00:00',
                 'updated_at' => '2024-07-31 00:00:00',
+            ),
+            46 => 
+            array (
+                'id' => 70,
+                'patient_id' => 22,
+                'note' => 'Feeling fine',
+                'total_sleep_hr' => 6.0,
+                'morning_breakfast' => 1,
+                'afternoon_lunch' => 1,
+                'night_dinner' => 1,
+                'morning_medicine' => 1,
+                'afternoon_medicine' => 1,
+                'night_medicine' => 1,
+                'pulse_rate' => 62.0,
+                'oxygen_level' => 99.0,
+                'weight' => 72.0,
+                'bp' => 130.0,
+                'avg_body_temp' => 33.0,
+                'avg_heart_beat' => 60.0,
+                'glucose' => 120.0,
+                'created_at' => '2024-08-21 10:29:46',
+                'updated_at' => '2024-08-21 10:29:46',
+            ),
+            47 => 
+            array (
+                'id' => 71,
+                'patient_id' => 7,
+                'note' => 'Testing',
+                'total_sleep_hr' => 6.0,
+                'morning_breakfast' => 1,
+                'afternoon_lunch' => 1,
+                'night_dinner' => 1,
+                'morning_medicine' => 1,
+                'afternoon_medicine' => 1,
+                'night_medicine' => 1,
+                'pulse_rate' => 78.0,
+                'oxygen_level' => 99.0,
+                'weight' => 72.0,
+                'bp' => 140.0,
+                'avg_body_temp' => 34.0,
+                'avg_heart_beat' => 76.0,
+                'glucose' => 130.0,
+                'created_at' => '2024-08-26 09:47:51',
+                'updated_at' => '2024-08-26 09:47:51',
             ),
         ));
         

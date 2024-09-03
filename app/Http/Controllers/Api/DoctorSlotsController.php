@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Services\UserServices;
 use App\Http\Controllers\Controller;
 use App\Http\Services\BookingServices;
-use App\Http\Requests\StoreSlotRequest;
+use App\Http\Requests\StoreAppointmentConfigRequest;
 use App\Http\Services\DoctorAppointmentConfigService;
 
 class DoctorSlotsController extends Controller
@@ -33,7 +33,7 @@ class DoctorSlotsController extends Controller
     }
 
 
-    public function store(StoreSlotRequest $request)
+    public function store(StoreAppointmentConfigRequest $request)
     {
         $response =  $this->doctorSlotServices->addSlot($request->all());
         if ($response) { {
@@ -46,7 +46,7 @@ class DoctorSlotsController extends Controller
         }
     }
 
-    public function update(StoreSlotRequest $request)
+    public function update(StoreAppointmentConfigRequest $request)
     {
         $response =  $this->doctorSlotServices->updateSlot($request->all());
         if ($response) {

@@ -7,7 +7,7 @@ use App\Models\Slots;
 use App\Models\DayOfWeek;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreSlotRequest;
+use App\Http\Requests\StoreAppointmentConfigRequest;
 use App\Http\Services\DoctorAppointmentConfigService;
 
 class SlotsController extends Controller
@@ -33,7 +33,7 @@ class SlotsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSlotRequest $request)
+    public function store(StoreAppointmentConfigRequest $request)
     {
         if ($this->doctorSlotServices->addSlot($request->all())) {
             return response()->json([
@@ -65,7 +65,7 @@ class SlotsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreSlotRequest $request)
+    public function update(StoreAppointmentConfigRequest $request)
     {
         if ($this->doctorSlotServices->updateSlot($request->all())) {
             return response()->json([

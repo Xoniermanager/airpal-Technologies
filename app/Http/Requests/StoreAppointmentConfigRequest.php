@@ -7,7 +7,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreSlotRequest extends FormRequest
+class StoreAppointmentConfigRequest extends FormRequest
 {
     use ExceptionHandle;
     /**

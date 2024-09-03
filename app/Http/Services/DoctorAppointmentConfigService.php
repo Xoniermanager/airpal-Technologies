@@ -86,6 +86,7 @@ class DoctorAppointmentConfigService
     {
         DB::beginTransaction();
         $now = Carbon::now();
+        $message = '';
         try {
             $payload = [
                 "user_id" => $data['doctor_id'],
@@ -99,42 +100,79 @@ class DoctorAppointmentConfigService
             ];
 
             $existingSlot = $this->doctorSlotRepository->where('user_id', $data['doctor_id'])->first();
-            if ($existingSlot) {
-                // Update the existing slot
-                $this->doctorSlotRepository->where('user_id', $existingSlot->user_id)->update($payload);
-            } else {
+            if ($existingSlot) 
+            {
+                // Step1 : Check if there is any change in slot duration and cleanup interval time
+                if($existingSlot->slot_duration !=  $data['slot_duration'] || $existingSlot->cleanup_interval !=  $data['cleanup_interval'])
+                {
+                    $message = $this->checkIfBookingExistsSetNewConfigStartDate($data['doctor_id']);
+                }
+
+                // Step2 : Compare if there is any exception days added in update
+                $currentExceptionDays = $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])->pluck('exception_days_id')->toArray();
+                $updatedExceptionDays = isset($data['exception_day_ids']) ? $data['exception_day_ids'] : [];
+                // Check if there is any new exception days has been added, which does not exists already in list
+                $exceptionDaysDifference = array_diff($updatedExceptionDays, $currentExceptionDays);
+                if(count($exceptionDaysDifference) > 0)
+                {
+                    $message = $this->checkIfBookingExistsSetNewConfigStartDate($data['doctor_id']);
+                }
+
+                // Step3: Checking if slot starting day of each month has been increased from current start date
+                // OR checking if slot ending day of each month has been decreased from current end date
+                if($existingSlot->start_month <  $data['start_month'] || $existingSlot->end_month >  $data['end_month'])
+                {
+                    $message = $this->checkIfBookingExistsSetNewConfigStartDate($data['doctor_id']);
+                }
+
+
+                if(!empty($message))
+                {
+                    return [
+                        'status'    => false,
+                        'message'   =>  $message
+                    ];
+                    dd($message);
+                }
+                else
+                {
+                    $this->doctorSlotRepository->where('user_id', $existingSlot->user_id)->update($payload);
+                    // Write additional script to remove existing exception days if required
+                    return [
+                        'status'    => true,
+                        'message'   =>  'Slot Config details updated successfully!'
+                    ];
+                }
+            }
+            else 
+            {
                 // Create a new slot
                 $this->doctorSlotRepository->create($payload);
             }
 
-            if (isset($data['exception_day_ids'])) {
-                $currentExceptionDays = $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])->pluck('exception_days_id')->toArray();
-                $exceptionDayToRemove = array_diff($currentExceptionDays, $data['exception_day_ids']);
-                if (!empty($exceptionDayToRemove)) {
-                    $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])
-                        ->whereIn('exception_days_id', $exceptionDayToRemove)
-                        ->delete();
-                }
-
-                foreach ($data['exception_day_ids'] as $exception_day_id) {
-                    $exceptionData = [
-                        "doctor_id" => $data['doctor_id'],
-                        "exception_days_id" => $exception_day_id,
-                    ];
-                    $this->doctorExceptionDayRepository->updateOrCreate(
-                        ['doctor_id' => $data['doctor_id'], 'exception_days_id' => $exception_day_id],
-                        $exceptionData
-                    );
-                }
-            } else {
-                $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])->delete();
-            }
             DB::commit();
             return true;
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
         }
+    }
+
+
+    // Compare if any future date active booking exists then, set a new date to apply new changes
+    public function checkIfBookingExistsSetNewConfigStartDate($doctorId)
+    {
+        // check if there is already any existing slot booking with status requested, confirmed
+        $activeBooking = $this->bookingServices->getDoctorActiveBookingSlots($doctorId);
+                    
+        if($activeBooking->count() > 0)
+        {
+            $recentBookingDate = date('jS M Y', strtotime($activeBooking[0]->booking_date)) .  ' - ' .
+            date('h:i A', strtotime($activeBooking[0]->slot_start_time));
+            return "You have already bookings till date {$recentBookingDate}, 
+            So new changes will be applicable after {$recentBookingDate}.";
+        }
+        return 0;
     }
 
     public function createDoctorSlots($doctorSlotConfigDetails)

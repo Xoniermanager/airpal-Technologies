@@ -77,28 +77,34 @@ class BookingServices
             ]);
         }
     }
+
     public function update($data, $id)
     {
         return $this->bookingRepository->find($id)->update($data);
     }
+
     public function destroy($id)
     {
         return $this->bookingRepository->find($id)->delete();
     }
+
     public function getPaginateData()
     {
         return $this->bookingRepository->paginate(12);
     }
+
     public function all()
     {
         return $this->bookingRepository->all();
     }
+
     public function slotDetails($data)
     {
         return $this->bookingRepository
             ->where('doctor_id', $data['doctor_id'])
             ->where('booking_date', $data['date']);
     }
+
     public function doctorBookings($id, $searchKey = null)
     {
         $queryDetails =  $this->bookingRepository->where('doctor_id', $id)->with('patient');
@@ -388,5 +394,15 @@ class BookingServices
     public function getAllAppointmentDetailsByDoctorId($doctorId)
     {
         return $this->bookingRepository->where('doctor_id', $doctorId)->with('patient')->get();
+    }
+
+    // Get doctor active booking slots
+    public function getDoctorActiveBookingSlots($doctorId)
+    {
+        return $this->bookingRepository->where('doctor_id',$doctorId)
+                    ->whereIn('status',['requested','confirmed'])
+                    ->whereDate('booking_date',">=",Carbon::now())
+                    ->orderBY('booking_date','desc')
+                    ->get();
     }
 }

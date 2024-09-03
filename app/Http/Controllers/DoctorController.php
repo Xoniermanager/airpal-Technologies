@@ -6,9 +6,7 @@ use DateTime;
 use App\Models\User;
 use App\Models\Service;
 use App\Models\Language;
-use App\Models\BookingSlots;
 use Illuminate\Http\Request;
-use App\Jobs\GenerateInvoicePdf;
 use App\Jobs\GenerateAllInvoices;
 use App\Http\Services\UserServices;
 use App\Http\Services\DoctorService;
@@ -25,7 +23,6 @@ use App\Http\Services\DoctorAppointmentConfigService;
 class DoctorController extends Controller
 {
   private $user_services;
-  private $doctorsFilterServices;
   private $specializationServices;
   private $doctorSlotServices;
   private $bookingServices;
@@ -60,10 +57,13 @@ class DoctorController extends Controller
     $allRatingStars = $this->doctorService->getDoctorCountsGroupedByRatings();
 
     // Check if the user is authenticated
-    if (Auth::check()) {
+    if (Auth::check()) 
+    {
       $patientId = Auth::user()->id;
       $favoriteDoctorsList = $this->favoriteDoctorServices->getAllFavoriteDoctors($patientId)->pluck('doctor_id')->toArray();
-    } else {
+    }
+    else
+    {
       $favoriteDoctorsList = []; // No favorite doctors if not logged in
     }
 

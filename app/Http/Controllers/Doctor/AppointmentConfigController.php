@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Doctor;
 use App\Http\Services\UserServices;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\StoreSlotRequest;
+use App\Http\Requests\StoreAppointmentConfigRequest;
 use App\Http\Services\DoctorAppointmentConfigService;
 
 class AppointmentConfigController extends Controller
@@ -31,7 +31,7 @@ class AppointmentConfigController extends Controller
         
     }
 
-    public function addAppointmentConfig(StoreSlotRequest $request)
+    public function addAppointmentConfig(StoreAppointmentConfigRequest $request)
     {
         if ($this->doctorSlotServices->updateSlot($request->all())) {
             return response()->json([

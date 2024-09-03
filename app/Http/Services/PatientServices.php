@@ -53,6 +53,11 @@ class PatientServices
       ->get();
   }
 
+
+  public function patientHealthGraphs($patientId)
+  {
+     return $this->patientDiaryService->getAllDiaryDetailsByPatientId($patientId);
+  }
   public function patientHeartBeatGraph($patientId)
   {
      return $this->patientDiaryService->getAllDiaryDetailsByPatientId($patientId);

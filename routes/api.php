@@ -53,7 +53,7 @@ Route::controller(AuthController::class)->prefix('patient')->group(function () {
 });
 
 
-Route::middleware('authCheck')->group(function () {
+// Route::middleware('authCheck')->group(function () {
 
     Route::prefix('doctor')->group(function () {
         Route::post('change-password', [AuthController::class, 'changePassword']);
@@ -147,6 +147,7 @@ Route::middleware('authCheck')->group(function () {
     Route::prefix('patient')->group(function () {
         Route::controller(PatientDashboardController::class)->group(function () {
             Route::get('get-dashboard-data', 'getDashBoardData');
+            Route::get('patient-health-graph-data', 'patientHealthGraphData');
         });
         Route::controller(PatientProfileController::class)->group(function () {
             Route::get('profile', 'patientProfile');
@@ -194,12 +195,12 @@ Route::middleware('authCheck')->group(function () {
             Route::get('get-booking-slot', 'getBookingDetailsByPatientId');
         });
 
-        // Doctor chat api get chat list, get chat history and send message
-        Route::controller(DoctorChatController::class)->group(function(){
+        // Patient chat api get chat list, get chat history and send message
+        Route::controller(PatientChatController::class)->group(function(){
             Route::get('get-chat-list','getChatList');
             Route::get('get-chat-history','getChatHistory');
             Route::post('send-message','sendMessage');
         });
     });
     Route::get('privacy', [AuthController::class, 'privacyPolicy']);
-});
+// });

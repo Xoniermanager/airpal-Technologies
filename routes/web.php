@@ -402,7 +402,6 @@ Route::prefix('admin')->group(function () {
         Route::get('/profile/{user:id}', [ProfileController::class, 'profile'])->name('admin.profile.index');
         Route::get('/settings', [AdminSiteConfigController::class, 'settings'])->name('admin.settings.index');
 
-
         Route::get('/transactions-list', [TransactionController::class, 'transactionsList'])->name('admin.transactions-list.index');
         Route::get('/invoice-report', [InvoiceReportController::class, 'invoiceReport'])->name('admin.invoice-report.index');
         Route::get('/invoice', [InvoiceReportController::class, 'invoice'])->name('admin.invoice.index');
@@ -412,7 +411,7 @@ Route::prefix('admin')->group(function () {
 
         Route::prefix('testimonial')->controller(TestimonialController::class)->group(function()
         {
-            Route::get('/', 'index')->name('admin.testimonial.index'); 
+            Route::get('/','index')->name('admin.testimonial.index'); 
             Route::get('get', 'getTestimonials')->name('admin.testimonial.list'); 
         });
 

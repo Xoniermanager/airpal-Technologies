@@ -19,7 +19,6 @@ class DoctorFilterController extends Controller
 
   public function doctorSearch(SearchDoctorRequest $request)
   {
-    dd($request->all());
     try {
       $searchedItems = $this->user_services->searchInDoctors($request->validated());
       if ($searchedItems) {

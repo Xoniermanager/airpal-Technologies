@@ -38,9 +38,8 @@ class PatientDashboardController extends Controller
   {
     try {
 
-      $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate(Carbon::now(), Auth()->guard('api')->user()->id);
+      $diaryDetails = $this->patientDiaryService->getDiaryDetailsByDate(Carbon::now(),Auth()->guard('api')->user()->id);
       if ($diaryDetails) {
-
         $diaryDetailsDayAfter = $this->getValidatePreviewsDateDiaryDetail($diaryDetails->created_at);
         $percentageChanges = [];
         $attributes = ['pulse_rate', 'oxygen_level', 'bp', 'avg_body_temp', 'avg_heart_beat', 'glucose'];
@@ -60,20 +59,18 @@ class PatientDashboardController extends Controller
             $percentageChanges[$attribute] = 'N/A';
           }
         }
-        $patientHealthGraphsData = $this->patientDashboardServices->patientHealthGraphsData(now()->month,Auth()->guard('api')->user()->id); 
-
         $diaryDetails['percentage'] = $percentageChanges;
       } else {
         $diaryDetails['percentage']  = '';
       }
+      $diaryDetails['healthGraphData'] = $this->patientDashboardServices->patientHealthGraphsData(now()->month,Auth()->guard('api')->user()->id); 
 
       $data =
         [
-          'upcomingAppointments' =>  $this->getUpcomingAppointment() ?? '',
-          'recommendedDoctors'   =>  $this->getRecommendedDoctors() ?? '',
-          'popularDoctors'       =>  $this->getPopularDoctors() ?? '',
-          'diaryDetails'         =>  $diaryDetails,
-          'patientHealthGraphsData' => $patientHealthGraphsData ?? ''
+          'upcomingAppointments'    =>  $this->getUpcomingAppointment() ?? '',
+          'recommendedDoctors'      =>  $this->getRecommendedDoctors() ?? '',
+          'popularDoctors'          =>  $this->getPopularDoctors() ?? '',
+          'diaryDetails'            =>  $diaryDetails,
         ];
         
       if ($data) {
@@ -155,7 +152,7 @@ class PatientDashboardController extends Controller
 
   public function getUpcomingAppointment()
   {
-    return $this->bookingServices->patientUpcomingBookings(Auth::guard('api')->user()->id)->get();
+    return $this->bookingServices->patientUpcomingBookings(6)->get();
   }
 
 

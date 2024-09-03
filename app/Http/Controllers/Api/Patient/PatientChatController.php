@@ -27,14 +27,11 @@ class PatientChatController extends Controller
         $searchKey = (array_key_exists('search', $request->all())) ? $request->search : '';
 
         $doctorPatientChatLists = $this->doctorPatientChatService->getPatientsChatList($patientId, $searchKey);
-        
-        $updatedChatUsersList = view('common_chat.user-chat-list')
-            ->with('chatUsers', $doctorPatientChatLists['chatUsers'])->render();
 
         return [
             'status'    =>  true,
             'message'   =>  'Filtered patient chat list returned successfully!',
-            'data'      =>  $updatedChatUsersList
+            'data'      =>  $doctorPatientChatLists
         ];
     }
 
@@ -52,11 +49,11 @@ class PatientChatController extends Controller
         return response()->json([
             'status'    =>  true,
             'message'   =>  'Chat history loaded successfully.',
-            'data'      =>  view('common_chat.chat-history-body',[
+            'data'      =>  [
                 'receiverDetails'       =>  $chatHistoryDetails['receiverDetails'],
                 'senderDetails'         =>  $chatHistoryDetails['senderDetails'],
                 'chatHistory'           =>  $chatHistoryDetails['chatHistory'],
-            ])->render()
+            ]
         ]);
     }
 
@@ -72,11 +69,11 @@ class PatientChatController extends Controller
         return response()->json([
             'status'        =>  true,
             'message'       =>  'Message sent successfully!',
-            'data'          =>  view('common_chat.chat-history-body',[
+            'data'          =>  [
                 'receiverDetails'       =>  $updatedChatHistory['receiverDetails'],
                 'senderDetails'         =>  $updatedChatHistory['senderDetails'],
                 'chatHistory'           =>  $updatedChatHistory['chatHistory'],
-            ])->render()
+            ]
         ]);
     }
 }

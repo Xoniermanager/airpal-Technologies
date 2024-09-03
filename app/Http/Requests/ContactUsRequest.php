@@ -2,12 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Traits\ExceptionHandle;
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetSelectedChatHistoryRequest extends FormRequest
+class ContactUsRequest extends FormRequest
 {
-    use ExceptionHandle;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,8 +22,14 @@ class GetSelectedChatHistoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'receiver_user_id'  =>  'required|integer|exists:users,id',
-            'read_status'       =>  'boolean'
+            'name'  => 'required|string|max:255',
+            'phone' => [
+                'required',
+                'regex:/^[0-9]{10,15}$/',
+            ],
+            'services' => 'required|string|max:255',
+            'email'    => 'required|email|max:255',
+            'comment'  => 'required|string|max:1000',
         ];
     }
 }

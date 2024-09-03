@@ -7,14 +7,14 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="">
 <meta property="og:description" content="">
-<meta property="og:image" content="{{ asset('assets/img/logo.png') }}">
+<meta property="og:image" content="{{ site('website_logo') ?? '' }}">
 <meta property="twitter:domain" content="">
 <meta property="twitter:url" content="">
 <meta name="twitter:title" content="">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="{{ asset('assets/img/logo.png') }}">
+<meta name="twitter:image" content="{{ site('website_logo') ?? '' }}">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<link rel="shortcut icon" href="{{ asset('assets/img/favicon.png') }}" type="image/x-icon">
+<link rel="shortcut icon" href="{{ site('website_favicon') ?? '' }}" type="image/x-icon">
 <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/fontawesome.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/all.min.css') }}">

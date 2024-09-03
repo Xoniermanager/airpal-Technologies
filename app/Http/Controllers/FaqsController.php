@@ -29,7 +29,6 @@ class FaqsController extends Controller
     if ($validator->fails()) {
       return redirect()->back()->withErrors($validator)->withInput();
     }
-    dd($request->all());
     $addedFaqsDetails = $this->faqsServices->addFaqs($request->all());
 
     if ($addedFaqsDetails) {

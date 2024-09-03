@@ -474,8 +474,8 @@
                                     </div>
                                 </div>
                                <div>
-                                {!! $favoriteDoctor->doctor->profileButton() !!}
-                                {!! $favoriteDoctor->doctor->bookNowButton() !!}
+                                {!! $patientPastBookings->patient->profileButton() !!}
+                                {!! $patientPastBookings->patient->bookNowButton() !!}
                                </div>
                                 
                             </div>

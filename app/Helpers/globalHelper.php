@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\SiteConfig;
 use Illuminate\Support\Facades\Storage;
 
 function getRatingHtml($value)
@@ -70,4 +71,22 @@ function unlinkFileOrImage($file)
         unlink(storage_path('app/public/') . $file);
     }
     return true;
+}
+
+
+
+function site($configName = '')
+{
+    $configs = SiteConfig::where('name',$configName)->first();
+
+    if($configs)
+    {
+        if ($configs->name == 'website_logo' || $configs->name == 'website_favicon') {
+
+            $configs->value = url('storage/' . $configs->value);
+
+        } 
+        return $configs->value;
+    }
+    return;
 }

@@ -23,11 +23,10 @@ class PatientDashboardServices
       $healthGraphsData  = [
         'heartBeat'     =>  $this->patientHeartbeatGraphData($period,$patientId),
         'bloodPressure' =>  $this->patientBloodPressureGraphData($period,$patientId),
-        'bodyTemp' =>  $this->patientBodyTempGraphData($period,$patientId),
-        'oxygen'   =>  $this->patientOxygenGraphData($period,$patientId),
-        'glucose'  =>  $this->patientGlucoseGraphData($period,$patientId),
+        'bodyTemp'      =>  $this->patientBodyTempGraphData($period,$patientId),
+        'oxygen'        =>  $this->patientOxygenGraphData($period,$patientId),
+        'glucose'       =>  $this->patientGlucoseGraphData($period,$patientId),
       ];
-  
       return $healthGraphsData;
    }
 

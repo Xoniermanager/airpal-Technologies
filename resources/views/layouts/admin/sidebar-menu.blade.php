@@ -222,10 +222,10 @@
                         <ul style="display: none;">
                             <a href="{{ route('admin.questions.index') }}"
                                 data-url="{{ route('admin.questions.index') }}">
-                                <span>Header</span></a>
+                                <span>Testimonials</span></a>
                             <a href="{{ route('admin.questions.index') }}"
                                 data-url="{{ route('admin.questions.index') }}">
-                                <span>Footer</span></a>
+                                <span>Our Partners</span></a>
                             <a href="{{ route('admin.questions.index') }}"
                                 data-url="{{ route('admin.questions.index') }}">
                                 <span>Menus</span></a>

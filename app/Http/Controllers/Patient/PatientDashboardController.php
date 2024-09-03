@@ -333,6 +333,13 @@ class PatientDashboardController extends Controller
         return $result;
     }
 
+
+
+
+
+
+    
+
     public function patientAccounts()
     {
         return view('patients.patient-accounts');

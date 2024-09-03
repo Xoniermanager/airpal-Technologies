@@ -53,10 +53,10 @@
                             @if ($appointment->status = 'completed' && isset($appointment->prescription))
                                 <div class="appointment-detail-btn">
                                     <a href="{{ route('patient.prescription.view', Crypt::encrypt($appointment->prescription->id)) }}"
-                                        class="start-link"><i
-                                            class="fa-solid fa-calendar-check me-1"></i>Prescription</a>
+                                        class="start-link"><i class="fa-solid fa-user-injured"></i>Prescription</a>
                                 </div>
                             @endif
+                            {!! $appointment->getMeetingButton()!!}
                         </li>
                     </ul>
                 </div>

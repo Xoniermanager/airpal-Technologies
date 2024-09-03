@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use App\Jobs\DoctorAppointmentQueryMailJob;
 use App\Http\Repositories\BookingRepository;
+use App\Jobs\UpdateMeetingIdJob;
 
 class BookingServices
 {
@@ -211,7 +212,13 @@ class BookingServices
     }
     public function updateStatus($status, $id)
     {
-        return $this->bookingRepository->find($id)->update(['status' => $status]);
+        $bookingDetails = $this->bookingRepository->find($id)->update(['status' => $status]);
+        if ($bookingDetails == true)
+        {
+            if ($status == 'confirmed') {
+                UpdateMeetingIdJob::dispatch($id);
+            }
+        }
     }
 
     public function filterOnMyPatient($filterData)
@@ -388,5 +395,9 @@ class BookingServices
     public function getAllAppointmentDetailsByDoctorId($doctorId)
     {
         return $this->bookingRepository->where('doctor_id', $doctorId)->with('patient')->get();
+    }
+    public function getBookingDetailsByMeetingId($meetingId)
+    {
+        return $this->bookingRepository->where('meeting_id', $meetingId)->first(['booking_date', 'slot_start_time', 'slot_end_time']);
     }
 }

@@ -169,6 +169,7 @@ Route::middleware('authCheck')->group(function () {
             Route::post('book-appointment', 'bookingAppointment');
             Route::post('cancel-appointment/{booking_slots:id}', 'cancelAppointment');
             Route::get('upcoming-all-appointment', 'allUpcomingAppointment');
+            Route::get('get-meeting-Details/{booking_slots:meeting_id}', 'getMeetingDetails');
         });
         Route::controller(DoctorReviewController::class)->group(function () {
             Route::post('add-doctor-review', 'addDoctorReview');

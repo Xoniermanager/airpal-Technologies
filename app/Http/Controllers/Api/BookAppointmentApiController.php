@@ -128,7 +128,7 @@ class BookAppointmentApiController extends Controller
                 return response()->json([
                     'status' => true,
                     'message' => "No Details Found for this Meeting Id",
-                ], 401);
+                ], 400);
             }
         } catch (Exception $e) {
             return response()->json([

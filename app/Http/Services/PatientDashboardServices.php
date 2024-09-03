@@ -32,75 +32,99 @@ class PatientDashboardServices
    }
 
 
-  public function patientHealthGraphData($graphName,$period,$patientId)
-  {
-     // Initialize period variables
-     $daysInMonth = Carbon::now()->month((int)$period)->daysInMonth; // Get days for the specified month
-     $bookingByDate = array_fill(1, $daysInMonth, 0);
+   public function patientHealthGraphData($graphName,$period,$patientId)
+   {
+      // Initialize period variables
+      $daysInMonth = Carbon::now()->month((int)$period)->daysInMonth; // Get days for the specified month
+      $bookingByDate = array_fill(1, $daysInMonth, 0);
+  
+      $appointments = $this->patientServices->patientHealthGraphs($patientId);
  
-     $appointments = $this->patientServices->patientHealthGraphs($patientId);
-
+  
+      foreach ($appointments as $appointment) {
+        $date = Carbon::parse($appointment->created_at);
+  
+        if (is_numeric($period)) {
+         if ($date->month == $period) { // Check if the appointment is in the specified month
+             $day = (int)$date->format('j');
  
-     foreach ($appointments as $appointment) {
-       $date = Carbon::parse($appointment->created_at);
+             // Use nested if-else to determine which field to sum
+             if ($graphName === 'heart_beat') {
+                 $bookingByDate[$day] += $appointment->avg_heart_beat; 
+               } elseif ($graphName === 'blood_pressure') {
+                 $bookingByDate[$day] += $appointment->bp;
+               } elseif ($graphName === 'body_temperature') {
+                 $bookingByDate[$day] += $appointment->avg_body_temp;
+             } elseif ($graphName === 'oxygen') {
+                 $bookingByDate[$day] += $appointment->oxygen_level; 
+             } elseif ($graphName === 'glucose') {
+                 $bookingByDate[$day] += $appointment->glucose; 
+             } else {
+                 // Handle other cases or throw an exception
+                 throw new InvalidArgumentException("Invalid graph name: $graphName");
+             }
+         }
+        } 
  
-       if (is_numeric($period)) {
-        if ($date->month == $period) { // Check if the appointment is in the specified month
-            $day = (int)$date->format('j');
-
-            // Use nested if-else to determine which field to sum
-            if ($graphName === 'heart_beat') {
-                $bookingByDate[$day] += $appointment->avg_heart_beat; 
-              } elseif ($graphName === 'blood_pressure') {
-                $bookingByDate[$day] += $appointment->bp;
-              } elseif ($graphName === 'body_temperature') {
-                $bookingByDate[$day] += $appointment->avg_body_temp;
-            } elseif ($graphName === 'oxygen') {
-                $bookingByDate[$day] += $appointment->oxygen_level; 
-            } elseif ($graphName === 'glucose') {
-                $bookingByDate[$day] += $appointment->glucose; 
-            } else {
-                // Handle other cases or throw an exception
-                throw new InvalidArgumentException("Invalid graph name: $graphName");
-            }
+      $result = [];
+      if (is_numeric($period)) { // For specific month
+        foreach ($bookingByDate as $day => $count) {
+          $result[] = [$day, $count];
         }
-       } elseif ($period === 'yearly') {
-        $year = $date->year;
-        if (!isset($bookingByYear[$year])) {
-            $bookingByYear[$year] = 0;
+      } elseif ($period === 'yearly') {
+        foreach ($bookingByYear as $year => $count) {
+          $result[] = [$year, $count];
         }
-
-        // Use nested if-else to determine which field to sum
-        if ($graphName === 'heart_beat') {
-            $bookingByYear[$year] += $appointment->avg_heart_beat; // Sum heartbeat
-        } elseif ($graphName === 'blood_pressure') {
-            $bookingByYear[$year] += $appointment->bp; // Sum oxygen level
-          } elseif ($graphName === 'body_temperature') {
-            $bookingByYear[$year] += $appointment->avg_body_temp; // Sum oxygen level
-          } elseif ($graphName === 'oxygen') {
-            $bookingByYear[$year] += $appointment->oxygen_level; // Sum oxygen level
-        } elseif ($graphName === 'glucose') {
-            $bookingByYear[$year] += $appointment->glucose; // Sum glucose level
-        } else {
-            // Handle other cases or throw an exception
-            throw new InvalidArgumentException("Invalid graph name: $graphName");
-        }
-     }
+      }
+  
+      return $result;
  
-     $result = [];
-     if (is_numeric($period)) { // For specific month
-       foreach ($bookingByDate as $day => $count) {
-         $result[] = [$day, $count];
+   }
+ }
+
+ public function patientHealthGraphData($graphName,$period,$patientId)
+ {
+    // Initialize period variables
+    $daysInMonth = Carbon::now()->month((int)$period)->daysInMonth; // Get days for the specified month
+    $bookingByDate = array_fill(1, $daysInMonth, 0);
+
+    $appointments = $this->patientServices->patientHealthGraphs($patientId);
+
+
+    foreach ($appointments as $appointment) {
+      $date = Carbon::parse($appointment->created_at);
+
+      if (is_numeric($period)) {
+       if ($date->month == $period) { // Check if the appointment is in the specified month
+           $day = (int)$date->format('j');
+
+           // Use nested if-else to determine which field to sum
+           if ($graphName === 'heart_beat') {
+               $bookingByDate[$day] += $appointment->avg_heart_beat; 
+             } elseif ($graphName === 'blood_pressure') {
+               $bookingByDate[$day] += $appointment->bp;
+             } elseif ($graphName === 'body_temperature') {
+               $bookingByDate[$day] += $appointment->avg_body_temp;
+           } elseif ($graphName === 'oxygen') {
+               $bookingByDate[$day] += $appointment->oxygen_level; 
+           } elseif ($graphName === 'glucose') {
+               $bookingByDate[$day] += $appointment->glucose; 
+           } else {
+               // Handle other cases or throw an exception
+               throw new InvalidArgumentException("Invalid graph name: $graphName");
+           }
        }
-     } elseif ($period === 'yearly') {
-       foreach ($bookingByYear as $year => $count) {
-         $result[] = [$year, $count];
-       }
-     }
- 
-     return $result;
+      } 
 
-  }
+
+    $result = [];
+    if (is_numeric($period)) { // For specific month
+      foreach ($bookingByDate as $day => $count) {
+        $result[] = [$day, $count];
+      }
+    } 
+    return $result;
+ }
 }
     
 

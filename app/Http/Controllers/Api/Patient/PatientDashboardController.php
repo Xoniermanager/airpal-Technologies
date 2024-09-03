@@ -175,3 +175,4 @@ class PatientDashboardController extends Controller
       ], 500);
     }
   }
+}

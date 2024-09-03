@@ -26,8 +26,6 @@ use App\Http\Controllers\Api\Patient\PatientDashboardController;
 use App\Http\Controllers\Api\Patient\PatientFavoriteDoctorController;
 use App\Http\Controllers\Api\Doctor\DoctorAppointmentAndRevenueGraphController;
 use App\Http\Controllers\Api\PrescriptionApiController;
-use App\Models\Prescription;
-use App\Http\Controllers\Api\Patient\PatientChatController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();

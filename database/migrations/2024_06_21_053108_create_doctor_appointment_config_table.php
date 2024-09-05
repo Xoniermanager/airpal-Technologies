@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('slots_in_advance')->nullable();
             $table->date('start_slots_from_date')->nullable();
             $table->date('stop_slots_date')->nullable();
-            $table->boolean('status')->nullable();
+            $table->boolean('status')->default(true);
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

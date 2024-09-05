@@ -174,6 +174,8 @@ Route::prefix('doctor')->group(function () {
         Route::controller(AppointmentConfigController::class)->group(function () {
             Route::get('/appointment-config', 'appointmentConfig')->name('doctor.appointment.config');
             Route::post('/add-appointment-config', 'addAppointmentConfig')->name('doctor.add.appointment.config');
+            Route::post('/update-appointment-config/{doctor_appointment_config:id}', 'updateAppointmentConfig')->name('doctor.update.appointment.config');
+            Route::get('all-appointment-configs', 'allAppointmentConfig')->name('doctor.all.appointment.config');
         });
         Route::controller(DoctorNotification::class)->group(function () {
             Route::get('/notifications', 'index')->name('doctor.notification');

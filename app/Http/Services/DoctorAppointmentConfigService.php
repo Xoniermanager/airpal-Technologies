@@ -31,17 +31,8 @@ class DoctorAppointmentConfigService
     {
         DB::beginTransaction();
         try {
-            $payload = [
-                "user_id"   => $data['doctor_id'],
-                "slot_duration" => $data['slot_duration'],
-                "cleanup_interval" => $data['cleanup_interval'],
-                "start_month" => isset($data['start_month']) ? $data['start_month'] : Carbon::now()->startOfMonth()->format('d'),
-                "end_month" =>  isset($data['end_month']) ? $data['end_month'] : null,
-                "slots_in_advance" => $data['slots_in_advance'] ? $data['slots_in_advance'] : 30,
-                "start_slots_from_date" => isset($data['start_slots_from_date']) ? $data['start_slots_from_date'] : Carbon::today()->toDateString(),
-                "stop_slots_date" => $data['stop_slots_date'],
-                "config_start_date" =>  date('Y-m-d')
-            ];
+            $payload = $this->createAppointmentConfigPayload($data);
+
             $appointmentConfigDetails = $this->doctorAppointmentConfigRepository->create($payload);
 
             if (isset($data['exception_day_ids'])) {
@@ -55,7 +46,7 @@ class DoctorAppointmentConfigService
             }
 
             DB::commit();
-            return 'Appointment configuration details saved successfully!';
+            return $appointmentConfigDetails;
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
@@ -69,7 +60,11 @@ class DoctorAppointmentConfigService
     }
     public function getDoctorSlotConfiguration($doctorId)
     {
-        return $this->doctorAppointmentConfigRepository->where('user_id', $doctorId)->with(['user', 'doctorExceptionDays'])->first();
+        return $this->doctorAppointmentConfigRepository->where('user_id', $doctorId)->where(function($query){
+            return $query
+                ->orWhereDate('config_end_date', '>=', date('Y-m-d'))
+                ->orWhere('config_end_date','=',NULL);
+        })->with(['user', 'doctorExceptionDays'])->first();
     }
     public function getSlotsBySlotId($id)
     {
@@ -82,34 +77,66 @@ class DoctorAppointmentConfigService
         $this->appointmentConfigExceptionDayRepository->where('doctor_appointment_config_id', $id)->delete();
         return true;
     }
-    public function updateSlot($data)
+    public function updateSlot($data, $currentAppointmentConfigDetails)
     {
         DB::beginTransaction();
-        $now = Carbon::now();
+        /**
+         * First of all lets check if this request is for updating the current appointment config OR
+         * To add end date for current config and create a new appointment config details 
+         */
+        // If current appointment config end date is set then create another appointment config for future
+        if(isset($data['appointment_config_end_date']) && !empty($data['appointment_config_end_date']))
+        {
+            $endDateForCurrentAppointmentConfig = $data['appointment_config_end_date'];
+            $startDateForNewAppointmentConfig = date('Y-m-d', strtotime($data['appointment_config_end_date'] . ' +1 day'));
+            // Check how many active appointment configurations exists
+            $existingAppointmentConfigs = $this->getAllActiveAppointmentConfigsForDoctor($data['doctor_id']);
+            $appointmentConfigCounter = $existingAppointmentConfigs->count();
+            // If counter is 1 it means there is only one appointment config details, 
+            // So lets set its end date and create a new appointment 
+            $newAppointmentConfigDetails = [];
+            if($appointmentConfigCounter == 1)
+            {
+                // set end date for current appointment config
+                $currentAppointmentConfigDetails->update([
+                    'config_end_date' => $endDateForCurrentAppointmentConfig
+                ]);
+
+                // Create a new appointment config with  future start date
+                $data['config_start_date'] = $startDateForNewAppointmentConfig;
+                $newAppointmentConfigDetails = $this->addDoctorAppointmentConfig($data);
+            }
+
+            if($appointmentConfigCounter == 2)
+            {
+                $newAppointmentConfigDetails = $this->updateExistingAppointmentConfigDetails($existingAppointmentConfigs[1], $data);
+            }
+
+            DB::commit();
+            
+            return [
+                'status'    => true,
+                'data'      =>  $newAppointmentConfigDetails,
+                'message'   =>  'Old appointment config end date is set to '. $endDateForCurrentAppointmentConfig .' and new appointment config start date set to ' . $startDateForNewAppointmentConfig
+            ]; 
+        }
+        
+
         $message = '';   
         try {
-            $payload = [
-                "user_id" => $data['doctor_id'],
-                "slot_duration" => $data['slot_duration'] ?? 0,
-                "cleanup_interval" => $data['cleanup_interval'] ?? 0,
-                "start_month" => isset($data['start_month']) ? $data['start_month'] : $now->startOfMonth()->format('d'),
-                "end_month" => isset($data['end_month']) ? $data['end_month'] : null,
-                "slots_in_advance" => $data['slots_in_advance'] ? $data['slots_in_advance'] : 30,
-                "start_slots_from_date" => isset($data['start_slots_from_date']) ? $data['start_slots_from_date'] : Carbon::today()->toDateString(),
-                "stop_slots_date" => $data['stop_slots_date']
-            ];
 
-            $existingSlot = $this->doctorAppointmentConfigRepository->where('user_id', $data['doctor_id'])->first();
-            if ($existingSlot) 
+            $payload = $this->createAppointmentConfigPayload($data);
+;
+            if ($currentAppointmentConfigDetails) 
             {
                 // Step1 : Check if there is any change in slot duration and cleanup interval time
-                if($existingSlot->slot_duration !=  $data['slot_duration'] || $existingSlot->cleanup_interval !=  $data['cleanup_interval'])
+                if($currentAppointmentConfigDetails->slot_duration !=  $data['slot_duration'] || $currentAppointmentConfigDetails->cleanup_interval !=  $data['cleanup_interval'])
                 {
                     $message = $this->checkIfBookingExistsSetNewConfigStartDate($data['doctor_id']);
                 }
 
                 // Step2 : Compare if there is any exception days added in update
-                $currentExceptionDays = $this->appointmentConfigExceptionDayRepository->where('doctor_appointment_config_id', $existingSlot->id)->pluck('exception_days_id')->toArray();
+                $currentExceptionDays = $this->appointmentConfigExceptionDayRepository->where('doctor_appointment_config_id', $currentAppointmentConfigDetails->id)->pluck('exception_days_id')->toArray();
                 $updatedExceptionDays = isset($data['exception_day_ids']) ? $data['exception_day_ids'] : [];
                 
                 // Check if there is any new exception days has been added, which does not exists already in list
@@ -121,26 +148,27 @@ class DoctorAppointmentConfigService
                 
                 // Step3: Checking if slot starting day of each month has been increased from current start date
                 // OR checking if slot ending day of each month has been decreased from current end date
-                if($existingSlot->start_month <  $data['start_month'] || $existingSlot->end_month >  $data['end_month'])
+                if($currentAppointmentConfigDetails->start_month <  $data['start_month'] || $currentAppointmentConfigDetails->end_month >  $data['end_month'])
                 {
                     $message = $this->checkIfBookingExistsSetNewConfigStartDate($data['doctor_id']);
                 }
 
                 if(!empty($message))
                 {
-                    
                     return [
                         'status'    => false,
-                        'message'   =>  $message
+                        'data'      =>  $message['lastBookingDate'],
+                        'message'   =>  $message['message']
                     ];
                 }
                 else
                 {
-                    $this->doctorAppointmentConfigRepository->find($existingSlot->id)->update($payload);
+                    $updatedAppointmentConfigDetails = $this->doctorAppointmentConfigRepository->find($currentAppointmentConfigDetails->id)->update($payload);
                     DB::commit();
                     // Write additional script to remove existing exception days if required
                     return [
-                        'status'    => true,
+                        'status'    =>  true,
+                        'data'      =>  $updatedAppointmentConfigDetails,
                         'message'   =>  'Slot Config details updated successfully!'
                     ];
                 }
@@ -176,8 +204,11 @@ class DoctorAppointmentConfigService
 
             $newConfigStartDate = date('jS M Y', strtotime($activeBooking[0]->booking_date . ' +1 day'));
 
-            return "We have found some active bookings based on current slot configuration having last booking date on {$lastBookingDate}, 
-            So new configuration changes will be applicable from {$newConfigStartDate}.";
+            return [
+                'lastBookingDate'     =>  $activeBooking[0]->booking_date,
+                'message'             =>  "We have found some active bookings based on current slot configuration having last booking date on {$lastBookingDate}, 
+            So new configuration changes will be applicable from {$newConfigStartDate}."
+            ];
         }
         return 0;
     }
@@ -420,16 +451,7 @@ class DoctorAppointmentConfigService
         DB::beginTransaction();
         $now = Carbon::now();
         try {
-            $payload = [
-                "user_id" => $data['doctor_id'],
-                "slot_duration" => $data['slot_duration'] ?? 0,
-                "cleanup_interval" => $data['cleanup_interval'] ?? 0,
-                "start_month" => isset($data['start_month']) ? $data['start_month'] : $now->startOfMonth()->format('d'),
-                "end_month" => isset($data['end_month']) ? $data['end_month'] : null,
-                "slots_in_advance" => $data['slots_in_advance'] ? $data['slots_in_advance'] : 30,
-                "start_slots_from_date" => isset($data['start_slots_from_date']) ? $data['start_slots_from_date'] : Carbon::today()->toDateString(),
-                "stop_slots_date" => $data['stop_slots_date']
-            ];
+            $payload = $this->createAppointmentConfigPayload($data);
 
             $appointmentConfigDetails = $this->doctorAppointmentConfigRepository->create($payload);
 
@@ -451,5 +473,64 @@ class DoctorAppointmentConfigService
         }
     }
 
+    /**
+     * It wil; return all active appointment config details for provided doctor id
+     */
+    public function getAllActiveAppointmentConfigsForDoctor($doctorId)
+    {
+        return $this->doctorAppointmentConfigRepository->where('user_id','=',$doctorId)->where('status',true)->orderBy('config_start_date','asc')->get();
+    }
 
+    /**
+     * It will return all active,upcoming and expired appointment config details for provided doctor id
+     */
+    public function getAllActiveExpiredAppointmentConfigsForDoctor($doctorId)
+    {
+        return $this->doctorAppointmentConfigRepository->with('doctorExceptionDays')->where('user_id','=',$doctorId)->orderBy('config_start_date','desc')->get();
+    }
+
+    /**
+     * It update the appointment config details for current record and then also updates the exception days list
+     */
+    public function updateExistingAppointmentConfigDetails($existingAppointmentConfig, $payload)
+    {
+        $appointmentConfigPayload = $this->createAppointmentConfigPayload($payload);
+        $this->doctorAppointmentConfigRepository->find($existingAppointmentConfig->id)->update();
+        
+        // Now update existing days data
+        if (isset($payload['exception_day_ids'])) 
+        {
+            // If exception days data exists in payload first of all remove existing exception days 
+            // Then after add all new exception days ids
+            $this->appointmentConfigExceptionDayRepository->where('doctor_appointment_config_id',$existingAppointmentConfig->id)->delete();
+            foreach ($payload['exception_day_ids'] as $exception_day_id) 
+            {
+                $exceptionPayload = [
+                    "doctor_appointment_config_id" => $existingAppointmentConfig->id,
+                    "exception_days_id" => $exception_day_id,
+                ];
+
+                $this->appointmentConfigExceptionDayRepository->create($exceptionPayload);
+            }
+        }
+    }
+
+    /**
+     * Create a payload for appointment config details that can be used for create/update appointment config details
+     */
+    public function createAppointmentConfigPayload($data)
+    {
+        return [
+            "user_id"               => $data['doctor_id'],
+            "slot_duration"         => $data['slot_duration'],
+            "cleanup_interval"      => $data['cleanup_interval'],
+            "start_month"           => isset($data['start_month']) ? $data['start_month'] : Carbon::now()->startOfMonth()->format('d'),
+            "end_month"             =>  isset($data['end_month']) ? $data['end_month'] : null,
+            "slots_in_advance"      => $data['slots_in_advance'] ? $data['slots_in_advance'] : 30,
+            "start_slots_from_date" => isset($data['start_slots_from_date']) ? $data['start_slots_from_date'] : Carbon::today()->toDateString(),
+            "stop_slots_date"       => isset($data['stop_slots_date']) ? $data['stop_slots_date'] : null,
+            "config_start_date"     => isset($data['config_start_date']) ? $data['config_start_date'] : Carbon::today()->toDateString(),
+            "status"                => 1
+        ];
+    }
 }

@@ -174,7 +174,8 @@ class FrontendDoctorController extends Controller
     $data = $request->all();
     $doctor = $this->user_services->getDoctorDataById($data['doctor_id']);
     $doctorSlot = $this->doctorSlotServices->getDoctorSlotConfiguration($doctor->id);
-    if (isset($doctorSlot)) {
+    if (isset($doctorSlot)) 
+    {
       $doctorSlot->exception_days = $doctorSlot->user->doctorExceptionDays;
       // $returnedSlots = $this->doctorSlotServices->createDoctorSlots($doctorSlot);
       return $this->doctorSlotServices->CreateDoctorSlotCalendar($doctorSlot, $data['month'], $data['year']);

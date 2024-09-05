@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('doctor_appointment_configs', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->integer('slot_duration');
             $table->integer('cleanup_interval')->nullable();
             $table->integer('start_month')->nullable();
@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('start_slots_from_date')->nullable();
             $table->date('stop_slots_date')->nullable();
             $table->boolean('status')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

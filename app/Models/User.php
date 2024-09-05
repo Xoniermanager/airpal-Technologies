@@ -136,16 +136,6 @@ class User extends Authenticatable
         return $this->hasOne(UserAddress::class, 'user_id');
     }
 
-    public function doctorSlots()
-    {
-        return $this->hasMany(DoctorSlots::class, 'user_id');
-    }
-
-    public function doctorExceptionDays()
-    {
-        return $this->hasMany(ExceptionDays::class, 'doctor_id');
-    }
-
     public function doctorQuestions()
     {
         return $this->hasMany(DoctorQuestions::class, 'doctor_id');
@@ -178,23 +168,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(DoctorReview::class, 'doctor_id');
     }
-
-    /*
-    Get Sent Chat details
-    */
-    public function sentChatDetails()
-    {
-        return $this->hasOne(DoctorPatientChat::class, 'sender_id', 'id');
-    }
-
-    /*
-    Get Received Chat details
-    */
-    public function receivedChatDetails()
-    {
-        return $this->hasOne(DoctorPatientChat::class, 'receiver_id', 'id');
-    }
-
 
     public function bookNowButton()
     {

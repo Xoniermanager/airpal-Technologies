@@ -20,7 +20,7 @@ use App\Http\Services\FavoriteDoctorServices;
 use App\Http\Services\SpecializationServices;
 use App\Http\Services\DoctorAppointmentConfigService;
 
-class DoctorController extends Controller
+class FrontendDoctorController extends Controller
 {
   private $user_services;
   private $specializationServices;
@@ -50,7 +50,7 @@ class DoctorController extends Controller
     $this->favoriteDoctorServices = $favoriteDoctorServices;
   }
 
-  public function index()
+  public function getDoctorsListWithFilters()
   {
     $doctors = $this->user_services->getDoctorDataForFrontend();
     $specialties = $this->specializationServices->all();
@@ -131,7 +131,6 @@ class DoctorController extends Controller
 
   public function search(SearchDoctorRequest $request)
   {
-    $doctors = $this->user_services->getDoctorDataForFrontend();
     $specialties = $this->specializationServices->all();
     $allRatingStars = $this->doctorService->getDoctorCountsGroupedByRatings();
 

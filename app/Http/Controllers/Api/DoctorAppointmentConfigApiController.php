@@ -11,7 +11,7 @@ use App\Http\Services\BookingServices;
 use App\Http\Requests\StoreAppointmentConfigRequest;
 use App\Http\Services\DoctorAppointmentConfigService;
 
-class DoctorSlotsController extends Controller
+class DoctorAppointmentConfigApiController extends Controller
 {
     private $doctorSlotServices;
     private $userServices;
@@ -35,7 +35,7 @@ class DoctorSlotsController extends Controller
 
     public function store(StoreAppointmentConfigRequest $request)
     {
-        $response =  $this->doctorSlotServices->addSlot($request->all());
+        $response =  $this->doctorSlotServices->addDoctorAppointmentConfig($request->all());
         if ($response) { {
                 return response()->json([
                     "status"  => "success",

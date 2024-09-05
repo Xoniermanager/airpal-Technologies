@@ -33,12 +33,13 @@ class AppointmentConfigController extends Controller
 
     public function addAppointmentConfig(StoreAppointmentConfigRequest $request)
     {
-        if ($this->doctorSlotServices->updateSlot($request->all())) {
-            return response()->json([
-                'message' => 'success',
-                'data'    => '',
-                'status'  => true
-            ]);
-        }
+        $data = $request->validated();
+        $appointmentConfigDetailsSaveResponse = $this->doctorSlotServices->updateSlot($data);
+        
+        return response()->json([
+            'message' => 'success',
+            'data'    => $appointmentConfigDetailsSaveResponse['message'],
+            'status'  => $appointmentConfigDetailsSaveResponse['status']
+        ]);
     }
 }

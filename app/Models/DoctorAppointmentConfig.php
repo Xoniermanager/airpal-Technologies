@@ -19,6 +19,6 @@ class DoctorAppointmentConfig extends Model
 
     public function doctorExceptionDays()
     {
-        return $this->hasMany(ExceptionDays::class, 'doctor_id');
+        return $this->hasMany(AppointmentConfigExceptionDay::class);
     }
 }

@@ -32,7 +32,9 @@
 <script src="{{ asset('admin/assets/js/jquery-ui.css') }}"></script>
 
 <script src="{{ asset('admin/assets/jquery-validation/dist/jquery.validate.min.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.21.1/sweetalert2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.21.1/sweetalert2.min.js"></script>
 
 <script>
     window.site_admin_base_url = '{{ env('SITE_ADMIN_BASE_URL') }}';

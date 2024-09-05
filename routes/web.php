@@ -8,16 +8,15 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TempController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\FrontController;
-use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\FrontendDoctorController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\InstantController;
 use App\Jobs\UpdateDoctorRatingsAverageValue;
-use App\Http\Controllers\Admin\SlotsController;
+use App\Http\Controllers\Admin\DoctorAppointmentConfigController;
 use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\SpecialtyPageController;
-use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Doctor\InvoiceController;
 use App\Http\Controllers\Doctor\PatientController;
 use App\Http\Controllers\Doctor\ReviewsController;
@@ -91,9 +90,20 @@ Route::prefix('doctor')->group(function () {
     });
 });
 
+// common route for doctor and admin (Unauthenticated routes)
+Route::prefix('language')->controller(LanguageController::class)->group(function () {
+    Route::get('/', 'index')->name('admin.index.language');
+});
+Route::prefix('service')->controller(ServiceController::class)->group(function () {
+    Route::get('/get-service', 'getServiceAjaxCall');
+});
+Route::prefix('specialities')->controller(SpecialityController::class)->group(function () {
+    Route::get('/get-speciality', 'getSpecialitiesAjaxCall');
+});
+
 
 // =============================== End Login And SignUp Routes ==================================== //
-Route::controller(DoctorController::class)->group(function () {
+Route::controller(FrontendDoctorController::class)->group(function () {
     Route::post('update-calender', 'updateCalendar')->name('update.calendar');
     Route::post('get-doctor-slots-by-date', 'getDoctorSlotsByDate')->name('getDoctorSlots.byId');
     Route::get('doctor/success', 'success')->name('success.index');
@@ -221,16 +231,6 @@ Route::prefix('doctor')->group(function () {
 });
 // =============================== End Doctor Panel Start ===================================== //
 
-// common route for doctor and admin
-Route::prefix('language')->controller(LanguageController::class)->group(function () {
-    Route::get('/', 'index')->name('admin.index.language');
-});
-Route::prefix('service')->controller(ServiceController::class)->group(function () {
-    Route::get('/get-service', 'getServiceAjaxCall');
-});
-Route::prefix('specialities')->controller(SpecialityController::class)->group(function () {
-    Route::get('/get-speciality', 'getSpecialitiesAjaxCall');
-});
 
 // common route for doctor and admin
 Route::middleware(['auth'])->group(function () {
@@ -249,7 +249,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('doctor')->group(function () {
 
-        Route::prefix('slots')->controller(SlotsController::class)->group(function () {
+        Route::prefix('slots')->controller(DoctorAppointmentConfigController::class)->group(function () {
             Route::get('getWeekDays', 'getWeekDays');
         });
 
@@ -320,7 +320,7 @@ Route::prefix('admin')->group(function () {
             });
         });
 
-        Route::prefix('slots')->controller(SlotsController::class)->group(function () {
+        Route::prefix('slots')->controller(DoctorAppointmentConfigController::class)->group(function () {
             Route::get('/', 'index')->name('admin.slots.index');
             Route::post('create', 'store')->name('admin.add.slots');
             Route::post('update', 'update')->name('admin.slots.update');
@@ -512,11 +512,16 @@ Route::prefix('patients')->group(function () {
 
 // =========================== Frontend Website Routes ===================== //
 
-Route::controller(DoctorController::class)->group(function () {
+Route::controller(FrontendDoctorController::class)->group(function () {
     Route::get('doctor/{user:id}', 'doctorProfile')->name('frontend.doctor.profile');
     Route::get('/appointment/doctor/{id}', 'appointment')->name('appointment.index');
-    Route::get('/search-doctor', 'index')->name('doctors.index');
+
+    // To load doctors with filters fro the first time
+    Route::get('/search-doctor', 'getDoctorsListWithFilters')->name('doctors.index');
+
+    // To update doctors list based on selected filters
     Route::get('/search', 'search')->name('doctors.search');
+
     Route::get('generateAllInvoices', 'generateAllInvoices')->name('generate.all.invoices');
     Route::get('select-role', 'choose')->name('choose');
     Route::get('doctor-register', 'doctorRegistrationIndex')->name('doctor.register.index');
@@ -562,7 +567,7 @@ Route::controller(AdminSiteConfigController::class)->group(function () {
 });
 
 
-Route::controller(DoctorController::class)->group(function () {
+Route::controller(FrontendDoctorController::class)->group(function () {
     Route::get('generateAllInvoices', 'generateAllInvoices')->name('generate.all.invoices');
 });
 

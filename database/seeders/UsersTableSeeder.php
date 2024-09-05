@@ -56,7 +56,7 @@ class UsersTableSeeder extends Seeder
                 'dob' => NULL,
                 'blood_group' => NULL,
                 'email_verified_at' => '2024-08-01 11:16:00',
-                'password' => '$2y$12$awOmHkQDuzdstwgCi35Nru0kDKtzol4.I2x/S1iMNBIwE1f/w9xDO',
+                'password' => '$2y$12$71nS3eJhHUFmO0gcx63jHu9ODYiotiOZskPL/o7HiBB8MN37XZBG.',
                 'description' => 'A competent ENT Surgeon practising for the past 13 years and having a wide range of experience in treating patients with all kinds of ENT issues. Listens to and addresses all of the patients concerns and clearly explains the course of treatment.',
                 'allover_rating' => '2.2',
                 'remember_token' => NULL,

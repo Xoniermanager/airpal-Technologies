@@ -10,25 +10,24 @@ use App\Models\DayOfWeek;
 use Carbon\CarbonInterval;
 use Illuminate\Support\Facades\DB;
 use App\Http\Repositories\DoctorAppointmentConfigRepository;
-use App\Http\Repositories\DoctorExceptionDayRepository;
+use App\Http\Repositories\AppointmentConfigExceptionDayRepository;
 
 class DoctorAppointmentConfigService
 {
-    private  $doctorSlotRepository;
-    private $userServices;
-    private $doctorExceptionDayRepository;
+    private  $doctorAppointmentConfigRepository;
+    private $appointmentConfigExceptionDayRepository;
 
     private $bookingServices;
 
-    public function __construct(DoctorAppointmentConfigRepository $doctorSlotRepository, DoctorExceptionDayRepository $doctorExceptionDayRepository, UserServices $userServices, BookingServices $bookingServices)
+    public function __construct(DoctorAppointmentConfigRepository $doctorAppointmentConfigRepository, 
+    AppointmentConfigExceptionDayRepository $appointmentConfigExceptionDayRepository, BookingServices $bookingServices)
     {
-        $this->doctorSlotRepository = $doctorSlotRepository;
-        $this->doctorExceptionDayRepository = $doctorExceptionDayRepository;
-        $this->userServices = $userServices;
+        $this->doctorAppointmentConfigRepository = $doctorAppointmentConfigRepository;
+        $this->appointmentConfigExceptionDayRepository = $appointmentConfigExceptionDayRepository;
         $this->bookingServices = $bookingServices;
     }
 
-    public function addSlot($data)
+    public function addDoctorAppointmentConfig($data)
     {
         DB::beginTransaction();
         try {
@@ -40,22 +39,23 @@ class DoctorAppointmentConfigService
                 "end_month" =>  isset($data['end_month']) ? $data['end_month'] : null,
                 "slots_in_advance" => $data['slots_in_advance'] ? $data['slots_in_advance'] : 30,
                 "start_slots_from_date" => isset($data['start_slots_from_date']) ? $data['start_slots_from_date'] : Carbon::today()->toDateString(),
-                "stop_slots_date" => $data['stop_slots_date']
+                "stop_slots_date" => $data['stop_slots_date'],
+                "config_start_date" =>  date('Y-m-d')
             ];
-            $this->doctorSlotRepository->create($payload);
+            $appointmentConfigDetails = $this->doctorAppointmentConfigRepository->create($payload);
 
             if (isset($data['exception_day_ids'])) {
                 foreach ($data['exception_day_ids'] as $exception_day_id) {
                     $exceptionData = [
-                        "doctor_id" => $data['doctor_id'],
+                        "doctor_appointment_config_id" => $appointmentConfigDetails->id,
                         "exception_days_id" => $exception_day_id,
                     ];
-                    $this->doctorExceptionDayRepository->create($exceptionData);
+                    $this->appointmentConfigExceptionDayRepository->create($exceptionData);
                 }
             }
 
             DB::commit();
-            return true;
+            return 'Appointment configuration details saved successfully!';
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
@@ -65,28 +65,28 @@ class DoctorAppointmentConfigService
 
     public function getSlotsPaginated()
     {
-        return $this->doctorSlotRepository->with(['user', 'doctorExceptionDays'])->paginate(10);
+        return $this->doctorAppointmentConfigRepository->with(['user', 'doctorExceptionDays'])->paginate(10);
     }
     public function getDoctorSlotConfiguration($doctorId)
     {
-        return $this->doctorSlotRepository->where('user_id', $doctorId)->with(['user', 'doctorExceptionDays'])->first();
+        return $this->doctorAppointmentConfigRepository->where('user_id', $doctorId)->with(['user', 'doctorExceptionDays'])->first();
     }
     public function getSlotsBySlotId($id)
     {
-        return $this->doctorSlotRepository->where('user_id', $id)->with(['user', 'doctorExceptionDays'])->first();
+        return $this->doctorAppointmentConfigRepository->where('user_id', $id)->with(['user', 'doctorExceptionDays'])->first();
     }
 
     public function deleteSlot($id)
     {
-        $this->doctorSlotRepository->delete($id);
-        $this->doctorExceptionDayRepository->where('doctor_id', $id)->delete();
+        $this->doctorAppointmentConfigRepository->delete($id);
+        $this->appointmentConfigExceptionDayRepository->where('doctor_appointment_config_id', $id)->delete();
         return true;
     }
     public function updateSlot($data)
     {
         DB::beginTransaction();
         $now = Carbon::now();
-        $message = '';
+        $message = '';   
         try {
             $payload = [
                 "user_id" => $data['doctor_id'],
@@ -99,7 +99,7 @@ class DoctorAppointmentConfigService
                 "stop_slots_date" => $data['stop_slots_date']
             ];
 
-            $existingSlot = $this->doctorSlotRepository->where('user_id', $data['doctor_id'])->first();
+            $existingSlot = $this->doctorAppointmentConfigRepository->where('user_id', $data['doctor_id'])->first();
             if ($existingSlot) 
             {
                 // Step1 : Check if there is any change in slot duration and cleanup interval time
@@ -109,15 +109,16 @@ class DoctorAppointmentConfigService
                 }
 
                 // Step2 : Compare if there is any exception days added in update
-                $currentExceptionDays = $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])->pluck('exception_days_id')->toArray();
+                $currentExceptionDays = $this->appointmentConfigExceptionDayRepository->where('doctor_appointment_config_id', $existingSlot->id)->pluck('exception_days_id')->toArray();
                 $updatedExceptionDays = isset($data['exception_day_ids']) ? $data['exception_day_ids'] : [];
+                
                 // Check if there is any new exception days has been added, which does not exists already in list
                 $exceptionDaysDifference = array_diff($updatedExceptionDays, $currentExceptionDays);
                 if(count($exceptionDaysDifference) > 0)
                 {
                     $message = $this->checkIfBookingExistsSetNewConfigStartDate($data['doctor_id']);
                 }
-
+                
                 // Step3: Checking if slot starting day of each month has been increased from current start date
                 // OR checking if slot ending day of each month has been decreased from current end date
                 if($existingSlot->start_month <  $data['start_month'] || $existingSlot->end_month >  $data['end_month'])
@@ -125,18 +126,18 @@ class DoctorAppointmentConfigService
                     $message = $this->checkIfBookingExistsSetNewConfigStartDate($data['doctor_id']);
                 }
 
-
                 if(!empty($message))
                 {
+                    
                     return [
                         'status'    => false,
                         'message'   =>  $message
                     ];
-                    dd($message);
                 }
                 else
                 {
-                    $this->doctorSlotRepository->where('user_id', $existingSlot->user_id)->update($payload);
+                    $this->doctorAppointmentConfigRepository->find($existingSlot->id)->update($payload);
+                    DB::commit();
                     // Write additional script to remove existing exception days if required
                     return [
                         'status'    => true,
@@ -147,11 +148,15 @@ class DoctorAppointmentConfigService
             else 
             {
                 // Create a new slot
-                $this->doctorSlotRepository->create($payload);
+                $message = $this->addDoctorAppointmentConfig($data);
             }
 
             DB::commit();
-            return true;
+
+            return [
+                'status'    => false,
+                'message'   =>  $message
+            ];
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
@@ -163,14 +168,16 @@ class DoctorAppointmentConfigService
     public function checkIfBookingExistsSetNewConfigStartDate($doctorId)
     {
         // check if there is already any existing slot booking with status requested, confirmed
-        $activeBooking = $this->bookingServices->getDoctorActiveBookingSlots($doctorId);
-                    
+        $activeBooking = $this->bookingServices->getDoctorActiveBookingSlots($doctorId);    
         if($activeBooking->count() > 0)
         {
-            $recentBookingDate = date('jS M Y', strtotime($activeBooking[0]->booking_date)) .  ' - ' .
+            $lastBookingDate = date('jS M Y', strtotime($activeBooking[0]->booking_date)) .  ' - ' .
             date('h:i A', strtotime($activeBooking[0]->slot_start_time));
-            return "You have already bookings till date {$recentBookingDate}, 
-            So new changes will be applicable after {$recentBookingDate}.";
+
+            $newConfigStartDate = date('jS M Y', strtotime($activeBooking[0]->booking_date . ' +1 day'));
+
+            return "We have found some active bookings based on current slot configuration having last booking date on {$lastBookingDate}, 
+            So new configuration changes will be applicable from {$newConfigStartDate}.";
         }
         return 0;
     }
@@ -404,10 +411,10 @@ class DoctorAppointmentConfigService
     }
     public function getSlotConfig($doctorId)
     {
-        return $this->doctorSlotRepository->where('user_id', $doctorId)->first();
+        return $this->doctorAppointmentConfigRepository->where('user_id', $doctorId)->first();
     }
 
-    
+    // Lets discuss where e are using it
     public function createSlot($data)
     {
         DB::beginTransaction();
@@ -424,29 +431,17 @@ class DoctorAppointmentConfigService
                 "stop_slots_date" => $data['stop_slots_date']
             ];
 
-            $this->doctorSlotRepository->create($payload);
+            $appointmentConfigDetails = $this->doctorAppointmentConfigRepository->create($payload);
 
             if (isset($data['exception_day_ids'])) {
-                $currentExceptionDays = $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])->pluck('exception_days_id')->toArray();
-                $exceptionDayToRemove = array_diff($currentExceptionDays, $data['exception_day_ids']);
-                if (!empty($exceptionDayToRemove)) {
-                    $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])
-                        ->whereIn('exception_days_id', $exceptionDayToRemove)
-                        ->delete();
-                }
-
-                foreach ($data['exception_day_ids'] as $exception_day_id) {
+                foreach ($data['exception_day_ids'] as $exception_day_id) 
+                {
                     $exceptionData = [
-                        "doctor_id" => $data['doctor_id'],
+                        "doctor_appointment_config_id" => $appointmentConfigDetails->id,
                         "exception_days_id" => $exception_day_id,
                     ];
-                    $this->doctorExceptionDayRepository->updateOrCreate(
-                        ['doctor_id' => $data['doctor_id'], 'exception_days_id' => $exception_day_id],
-                        $exceptionData
-                    );
+                    $this->appointmentConfigExceptionDayRepository->updateOrCreate($exceptionData);
                 }
-            } else {
-                $this->doctorExceptionDayRepository->where('doctor_id', $data['doctor_id'])->delete();
             }
             DB::commit();
             return true;

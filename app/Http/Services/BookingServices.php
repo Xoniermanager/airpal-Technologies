@@ -413,7 +413,7 @@ class BookingServices
         return $this->bookingRepository->where('doctor_id',$doctorId)
                     ->whereIn('status',['requested','confirmed'])
                     ->whereDate('booking_date',">=",Carbon::now())
-                    ->orderBY('booking_date','desc')
+                    ->orderBy('booking_date','desc')
                     ->get();
     }
 }

@@ -217,11 +217,24 @@
                     </li>
 
                     <li class="submenu" data-url="{{ route('admin.invoice-report.index') }}">
+                        <a href="#"><i class="fe fe-question"></i><span>Pages</span> <span
+                                class="menu-arrow"></span></a>
+                        <ul style="display: none;">
+                            <a href="{{ route('admin.home.index') }}"
+                                data-url="{{ route('admin.home.index') }}">
+                                <span>Home</span></a>
+                            <a href="{{ route('admin.questions.index') }}"
+                                data-url="{{ route('admin.questions.index') }}">
+                                <span>About Us</span></a>
+                        </ul>
+                    </li>
+
+                    <li class="submenu" data-url="{{ route('admin.invoice-report.index') }}">
                         <a href="#"><i class="fe fe-question"></i><span>Generals</span> <span
                                 class="menu-arrow"></span></a>
                         <ul style="display: none;">
-                            <a href="{{ route('admin.questions.index') }}"
-                                data-url="{{ route('admin.questions.index') }}">
+                            <a href="{{ route('admin.testimonial.index') }}"
+                                data-url="{{ route('admin.testimonial.index') }}">
                                 <span>Testimonials</span></a>
                             <a href="{{ route('admin.questions.index') }}"
                                 data-url="{{ route('admin.questions.index') }}">

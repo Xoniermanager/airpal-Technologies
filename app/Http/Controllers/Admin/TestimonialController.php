@@ -15,4 +15,8 @@ class TestimonialController extends Controller
     {
         return view('admin.generals.testimonials.list');
     }
+    public function showTestimonialForm()
+    {
+        return view('admin.generals.testimonials.add');
+    }
 }

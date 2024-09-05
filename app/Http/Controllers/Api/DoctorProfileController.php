@@ -22,6 +22,7 @@ use App\Http\Services\SpecializationServices;
 use App\Http\Services\DoctorServiceAddServices;
 use App\Http\Services\DoctorSpecialityServices;
 use App\Http\Requests\StoreDoctorAddressRequest;
+use App\Http\Requests\StoreDoctorRegistrationRequest;
 use App\Http\Requests\StoreDoctorPersonalDetailRequest;
 
 class DoctorProfileController extends Controller
@@ -183,5 +184,30 @@ class DoctorProfileController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
+    }
+
+    public function doctorRegistration(StoreDoctorRegistrationRequest $request)
+    {
+        try {
+            $user = $this->user_services->updateOrCreateDoctor($request->all());
+            if ($user) {
+                    return response()->json([
+                        'success' => true,
+                        'message' => "Personal detail Saved Successfully",
+                        'status'  => 200
+                    ], 200);
+                } else {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'failed'
+                    ], 500);
+                }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+        
     }
 }

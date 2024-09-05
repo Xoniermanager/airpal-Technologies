@@ -90,3 +90,141 @@ function site($configName = '')
     }
     return;
 }
+
+// Create html for section title
+function getTextInput($value='',$levelName = "Title", $name='title', $classList=array(), $idsList=array())
+{
+    $divClasses = '';
+    $labelClasses = '';
+    $inputClasses = '';
+    $divId = (isset($idsList['div']) && is_string($idsList['div'])) ? $idsList['div'] : '';
+    $labelId = (isset($idsList['label']) && is_string($idsList['label'])) ? $idsList['label'] : '';
+    $inputId = (isset($idsList['input']) && is_string($idsList['input'])) ? $idsList['input'] : '';
+
+    if(isset($classList['div']) && count($classList['div']) > 0)
+    {
+        $divClasses = implode(' ',$classList['div']);
+    }
+
+    if(isset($classList['label']) && count($classList['label']) > 0)
+    {
+        $divClasses = implode(' ',$classList['label']);
+    }
+
+    if(isset($classList['input']) && count($classList['input']) > 0)
+    {
+        $divClasses = implode(' ',$classList['input']);
+    }
+
+    return '<div class="form-wrap '. $divClasses .'" id="'. $divId .'">
+                <label class="col-form-label '. $labelClasses .'" id="'. $labelId .'">'. $levelName .' <span class="text-danger">*</span></label>
+                <input id="'. $inputId .'" type="text" class="form-control '. $inputClasses .'" name="'. $name .'"
+                    value="'. $value .'">
+                <span class="text-danger" id="'. $name .'_error"></span>
+            </div>';
+}
+
+
+
+function getButtonInputs($value='', $name='',$classList=array(), $idsList=array())
+{
+    $divClasses = '';
+    $inputClasses = '';
+
+    $divId = (isset($idsList['div']) && is_string($idsList['div'])) ? $idsList['div'] : '';
+    $inputId = (isset($idsList['input']) && is_string($idsList['input'])) ? $idsList['input'] : '';
+
+    if(isset($classList['div']) && count($classList['div']) > 0)
+    {
+        $divClasses = implode(' ',$classList['div']);
+    }
+
+    if(isset($classList['input']) && count($classList['input']) > 0)
+    {
+        $divClasses = implode(' ',$classList['input']);
+    }
+    return  '<div class="modal-btn text-end '. $divClasses .'">
+
+            <label class="col-form-label">Button Text<span class="text-danger">*</span></label>
+            <input id="'. $inputId .'" type="text" class="form-control '. $inputClasses .'" name="'. $name .'"
+            value="'. $value .'">
+
+            <label class="col-form-label">Button Link<span class="text-danger">*</span></label>
+            <input id="'. $inputId .'" type="text" class="form-control '. $inputClasses .'" name="'. $name .'"
+            value="'. $value .'">
+            <button type="submit" class="btn btn-primary prime-btn '. $inputClasses .'" id="'. $inputId .'">'. $value .'</button>
+            </div>';
+
+}
+
+function getSectionTextArea($value='',$levelName = "Content",$name='title', $classList=array(), $idsList=array())
+{
+    $divClasses = '';
+    $labelClasses = '';
+    $inputClasses = '';
+    $divId = (isset($idsList['div']) && is_string($idsList['div'])) ? $idsList['div'] : '';
+    $labelId = (isset($idsList['label']) && is_string($idsList['label'])) ? $idsList['label'] : '';
+    $inputId = (isset($idsList['input']) && is_string($idsList['input'])) ? $idsList['input'] : '';
+
+    if(isset($classList['div']) && count($classList['div']) > 0)
+    {
+        $divClasses = implode(' ',$classList['div']);
+    }
+
+    if(isset($classList['label']) && count($classList['label']) > 0)
+    {
+        $divClasses = implode(' ',$classList['label']);
+    }
+
+    if(isset($classList['input']) && count($classList['input']) > 0)
+    {
+        $divClasses = implode(' ',$classList['input']);
+    }
+
+    return '<div class="form-wrap '. $divClasses .'" id="'. $divId .'">
+                <label class="col-form-label '. $labelClasses .'" id="'. $labelId .'">'. $levelName .'  <span class="text-danger">*</span></label>
+                <textarea id="'. $inputId .'" type="text" class="form-control '. $inputClasses .'" name="'. $name .'"
+                    value="'. $value .'" style="height: 150px;"></textarea>
+                <span class="text-danger" id="'. $name .'_error"></span>
+            </div>';
+}
+
+
+function getImageInput($value='',$name='',$title='Banner Image',$classList=array(),$idsList=array())
+{
+    $mainDivClasses = '';
+    $innerDivClasses = '';
+    $inputClasses = '';
+
+    if(isset($classList['main_div']) && count($classList['main_div']) > 0)
+    {
+        $mainDivClasses = implode(' ',$classList['main_div']);
+    }
+
+    if(isset($classList['inner_div']) && count($classList['inner_div']) > 0)
+    {
+        $innerDivClasses = implode(' ',$classList['inner_div']);
+    }
+
+    if(isset($classList['input']) && count($classList['input']) > 0)
+    {
+        $inputClasses = implode(' ',$classList['input']);
+    }
+
+    $mainDivId = (isset($idsList['mainDiv']) && is_string($idsList['mainDiv'])) ? $idsList['mainDiv'] : '';
+    $innerDivId = (isset($idsList['innerDiv']) && is_string($idsList['innerDiv'])) ? $idsList['innerDiv'] : '';
+    $inputId = (isset($idsList['input']) && is_string($idsList['input'])) ? $idsList['input'] : '';
+
+    return '<div class="avatar-upload-two">
+            <div class="avatar-edit">
+                <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" />
+                <label for="imageUpload"></label>
+            </div>
+            <div class="avatar-preview-two">
+                <div id="imagePreview"
+                    style="background-image: url('.asset("assets/img/doctors-dashboard/no-apt-3.png").');">
+                </div>
+            </div>
+        </div>';
+}
+

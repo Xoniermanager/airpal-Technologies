@@ -3,7 +3,7 @@
 <div class=" main-chat-blk ">
     <div class="page-wrapper chat-page-wrapper chat-page-wrapper">
         <div class="container">
-            <div class="content">
+            <div class="content1">
                 <div class="dashboard-header">
                     <h3><a href="#">Messages</a></h3>
                 </div>
@@ -105,7 +105,7 @@ jQuery('document').ready(function(){
         refresh_chat_list();
 
         // If the chat is already opened for the user from where message has received update chat history
-        if(data.message.sender_id == current_chat_user)
+        if(data.message.receiver_id == current_chat_user)
         {
             // Passing second param as 1 means message for opened chat will be marked as read
             load_chat_history(current_chat_user,1);

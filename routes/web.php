@@ -311,7 +311,7 @@ Route::prefix('admin')->group(function () {
 
         Route::prefix('page')->controller(PageController::class)->group(function () {
             Route::get('home', 'home')->name('admin.home.index');
-            Route::post('save-banner-detail', 'saveBannerDetail')->name('admin.save.banner.details');
+            Route::post('store-home-page-detail', 'storeHomePageDetail')->name('admin.store.home.page.detail');
         });
 
         Route::controller(AdminDashboardController::class)->group(function () {

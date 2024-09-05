@@ -118,7 +118,7 @@ function getTextInput($value='',$levelName = "Title", $name='title', $classList=
 
     return '<div class="form-wrap '. $divClasses .'" id="'. $divId .'">
                 <label class="col-form-label '. $labelClasses .'" id="'. $labelId .'">'. $levelName .' <span class="text-danger">*</span></label>
-                <input id="'. $inputId .'" type="text" class="form-control '. $inputClasses .'" name="'. $name .'"
+                <input id="'. $inputId .'" type="text" class="form-control '. $inputClasses .'" name='. $name .'
                     value="'. $value .'">
                 <span class="text-danger" id="'. $name .'_error"></span>
             </div>';
@@ -184,13 +184,13 @@ function getSectionTextArea($value='',$levelName = "Content",$name='title', $cla
     return '<div class="form-wrap '. $divClasses .'" id="'. $divId .'">
                 <label class="col-form-label '. $labelClasses .'" id="'. $labelId .'">'. $levelName .'  <span class="text-danger">*</span></label>
                 <textarea id="'. $inputId .'" type="text" class="form-control '. $inputClasses .'" name="'. $name .'"
-                    value="'. $value .'" style="height: 150px;"></textarea>
+                    value="'. $value .'" style="height: 150px;">'. $value .'</textarea>
                 <span class="text-danger" id="'. $name .'_error"></span>
             </div>';
 }
 
 
-function getImageInput($value='',$name='',$title='Banner Image',$classList=array(),$idsList=array())
+function getImageInput($value='',$title='Banner Image',$name='', $classList=array(),$idsList=array())
 {
     $mainDivClasses = '';
     $innerDivClasses = '';
@@ -217,7 +217,7 @@ function getImageInput($value='',$name='',$title='Banner Image',$classList=array
 
     return '<div class="avatar-upload-two">
             <div class="avatar-edit">
-                <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" />
+                <input type="file" id="imageUpload"  name='. $name .' />
                 <label for="imageUpload"></label>
             </div>
             <div class="avatar-preview-two">

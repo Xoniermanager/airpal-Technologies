@@ -151,6 +151,8 @@
                         <a class="dropdown-item" href="{{ route('doctor.doctor-dashboard.index') }}">Dashboard</a>
                         <a class="dropdown-item" href="{{ route('doctor.doctor-profile.index') }}">Profile
                             Settings</a>
+                            <a class="dropdown-item" href="{{ route('doctor.doctor-change-password.index') }}">
+                                Change Password</a>
                         <a class="dropdown-item" href="{{ route('doctor.logout') }}">Logout</a>
                     </div>
                 </li>

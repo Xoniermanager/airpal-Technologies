@@ -37,8 +37,11 @@ class PrescriptionService
                 PrescriptionMedicineDetail::create($medicineDetails);
             }
             if (isset($data['test']) && count($data['test']) > 0) {
-                foreach ($data['test'] as $testDetails) {
-                    if (!empty($testDetails->name) && !empty($testDetails->description)) {
+                $filtered = array_filter($data['test'], function ($key) {
+                    return $key['name'] != '' || $key['description'] != null;
+                });
+                if (count($filtered) > 1) {
+                    foreach ($data['test'] as $testDetails) {
                         $testDetails['prescription_id'] = $prescriptionDetails->id;
                         PrescriptionTest::create($testDetails);
                     }
@@ -79,7 +82,6 @@ class PrescriptionService
                 PrescriptionMedicineDetail::create($medicineDetails);
             }
             if (isset($data['test']) && count($data['test']) > 0) {
-
                 $filtered = array_filter($data['test'], function ($key) {
                     return $key['name'] != '' || $key['description'] != null;
                 });

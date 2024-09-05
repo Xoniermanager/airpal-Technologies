@@ -53,6 +53,7 @@ use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSiteConfigController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController, TestimonialController};
+use App\Http\Controllers\PageController;
 
 // =============================== Login And SignUp Routes ==================================== //
 /**
@@ -309,6 +310,12 @@ Route::prefix('admin')->group(function () {
 
     // admin routes
     Route::middleware(['role:admin'])->group(function () {
+
+        Route::prefix('page')->controller(PageController::class)->group(function () {
+            Route::get('home', 'home')->name('admin.home.index');
+            Route::post('store-home-page-detail', 'storeHomePageDetail')->name('admin.store.home.page.detail');
+        });
+
         Route::controller(AdminDashboardController::class)->group(function () {
             Route::get('dashboard', 'index')->name('admin.dashboard.index');
         });
@@ -416,6 +423,7 @@ Route::prefix('admin')->group(function () {
         {
             Route::get('/','index')->name('admin.testimonial.index'); 
             Route::get('get', 'getTestimonials')->name('admin.testimonial.list'); 
+            Route::get('add', 'showTestimonialForm')->name('admin.show.testimonial.form'); 
         });
 
     });

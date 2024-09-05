@@ -90,11 +90,13 @@ class UserServices
         if (isset($data['password'])) {
             $payload['password'] = Hash::make($data["password"]);
         }
+        $user = $this->userRepository->where('email',$data["email"])->first();
 
-        $user = $this->userRepository->updateOrCreate(
-            ['email' => $data["email"]],
-            $payload
-        );
+        if ($user) {
+            $user->update($payload);
+        } else {
+            $user = $this->userRepository->create($payload);
+        }
 
         $message = $user->wasRecentlyCreated ? 'Doctor created successfully.' : 'Doctor updated successfully.';
         $status  = $user->wasRecentlyCreated ? 'created' : 'updated';

@@ -16750,6 +16750,7 @@ header.header.header-custom.header-fixed.header-one {
 }
 
 .profile-sidebar .dashboard-widget {
+    padding-top: 0 !important;
     padding: 15px;
 }
 
@@ -16765,6 +16766,7 @@ header.header.header-custom.header-fixed.header-one {
 
 .profile-sidebar .dashboard-widget .dashboard-menu ul li {
     line-height: inherit;
+    position: relative;
 }
 
 .profile-sidebar .dashboard-widget .dashboard-menu ul li a i {
@@ -16795,7 +16797,7 @@ header.header.header-custom.header-fixed.header-one {
     -ms-transform: translateY(-50%);
     border-radius: 40px;
     position: absolute;
-    top: 50%;
+    top: 10%;
     right: 10px;
     padding: 5px;
 }
@@ -17073,7 +17075,7 @@ header.header.header-custom.header-fixed.header-one {
 }
 
 .profile-sidebar.profile-sidebar-new .widget-profile {
-    padding: 70px 24px 24px;
+    padding: 30px 24px 24px;
     position: relative;
     z-index: 1;
 }
@@ -17082,7 +17084,7 @@ header.header.header-custom.header-fixed.header-one {
     content: "";
     background-image: url(../img/doctors-dashboard/doctor-sidebar-bg.jpg);
     width: 100%;
-    height: 148px;
+    height: 100px;
     border-radius: 10px 10px 0 0;
     position: absolute;
     top: 0;
@@ -17115,7 +17117,7 @@ header.header.header-custom.header-fixed.header-one {
     border: 1px solid #E2E8F0;
     color: #334155;
     font-size: 14px;
-    margin-top: 15px;
+    margin-top: 10px;
     display: inline-flex;
     align-items: center;
     font-weight: 500;
@@ -18774,7 +18776,7 @@ header.header.header-custom.header-fixed.header-one {
 }
 
 .main-chat-blk .slimscroll {
-    height: calc(100vh - 60px) !important;
+    height: calc(1100px - 60px) !important;
     overflow-y: auto !important;
 }
 
@@ -18782,16 +18784,21 @@ header.header.header-custom.header-fixed.header-one {
     -webkit-appearance: none;
     width: 6px;
 }
-
+div#chat-history {
+    height: calc(1100px - 60px) !important;
+}
 .main-chat-blk .slimscroll::-webkit-scrollbar-thumb {
     border-radius: 4px;
     background-color: #F1F5F9;
     box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
     -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
-
+ul.user-list .user-list-item.active a {
+    background: #ddf6fa !important;
+    border: 1px solid #004cd4;
+}
 .main-chat-blk .slimscroll-active-sidebar {
-    height: calc(100vh - 135px) !important;
+    height: 1048px !important;
     overflow-y: auto !important;
 }
 
@@ -18988,10 +18995,7 @@ header.header.header-custom.header-fixed.header-one {
     margin-bottom: 18px;
 }
 
-.main-chat-blk .chat-page-wrapper .chat .slimscroll {
-    height: calc(100vh - 135px) !important;
-}
-
+ 
 .main-chat-blk .chat-page-wrapper .dropdown-menu .dropdown-item {
     font-size: 14px;
     cursor: pointer;
@@ -22962,9 +22966,6 @@ header.header.header-custom.header-fixed.header-one {
     color: #424242;
 }
 
-.main-chat-blk .chat .slimscroll {
-    height: calc(100vh - 60px) !important;
-}
 
 .main-chat-blk .settings-option {
     display: none;
@@ -55818,4 +55819,18 @@ i.fab.fa-youtube-square {
 
 .panel.panel-body .card {
     border-radius: 30px;
+}
+.dashboard-widget .accordion-button:after {
+    content: "\e9b1";
+    font-family: "feather";
+    font-size: 20px;
+    background: none;
+    color: #004cd4;
+    background: #ffffff;
+    width: 32px;
+    height: auto !important;
+    border-radius: 5px;
+    float: right;
+    top: 0;
+    position: relative;
 }

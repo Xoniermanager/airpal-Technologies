@@ -16,19 +16,17 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card">
-                            <form id="addTestimonial" id="addtestimonials"
-                            {{-- method="POST" action="{{ route('admin.save.testimonial.form') }}"  --}}
-                            enctype="multipart/form-data">
+                            <form id="addTestimonial" method="POST" action="{{ route('admin.update.testimonial.form',['id'=>  $testimonial->id] ) }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="setting-card">
                                     <div class="change-avatar img-upload">
                             
                                         <div class="profile-img">
                             
-                                            @if (isset($singleDoctorDetails->image_url))
-                                                <img src="{{ $singleDoctorDetails->image_url }}" id="blah" class="previewProfile">
+                                            @if (isset($testimonial->image))
+                                                <img src="{{ $testimonial->image }}" id="blah" class="previewProfile">
                                             @else
-                                                <img src="" id="blah"
+                                                <img src="{{ $testimonial->image }}" id="blah"
                                                     onerror="this.src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}';">
                                             @endif
                                         </div>
@@ -39,7 +37,6 @@
                                                     Upload New
                                                     <input type="file" class="upload" name="image" id="imgInp">
                                                 </div>
-                                                {{-- <a href="#" class="upload-remove">Remove</a> --}}
                                             </div>
                                             <p class="form-text">Your Image should Below 2 MB, Accepted format
                                                 jpg,png,svg
@@ -57,9 +54,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-wrap">
                                                 <label class="col-form-label">Title <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" name="title"
-                                                    value="{{ $singleDoctorDetails->title ?? '' }}">
-                                                {{-- <input type="text" class="form-control" name="title" value="{{$singleDoctorDetails->title ?? " "}}"> --}}
+                                                <input type="text" class="form-control" name="title" value="{{ $testimonial->title ?? '' }}">
                                                 <span class="text-danger" id="title_error"></span>
                                             </div>
                                         </div>
@@ -67,8 +62,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-wrap">
                                                 <label class="col-form-label">User Name <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" name="username"
-                                                    value="{{ $singleDoctorDetails->email ?? '' }}">
+                                                <input type="text" class="form-control" name="username" value="{{ $testimonial->username ?? '' }}">
                                                 <span class="text-danger" id="username_error"></span>
                                             </div>
                                         </div>
@@ -76,8 +70,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-wrap">
                                                 <label class="col-form-label">Address <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" name="address"
-                                                    value="{{ $singleDoctorDetails->email ?? '' }}">
+                                                <input type="text" class="form-control" name="address" value="{{ $testimonial->address ?? '' }}">
                                                 <span class="text-danger" id="address_error"></span>
                                             </div>
                                         </div>
@@ -95,7 +88,7 @@
                                             <div class="col-lg-12">
                                                 <div class="form-wrap">
                                                     <label class="col-form-label">Description</label>
-                                                    <textarea class="form-control" style="height: 150px;" name="description" id="description">{{ $singleDoctorDetails->description ?? '' }}</textarea>
+                                                    <textarea class="form-control" style="height: 150px;" name="description" id="description" value="{{ $testimonial->description ?? '' }}">{{ $testimonial->description ?? '' }}</textarea>
                                                     <span class="text-danger" id="description_error"></span>
                                                     <span id="charCount">0/1000</span>
                                                 </div>
@@ -103,8 +96,9 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="modal-btn text-end">
+                                    <input type="hidden" value="{{ $testimonial->id ?? '' }}" name="id" >
+                                    <a href="#" class="btn btn-gray">Cancel</a>
                                     <button type="submit" class="btn btn-primary prime-btn">Save Changes</button>
                                 </div>
                             </form>
@@ -115,80 +109,10 @@
         </div>
     </div>
 @endsection
-
-
 @section('javascript')
-    <script>
-        $(document).ready(function() {
 
-            jQuery("#addtestimonials").validate({
-                rules: {
-                    title: "required"
-                },
-                messages: {
-                    title: "Please enter testimonials title!",
-                },
-                submitHandler: function(form) {
-                    var formData = $(form).serialize();
-                    $.ajax({
-                        url: "<?= route('admin.save.testimonial.form') ?>",
-                        type: 'post',
-                        data: formData,
-                        success: function(response) {
-        
-                        },
-                        error: function(error_messages) {
-                            let errors = JSON.parse(error_messages.responseText).errors;
-                            let randon_number = Math.floor((Math.random() * 100)+1);
-                            for (var error_key in errors) {
-                                random_id = error_key + '_' + randon_number
-                                jQuery('.' + error_key + '_error').remove();
-                                jQuery(document).find('#add_testimonials [name=' + error_key + ']')
-                                    .after(
-                                        '<span id="' + random_id +
-                                        '_error" class="text text-danger '+ error_key +'_error">' + errors[
-                                            error_key] + '</span>');
-                                remove_error_div(random_id);
-                            }
-                        }
-                    });
-                }
-            });
 
-            // jQuery("#edittestimonialsForm").validate({
-            //     rules: {
-            //         name: "required"
-            //     },
-            //     messages: {
-            //         name: "Please enter country name!",
-            //     },
-            //     submitHandler: function(form) {
-            //         var formData = $(form).serialize();
-            //         $.ajax({
-            //             url: "{{ route('admin.testimonials.update') }}",
-            //             type: 'post',
-            //             data: formData,
-            //             success: function(response) {
-            //                 jQuery('#edit_testimonials').modal('hide');
-            //                 // swal.fire("Done!", response.message, "success");
-            //                 jQuery('#testimonials_list').replaceWith(response.data);
-            //             },
-            //             error: function(error_messages) {
-            //                 let errors = JSON.parse(error_messages.responseText).errors;
-            //                 let randon_number = Math.floor((Math.random() * 100)+1);
-            //                 for (var error_key in errors) {
-            //                     random_id = error_key + '_' + randon_number
-            //                     jQuery('.' + error_key + '_error').remove();
-            //                     $(document).find('#edit_testimonials [name=' + error_key + ']').after(
-            //                         '<span id="' + random_id +
-            //                         '_error" class="text text-danger ' + error_key + '_error">' + errors[
-            //                             error_key] + '</span>');
-            //                         remove_error_div(random_id);
-            //                 }
-            //             }
-            //         });
-            //     }
-            // });
-        }); 
-    </script>
+
+
+
 @endsection

@@ -220,8 +220,8 @@
                         <a href="#"><i class="fe fe-question"></i><span>Pages</span> <span
                                 class="menu-arrow"></span></a>
                         <ul style="display: none;">
-                            <a href="{{ route('admin.home.index') }}"
-                                data-url="{{ route('admin.home.index') }}">
+                            <a href="{{ route('admin.home.index',1) }}"
+                                data-url="{{ route('admin.home.index',1) }}">
                                 <span>Home</span></a>
                             <a href="{{ route('admin.questions.index') }}"
                                 data-url="{{ route('admin.questions.index') }}">

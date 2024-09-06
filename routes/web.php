@@ -313,7 +313,7 @@ Route::prefix('admin')->group(function () {
     Route::middleware(['role:admin'])->group(function () {
 
         Route::prefix('page')->controller(PageController::class)->group(function () {
-            Route::get('home', 'home')->name('admin.home.index');
+            Route::get('home/{page:id}', 'home')->name('admin.home.index');
             Route::post('store-home-page-detail', 'storeHomePageDetail')->name('admin.store.home.page.detail');
         });
 

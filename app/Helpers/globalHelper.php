@@ -157,7 +157,7 @@ function getButtonInputs($value='', $name='',$classList=array(), $idsList=array(
 
 }
 
-function getSectionTextArea($value='',$name='title', $levelName = "Content", $classList=array(), $idsList=array())
+function getSectionTextArea($value='',$name='title', $classList=array(), $idsList=array(), $levelName = "Content",)
 {
     $divClasses = '';
     $labelClasses = '';
@@ -229,16 +229,29 @@ function getImageInput($value='', $name='', $title='Banner Image', $classList=ar
 }
 
 
-function getBannerImageInput($value='assets/img/doctors-dashboard/no-apt-3.png',$name='')
+function getBannerImageInput($value='',$name='',$classList=array(),$idsList=array())
 {
+    if(empty($value))
+    {
+        $value = asset('assets/img/doctors-dashboard/no-apt-3.png');
+    }
+
+    if(isset($classList['input']) && count($classList['input']) > 0)
+    {
+        $inputClasses = implode(' ',$classList['input']);
+    }
+
+    $inputId = (isset($idsList['input']) && is_string($idsList['input'])) ? $idsList['input'] : '';
+    $previewId = (isset($idsList['preview']) && is_string($idsList['preview'])) ? $idsList['preview'] : '';
+
+
     return '<div class="avatar-upload">
                 <div class="avatar-edit">
-                    <input type="file" value="'. $value .'"  name="'. $name .'" />
-                    <label for="imageUpload"></label>
+                    <input class="imageUpload '.$inputClasses.'" preview="'.$previewId.'" id="'.$inputId.'"  value="'. $value .'"  name ="'.$name.'" type="file" accept=".png, .jpg, .jpeg" />
+                    <label for="'.$inputId.'"></label>
                 </div>
                 <div class="avatar-preview">
-                    <div id="imagePreview"
-                        style="background-image: url(' . asset($value) .');">
+                    <div id="'.$previewId.'" style="background-image: url('.$value.');">
                     </div>
                 </div>
             </div>';

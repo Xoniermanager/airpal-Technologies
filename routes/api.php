@@ -69,6 +69,7 @@ Route::middleware('authCheck')->group(function () {
             Route::post('update', 'createOrUpdate');
             Route::post('address/update', 'updateAddress');
             Route::get('get-my-patient', 'getMyPatientByDoctorId');
+            Route::get('get-patient-profile/{id}', 'getPatientBookingJourney');
         });
 
         Route::controller(DoctorEducationController::class)->group(function () {
@@ -149,7 +150,7 @@ Route::middleware('authCheck')->group(function () {
 
     // patient routes starts here
     Route::prefix('patient')->group(function () {
-        
+
         Route::post('logout', [AuthController::class, 'logout']);
         Route::controller(PatientDashboardController::class)->group(function () {
             Route::get('get-dashboard-data', 'getDashBoardData');

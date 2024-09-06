@@ -60,9 +60,15 @@ class PatientAppointmentsController extends Controller
             $prescriptionDetails =  $this->prescriptionService->getPrescriptionDetailsById($prescriptionId);
             $webView = true;
             $active = "active";
-            return view('patients.prescription.view', compact('prescriptionDetails', 'webView','active'));
+            return view('patients.prescription.view', compact('prescriptionDetails', 'webView', 'active'));
         } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
             abort(404, 'Invalid prescription ID');
         }
+    }
+
+    public function getAllCompleteAppointment()
+    {
+        $appointments = $this->bookingServices->allCompleteAppointmentByPatientId(Auth::id());
+        return view('patients.appointments.complete-appointment',compact('appointments'));
     }
 }

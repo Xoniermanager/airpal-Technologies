@@ -191,23 +191,46 @@ class DoctorProfileController extends Controller
         try {
             $user = $this->user_services->updateOrCreateDoctor($request->all());
             if ($user) {
-                    return response()->json([
-                        'success' => true,
-                        'message' => "Personal detail Saved Successfully",
-                        'status'  => 200
-                    ], 200);
-                } else {
-                    return response()->json([
-                        'success' => false,
-                        'message' => 'failed'
-                    ], 500);
-                }
+                return response()->json([
+                    'success' => true,
+                    'message' => "Personal detail Saved Successfully",
+                    'status'  => 200
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'failed'
+                ], 500);
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
                 'message' => $th->getMessage()
             ], 500);
         }
-        
+    }
+
+    public function getPatientBookingJourney($patientId)
+    {
+        try {
+            $patientDetails = $this->user_services->getPatientById($patientId);
+            if ($patientDetails) {
+                return response()->json([
+                    'success' => true,
+                    'message' => "Personal detail Retrieved",
+                    'data'  => $patientDetails
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'failed'
+                ], 500);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 }

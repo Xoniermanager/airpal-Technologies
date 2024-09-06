@@ -86,7 +86,9 @@
                                             <td style="padding: 5px 0;"> <b>Date:</b>
                                                 {{ date('d-M-Y', strtotime($prescriptionDetails->bookingSlot->booking_date)) }}
                                                 <p style="margin: 0;"><b>Booking Time:</b>
-                                                    {{ date('h:i A', strtotime($prescriptionDetails->bookingSlot->slot_start_time)) }} - {{ date('h:i A', strtotime($prescriptionDetails->bookingSlot->slot_end_time)) }}
+                                                    {{ date('h:i A', strtotime($prescriptionDetails->bookingSlot->slot_start_time)) }}
+                                                    -
+                                                    {{ date('h:i A', strtotime($prescriptionDetails->bookingSlot->slot_end_time)) }}
                                                 </p>
                                         </tr>
                                         <tr>
@@ -127,15 +129,13 @@
                                                         <td colspan="2"
                                                             style="padding-bottom:20px !important;padding: 0px 0;border-bottom:1px solid #000;">
                                                             * {{ $prescriptionDetails->diagnosis }}</td>
-
                                                     </tr>
                                                 </table>
                                             </td>
                                         </tr>
-
                                         <tr>
                                             <th colspan="3">
-                                                <table style="width:100%;">
+                                                <table style="width:100%; border-collapse: collapse;">
                                                     <tr>
                                                         <th style="padding: 10px 0;border-bottom:1px solid #000;">
                                                             Medicine Name</th>
@@ -166,6 +166,36 @@
                                             </th>
                                         </tr>
                                         <tr>
+                                            <th colspan="3">
+                                                <table style="width:100%; margin:20px 0; border-collapse: collapse;">
+
+                                                    <tr>
+                                                        <th rowspan=""
+                                                                        style="padding-top: 10px;border-top:1px solid #000;">
+                                                                        Prescribe Test: </th>
+                                                                        <th style="padding: 10px 0;border-top:1px solid #000;border-bottom:1px solid #000;">
+                                                                            Name</th>
+                                                                       <th style="padding: 10px 0;border-top:1px solid #000;border-bottom:1px solid #000;">
+                                                                           Descriptions</th>
+
+                                                    </tr>
+
+                                                    @foreach ($prescriptionDetails->prescriptionTest as $item)
+                                                    <tr>
+                                                        <td></td>
+                                                        <td style="padding: 1px 0;border-bottom:1px solid #000; font-weight:400 !important;">
+                                                            {{ $item->name }}</td>
+                                                            <td style="padding: 1px 0;border-bottom:1px solid #000; font-weight:400 !important;">
+                                                                {{ $item->description }}</td>
+                                                    </tr>
+                                                    @endforeach
+
+
+                                                </table>
+
+                                            </th>
+                                        </tr>
+                                        <tr>
                                             <th style="padding-top: 15px; padding-bottom: 0px;border-top:1px solid #000;"
                                                 colspan="3"> Advice: </th>
                                         </tr>
@@ -181,13 +211,13 @@
                                         </tr>
                                         @if (isset($prescriptionDetails->follow_up))
                                             <tr>
-                                                <th style="padding: 5px 0;border-top:1px solid #000;" colspan="3"> Follow Up:
+                                                <th style="padding: 5px 0;border-top:1px solid #000;" colspan="3">
+                                                    Follow Up:
                                                     {{ date('d-M-Y', strtotime($prescriptionDetails->follow_up)) }}
                                                 </th>
                                             </tr>
                                         @endif
                                     </table>
-
                                 </td>
                             </tr>
                         </tbody>

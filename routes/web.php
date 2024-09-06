@@ -55,6 +55,7 @@ use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSiteConfigController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController, TestimonialController};
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PartnerController;
 
 // =============================== Login And SignUp Routes ==================================== //
 /**
@@ -422,6 +423,21 @@ Route::prefix('admin')->group(function () {
             Route::get('/','index')->name('admin.testimonial.index'); 
             Route::get('get', 'getTestimonials')->name('admin.testimonial.list'); 
             Route::get('add', 'showTestimonialForm')->name('admin.show.testimonial.form'); 
+            Route::get('edit/{id}', 'editTestimonialForm')->name('admin.edit.testimonial.form'); 
+            Route::post('update/{id}', 'updateTestimonial')->name('admin.update.testimonial.form'); 
+            Route::get('delete/{id}', 'deleteTestimonial')->name('admin.delete.testimonial.form'); 
+            Route::post('save-testimonial', 'saveTestimonial')->name('admin.save.testimonial.form'); 
+        });
+
+        Route::prefix('partners')->controller(PartnerController::class)->group(function()
+        {
+            Route::get('/','index')->name('admin.partner.index'); 
+            Route::get('get', 'getPartners')->name('admin.partner.list'); 
+            Route::get('add', 'showPartnerForm')->name('admin.show.partner.form'); 
+            Route::get('edit/{id}', 'editPartnerForm')->name('admin.edit.partner.form'); 
+            Route::post('update/{id}', 'updatePartner')->name('admin.update.partner.form'); 
+            Route::get('delete/{id}', 'deletePartner')->name('admin.delete.partner.form'); 
+            Route::post('save-partner', 'savePartner')->name('admin.save.partner.form'); 
         });
 
     });

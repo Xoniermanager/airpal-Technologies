@@ -236,13 +236,9 @@
                             <a href="{{ route('admin.testimonial.index') }}"
                                 data-url="{{ route('admin.testimonial.index') }}">
                                 <span>Testimonials</span></a>
-                            <a href="{{ route('admin.questions.index') }}"
-                                data-url="{{ route('admin.questions.index') }}">
+                            <a href="{{ route('admin.partner.index') }}"
+                                data-url="{{ route('admin.partner.index') }}">
                                 <span>Our Partners</span></a>
-                            <a href="{{ route('admin.questions.index') }}"
-                                data-url="{{ route('admin.questions.index') }}">
-                                <span>Menus</span></a>
-
                         </ul>
                     </li>
 

@@ -22,7 +22,7 @@ class PrescriptionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'booking_slot_id' => 'required|string|exists:booking_slots,id',
+            'booking_slot_id' => 'required|exists:booking_slots,id',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
             'description' => 'required|string',

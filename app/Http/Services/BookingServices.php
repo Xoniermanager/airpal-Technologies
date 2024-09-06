@@ -108,7 +108,7 @@ class BookingServices
 
     public function doctorBookings($id, $searchKey = null)
     {
-        $queryDetails =  $this->bookingRepository->where('doctor_id', $id)->with('patient');
+        $queryDetails =  $this->bookingRepository->where('doctor_id', $id)->with(['patient','prescription']);
 
         // Using search keyword to find appointments
         if (isset($searchKey) && !empty($searchKey)) {
@@ -219,8 +219,7 @@ class BookingServices
     public function updateStatus($status, $id)
     {
         $bookingDetails = $this->bookingRepository->find($id)->update(['status' => $status]);
-        if ($bookingDetails == true)
-        {
+        if ($bookingDetails == true) {
             if ($status == 'confirmed') {
                 UpdateMeetingIdJob::dispatch($id);
             }
@@ -410,10 +409,18 @@ class BookingServices
     // Get doctor active booking slots
     public function getDoctorActiveBookingSlots($doctorId)
     {
-        return $this->bookingRepository->where('doctor_id',$doctorId)
-                    ->whereIn('status',['requested','confirmed'])
-                    ->whereDate('booking_date',">=",Carbon::now())
-                    ->orderBy('booking_date','desc')
-                    ->get();
+        return $this->bookingRepository->where('doctor_id', $doctorId)
+            ->whereIn('status', ['requested', 'confirmed'])
+            ->whereDate('booking_date', ">=", Carbon::now())
+            ->orderBy('booking_date', 'desc')
+            ->get();
+    }
+    public function allCompleteAppointmentByDoctorId($doctorId)
+    {
+        return $this->bookingRepository->where('doctor_id', $doctorId)->where('status', 'completed')->with(['patient','prescription'])->orderBy('booking_date', 'desc')->paginate(10);
+    }
+    public function allCompleteAppointmentByPatientId($patientId)
+    {
+        return $this->bookingRepository->where('patient_id', $patientId)->where('status', 'completed')->with(['user','prescription'])->orderBy('booking_date', 'desc')->paginate(10);
     }
 }

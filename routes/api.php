@@ -25,9 +25,13 @@ use App\Http\Controllers\Api\Patient\MedicalRecordApiController;
 use App\Http\Controllers\Api\Patient\PatientDashboardController;
 use App\Http\Controllers\Api\Patient\PatientFavoriteDoctorController;
 use App\Http\Controllers\Api\Doctor\DoctorAppointmentAndRevenueGraphController;
+use App\Http\Controllers\Api\MeetingController;
 use App\Http\Controllers\Api\PrescriptionApiController;
 
-Route::get('get-meeting-Details/{booking_slots:meeting_id}', [BookAppointmentApiController::class, 'getMeetingDetails']);
+Route::controller(MeetingController::class)->group(function () {
+    Route::get('get-meeting-Details/{booking_slots:meeting_id}', 'getMeetingDetails');
+    Route::post('save-video-details', 'storeVideoDetails');
+});
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -203,10 +207,10 @@ Route::middleware('authCheck')->group(function () {
         });
 
         // Patient chat api get chat list, get chat history and send message
-        Route::controller(PatientChatController::class)->group(function(){
-            Route::get('get-chat-list','getChatList');
-            Route::get('get-chat-history','getChatHistory');
-            Route::post('send-message','sendMessage');
+        Route::controller(PatientChatController::class)->group(function () {
+            Route::get('get-chat-list', 'getChatList');
+            Route::get('get-chat-history', 'getChatHistory');
+            Route::post('send-message', 'sendMessage');
         });
     });
     Route::get('privacy', [AuthController::class, 'privacyPolicy']);

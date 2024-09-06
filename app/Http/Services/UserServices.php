@@ -213,7 +213,7 @@ class UserServices
 
     public function getPatientById($id)
     {
-        return $this->userRepository->where('id', $id)->first();
+        return $this->userRepository->where('id', $id)->with(['bookedAppointments','bookedAppointments.prescription','bookedAppointments.doctor'])->first();
     }
 
     public function getPatientByDoctorId($id)

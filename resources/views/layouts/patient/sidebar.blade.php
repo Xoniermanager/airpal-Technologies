@@ -5,10 +5,10 @@
                 {{-- <img src="{{ auth()->user()->image_url }}" id="blah"> --}}
                 {{-- <img src="../assets/img/doctors-dashboard/profile-06.jpg" alt=""> --}}
 
-                @if(auth()->user()->image_url)
-                <img class="rounded-circle" src="{{ auth()->user()->image_url ?? '' }}" width="31"  id="blah"> 
+                @if (auth()->user()->image_url)
+                    <img class="rounded-circle" src="{{ auth()->user()->image_url ?? '' }}" width="31" id="blah">
                 @else
-                <img class="rounded-circle" src="{{ asset('assets/img/user.jpg')}}" width="31"  id="blah"> 
+                    <img class="rounded-circle" src="{{ asset('assets/img/user.jpg') }}" width="31" id="blah">
                 @endif
             </a>
             <div class="profile-det-info">
@@ -28,11 +28,34 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="{{ request()->routeIs('patient-appointments.index') ? 'active' : '' }}">
-                    <a href="{{ route('patient-appointments.index') }}">
-                        <i class="fa-solid fa-calendar-days"></i>
-                        <span>My Appointments</span>
+                <li class="accordion {{ request()->routeIs('patient-appointments.index') ? 'active' : '' }}"
+                    id="headingOne">
+                    <a class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                        aria-expanded="false" aria-controls="collapseOne">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <span>Appointments</span>
                     </a>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                        style="">
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <ul>
+                                    <li class="{{ request()->routeIs('patient-appointments.index') ? 'active' : '' }}">
+                                        <a href="{{ route('patient-appointments.index') }}">
+                                            <i class="fa-solid fa-calendar-days"></i>
+                                            <span>My Appointments</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('patient.complete.appointment') ? 'active' : '' }}">
+                                        <a href="{{ route('patient.complete.appointment') }}">
+                                            <b><i class="fa fa-check" style="font-size:25px;color:green"></i></b>
+                                            <span>Complete Appointment</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </li>
                 <li class="{{ request()->routeIs('patient.favorite.index') ? 'active' : '' }}">
                     <a href="{{ route('patient.favorite.index') }}">
@@ -83,14 +106,14 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('patient.change-password.index')}}">
+                    <a href="{{ route('patient.change-password.index') }}">
                         <i class="fa-solid fa-key"></i>
                         <span>Change Password</span>
                     </a>
                 </li>
                 <li class="{{ request()->is('patients/diary/*') ? 'active' : '' }}">
                     <a href="{{ route('patient.diary.index') }}">
-                    <i class="fa-solid fa-book"></i>
+                        <i class="fa-solid fa-book"></i>
                         <span>Patient Diary</span>
                     </a>
                 </li>

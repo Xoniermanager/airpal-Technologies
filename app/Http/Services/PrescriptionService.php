@@ -40,7 +40,7 @@ class PrescriptionService
                 $filtered = array_filter($data['test'], function ($key) {
                     return $key['name'] != '' || $key['description'] != null;
                 });
-                if (count($filtered) > 1) {
+                if (count($filtered) > 0) {
                     foreach ($data['test'] as $testDetails) {
                         $testDetails['prescription_id'] = $prescriptionDetails->id;
                         PrescriptionTest::create($testDetails);
@@ -85,7 +85,8 @@ class PrescriptionService
                 $filtered = array_filter($data['test'], function ($key) {
                     return $key['name'] != '' || $key['description'] != null;
                 });
-                if (count($filtered) > 1) {
+                if (count($filtered) > 0)
+                {
                     PrescriptionTest::where('prescription_id', $prescriptionId)->delete();
                     foreach ($data['test'] as $testDetails) {
                         $testDetails['prescription_id'] = $prescriptionId;

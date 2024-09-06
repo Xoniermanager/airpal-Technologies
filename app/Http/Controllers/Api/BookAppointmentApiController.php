@@ -114,28 +114,4 @@ class BookAppointmentApiController extends Controller
             ], 500);
         }
     }
-    public function getMeetingDetails($meetingId)
-    {
-        try {
-            $bookingDetails = $this->bookingAppointmentServices->getBookingDetailsByMeetingId($meetingId);
-            if (!empty($bookingDetails)) {
-                return response()->json([
-                    'status' => true,
-                    'message' => "Retrieved Meeting Details",
-                    'data' => $bookingDetails
-                ], 200);
-            } else {
-                return response()->json([
-                    'status' => true,
-                    'message' => "No Details Found for this Meeting Id",
-                ], 400);
-            }
-        } catch (Exception $e) {
-            return response()->json([
-                "status" => false,
-                "error" =>  $e->getMessage(),
-                "message" => "Unable to find Meeting Details"
-            ], 500);
-        }
-    }
 }

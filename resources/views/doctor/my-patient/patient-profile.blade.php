@@ -4,7 +4,7 @@
 
                         <div class="appointment-patient">
                             <div class="dashboard-header">
-                                <h3><a href="my-patients.html"><i class="fa-solid fa-arrow-left"></i> Patient
+                                <h3><a href="{{ route('doctor.doctor-patients.index') }}"><i class="fa-solid fa-arrow-left"></i> Patient
                                         Details</a></h3>
                             </div>
                             <div class="patient-wrap">
@@ -12,7 +12,7 @@
                                     @if ($patientDetail->image_url)
                                     <img src="{{ $patientDetail->image_url ?? '' }}" alt="img">
                                     @else
-                                    <img class="rounded-circle" src="{{ asset('assets/img/user.jpg')}}" width="31"> 
+                                    <img class="rounded-circle" src="{{ asset('assets/img/user.jpg')}}" width="31">
                                     @endif
 
                                     <div class="user-patient">
@@ -59,15 +59,15 @@
                                                     $baseHue = 216; // Hue value for #004cd4
                                                     $saturation = 100; // Saturation for a vibrant color
                                                     $lightness = 41; // Initial lightness
-                                        
+
                                                     // Adjust the hue or lightness dynamically based on the loop index
                                                     $currentHue = ($baseHue + $loop->index * 10) % 360; // Change hue for a color shift
                                                     $currentLightness = min($lightness + ($loop->index * 5), 70); // Gradually increase lightness
-                                        
+
                                                     // Construct the HSL color string
                                                     $accentColor = "hsl($currentHue, $saturation%, $currentLightness%)";
                                                 @endphp
-                                        
+
                                                 <li style="--accent-color: {{ $accentColor }}">
                                                     <div class="date">{{ date('j M Y', strtotime($booking->booking_date)) ?? '' }}</div>
                                                     <div class="appointment-wrap appointment-grid-wrap">
@@ -75,7 +75,7 @@
                                                             <img src="{{ $booking->user->image_url ?? '' }}" alt="">
                                                             <div class="patient-info">
                                                               <a href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($booking->user->id)]) }}"><h5 class="mb-0">Dr. {{ $booking->user->fullName ?? '' }}</h5></a>
-                                                               
+
                                                                     @isset($doctorDetails)
                                                                     @forelse ($doctorDetails->educations as $education)
                                                                       <span class="badge badge-info text-white">  {{ $education->course->name }}</span>
@@ -83,14 +83,14 @@
                                                                         <p>N/A</p>
                                                                     @endforelse
                                                                 @endisset
-                                                               
+
                                                             </div>
                                                         </div>
                                                         <h4 class="">General Visit</h4>
                                                         <p class="mb-1"><b>Symptoms:</b> {{ $booking->symptoms ?? 'N/A' }}</p>
                                                         <p class="mb-1"><b>Appointment: </b>{{ date('j M Y', strtotime($booking->booking_date)) ?? '' }}</p>
                                                         <p class="mb-1 "><b>status: </b>
-                                                            <span class="badge text-white 
+                                                            <span class="badge text-white
                                                                 @if($booking->status == 'confirmed')
                                                                     badge-success
                                                                 @elseif($booking->status == 'completed')
@@ -109,21 +109,21 @@
                                                         </p>
                                                         <p class="mb-1"><b>Time:</b> {{ date('h:i A', strtotime($booking->slot_start_time)) ?? '' }}- {{ date('h:i A', strtotime($booking->slot_end_time)) ?? '' }}</p>
                                                         <p class="mb-1"> <b>Note: </b> {{ $booking->note ?? 'N/A' }}</p>
-                                                        
+
 
                                                         <div style="border-top: 1px dashed #000;padding-top: 5px;margin-top: 13px;">
 
                                                             <span class="float-left mt-2"> {!! $booking->getPrescriptionButton() !!}</span>
                                                             <span class="float-right mt-3">Booked on: {{ date('j M Y', strtotime($booking->created_at)) ?? '' }}</span>
                                                         </div>
-                                                        
+
                                                     </div>
                                                 </li>
                                             @empty
                                                 <div><p>Not Found</p></div>
                                             @endforelse
                                         </ul>
-                                        
+
                                         {{-- <ul>
                                             @forelse ($patientBooking as $booking )
                                             <li style="--accent-color:#41516C">
@@ -142,9 +142,9 @@
                                                 </div>
                                             </li>
                                             @empty
-                                    
+
                                             <div><p>Not Found</p></div>
-                               
+
                                         @endforelse
                                         </ul> --}}
                                     </div>
@@ -165,7 +165,7 @@
                                                 </thead>
                                                 @forelse ($patientBooking as $booking )
                                                 <tbody>
-                                      
+
                                                      <tr>
                                                         <td><a class="text-blue-600"
                                                                 href="patient-upcoming-appointment.html">#Apt123</a>
@@ -194,8 +194,8 @@
                                                                 </a>
                                                             </div>
                                                         </td>
-                                                    </tr>  
-                                             
+                                                    </tr>
+
                                                 </tbody>
                                                 @empty
                                                 <tr>
@@ -204,13 +204,13 @@
                                                     </td>
                                                    </tr>
                                             @endforelse
-                    
+
                                             </table>
                                         </div>
                                     </div> --}}
                                 {{-- </div> --}}
 
-{{-- 
+{{--
                                 <div class="tab-pane fade" id="prescription">
                                     <div class="search-header">
                                         <div class="search-field">
@@ -401,7 +401,7 @@
                                     </div>
 
                                 </div> --}}
-{{-- 
+{{--
 
                                 <div class="tab-pane fade" id="medical">
                                     <div class="search-header">
@@ -440,26 +440,26 @@
                                                             <td>{!! Str::limit($medicalRecord->description, 20, ' ...') !!}</td>
                                                             <td>
                                                                 <div class="action-item">
-                                                           
+
                                                                     <a href="{{ $medicalRecord->file }}" download>
                                                                         <i class="fa-solid fa-download"></i>
                                                                     </a>
-                                    
+
                                                                 </div>
                                                             </td>
                                                         </tr>
                                                     @empty
-                                                    
+
                                                <tr>
                                                 <td colspan="5" class="text-center">
                                                     <div><p>Not Found</p></div>
                                                 </td>
                                                </tr>
-                                                    
+
                                                     @endforelse
 
                                                 </tbody>
-                                    
+
                                             </table>
                                         </div>
                                     </div>
@@ -612,6 +612,6 @@
 
                             </div>
                         </div>
-    
+
 
 @endsection

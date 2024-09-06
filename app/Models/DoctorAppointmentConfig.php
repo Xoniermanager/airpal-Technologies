@@ -9,8 +9,20 @@ class DoctorAppointmentConfig extends Model
 {
     use HasFactory;
 
-    protected $table = 'doctor_appointment_configs';
-    protected $fillable = ['user_id', 'slot_duration', 'cleanup_interval', 'start_month', 'end_month', 'exception_day_id', 'slots_in_advance', 'start_slots_from_date', 'stop_slots_date'];
+    protected $fillable = [
+        'user_id',
+        'slot_duration',
+        'cleanup_interval',
+        'start_month',
+        'end_month',
+        'exception_day_id',
+        'slots_in_advance',
+        'start_slots_from_date',
+        'stop_slots_date',
+        'status',
+        'config_start_date',
+        'config_end_date'
+    ];
 
     public function user()
     {
@@ -19,6 +31,6 @@ class DoctorAppointmentConfig extends Model
 
     public function doctorExceptionDays()
     {
-        return $this->hasMany(ExceptionDays::class, 'doctor_id');
+        return $this->hasMany(AppointmentConfigExceptionDay::class,'doctor_appointment_config_id','id');
     }
 }

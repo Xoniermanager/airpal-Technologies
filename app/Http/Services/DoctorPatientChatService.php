@@ -103,6 +103,7 @@ class DoctorPatientChatService
             {
                 $unreadCounter = $this->doctorPatientChatHistoryRepository
                 ->where('doctor_patient_chats_id','=',$chat->chat_id)
+                ->where('sender_id','!=',$currentUser)
                 ->where('read','=',0)
                 ->count();
             }

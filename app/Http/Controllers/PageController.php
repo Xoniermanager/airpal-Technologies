@@ -33,8 +33,6 @@ public function home()
 }
     public function storeHomePageDetail(HomePageRequest $request)
     {
-        dd($request->homepage_banner_section['image']);
-        dd($request->hasFile($request->homepage_banner_section));
        $createdPageDetails = $this->frontendPagesServices->saveHomepageSections($request);
        return response()->json([
         'success' => 'Successfully saved',

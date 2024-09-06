@@ -93,6 +93,12 @@
                     </a>
                 </li>
               
+                <li class="{{ request()->routeIs('doctor.all.appointment.config') ? 'active' : '' }}">
+                    <a href="{{ route('doctor.all.appointment.config') }}">
+                        <i class="fas fa-star"></i>
+                        <span>All Appointment Configs</span>
+                    </a>
+                </li>
                 <li class="{{ request()->routeIs('doctor.questions.index') ? 'active' : '' }}">
                     <a href="{{ route('doctor.questions.index') }}">
                         <i class="fa-solid fa-user-pen"></i>

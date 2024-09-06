@@ -14,18 +14,8 @@
                                 <form id="save_home_header_banner_detail" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="setting-card p-0">
-                                        {{-- {!! getImageInput() !!} --}}
-                                        <div class="avatar-upload">
-                                            <div class="avatar-edit">
-                                                <input type='file'  name="homepage_banner_section[image]" />
-                                                <label for="imageUpload"></label>
-                                            </div>
-                                            <div class="avatar-preview">
-                                                <div id="imagePreview"
-                                                    style="background-image: url({{ asset('assets/img/doctors-dashboard/no-apt-3.png') }});">
-                                                </div>
-                                            </div>
-                                        </div>
+                                        {!! getImageInput('','homepage_banner_section[image]') !!}
+                                        {!! getImageInput('','homepage_banner_section[content][content_image]') !!}
                                     </div>
                                     <div class="setting-title">
                                         <h5>Section Info</h5>
@@ -34,8 +24,11 @@
                                     <div class="setting-card">
                                         <div class="row">
                                             <div class="col-lg-6 col-md-6">
+                                                @php
+                                                $home_banner_section_title = isset($sections['home_banner']['title']) ? $sections['home_banner']['title'] : '';
+                                                @endphp
                                                 {!! getTextInput(
-                                                    $sections['home_banner']['title'],
+                                                    $home_banner_section_title,
                                                     'Title',
                                                     'homepage_banner_section[title]',
                                                     ['div' => ['test', 'testing', 'tester']],
@@ -44,8 +37,11 @@
                                             </div>
 
                                             <div class="col-lg-6 col-md-6">
+                                            @php
+                                                $home_banner_section_subtitle = isset($sections['home_banner']['subtitle']) ? $sections['home_banner']['subtitle'] : '';
+                                            @endphp
                                                 {!! getTextInput(
-                                                    $sections['home_banner']['subtitle'],
+                                                    $home_banner_section_subtitle,
                                                     'Subtitle',
                                                     'homepage_banner_section[subtitle]',
                                                     ['div' => ['test', 'testing', 'tester']],
@@ -70,16 +66,22 @@
                                                 <input type="hidden" name="homepage_banner_section[section_slug]" value="home_banner">
                                                 
                                                 <div class="col-lg-6">
+                                                @php
+                                                    $home_banner_button_text = isset($sections['home_banner']->getButtons[0]['text']) ? $sections['home_banner']->getButtons[0]['text'] : '';
+                                                @endphp
                                                     {!! getTextInput(
-                                                        $sections['home_banner']->getButtons[0]['text'],
+                                                        $home_banner_button_text,
                                                         'button text',
                                                         'homepage_banner_section[button][0][text]',
                                                         'Button Text',
                                                     ) !!}
                                                 </div>
                                                 <div class="col-lg-6">
+                                                @php
+                                                    $home_banner_button_link = isset($sections['home_banner']->getButtons[0]['link']) ? $sections['home_banner']->getButtons[0]['link'] : '';
+                                                @endphp
                                                     {!! getTextInput(
-                                                        $sections['home_banner']->getButtons[0]['link'],
+                                                        $home_banner_button_link,
                                                         'button link',
                                                         'homepage_banner_section[button][0][link]',
                                                         'Button Link',
@@ -94,373 +96,10 @@
                         </div>
 
 
-                       {{-- How it Work Section --}}
-                        <div class="col-sm-12">
-                            <h3 class="page-title">How it Work Section</h3>
-                            <div class="card">
-                                <form id="save_home_header_banner_detail" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="setting-card p-0">
-                                        {{-- {!! getImageInput() !!} --}}
-                                        <div class="avatar-upload">
-                                            <div class="avatar-edit">
-                                                <input type='file' name="how_it_work[image]" />
-                                                <label for="imageUpload"></label>
-                                            </div>
-                                            <div class="avatar-preview">
-                                                <div id="imagePreview"
-                                                    style="background-image: url({{ asset('assets/img/doctors-dashboard/no-apt-3.png') }});">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="setting-title">
-                                        <h5>Section Info</h5>
-                                    </div>
-
-                                    <div class="setting-card">
-                                        <div class="row">
-                                            <div class="col-lg-12 col-md-12">
-                                                {!! getTextInput(
-                                                    $sections['how_it_work']['title'],
-                                                    'Title',
-                                                    'how_it_work[title]',
-                                                    ['div' => ['test', 'testing', 'tester']],
-                                                    ['input' => 'helloId'],
-                                                ) !!}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="setting-card">
-                                                <div class="add-info membership-infos">
-                                                    <div class="row membership-content">
-                                                        <div class="col-lg-4">
-                                                            {!! getImageInput(
-                                                                $sections['how_it_work']->getContent[0]['image'],
-                                                                'Title',
-                                                                'how_it_work[inner_section][0][image]',
-                                                                ['div' => ['test', 'testing', 'tester']],
-                                                                ['input' => 'helloId'],
-                                                            ) !!}
-
-                                                        </div>
-                                                        <div class="col-lg-8">
-                                                            {!! getTextInput(
-                                                                $sections['how_it_work']->getContent[0]['title'],
-                                                                'Title',
-                                                                'how_it_work[inner_section][0][title]',
-                                                                ['div' => ['test', 'testing', 'tester']],
-                                                                ['input' => 'helloId'],
-                                                            ) !!}
-                                                        </div>
-                                                        <div class="col-lg-12">
-                                                            {!! getSectionTextArea(
-                                                            $sections['how_it_work']->getContent[0]['content'], 
-                                                            'content',
-                                                            'how_it_work[inner_section][0][content]',
-                                                            'content') !!}
-                                                        </div>
-                                                        <input type = "hidden" name = "how_it_work[inner_section][0][id]"  value="{{ $sections['how_it_work']->getContent[0]['id'] }}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="setting-card">
-                                                <div class="add-info membership-infos">
-                                                    <div class="row membership-content">
-                                                        <div class="col-lg-4">
-                                                            {!! getImageInput(
-                                                                $sections['how_it_work']->getContent[1]['image'],
-                                                                'Title',
-                                                                'how_it_work[inner_section][1][image]',
-                                                                ['div' => ['test', 'testing', 'tester']],
-                                                                ['input' => 'helloId'],
-                                                            ) !!}
-
-                                                        </div>
-                                                        <div class="col-lg-8">
-                                                            {!! getTextInput(
-                                                             $sections['how_it_work']->getContent[1]['title'], 
-                                                                'Title',
-                                                                'how_it_work[inner_section][1][title]',
-                                                                ['div' => ['test', 'testing', 'tester']],
-                                                                ['input' => 'helloId'],
-                                                            ) !!}
-                                                        </div>
-                                                        <input type = "hidden" name = "how_it_work[inner_section][1][id]"  value="{{ $sections['how_it_work']->getContent[1]['id'] }}">
-                                                        <div class="col-lg-12">
-                                                            {!! getSectionTextArea($sections['how_it_work']->getContent[1]['content'], 'content', 'how_it_work[inner_section][1][content]', 'content') !!}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="setting-card">
-                                                <div class="add-info membership-infos">
-                                                    <div class="row membership-content">
-                                                        <div class="col-lg-4">
-                                                            {!! getImageInput(
-                                                                $sections['how_it_work']->getContent[2]['image'],
-                                                                'Title',
-                                                                'how_it_work[inner_section][2][image]',
-                                                                ['div' => ['test', 'testing', 'tester']],
-                                                                ['input' => 'helloId'],
-                                                            ) !!}
-
-                                                        </div>
-                                                        <div class="col-lg-8">
-                                                            {!! getTextInput(
-                                                                $sections['how_it_work']->getContent[2]['title'], 
-                                                                'Title',
-                                                                'how_it_work[inner_section][2][title]',
-                                                                ['div' => ['test', 'testing', 'tester']],
-                                                                ['input' => 'helloId'],
-                                                            ) !!}
-                                                        </div>
-                                                        <input type = "hidden" name = "how_it_work[inner_section][2][id]"  value="{{ $sections['how_it_work']->getContent[2]['id'] }}">
-
-                                                        <div class="col-lg-12">
-                                                            {!! getSectionTextArea($sections['how_it_work']->getContent[2]['content'], 'content', 'how_it_work[inner_section][2][content]', 'content') !!}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="setting-card">
-                                                <div class="add-info membership-infos">
-                                                    <div class="row membership-content">
-                                                        <div class="col-lg-4">
-                                                            {!! getImageInput(
-                                                                $sections['how_it_work']->getContent[3]['image'],
-                                                                'Title',
-                                                                'how_it_work[inner_section][3][image]',
-                                                                ['div' => ['test', 'testing', 'tester']],
-                                                                ['input' => 'helloId'],
-                                                            ) !!}
-
-                                                        </div>
-                                                        <div class="col-lg-8">
-                                                            {!! getTextInput(
-                                                                $sections['how_it_work']->getContent[3]['title'], 
-                                                                'Title',
-                                                                'how_it_work[inner_section][3][title]',
-                                                                ['div' => ['test', 'testing', 'tester']],
-                                                                ['input' => 'helloId'],
-                                                            ) !!}
-                                                        </div>
-                                                        <input type = "hidden" name = "how_it_work[inner_section][3][id]"  value="{{ $sections['how_it_work']->getContent[3]['id'] }}">
-                                                        <div class="col-lg-12">
-                                                            {!! getSectionTextArea($sections['how_it_work']->getContent[3]['content'], 'content', 'how_it_work[inner_section][3][content]', 'content') !!}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <input type="hidden" name="page_id" value="{{ $sections['home_banner']['page_id'] ?? '' }}">
-                                    <input type="hidden" name="how_it_work[section_slug]" value="how_it_work">
-                                    <button class="btn btn-primary prime-btn">Save</button>
-                                </form>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12">
-                            <h3 class="page-title">Top Doctors</h3>
-                            <div class="card">
-                                <form id="personalDetailsForm" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="setting-card">
-                                        <div class="row">
-                                            <div class="col-lg-6 col-md-6">
-                                                <div class="form-wrap">
-                                                    <label class="col-form-label">Title <span
-                                                            class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control" name="title"
-                                                        value="">
-                                                    <span class="text-danger" id="title_error"></span>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6 col-md-6">
-                                                <div class="form-wrap">
-                                                    <label class="col-form-label">Select Type <span
-                                                            class="text-danger">*</span></label>
-                                                    <select name="" id="" class="form-control">
-                                                        <option value="">Select type</option>
-                                                        <option value="">Rating</option>
-                                                        <option value="">Exeprience</option>
-                                                        <option value="">Most Booking</option>
-                                                    </select>
-                                                    <span class="text-danger" id="subtitle_error"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="modal-btn text-end">
-                                        <a href="#" class="btn btn-gray">Cancel</a>
-                                        <button type="submit" class="btn btn-primary prime-btn">Save Changes</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12">
-                            <h3 class="page-title">Why Airpal App</h3>
-                            <div class="card">
-                                <form id="save_home_header_banner_detail" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="setting-title">
-                                        <h5>Section Info</h5>
-                                    </div>
-
-                                    <div class="setting-card">
-                                        <div class="row">
-                                            <div class="col-lg-12 col-md-12">
-                                                {!! getTextInput(
-                                                    $sections['how_it_work']['title'],
-                                                    'Title',
-                                                    'why_airpal_app[title]',
-                                                    ['div' => ['test', 'testing', 'tester']],
-                                                    ['input' => 'helloId'],
-                                                ) !!}
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="setting-card">
-                                                <div class="add-info membership-infos">
-                                                    <div class="row membership-content">
-                                                        <div class="col-lg-12">
-                                                            {!! getImageInput(
-                                                                $sections['how_it_work']->getContent[0]['image'], 
-                                                                'Title',
-                                                                'why_airpal_app[inner_section][0][image]',
-                                                                ['div' => ['test', 'testing', 'tester']],
-                                                                ['input' => 'helloId'],
-                                                            ) !!}
-
-                                                        </div>
-                                                        <div class="col-lg-12">
-                                                            {!! getTextInput(
-                                                                $sections['how_it_work']->getContent[0]['title'], 
-                                                                'Title',
-                                                               'why_airpal_app[inner_section][0][title]',
-                                                                ['div' => ['test', 'testing', 'tester']],
-                                                                ['input' => 'helloId'],
-                                                            ) !!}
-                                                        </div>
-                                                        <input type = "hidden" name = "why_airpal_app[inner_section][0][id]"  value="{{ $sections['why_airpal_app']->getContent[0]['id'] }}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="setting-card">
-                                                <div class="add-info membership-infos">
-                                                    <div class="row membership-content">
-                                                        <div class="col-lg-12">
-                                                            {!! getImageInput(
-                                                                $sections['how_it_work']->getContent[1]['title'], 
-                                                                'Title',
-                                                               'why_airpal_app[inner_section][1][title]',
-                                                                ['div' => ['test', 'testing', 'tester']],
-                                                                ['input' => 'helloId'],
-                                                            ) !!}
-
-                                                        </div>
-                                                        <div class="col-lg-12">
-                                                            {!! getTextInput(
-                                                                $sections['how_it_work']->getContent[1]['title'], 
-                                                                'Title',
-                                                               'why_airpal_app[inner_section][1][title]',
-                                                                ['div' => ['test', 'testing', 'tester']],
-                                                                ['input' => 'helloId'],
-                                                            ) !!}
-                                                        </div>
-                                                        <input type = "hidden" name = "why_airpal_app[inner_section][1][id]"  value="{{ $sections['why_airpal_app']->getContent[1]['id'] }}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="setting-card">
-                                                <div class="add-info membership-infos">
-                                                    <div class="row membership-content">
-                                                        <div class="col-lg-12">
-                                                            {!! getImageInput(
-                                                                $sections['how_it_work']->getContent[2]['image'], 
-                                                                'Title',
-                                                                'why_airpal_app[inner_section][2][title]',
-                                                                ['div' => ['test', 'testing', 'tester']],
-                                                                ['input' => 'helloId'],
-                                                            ) !!}
-
-                                                        </div>
-                                                        <div class="col-lg-12">
-                                                            {!! getTextInput(
-                                                                $sections['how_it_work']->getContent[2]['title'], 
-                                                                'Title',
-                                                                'why_airpal_app[inner_section][2][title]',
-                                                                ['div' => ['test', 'testing', 'tester']],
-                                                                ['input' => 'helloId'],
-                                                            ) !!}
-                                                        </div>
-                                                        <input type = "hidden" name = "why_airpal_app[inner_section][2][id]"  value="{{ $sections['why_airpal_app']->getContent[2]['id'] }}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="setting-card">
-                                                <div class="add-info membership-infos">
-                                                    <div class="row membership-content">
-                                                        <div class="col-lg-12">
-                                                            {!! getImageInput(
-                                                                $sections['how_it_work']->getContent[3]['image'], 
-                                                                'Title',
-                                                                'why_airpal_app[inner_section][3][title]',
-                                                                ['div' => ['test', 'testing', 'tester']],
-                                                                ['input' => 'helloId'],
-                                                            ) !!}
-
-                                                        </div>
-                                                        <div class="col-lg-12">
-                                                            {!! getTextInput(
-                                                                $sections['how_it_work']->getContent[3]['title'], 
-                                                                'Title',
-                                                                'why_airpal_app[inner_section][3][title]',
-                                                                ['div' => ['test', 'testing', 'tester']],
-                                                                ['input' => 'helloId'],
-                                                            ) !!}
-                                                        </div>
-                                                        <input type = "hidden" name = "why_airpal_app[inner_section][3][id]"  value="{{ $sections['why_airpal_app']->getContent[3]['id'] }}">
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <input type="hidden" name="page_id" value="{{ $sections['home_banner']['page_id'] ?? '' }}">
-                                        <input type="hidden" name="why_airpal_app[section_slug]" value="why_airpal_app">
-                                        <button class="btn btn-primary prime-btn">Save</button>
-                                </form>
-                            </div>
-                        </div>
 
 
 
-
+                        
 
                     </div>
                 </div>

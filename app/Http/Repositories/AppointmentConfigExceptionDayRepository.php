@@ -4,9 +4,9 @@ namespace App\Http\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Models\ExceptionDays;
+use App\Models\AppointmentConfigExceptionDay;
 
-class DoctorExceptionDayRepository extends BaseRepository
+class AppointmentConfigExceptionDayRepository extends BaseRepository
 {
     /**
      * Specify Model class name
@@ -15,7 +15,7 @@ class DoctorExceptionDayRepository extends BaseRepository
      */
     public function model()
     {
-        return ExceptionDays::class;
+        return AppointmentConfigExceptionDay::class;
     }
     /**
      * Boot up the repository, pushing criteria

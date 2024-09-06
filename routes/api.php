@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\QuestionController;
 use App\Http\Controllers\Api\DoctorAwardController;
-use App\Http\Controllers\Api\DoctorSlotsController;
+use App\Http\Controllers\Api\DoctorAppointmentConfigApiController;
 use App\Http\Controllers\Api\DoctorReviewController;
 use App\Http\Controllers\Api\DoctorProfileController;
 use App\Http\Controllers\Api\DoctorDashboardController;
@@ -26,7 +26,6 @@ use App\Http\Controllers\Api\Patient\PatientDashboardController;
 use App\Http\Controllers\Api\Patient\PatientFavoriteDoctorController;
 use App\Http\Controllers\Api\Doctor\DoctorAppointmentAndRevenueGraphController;
 use App\Http\Controllers\Api\PrescriptionApiController;
-use App\Models\Prescription;
 
 Route::get('get-meeting-Details/{booking_slots:meeting_id}', [BookAppointmentApiController::class, 'getMeetingDetails']);
 
@@ -94,7 +93,7 @@ Route::middleware('authCheck')->group(function () {
             Route::post('working-hour/update', 'createOrUpdateWorkingHour');
         });
 
-        Route::controller(DoctorSlotsController::class)->group(function () {
+        Route::controller(DoctorAppointmentConfigApiController::class)->group(function () {
             Route::get('slots/{id}', 'get');
             Route::post('slots/create', 'store');
             Route::post('slots/update', 'update');

@@ -7,7 +7,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreSlotRequest extends FormRequest
+class StoreAppointmentConfigRequest extends FormRequest
 {
     use ExceptionHandle;
     /**
@@ -32,11 +32,16 @@ class StoreSlotRequest extends FormRequest
                 'required',
                 // Rule::unique('doctor_slots', 'user_id')->ignore($data['doctor_id'] ?? ''),
             ],
-            "slot_duration" => "required|integer",
-            "cleanup_interval" => "nullable|integer", 
-            "start_month" => "nullable|integer|min:1|max:30",
-            "start_slots_from_date" => "nullable|date", 
-            "stop_slots_date" => "nullable|date|after_or_equal:start_slots_from_date",
+            "slot_duration"         =>  "required|integer",
+            "cleanup_interval"      =>  "nullable|integer", 
+            "start_month"           =>  "sometimes|integer|min:1|max:30",
+            "end_month"             =>  "sometimes|integer|min:1|max:30",
+            "exception_day_ids"     =>  "nullable|array",
+            "exception_day_ids.*"   =>  "integer|between:1,7",
+            "start_slots_from_date" =>  "nullable|date", 
+            "slots_in_advance"      =>  "sometimes|integer|min:1",
+            "stop_slots_date"       =>  "nullable|date|after_or_equal:start_slots_from_date",
+            "appointment_config_end_date"   =>    "sometimes|date",
         ];
      }
 

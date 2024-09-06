@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('exception_days', function (Blueprint $table) {
+        Schema::create('appointment_config_exception_days', function (Blueprint $table) {
             $table->id();
-            $table->integer('doctor_id');
+            $table->unsignedBigInteger('doctor_appointment_config_id')->constrained();
             $table->integer('exception_days_id');
-            $table->integer('status')->nullable();
+            $table->foreign('doctor_appointment_config_id','doctor_appointment_configs_foreign_exception')
+                ->references('id')
+                ->on('doctor_appointment_configs')
+                ->constrained();
             $table->timestamps();
         });
     }

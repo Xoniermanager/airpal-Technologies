@@ -19,35 +19,36 @@ class FrontendPagesServices
 
     public function saveHomepageSections($data)
     {
-        dd($data);
+        // var_dump($data->hasFile('homepage_banner_section.image'));
+        // var_dump($data->hasFile('homepage_banner_section.content.content_image'));
+        // var_dump($data->file('homepage_banner_section')['image']);
+        // var_dump($data->file('homepage_banner_section')['content']['content_image']);
+
         if(isset($data['homepage_banner_section']))
         {
 
-            if(isset($data['homepage_banner_section']['id']))
+            $sectionId = isset($data['homepage_banner_section']['id']) ? $data['homepage_banner_section']['id'] : '';
+            $sectionBannerImage = '';
+            if($data->hasFile('homepage_banner_section.image'))
             {
-                $sectionId = $data['homepage_banner_section']['id'];
+                $sectionBannerImage = $data->file('homepage_banner_section')['image'];
             }
-            
-            dd( $data['homepage_banner_section']);
+
             $pageSectionData = [
-                'image'     => $data['homepage_banner_section']['image'],
                 'title'     => $data['homepage_banner_section']['title'],
                 'subtitle'  => $data['homepage_banner_section']['subtitle'],
                 'section_slug' => $data['homepage_banner_section']['section_slug']
             ];
 
-            dd($pageSectionData);
-
-            
-
-            $returnSectionId = $this->saveSectionContent($pageSectionData,$sectionId= '');
-
+            $sectionDetails = $this->saveSectionContent($pageSectionData,$sectionBannerImage,$sectionId);
+            $sectionId = $sectionDetails->id;
 
             $allButtons = $data['homepage_banner_section']['button'];
             foreach($allButtons as $button)
             {
                 $this->saveSectionButton($button,$sectionId);
             }
+
             $data['homepage_banner_section']['page_id'] = $data['page_id'] ?? '';
     
         }
@@ -126,9 +127,22 @@ class FrontendPagesServices
         }
     }
 
-    public function saveSectionContent($sectionDetails,$sectionId)
+    public function saveSectionContent($sectionDetails, $bannerImage='', $sectionId='',)
     {
-        dd($sectionDetails,$sectionId);
+        // First of all lets check if it contains image, if yes let save it first
+        if(!empty($bannerImage))
+        {
+            
+        }
+
+        if(!empty($sectionId))
+        {
+            // PageSection::
+        }
+        else
+        {
+
+        }
     }
 
     public function saveSectionImage()

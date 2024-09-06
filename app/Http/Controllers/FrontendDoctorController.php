@@ -6,9 +6,7 @@ use DateTime;
 use App\Models\User;
 use App\Models\Service;
 use App\Models\Language;
-use App\Models\BookingSlots;
 use Illuminate\Http\Request;
-use App\Jobs\GenerateInvoicePdf;
 use App\Jobs\GenerateAllInvoices;
 use App\Http\Services\UserServices;
 use App\Http\Services\DoctorService;
@@ -22,10 +20,9 @@ use App\Http\Services\FavoriteDoctorServices;
 use App\Http\Services\SpecializationServices;
 use App\Http\Services\DoctorAppointmentConfigService;
 
-class DoctorController extends Controller
+class FrontendDoctorController extends Controller
 {
   private $user_services;
-  private $doctorsFilterServices;
   private $specializationServices;
   private $doctorSlotServices;
   private $bookingServices;
@@ -53,17 +50,20 @@ class DoctorController extends Controller
     $this->favoriteDoctorServices = $favoriteDoctorServices;
   }
 
-  public function index()
+  public function getDoctorsListWithFilters()
   {
     $doctors = $this->user_services->getDoctorDataForFrontend();
     $specialties = $this->specializationServices->all();
     $allRatingStars = $this->doctorService->getDoctorCountsGroupedByRatings();
 
     // Check if the user is authenticated
-    if (Auth::check()) {
+    if (Auth::check()) 
+    {
       $patientId = Auth::user()->id;
       $favoriteDoctorsList = $this->favoriteDoctorServices->getAllFavoriteDoctors($patientId)->pluck('doctor_id')->toArray();
-    } else {
+    }
+    else
+    {
       $favoriteDoctorsList = []; // No favorite doctors if not logged in
     }
 
@@ -131,7 +131,6 @@ class DoctorController extends Controller
 
   public function search(SearchDoctorRequest $request)
   {
-    $doctors = $this->user_services->getDoctorDataForFrontend();
     $specialties = $this->specializationServices->all();
     $allRatingStars = $this->doctorService->getDoctorCountsGroupedByRatings();
 
@@ -175,7 +174,8 @@ class DoctorController extends Controller
     $data = $request->all();
     $doctor = $this->user_services->getDoctorDataById($data['doctor_id']);
     $doctorSlot = $this->doctorSlotServices->getDoctorSlotConfiguration($doctor->id);
-    if (isset($doctorSlot)) {
+    if (isset($doctorSlot)) 
+    {
       $doctorSlot->exception_days = $doctorSlot->user->doctorExceptionDays;
       // $returnedSlots = $this->doctorSlotServices->createDoctorSlots($doctorSlot);
       return $this->doctorSlotServices->CreateDoctorSlotCalendar($doctorSlot, $data['month'], $data['year']);

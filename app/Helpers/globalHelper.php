@@ -157,7 +157,7 @@ function getButtonInputs($value='', $name='',$classList=array(), $idsList=array(
 
 }
 
-function getSectionTextArea($value='',$levelName = "Content",$name='title', $classList=array(), $idsList=array())
+function getSectionTextArea($value='',$name='title', $levelName = "Content", $classList=array(), $idsList=array())
 {
     $divClasses = '';
     $labelClasses = '';
@@ -190,7 +190,7 @@ function getSectionTextArea($value='',$levelName = "Content",$name='title', $cla
 }
 
 
-function getImageInput($value='',$title='Banner Image',$name='', $classList=array(),$idsList=array())
+function getImageInput($value='', $name='', $title='Banner Image', $classList=array(),$idsList=array())
 {
     $mainDivClasses = '';
     $innerDivClasses = '';
@@ -217,14 +217,30 @@ function getImageInput($value='',$title='Banner Image',$name='', $classList=arra
 
     return '<div class="avatar-upload-two">
             <div class="avatar-edit">
-                <input type="file" id="imageUpload"  name='. $name .' />
-                <label for="imageUpload"></label>
+                <input type="file" id="'. $name .'"  name='. $name .' />
+                <label for="'. $name .'"></label>
             </div>
             <div class="avatar-preview-two">
-                <div id="imagePreview"
+                <div class="imagePreview"
                     style="background-image: url('.asset("assets/img/doctors-dashboard/no-apt-3.png").');">
                 </div>
             </div>
         </div>';
+}
+
+
+function getBannerImageInput($value='assets/img/doctors-dashboard/no-apt-3.png',$name='')
+{
+    return '<div class="avatar-upload">
+                <div class="avatar-edit">
+                    <input type="file" value="'. $value .'"  name="'. $name .'" />
+                    <label for="imageUpload"></label>
+                </div>
+                <div class="avatar-preview">
+                    <div id="imagePreview"
+                        style="background-image: url(' . asset($value) .');">
+                    </div>
+                </div>
+            </div>';
 }
 

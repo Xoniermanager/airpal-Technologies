@@ -452,7 +452,7 @@ class UsersTableSeeder extends Seeder
                 'dob' => '1984-08-02',
                 'blood_group' => 'B+',
                 'email_verified_at' => NULL,
-                'password' => '$2y$12$.HreI2/Rh9WroDh4M1a9B.lCuyPBnZMG3yrNCyKERHVCi0NMCpjpG',
+                'password' => '$2y$12$71nS3eJhHUFmO0gcx63jHu9ODYiotiOZskPL/o7HiBB8MN37XZBG.',
                 'description' => NULL,
                 'allover_rating' => NULL,
                 'remember_token' => NULL,

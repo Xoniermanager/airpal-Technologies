@@ -7,12 +7,13 @@
             </a>
 
             <div class="profile-det-info">
-                <h3 class="mb-0"><a href="{{ route('doctor.doctor-profile.index') }}"> {{ auth()->user()->fullName }}</a>
+                <h3 class="mb-0"><a href="{{ route('doctor.doctor-profile.index') }}">
+                        {{ auth()->user()->fullName }}</a>
                     <small>
                         {{ $doctorDetails->doctorEducation() }}
                     </small>
                 </h3>
-                
+
                 @isset($doctorDetails)
                     @forelse ($doctorDetails->specializations as $specialization)
                         <span class="badge doctor-role-badge"><i
@@ -43,43 +44,52 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                
-                 
-                <li class="accordion {{ request()->routeIs('doctor.doctor-request.index') ? 'active' : '' }}" id="headingOne">
-                    <a class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+
+
+                <li class="accordion {{ request()->routeIs('doctor.doctor-request.index') ? 'active' : '' }}"
+                    id="headingOne">
+                    <a class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                        aria-expanded="false" aria-controls="collapseOne">
                         <i class="fa-solid fa-calendar-check"></i>
-                        <span>Appointments</span> 
+                        <span>Appointments</span>
                     </a>
-                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" style="">
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                        style="">
                         <div class="accordion-body">
                             <div class="accordion-content">
-                             <ul>
-                                <li class="{{ request()->routeIs('doctor.appointments.index') ? 'active' : '' }}">
-                                    <a href="{{ route('doctor.appointments.index') }}">
-                                        <i class="fa-solid fa-calendar-days"></i>
-                                        <span>Appointment Listing</span>
-                                    </a>
-                                </li>
-                                <li class="{{ request()->routeIs('doctor.appointment.config') ? 'active' : '' }}">
-                                    <a href="{{ route('doctor.doctor-request.index') }}">
-                                        <i class="fa-solid fa-calendar-check"></i>
-                                        <span>Appointment Requests</span>
-                                        <small class="unread-msg" id="appointmentRequestCounter">{{ $appointmentCounter }}</small>
-                                    </a>
-                                </li>
-                               
-                                <li class="{{ request()->routeIs('doctor.appointment.config') ? 'active' : '' }}">
-                                    <a href="{{ route('doctor.appointment.config') }}">
-                                        <i class="fas fa-star"></i>
-                                        <span>Appointment Config</span>
-                                    </a>
-                                </li>
-                             </ul>
+                                <ul>
+                                    <li class="{{ request()->routeIs('doctor.appointments.index') ? 'active' : '' }}">
+                                        <a href="{{ route('doctor.appointments.index') }}">
+                                            <i class="fa-solid fa-calendar-days"></i>
+                                            <span>Appointment Listing</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('doctor.appointment.config') ? 'active' : '' }}">
+                                        <a href="{{ route('doctor.doctor-request.index') }}">
+                                            <i class="fa-solid fa-calendar-check"></i>
+                                            <span>Appointment Requests</span>
+                                            <small class="unread-msg"
+                                                id="appointmentRequestCounter">{{ $appointmentCounter }}</small>
+                                        </a>
+                                    </li>
+
+                                    <li class="{{ request()->routeIs('doctor.appointment.config') ? 'active' : '' }}">
+                                        <a href="{{ route('doctor.appointment.config') }}">
+                                            <i class="fas fa-star"></i>
+                                            <span>Appointment Config</span>
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('doctor.appointment.config') ? 'active' : '' }}">
+                                        <a href="{{ route('doctor.all.complete.appointment') }}">
+                                            <b><i class="fa fa-check" style="font-size:25px;color:green"></i></b>
+                                            <span>Complete Appointment</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </li>
-              
                 <li class="{{ request()->routeIs('doctor.doctor-patients.index') ? 'active' : '' }}">
                     <a href="{{ route('doctor.doctor-patients.index') }}">
                         <i class="fa-solid fa-user-injured"></i>
@@ -92,7 +102,7 @@
                         <span>Chat</span>
                     </a>
                 </li>
-              
+
                 <li class="{{ request()->routeIs('doctor.all.appointment.config') ? 'active' : '' }}">
                     <a href="{{ route('doctor.all.appointment.config') }}">
                         <i class="fas fa-star"></i>
@@ -105,7 +115,7 @@
                         <span>Add Question</span>
                     </a>
                 </li>
-               
+
                 <li class="{{ request()->routeIs('doctor.notification') ? 'active' : '' }}">
                     <a href="{{ route('doctor.notification') }}">
                         <i class="fa-solid fa-user-pen"></i>
@@ -142,14 +152,14 @@
                         <span>Social Media</span>
                     </a>
                 </li>
-                 
+
                 <li class="{{ request()->is('doctor/prescription/*') ? 'active' : '' }}">
                     <a href="{{ route('prescription.index') }}">
                         <i class="fa-solid fa-user-injured"></i>
                         <span>My Prescriptions</span>
                     </a>
                 </li>
-               
+
             </ul>
         </nav>
     </div>

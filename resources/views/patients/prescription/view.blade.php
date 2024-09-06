@@ -7,7 +7,8 @@
         <div class="mt-4 text-center">
             <a href="{{ route('patient-appointments.index') }}" class="btn btn-primary">Back</a>
             <a href="{{ route('prescription.pdf.download', Crypt::encrypt($prescriptionDetails->id)) }}"
-                class="btn btn-primary">Download PDF</a>
+                class="btn btn-primary"><b><i class="fa fa-print" aria-hidden="true"></i>
+                </b></a>
         </div>
     </div>
 @endsection

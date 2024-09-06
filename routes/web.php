@@ -5,21 +5,22 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FaqsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\TempController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\FrontController;
-use App\Http\Controllers\FrontendDoctorController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\InstantController;
 use App\Jobs\UpdateDoctorRatingsAverageValue;
-use App\Http\Controllers\Admin\DoctorAppointmentConfigController;
 use App\Http\Controllers\Admin\StateController;
+use App\Http\Controllers\Admin\PayPalController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\SpecialtyPageController;
 use App\Http\Controllers\Doctor\InvoiceController;
 use App\Http\Controllers\Doctor\PatientController;
 use App\Http\Controllers\Doctor\ReviewsController;
+use App\Http\Controllers\FrontendDoctorController;
 use App\Http\Controllers\Doctor\DoctorNotification;
 use App\Http\Controllers\Patient\BookingController;
 use App\Http\Controllers\Admin\SpecialityController;
@@ -48,12 +49,12 @@ use App\Http\Controllers\Patient\PatientDashboardController;
 use App\Http\Controllers\Doctor\DoctorPanelQuestionController;
 use App\Http\Controllers\Doctor\DoctorAuthenticationController;
 use App\Http\Controllers\Patient\PatientAppointmentsController;
+use App\Http\Controllers\Admin\DoctorAppointmentConfigController;
 use App\Http\Controllers\Patient\PatientFavoriteDoctorController;
 use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSiteConfigController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController, TestimonialController};
-use App\Http\Controllers\PageController;
 
 // =============================== Login And SignUp Routes ==================================== //
 /**
@@ -64,6 +65,13 @@ Route::controller(AdminAuthController::class)->group(function () {
     Route::post('admin/login', 'login')->name('admin.login');
     Route::get('admin/logout', 'logout')->name('admin.logout');
 });
+
+// Paypal Payment endpoints
+Route::get('paypal', [PayPalController::class, 'index'])->name('paypal');
+Route::get('paypal/payment', [PayPalController::class, 'payment'])->name('paypal.payment');
+Route::get('paypal/payment/success', [PayPalController::class, 'paymentSuccess'])->name('paypal.payment.success');
+Route::get('paypal/payment/cancel', [PayPalController::class, 'paymentCancel'])->name('paypal.payment/cancel');
+
 
 // common file for login Admin, Doctor, Patient
 Route::controller(AuthController::class)->group(function () {

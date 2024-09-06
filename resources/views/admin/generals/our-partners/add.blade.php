@@ -16,9 +16,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card">
-                            <form id="addTestimonial" id="addtestimonials"
-                            {{-- method="POST" action="{{ route('admin.save.testimonial.form') }}"  --}}
-                            enctype="multipart/form-data">
+                            <form id="addTestimonial" method="POST" action="{{ route('admin.save.testimonial.form') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="setting-card">
                                     <div class="change-avatar img-upload">
@@ -103,8 +101,8 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="modal-btn text-end">
+                                    <a href="#" class="btn btn-gray">Cancel</a>
                                     <button type="submit" class="btn btn-primary prime-btn">Save Changes</button>
                                 </div>
                             </form>
@@ -115,80 +113,10 @@
         </div>
     </div>
 @endsection
-
-
 @section('javascript')
-    <script>
-        $(document).ready(function() {
 
-            jQuery("#addtestimonials").validate({
-                rules: {
-                    title: "required"
-                },
-                messages: {
-                    title: "Please enter testimonials title!",
-                },
-                submitHandler: function(form) {
-                    var formData = $(form).serialize();
-                    $.ajax({
-                        url: "<?= route('admin.save.testimonial.form') ?>",
-                        type: 'post',
-                        data: formData,
-                        success: function(response) {
-        
-                        },
-                        error: function(error_messages) {
-                            let errors = JSON.parse(error_messages.responseText).errors;
-                            let randon_number = Math.floor((Math.random() * 100)+1);
-                            for (var error_key in errors) {
-                                random_id = error_key + '_' + randon_number
-                                jQuery('.' + error_key + '_error').remove();
-                                jQuery(document).find('#add_testimonials [name=' + error_key + ']')
-                                    .after(
-                                        '<span id="' + random_id +
-                                        '_error" class="text text-danger '+ error_key +'_error">' + errors[
-                                            error_key] + '</span>');
-                                remove_error_div(random_id);
-                            }
-                        }
-                    });
-                }
-            });
 
-            // jQuery("#edittestimonialsForm").validate({
-            //     rules: {
-            //         name: "required"
-            //     },
-            //     messages: {
-            //         name: "Please enter country name!",
-            //     },
-            //     submitHandler: function(form) {
-            //         var formData = $(form).serialize();
-            //         $.ajax({
-            //             url: "{{ route('admin.testimonials.update') }}",
-            //             type: 'post',
-            //             data: formData,
-            //             success: function(response) {
-            //                 jQuery('#edit_testimonials').modal('hide');
-            //                 // swal.fire("Done!", response.message, "success");
-            //                 jQuery('#testimonials_list').replaceWith(response.data);
-            //             },
-            //             error: function(error_messages) {
-            //                 let errors = JSON.parse(error_messages.responseText).errors;
-            //                 let randon_number = Math.floor((Math.random() * 100)+1);
-            //                 for (var error_key in errors) {
-            //                     random_id = error_key + '_' + randon_number
-            //                     jQuery('.' + error_key + '_error').remove();
-            //                     $(document).find('#edit_testimonials [name=' + error_key + ']').after(
-            //                         '<span id="' + random_id +
-            //                         '_error" class="text text-danger ' + error_key + '_error">' + errors[
-            //                             error_key] + '</span>');
-            //                         remove_error_div(random_id);
-            //                 }
-            //             }
-            //         });
-            //     }
-            // });
-        }); 
-    </script>
+
+
+
 @endsection

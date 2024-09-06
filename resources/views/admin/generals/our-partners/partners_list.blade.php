@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($testimonialList as $key=> $testimonial)
+                @forelse ($testimonialList as $key=> $testimonial)
                 <tr>
                     <td>{{ $key+1 }}</td>
                     <td>{{ $testimonial['title'] }}</td>
@@ -35,7 +35,10 @@
                         </div>
                     </td>
                 </tr>
-                @endforeach
+                @empty
+                    
+                @endforelse
+
              
             </tbody>
         </table>

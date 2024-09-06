@@ -6,7 +6,7 @@
             <div class="setting-card p-0">
 
                 {!! getBannerImageInput(
-                    $sections['home_banner']->image,
+                    $sections['home_banner']->image ?? '',
                     'homepage_banner_section[image]',
                     ['input' => ['test', 'preview']],
                     ['input' => 'uploadBannerImage', 'preview' => 'previewImage'],
@@ -21,7 +21,6 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         @php
-                            // dd($sections);
                             $home_banner_section_title = isset($sections['home_banner']['title'])
                                 ? $sections['home_banner']['title']
                                 : '';
@@ -55,15 +54,14 @@
                 <div class="add-info membership-infos">
                     <div class="row membership-content">
 
+                        <input type="hidden" name="homepage_banner_section[section_slug]" value="home_banner">
                         <input type="hidden" name="page_id" value="{{ $page->id ?? '' }}">
+                        
 
                         <input type="hidden" name="homepage_banner_section[button][0][id]"
                             value="{{ $sections['home_banner']->getButtons[0]['id'] ?? '' }}">
 
-                        <input type="hidden" name="homepage_banner_section[id]"
-                            value="{{ $sections['home_banner']['id'] ?? '' }}">
 
-                        <input type="hidden" name="homepage_banner_section[section_slug]" value="home_banner">
 
                         <div class="col-lg-6">
                             @php

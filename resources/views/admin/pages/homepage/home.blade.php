@@ -230,9 +230,9 @@
                     }
                 }
                 $(".imageUpload").change(function() {
+                    console.log(this);
                     let preview_id = jQuery(this).attr('preview');
                     console.log("preview_id : " + preview_id);
-
                     readURL(this, preview_id);
                 });
         </script>

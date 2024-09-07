@@ -22,7 +22,10 @@ class HomePageRequest extends FormRequest
     public function rules(): array
     {
             return [
-                // 'homepage_banner_section.image'    => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048|nullable',
+                // 'homepage_banner_section'             =>  'array',
+                // 'homepage_banner_section.title'       =>  'required|string',
+                // 'homepage_banner_section.subtitle'    =>  'required|string',
+                // 'homepage_banner_section.image'       => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048|nullable',
                 // 'homepage_banner_section.title'    => 'sometimes|string|max:50',
                 // 'homepage_banner_section.subtitle' => 'sometimes|string|max:50',
                 // 'homepage_banner_section.btntext'  => 'sometimes|string|max:30',

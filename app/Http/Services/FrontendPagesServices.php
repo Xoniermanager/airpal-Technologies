@@ -26,7 +26,6 @@ class FrontendPagesServices
         // var_dump($data->file('homepage_banner_section')['content']['content_image']);
         if(isset($data['homepage_banner_section']))
         {
-
             $sectionId = isset($data['homepage_banner_section']['id']) ? $data['homepage_banner_section']['id'] : '';
             $sectionBannerImage = '';
             
@@ -34,32 +33,15 @@ class FrontendPagesServices
             {
                 $sectionBannerImage = $data->file('homepage_banner_section')['image'];
             }
-
+            
             $pageSectionData = [
                 'title'             => $data['homepage_banner_section']['title'],
                 'subtitle'          => $data['homepage_banner_section']['subtitle'],
                 'section_slug'      => $data['homepage_banner_section']['section_slug'],
                 'page_id'           => $pageId
             ];
-
-            // If the page is not refreshed and section id is not even if it is created
-            if(empty($sectionId))
-            {
-                // Lets check it again if section already exists
-                $sectionData = PageSection::where([
-                    'page_id'       =>  $pageSectionData['page_id'],
-                    'section_slug'  =>  $pageSectionData['section_slug']
-                ])->first();
-
-                if($sectionData)
-                {
-                    $sectionId = $sectionData->id;
-                }
-            }
-
+        
             $sectionDetails =  $this->saveSection($pageSectionData,$sectionBannerImage,$sectionId);
-
-            // $sectionDetails = $this->saveSectionContent();
             $sectionId = $sectionDetails->id;
 
             $allButtons = $data['homepage_banner_section']['button'];
@@ -70,21 +52,52 @@ class FrontendPagesServices
         }
         // banner section ends here
 
-        // How it works section starts here
-        // if(isset($data['how_it_work']))
-        // {
-        //     $data['how_it_work']['page_id'] = $data['page_id'] ?? '';
-        //     $data = $data['how_it_work'];
-           
-        // }
-        // elseif(isset($data['why_airpal_app']))
-        // {
-        //     $data['why_airpal_app']['page_id'] = $data['page_id'] ?? '';
-        //     $data = $data['why_airpal_app'];
-           
-        // }
+         //  how it works section
+        if(isset($data['how_it_works']))
+        {
+        
+            $sectionId = isset($data['how_it_works']['id']) ? $data['how_it_works']['id'] : '';
+            $sectionBannerImage = '';
+            
+            if($data->hasFile('how_it_works.image'))
+            {
+ 
+                $sectionBannerImage = $data->file('how_it_works')['image'];
+            }
+            
+            $pageSectionData = [
+                'title'             => $data['how_it_works']['title'],
+                'subtitle'          => $data['how_it_works']['subtitle'] ?? '',
+                'section_slug'      => $data['how_it_works']['section_slug'],
+                'page_id'           => $pageId
+            ];
+
+            $sectionDetails  =  $this->saveSection($pageSectionData,$sectionBannerImage,$sectionId);
+            $sectionId       =  $sectionDetails->id;
+
+            $allContentSections = $data['how_it_works']['inner_section'];
+
+            $howItWorksCounter = 0;
+            
+            foreach($allContentSections as $contentSection)
+            {
+                $contentInnerImage = '';
+                if($data->hasFile("how_it_works.inner_section.{$howItWorksCounter}.image"))
+                {
+                    $contentInnerImage = 'tester';
+                    $contentInnerImage = $data->file('how_it_works')['inner_section'][$howItWorksCounter]['image'];
+                    
+                }
+                $this->saveSectionContent($contentSection,$sectionId,$contentInnerImage);
+                $howItWorksCounter++;
+            }
+
+        
+        }
+
         return $this->getPageSectionsWithAttribute($pageId);
     }
+
 
     public function saveSection($sectionAttributes,$sectionBannerImage,$sectionId)
     {
@@ -92,16 +105,14 @@ class FrontendPagesServices
         if(!empty($sectionId))
         {
             $sectionData = PageSection::find($sectionId);
-        
-            // Now lets check if image is also provided to upload
+ 
+
             if(!empty($sectionBannerImage))
             {
-                
-                if ($sectionData->image != null) 
-                {
+                if (isset($sectionData['image']) && !$sectionData['image'])
+                {     
                     unlinkFileOrImage($sectionData->getRawOriginal('image'));
                 }
-               
                 $sectionData['image'] = uploadingImageorFile($sectionBannerImage, 'section-banner', $sectionData->section_slug);
             }
             $sectionData->update($sectionAttributes);
@@ -135,14 +146,36 @@ class FrontendPagesServices
         }
     }
 
-    public function saveSectionContent($sectionDetails, $bannerImage='', $sectionId='',)
+    public function saveSectionContent($contentSection,$sectionId,$contentInnerImage)
     {
-        
+        if(isset($contentSection['id']) && $contentSection['id'] > 0)
+        {
+            $contentSectionId = $contentSection['id'];
+            unset($contentSection['id']);
+            $sectionDetails = SectionContent::find($contentSectionId);
+            $sectionDetails->update($contentSection);
+        }
+        else
+        {
+            $contentSection['section_id'] = $sectionId;
+            $sectionDetails = SectionContent::create($contentSection);
+        }
+
+        // Lets now upload the image if it is provided to upload
+        if(!empty($contentInnerImage))
+        {   
+            $uploadedImagePath = uploadingImageorFile($contentInnerImage, 'section-content', $sectionDetails->id);
+            
+            // If already image exists in section content unlink the image
+            if (isset($sectionDetails->image) && !empty($sectionDetails->image))
+            {     
+                unlinkFileOrImage($sectionDetails->getRawOriginal('image'));
+            }
+            $sectionDetails->image = $uploadedImagePath;
+            $sectionDetails->save();
+        }
     }
 
-    public function saveSectionImage()
-    {
 
-    }
 
 }

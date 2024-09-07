@@ -190,8 +190,13 @@ function getSectionTextArea($value='',$name='title', $classList=array(), $idsLis
 }
 
 
-function getImageInput($value='', $name='', $title='Banner Image', $classList=array(),$idsList=array())
+function getImageInput($value='', $name='', $classList=array(),$idsList=array())
 {
+    if(empty($value))
+    {
+        $value = asset("assets/img/doctors-dashboard/no-apt-3.png");
+    }
+
     $mainDivClasses = '';
     $innerDivClasses = '';
     $inputClasses = '';
@@ -213,16 +218,18 @@ function getImageInput($value='', $name='', $title='Banner Image', $classList=ar
 
     $mainDivId = (isset($idsList['mainDiv']) && is_string($idsList['mainDiv'])) ? $idsList['mainDiv'] : '';
     $innerDivId = (isset($idsList['innerDiv']) && is_string($idsList['innerDiv'])) ? $idsList['innerDiv'] : '';
+
     $inputId = (isset($idsList['input']) && is_string($idsList['input'])) ? $idsList['input'] : '';
+    $previewId = (isset($idsList['preview']) && is_string($idsList['preview'])) ? $idsList['preview'] : '';
 
     return '<div class="avatar-upload-two">
             <div class="avatar-edit">
-                <input type="file" id="'. $name .'"  name='. $name .' />
-                <label for="'. $name .'"></label>
+                <input type="file" class="imageUpload" id="'.$inputId.'"   preview ='.$previewId.'  name='.$name.'  value="'.$value.'" />
+                <label for="'.$inputId.'"></label>
             </div>
             <div class="avatar-preview-two">
-                <div class="imagePreview"
-                    style="background-image: url('.asset("assets/img/doctors-dashboard/no-apt-3.png").');">
+                <div id='.$previewId.'
+                    style="background-image: url('. $value .');">
                 </div>
             </div>
         </div>';
@@ -243,7 +250,6 @@ function getBannerImageInput($value='',$name='',$classList=array(),$idsList=arra
 
     $inputId = (isset($idsList['input']) && is_string($idsList['input'])) ? $idsList['input'] : '';
     $previewId = (isset($idsList['preview']) && is_string($idsList['preview'])) ? $idsList['preview'] : '';
-
 
     return '<div class="avatar-upload">
                 <div class="avatar-edit">

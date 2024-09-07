@@ -8,9 +8,27 @@
                     <div class="row">
 
                         {{-- Banner section --}}
+                        <div class="col-sm-12">
+                            <h3 class="page-title">Header Banner Section</h3>
+                            <div class="card">
+                                <form id="save_home_header_banner_detail" enctype="multipart/form-data">
+                                    @csrf
+                                    @include('admin.pages.homepage.home_banner')
+                                </form>
+                            </div>
+                        </div>
                         
-                        @include('admin.pages.homepage.home_banner')
-                        @include('admin.pages.homepage.how_it_works')
+
+                        {{-- How it Work Section --}}
+                        <div class="col-sm-12">
+                            <h3 class="page-title">How it Work Section</h3>
+                            <div class="card">
+                                <form id="save_home_header_banner_detail" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    @include('admin.pages.homepage.how_it_works')
+                                </form>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -229,11 +247,11 @@
                         reader.readAsDataURL(input.files[0]);
                     }
                 }
-                $(".imageUpload").change(function() {
+            jQuery('body').on('change','.imageUpload',function(){
+                    console.log(this);
                     let preview_id = jQuery(this).attr('preview');
                     console.log("preview_id : " + preview_id);
-
                     readURL(this, preview_id);
-                });
+            });
         </script>
     @endsection

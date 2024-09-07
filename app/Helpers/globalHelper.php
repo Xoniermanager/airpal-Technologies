@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\SiteConfig;
+use App\Models\Testimonial;
 use Illuminate\Support\Facades\Storage;
 
 function getRatingHtml($value)
@@ -261,5 +262,89 @@ function getBannerImageInput($value='',$name='',$classList=array(),$idsList=arra
                     </div>
                 </div>
             </div>';
+
+
+
+}// In GlobalHelper.php
+if (!function_exists('renderTestimonials')) {
+    function renderTestimonials() {
+        $testimonials = Testimonial::get();
+        if ($testimonials->isEmpty()) {
+            return '';
+        }
+
+        $html = '<section class="testimonial-section">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="testimonial-slider slick">';
+
+        foreach ($testimonials as $testimonial) {
+            $html .= '<div class="testimonial-grid">
+                        <div class="testimonial-info">
+                            <div class="testimonial-img">
+                                <img src="'.($testimonial->image ?? '').'" class="img-fluid" alt="John Doe">
+                            </div>
+                            <div class="testimonial-content">
+                                <div class="section-header section-inner-header testimonial-header">
+                                    <h5>Testimonials</h5>
+                                    <h2>'.($testimonial->title ?? '').'</h2>
+                                </div>
+                                <div class="testimonial-details">
+                                    <p>'.($testimonial->description ?? '').'</p>
+                                    <h6><span>'.($testimonial->username ?? '').'</span>'.($testimonial->address ?? '').'</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>';
+        }
+
+        $html .= '</div></div></div></div></section>';
+
+        return $html;
+    }
 }
 
+
+// if (!function_exists('renderTestimonials')) {
+    
+   
+//     function renderTestimonials()
+//     {
+//         $testimonials = Testimonial::get();
+//         $html = '';
+
+//         $html = '<div class="testimonial-slider slick">';
+
+//         foreach ($testimonials as $testimonial) {
+//             $image = $testimonial->image ?? '';
+//             $title = $testimonial->title ?? '';
+//             $description = $testimonial->description ?? '';
+//             $username = $testimonial->username ?? '';
+//             $address = $testimonial->address ?? '';
+
+//             $html .= '
+//                 <div class="testimonial-grid">
+//                     <div class="testimonial-info">
+//                         <div class="testimonial-img">
+//                             <img src="' . $image . '" class="img-fluid" alt="' . $username . '">
+//                         </div>
+//                         <div class="testimonial-content">
+//                             <div class="section-header section-inner-header testimonial-header">
+//                                 <h5>Testimonials</h5>
+//                                 <h2>' . $title . '</h2>
+//                             </div>
+//                             <div class="testimonial-details">
+//                                 <p>' . $description . '</p>
+//                                 <h6><span>' . $username . '</span> ' . $address . '</h6>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             ';
+//         }
+
+//         $html .= '</div>'; // Close the slider div
+//         return $html;
+//     }
+// }

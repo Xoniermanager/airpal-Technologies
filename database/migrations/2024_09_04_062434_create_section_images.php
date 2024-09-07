@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('section_images', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->string('link')->nullable();
             $table->unsignedBigInteger('section_id');
             $table->foreign('section_id')->references('id')->on('page_sections');

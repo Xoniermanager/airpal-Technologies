@@ -5,10 +5,16 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6">
                         <div class="banner-content aos" >
-                            <h1>Consult <span>Best Doctors</span> Your Nearby Location.</h1>
+                            
+                            <h1>{!!  $sections['home_banner']->title ?? ''  !!}
+                                {{-- Consult <span>Best Doctors</span> Your Nearby Location. --}}
+                            </h1>
                             <img src="{{URL::asset('assets/img/icons/header-icon.svg')}}" class="header-icon" alt="header-icon">
-                            <p>Experts opinion at your comfort Zone </p>
-                            <a href="#" class="btn">Start a Consult</a>
+                            <p>{{  $sections['home_banner']->subtitle ?? ''  }}
+                                
+                                
+                            </p>
+                            <a href="{{ optional($sections['home_banner']->getButtons->first())->link ?? '' }}" class="btn">{{ optional($sections['home_banner']->getButtons->first())->text ?? '' }}</a>
                             <div class="banner-arrow-img">
                                 <img src="{{URL::asset('assets/img/down-arrow-img.png')}}" class="img-fluid" alt="down-arrow">
                             </div>
@@ -100,7 +106,8 @@
                                     </div>
                                     <div class="reviews-ratings">
                                         <p>
-                                            <span><i class="fas fa-star"></i> 4.5</span> (35)
+                                            {!! getRatingHtml($doctor->allover_rating)!!}
+                                            {{-- <span><i class="fas fa-star"></i> 4.5</span> (35) --}}
                                         </p>
                                     </div>
                                 </div>
@@ -189,68 +196,32 @@
                     <div class="col-lg-8 col-md-12 work-details">
                         <div class="section-header-one aos" >
                             <h5>How it Works</h5>
-                            <h2 class="section-title">4 easy steps to get your solution</h2>
+                            <h2 class="section-title">{!!  $sections['how_it_works']->title ?? ''  !!}</h2>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6 col-md-6 aos" >
+                        @forelse ($sections['how_it_works']->getContent as  $contentSection)
+                             <div class="col-lg-6 col-md-6 aos" >
                                 <div class="work-info">
                                     <div class="work-icon">
-                                        <span><img src="{{URL::asset('assets/img/icons/work-01.svg')}}" alt="search-doctor-icon"></span>
+                                        <span><img src="{{ $contentSection->image ?? ''  }}" alt="search-doctor-icon"></span>
                                     </div>
                                     <div class="work-content">
-                                        <h5>Sign Up</h5>
-                                        <p>Create an account on our platform by providing some basic information such as
-                                            your name, email address, and password. Rest assured that your information
-                                            is kept confidential and secure.
+                                        <h5>{{ $contentSection->title ?? ''  }}</h5>
+                                        <p> {{ $contentSection->content ??  '' }}
 
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6 aos" >
-                                <div class="work-info">
-                                    <div class="work-icon">
-                                        <span><img src="{{URL::asset('assets/img/icons/work-02.svg')}}" alt="doctor-profile-icon"></span>
-                                    </div>
-                                    <div class="work-content">
-                                        <h5>Describe Your Needs</h5>
-                                        <p>Tell us about your healthcare needs and concerns. Provide details about your
-                                            symptoms, medical history, and any specific questions you have for the
-                                            doctor. </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 aos" >
-                                <div class="work-info">
-                                    <div class="work-icon">
-                                        <span><img src="{{URL::asset('assets/img/icons/work-03.svg')}}" alt="calendar-icon"></span>
-                                    </div>
-                                    <div class="work-content">
-                                        <h5>Schedule Appointment</h5>
-                                        <p>We offer flexible scheduling options, including same-day appointments and
-                                            extended hours, to accommodate your busy schedule.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 aos" >
-                                <div class="work-info">
-                                    <div class="work-icon">
-                                        <span><img src="{{URL::asset('assets/img/icons/work-04.svg')}}" alt="solution-icon"></span>
-                                    </div>
-                                    <div class="work-content">
-                                        <h5>Connect and Consult</h5>
-                                        <p>At the scheduled time, log in to your account and connect with your doctor
-                                            for the consultation. Our secure and user-friendly platform ensures a
-                                            seamless experience.</p>
-                                    </div>
-                                </div>
-                            </div>
+                        @empty
+                            
+                        @endforelse
                         </div>
                     </div>
                     
                     <div class="col-lg-4 col-md-12 work-img-info aos" >
                         <div class="work-img">
-                            <img src="{{URL::asset('assets/img/work-img.png')}}" class="img-fluid" alt="doctor-image">
+                            <img src="{!!  $sections['how_it_works']->image ?? ''  !!}" class="img-fluid" alt="doctor-image">
                         </div>
                     </div>
                 </div>
@@ -264,61 +235,25 @@
                 <div class="row">
                     <div class="col-md-12 aos aos-init aos-animate" >
                         <div class="section-head-fourteen">
-                            <h2>Why <span> Airpal App</span></h2>
+                            <h2>{!!  $sections['why_airpal_app']->title ?? ''  !!} </h2>
 
                         </div>
                     </div>
                 </div>
                 <div class="specialities-block aos aos-init aos-animate" >
                     <ul>
+                        @forelse ($sections['why_airpal_app']->getContent as  $whyAirpalcontentSection)
                         <li>
                             <div class="specialities-item">
                                 <div class="specialities-img">
-                                    <div class="hexogen"><img src="{{URL::asset('assets/img/icons/health-care-love.svg')}}"
+                                    <div class="hexogen"><img src="{{ $whyAirpalcontentSection['image']}} "
                                             alt="heart-icon"></div>
                                 </div>
-                                <p>Personalized Health care</p>
+                                <p>{{ $whyAirpalcontentSection['title'] }}</p>
                             </div>
                         </li>
-                        <li>
-                            <div class="specialities-item">
-                                <div class="specialities-img">
-                                    <div class="hexogen"><img src="{{URL::asset('assets/img/icons/user-doctor.svg')}}"
-                                            alt="male-doctor-icon"></div>
-                                </div>
-                                <p>World-Leading
-                                    Experts</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="specialities-item">
-                                <div class="specialities-img">
-                                    <div class="hexogen"><img src="{{URL::asset('assets/img/icons/healthcare.svg')}}"
-                                            alt="stethoscope-icon"></div>
-                                </div>
-                                <p>Regularly
-                                    Check Up</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="specialities-item">
-                                <div class="specialities-img">
-                                    <div class="hexogen"><img src="{{URL::asset('assets/img/icons/drugs-svg.svg')}}" alt="medicine-icon">
-                                    </div>
-                                </div>
-                                <p>Treatment For
-                                    Complex Conditions</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="specialities-item">
-                                <div class="specialities-img">
-                                    <div class="hexogen"><img src="{{URL::asset('assets/img/icons/syringe-svg.svg')}}" alt="syringe-icon">
-                                    </div>
-                                </div>
-                                <p>Minimally Invasive Procedures</p>
-                            </div>
-                        </li>
+                        @empty
+                        @endforelse
                     </ul>
                 </div>
             </div>
@@ -330,22 +265,23 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="app-content">
                                 <div class="app-header aos" >
-                                    <h5>Working for Your Better Health.</h5>
-                                    <h2>Download the Airpal App today!</h2>
+                                    <h5>{{ $sections['download_app']->subtitle ?? ''  }}</h5>
+                                    <h2>{{ $sections['download_app']->title ?? ''  }}</h2>
                                 </div>
                                 <div class="app-scan aos" >
-                                    <p>Book your medicines from your app.</p>
+                                    {{-- <p>Book your medicines from your app.</p> --}}
 
                                 </div>
+                                
                                 <div class="google-imgs aos" >
-                                    <a href="javascript:void(0);"><img src="{{URL::asset('assets/img/google-play.png')}}" alt="img"></a>
-                                    <a href="javascript:void(0);"><img src="{{URL::asset('assets/img/app-store.png')}}" alt="img"></a>
+                                    <a href="{{ $sections['download_app']->getButtons[0]->link ?? ''  }}"><img src="{{URL::asset('assets/img/google-play.png')}}" alt="img"></a>
+                                    <a href="{{ $sections['download_app']->getButtons[1]->link ?? ''  }}"><img src="{{URL::asset('assets/img/app-store.png')}}" alt="img"></a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12 aos" >
                             <div class="mobile-img">
-                                <img src="{{URL::asset('assets/img/mobile-img.png')}}" class="img-fluid" alt="img">
+                                <img src="{{ $sections['download_app']->image ?? ''  }}" class="img-fluid" alt="img">
                             </div>
                         </div>
                     </div>
@@ -414,201 +350,10 @@
         </section>
 
 
-        <section class="testimonial-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="testimonial-slider slick">
-                            <div class="testimonial-grid">
-                                <div class="testimonial-info">
-                                    <div class="testimonial-img">
-                                        <img src="{{URL::asset('assets/img/clients/client-01.jpg')}}" class="img-fluid" alt="John Doe">
-                                    </div>
-                                    <div class="testimonial-content">
-                                        <div class="section-header section-inner-header testimonial-header">
-                                            <h5>Testimonials</h5>
-                                            <h2>What Our Client Says</h2>
-                                        </div>
-                                        <div class="testimonial-details">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                                                velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                                            <h6><span>John Doe</span> New York</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="testimonial-grid">
-                                <div class="testimonial-info">
-                                    <div class="testimonial-img">
-                                        <img src="{{URL::asset('assets/img/clients/client-02.jpg')}}" class="img-fluid"
-                                            alt="Amanda Warren">
-                                    </div>
-                                    <div class="testimonial-content">
-                                        <div class="section-header section-inner-header testimonial-header">
-                                            <h5>Testimonials</h5>
-                                            <h2>What Our Client Says</h2>
-                                        </div>
-                                        <div class="testimonial-details">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                                                velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                                            <h6><span>Amanda Warren</span> Florida</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="testimonial-grid">
-                                <div class="testimonial-info">
-                                    <div class="testimonial-img">
-                                        <img src="{{URL::asset('assets/img/clients/client-03.jpg')}}" class="img-fluid"
-                                            alt="Betty Carlson">
-                                    </div>
-                                    <div class="testimonial-content">
-                                        <div class="section-header section-inner-header testimonial-header">
-                                            <h5>Testimonials</h5>
-                                            <h2>What Our Client Says</h2>
-                                        </div>
-                                        <div class="testimonial-details">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                                                velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                                            <h6><span>Betty Carlson</span> Georgia</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="testimonial-grid">
-                                <div class="testimonial-info">
-                                    <div class="testimonial-img">
-                                        <img src="{{URL::asset('assets/img/clients/client-04.jpg')}}" class="img-fluid" alt="Veronica">
-                                    </div>
-                                    <div class="testimonial-content">
-                                        <div class="section-header section-inner-header testimonial-header">
-                                            <h5>Testimonials</h5>
-                                            <h2>What Our Client Says</h2>
-                                        </div>
-                                        <div class="testimonial-details">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                                                velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                                            <h6><span>Veronica</span> California</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="testimonial-grid">
-                                <div class="testimonial-info">
-                                    <div class="testimonial-img">
-                                        <img src="{{URL::asset('assets/img/clients/client-05.jpg')}}" class="img-fluid" alt="Richard">
-                                    </div>
-                                    <div class="testimonial-content">
-                                        <div class="section-header section-inner-header testimonial-header">
-                                            <h5>Testimonials</h5>
-                                            <h2>What Our Client Says</h2>
-                                        </div>
-                                        <div class="testimonial-details">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                                                velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                                            <h6><span>Richard</span> Michigan</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        {{-- {!! renderTestimonials() !!} --}}
+        <x-testimonial-slider :testimonials="$sections['testimonials']" :show="true" />
 
-
-        <section class="partners-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="section-header-one text-center aos" >
-                            <h2 class="section-title">Our Partners</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="partners-info aos" >
-                    <ul class="owl-carousel partners-slider d-flex">
-                        <li>
-                            <a href="javascript:void(0);">
-                                <img class="img-fluid" src="{{URL::asset('assets/img/partners/partners-1.svg')}}" alt="partners">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">
-                                <img class="img-fluid" src="{{URL::asset('assets/img/partners/partners-2.svg')}}" alt="partners">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">
-                                <img class="img-fluid" src="{{URL::asset('assets/img/partners/partners-3.svg')}}" alt="partners">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">
-                                <img class="img-fluid" src="{{URL::asset('assets/img/partners/partners-4.svg')}}" alt="partners">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">
-                                <img class="img-fluid" src="{{URL::asset('assets/img/partners/partners-5.svg')}}" alt="partners">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">
-                                <img class="img-fluid" src="{{URL::asset('assets/img/partners/partners-6.svg')}}" alt="partners">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">
-                                <img class="img-fluid" src="{{URL::asset('assets/img/partners/partners-1.svg')}}" alt="partners">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">
-                                <img class="img-fluid" src="{{URL::asset('assets/img/partners/partners-2.svg')}}" alt="partners">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">
-                                <img class="img-fluid" src="{{URL::asset('assets/img/partners/partners-3.svg')}}" alt="partners">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">
-                                <img class="img-fluid" src="{{URL::asset('assets/img/partners/partners-4.svg')}}" alt="partners">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">
-                                <img class="img-fluid" src="{{URL::asset('assets/img/partners/partners-5.svg')}}" alt="partners">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">
-                                <img class="img-fluid" src="{{URL::asset('assets/img/partners/partners-6.svg')}}" alt="partners">
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
+        <x-partner-slider :partners="$sections['partners']" :show="true"  />
 
         @endsection
 

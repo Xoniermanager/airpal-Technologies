@@ -72,6 +72,12 @@
                                                 id="appointmentRequestCounter">{{ $appointmentCounter }}</small>
                                         </a>
                                     </li>
+                                    <li class="{{ request()->routeIs('doctor.all.appointment.config') ? 'active' : '' }}">
+                                        <a href="{{ route('doctor.all.appointment.config') }}">
+                                            <i class="fas fa-star"></i>
+                                            <span>All Appointment Configs</span>
+                                        </a>
+                                    </li>
 
                                     <li class="{{ request()->routeIs('doctor.appointment.config') ? 'active' : '' }}">
                                         <a href="{{ route('doctor.appointment.config') }}">
@@ -100,13 +106,6 @@
                     <a href="{{ route('doctor.chat') }}">
                         <i class="fa fa-comments"></i>
                         <span>Chat</span>
-                    </a>
-                </li>
-
-                <li class="{{ request()->routeIs('doctor.all.appointment.config') ? 'active' : '' }}">
-                    <a href="{{ route('doctor.all.appointment.config') }}">
-                        <i class="fas fa-star"></i>
-                        <span>All Appointment Configs</span>
                     </a>
                 </li>
                 <li class="{{ request()->routeIs('doctor.questions.index') ? 'active' : '' }}">

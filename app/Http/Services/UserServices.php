@@ -23,7 +23,7 @@ class UserServices
     }
     public function all()
     {
-        return  $this->userRepository->with(['doctorAddress.states.country', 'specializations', 'educations', 'doctorExceptionDays', 'favoriteDoctor'])->get();
+        return  $this->userRepository->with(['doctorAddress.states.country', 'specializations', 'educations','favoriteDoctor'])->get();
     }
 
     public function getAllDoctorsList()

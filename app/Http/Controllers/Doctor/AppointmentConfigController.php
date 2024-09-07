@@ -1,19 +1,22 @@
 <?php
 
 namespace App\Http\Controllers\Doctor;
+
 use App\Http\Services\UserServices;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\DoctorAppointmentConfig;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreAppointmentConfigRequest;
 use App\Http\Services\DoctorAppointmentConfigService;
-use App\Models\DoctorAppointmentConfig;
 
 class AppointmentConfigController extends Controller
 {
     private $doctorSlotServices;
     private $userServices;
 
-    public function __construct(DoctorAppointmentConfigService $doctorSlotServices,UserServices $userServices){
+    public function __construct(DoctorAppointmentConfigService $doctorSlotServices, UserServices $userServices)
+    {
         $this->doctorSlotServices = $doctorSlotServices;
         $this->userServices = $userServices;
     }
@@ -29,8 +32,6 @@ class AppointmentConfigController extends Controller
             'doctorAppointmentConfigDetails' => $doctorAppointmentConfigDetails,
             'exceptionIds' => $exceptionIds
         ]);
-
-
     }
 
     /**
@@ -41,7 +42,6 @@ class AppointmentConfigController extends Controller
     {
         $userId = Auth::user()->id;
         $data = $this->doctorSlotServices->getAllActiveExpiredAppointmentConfigsForDoctor($userId);
-
         return view('doctor.appointments.all-appointment-config', [
             'appointmentConfigs'    => $data,
             'status'                => true,
@@ -56,12 +56,9 @@ class AppointmentConfigController extends Controller
         $status = true;
         $appointmentConfigDetailsSaveResponse = $this->doctorSlotServices->addDoctorAppointmentConfig($data);
 
-        if($appointmentConfigDetailsSaveResponse)
-        {
+        if ($appointmentConfigDetailsSaveResponse) {
             $status = true;
-        }
-        else
-        {
+        } else {
             $status = false;
         }
 
@@ -73,15 +70,32 @@ class AppointmentConfigController extends Controller
     }
 
 
-    public function updateAppointmentConfig(StoreAppointmentConfigRequest $request,DoctorAppointmentConfig $doctorAppointmentConfig)
+    public function updateAppointmentConfig(StoreAppointmentConfigRequest $request, DoctorAppointmentConfig $doctorAppointmentConfig)
     {
         $data = $request->validated();
         $appointmentConfigDetailsSaveResponse = $this->doctorSlotServices->updateSlot($data, $doctorAppointmentConfig);
-
         return response()->json([
             'data'    => $appointmentConfigDetailsSaveResponse['data'],
             'status'  => $appointmentConfigDetailsSaveResponse['status'],
             'message' => $appointmentConfigDetailsSaveResponse['message'],
         ]);
+    }
+
+    public function deleteAppointmentConfig(Request $request, $appointmentConfigId)
+    {
+        $response = $this->doctorSlotServices->deleteSlot($appointmentConfigId, $request->current_id);
+        if ($response) {
+            return response()->json([
+                'status'  => true,
+                'data'     =>  view('doctor.appointments.all-appointment-html', [
+                    'appointmentConfigs' => $this->doctorSlotServices->getAllActiveExpiredAppointmentConfigsForDoctor(Auth::user()->id)
+                ])->render()
+            ]);
+        } else {
+            return response()->json([
+                'status'  => false,
+                'message' => "Something Went Wrong Please Try Again"
+            ]);
+        }
     }
 }

@@ -343,6 +343,7 @@ Route::prefix('admin')->group(function () {
             Route::post('create', 'store')->name('admin.add.slots');
             Route::post('update-config/{doctor_appointment_config:id}', 'updateSlot')->name('doctor.update.appointment.config');
             Route::post('delete', 'destroy')->name('admin.delete-slot');
+            Route::get('get-doctor-slot-details/{users:id}', 'getDocotorSlotDetails');
         });
         Route::prefix('specialities')->controller(SpecialityController::class)->group(function () {
             Route::get('/', 'speciality')->name('admin.speciality.index');

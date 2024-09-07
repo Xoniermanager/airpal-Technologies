@@ -29,8 +29,6 @@ class AppointmentConfigController extends Controller
             'doctorAppointmentConfigDetails' => $doctorAppointmentConfigDetails,
             'exceptionIds' => $exceptionIds
         ]);
-
-
     }
 
     /**

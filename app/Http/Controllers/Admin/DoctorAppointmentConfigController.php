@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Services\UserServices;
 use App\Models\DayOfWeek;
 use Illuminate\Http\Request;
+use App\Http\Services\UserServices;
 use App\Http\Controllers\Controller;
+use App\Models\DoctorAppointmentConfig;
 use App\Http\Requests\StoreAppointmentConfigRequest;
 use App\Http\Services\DoctorAppointmentConfigService;
 
@@ -15,7 +16,8 @@ class DoctorAppointmentConfigController extends Controller
     private $doctorSlotServices;
     private $userServices;
 
-    public function __construct(DoctorAppointmentConfigService $doctorSlotServices,UserServices $userServices){
+    public function __construct(DoctorAppointmentConfigService $doctorSlotServices, UserServices $userServices)
+    {
         $this->doctorSlotServices = $doctorSlotServices;
         $this->userServices = $userServices;
     }
@@ -27,7 +29,7 @@ class DoctorAppointmentConfigController extends Controller
         $allDoctorList  = $this->userServices->all();
         $weekDays       = DayOfWeek::all();
         $allSlotDetails = $this->doctorSlotServices->getSlotsPaginated();
-        return view('admin.doctor_slots.index',['weekDays'=>$weekDays,'allSlotDetails'=>$allSlotDetails , 'doctors' => $allDoctorList]);
+        return view('admin.doctor_slots.index', ['weekDays' => $weekDays, 'allSlotDetails' => $allSlotDetails, 'doctors' => $allDoctorList]);
     }
     /**
      * Store a newly created resource in storage.
@@ -38,40 +40,23 @@ class DoctorAppointmentConfigController extends Controller
             return response()->json([
                 'message' => 'success',
                 'data'   =>  view('admin.doctor_slots.slot-list', [
-                  'allSlotDetails' => $this->doctorSlotServices->getSlotsPaginated()
+                    'allSlotDetails' => $this->doctorSlotServices->getSlotsPaginated()
                 ])->render()
             ]);
         }
     }
     /**
-     * Display the specified resource.
-     */
-    public function show()
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit()
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(StoreAppointmentConfigRequest $request)
+    public function updateSlot(StoreAppointmentConfigRequest $request,DoctorAppointmentConfig $doctorAppointmentConfig)
     {
-        // if ($this->doctorSlotServices->updateSlot($request->all())) {
-        //     return response()->json([
-        //         'message' => 'success',
-        //         'data'   =>  view('admin.doctor_slots.slot-list', [
-        //           'allSlotDetails' => $this->doctorSlotServices->getSlotsPaginated()
-        //         ])->render()
-        //     ]);
-        // }
+        $data = $request->validated();
+        $appointmentConfigDetailsSaveResponse = $this->doctorSlotServices->updateSlot($data, $doctorAppointmentConfig);
+        return response()->json([
+            'data'    => $appointmentConfigDetailsSaveResponse['data'],
+            'status'  => $appointmentConfigDetailsSaveResponse['status'],
+            'message' => $appointmentConfigDetailsSaveResponse['message'],
+        ]);
     }
 
     /**
@@ -84,13 +69,13 @@ class DoctorAppointmentConfigController extends Controller
                 'message' => 'update Successfully!',
                 'data'   =>  view('admin.doctor_slots.slot-list', [
                     'allSlotDetails' => $this->doctorSlotServices->getSlotsPaginated()
-                  ])->render()
+                ])->render()
             ]);
         }
     }
 
     public function getWeekDays()
     {
-       return DayOfWeek::all();
+        return DayOfWeek::all();
     }
 }

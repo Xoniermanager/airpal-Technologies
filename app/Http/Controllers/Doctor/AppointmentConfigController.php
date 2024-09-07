@@ -76,7 +76,6 @@ class AppointmentConfigController extends Controller
     {
         $data = $request->validated();
         $appointmentConfigDetailsSaveResponse = $this->doctorSlotServices->updateSlot($data, $doctorAppointmentConfig);
-
         return response()->json([
             'data'    => $appointmentConfigDetailsSaveResponse['data'],
             'status'  => $appointmentConfigDetailsSaveResponse['status'],

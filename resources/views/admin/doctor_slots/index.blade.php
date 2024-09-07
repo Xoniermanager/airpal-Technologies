@@ -411,24 +411,64 @@
                     },
                 },
 
+                /** for doctor update latest*/
                 submitHandler: function(form) {
                     var formData = $(form).serialize();
+                    let current_appointment_config_id = jQuery('#slots_id').val();
                     $.ajax({
-                        url: "{{ route('admin.slots.update') }}",
+                        url: "slots/update-config/" +
+                            current_appointment_config_id,
                         type: 'post',
                         data: formData,
                         success: function(response) {
-                            jQuery('#edit_slot').modal('hide');
-                            swal.fire("Done!", response.message, "success");
-                            jQuery('#slots_list').replaceWith(response.data);
+                            if (response.status == true) {
+                                swal.fire("Done!", response.message, "success");
+                                jQuery('#edit_slot').modal('hide');
+                            } else {
+                                swal.fire({
+                                    title: "Are you sure to remove old configuration and create new appointment configuration ?",
+                                    text: response.message + "!",
+                                    type: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#DD6B55",
+                                    confirmButtonText: "Yes, Create new configuration!",
+                                }).then(result => {
+                                    // swal("Deleted!", "Your file has been deleted.", "success");
+                                    if (result.value) {
+                                        let appointment_config_end_date = document
+                                            .getElementById(
+                                                'appointment-config-end-date');
+
+                                        if (appointment_config_end_date != null) {
+                                            jQuery(appointment_config_end_date).val(
+                                                response.data);
+                                        } else {
+                                            jQuery('#slots_id').after(
+                                                '<input id="appointment-config-end-date" type="hidden" name="appointment_config_end_date" value="' +
+                                                response.data + '">');
+                                        }
+                                        jQuery('#editslotsForm').submit();
+                                    } else if (
+                                        // Read more about handling dismissals
+                                        result.dismiss === swal.DismissReason.cancel
+                                    ) {
+                                        swal.fire("Cancelled",
+                                            "Your current appointment config will be used! No changes done!",
+                                            "error");
+                                    }
+                                jQuery('#edit_slot').modal('hide');
+                                });
+                            }
                         },
                         error: function(error_messages) {
                             let errors = JSON.parse(error_messages.responseText).errors;
                             let randon_number = Math.floor((Math.random() * 100) + 1);
+                            jQuery('#edit_slot').modal('show');
                             for (var error_key in errors) {
                                 random_id = error_key + '_' + randon_number
                                 jQuery('.' + error_key + '_error').remove();
-                                $(document).find('#edit_slots [name=' + error_key + ']')
+                                jQuery(document).find('#editslotsForm [name=' +
+                                        error_key + ']')
                                     .after(
                                         '<span id="' + random_id +
                                         '_error" class="text text-danger ' + error_key +
@@ -445,7 +485,6 @@
                 const id = $(this).attr('data-id');
                 $("#delete-slots-id").val(id);
             });
-
 
             $(document).on('click', '.confirm-delete', function(e) {
                 e.preventDefault();

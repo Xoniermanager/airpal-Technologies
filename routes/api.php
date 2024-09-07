@@ -147,7 +147,7 @@ Route::middleware('authCheck')->group(function () {
             Route::get('/delete/{prescriptions:id}', 'deletePrescription');
             Route::get('/delete/medicine/{prescription_medicine_details:id}', 'deleteMedicine');
             Route::get('/delete/test/{prescription_tests:id}', 'deletePrescriptionTest');
-            Route::get('/search/filter', 'searchFilterPrescriptionDetails');
+            Route::post('/search/filter', 'searchFilterPrescriptionDetails');
             Route::get('/download/pdf/{prescriptions:id}', 'downloadPdfPrescription');
         });
     });

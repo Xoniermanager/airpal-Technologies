@@ -19,7 +19,7 @@ class DoctorAppointmentConfigService
 
     private $bookingServices;
 
-    public function __construct(DoctorAppointmentConfigRepository $doctorAppointmentConfigRepository, 
+    public function __construct(DoctorAppointmentConfigRepository $doctorAppointmentConfigRepository,
     AppointmentConfigExceptionDayRepository $appointmentConfigExceptionDayRepository, BookingServices $bookingServices)
     {
         $this->doctorAppointmentConfigRepository = $doctorAppointmentConfigRepository;
@@ -82,7 +82,7 @@ class DoctorAppointmentConfigService
         DB::beginTransaction();
         /**
          * First of all lets check if this request is for updating the current appointment config OR
-         * To add end date for current config and create a new appointment config details 
+         * To add end date for current config and create a new appointment config details
          */
         // If current appointment config end date is set then create another appointment config for future
         if(isset($data['appointment_config_end_date']) && !empty($data['appointment_config_end_date']))
@@ -92,8 +92,8 @@ class DoctorAppointmentConfigService
             // Check how many active appointment configurations exists
             $existingAppointmentConfigs = $this->getAllActiveAppointmentConfigsForDoctor($data['doctor_id']);
             $appointmentConfigCounter = $existingAppointmentConfigs->count();
-            // If counter is 1 it means there is only one appointment config details, 
-            // So lets set its end date and create a new appointment 
+            // If counter is 1 it means there is only one appointment config details,
+            // So lets set its end date and create a new appointment
             $newAppointmentConfigDetails = [];
             if($appointmentConfigCounter == 1)
             {
@@ -113,23 +113,24 @@ class DoctorAppointmentConfigService
             }
 
             DB::commit();
-            
+
             return [
                 'status'    => true,
                 'data'      =>  $newAppointmentConfigDetails,
                 'message'   =>  'Old appointment config end date is set to '. $endDateForCurrentAppointmentConfig .' and new appointment config start date set to ' . $startDateForNewAppointmentConfig
-            ]; 
+            ];
         }
-        
 
-        $message = '';   
+
+        $message = '';
         try {
 
             $payload = $this->createAppointmentConfigPayload($data);
 ;
-            if ($currentAppointmentConfigDetails) 
+            if ($currentAppointmentConfigDetails)
             {
                 // Step1 : Check if there is any change in slot duration and cleanup interval time
+                // dd($currentAppointmentConfigDetails->slot_duration, $data['slot_duration'], $currentAppointmentConfigDetails->cleanup_interval, $data['cleanup_interval']);
                 if($currentAppointmentConfigDetails->slot_duration !=  $data['slot_duration'] || $currentAppointmentConfigDetails->cleanup_interval !=  $data['cleanup_interval'])
                 {
                     $message = $this->checkIfBookingExistsSetNewConfigStartDate($data['doctor_id']);
@@ -138,21 +139,20 @@ class DoctorAppointmentConfigService
                 // Step2 : Compare if there is any exception days added in update
                 $currentExceptionDays = $this->appointmentConfigExceptionDayRepository->where('doctor_appointment_config_id', $currentAppointmentConfigDetails->id)->pluck('exception_days_id')->toArray();
                 $updatedExceptionDays = isset($data['exception_day_ids']) ? $data['exception_day_ids'] : [];
-                
+
                 // Check if there is any new exception days has been added, which does not exists already in list
                 $exceptionDaysDifference = array_diff($updatedExceptionDays, $currentExceptionDays);
                 if(count($exceptionDaysDifference) > 0)
                 {
                     $message = $this->checkIfBookingExistsSetNewConfigStartDate($data['doctor_id']);
                 }
-                
+
                 // Step3: Checking if slot starting day of each month has been increased from current start date
                 // OR checking if slot ending day of each month has been decreased from current end date
                 if($currentAppointmentConfigDetails->start_month <  $data['start_month'] || $currentAppointmentConfigDetails->end_month >  $data['end_month'])
                 {
                     $message = $this->checkIfBookingExistsSetNewConfigStartDate($data['doctor_id']);
                 }
-
                 if(!empty($message))
                 {
                     return [
@@ -173,7 +173,7 @@ class DoctorAppointmentConfigService
                     ];
                 }
             }
-            else 
+            else
             {
                 // Create a new slot
                 $message = $this->addDoctorAppointmentConfig($data);
@@ -196,7 +196,7 @@ class DoctorAppointmentConfigService
     public function checkIfBookingExistsSetNewConfigStartDate($doctorId)
     {
         // check if there is already any existing slot booking with status requested, confirmed
-        $activeBooking = $this->bookingServices->getDoctorActiveBookingSlots($doctorId);    
+        $activeBooking = $this->bookingServices->getDoctorActiveBookingSlots($doctorId);
         if($activeBooking->count() > 0)
         {
             $lastBookingDate = date('jS M Y', strtotime($activeBooking[0]->booking_date)) .  ' - ' .
@@ -206,7 +206,7 @@ class DoctorAppointmentConfigService
 
             return [
                 'lastBookingDate'     =>  $activeBooking[0]->booking_date,
-                'message'             =>  "We have found some active bookings based on current slot configuration having last booking date on {$lastBookingDate}, 
+                'message'             =>  "We have found some active bookings based on current slot configuration having last booking date on {$lastBookingDate},
             So new configuration changes will be applicable from {$newConfigStartDate}."
             ];
         }
@@ -290,7 +290,7 @@ class DoctorAppointmentConfigService
 
             $daySlots = []; // Array to hold slots for the current day
 
-            // This for loop making slot for a day 
+            // This for loop making slot for a day
             for ($startTime = $start; $startTime < $end; $startTime->add($meetingTime)->add($breakInterval)) {
                 $endPeriod = clone $startTime;
                 $endPeriod->add($meetingTime); // Here making end time with adding interval and continue with new value
@@ -333,15 +333,15 @@ class DoctorAppointmentConfigService
         // First of all, lets create an array containing the names of all days in a week
         $daysOfWeek = array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
 
-        $month = (!empty($month)) ? (int)$month : (int)date('m'); // let  
-        $year  = (!empty($year)) ? (int)$year : (int)date('Y'); // let  
+        $month = (!empty($month)) ? (int)$month : (int)date('m'); // let
+        $year  = (!empty($year)) ? (int)$year : (int)date('Y'); // let
 
         // Create a Carbon instance for the first day of the month
         $firstDayOfMonth = Carbon::create($year, $month, 1, 0, 0, 0);
 
         // Now getting the number of days this month contains
         $number_of_days = Carbon::now()->month($month)->daysInMonth;
-        
+
         // Get the name of the month
         $monthName = $firstDayOfMonth->format('F');  // e.g., "July"
 
@@ -411,7 +411,7 @@ class DoctorAppointmentConfigService
 
             if ($date < $formattedStartDate || $date < $today_date || $date > $formattedEndDate) {
                 // 1. if current date is less than create slot start date
-                // 2. if current date is pass date 
+                // 2. if current date is pass date
                 // 3. if current date is greater than create slot end date
                 if ($date >= $formattedStartDate && $date <= $formattedEndDate) {
                     $calendar .= "<td><button class='$is_today btn not-btn'><h4>$current_day</h4> <span class='na'></span></button></td>";
@@ -456,7 +456,7 @@ class DoctorAppointmentConfigService
             $appointmentConfigDetails = $this->doctorAppointmentConfigRepository->create($payload);
 
             if (isset($data['exception_day_ids'])) {
-                foreach ($data['exception_day_ids'] as $exception_day_id) 
+                foreach ($data['exception_day_ids'] as $exception_day_id)
                 {
                     $exceptionData = [
                         "doctor_appointment_config_id" => $appointmentConfigDetails->id,
@@ -478,7 +478,7 @@ class DoctorAppointmentConfigService
      */
     public function getAllActiveAppointmentConfigsForDoctor($doctorId)
     {
-        return $this->doctorAppointmentConfigRepository->where('user_id','=',$doctorId)->where('status',true)->orderBy('config_start_date','asc')->get();
+        return $this->doctorAppointmentConfigRepository->whereDate('config_start_date','>=',now())->where('user_id','=',$doctorId)->where('status',true)->orderBy('config_start_date','asc')->get();
     }
 
     /**
@@ -495,21 +495,20 @@ class DoctorAppointmentConfigService
     public function updateExistingAppointmentConfigDetails($existingAppointmentConfig, $payload)
     {
         $appointmentConfigPayload = $this->createAppointmentConfigPayload($payload);
-        $this->doctorAppointmentConfigRepository->find($existingAppointmentConfig->id)->update();
-        
+        $this->doctorAppointmentConfigRepository->find($existingAppointmentConfig->id)->update($payload);
         // Now update existing days data
-        if (isset($payload['exception_day_ids'])) 
+        if (isset($payload['exception_day_ids']))
         {
-            // If exception days data exists in payload first of all remove existing exception days 
+            // If exception days data exists in payload first of all remove existing exception days
             // Then after add all new exception days ids
             $this->appointmentConfigExceptionDayRepository->where('doctor_appointment_config_id',$existingAppointmentConfig->id)->delete();
-            foreach ($payload['exception_day_ids'] as $exception_day_id) 
+            foreach ($payload['exception_day_ids'] as $exception_day_id)
             {
                 $exceptionPayload = [
                     "doctor_appointment_config_id" => $existingAppointmentConfig->id,
                     "exception_days_id" => $exception_day_id,
                 ];
-
+                
                 $this->appointmentConfigExceptionDayRepository->create($exceptionPayload);
             }
         }

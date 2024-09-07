@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
- 
+
         <!-- Start : pop up form to add new country  -->
         <div class="modal fade" id="add_slots" aria-hidden="true" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -37,7 +37,7 @@
                         <button type="button" class="btn-close close-form-add" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
-    
+
                     <div class="modal-body">
                         <form id="addslotsForm" enctype="multipart/form-data">
                             @csrf
@@ -47,15 +47,16 @@
                                         <label class="mb-2">Doctors<span style="color: red">* </span></label>
                                         <select class="form-control select" name="doctor_id">
                                             <option value="">Select Doctor</option>
-                                                @forelse ($doctors as $doctor)
-                                                    <option value="{{ $doctor->id }}">{{ $doctor->first_name }} {{ $doctor->last_name }}</option>
-                                                @empty
-                                                    <option>Not found</option>
-                                                @endforelse
+                                            @forelse ($doctors as $doctor)
+                                                <option value="{{ $doctor->id }}">{{ $doctor->first_name }}
+                                                    {{ $doctor->last_name }}</option>
+                                            @empty
+                                                <option>Not found</option>
+                                            @endforelse
                                         </select>
                                     </div>
                                 </div>
-                            
+
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="mb-2">Slot Duration <span style="color: red">* </span>(in
@@ -77,8 +78,9 @@
 
                                 <div class="col-6">
                                     <div class="mb-3">
-                                        <label class="mb-2">Select the days on which you are not avaialble</label>  
-                                        <select id="exceptionDaysAdd" class="form-control" name="exception_day_ids[]" > </select>
+                                        <label class="mb-2">Select the days on which you are not avaialble</label>
+                                        <select id="exceptionDaysAdd" class="form-control" name="exception_day_ids[]">
+                                        </select>
                                         {{-- <p id="exceptionDaysID" style="display: none" value = ""></p> --}}
                                     </div>
                                 </div>
@@ -88,8 +90,7 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="mb-2">Starting date of each month for creating slots</label>
-                                        <input type="number" name="start_month" class="form-control"
-                                           >
+                                        <input type="number" name="start_month" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -100,14 +101,13 @@
                                 </div>
                             </div>
                             {{-- <div class="row">
-    
+
                             </div> --}}
                             <div class="row">
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="mb-2">Start Slots From Date</label>
-                                        <input type="date" name="start_slots_from_date" class="form-control"
-                                            >
+                                        <input type="date" name="start_slots_from_date" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -118,7 +118,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                            
+
                                 <div class="col-6">
                                     <div class="mb-3" id="slots-div">
                                         <label class="mb-2">Create slots in advanced for days</label>
@@ -154,7 +154,8 @@
                                         <select class="form-control select" name="doctor_id" id="doctor_id">
                                             <option value="">Select Doctor</option>
                                             @forelse ($doctors as $doctors)
-                                                <option value="{{ $doctors->id }}">{{ $doctors->first_name }} {{ $doctors->last_name }}</option>
+                                                <option value="{{ $doctors->id }}">{{ $doctors->first_name }}
+                                                    {{ $doctors->last_name }}</option>
                                             @empty
                                                 <option>Not found</option>
                                             @endforelse
@@ -162,12 +163,13 @@
                                     </div>
                                 </div>
 
-                                <input type="hidden" id="slots_id" name="id" >
+                                <input type="hidden" id="slots_id" name="id">
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="mb-2">Slot Duration <span style="color: red">* </span>(in
                                             minutes)</label>
-                                        <input type="number" name="slot_duration" id="slot_duration" class="form-control">
+                                        <input type="number" name="slot_duration" id="slot_duration"
+                                            class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +180,8 @@
                                     <div class="mb-3">
                                         <label class="mb-2">CleanUp Interval(Break between meetings) <span>(in
                                                 minutes)</span></label>
-                                        <input type="number" name="cleanup_interval" id="cleanup_interval" class="form-control" value="0">
+                                        <input type="number" name="cleanup_interval" id="cleanup_interval"
+                                            class="form-control" value="0">
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -191,9 +194,10 @@
                                                 <option>Not found</option>
                                             @endforelse
                                         </select> --}}
-                                        <select id="exceptionDays" class="form-control" name="exception_day_ids[]" > </select>
+                                        <select id="exceptionDays" class="form-control" name="exception_day_ids[]">
+                                        </select>
                                         <p id="exceptionDaysID" style="display: none" value = ""></p>
-        
+
                                     </div>
                                 </div>
 
@@ -202,13 +206,13 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="mb-2">Starting date of each month for creating slots</label>
-                                        <input type="number" name="start_month" class="form-control" id="start_month" >
+                                        <input type="number" name="start_month" class="form-control" id="start_month">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-3" id="slots-div">
                                         <label class="mb-2">Upto which date of each month slots will be created</label>
-                                        <input type="number" name="end_month" class="form-control" id="end_month" >
+                                        <input type="number" name="end_month" class="form-control" id="end_month">
                                     </div>
                                 </div>
                             </div>
@@ -224,16 +228,18 @@
                                 <div class="col-6">
                                     <div class="mb-3" id="slots-div">
                                         <label class="mb-2">Stop slots creation after this date</label>
-                                        <input type="date" name="stop_slots_date" id="stop_slots_date" class="form-control">
+                                        <input type="date" name="stop_slots_date" id="stop_slots_date"
+                                            class="form-control">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                            
+
                                 <div class="col-6">
                                     <div class="mb-3" id="slots-div">
                                         <label class="mb-2">Create slots in advanced for days</label>
-                                        <input type="number" name="slots_in_advance" id="slots_in_advance" class="form-control">
+                                        <input type="number" name="slots_in_advance" id="slots_in_advance"
+                                            class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -269,7 +275,7 @@
 @endsection
 @section('javascript')
     <script>
-        // script for applying custom validation on jquery ui plugin 
+        // script for applying custom validation on jquery ui plugin
         $.validator.addMethod("greaterThan", function(value, element, params) {
             var startMonth = $(params).val();
             if (!/Invalid|NaN/.test(new Date(value))) {
@@ -282,7 +288,7 @@
 
             jQuery("#addslotsForm").validate({
                 rules: {
-                    doctor_id : "required",
+                    doctor_id: "required",
                     slot_duration: "required",
                     start_month: {
                         digits: true,
@@ -291,7 +297,7 @@
                     end_month: {
                         digits: true,
                         range: [1, 30],
-    
+
                     },
                     // exception_day_id: "required",
                     // slots_in_advance: "required",
@@ -319,7 +325,7 @@
                     // start_slots_from_date: "The start slots from date field is required.",
                     stop_slots_date: {
                         // required: "The stop slots date field is required.",
-                       // greaterThan: "Stop slots date must be greater than start date."
+                        // greaterThan: "Stop slots date must be greater than start date."
                     },
                 },
 
@@ -364,7 +370,7 @@
 
             jQuery("#editslotsForm").validate({
                 rules: {
-                    doctor_id : "required",
+                    doctor_id: "required",
                     slot_duration: "required",
                     start_month: {
                         digits: true,
@@ -373,7 +379,7 @@
                     end_month: {
                         digits: true,
                         range: [1, 30],
-    
+
                     },
                     // exception_day_id: "required",
                     // slots_in_advance: "required",
@@ -401,28 +407,68 @@
                     // start_slots_from_date: "The start slots from date field is required.",
                     stop_slots_date: {
                         // required: "The stop slots date field is required.",
-                       // greaterThan: "Stop slots date must be greater than start date."
+                        // greaterThan: "Stop slots date must be greater than start date."
                     },
                 },
 
+                /** for doctor update latest*/
                 submitHandler: function(form) {
                     var formData = $(form).serialize();
+                    let current_appointment_config_id = jQuery('#slots_id').val();
                     $.ajax({
-                        url: "{{ route('admin.slots.update') }}",
+                        url: "slots/update-config/" +
+                            current_appointment_config_id,
                         type: 'post',
                         data: formData,
                         success: function(response) {
-                            jQuery('#edit_slot').modal('hide');
-                            swal.fire("Done!", response.message, "success");
-                            jQuery('#slots_list').replaceWith(response.data);
+                            if (response.status == true) {
+                                swal.fire("Done!", response.message, "success");
+                                jQuery('#edit_slot').modal('hide');
+                            } else {
+                                swal.fire({
+                                    title: "Are you sure to remove old configuration and create new appointment configuration ?",
+                                    text: response.message + "!",
+                                    type: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#DD6B55",
+                                    confirmButtonText: "Yes, Create new configuration!",
+                                }).then(result => {
+                                    // swal("Deleted!", "Your file has been deleted.", "success");
+                                    if (result.value) {
+                                        let appointment_config_end_date = document
+                                            .getElementById(
+                                                'appointment-config-end-date');
+
+                                        if (appointment_config_end_date != null) {
+                                            jQuery(appointment_config_end_date).val(
+                                                response.data);
+                                        } else {
+                                            jQuery('#slots_id').after(
+                                                '<input id="appointment-config-end-date" type="hidden" name="appointment_config_end_date" value="' +
+                                                response.data + '">');
+                                        }
+                                        jQuery('#editslotsForm').submit();
+                                    } else if (
+                                        // Read more about handling dismissals
+                                        result.dismiss === swal.DismissReason.cancel
+                                    ) {
+                                        swal.fire("Cancelled",
+                                            "Your current appointment config will be used! No changes done!",
+                                            "error");
+                                    }
+                                jQuery('#edit_slot').modal('hide');
+                                });
+                            }
                         },
                         error: function(error_messages) {
                             let errors = JSON.parse(error_messages.responseText).errors;
                             let randon_number = Math.floor((Math.random() * 100) + 1);
+                            jQuery('#edit_slot').modal('show');
                             for (var error_key in errors) {
                                 random_id = error_key + '_' + randon_number
                                 jQuery('.' + error_key + '_error').remove();
-                                $(document).find('#edit_slots [name=' + error_key + ']')
+                                jQuery(document).find('#editslotsForm [name=' +
+                                        error_key + ']')
                                     .after(
                                         '<span id="' + random_id +
                                         '_error" class="text text-danger ' + error_key +
@@ -439,7 +485,6 @@
                 const id = $(this).attr('data-id');
                 $("#delete-slots-id").val(id);
             });
-
 
             $(document).on('click', '.confirm-delete', function(e) {
                 e.preventDefault();
@@ -466,73 +511,73 @@
             });
 
 
-    $(document).on('click', '.close-form-add', function() {
+            $(document).on('click', '.close-form-add', function() {
                 $('#addCountryForm')[0].reset();
+            });
         });
-    });
 
 
-    var exceptionDaysID;
-var exceptionDaysIDArrs;
+        var exceptionDaysID;
+        var exceptionDaysIDArrs;
 
-function edit_slot(slotDetails, doctor_exception_days) {
-    var details = JSON.parse(slotDetails);
-    console.log(details.start_month );
-    
-    $('#slots_id').val(details.id);  
-    $("p#exceptionDaysID").text(doctor_exception_days);
-    $('#doctor_id').val(details.user_id);  
-    $('#slot_duration').val(details.slot_duration);  
-    $('#cleanup_interval').val(details.cleanup_interval);  
-    $('#start_month').val(details.start_month); 
-    $('#end_month').val(details.end_month);
-    $('#exception_day_ids').val(doctor_exception_days);  
-    $('#start_slots_from_date').val(details.start_slots_from_date);  
-    $('#stop_slots_date').val(details.stop_slots_date);  
-    $('#slots_in_advance').val(details.slots_in_advance);
+        function edit_slot(slotDetails, doctor_exception_days) {
+            var details = JSON.parse(slotDetails);
+            console.log(details.start_month);
 
-    exceptionDaysID = jQuery('p#exceptionDaysID').text();
-    if (exceptionDaysID.length > 1) {
-        var arrayexceptionDaysID = JSON.parse(exceptionDaysID);
-        var exceptionDayValue = "" + arrayexceptionDaysID.join(",") + "";
-        exceptionDaysIDArrs = exceptionDayValue.split(',');
-    }
-    setMultiSelectValue();
-}
+            $('#slots_id').val(details.id);
+            $("p#exceptionDaysID").text(doctor_exception_days);
+            $('#doctor_id').val(details.user_id);
+            $('#slot_duration').val(details.slot_duration);
+            $('#cleanup_interval').val(details.cleanup_interval);
+            $('#start_month').val(details.start_month);
+            $('#end_month').val(details.end_month);
+            $('#exception_day_ids').val(doctor_exception_days);
+            $('#start_slots_from_date').val(details.start_slots_from_date);
+            $('#stop_slots_date').val(details.stop_slots_date);
+            $('#slots_in_advance').val(details.slots_in_advance);
 
-    function setMultiSelectValue() {
-        if (exceptionDaysIDArrs && exceptionDaysIDArrs.length > 0) {
-            var multiSelect = jQuery("#exceptionDays").data("kendoMultiSelect");
-            if (multiSelect) {
-                multiSelect.value(exceptionDaysIDArrs);
+            exceptionDaysID = jQuery('p#exceptionDaysID').text();
+            if (exceptionDaysID.length > 1) {
+                var arrayexceptionDaysID = JSON.parse(exceptionDaysID);
+                var exceptionDayValue = "" + arrayexceptionDaysID.join(",") + "";
+                exceptionDaysIDArrs = exceptionDayValue.split(',');
+            }
+            setMultiSelectValue();
+        }
+
+        function setMultiSelectValue() {
+            if (exceptionDaysIDArrs && exceptionDaysIDArrs.length > 0) {
+                var multiSelect = jQuery("#exceptionDays").data("kendoMultiSelect");
+                if (multiSelect) {
+                    multiSelect.value(exceptionDaysIDArrs);
+                }
             }
         }
-    }
 
-jQuery(document).ready(function() {
-    jQuery("#exceptionDays").kendoMultiSelect({
-        filter: "contains",
-        dataTextField: "name",
-        dataValueField: "id",
-        dataSource: exceptionDaysDataSource,
-        noDataTemplate: jQuery("#noExceptionDaysTemplate").html()
-    });
+        jQuery(document).ready(function() {
+            jQuery("#exceptionDays").kendoMultiSelect({
+                filter: "contains",
+                dataTextField: "name",
+                dataValueField: "id",
+                dataSource: exceptionDaysDataSource,
+                noDataTemplate: jQuery("#noExceptionDaysTemplate").html()
+            });
 
-    setMultiSelectValue();
-});
+            setMultiSelectValue();
+        });
 
 
-jQuery(document).ready(function() {
-    jQuery("#exceptionDaysAdd").kendoMultiSelect({
-        filter: "contains",
-        dataTextField: "name",
-        dataValueField: "id",
-        dataSource: exceptionDaysDataSource,
-        noDataTemplate: jQuery("#noExceptionDaysTemplate").html()
-    });
+        jQuery(document).ready(function() {
+            jQuery("#exceptionDaysAdd").kendoMultiSelect({
+                filter: "contains",
+                dataTextField: "name",
+                dataValueField: "id",
+                dataSource: exceptionDaysDataSource,
+                noDataTemplate: jQuery("#noExceptionDaysTemplate").html()
+            });
 
-    setMultiSelectValue();
-});
+            setMultiSelectValue();
+        });
 
 
         // $(document).ready(function() {
@@ -545,43 +590,39 @@ jQuery(document).ready(function() {
         //     });
         // });
 
-    var site_admin_base_url = "{{ env('SITE_ADMIN_BASE_URL') }}";
-    var exceptionDaysDataSource = new kendo.data.DataSource({
-    batch: true,
-    transport: {
-        read: {
-            url: site_admin_base_url + "slots/getWeekDays",
-            dataType: "json"
-        },
-        // create: {
-        //     url: site_admin_base_url + "language/ajax-create",
-        //     dataType: "json"
-        // },
-        parameterMap: function(options, operation) {
-            if (operation !== "read" && options.models) {
-                return {
-                    models: kendo.stringify(options.models)
-                };
-            }
-        }
-    },
-    schema: {
-        model: {
-            id: "id",
-            fields: {
-                id: {
-                    type: "number"
+        var site_admin_base_url = "{{ env('SITE_ADMIN_BASE_URL') }}";
+        var exceptionDaysDataSource = new kendo.data.DataSource({
+            batch: true,
+            transport: {
+                read: {
+                    url: "/slots/getWeekDays",
+                    dataType: "json"
                 },
-                name: {
-                    type: "string"
+                // create: {
+                //     url: site_admin_base_url + "language/ajax-create",
+                //     dataType: "json"
+                // },
+                parameterMap: function(options, operation) {
+                    if (operation !== "read" && options.models) {
+                        return {
+                            models: kendo.stringify(options.models)
+                        };
+                    }
+                }
+            },
+            schema: {
+                model: {
+                    id: "id",
+                    fields: {
+                        id: {
+                            type: "number"
+                        },
+                        name: {
+                            type: "string"
+                        }
+                    }
                 }
             }
-        }
-    }
-});
-
-
+        });
     </script>
-
 @endsection
-

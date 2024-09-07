@@ -10,13 +10,11 @@ class AppointmentConfigExceptionDay extends Model
 {
     use HasFactory;
     protected $fillable = ['doctor_appointment_config_id','exception_days_id'];
-    
+
     public function exceptionDay()
     {
         return $this->belongsTo(DayOfWeek::class,'exception_days_id');
-   
+
     }
-
-
 }
 

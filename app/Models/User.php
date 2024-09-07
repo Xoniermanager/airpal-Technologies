@@ -204,25 +204,25 @@ class User extends Authenticatable
 
     public function socialMediaAccounts()
     {
-        return $this->hasMany(DoctorSocialMediaAccounts::class,'doctor_id');
+        return $this->hasMany(DoctorSocialMediaAccounts::class, 'doctor_id');
     }
 
-     // Method to generate the HTML list of social media accounts
-     public function DoctorSocialMediaAccountsList()
-     {
+    // Method to generate the HTML list of social media accounts
+    public function DoctorSocialMediaAccountsList()
+    {
 
 
-         $html = '<ul class="social-media-list d-flex mt-2 mb-1">';
-         foreach ($this->socialMediaAccounts as $account) {
-             $platform = $account->socialMediaAccountType->name;
-             $url = $account->link;
+        $html = '<ul class="social-media-list d-flex mt-2 mb-1">';
+        foreach ($this->socialMediaAccounts as $account) {
+            $platform = $account->socialMediaAccountType->name;
+            $url = $account->link;
 
-             $iconClass = ($platform) ? "fab fa-".strtolower($platform)."-square" : "fab fa-globe";
-             $html .= '<li class="mr-1"><a href="' . $url . '" target="_blank"><i class="' . $iconClass . '"></i></a></li>';
-         }
+            $iconClass = ($platform) ? "fab fa-" . strtolower($platform) . "-square" : "fab fa-globe";
+            $html .= '<li class="mr-1"><a href="' . $url . '" target="_blank"><i class="' . $iconClass . '"></i></a></li>';
+        }
 
-         $html .= '</ul>';
+        $html .= '</ul>';
 
-         return $html;
-     }
+        return $html;
+    }
 }

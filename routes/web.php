@@ -259,13 +259,12 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('specialities')->controller(SpecialityController::class)->group(function () {
         Route::get('/create-speciality', 'storeSpecialityByAjaxCall');
     });
+    Route::prefix('slots')->controller(DoctorAppointmentConfigController::class)->group(function () {
+        Route::get('getWeekDays', 'getWeekDays');
+    });
 
-    Route::prefix('doctor')->group(function () {
-
-        Route::prefix('slots')->controller(DoctorAppointmentConfigController::class)->group(function () {
-            Route::get('getWeekDays', 'getWeekDays');
-        });
-
+    Route::prefix('doctor')->group(function ()
+    {
         // DoctorEducationController routes
         Route::controller(DoctorEducationController::class)->group(function () {
             Route::post('education', 'addDoctorEducation')->name('admin.add-doctor-education');
@@ -342,11 +341,9 @@ Route::prefix('admin')->group(function () {
         Route::prefix('slots')->controller(DoctorAppointmentConfigController::class)->group(function () {
             Route::get('/', 'index')->name('admin.slots.index');
             Route::post('create', 'store')->name('admin.add.slots');
-            Route::post('update', 'update')->name('admin.slots.update');
+            Route::post('update-config/{doctor_appointment_config:id}', 'updateSlot')->name('doctor.update.appointment.config');
             Route::post('delete', 'destroy')->name('admin.delete-slot');
         });
-
-
         Route::prefix('specialities')->controller(SpecialityController::class)->group(function () {
             Route::get('/', 'speciality')->name('admin.speciality.index');
             Route::post('/specialities', 'addSpeciality')->name('admin.speciality.add');

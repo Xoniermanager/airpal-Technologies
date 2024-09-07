@@ -32,11 +32,12 @@ class DoctorAppointmentConfigService
         DB::beginTransaction();
         try {
             $payload = $this->createAppointmentConfigPayload($data);
-
             $appointmentConfigDetails = $this->doctorAppointmentConfigRepository->create($payload);
 
-            if (isset($data['exception_day_ids'])) {
-                foreach ($data['exception_day_ids'] as $exception_day_id) {
+            if (isset($data['exception_day_ids']))
+            {
+                foreach ($data['exception_day_ids'] as $exception_day_id)
+                {
                     $exceptionData = [
                         "doctor_appointment_config_id" => $appointmentConfigDetails->id,
                         "exception_days_id" => $exception_day_id,
@@ -44,7 +45,6 @@ class DoctorAppointmentConfigService
                     $this->appointmentConfigExceptionDayRepository->create($exceptionData);
                 }
             }
-
             DB::commit();
             return $appointmentConfigDetails;
         } catch (\Exception $e) {
@@ -52,7 +52,6 @@ class DoctorAppointmentConfigService
             throw $e;
         }
     }
-
 
     public function getSlotsPaginated()
     {
@@ -515,7 +514,7 @@ class DoctorAppointmentConfigService
                     "doctor_appointment_config_id" => $existingAppointmentConfig->id,
                     "exception_days_id" => $exception_day_id,
                 ];
-                
+
                 $this->appointmentConfigExceptionDayRepository->create($exceptionPayload);
             }
         }

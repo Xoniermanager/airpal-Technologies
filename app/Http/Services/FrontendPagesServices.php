@@ -148,31 +148,31 @@ class FrontendPagesServices
 
     public function saveSectionContent($contentSection,$sectionId,$contentInnerImage)
     {
-        $uploadedImagePath = '';
-        // Lets first upload the image if it is provided to upload
-        if(!empty($contentInnerImage))
-        {   
-            $uploadedImagePath = uploadingImageorFile($contentInnerImage, 'section-banner', $contentSection['title'] ?? 'test');
-        }
-
         if(isset($contentSection['id']) && $contentSection['id'] > 0)
         {
             $contentSectionId = $contentSection['id'];
             unset($contentSection['id']);
             $sectionDetails = SectionContent::find($contentSectionId);
-            // If already image exists in section content unlink the image
-            if (isset($contentSection->image) && !empty($contentSection->image) && !empty($uploadedImagePath))
-            {     
-                unlinkFileOrImage($contentSection->getRawOriginal('image'));
-                $contentSection['image'] = $uploadedImagePath;
-            }
             $sectionDetails->update($contentSection);
         }
         else
         {
-            $contentSection['image'] = $uploadedImagePath;
             $contentSection['section_id'] = $sectionId;
-            SectionContent::create($contentSection);
+            $sectionDetails = SectionContent::create($contentSection);
+        }
+
+        // Lets now upload the image if it is provided to upload
+        if(!empty($contentInnerImage))
+        {   
+            $uploadedImagePath = uploadingImageorFile($contentInnerImage, 'section-content', $sectionDetails->id);
+            
+            // If already image exists in section content unlink the image
+            if (isset($sectionDetails->image) && !empty($sectionDetails->image))
+            {     
+                unlinkFileOrImage($sectionDetails->getRawOriginal('image'));
+            }
+            $sectionDetails->image = $uploadedImagePath;
+            $sectionDetails->save();
         }
     }
 

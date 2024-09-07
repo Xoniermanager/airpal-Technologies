@@ -192,6 +192,11 @@ function getSectionTextArea($value='',$name='title', $classList=array(), $idsLis
 
 function getImageInput($value='', $name='', $classList=array(),$idsList=array())
 {
+    if(empty($value))
+    {
+        $value = asset("assets/img/doctors-dashboard/no-apt-3.png");
+    }
+
     $mainDivClasses = '';
     $innerDivClasses = '';
     $inputClasses = '';
@@ -224,7 +229,7 @@ function getImageInput($value='', $name='', $classList=array(),$idsList=array())
             </div>
             <div class="avatar-preview-two">
                 <div id='.$previewId.'
-                    style="background-image: url('.asset("assets/img/doctors-dashboard/no-apt-3.png").');">
+                    style="background-image: url('. $value .');">
                 </div>
             </div>
         </div>';

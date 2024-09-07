@@ -26,7 +26,7 @@ public function home(Page $page)
     foreach ($getPageSections as $getPageSection) {
         $sections[$getPageSection['section_slug']] = $getPageSection;
     }
-
+// dd($sections);
     return view('admin.pages.homepage.home', [
         'sections'  => $sections,
         'page'      =>  $page
@@ -47,7 +47,6 @@ public function home(Page $page)
             ])->render();
             $sectionsHTML[$slug]['slug'] = $slug; 
         }
-
         return response()->json([
             'success'   => 'Successfully saved',
             'data'      =>  $sectionsHTML,

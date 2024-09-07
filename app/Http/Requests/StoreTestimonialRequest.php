@@ -26,7 +26,7 @@ class StoreTestimonialRequest extends FormRequest
             "username" => "string|max:50",
             "address"  => "string|max:100",
             "image"    => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048|nullable',
-            "description" => "string|max:1200"
+            "description" => "string"
         ];
     }
 }

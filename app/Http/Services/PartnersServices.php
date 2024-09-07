@@ -12,6 +12,11 @@ class PartnersServices
     {
         $this->partnerRepository = $partnerRepository;
     }
+    public function all()
+    {
+
+        return  $this->partnerRepository->all();
+    }
     public function partnerList()
     {
 

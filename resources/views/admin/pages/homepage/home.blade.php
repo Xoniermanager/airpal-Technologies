@@ -17,7 +17,7 @@
                                 </form>
                             </div>
                         </div>
-                        
+
 
                         {{-- How it Work Section --}}
                         <div class="col-sm-12">
@@ -26,6 +26,29 @@
                                 <form id="save_home_header_banner_detail" method="post" enctype="multipart/form-data">
                                     @csrf
                                     @include('admin.pages.homepage.how_it_works')
+                                </form>
+                            </div>
+                        </div>
+
+
+                        {{-- Why Airpal App --}}
+                        <div class="col-sm-12">
+                            <h3 class="page-title">Why Airpal App</h3>
+                            <div class="card">
+                                <form id="save_home_header_banner_detail" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    @include('admin.pages.homepage.why_airpal_app')
+                                </form>
+                            </div>
+                        </div>
+
+                        {{-- Banner section --}}
+                        <div class="col-sm-12">
+                            <h3 class="page-title">Header Banner Section</h3>
+                            <div class="card">
+                                <form id="save_home_header_banner_detail" enctype="multipart/form-data">
+                                    @csrf
+                                    @include('admin.pages.homepage.download_app')
                                 </form>
                             </div>
                         </div>
@@ -208,14 +231,12 @@
                                 processData: false,
                                 contentType: false,
                                 success: function(response) {
-                                    if (response.status) 
-                                    {
+                                    if (response.status) {
                                         // console.log(response.data);
-                                        for(var key in response.data)
-                                        {
+                                        for (var key in response.data) {
                                             let slug = response.data[key]['slug'];
                                             let html_data = response.data[key]['data'];
-                                            jQuery('#'+slug).replaceWith(html_data);
+                                            jQuery('#' + slug).replaceWith(html_data);
                                         }
 
                                         swal.fire("Done!", response.message, "success");
@@ -225,7 +246,7 @@
                                     var errors = error_messages.responseJSON;
                                     $.each(errors.errors, function(key, value) {
                                         console.log('#' + key + '_error',
-                                        value);
+                                            value);
                                         $('#' + key + '_error').html(value);
                                     })
 
@@ -237,21 +258,21 @@
             });
 
             function readURL(input, preview_id) {
-                    if (input.files && input.files[0]) {
-                        var reader = new FileReader();
-                        reader.onload = function(e) {
-                            $('#'+preview_id).css('background-image', 'url('+e.target.result +')');
-                            $('#'+preview_id).hide();
-                            $('#'+preview_id).fadeIn(650);
-                        }
-                        reader.readAsDataURL(input.files[0]);
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#' + preview_id).css('background-image', 'url(' + e.target.result + ')');
+                        $('#' + preview_id).hide();
+                        $('#' + preview_id).fadeIn(650);
                     }
+                    reader.readAsDataURL(input.files[0]);
                 }
-            jQuery('body').on('change','.imageUpload',function(){
-                    console.log(this);
-                    let preview_id = jQuery(this).attr('preview');
-                    console.log("preview_id : " + preview_id);
-                    readURL(this, preview_id);
+            }
+            jQuery('body').on('change', '.imageUpload', function() {
+                console.log(this);
+                let preview_id = jQuery(this).attr('preview');
+                console.log("preview_id : " + preview_id);
+                readURL(this, preview_id);
             });
         </script>
     @endsection

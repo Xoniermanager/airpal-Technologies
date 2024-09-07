@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card">
-                            <form id="addTestimonial" id="addtestimonials"
+                            <form id="addTestimonials"
                             {{-- method="POST" action="{{ route('admin.save.testimonial.form') }}"  --}}
                             enctype="multipart/form-data">
                                 @csrf
@@ -118,77 +118,60 @@
 
 
 @section('javascript')
-    <script>
-        $(document).ready(function() {
+<script>
+    $(document).ready(function() {
 
-            jQuery("#addtestimonials").validate({
-                rules: {
-                    title: "required"
-                },
-                messages: {
-                    title: "Please enter testimonials title!",
-                },
-                submitHandler: function(form) {
-                    var formData = $(form).serialize();
-                    $.ajax({
-                        url: "<?= route('admin.save.testimonial.form') ?>",
-                        type: 'post',
-                        data: formData,
-                        success: function(response) {
-        
-                        },
-                        error: function(error_messages) {
-                            let errors = JSON.parse(error_messages.responseText).errors;
-                            let randon_number = Math.floor((Math.random() * 100)+1);
+        jQuery("#addTestimonials").validate({
+            rules: {
+                title: "required",
+                username: "required",
+                address: "required",
+                description: "required"
+            },
+            messages: {
+                title: "Please enter the testimonial title!",
+                username: "Please enter the username!",
+                address: "Please enter the address!",
+                description: "Please enter the testimonial description!"
+            },
+            submitHandler: function(form) {
+
+                var formData = new FormData($(form)[0]); // Use FormData for file uploads
+                $.ajax({
+                    url: "{{ route('admin.save.testimonial.form') }}",
+                    type: 'post',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        // Handle successful response
+                    if(response.success == true)
+                    {
+                        swal.fire("Done!", response.message, "success");
+                        $(form).trigger("reset"); // Reset the form
+                        window.location.href = "{{ route('admin.testimonial.index') }}";
+                    }
+
+                    },
+                    error: function(xhr) {
+                        try {
+                            let errors = JSON.parse(xhr.responseText).errors;
+                            let randon_number = Math.floor((Math.random() * 100) + 1);
                             for (var error_key in errors) {
-                                random_id = error_key + '_' + randon_number
+                                random_id = error_key + '_' + randon_number;
                                 jQuery('.' + error_key + '_error').remove();
-                                jQuery(document).find('#add_testimonials [name=' + error_key + ']')
-                                    .after(
-                                        '<span id="' + random_id +
-                                        '_error" class="text text-danger '+ error_key +'_error">' + errors[
-                                            error_key] + '</span>');
+                                jQuery(document).find('#addTestimonials [name=' + error_key + ']')
+                                    .after('<span id="' + random_id + '_error" class="text text-danger ' + error_key + '_error">' + errors[error_key] + '</span>');
                                 remove_error_div(random_id);
                             }
+                        } catch (e) {
+                            console.log("Error parsing response:", e);
                         }
-                    });
-                }
-            });
+                    }
+                });
+            }
+        });
+    });
+</script>
 
-            // jQuery("#edittestimonialsForm").validate({
-            //     rules: {
-            //         name: "required"
-            //     },
-            //     messages: {
-            //         name: "Please enter country name!",
-            //     },
-            //     submitHandler: function(form) {
-            //         var formData = $(form).serialize();
-            //         $.ajax({
-            //             url: "{{ route('admin.testimonials.update') }}",
-            //             type: 'post',
-            //             data: formData,
-            //             success: function(response) {
-            //                 jQuery('#edit_testimonials').modal('hide');
-            //                 // swal.fire("Done!", response.message, "success");
-            //                 jQuery('#testimonials_list').replaceWith(response.data);
-            //             },
-            //             error: function(error_messages) {
-            //                 let errors = JSON.parse(error_messages.responseText).errors;
-            //                 let randon_number = Math.floor((Math.random() * 100)+1);
-            //                 for (var error_key in errors) {
-            //                     random_id = error_key + '_' + randon_number
-            //                     jQuery('.' + error_key + '_error').remove();
-            //                     $(document).find('#edit_testimonials [name=' + error_key + ']').after(
-            //                         '<span id="' + random_id +
-            //                         '_error" class="text text-danger ' + error_key + '_error">' + errors[
-            //                             error_key] + '</span>');
-            //                         remove_error_div(random_id);
-            //                 }
-            //             }
-            //         });
-            //     }
-            // });
-        }); 
-    </script>
 @endsection

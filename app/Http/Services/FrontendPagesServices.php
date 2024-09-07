@@ -95,6 +95,48 @@ class FrontendPagesServices
         
         }
 
+        if(isset($data['why_airpal_app']))
+        {
+        
+            $sectionId = isset($data['why_airpal_app']['id']) ? $data['why_airpal_app']['id'] : '';
+            $sectionBannerImage = '';
+            
+            if($data->hasFile('why_airpal_app.image'))
+            {
+ 
+                $sectionBannerImage = $data->file('why_airpal_app')['image'];
+            }
+            
+            $pageSectionData = [
+                'title'             => $data['why_airpal_app']['title'],
+                'subtitle'          => $data['why_airpal_app']['subtitle'] ?? '',
+                'section_slug'      => $data['why_airpal_app']['section_slug'],
+                'page_id'           => $pageId
+            ];
+
+            $sectionDetails  =  $this->saveSection($pageSectionData,$sectionBannerImage,$sectionId);
+            $sectionId       =  $sectionDetails->id;
+
+            $allContentSections = $data['why_airpal_app']['inner_section'];
+
+            $whyAirpalAppCounter = 0;
+            
+            foreach($allContentSections as $contentSection)
+            {
+                $contentInnerImage = '';
+                if($data->hasFile("why_airpal_app.inner_section.{$whyAirpalAppCounter}.image"))
+                {
+                    $contentInnerImage = 'tester';
+                    $contentInnerImage = $data->file('why_airpal_app')['inner_section'][$whyAirpalAppCounter]['image'];
+                    
+                }
+                $this->saveSectionContent($contentSection,$sectionId,$contentInnerImage);
+                $whyAirpalAppCounter++;
+            }
+
+        
+        }
+
         return $this->getPageSectionsWithAttribute($pageId);
     }
 

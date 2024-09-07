@@ -26,6 +26,7 @@ class updateTestimonialRequest extends FormRequest
             "title"    => "string|max:50",
             "username" => "string|max:50",
             "address"  => "string|max:100",
+            "description" => "string",
             "image"    => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048|nullable',
         ];
     }

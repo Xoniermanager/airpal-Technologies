@@ -259,13 +259,12 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('specialities')->controller(SpecialityController::class)->group(function () {
         Route::get('/create-speciality', 'storeSpecialityByAjaxCall');
     });
+    Route::prefix('slots')->controller(DoctorAppointmentConfigController::class)->group(function () {
+        Route::get('getWeekDays', 'getWeekDays');
+    });
 
-    Route::prefix('doctor')->group(function () {
-
-        Route::prefix('slots')->controller(DoctorAppointmentConfigController::class)->group(function () {
-            Route::get('getWeekDays', 'getWeekDays');
-        });
-
+    Route::prefix('doctor')->group(function ()
+    {
         // DoctorEducationController routes
         Route::controller(DoctorEducationController::class)->group(function () {
             Route::post('education', 'addDoctorEducation')->name('admin.add-doctor-education');

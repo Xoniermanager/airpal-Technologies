@@ -42,9 +42,7 @@ class DoctorAppointmentConfigController extends Controller
                 ])->render()
             ]);
         }
-
     }
-
     /**
      * Display the specified resource.
      */
@@ -66,14 +64,14 @@ class DoctorAppointmentConfigController extends Controller
      */
     public function update(StoreAppointmentConfigRequest $request)
     {
-        if ($this->doctorSlotServices->updateSlot($request->all())) {
-            return response()->json([
-                'message' => 'success',
-                'data'   =>  view('admin.doctor_slots.slot-list', [
-                  'allSlotDetails' => $this->doctorSlotServices->getSlotsPaginated()
-                ])->render()
-            ]);
-        }
+        // if ($this->doctorSlotServices->updateSlot($request->all())) {
+        //     return response()->json([
+        //         'message' => 'success',
+        //         'data'   =>  view('admin.doctor_slots.slot-list', [
+        //           'allSlotDetails' => $this->doctorSlotServices->getSlotsPaginated()
+        //         ])->render()
+        //     ]);
+        // }
     }
 
     /**

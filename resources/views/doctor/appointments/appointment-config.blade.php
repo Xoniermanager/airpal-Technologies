@@ -26,7 +26,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
 
         <div class="col-6">
@@ -63,7 +63,7 @@
                 </div>
             </div>
         </div>
-       
+
 
         <div class="row">
             <div class="col-6">
@@ -142,7 +142,7 @@
                                 // Refresh the page
                                 location.reload();
                             },3000);
-                        }                        
+                        }
                     },
                     error   : function(error_messages) {
                         let errors = JSON.parse(error_messages.responseText).errors;
@@ -216,7 +216,7 @@
                     type: 'post',
                     data: formData,
                     success: function(response) {
-                        if (response.status == true) 
+                        if (response.status == true)
                         {
                             swal.fire("Done!", response.message, "success");
                         }
@@ -233,7 +233,7 @@
                                 swal("Deleted!", "Your file has been deleted.", "success");
                                 if (result.value) {
                                     let appointment_config_end_date = document.getElementById('appointment-config-end-date');
-                                    
+
                                     if(appointment_config_end_date != null)
                                     {
                                         jQuery(appointment_config_end_date).val(response.data);
@@ -353,7 +353,7 @@
         batch: true,
         transport: {
             read: {
-                url: site_base_url + "doctor/slots/getWeekDays",
+                url: "slots/getWeekDays",
                 dataType: "json"
             },
             parameterMap: function(options, operation) {

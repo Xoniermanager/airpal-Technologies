@@ -230,7 +230,7 @@
                                 confirmButtonColor: "#DD6B55",
                                 confirmButtonText: "Yes, Create new configuration!",
                             }).then(result => {
-                                swal("Deleted!", "Your file has been deleted.", "success");
+                                // swal("Deleted!", "Your file has been deleted.", "success");
                                 if (result.value) {
                                     let appointment_config_end_date = document.getElementById('appointment-config-end-date');
 

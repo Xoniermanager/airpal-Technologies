@@ -477,7 +477,14 @@ class DoctorAppointmentConfigService
      */
     public function getAllActiveAppointmentConfigsForDoctor($doctorId)
     {
-        return $this->doctorAppointmentConfigRepository->whereDate('config_start_date','>=',now())->where('user_id','=',$doctorId)->where('status',true)->orderBy('config_start_date','asc')->get();
+        return $this->doctorAppointmentConfigRepository
+        ->where(function($query){
+            return $query->whereNotNull('config_end_date')
+            ->where('config_end_date','>=',now());
+        })
+        ->orWhereNull('config_end_date')
+        ->where('user_id',$doctorId)
+        ->where('status',true)->orderBy('config_start_date','asc')->get();
     }
 
     /**

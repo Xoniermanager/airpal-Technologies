@@ -70,11 +70,19 @@ class DoctorAppointmentConfigService
         return $this->doctorAppointmentConfigRepository->where('user_id', $id)->with(['user', 'doctorExceptionDays'])->first();
     }
 
-    public function deleteSlot($id)
+    public function deleteSlot($id,$currentConfigId)
     {
-        $this->doctorAppointmentConfigRepository->delete($id);
-        $this->appointmentConfigExceptionDayRepository->where('doctor_appointment_config_id', $id)->delete();
-        return true;
+        $data = $this->doctorAppointmentConfigRepository->find($id);
+        if($data)
+        {
+            $this->appointmentConfigExceptionDayRepository->where('doctor_appointment_config_id', $id)->delete();
+            $response = $data->delete();
+        }
+        if($response)
+        {
+            $this->doctorAppointmentConfigRepository->find($currentConfigId)->update(['config_end_date' => null]);
+        }
+        return $response;
     }
     public function updateSlot($data, $currentAppointmentConfigDetails)
     {

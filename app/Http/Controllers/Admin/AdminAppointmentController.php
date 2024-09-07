@@ -37,7 +37,6 @@ class AdminAppointmentController extends Controller
         'appointments_list' =>  $filtered
       ])->render()
   ]);
-
   }
 
 }

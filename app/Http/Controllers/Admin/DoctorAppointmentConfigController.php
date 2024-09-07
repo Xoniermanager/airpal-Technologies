@@ -48,7 +48,7 @@ class DoctorAppointmentConfigController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function updateSlot(StoreAppointmentConfigRequest $request,DoctorAppointmentConfig $doctorAppointmentConfig)
+    public function updateSlot(StoreAppointmentConfigRequest $request, DoctorAppointmentConfig $doctorAppointmentConfig)
     {
         $data = $request->validated();
         $appointmentConfigDetailsSaveResponse = $this->doctorSlotServices->updateSlot($data, $doctorAppointmentConfig);
@@ -77,5 +77,18 @@ class DoctorAppointmentConfigController extends Controller
     public function getWeekDays()
     {
         return DayOfWeek::all();
+    }
+
+    public function getDocotorSlotDetails($doctorId)
+    {
+        $doctorAppointmentConfigDetails = $this->doctorSlotServices->getDoctorSlotConfiguration($doctorId);
+        // Check if $doctorAppointmentConfigDetails is null before accessing its properties
+        $exceptionIds = $doctorAppointmentConfigDetails ? optional($doctorAppointmentConfigDetails->doctorExceptionDays)->pluck('exception_days_id') ?? collect() : collect();
+        if (isset($doctorAppointmentConfigDetails) && !empty($doctorAppointmentConfigDetails)) {
+            return response()->json(['status' => true, 'config_details' => $doctorAppointmentConfigDetails, 'exceptionIds' => $exceptionIds]);
+        }
+        else {
+            return response()->json(['status' => false]);
+        }
     }
 }

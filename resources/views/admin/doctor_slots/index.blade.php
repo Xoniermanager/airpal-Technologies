@@ -45,7 +45,8 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="mb-2">Doctors<span style="color: red">* </span></label>
-                                        <select class="form-control select" name="doctor_id">
+                                        <select class="form-control select" name="doctor_id"
+                                            onchange="get_doctor_slot_details()" id="user_id">
                                             <option value="">Select Doctor</option>
                                             @forelse ($doctors as $doctor)
                                                 <option value="{{ $doctor->id }}">{{ $doctor->first_name }}
@@ -456,7 +457,7 @@
                                             "Your current appointment config will be used! No changes done!",
                                             "error");
                                     }
-                                jQuery('#edit_slot').modal('hide');
+                                    jQuery('#edit_slot').modal('hide');
                                 });
                             }
                         },
@@ -520,10 +521,12 @@
         var exceptionDaysID;
         var exceptionDaysIDArrs;
 
-        function edit_slot(slotDetails, doctor_exception_days) {
-            var details = JSON.parse(slotDetails);
-            console.log(details.start_month);
-
+        function edit_slot(slotDetails, doctor_exception_days, create_time = false) {
+            if (create_time == true) {
+                var details = slotDetails;
+            } else {
+                var details = JSON.parse(slotDetails);
+            }
             $('#slots_id').val(details.id);
             $("p#exceptionDaysID").text(doctor_exception_days);
             $('#doctor_id').val(details.user_id);
@@ -535,7 +538,6 @@
             $('#start_slots_from_date').val(details.start_slots_from_date);
             $('#stop_slots_date').val(details.stop_slots_date);
             $('#slots_in_advance').val(details.slots_in_advance);
-
             exceptionDaysID = jQuery('p#exceptionDaysID').text();
             if (exceptionDaysID.length > 1) {
                 var arrayexceptionDaysID = JSON.parse(exceptionDaysID);
@@ -578,18 +580,6 @@
 
             setMultiSelectValue();
         });
-
-
-        // $(document).ready(function() {
-
-        //     var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
-        //         removeItemButton: true,
-        //         maxItemCount: 7,
-        //         searchResultLimit: 5,
-        //         renderChoiceLimit: 7
-        //     });
-        // });
-
         var site_admin_base_url = "{{ env('SITE_ADMIN_BASE_URL') }}";
         var exceptionDaysDataSource = new kendo.data.DataSource({
             batch: true,
@@ -624,5 +614,39 @@
                 }
             }
         });
+
+        function get_doctor_slot_details() {
+            let doctor_id = $('#user_id').val();
+            $.ajax({
+                url: "slots/get-doctor-slot-details/" + doctor_id,
+                type: 'get',
+                success: function(response) {
+                    if (response.status == true) {
+                        Swal.fire({
+                            title: "Already Exists?",
+                            text: "Please Update the Details Only",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Update"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                slotDetails = response.config_details;
+                                doctor_exception_days = response.exceptionIds
+                                edit_slot(slotDetails, doctor_exception_days, create_time = true);
+                                jQuery('#add_slots').modal('hide');
+                                jQuery('#edit_slot').modal('show');
+                            } else {
+                                jQuery('#add_slots').modal('hide');
+                            }
+                        });
+                    } else {
+                        console.log(response)
+                        return false;
+                    }
+                }
+            });
+        }
     </script>
 @endsection

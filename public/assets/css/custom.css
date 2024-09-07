@@ -18784,19 +18784,23 @@ header.header.header-custom.header-fixed.header-one {
     -webkit-appearance: none;
     width: 6px;
 }
+
 div#chat-history {
     height: calc(1100px - 60px) !important;
 }
+
 .main-chat-blk .slimscroll::-webkit-scrollbar-thumb {
     border-radius: 4px;
     background-color: #F1F5F9;
     box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
     -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
+
 ul.user-list .user-list-item.active a {
     background: #ddf6fa !important;
     border: 1px solid #004cd4;
 }
+
 .main-chat-blk .slimscroll-active-sidebar {
     height: 1048px !important;
     overflow-y: auto !important;
@@ -18995,7 +18999,7 @@ ul.user-list .user-list-item.active a {
     margin-bottom: 18px;
 }
 
- 
+
 .main-chat-blk .chat-page-wrapper .dropdown-menu .dropdown-item {
     font-size: 14px;
     cursor: pointer;
@@ -55778,6 +55782,7 @@ table.no-padding-table td {
 .panel.panel-body .card {
     border-radius: 30px;
 }
+
 .doctor-info-profile.fav-doc img {
     height: 35px !important;
     width: 35px !important;
@@ -55820,6 +55825,7 @@ i.fab.fa-youtube-square {
 .panel.panel-body .card {
     border-radius: 30px;
 }
+
 .dashboard-widget .accordion-button:after {
     content: "\e9b1";
     font-family: "feather";
@@ -55833,4 +55839,9 @@ i.fab.fa-youtube-square {
     float: right;
     top: 0;
     position: relative;
+}
+
+.active_blur {
+    pointer-events: none;
+    opacity: 0.5;
 }

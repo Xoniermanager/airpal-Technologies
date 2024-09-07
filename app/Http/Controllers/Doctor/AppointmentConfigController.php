@@ -40,8 +40,7 @@ class AppointmentConfigController extends Controller
     public function allAppointmentConfig()
     {
         $userId = Auth::user()->id;
-        $data = $this->doctorSlotServices->getAllActiveExpiredAppointmentConfigsForDoctor($userId);
-
+        $data= $this->doctorSlotServices->getAllActiveExpiredAppointmentConfigsForDoctor($userId);
         return view('doctor.appointments.all-appointment-config', [
             'appointmentConfigs'    => $data,
             'status'                => true,
@@ -83,5 +82,10 @@ class AppointmentConfigController extends Controller
             'status'  => $appointmentConfigDetailsSaveResponse['status'],
             'message' => $appointmentConfigDetailsSaveResponse['message'],
         ]);
+    }
+
+    public function deleteAppointmentConfig($appointmentConfigId)
+    {
+        dd($appointmentConfigId);
     }
 }

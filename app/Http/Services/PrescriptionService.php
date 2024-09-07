@@ -55,7 +55,7 @@ class PrescriptionService
 
     public function getAllPrescriptionByDoctorId($doctorId)
     {
-        return $this->prescriptionRepository->with(['prescriptionMedicineDetail', 'bookingSlot'])
+        return $this->prescriptionRepository->with(['prescriptionMedicineDetail', 'bookingSlot','bookingSlot.patient'])
             ->whereHas('bookingSlot', function ($q) use ($doctorId) {
                 $q->where('doctor_id', $doctorId);
             })->orderBy('id', 'desc')->paginate(10);
@@ -133,7 +133,7 @@ class PrescriptionService
 
     public function searchFilterPrescriptionDetails($searchKey)
     {
-        $allPrescriptionDetails = $this->prescriptionRepository->with(['prescriptionMedicineDetail', 'bookingSlot']);
+        $allPrescriptionDetails = $this->prescriptionRepository->with(['prescriptionMedicineDetail', 'bookingSlot','bookingSlot.patient']);
         if (isset($searchKey['search']) && !empty($searchKey['search'])) {
             // Search in doctor first name and last name
             $key = explode(' ', $searchKey['search']);

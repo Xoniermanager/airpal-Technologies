@@ -49,8 +49,8 @@ class BookingServices
         ];
 
         $bookedSlot  =  $this->bookingRepository->create($payload);
-        if ($bookedSlot) {
-
+        if ($bookedSlot)
+        {
             $pdfPath = storage_path('app/public/' . $data->doctor_id . '/invoices/invoice-pdf-' . $bookedSlot->id . '.pdf');
 
 
@@ -71,11 +71,12 @@ class BookingServices
 
             // sending mail for query about disease
             DoctorAppointmentQueryMailJob::dispatch($mailDataAndLink);
-            return redirect()->route('success.index')->with([
-                'booking_date' => $data->booking_date,
-                'bookingSlotTime' => $data->booking_slot_time,
-                'doctorId' => $data->doctor_id,
-            ]);
+            // return redirect()->route('success.index')->with([
+            //     'booking_date' => $data->booking_date,
+            //     'bookingSlotTime' => $data->booking_slot_time,
+            //     'doctorId' => $data->doctor_id,
+            // ]);
+            return $bookedSlot;
         }
     }
 
@@ -422,5 +423,31 @@ class BookingServices
     public function allCompleteAppointmentByPatientId($patientId)
     {
         return $this->bookingRepository->where('patient_id', $patientId)->where('status', 'completed')->with(['user','prescription'])->orderBy('booking_date', 'desc')->paginate(10);
+    }
+
+    /**
+     * Checks if current booking requires payment if yes then returns yes with required payment details
+     * Check the booking fee details
+     * @param bookingDate
+     * @param slotStartTime
+     * @param slotEndTime
+     * @param doctorId
+     * @return Fee details
+     */
+    public function getBookingFee($booking)
+    {
+        
+
+        // Write script here to calculate the booking fee using above details
+        $fee = 10;
+        return $fee;
+    }
+
+    /**
+     * Update payment required to be true/false based on payment is required for booking or not ?
+     */
+    public function updatePaymentRequired($bookingId,$requiredStatus)
+    {
+        return $this->bookingRepository->where('id',$bookingId)->update(['payment_required'    =>  $requiredStatus]);
     }
 }

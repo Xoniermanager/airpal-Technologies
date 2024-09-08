@@ -213,9 +213,8 @@
                                     </div>
                                     <div class="forms-block mb-0">
                                         <div class="booking-btn">
-                                            <button
-                                                class="btn btn-primary prime-btn justify-content-center align-items-center">
-                                                Next<i class="feather-arrow-right-circle"></i>
+                                            <button id="booking-fee-payment" class="btn btn-primary prime-btn justify-content-center align-items-center">
+                                                Continue to Book Appointment<i class="feather-arrow-right-circle"></i>
                                             </button>
                                         </div>
                                         <span id ="appointment_error" class="text-danger"></span>
@@ -349,13 +348,17 @@
                             dataType: 'json',
                             processData: false,
                             contentType: false,
-                            success: function(response) {
-                                if (response.status == 200) {
-                                    swal.fire("Done!", response.message, "success");
-                                    console.log(site_base_url);
-                                    window.location.href = successUrl;
+                            success: function(response){
+                                if(response.status)
+                                {
+                                    window.location.href = response.payment_link;
                                 }
-                            },
+                                else
+                                {
+                                    swal.fire("Done!", response.message, "error");
+                                }
+                            }
+                            ,
                             error: function(error_messages) {
                                 var errors = error_messages.responseJSON;
                                 $.each(errors.errors, function(key, value) {
@@ -408,7 +411,7 @@
                     // dataType: "json",
                     cache: false,
                     success: function(response) {
-                        console.log('show', response);
+                        // console.log('show', response);
                         jQuery('.appointment-time').html(response.html);
                         $('.appointment-time').html(response.html).hide().delay(200).fadeIn();
                     },
@@ -438,11 +441,32 @@
             function showContent(contentId, slot, date, doctorId) {
                 var url = "{{ route('check.auth') }}";
                 // Send AJAX request to check if the user is authenticated
+                let slot_info = slot.split('-');
+                let slot_start_time = slot_info[0].trim();
+                let slot_end_time = slot_info[1].trim();
+                console.log();
                 $.ajax({
                     url: url,
                     method: 'GET',
+                    data:{
+                        'booking_date':date,
+                        'slot_start_time':slot_start_time,
+                        'slot_end_time':slot_end_time,
+                        'doctor_id':doctorId,
+                        '_token': '{{ csrf_token() }}',
+                    },
+                    type:'json',
                     success: function(response) {
                         if (response.authenticated) {
+                            // Check if booking requires payment
+                            if(response.bookingFee)
+                            {
+                                jQuery('#booking-fee-payment').text('Continue to Pay & Book Appointment');
+                            }
+                            else
+                            {
+                                jQuery('#booking-fee-payment').text('Continue to Book Appointment');
+                            }
                             // If authenticated, proceed with booking process
                             $('#booking_date').val(date);
                             $('.booking_date').text(date);

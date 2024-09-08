@@ -25,24 +25,26 @@
 
     <link rel="stylesheet" href="{{ asset('/assets/plugins/fontawesome/css/fontawesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/plugins/fontawesome/css/all.min.css') }}">
-    <script src="assets/js/script.js" type="cd1ed460c5054330c2effc78-text/javascript"></script>
-    <script src="../assets/js/rocket-loader.min.js" data-cf-settings="cd1ed460c5054330c2effc78-|49" defer></script>
+    
     <link rel="stylesheet" href="{{ asset('admin/assets/css/feathericon.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/plugins/datatables/datatables.min.css') }}">
-    <script src="{{asset('assets/js/slick.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
+    
 
     <link rel="stylesheet" href="{{ asset('admin/assets/css/custom.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('/assets/css/custom.css') }}" type="text/css">
 
     <link rel="stylesheet" href="{{ asset('assets/css/feather.css') }}">
-    
+    <script src="{{ asset('/assets/js/jquery-3.7.1.min.js') }}"></script>
+    <!-- <script src="assets/js/script.js" type="text/javascript"></script> -->
+    <script src="../assets/js/rocket-loader.min.js" data-cf-settings="cd1ed460c5054330c2effc78-|49" defer></script>
+    <script src="{{asset('assets/js/slick.js')}}" type="text/javascript"></script>
+
     {{-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> --}}
     <link href="https://kendo.cdn.telerik.com/themes/7.2.1/default/default-main.css" rel="stylesheet" />
     <script src="https://kendo.cdn.telerik.com/2024.1.319/js/kendo.all.min.js"></script>
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="{{ asset('/assets/js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('admin/assets/js/jquery-ui.js') }}"></script>
     <script src="{{ asset('admin/assets/js/jquery-ui.css') }}"></script>
     <script src="{{ asset('admin/assets/jquery-validation/dist/jquery.validate.min.js') }}"></script>

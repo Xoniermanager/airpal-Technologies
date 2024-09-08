@@ -305,7 +305,10 @@ if (!function_exists('renderTestimonials')) {
     }
 }
 
-
+function getFormattedDate($date)
+{
+    return date('jS M Y', strtotime($date));
+}
 // if (!function_exists('renderTestimonials')) {
     
    

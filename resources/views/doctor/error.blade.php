@@ -20,22 +20,23 @@
 
 
 
-        <div class="content success-page-cont">
+        <div class="content success-page-cont bg-grey">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
 
-                        <div class="card success-card">
+                        <div class="card summaries bg-lt pt-0">
                             <div class="card-body">
                                 <div class="success-cont">
-                                    <i class="fas fa-check"></i>
-                                    <h3>Appointment has been Cancelled!</h3>
-                                    <p>Appointment booked with <strong>Dr.  {{ $doctorName ?? ''}}</strong><br> on <strong>
-                                        {{$bookingDate ?? ''}},
-                                        {{$bookingSlotTime ?? ''}}
+                                    <img src="{{ asset('assets/img/failed.webp') }}" alt="" class="h-280px">
+                                    <h3 class="text-danger">Appointment has been Cancelled!</h3>
+                                    <p class="mb-1">Appointment booked with <strong>Dr.  {{ $doctorName ?? ''}}</strong><br>
+                                    <strong> On  {{$bookingDate ?? ''}},
+
                                {{-- {{ $bookingDate  ?? ''}}  {{ $bookingSlotTime ?? ''}} --}}
                                            </strong></p>
-                                           <p>Due to payment error, the payment has not been received.</p>
+                                           <p class="fw-bold mb-2"> {{$bookingSlotTime ?? ''}}</p>
+                                           <p class="text-danger">Due to payment error, the payment has not been received.</p>
                                     <a href="{{ route('home.index') }}" class="btn btn-primary view-inv-btn">
                                         Home Page</a>
                                 </div>

@@ -64,11 +64,12 @@ class BookAppointmentApiController extends Controller
                 ];
 
                 $paymentLinkDetails = $this->paypalService->generatePaymentLink($bookingFee, $bookedAppointment, $redirectUrls);
+                $paypalPaymentId = $paymentLinkDetails['id'];
 
                 // Update the payment required column to be true as the payment is required for this appointment
                 $this->bookingAppointmentServices->updatePaymentRequired($bookedAppointment->id,true);
 
-                $paymentLink =  $this->paymentService->savePaymentDetailsAndExtractPaymentLink($bookedAppointment,$paymentLinkDetails, $bookingFee);
+                $paymentLink =  $this->paymentService->savePaymentDetailsAndExtractPaymentLink($bookedAppointment,$paymentLinkDetails, $bookingFee,$paypalPaymentId);
                 
                 return response()->json($paymentLink, 200);
             }

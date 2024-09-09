@@ -3,13 +3,15 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\MeetingController;
 use App\Http\Controllers\Api\QuestionController;
+use App\Http\Controllers\Api\PaymentApiController;
 use App\Http\Controllers\Api\DoctorAwardController;
-use App\Http\Controllers\Api\DoctorAppointmentConfigApiController;
 use App\Http\Controllers\Api\DoctorReviewController;
 use App\Http\Controllers\Api\DoctorProfileController;
 use App\Http\Controllers\Api\DoctorDashboardController;
 use App\Http\Controllers\Api\DoctorEducationController;
+use App\Http\Controllers\Api\PrescriptionApiController;
 use App\Http\Controllers\Api\DoctorExperienceController;
 use App\Http\Controllers\Api\DoctorAppointmentController;
 use App\Http\Controllers\Api\DoctorWorkingHourController;
@@ -23,10 +25,9 @@ use App\Http\Controllers\Api\Patient\PatientProfileController;
 use App\Http\Controllers\Api\DoctorAppointmentConfigController;
 use App\Http\Controllers\Api\Patient\MedicalRecordApiController;
 use App\Http\Controllers\Api\Patient\PatientDashboardController;
+use App\Http\Controllers\Api\DoctorAppointmentConfigApiController;
 use App\Http\Controllers\Api\Patient\PatientFavoriteDoctorController;
 use App\Http\Controllers\Api\Doctor\DoctorAppointmentAndRevenueGraphController;
-use App\Http\Controllers\Api\MeetingController;
-use App\Http\Controllers\Api\PrescriptionApiController;
 
 Route::controller(MeetingController::class)->group(function () {
     Route::get('get-meeting-Details/{booking_slots:meeting_id}', 'getMeetingDetails');
@@ -211,6 +212,14 @@ Route::middleware('authCheck')->group(function () {
             Route::get('get-chat-list', 'getChatList');
             Route::get('get-chat-history', 'getChatHistory');
             Route::post('send-message', 'sendMessage');
+        });
+
+        // Patient booking payment APIs
+        Route::controller(PaymentApiController::class)->group(function () {
+          Route::post('payment-required','checkPaymentRequiredForBooking');
+          Route::post('get-payment-link','getPaymentLink');
+          Route::post('update-payment-details','updatePaymentDetails');
+          Route::post('update-payment-status','updatePaymentStatus');
         });
     });
     Route::get('privacy', [AuthController::class, 'privacyPolicy']);

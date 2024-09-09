@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pages', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('meta_title')->nullable();
-            $table->string('meta_description')->nullable();
-            $table->timestamps();
+        Schema::table('booking_slots', function (Blueprint $table) {
+            $table->boolean('payment_required')->default(false)->after('status');
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pages');
+        Schema::table('booking_slots', function (Blueprint $table) {
+            $table->dropColumn('payment_required');
+        });
     }
 };

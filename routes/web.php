@@ -56,6 +56,7 @@ use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSiteConfigController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController, TestimonialController};
 use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\PaymentController;
 
 // =============================== Login And SignUp Routes ==================================== //
 /**
@@ -68,10 +69,12 @@ Route::controller(AdminAuthController::class)->group(function () {
 });
 
 // Paypal Payment endpoints
-Route::get('paypal', [PayPalController::class, 'index'])->name('paypal');
+// Route::get('paypal', [PayPalController::class, 'index'])->name('paypal');
 Route::get('paypal/payment', [PayPalController::class, 'payment'])->name('paypal.payment');
-Route::get('paypal/payment/success', [PayPalController::class, 'paymentSuccess'])->name('paypal.payment.success');
-Route::get('paypal/payment/cancel', [PayPalController::class, 'paymentCancel'])->name('paypal.payment/cancel');
+Route::get('paypal/payment/success', [PaymentController::class, 'paymentSuccess'])->name('paypal.payment.success');
+Route::get('paypal/payment/cancel', [PaymentController::class, 'paymentCancel'])->name('paypal.payment/cancel');
+Route::get('booking/success', [BookingController::class, 'bookingSuccess'])->name('booking.success');
+Route::get('booking/error', [BookingController::class, 'bookingError'])->name('booking.error');
 
 
 // common file for login Admin, Doctor, Patient
@@ -429,24 +432,24 @@ Route::prefix('admin')->group(function () {
 
         Route::prefix('testimonial')->controller(TestimonialController::class)->group(function()
         {
-            Route::get('/','index')->name('admin.testimonial.index');
-            Route::get('get', 'getTestimonials')->name('admin.testimonial.list');
-            Route::get('add', 'showTestimonialForm')->name('admin.show.testimonial.form');
-            Route::get('edit/{id}', 'editTestimonialForm')->name('admin.edit.testimonial.form');
-            Route::post('update/{id}', 'updateTestimonial')->name('admin.update.testimonial.form');
-            Route::get('delete/{id}', 'deleteTestimonial')->name('admin.delete.testimonial.form');
-            Route::post('save-testimonial', 'saveTestimonial')->name('admin.save.testimonial.form');
+            Route::get('/','index')->name('admin.testimonial.index'); 
+            Route::get('get', 'getTestimonials')->name('admin.testimonial.list'); 
+            Route::get('add', 'showTestimonialForm')->name('admin.show.testimonial.form'); 
+            Route::get('edit/{id}', 'editTestimonialForm')->name('admin.edit.testimonial.form'); 
+            Route::post('update', 'updateTestimonial')->name('admin.update.testimonial.form'); 
+            Route::get('delete/{id}', 'deleteTestimonial')->name('admin.delete.testimonial.form'); 
+            Route::post('save-testimonial', 'saveTestimonial')->name('admin.save.testimonial.form'); 
         });
 
         Route::prefix('partners')->controller(PartnerController::class)->group(function()
         {
-            Route::get('/','index')->name('admin.partner.index');
-            Route::get('get', 'getPartners')->name('admin.partner.list');
-            Route::get('add', 'showPartnerForm')->name('admin.show.partner.form');
-            Route::get('edit/{id}', 'editPartnerForm')->name('admin.edit.partner.form');
-            Route::post('update/{id}', 'updatePartner')->name('admin.update.partner.form');
-            Route::get('delete/{id}', 'deletePartner')->name('admin.delete.partner.form');
-            Route::post('save-partner', 'savePartner')->name('admin.save.partner.form');
+            Route::get('/','index')->name('admin.partner.index'); 
+            Route::get('get', 'getPartners')->name('admin.partner.list'); 
+            Route::get('add', 'showPartnerForm')->name('admin.show.partner.form'); 
+            Route::get('edit/{id}', 'editPartnerForm')->name('admin.edit.partner.form'); 
+            Route::post('update/{id}', 'updatePartner')->name('admin.update.partner.form'); 
+            Route::get('delete/', 'deletePartner')->name('admin.delete.partner.form'); 
+            Route::post('save-partner', 'savePartner')->name('admin.save.partner.form'); 
         });
     });
 });

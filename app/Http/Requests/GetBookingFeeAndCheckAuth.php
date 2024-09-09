@@ -2,13 +2,16 @@
 
 namespace App\Http\Requests;
 
+use App\Traits\ExceptionHandle;
 use Illuminate\Foundation\Http\FormRequest;
 
-class updateTestimonialRequest extends FormRequest
+class GetBookingFeeAndCheckAuth extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
+    use ExceptionHandle;
+    
     public function authorize(): bool
     {
         return true;
@@ -22,12 +25,10 @@ class updateTestimonialRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "id"       => "required|exists:testimonials,id",
-            "title"    => "string|max:50",
-            "username" => "string|max:50",
-            "address"  => "string|max:100",
-            "description" => "string",
-            "image"    => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048|nullable',
+            'booking_date'      =>  'required|date',
+            'slot_start_time'   =>  'required',
+            'slot_end_time'     =>  'required',
+            'doctor_id'         =>  'required|exists:users,id,role,2',
         ];
     }
 }

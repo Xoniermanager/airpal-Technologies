@@ -41,25 +41,25 @@ class TestimonialController extends Controller
         if ($createdDetails) {
             return response()->json([
                 "success"  =>  true,
-                'message'  =>  'Saved Successfully!',
+                'message'  =>  'Testimonial Saved Successfully!',
                 'data'     =>  $createdDetails
             ]);
         } else {
             return response()->json([
                 "success" =>   false,
-                'message' =>  'Saved Successfully!',
-                'data'    =>  $createdDetails
+                'message' =>  'Something went wrong',
+                'data'    =>  ''
             ]);
         }
     }
-    public function updateTestimonial(updateTestimonialRequest $updateTestimonialRequest ,$id)
+    public function updateTestimonial(updateTestimonialRequest $updateTestimonialRequest)
     {
         $testimonialDetails = $updateTestimonialRequest->validated();
-        $createdDetails     = $this->testimonialServices->updateTestimonial($testimonialDetails,$id);
+        $createdDetails     = $this->testimonialServices->updateTestimonial($testimonialDetails, $testimonialDetails['id']);
         if ($createdDetails) {
             return response()->json([
                 "success"  =>  true,
-                'message'  =>  'Saved Successfully!',
+                'message'  =>  'Testimonial update Successfully!',
                 'data'     =>  $createdDetails
             ]);
         } else {

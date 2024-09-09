@@ -16,7 +16,7 @@ class PartnerController extends Controller
     public function index()
     {
         $partnerList = $this->partnerServices->partnerList();
-        return view('admin.generals.our-partners.index',['partnerList' => $partnerList ?? '']);
+        return view('admin.generals.our-partners.index',['allPartners' => $partnerList ?? '']);
     }
     public function getPartners()
     {
@@ -34,13 +34,17 @@ class PartnerController extends Controller
     public function savePartner(Request $request)
     {
         $partnerDetails =   $request->all();
-        $createdDetails = $this->partnerServices->savePartner($partnerDetails);
+        $createdDetails =   $this->partnerServices->savePartner($partnerDetails);
+
         if ($createdDetails) {
             return response()->json([
                 "success"  =>  true,
                 'message'  =>  'Saved Successfully!',
-                'data'     =>  $createdDetails
-            ]);
+                'data'     =>  view('admin.generals.our-partners.partner-list', [
+                    'allPartners' =>  $this->partnerServices->partnerList()
+                  ])->render()
+                ]);
+     
         } else {
             return response()->json([
                 "success" =>   false,
@@ -49,33 +53,35 @@ class PartnerController extends Controller
             ]);
         }
     }
-    public function updatePartner(Request $request ,$id)
+    // public function updatePartner(Request $request ,$id)
+    // {
+    //     $partnerDetails  = $request->all();
+    //     $createdDetails  = $this->partnerServices->updatePartner($partnerDetails,$id);
+    //     if ($createdDetails) {
+    //         return response()->json([
+    //             "success"  =>  true,
+    //             'message'  =>  'Saved Successfully!',
+    //             'data'     =>  $createdDetails
+    //         ]);
+    //     } else {
+    //         return response()->json([
+    //             "success" =>   false,
+    //             'message' =>  'Something went wrong',
+    //             'data'    =>  ''
+    //         ]);
+    //     }
+    // }
+    public function deletePartner(Request $request)
     {
-        $partnerDetails  = $request->all();
-        $createdDetails  = $this->partnerServices->updatePartner($partnerDetails,$id);
+        $createdDetails     = $this->partnerServices->deletePartner($request->id);
         if ($createdDetails) {
             return response()->json([
-                "success"  =>  true,
-                'message'  =>  'Saved Successfully!',
-                'data'     =>  $createdDetails
-            ]);
-        } else {
-            return response()->json([
-                "success" =>   false,
-                'message' =>  'Something went wrong',
-                'data'    =>  ''
-            ]);
-        }
-    }
-    public function deletePartner($id)
-    {
-        $createdDetails     = $this->partnerServices->deletePartner($id);
-        if ($createdDetails) {
-            return response()->json([
-                "success"  =>  true,
+                "success"  =>  false,
                 'message'  =>  'Deleted Successfully!',
-                'data'     =>  $createdDetails
-            ]);
+                'data'     =>  view('admin.generals.our-partners.partner-list', [
+                    'allPartners' =>  $this->partnerServices->partnerList()
+                  ])->render()
+                ]);
         } else {
             return response()->json([
                 "success" =>   false,

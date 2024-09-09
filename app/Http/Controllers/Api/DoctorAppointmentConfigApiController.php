@@ -86,7 +86,7 @@ class DoctorAppointmentConfigApiController extends Controller
     {
 
         $doctor     = $this->userServices->getDoctorDataById($id);
-        $doctorSlot = $this->doctorSlotServices->getDoctorSlotConfiguration($doctor->id);
+        $doctorSlot = $this->doctorSlotServices->getDoctorActiveAppointmentConfigDetails($doctor->id);
         if (isset($doctorSlot)) {
             $doctorSlot->exception_days = $doctorSlot->user->doctorExceptionDays;
             $returnedSlots  = $this->doctorSlotServices->createDoctorSlots($doctorSlot);
@@ -109,7 +109,7 @@ class DoctorAppointmentConfigApiController extends Controller
     //     $data = $request->all();
     //     $date = $data['date'];
     
-    //     $doctorSlots = $this->doctorSlotServices->getDoctorSlotConfiguration($data['doctor_id']);
+    //     $doctorSlots = $this->doctorSlotServices->getDoctorActiveAppointmentConfigDetails($data['doctor_id']);
     //     $returnedSlots = $this->doctorSlotServices->createDoctorSlots($doctorSlots);
     
     //     $gettingBookedSlots = $this->bookingServices->slotDetails($data)->get();
@@ -184,7 +184,7 @@ class DoctorAppointmentConfigApiController extends Controller
         $data = $request->all();
         $date = $data['date'];
 
-        $doctorSlots = $this->doctorSlotServices->getDoctorSlotConfiguration($data['doctor_id']);
+        $doctorSlots = $this->doctorSlotServices->getDoctorActiveAppointmentConfigDetails($data['doctor_id']);
         $returnedSlots = $this->doctorSlotServices->createDoctorSlots($doctorSlots);
 
         $gettingBookedSlots = $this->bookingServices->slotDetails($data)->get();

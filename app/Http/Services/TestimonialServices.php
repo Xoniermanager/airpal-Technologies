@@ -13,6 +13,11 @@ class TestimonialServices
     {
         $this->testimonialRepository = $testimonialRepository;
     }
+    public function all()
+    {
+
+        return  $this->testimonialRepository->get();
+    }
     public function testimonialList()
     {
 
@@ -32,17 +37,33 @@ class TestimonialServices
     }
     public function updateTestimonial($data, $id)
     {
-        $existingTestimonial =$this->testimonialRepository->where('id', $id)->first();
-
+        // Retrieve the existing testimonial
+        $existingTestimonial = $this->testimonialRepository->where('id', $id)->first();
+    
+        // Check if the testimonial exists
+        if (!$existingTestimonial) {
+            throw new \Exception("Testimonial with ID $id not found.");
+        }
+    
+        // Remove 'id' from data if present
+        unset($data['id']);
+    
+        // Check if there is an image in the data
         if (isset($data['image']) && !empty($data['image'])) {
-            if($existingTestimonial->image  != null)
-            {
-                unlinkFileOrImage($existingTestimonial->getRawOriginal('image'));   
+            // Check if there's an existing image and remove it
+            if ($existingTestimonial->image != null &&  !$existingTestimonial->image) {
+                // Make sure the function handles the case where the file might not exist
+                unlinkFileOrImage($existingTestimonial->getRawOriginal('image'));
             }
+    
+            // Upload the new image
             $data['image'] = uploadingImageorFile($data['image'], 'testimonial', $data['title']);
         }
-        return  $this->testimonialRepository->find($id)->update($data);
+    
+        // Update the testimonial
+        return $this->testimonialRepository->where('id', $id)->update($data);
     }
+    
     public function deleteTestimonial($id)
     {
         return  $this->testimonialRepository->find($id)->delete();

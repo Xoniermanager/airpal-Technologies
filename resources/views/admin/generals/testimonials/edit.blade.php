@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card">
-                            <form id="addTestimonial" method="POST" action="{{ route('admin.update.testimonial.form',['id'=>  $testimonial->id] ) }}" enctype="multipart/form-data">
+                            <form id="editTestimonial"  enctype="multipart/form-data">
                                 @csrf
                                 <div class="setting-card">
                                     <div class="change-avatar img-upload">
@@ -109,10 +109,61 @@
         </div>
     </div>
 @endsection
+
 @section('javascript')
+<script>
+    $(document).ready(function() {
 
+        jQuery("#editTestimonial").validate({
+            rules: {
+                title: "required",
+                username: "required",
+                address: "required",
+                description: "required"
+            },
+            messages: {
+                title: "Please enter the testimonial title!",
+                username: "Please enter the username!",
+                address: "Please enter the address!",
+                description: "Please enter the testimonial description!"
+            },
+            submitHandler: function(form) {
 
+                var formData = new FormData($(form)[0]); // Use FormData for file uploads
+                $.ajax({
+                    url: "{{ route('admin.update.testimonial.form') }}",
+                    type: 'post',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                    if(response.success == true)
+                    {
+                        $(form).trigger("reset");
+                        window.location.href = "{{ route('admin.testimonial.index') }}";
+                        swal.fire("Done!", response.message, "success");
+                    }
 
-
+                    },
+                    error: function(xhr) {
+                        try {
+                            let errors = JSON.parse(xhr.responseText).errors;
+                            let randon_number = Math.floor((Math.random() * 100) + 1);
+                            for (var error_key in errors) {
+                                random_id = error_key + '_' + randon_number;
+                                jQuery('.' + error_key + '_error').remove();
+                                jQuery(document).find('#addTestimonials [name=' + error_key + ']')
+                                    .after('<span id="' + random_id + '_error" class="text text-danger ' + error_key + '_error">' + errors[error_key] + '</span>');
+                                remove_error_div(random_id);
+                            }
+                        } catch (e) {
+                            console.log("Error parsing response:", e);
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>
 
 @endsection

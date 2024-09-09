@@ -1,11 +1,11 @@
-<div id="home_banner">
+<div id="download_app">
     <div class="setting-card p-0">
 
         {!! getBannerImageInput(
-            $sections['home_banner']->image ?? '',
+            $sections['download_app']->image ?? '',
             'homepage_banner_section[image]',
             ['input' => ['test']],
-            ['input' => 'uploadBannerImage', 'preview' => 'previewImage'],
+            ['input' => 'uploadBannerImageDownloadApp', 'preview' => 'previewImageDownloadApp'],
         ) !!}
 
     </div>
@@ -17,12 +17,12 @@
         <div class="row">
             <div class="col-lg-6 col-md-6">
                 @php
-                    $home_banner_section_title = isset($sections['home_banner']['title'])
-                        ? $sections['home_banner']['title']
+                    $download_app_section_title = isset($sections['download_app']['title'])
+                        ? $sections['download_app']['title']
                         : '';
                 @endphp
                 {!! getTextInput(
-                    $home_banner_section_title,
+                    $download_app_section_title,
                     'Title',
                     'homepage_banner_section[title]',
                     ['div' => ['test', 'testing', 'tester']],
@@ -32,12 +32,12 @@
 
             <div class="col-lg-6 col-md-6">
                 @php
-                    $home_banner_section_subtitle = isset($sections['home_banner']['subtitle'])
-                        ? $sections['home_banner']['subtitle']
+                    $download_app_section_subtitle = isset($sections['download_app']['subtitle'])
+                        ? $sections['download_app']['subtitle']
                         : '';
                 @endphp
                 {!! getTextInput(
-                    $home_banner_section_subtitle,
+                    $download_app_section_subtitle,
                     'Subtitle',
                     'homepage_banner_section[subtitle]',
                     ['div' => ['test', 'testing', 'tester']],
@@ -52,46 +52,58 @@
                 @php
                     $pageId = $page->id ?? '';
                     if (empty($pageId) || $pageId == '') {
-                        $pageId = $sections['home_banner']['page_id'] ?? '';
+                        $pageId = $sections['download_app']['page_id'] ?? '';
                     }
                 @endphp
-                <input type="hidden" name="homepage_banner_section[section_slug]" value="home_banner">
+                <input type="hidden" name="homepage_banner_section[section_slug]" value="download_app">
                 <input type="hidden" name="page_id" value="{{ $pageId }}">
 
                 <input type="hidden" name="homepage_banner_section[id]"
-                    value="{{ $sections['home_banner']['id'] ?? '' }}">
+                    value="{{ $sections['download_app']['id'] ?? '' }}">
 
                 <input type="hidden" name="homepage_banner_section[button][0][id]"
-                    value="{{ $sections['home_banner']->getButtons[0]['id'] ?? '' }}">
+                    value="{{ $sections['download_app']->getButtons[0]['id'] ?? '' }}">
 
-
-
-                <div class="col-lg-6">
+                {{-- <div class="col-lg-6">
                     @php
-                        $home_banner_button_text = isset($sections['home_banner']->getButtons[0]['text'])
-                            ? $sections['home_banner']->getButtons[0]['text']
+                        $download_app_button_text = isset($sections['download_app']->getButtons[0]['text'])
+                            ? $sections['download_app']->getButtons[0]['text']
                             : '';
                     @endphp
                     {!! getTextInput(
-                        $home_banner_button_text,
+                        $download_app_button_text,
                         'button text',
                         'homepage_banner_section[button][0][text]',
                         'Button Text',
                     ) !!}
-                </div>
+                </div> --}}
                 <div class="col-lg-6">
                     @php
-                        $home_banner_button_link = isset($sections['home_banner']->getButtons[0]['link'])
-                            ? $sections['home_banner']->getButtons[0]['link']
+                        $download_app_playstore_button_link = isset($sections['download_app']->getButtons[0]['link'])
+                            ? $sections['download_app']->getButtons[0]['link']
                             : '';
                     @endphp
                     {!! getTextInput(
-                        $home_banner_button_link,
-                        'button link',
+                        $download_app_playstore_button_link,
+                        'Play Store Link',
                         'homepage_banner_section[button][0][link]',
                         'Button Link',
                     ) !!}
                 </div>
+                <div class="col-lg-6">
+                    @php
+                        $download_app_store_button_link = isset($sections['download_app']->getButtons[1]['link'])
+                            ? $sections['download_app']->getButtons[1]['link']
+                            : '';
+                    @endphp
+                    {!! getTextInput(
+                        $download_app_store_button_link,
+                        'App Store Link',
+                        'homepage_banner_section[button][1][link]',
+                        'Button Link',
+                    ) !!}
+                </div>
+
             </div>
         </div>
     </div>

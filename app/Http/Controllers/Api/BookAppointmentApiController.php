@@ -7,15 +7,22 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Services\BookingServices;
+use App\Http\Services\PaymentService;
+use App\Http\Services\PaypalService;
 use App\Models\BookingSlots;
 use Illuminate\Support\Facades\Validator;
 
 class BookAppointmentApiController extends Controller
 {
-    public $bookingAppointmentServices;
-    public function __construct(BookingServices $bookingAppointmentServices)
+    private $bookingAppointmentServices;
+    private $paymentService;
+    private $paypalService;
+
+    public function __construct(BookingServices $bookingAppointmentServices, PaymentService $paymentService, PaypalService $paypalService)
     {
         $this->bookingAppointmentServices = $bookingAppointmentServices;
+        $this->paymentService = $paymentService;
+        $this->paypalService = $paypalService;
     }
     public function bookingAppointment(Request $request)
     {
@@ -37,7 +44,32 @@ class BookAppointmentApiController extends Controller
                 ], 422);
             }
             $bookedAppointment = $this->bookingAppointmentServices->store($request);
-            if ($bookedAppointment) {
+
+            // Check if booking fee is required
+            $paramsToGetBookingFee = [
+                'doctorId'      =>  $bookedAppointment->doctor_id,
+                'slotStartTime' =>  $bookedAppointment->slot_start_time,
+                'slotEndTime'   =>  $bookedAppointment->slot_end_time,
+                'bookingDate'   =>  $bookedAppointment->booking_date
+            ];
+    
+            $bookingFee = $this->bookingAppointmentServices->getBookingFee($paramsToGetBookingFee);
+
+            // Now confirm if booking fee is required generate payment link
+            if(!empty($bookingFee) && $bookingFee > 0)
+            {
+                $paymentLinkDetails = $this->paypalService->generatePaymentLink($bookingFee, $bookedAppointment);
+
+                // Update the payment required column to be true as the payment is required for this appointment
+                $this->bookingAppointmentServices->updatePaymentRequired($bookedAppointment->id,true);
+
+                $paymentLink =  $this->paymentService->savePaymentDetailsAndExtractPaymentLink($bookedAppointment,$paymentLinkDetails, $bookingFee);
+                
+                return response()->json($paymentLink, 200);
+            }
+
+            if ($bookedAppointment) 
+            {
                 return response()->json([
                     'status' => true,
                     'message' => "Booked Successfully"

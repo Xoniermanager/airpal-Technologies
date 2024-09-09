@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Services\PaymentService;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Services\BookingServices;
-use Illuminate\Support\Facades\Session;
 use App\Http\Requests\GetBookingFeeAndCheckAuth;
 
 class BookingController extends Controller
@@ -48,39 +47,8 @@ class BookingController extends Controller
             // Update the payment required column to be true as the payment is required for this appointment
             $this->bookingServices->updatePaymentRequired($bookedSlot->id,true);
 
-            if (isset($paymentLinkDetails['id']) && $paymentLinkDetails['id'] != null) 
-            {
-                foreach ($paymentLinkDetails['links'] as $links) 
-                {
-                    if ($links['rel'] == 'approve') 
-                    {
-                        $paymentDetails = $this->paymentService->savePaymentDetails([
-                            'booking_id'    =>  $bookedSlot->id,
-                            'amount'        =>  $bookingFee,
-                            'currency'      =>  'USD',
-                            'payment_status'    =>  'Pending'
-                        ]);
-                        Session::put('payment_id',$paymentDetails->id);
+            return $this->paymentService->savePaymentDetailsAndExtractPaymentLink($bookedSlot,$paymentLinkDetails, $bookingFee);
 
-                        return [
-                            'status'        =>  true,
-                            'payment_link'  =>  $links['href']
-                        ];
-                    }
-                }
-                
-                return [
-                    'status'    =>  false,
-                    'message'   =>  'Something went wrong. Please try later'
-                ];
-            }
-            else
-            {
-                return [
-                    'status'        =>  false,
-                    'message'  =>  $paymentLinkDetails['message'] ?? 'Something went wrong.'
-                ];
-            }
         }
 
         if ($bookedSlot)

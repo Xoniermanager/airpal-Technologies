@@ -17,10 +17,8 @@ class PaymentService
     }
 
 
-    public function updatePaymentDetails($paymentDetails)
-    {
-        $paymentId = Session::get('payment_id');
-        
+    public function updatePaymentDetails($paymentDetails,$paymentId)
+    {   
         // Check if entry already exists
         $exists = $this->paymentRepository->where('id',$paymentId)->count();
         // \Log::info('Exists Counter : ' . $exists);
@@ -55,5 +53,46 @@ class PaymentService
     public function savePaymentDetails($payload)
     {
         return $this->paymentRepository->create($payload);
+    }
+
+    public function savePaymentDetailsAndExtractPaymentLink($bookedSlot,$paymentLinkDetails, $bookingFee)
+    {
+        if (isset($paymentLinkDetails['id']) && $paymentLinkDetails['id'] != null)
+        {
+            foreach ($paymentLinkDetails['links'] as $links) 
+            {
+                if ($links['rel'] == 'approve')
+                {
+                    $paymentDetails = $this->savePaymentDetails([
+                        'booking_id'    =>  $bookedSlot->id,
+                        'amount'        =>  $bookingFee,
+                        'currency'      =>  'USD',
+                        'payment_status'    =>  'Pending'
+                    ]);
+                    
+                    Session::put('payment_id',$paymentDetails->id);
+
+                    return [
+                        'status'        =>  true,
+                        'message'       =>  'Payment link retrieved successfully!',
+                        'payment_link'  =>  $links['href']
+                    ];
+                }
+            }
+            
+            return [
+                'status'    =>  false,
+                'message'   =>  'Something went wrong. Please try later',
+                'payment_link'  =>  '',
+            ];
+        }
+        else
+        {
+            return [
+                'status'        =>  false,
+                'message'  =>  $paymentLinkDetails['message'] ?? 'Something went wrong.',
+                'payment_link'  =>  ''
+            ];
+        }
     }
 }

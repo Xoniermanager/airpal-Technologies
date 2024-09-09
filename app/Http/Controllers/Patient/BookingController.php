@@ -78,7 +78,7 @@ class BookingController extends Controller
         $slotEndTime = $request->slot_end_time;
         $doctorId = $request->doctor_id;
 
-        if (Auth::check()) 
+        if (Auth::check())
         {
             $bookingFee = '';
             $paramsToGetBookingFee = [
@@ -90,7 +90,7 @@ class BookingController extends Controller
 
             $amount = $this->bookingServices->getBookingFee($paramsToGetBookingFee);
             $bookingFee = $amount . ' USD';
-            return response()->json(['authenticated' => true, 'bookingFee' => $bookingFee]);
+            return response()->json(['authenticated' => true, 'bookingFee' => $bookingFee,'gobalDate' => getFormattedDate($bookingDate)]);
         } else {
             return response()->json(['authenticated' => false]);
         }

@@ -13,7 +13,7 @@
 
     <div class="setting-card">
         <div class="row">
-            <div class="col-lg-12 col-md-12">
+            <div class="col-lg-6 col-md-6">
                 @php
                 $our_health_monitoring_title = isset($sections['our_health_monitoring']['title'])
                         ? $sections['our_health_monitoring']['title']
@@ -25,6 +25,20 @@
                     'section[title]',
                     ['div' => ['test', 'testing', 'tester']],
                     ['input' => 'helloId'],
+                ) !!}
+            </div>
+            <div class="col-lg-6 col-md-6">
+                @php
+                    $our_health_monitoring_section_subtitle = isset($sections['our_health_monitoring']['subtitle'])
+                        ? $sections['our_health_monitoring']['subtitle']
+                        : '';
+                @endphp
+                {!! getTextInput(
+                    $our_health_monitoring_section_subtitle,
+                    'Subtitle',
+                    'section[subtitle]',
+                    ['div' => ['test', 'testing', 'tester']],
+                    ['input' => 'subTitleId'],
                 ) !!}
             </div>
         </div>
@@ -68,21 +82,7 @@
                                     ['input' => 'helloId'],
                                 ) !!}
                             </div>
-                            <div class="col-lg-12">
-                                @php
-                                    $our_health_monitoring_content = isset(
-                                        $sections['our_health_monitoring']->getContent[$i]['content'],
-                                    )
-                                        ? $sections['our_health_monitoring']->getContent[$i]['content']
-                                        : '';
-                                @endphp
-                                {!! getSectionTextArea(
-                                    $our_health_monitoring_content,
-                                    'section[inner_section][' . $i . '][content]',
-                                
-                                    'content',
-                                ) !!}
-                            </div>
+
                             <input type="hidden" name="section[inner_section][{{ $i }}][id]"
                                 value="{{ $sections['our_health_monitoring']->getContent[$i]['id'] ?? '' }}">
                         </div>

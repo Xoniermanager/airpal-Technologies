@@ -7,17 +7,16 @@
 
                     <div class="row">
 
-                        {{-- Banner section --}}
+                        {{-- About Our Company --}}
                         <div class="col-sm-12">
-                            <h3 class="page-title">contact with us</h3>
+                            <h3 class="page-title">About Our Company</h3>
                             <div class="card">
-                                <form id="save_about_us_header_banner_detail" enctype="multipart/form-data">
+                                <form id="save_home_header_banner_detail" method="post" enctype="multipart/form-data">
                                     @csrf
-                                    @include('admin.pages.about_us.contact_with_us')
+                                    @include('admin.pages.about_us.about_our_company')
                                 </form>
                             </div>
                         </div>
-
 
                         {{-- How it Work Section --}}
                         <div class="col-sm-12">
@@ -31,27 +30,16 @@
                         </div>
 
 
-                        {{-- About Our Company --}}
+                        {{-- contact with us --}}
                         <div class="col-sm-12">
-                            <h3 class="page-title">About Our Company</h3>
+                            <h3 class="page-title">contact with us</h3>
                             <div class="card">
-                                <form id="save_home_header_banner_detail" method="post" enctype="multipart/form-data">
+                                <form id="save_about_us_header_banner_detail" enctype="multipart/form-data">
                                     @csrf
-                                    @include('admin.pages.about_us.about_our_company')
+                                    @include('admin.pages.about_us.contact_with_us')
                                 </form>
                             </div>
                         </div>
-
-                        {{-- Banner section --}}
-                        {{-- <div class="col-sm-12">
-                            <h3 class="page-title">Header Banner Section</h3>
-                            <div class="card">
-                                <form id="save_home_header_banner_detail" enctype="multipart/form-data">
-                                    @csrf
-                                    @include('admin.pages.homepage.download_app')
-                                </form>
-                            </div>
-                        </div> --}}
 
                     </div>
                 </div>

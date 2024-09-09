@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class PageSection extends Model
 {
     use HasFactory;
-    protected $fillable = ['image','title','subtitle','page_id','section_slug'];
+    protected $fillable = ['image','title','subtitle','page_id','section_slug','content'];
 
     // Get get all added buttons
     public function getButtons()

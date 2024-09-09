@@ -71,7 +71,7 @@ class PageController extends Controller
         ]);
     }
 
-    public function storeAboutUsPageDetail(HomePageRequest $request)
+    public function storeAboutUsPageDetail(Request $request)
     {
         $allPageSectionsData = $this->frontendPagesServices->saveHomepageSections($request);
         

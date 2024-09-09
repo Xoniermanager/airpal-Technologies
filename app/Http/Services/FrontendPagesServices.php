@@ -34,6 +34,7 @@ class FrontendPagesServices
             $pageSectionData = [
                 'title'             => $data['section']['title'],
                 'subtitle'          => $data['section']['subtitle']?? '',
+                'content'           => $data['section']['content']?? '',
                 'section_slug'      => $data['section']['section_slug'],
                 'page_id'           => $pageId
             ];

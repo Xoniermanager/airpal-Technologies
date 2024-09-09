@@ -95,5 +95,5 @@
             </div>
         </div>
     </div>
-    <button>Save</button>
+    <button class="btn btn-primary prime-btn">Save</button>
 </div>

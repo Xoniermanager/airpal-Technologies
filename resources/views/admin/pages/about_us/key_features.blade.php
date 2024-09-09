@@ -1,12 +1,12 @@
 <div id="key_features">
-    <div class="setting-card p-0">
+    {{-- <div class="setting-card p-0">
         {!! getBannerImageInput(
             $sections['key_features']->image ?? '',
         'section[image]',
         ['input' => ['test', 'preview']],
         ['input' => 'keyFeaturesBannerImage', 'preview' => 'keyFeaturesPreviewImage'],
         ) !!}
-    </div>
+    </div> --}}
     <div class="setting-title">
         <h5>Section Info</h5>
     </div>

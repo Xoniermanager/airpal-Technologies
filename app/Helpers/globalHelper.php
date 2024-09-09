@@ -4,6 +4,8 @@ use App\Models\SiteConfig;
 use App\Models\Testimonial;
 use Illuminate\Support\Facades\Storage;
 
+use function Laravel\Prompts\textarea;
+
 function getRatingHtml($value)
 {
     $html = '';
@@ -92,6 +94,42 @@ function site($configName = '')
     return;
 }
 
+
+
+function getContentInput($value='',$levelName = "Title", $name='title', $classList=array(), $idsList=array())
+{
+    $divClasses = '';
+    $labelClasses = '';
+    $inputClasses = '';
+    $divId = (isset($idsList['div']) && is_string($idsList['div'])) ? $idsList['div'] : '';
+    $labelId = (isset($idsList['label']) && is_string($idsList['label'])) ? $idsList['label'] : '';
+    $inputId = (isset($idsList['input']) && is_string($idsList['input'])) ? $idsList['input'] : '';
+
+    if(isset($classList['div']) && count($classList['div']) > 0)
+    {
+        $divClasses = implode(' ',$classList['div']);
+    }
+
+    if(isset($classList['label']) && count($classList['label']) > 0)
+    {
+        $divClasses = implode(' ',$classList['label']);
+    }
+
+    if(isset($classList['input']) && count($classList['input']) > 0)
+    {
+        $divClasses = implode(' ',$classList['input']);
+    }
+
+    return '<div class="form-wrap '. $divClasses .'" id="'. $divId .'">
+                <label class="col-form-label '. $labelClasses .'" id="'. $labelId .'">'. $levelName .' <span class="text-danger">*</span></label>
+                <textarea  id="'. $inputId .'" class="form-control '. $inputClasses .'" name='. $name .'
+                    value="'. $value .'"  style="height: 150px;">'. $value .'</textarea>
+                <span class="text-danger" id="'. $name .'_error"></span>
+            </div>';
+}
+
+
+
 // Create html for section title
 function getTextInput($value='',$levelName = "Title", $name='title', $classList=array(), $idsList=array())
 {
@@ -124,6 +162,8 @@ function getTextInput($value='',$levelName = "Title", $name='title', $classList=
                 <span class="text-danger" id="'. $name .'_error"></span>
             </div>';
 }
+
+
 
 
 

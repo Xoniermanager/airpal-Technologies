@@ -583,7 +583,9 @@ Route::controller(ContactController::class)->group(function () {
 });
 
 Route::get('/health_monitoring', [HealthMonitoringController::class, 'health_monitoring'])->name('health_monitoring.index');
+
 Route::get('/instant', [InstantController::class, 'instant'])->name('instant.index');
+Route::post('/instant-mail-send', [InstantController::class, 'instantSendMail'])->name('send.instant.mail.index');
 
 Route::controller(FrontController::class)->group(function () {
     Route::get('/privacy', 'privacy')->name('privacy.index');

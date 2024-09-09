@@ -15,7 +15,7 @@
                 <tr>
                     <td>{{ $faqs['id'] }}</td>
                     <td>{{ $faqs['name'] }}</td>
-                    <td>{{ $faqs['description'] }}</td>
+                    <td>{!! Str::limit($faqs['description'], 40, ' ...') !!}</td>
                     <td>{{ $faqs['created_at']->format('d/m/Y') }}</td>
                     <td>
                         <div class="actions">

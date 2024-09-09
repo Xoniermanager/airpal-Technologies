@@ -16,24 +16,25 @@ class PageController extends Controller
     {
         $this->frontendPagesServices = $frontendPagesServices;
     }
-public function home(Page $page)
-{
-    $getPageSections = $this->frontendPagesServices->getPageSectionsWithAttribute($page->id);
+    public function home(Page $page)
+    {
+        $getPageSections = $this->frontendPagesServices->getPageSectionsWithAttribute($page->id);
 
-    // Initialize the sections you want to extract
-    $sections = [];
+        // Initialize the sections you want to extract
+        $sections = [];
 
-    foreach ($getPageSections as $getPageSection) {
-        $sections[$getPageSection['section_slug']] = $getPageSection;
+        foreach ($getPageSections as $getPageSection) {
+            $sections[$getPageSection['section_slug']] = $getPageSection;
+        }
+    // dd($sections);
+        return view('admin.pages.homepage.home', [
+            'sections'  => $sections,
+            'page'      =>  $page
+        ]);
     }
-// dd($sections);
-    return view('admin.pages.homepage.home', [
-        'sections'  => $sections,
-        'page'      =>  $page
-    ]);
-}
     public function storeHomePageDetail(HomePageRequest $request)
     {
+        // dd($request->all());
         $allPageSectionsData = $this->frontendPagesServices->saveHomepageSections($request);
         
         $sectionsHTML = array();
@@ -53,4 +54,80 @@ public function home(Page $page)
             'status'    =>  true
         ]);
     }
+
+    public function aboutUs(Page $page)
+    {
+        $getPageSections = $this->frontendPagesServices->getPageSectionsWithAttribute($page->id);
+
+        $sections = [];
+
+        foreach ($getPageSections as $getPageSection) {
+            $sections[$getPageSection['section_slug']] = $getPageSection;
+        }
+        // dd( $sections);
+        return view('admin.pages.about_us.about',[
+            'sections'  => $sections,
+            'page'      =>  $page
+        ]);
+    }
+
+    public function storeAboutUsPageDetail(HomePageRequest $request)
+    {
+        $allPageSectionsData = $this->frontendPagesServices->saveHomepageSections($request);
+        
+        $sectionsHTML = array();
+        foreach ($allPageSectionsData as $pageSectionsData) 
+        {
+            $slug = $pageSectionsData->section_slug;
+            $sectionsHTML[$slug]['data'] = view('admin.pages.about_us.'.$slug ,[
+                'sections' =>  [
+                    $slug   =>  $pageSectionsData
+                ]
+            ])->render();
+            $sectionsHTML[$slug]['slug'] = $slug; 
+        }
+        return response()->json([
+            'success'   => 'Successfully saved',
+            'data'      =>  $sectionsHTML,
+            'status'    =>  true
+        ]);
+    }
+
+    public function healthMonitoring(Page $page)
+    {
+        $getPageSections = $this->frontendPagesServices->getPageSectionsWithAttribute($page->id);
+
+        $sections = [];
+
+        foreach ($getPageSections as $getPageSection) {
+            $sections[$getPageSection['section_slug']] = $getPageSection;
+        }
+        // dd( $sections);
+        return view('admin.pages.health_monitoring.health',[
+            'sections'  =>  $sections,
+            'page'      =>  $page
+        ]);
+    }
+
+    public function storeHealthMonitoringPageDetail(HomePageRequest $request)
+    {
+        $allPageSectionsData = $this->frontendPagesServices->saveHomepageSections($request);
+        $sectionsHTML = array();
+        foreach ($allPageSectionsData as $pageSectionsData) 
+        {
+            $slug = $pageSectionsData->section_slug;
+            $sectionsHTML[$slug]['data'] = view('admin.pages.health_monitoring.'.$slug ,[
+                'sections' =>  [
+                    $slug   =>  $pageSectionsData
+                ]
+            ])->render();
+            $sectionsHTML[$slug]['slug'] = $slug; 
+        }
+        return response()->json([
+            'success'   => 'Successfully saved',
+            'data'      =>  $sectionsHTML,
+            'status'    =>  true
+        ]);
+    }
+
 }

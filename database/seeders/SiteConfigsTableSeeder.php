@@ -145,6 +145,24 @@ class SiteConfigsTableSeeder extends Seeder
                 'created_at' => '2024-09-02 12:41:07',
                 'updated_at' => '2024-09-02 12:41:07',
             ),
+            14 => 
+            array (
+                'id' => 23,
+                'name' => 'google_play_store',
+                'value' => 'https://play.google.com/store/apps?hl=en',
+                'status' => 1,
+                'created_at' => '2024-09-09 14:33:47',
+                'updated_at' => '2024-09-09 14:33:47',
+            ),
+            15 => 
+            array (
+                'id' => 24,
+                'name' => 'ios_store',
+                'value' => 'https://www.apple.com/in/app-store/',
+                'status' => 1,
+                'created_at' => '2024-09-09 14:33:47',
+                'updated_at' => '2024-09-09 14:33:47',
+            ),
         ));
         
         

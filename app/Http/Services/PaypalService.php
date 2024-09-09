@@ -14,7 +14,7 @@ class PaypalService
      *
      * @return response()
      */
-    public function generatePaymentLink($amount, $bookingDetails)
+    public function generatePaymentLink($amount, $bookingDetails, $returnUrls)
     {
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
@@ -22,9 +22,9 @@ class PaypalService
         \Log::info('Paypal payment id : ' . json_encode($paypalToken));
         return $response = $provider->createOrder([
             "intent" => "CAPTURE",
-            "application_context" => [
-                "return_url" => route('paypal.payment.success'),
-                "cancel_url" => route('paypal.payment/cancel'),
+            "application_context" =>  [
+                "return_url" => $returnUrls['success'],
+                "cancel_url" => $returnUrls['cancel'],
             ],
             "purchase_units" => [
                 0 => [

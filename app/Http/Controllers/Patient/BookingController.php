@@ -42,7 +42,12 @@ class BookingController extends Controller
 
         if(!empty($bookingFee) && $bookingFee > 0)
         {
-            $paymentLinkDetails = $this->paypalService->generatePaymentLink($bookingFee, $bookedSlot);
+            $redirectUrls = [
+                'success'   =>  "route('paypal.payment.success')",
+                'cancel'    =>  "route('paypal.payment/cancel')"
+            ];
+            
+            $paymentLinkDetails = $this->paypalService->generatePaymentLink($bookingFee, $bookedSlot,$redirectUrls);
 
             // Update the payment required column to be true as the payment is required for this appointment
             $this->bookingServices->updatePaymentRequired($bookedSlot->id,true);

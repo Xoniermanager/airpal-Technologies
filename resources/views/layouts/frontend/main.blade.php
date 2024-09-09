@@ -48,6 +48,8 @@
     <script src="{{ asset('admin/assets/js/jquery-ui.js') }}"></script>
     <script src="{{ asset('admin/assets/js/jquery-ui.css') }}"></script>
     <script src="{{ asset('admin/assets/jquery-validation/dist/jquery.validate.min.js') }}"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
     <script>
         window.site_admin_base_url = '{{ env('SITE_ADMIN_BASE_URL') }}';
         window.site_base_url = '{{ env('SITE_BASE_URL') }}';
@@ -55,7 +57,7 @@
     <!-- Loading default app.css and app.js -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
     <style>
         .k-list-item.k-selected,
         .k-selected.k-list-optionlabel {

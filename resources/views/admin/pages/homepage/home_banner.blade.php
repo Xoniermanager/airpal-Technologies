@@ -3,7 +3,7 @@
 
         {!! getBannerImageInput(
             $sections['home_banner']->image ?? '',
-            'homepage_banner_section[image]',
+            'section[image]',
             ['input' => ['test']],
             ['input' => 'uploadBannerImage', 'preview' => 'previewImage'],
         ) !!}
@@ -24,7 +24,7 @@
                 {!! getTextInput(
                     $home_banner_section_title,
                     'Title',
-                    'homepage_banner_section[title]',
+                    'section[title]',
                     ['div' => ['test', 'testing', 'tester']],
                     ['input' => 'helloId'],
                 ) !!}
@@ -39,7 +39,7 @@
                 {!! getTextInput(
                     $home_banner_section_subtitle,
                     'Subtitle',
-                    'homepage_banner_section[subtitle]',
+                    'section[subtitle]',
                     ['div' => ['test', 'testing', 'tester']],
                     ['input' => 'subTitleId'],
                 ) !!}
@@ -55,13 +55,13 @@
                         $pageId = $sections['home_banner']['page_id'] ?? '';
                     }
                 @endphp
-                <input type="hidden" name="homepage_banner_section[section_slug]" value="home_banner">
+                <input type="hidden" name="section[section_slug]" value="home_banner">
                 <input type="hidden" name="page_id" value="{{ $pageId }}">
 
-                <input type="hidden" name="homepage_banner_section[id]"
+                <input type="hidden" name="section[id]"
                     value="{{ $sections['home_banner']['id'] ?? '' }}">
 
-                <input type="hidden" name="homepage_banner_section[button][0][id]"
+                <input type="hidden" name="section[button][0][id]"
                     value="{{ $sections['home_banner']->getButtons[0]['id'] ?? '' }}">
 
 
@@ -75,7 +75,7 @@
                     {!! getTextInput(
                         $home_banner_button_text,
                         'button text',
-                        'homepage_banner_section[button][0][text]',
+                        'section[button][0][text]',
                         'Button Text',
                     ) !!}
                 </div>
@@ -88,7 +88,7 @@
                     {!! getTextInput(
                         $home_banner_button_link,
                         'button link',
-                        'homepage_banner_section[button][0][link]',
+                        'section[button][0][link]',
                         'Button Link',
                     ) !!}
                 </div>

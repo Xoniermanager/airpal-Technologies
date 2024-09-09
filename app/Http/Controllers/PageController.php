@@ -34,7 +34,6 @@ class PageController extends Controller
     }
     public function storeHomePageDetail(HomePageRequest $request)
     {
-        // dd($request->all());
         $allPageSectionsData = $this->frontendPagesServices->saveHomepageSections($request);
         
         $sectionsHTML = array();

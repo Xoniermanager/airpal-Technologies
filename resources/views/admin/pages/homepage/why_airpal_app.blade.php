@@ -13,7 +13,7 @@
                 {!! getTextInput(
                     $why_airpal_app_title,
                     'Title',
-                    'why_airpal_app[title]',
+                    'section[title]',
                     ['div' => ['test', 'testing', 'tester']],
                     ['input' => 'helloId'],
                 ) !!}
@@ -35,7 +35,7 @@
                                 @endphp
                                 {!! getImageInput(
                                     $why_airpal_app_image,
-                                    'why_airpal_app[inner_section][' . $i . '][image]',
+                                    'section[inner_section][' . $i . '][image]',
                                     ['div' => ['test', 'testing', 'tester']],
                                     ['input' => "innerImageIdWhy$i", 'preview' => "previewImageWhy$i"],
                                 ) !!}
@@ -50,13 +50,13 @@
                                 {!! getTextInput(
                                     $why_airpal_app_title,
                                     'Title',
-                                    'why_airpal_app[inner_section][' . $i . '][title]',
+                                    'section[inner_section][' . $i . '][title]',
                                     ['div' => ['test', 'testing', 'tester']],
                                     ['input' => 'helloId'],
                                 ) !!}
                             </div>
 
-                            <input type="hidden" name="why_airpal_app[inner_section][{{ $i }}][id]" ;
+                            <input type="hidden" name="section[inner_section][{{ $i }}][id]" ;
                                 value="{{ $sections['why_airpal_app']->getContent[$i]['id'] ?? '' }}">
                         </div>
                     </div>
@@ -71,7 +71,7 @@
         }
     @endphp
     <input type="hidden" name="page_id" value="{{ $pageId }}">
-    <input type="hidden" name="why_airpal_app[section_slug]" value="why_airpal_app">
-    <input type="hidden" name="why_airpal_app[id]" value="{{ $sections['why_airpal_app']['id'] ?? '' }}">
+    <input type="hidden" name="section[section_slug]" value="why_airpal_app">
+    <input type="hidden" name="section[id]" value="{{ $sections['why_airpal_app']['id'] ?? '' }}">
     <button class="btn btn-primary prime-btn">Save</button>
 </div>

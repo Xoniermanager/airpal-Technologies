@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('page_extra_sections', function (Blueprint $table) {
             $table->id();
+            $table->integer('page_id');
             $table->string('model');
             $table->string('user_type')->nullable();
             $table->enum('order_by',['asc','desc']);

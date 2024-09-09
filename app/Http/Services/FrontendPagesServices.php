@@ -6,8 +6,10 @@ use App\Models\Page;
 use App\Models\PageContent;
 use App\Models\PageSection;
 use App\Models\SectionButton;
-use App\Http\Repositories\FavoriteDoctorRepository;
 use App\Models\SectionContent;
+use App\Models\PageExtraSection;
+use App\Http\Repositories\FavoriteDoctorRepository;
+use App\Models\ExtraSectionFilter;
 
 class FrontendPagesServices
 {
@@ -19,7 +21,7 @@ class FrontendPagesServices
 
     public function saveHomepageSections($data)
     {    
-     
+
         $pageId = $data['page_id'];
         if(isset($data['section']))
         {
@@ -71,9 +73,14 @@ class FrontendPagesServices
                     $howItWorksCounter++;
                 }
             }
+        }
+        if(isset($data['top_doctors'])){
 
+        $this->saveTopDoctors($data['top_doctors']);
 
         }
+
+
 
         // if(isset($data['how_it_works']))
         // {
@@ -162,6 +169,63 @@ class FrontendPagesServices
         return $this->getPageSectionsWithAttribute($pageId);
     }
 
+
+    public function saveTopDoctors($data )
+    {
+        $payload = [
+            'model'             =>  $data['model'],
+            'order_by'          =>  $data['orderby'] ?? '',
+            'no_of_records'     =>  $data['no_of_records'] ?? '',
+            'status'            =>  $data['status']?? '',
+            'page_id'           =>  $data['page_id']
+        ];
+        $pageExtraSection = PageExtraSection::create($payload);
+
+        if($pageExtraSection)
+        {
+            foreach($data['filter'] as $filter)
+            {
+            $pageExtraSection = [
+                'key'  => $filter['key'],
+                'value' => $filter['value'],
+                'page_extra_sections_id'=> $pageExtraSection->id,
+            ];
+            $sectionData = ExtraSectionFilter::create($pageExtraSection);   
+
+            }
+
+        }
+
+
+        
+    //   $sectionId = isset($data['id']) ? $data['id'] : ''
+
+            // if($sectionId)
+            // {
+            //     $sectionData = PageExtraSection::find($sectionId);
+            //     $sectionData->update($data);
+            // }
+            // else
+            // {
+            //     // $payload = [
+            //     //     'model'             =>  $data['model'],
+            //     //     'orderby'           =>  $data['orderby']?? '',
+            //     //     'no_of_records'     =>  $data['no_of_records']?? '',
+            //     //     'status'            =>  $data['status']?? '',,
+            //     //     'page_id'           =>  $data['page_id']
+            //     // ];
+
+            //     // dd($payload);
+            //     // $pageExtraSection = PageExtraSection::create($payload);
+            //     if($pageExtraSection)
+            //     {
+            //         ExtraSectionFilter::create();
+            //     }
+
+            // }
+
+
+    }
 
     public function saveSection($sectionAttributes,$sectionBannerImage,$sectionId)
     {

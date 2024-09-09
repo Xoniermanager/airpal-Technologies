@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PageExtraSection extends Model
 {
     use HasFactory;
+    
+    protected $fillable = ['model','orderby','no_of_records','status','page_id'];
+
 }

@@ -2,7 +2,7 @@
     <div class="setting-card p-0">
         {!! getBannerImageInput(
             $sections['how_it_works']->image ?? '',
-            'how_it_works[image]',
+            'section[image]',
             ['input' => ['test', 'preview']],
             ['input' => 'howItWorkBannerImage', 'preview' => 'howItWorkPreviewImage'],
         ) !!}
@@ -22,7 +22,7 @@
                 {!! getTextInput(
                     $how_it_works_title,
                     'Title',
-                    'how_it_works[title]',
+                    'section[title]',
                     ['div' => ['test', 'testing', 'tester']],
                     ['input' => 'helloId'],
                 ) !!}
@@ -44,7 +44,7 @@
                                 @endphp
                                 {!! getImageInput(
                                     $how_it_works_image,
-                                    'how_it_works[inner_section][' . $i . '][image]',
+                                    'section[inner_section][' . $i . '][image]',
                                     ['div' => ['test', 'testing', 'tester']],
                                     ['input' => "innerImageId$i", 'preview' => "previewImage$i"],
                                 ) !!}
@@ -59,7 +59,7 @@
                                 {!! getTextInput(
                                     $how_it_works_title,
                                     'Title',
-                                    'how_it_works[inner_section][' . $i . '][title]',
+                                    'section[inner_section][' . $i . '][title]',
                                     ['div' => ['test', 'testing', 'tester']],
                                     ['input' => 'helloId'],
                                 ) !!}
@@ -72,12 +72,12 @@
                                 @endphp
                                 {!! getSectionTextArea(
                                     $how_it_works_content,
-                                    'how_it_works[inner_section][' . $i . '][content]',
+                                    'section[inner_section][' . $i . '][content]',
                                 
                                     'content',
                                 ) !!}
                             </div>
-                            <input type="hidden" name="how_it_works[inner_section][{{ $i }}][id]" ;
+                            <input type="hidden" name="section[inner_section][{{ $i }}][id]" ;
                                 value="{{ $sections['how_it_works']->getContent[$i]['id'] ?? '' }}">
                         </div>
                     </div>
@@ -92,7 +92,7 @@
         }
     @endphp
     <input type="hidden" name="page_id" value="{{ $pageId }}">
-    <input type="hidden" name="how_it_works[section_slug]" value="how_it_works">
-    <input type="hidden" name="how_it_works[id]" value="{{ $sections['how_it_works']['id'] ?? '' }}">
+    <input type="hidden" name="section[section_slug]" value="how_it_works">
+    <input type="hidden" name="section[id]" value="{{ $sections['how_it_works']['id'] ?? '' }}">
     <button class="btn btn-primary prime-btn">Save</button>
 </div>

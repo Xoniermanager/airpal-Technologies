@@ -338,7 +338,7 @@
                             if (response.status) {
                                 window.location.href = response.payment_link;
                             } else {
-                                swal.fire("Done!", response.message, "error");
+                                Swal.fire("Done!", response.message, "error");
                             }
                         },
                         error: function(error_messages) {
@@ -420,7 +420,8 @@
             }
         }
 
-        function showContent(contentId, slot, date, doctorId) {
+        function showContent(contentId, slot, date, doctorId)
+        {
             var url = "{{ route('check.auth') }}";
             // Send AJAX request to check if the user is authenticated
             let slot_info = slot.split('-');
@@ -457,6 +458,17 @@
                         content.classList.remove("hidden-content");
                     } else {
                         Swal.fire({
+                        title: "Oops...",
+                        text: "Since! You are doctor you can't book the appointment",
+                        icon: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                    });
+                    }
+                },
+                error: function() {
+                    Swal.fire({
                             title: "Oops...",
                             text: "To Continue! Please Sign in First.",
                             icon: "error",
@@ -465,18 +477,6 @@
                             cancelButtonColor: "#d33",
                             confirmButtonText: "<a href='/login'>Login</a>"
                         });
-                    }
-                },
-                error: function() {
-                    Swal.fire({
-                        title: "Oops...",
-                        text: "To Continue! Please Sign in First.",
-                        icon: "error",
-                        showCancelButton: true,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
-                        confirmButtonText: "<a href='/login'>Login</a>"
-                    });
                 }
             });
         }

@@ -3,20 +3,21 @@
 namespace App\View\Components;
 
 use Closure;
-use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use Illuminate\Contracts\View\View;
+use App\Http\Services\TestimonialServices;
 
 class TestimonialSlider extends Component
 {
     /**
      * Create a new component instance.
      */
-    public $testimonials;
+    public $testimonialServices;
     public $show;
 
-    public function __construct($testimonials, $show = true)
+    public function __construct(TestimonialServices $testimonialServices, $show = true)
     {
-        $this->testimonials = $testimonials;
+        $this->testimonialServices = $testimonialServices;
         $this->show = $show;
     }
     /**
@@ -24,6 +25,6 @@ class TestimonialSlider extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.testimonial-slider');
+        return view('components.testimonial-slider',['testimonials' => $this->testimonialServices->all()]);
     }
 }

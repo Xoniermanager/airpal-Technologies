@@ -216,16 +216,20 @@
                             <span>Country</span></a>
                     </li>
 
-                    <li class="submenu" data-url="{{ route('admin.invoice-report.index') }}">
-                        <a href="#"><i class="fe fe-question"></i><span>Pages</span> <span
+                    <li class="submenu">
+                        <a href="#" class=""><i class="fe fe-question"></i><span>Pages</span> <span
                                 class="menu-arrow"></span></a>
                         <ul style="display: none;">
                             <a href="{{ route('admin.home.index',1) }}"
                                 data-url="{{ route('admin.home.index',1) }}">
                                 <span>Home</span></a>
-                            <a href="{{ route('admin.questions.index') }}"
-                                data-url="{{ route('admin.questions.index') }}">
+                            <a href="{{ route('admin.about_us.index',2) }}"
+                                data-url="{{ route('admin.about_us.index',2) }}">
                                 <span>About Us</span></a>
+
+                            <a href="{{ route('admin.health.monitoring.index',3) }}"
+                                data-url="{{ route('admin.health.monitoring.index',3) }}">
+                                <span>Health Monitoring</span></a>
                         </ul>
                     </li>
 

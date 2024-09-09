@@ -65,131 +65,12 @@
             </div>
         </section>
 
-        <section class="doctors-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 aos" >
-                        <div class="section-header-one section-header-slider">
-                            <h2 class="section-title">Top Doctors</h2>
-                        </div>
-                    </div>
-                    <div class="col-md-6 aos" >
-                        <div class="owl-nav slide-nav-2 text-end nav-control"></div>
-                    </div>
-                </div>
-            
-                <div class="owl-carousel doctor-slider-one owl-theme aos" >
-                    @foreach ( $doctorList as $doctor )
-                    <div class="item">
-                        <div class="doctor-profile-widget">
-                            <div class="doc-pro-img">
-                                <a href="#">
-                                    <div class="doctor-profile-img">
-                                        <a href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">
-                                        <img src="{{ $doctor['image_url'] }}" class="img-fluid" alt="Ruby Perrin" 
-                                        onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" 
-                                        >
-                                        </a>
-                                    </div>
-                                </a>
+        {{-- this is top doctor section (common section with other pages)--}}
+        <x-doctor-slider :doctorList="$doctorList" :show="true" />
 
-                            </div>  
-                            <div class="doc-content">
-                                <div class="doc-pro-info">
-                                    <div class="doc-pro-name">
-                                        <a href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">{{ $doctor->fullName }}</a>
-                                        @forelse ($doctor->specializations as $specializaion)
-                                        <span>{{$specializaion->name}},</span>
-                                        @empty
-                                        <span>No Specialization available</span>
-                                        @endforelse
-                                    </div>
-                                    <div class="reviews-ratings">
-                                        <p>
-                                            {!! getRatingHtml($doctor->allover_rating)!!}
-                                            {{-- <span><i class="fas fa-star"></i> 4.5</span> (35) --}}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="doc-pro-location">
-                                    @if (isset($doctor->doctorAddress))
-                                    @php
-                                    $address = $doctor->doctorAddress->address ?? '';
-                                    $city = $doctor->doctorAddress->city ?? '';
-                                    $fullAddress = $address . ' ' . $city . ' india';
-                                    $encodedAddress = str_replace(' ', '+', $fullAddress);
-                                    @endphp
-
-                                    <a href="https://www.google.com/maps?q={{ $encodedAddress }}" target="_blank">
-                                        <span>
-                                            <i class="fas fa-map-marker-alt"></i><strong>
-                                            {{ isset($doctor->doctorAddress->address ) ? $doctor->doctorAddress->address  : '' }}
-                                            {{ isset($doctor->doctorAddress->city) ? ', '.$doctor->doctorAddress->city : '' }}
-                                            {{ isset($doctor->doctorAddress->states->name) ? ', '.$doctor->doctorAddress->states->name : '' }}
-                                            {{ isset($doctor->doctorAddress->states->country->name) ? ', '.$doctor->doctorAddress->states->country->name : '' }}
-                                        </strong>
-                                        </span> 
-                                    </a>
-
-                                    {{-- <p class="doc-location"><i class="feather-map-pin"></i>{{$doctor->doctorAddress->city ?? ''}} {{','. $doctor->doctorAddress->states->country->name ??'' }} - 
-                                        <a href="javascript:void(0);">Get Directions</a></p>   --}}
-                                    @else
-                                    <p class="doc-location"><i class="feather-map-pin"></i> - <a href="javascript:void(0);">Get Directions</a></p>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-
-
-
-                </div>
-            </div>
-        </section>
-        <section class="specialities-section">
-            <div class="shapes">
-                <img src="{{URL::asset('assets/img/shapes/shape-3.png')}}" alt="shape-image" class="img-fluid shape-3">
-                <img src="{{URL::asset('assets/img/shapes/shape-4.png')}}" alt="shape-image" class="img-fluid shape-4">
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 aos aos-init aos-animate" >
-                        <div class="section-heading bg-area">
-                            <h2>Browse by Specialities</h2>
-                            <p>Find experienced doctors across all specialties</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 text-right">
-                        <a href="{{ route('specialty.list') }}" class="btn btn-primary prime-btn">Show More</a>
-                    </div>
-                </div>
-                <div class="row">
-
-                    @foreach($specialties as $speciality)
-
-                    <div class="col-xl-3 col-lg-4 col-md-6 aos aos-init aos-animate" >
-                        <div class="specialist-card d-flex">
-                            <div class="specialist-img">
-                                <img src="{{URL::asset('assets/img/category/1.png')}}" alt="kidney-image" class="img-fluid">
-                            </div>
-                            <div class="specialist-info">
-                                <a href="{{ route('specialty.detail', ['id' => $speciality->id]) }}">
-                                    <h4>{{ $speciality->speciality_name ??  ''}}</h4>
-                                </a>
-                                <p>{{$speciality->doctor_count}} Doctors</p>
-                            </div>
-                            <div class="specialist-nav ms-auto">
-                                <a href="{{ route('specialty.detail', ['id' => $speciality->id]) }}"><i class="fas fa-long-arrow-alt-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-    
-               
-                </div>
-            </div>
-        </section>
+       {{-- this is group by doctor specialty section (common section with other pages) --}}
+        <x-specialty-group-by-section :show="true" />
+        
         <section class="work-section">
             <div class="container">
                 <div class="row">
@@ -290,70 +171,15 @@
         </section>
 
 
-        <section class="faq-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="section-header-one text-center aos" >
-                            <h5>Get Your Answer</h5>
-                            <h2 class="section-title">Frequently Asked Questions</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-md-12 aos" >
-                        <div class="faq-img">
-                            <img src="{{URL::asset('assets/img/faq-img-2.jpg')}}" class="img-fluid" alt="img">
-                            <div class="faq-patients-count">
-                                <div class="faq-smile-img">
-                                    <img src="{{URL::asset('assets/img/icons/smiling-icon.svg')}}" alt="icon">
-                                </div>
-                                <div class="faq-patients-content">
-                                    <h4><span class="count-digit">95</span>k+</h4>
-                                    <p>Happy Patients</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12">
-                        <div class="faq-info aos" >
-                            <div class="accordion" id="faq-details">
-
-                                @foreach ( $allFaqs->slice(0, 6) as  $key => $allFaq)
-                                    
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="heading{{$key}}">
-                                        <a href="javascript:void(0);" class="accordion-button {{ $key != 0 ? 'collapsed' : '' }}" data-bs-toggle="collapse"
-                                            data-bs-target="#collapse{{$key}}" aria-expanded="true"
-                                            aria-controls="collapse{{$key}}">
-                                           {{ $allFaq->name }}
-                                        </a>
-                                    </h2>
-                                    <div id="collapse{{$key}}" class="accordion-collapse collapse {{ $key==0 ? 'show' : '' }}"
-                                        aria-labelledby="heading{{$key}}" data-bs-parent="#faq-details">
-                                        <div class="accordion-body">
-                                            <div class="accordion-content">
-                                                <p>{{  $allFaq->description}}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endforeach
-
-         
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+        <x-faqs :show="true" />
 
         {{-- {!! renderTestimonials() !!} --}}
-        <x-testimonial-slider :testimonials="$sections['testimonials']" :show="true" />
 
-        <x-partner-slider :partners="$sections['partners']" :show="true"  />
+        {{-- this is testimonial section (common section with other pages)--}}
+        <x-testimonial-slider :show="true" />
+
+        {{-- this is our partners section (common section with other pages)--}}
+        <x-partner-slider :show="true"  />
 
         @endsection
 

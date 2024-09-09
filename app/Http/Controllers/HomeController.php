@@ -48,18 +48,11 @@ class HomeController extends Controller
     foreach ($pageSections as $getPageSection) {
       $sections[$getPageSection['section_slug']] = $getPageSection;
     }
-    $testimonials = $this->testimonialServices->all();
-    $sections['testimonials'] = $testimonials;
-
-    $partners = $this->partnersServices->all();
-    $sections['partners'] = $partners;
 
     return view('website.pages.home', [
       'doctorList'  => $doctors,
       'specialties' => $specialtiesByDoctorsCount,
-      'allFaqs'     => $allFaqs,
       'sections'    => $sections,
-
     ]);
   }
 }

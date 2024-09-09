@@ -55845,3 +55845,10 @@ i.fab.fa-youtube-square {
     pointer-events: none;
     opacity: 0.5;
 }
+
+
+.doctor-slider-image {
+    display: block;
+    height: 270px !important;
+    width: 100%;
+}

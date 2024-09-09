@@ -50,7 +50,7 @@
                 <div class="setting-card">
                     <div class="add-info membership-infos">
                         <div class="row membership-content">
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                                 @php
                                     $our_health_monitoring_image = isset(
                                         $sections['our_health_monitoring']->getContent[$i]['image'],
@@ -66,7 +66,7 @@
                                 ) !!}
 
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-lg-12">
                                 @php
                                     $our_health_monitoring_title = isset(
                                         $sections['our_health_monitoring']->getContent[$i]['title'],

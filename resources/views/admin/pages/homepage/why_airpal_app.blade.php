@@ -41,7 +41,7 @@
                                 ) !!}
 
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-lg-12">
                                 @php
                                     $why_airpal_app_title = isset($sections['why_airpal_app']->getContent[$i]['title'])
                                         ? $sections['why_airpal_app']->getContent[$i]['title']

@@ -41,7 +41,9 @@ class HomeController extends Controller
   {
 
     $specialtiesByDoctorsCount =  $this->doctor_specialty->getSpecialtyGroupByDoctor();
+    
     $doctors =  $this->user_services->getDoctorDataForFrontend();
+
     $allFaqs =  $this->faqsServices->all();
  
     $pageSections = PageSection::with('getButtons', 'getContent')->get();

@@ -44,11 +44,22 @@
 
                         {{-- Banner section --}}
                         <div class="col-sm-12">
-                            <h3 class="page-title">Header Banner Section</h3>
+                            <h3 class="page-title">Download App Section</h3>
                             <div class="card">
                                 <form id="save_home_header_banner_detail" enctype="multipart/form-data">
                                     @csrf
                                     @include('admin.pages.homepage.download_app')
+                                </form>
+                            </div>
+                        </div>
+
+                        {{-- Banner section --}}
+                        <div class="col-sm-12">
+                            <h3 class="page-title">Top Doctros</h3>
+                            <div class="card">
+                                <form id="save_home_header_banner_detail" enctype="multipart/form-data">
+                                    @csrf
+                                    @include('admin.pages.homepage.doctor_slider_filter')
                                 </form>
                             </div>
                         </div>
@@ -126,15 +137,12 @@
             }
         }
 
-
-
-
         .avatar-upload-two {
             position: relative;
             padding: 10px;
 
             /* max-width: 205px;
-    margin: 50px auto; */
+            margin: 50px auto; */
             .avatar-edit {
                 position: absolute;
                 right: 12px;
@@ -181,7 +189,8 @@
                 width: 100px;
                 height: 100px;
                 position: relative;
-                border-radius: 100%;
+                /* border-radius: 100%; */
+                padding: 10px;
                 border: 6px solid #F8F8F8;
                 box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
 

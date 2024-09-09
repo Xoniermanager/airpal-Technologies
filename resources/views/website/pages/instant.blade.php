@@ -1,5 +1,12 @@
 @extends('layouts.frontend.main')
 @section('content')
+<div class="loaderonload" style="display: none;">
+    <div class="loaderbox1"></div>
+    <div class="loaderbox">
+        <img src="{{ asset('assets/img/loader-rolling.gif') }}" class="search-loader">
+    </div>
+</div>
+
     <section class="doctor-search-section">
         <div class="container">
             <div class="row align-items-center">
@@ -68,7 +75,7 @@
 
     <script>
         $(document).ready(function() {
-            // $('.loaderonload').hide();
+            $('.loaderonload').hide();
             jQuery("#instant_consult").validate({
                 rules: {
                     name: 'required',
@@ -108,7 +115,7 @@
 
                             if (response.success == true) {
                                 $('.loaderonload').hide();
-                                $('#contact-us')[0].reset();
+                                $('#instant_consult')[0].reset();
                                 // Swal.fire("Done!", response.message, "success");
                                 window.location.href = "<?= route('thank.you') ?>";
                             }

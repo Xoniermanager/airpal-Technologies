@@ -38,10 +38,19 @@ class InstantController extends Controller
       }
   
       // If validation passes, send the email
-      Mail::to('recipient@example.com')->send(new InstantConsultSendMail($validator->validate()));
+      $sendMail = Mail::to('xonier.puneet@gmail.com')->send(new InstantConsultSendMail($validator->validate()));
   
-      // Optionally return a success message
-      return redirect()->back()->with('success', 'Email sent successfully!');
+      if ($sendMail) {
+        return response()->json([
+          'success' => true,
+          'message' => 'Mail send successfully'
+        ], 200);
+      } else {
+        return response()->json([
+          'success' => false,
+          'message' => 'Something went wrong'
+        ], 500);
+      }
   }
   
 }

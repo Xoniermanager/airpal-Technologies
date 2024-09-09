@@ -16,9 +16,10 @@ class InstantConsultSendMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    private $mailData;
+    public function __construct($mailData)
     {
-        //
+        $this->mailData = $mailData;
     }
 
     /**
@@ -37,7 +38,10 @@ class InstantConsultSendMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            markdown: 'emails.instant_consult_template',
+            with: [
+                'contactUsDetails' => $this->mailData,
+            ],
         );
     }
 

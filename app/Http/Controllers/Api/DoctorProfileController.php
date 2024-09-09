@@ -24,10 +24,12 @@ use App\Http\Services\DoctorSpecialityServices;
 use App\Http\Requests\StoreDoctorAddressRequest;
 use App\Http\Requests\StoreDoctorRegistrationRequest;
 use App\Http\Requests\StoreDoctorPersonalDetailRequest;
+use App\Http\Services\BookingServices;
 
 class DoctorProfileController extends Controller
 {
     private $user_services;
+    private $bookingService;
     private $doctor_address_services;
     private $doctor_language_services;
     private $specialization_services;
@@ -47,7 +49,8 @@ class DoctorProfileController extends Controller
         SpecializationServices $specialization_services,
         DoctorSpecialityServices $doctor_speciality_services,
         DoctorServiceAddServices $doctor_service_add_services,
-        DoctorService $doctorService
+        DoctorService $doctorService,
+        BookingServices  $bookingService
     ) {
         $this->user_services = $user_services;
         $this->countryServices = $countryServices;
@@ -58,6 +61,7 @@ class DoctorProfileController extends Controller
         $this->doctor_speciality_services  = $doctor_speciality_services;
         $this->doctor_service_add_services = $doctor_service_add_services;
         $this->doctorService   = $doctorService;
+        $this->bookingService   = $bookingService;
     }
 
 
@@ -213,7 +217,7 @@ class DoctorProfileController extends Controller
     public function getPatientBookingJourney($patientId)
     {
         try {
-            $patientDetails = $this->user_services->getPatientById($patientId);
+            $patientDetails = $this->bookingService->getAllBookingDetailsByDoctorAndPatientId($patientId, Auth()->guard('api')->user()->id);
             if ($patientDetails) {
                 return response()->json([
                     'success' => true,

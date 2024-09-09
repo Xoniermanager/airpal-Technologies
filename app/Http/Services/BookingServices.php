@@ -109,7 +109,7 @@ class BookingServices
 
     public function doctorBookings($id, $searchKey = null)
     {
-        $queryDetails =  $this->bookingRepository->where('doctor_id', $id)->with(['patient','prescription']);
+        $queryDetails =  $this->bookingRepository->where('doctor_id', $id)->with(['patient', 'prescription']);
 
         // Using search keyword to find appointments
         if (isset($searchKey) && !empty($searchKey)) {
@@ -382,7 +382,7 @@ class BookingServices
 
     public function getAllBookingDetailsByDoctorAndPatientId($patientId, $doctorId)
     {
-        return $this->bookingRepository->where('doctor_id', $doctorId)->where('patient_id', $patientId)->get();
+        return $this->bookingRepository->where('doctor_id', $doctorId)->where('patient_id', $patientId)->with(['user', 'patient'])->get();
     }
 
     /**
@@ -418,11 +418,11 @@ class BookingServices
     }
     public function allCompleteAppointmentByDoctorId($doctorId)
     {
-        return $this->bookingRepository->where('doctor_id', $doctorId)->where('status', 'completed')->with(['patient','prescription'])->orderBy('booking_date', 'desc')->paginate(10);
+        return $this->bookingRepository->where('doctor_id', $doctorId)->where('status', 'completed')->with(['patient', 'prescription'])->orderBy('booking_date', 'desc')->paginate(10);
     }
     public function allCompleteAppointmentByPatientId($patientId)
     {
-        return $this->bookingRepository->where('patient_id', $patientId)->where('status', 'completed')->with(['user','prescription'])->orderBy('booking_date', 'desc')->paginate(10);
+        return $this->bookingRepository->where('patient_id', $patientId)->where('status', 'completed')->with(['user', 'prescription'])->orderBy('booking_date', 'desc')->paginate(10);
     }
 
     /**

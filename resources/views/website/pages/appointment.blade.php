@@ -264,7 +264,8 @@
                                             </div>
                                             <div class="booking-doctor-info">
                                                 <h3>We can help you</h3>
-                                                <p class="device-text">Call us +1 888-888-8888 (or) chat with our
+                                                <p class="device-text">Call us +1 {{ site('admin_phone') }} (or) chat with
+                                                    our
                                                     customer
                                                     support team.</p>
                                                 <a href="#" class="btn">Chat With Us</a>
@@ -285,11 +286,11 @@
                                                 <h3>Get the App</h3>
                                                 <p class="device-text">Download our app for better experience</p>
                                                 <div class="app-images">
-                                                    <a href="javascript:void(0);">
+                                                    <a href="{{ site('google_play_store') }}" target="_blank">
                                                         <img src="{{ URL::asset('assets/img/google-img.svg') }}"
                                                             alt="google-image">
                                                     </a>
-                                                    <a href="javascript:void(0);">
+                                                    <a href="{{ site('ios_store') }}" target="_blank">
                                                         <img src="{{ URL::asset('assets/img/app-img.svg') }}"
                                                             alt="app-image">
                                                     </a>

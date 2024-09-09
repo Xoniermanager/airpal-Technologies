@@ -164,7 +164,22 @@
                                         <input type="text" class="form-control" name="config[linkedin_link][value]"
                                             value="{{ $configData['linkedin_link'] ?? '' }}">
                                             <span class="text-denger" id="config_linkedin_link_value_error" style="color: red">
-
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="mb-2">Google Play Store</label>
+                                        <input type="hidden" value="google_play_store" class="form-control"
+                                            name="config[google_play_store][name]">
+                                        <input type="text" class="form-control" name="config[google_play_store][value]"
+                                            value="{{ $configData['google_play_store'] ?? '' }}">
+                                            <span class="text-denger" id="config_google_play_store_value_error" style="color: red">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="mb-2">IOS Store</label>
+                                        <input type="hidden" value="ios_store" class="form-control"
+                                            name="config[ios_store][name]">
+                                        <input type="text" class="form-control" name="config[ios_store][value]"
+                                            value="{{ $configData['ios_store'] ?? '' }}">
+                                            <span class="text-denger" id="config_ios_store_value_error" style="color: red">
                                     </div>
 
 

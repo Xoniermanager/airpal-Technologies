@@ -323,7 +323,15 @@ Route::prefix('admin')->group(function () {
         Route::prefix('page')->controller(PageController::class)->group(function () {
             Route::get('home/{page:id}', 'home')->name('admin.home.index');
             Route::post('store-home-page-detail', 'storeHomePageDetail')->name('admin.store.home.page.detail');
+
+            Route::get('about-us/{page:id}', 'aboutUs')->name('admin.about_us.index');
+            Route::post('store-about-us-page-detail', 'storeAboutUsPageDetail')->name('admin.store.about_us.page.detail');
+
+            Route::get('health-monitoring/{page:id}', 'healthMonitoring')->name('admin.health.monitoring.index');
+            Route::post('store-health-monitoring-page-detail', 'storeHealthMonitoringPageDetail')->name('admin.store.health.monitoring.page.detail');
+            
         });
+
 
         Route::controller(AdminDashboardController::class)->group(function () {
             Route::get('dashboard', 'index')->name('admin.dashboard.index');

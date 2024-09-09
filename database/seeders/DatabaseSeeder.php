@@ -47,11 +47,13 @@ class DatabaseSeeder extends Seeder
         $this->call(FavoriteDoctorsTableSeeder::class);
         $this->call(FaqsTableSeeder::class);
         $this->call(PatientDiariesTableSeeder::class);
+        $this->call(PagesTableSeeder::class);
         $this->call(PageSectionsTableSeeder::class);
         $this->call(SectionContentsTableSeeder::class);
         $this->call(SectionButtonsTableSeeder::class);
         $this->call(TestimonialsTableSeeder::class);
         $this->call(PartnersTableSeeder::class);
         $this->call(SiteConfigsTableSeeder::class);
+
     }
 }

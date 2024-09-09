@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('subtitle')->nullable();
             $table->string('image')->nullable();
-            $table->string('content')->nullable();
+            $table->text('content')->nullable();
             $table->unsignedBigInteger('section_id');
             $table->foreign('section_id')->references('id')->on('page_sections');
             $table->timestamps();

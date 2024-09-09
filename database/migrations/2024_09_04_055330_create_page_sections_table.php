@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('page_sections', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('subtitle')->nullable();
+            $table->text('subtitle')->nullable();
             $table->string('image')->nullable();
             $table->unsignedBigInteger('page_id');
             $table->foreign('page_id')->references('id')->on('pages');

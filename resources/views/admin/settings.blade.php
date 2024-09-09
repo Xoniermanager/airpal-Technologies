@@ -35,6 +35,8 @@
                                             name="config[website_name][name]">
                                         <input type="text" class="form-control" name="config[website_name][value]"
                                             value="{{ $configData['website_name'] ?? '' }}">
+                                            <span class="text-denger" id="config_website_name_value_error" style="color: red">
+
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="mb-2">Website Url</label>
@@ -42,6 +44,8 @@
                                             name="config[website_url][name]">
                                         <input type="text" class="form-control" name="config[website_url][value]"
                                             value="{{ $configData['website_url'] ?? '' }}">
+                                            <span class="text-denger" id="config_website_url_value_error" style="color: red">
+
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="mb-2">Admin Email</label>
@@ -49,6 +53,8 @@
                                             name="config[admin_email][name]">
                                         <input type="text" class="form-control" name="config[admin_email][value]"
                                             value="{{ $configData['admin_email'] ?? '' }}">
+                                            <span class="text-denger" id="config_admin_email_value_error" style="color: red">
+
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="mb-2">Admin Phone</label>
@@ -56,6 +62,8 @@
                                             name="config[admin_phone][name]">
                                         <input type="text" class="form-control" name="config[admin_phone][value]"
                                             value="{{ $configData['admin_phone'] ?? '' }}">
+                                            <span class="text-denger" id="config_admin_phone_value_error" style="color: red">
+
                                     </div>
 
 
@@ -65,6 +73,8 @@
                                             name="config[website_logo][name]">
                                         <input type="file" class="form-control" name="config[website_logo][value]"
                                             value="{{ $configData['website_logo'] ?? '' }}" id="imgInp">
+                                            <span class="text-denger" id="config_website_logo_value_error" style="color: red">
+
                                         <small class="text-secondary">Recommended image size is <b>150px x 150px</b></small>
 
 
@@ -81,6 +91,8 @@
                                             name="config[website_favicon][name]">
                                         <input type="file" class="form-control" name="config[website_favicon][value]"
                                             value="{{ $configData['website_favicon'] ?? '' }}">
+                                            <span class="text-denger" id="config_website_favicon_value_error" style="color: red">
+
 
 
                                         <small class="text-secondary">Recommended image size is <b>16px x 16px</b> or
@@ -98,6 +110,8 @@
                                             name="config[copyright][name]">
                                         <input type="text" class="form-control" name="config[copyright][value]"
                                             value="{{ $configData['copyright'] ?? '' }}">
+                                            <span class="text-denger" id="config_copyright_value_error" style="color: red">
+
                                     </div>
 
                                     <div class="col-md-6 mb-3">
@@ -106,6 +120,7 @@
                                             name="config[admin_address][name]">
                                         <input type="text" class="form-control" name="config[admin_address][value]"
                                             value="{{ $configData['admin_address'] ?? '' }}">
+                                            <span class="text-denger" id="config_admin_address_value_error" style="color: red">
                                     </div>
 
                                     <!-- Facebook Link -->
@@ -115,6 +130,8 @@
                                             name="config[facebook_link][name]">
                                         <input type="text" class="form-control" name="config[facebook_link][value]"
                                             value="{{ $configData['facebook_link'] ?? '' }}">
+                                            <span class="text-denger" id="config_facebook_link_value_error" style="color: red">
+
                                     </div>
 
                                     <!-- Instagram Link -->
@@ -124,6 +141,8 @@
                                             name="config[instagram_link][name]">
                                         <input type="text" class="form-control" name="config[instagram_link][value]"
                                             value="{{ $configData['instagram_link'] ?? '' }}">
+                                            <span class="text-denger" id="config_instagram_link_value_error" style="color: red">
+
                                     </div>
 
                                     <!-- Twitter Link -->
@@ -133,6 +152,8 @@
                                             name="config[twitter_link][name]">
                                         <input type="text" class="form-control" name="config[twitter_link][value]"
                                             value="{{ $configData['twitter_link'] ?? '' }}">
+                                            <span class="text-denger" id="config_twitter_link_value_error" style="color: red">
+
                                     </div>
 
                                     <!-- LinkedIn Link -->
@@ -142,6 +163,8 @@
                                             name="config[linkedin_link][name]">
                                         <input type="text" class="form-control" name="config[linkedin_link][value]"
                                             value="{{ $configData['linkedin_link'] ?? '' }}">
+                                            <span class="text-denger" id="config_linkedin_link_value_error" style="color: red">
+
                                     </div>
 
 
@@ -193,10 +216,17 @@
                             }
                         },
                         error: function(xhr, status, error) {
-                            Swal.fire("Error!",
-                                "An error occurred while processing your request.",
-                                "error");
+                        var errors = xhr.responseJSON;
+                        if (errors && errors.errors) {
+                            $.each(errors.errors, function(key, value) {
+                                $('#' + key.replace(/\./g, '_') + '_error').html(value[0]);
+                            });
+                        } else {
+                            // Optionally handle other types of errors or show a generic error message
+                            Swal.fire("Error!", "An unexpected error occurred.", "error");
                         }
+                    }
+
                     });
                 }
             });

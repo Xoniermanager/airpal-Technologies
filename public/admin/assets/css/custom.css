@@ -2349,6 +2349,9 @@ a.bg-danger:focus, a.bg-danger:hover, button.bg-danger:focus, button.bg-danger:h
 
 .sidebar-menu {
   padding: 15px;
+  height: 100vh;
+  overflow: scroll;
+
 }
 .sidebar-menu ul {
   font-size: 15px;

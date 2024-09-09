@@ -338,7 +338,7 @@
                             if (response.status) {
                                 window.location.href = response.payment_link;
                             } else {
-                                swal.fire("Done!", response.message, "error");
+                                Swal.fire("Done!", response.message, "error");
                             }
                         },
                         error: function(error_messages) {
@@ -447,7 +447,7 @@
                             jQuery('#booking-fee-payment').text('Continue to Book Appointment');
                         }
                         // If authenticated, proceed with booking process
-                        $('#booking_date').val(response.gobalDate);
+                        $('#booking_date').val(date);
                         $('.booking_date').text(response.gobalDate);
                         $('#booking_slot_time').val(slot);
                         $('.booking_slot_time').text(slot);
@@ -458,12 +458,11 @@
                     } else {
                         Swal.fire({
                             title: "Oops...",
-                            text: "To Continue! Please Sign in First.",
+                            text: "Since! You are doctor you can't book the appointment",
                             icon: "error",
-                            showCancelButton: true,
+                            showCancelButton: false,
                             confirmButtonColor: "#3085d6",
                             cancelButtonColor: "#d33",
-                            confirmButtonText: "<a href='/login'>Login</a>"
                         });
                     }
                 },

@@ -17,16 +17,16 @@ class PaymentService
     }
 
 
-    public function updatePaymentDetails($paymentDetails,$paymentId)
+    public function updatePaymentDetails($paymentDetails,$paypalPaymentId)
     {   
         // Check if entry already exists
-        $exists = $this->paymentRepository->where('id',$paymentId)->count();
+        $exists = $this->paymentRepository->where('paypal_payment_id',$paypalPaymentId)->first();
         // \Log::info('Exists Counter : ' . $exists);
         if($exists)
         {
             // \Log::info('update data : ' . json_encode($paymentDetails));
-            $record = $this->paymentRepository->where(['id' =>  $paymentId])->update($paymentDetails);
-            return $this->paymentRepository->where('id',$paymentId)->first();
+            $record = $this->paymentRepository->where('paypal_payment_id',$paypalPaymentId)->update($paymentDetails);
+            return $this->paymentRepository->where('paypal_payment_id',$paypalPaymentId)->first();
         }
         else
         {
@@ -35,18 +35,16 @@ class PaymentService
         
     }
 
-    public function updatePaymentStatus($status)
-    {
-        $paymentId = Session::get('payment_id');
-        
+    public function updatePaymentStatus($status, $paypalPaymentId)
+    {        
         // Check if entry already exists
-        $exists = $this->paymentRepository->where('id',$paymentId)->count();
+        $exists = $this->paymentRepository->where('paypal_payment_id',$paypalPaymentId)->count();
 
         if($exists)
         {
             // \Log::info('update data : ' . json_encode($paymentDetails));
-            $record = $this->paymentRepository->where(['id' =>  $paymentId])->update(['payment_status'  =>  $status]);
-            return $this->paymentRepository->where('id',$paymentId)->first();
+            $record = $this->paymentRepository->where('paypal_payment_id',$paypalPaymentId)->update(['payment_status'  =>  $status]);
+            return $this->paymentRepository->where('paypal_payment_id',$paypalPaymentId)->first();
         }
     }
 
@@ -55,7 +53,7 @@ class PaymentService
         return $this->paymentRepository->create($payload);
     }
 
-    public function savePaymentDetailsAndExtractPaymentLink($bookedSlot,$paymentLinkDetails, $bookingFee)
+    public function savePaymentDetailsAndExtractPaymentLink($bookedSlot,$paymentLinkDetails, $bookingFee, $paypalPaymentId)
     {
         if (isset($paymentLinkDetails['id']) && $paymentLinkDetails['id'] != null)
         {
@@ -67,6 +65,7 @@ class PaymentService
                         'booking_id'    =>  $bookedSlot->id,
                         'amount'        =>  $bookingFee,
                         'currency'      =>  'USD',
+                        'paypal_payment_id' =>  $paypalPaymentId,
                         'payment_status'    =>  'Pending'
                     ]);
                     

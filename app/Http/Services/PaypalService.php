@@ -49,11 +49,12 @@ class PaypalService
         $provider->setApiCredentials(config('paypal'));
         $provider->getAccessToken();
         $response = $provider->capturePaymentOrder($paypalToken);
+        // dd($response);
         if (isset($response['status']) && $response['status'] == 'COMPLETED') 
         {
+            $paypalPaymentId = $response['id'] ?? '';
             $paymentDetails = [];
             $paymentDetails['payment_details'] = json_encode($response);
-            $paymentDetails['paypal_payment_id'] = $response['id'] ?? ''; 
             $paymentDetails['payment_status'] = $response['status'];
             $payerDetails = $response['payer'];
             $paymentDetails['payer_name'] = $payerDetails['name']['given_name'] . ' ' . $payerDetails['name']['surname'] ?? '';
@@ -64,6 +65,7 @@ class PaypalService
 
             return [
                 'status'            =>  true,
+                'paypalPaymentId'   =>  $paypalPaymentId,
                 'paymentDetails'    =>  $paymentDetails
             ];
         } 

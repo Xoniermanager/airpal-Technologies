@@ -58,7 +58,12 @@ class BookAppointmentApiController extends Controller
             // Now confirm if booking fee is required generate payment link
             if(!empty($bookingFee) && $bookingFee > 0)
             {
-                $paymentLinkDetails = $this->paypalService->generatePaymentLink($bookingFee, $bookedAppointment);
+                $redirectUrls = [
+                    'success'   =>  "route('api.paypal.success')",
+                    'cancel'    =>  "route('api.paypal.cancel')"
+                ];
+
+                $paymentLinkDetails = $this->paypalService->generatePaymentLink($bookingFee, $bookedAppointment, $redirectUrls);
 
                 // Update the payment required column to be true as the payment is required for this appointment
                 $this->bookingAppointmentServices->updatePaymentRequired($bookedAppointment->id,true);

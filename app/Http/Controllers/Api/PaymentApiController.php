@@ -79,14 +79,25 @@ class PaymentApiController extends Controller
             if($savedPaymentDetails)
             {
                 // Return with booking and payment details and status as true
-                return response()->json([
-                    'status'    =>  true,
-                    'data'      =>  [
-                        'payment'   =>  $savedPaymentDetails,
-                        'booking'   =>  $this->bookingServices->getBookingSlotById($savedPaymentDetails->booking_id)->first()
-                    ],
-                    'message'   =>  "Payment details updated successfully!"
-                ], 200);
+                $bookingDetails = $this->bookingServices->getBookingSlotById($savedPaymentDetails->booking_id)->with('doctor')->first();
+
+                if($bookingDetails)
+                {
+                    $bookingDate = getFormattedDate($bookingDetails->booking_date);
+                    $bookingSlotTime = 'Slot Time: ' . $bookingDetails->slot_start_time . ' - ' . $bookingDetails->slot_end_time;
+                    $doctorName = $bookingDetails->doctor->first_name . ' ' . $bookingDetails->doctor->last;
+                    $successPageHtml =  view('doctor.success', compact('bookingDate', 'bookingSlotTime', 'doctorName'))->render();
+                    return $successPageHtml;
+                }
+
+                // return response()->json([
+                //     'status'    =>  true,
+                //     'data'      =>  [
+                //         'payment'   =>  $savedPaymentDetails,
+                //         'booking'   =>  $this->bookingServices->getBookingSlotById()->first()
+                //     ],
+                //     'message'   =>  "Payment details updated successfully!"
+                // ], 200);
             }
         }
         else
@@ -120,14 +131,24 @@ class PaymentApiController extends Controller
         // Now cancel the appointment because the payment has been cancelled
         $updatedBookingDetails = $this->bookingServices->updateStatus('cancelled',$updatedPaymentDetails->booking_id);
 
+        $bookingDetails = $this->bookingServices->getBookingSlotById($updatedPaymentDetails->booking_id)->with('doctor')->first();
+        if($bookingDetails)
+            {
+                $bookingDate = getFormattedDate($bookingDetails->booking_date);
+                $bookingSlotTime = 'Slot Time: ' . $bookingDetails->slot_start_time . ' - ' . $bookingDetails->slot_end_time;
+                $doctorName = $bookingDetails->doctor->first_name . ' ' . $bookingDetails->doctor->last;
+                $errorPageHtml = view('doctor.error', compact('bookingDate', 'bookingSlotTime', 'doctorName'))->render();
+                return $errorPageHtml;
+            }
+
         // Return with booking and payment details and status as true
-        return response()->json([
-            'status'    =>  true,
-            'data'      =>  [
-                'payment'   =>  $updatedPaymentDetails,
-                'booking'   =>  $this->bookingServices->getBookingSlotById($updatedPaymentDetails->booking_id)->first()
-            ],
-            'message'   =>  "Payment status updated successfully!"
-        ], 200);
+        // return response()->json([
+        //     'status'    =>  true,
+        //     'data'      =>  [
+        //         'payment'   =>  $updatedPaymentDetails,
+        //         'booking'   =>  $this->bookingServices->getBookingSlotById($updatedPaymentDetails->booking_id)->first()
+        //     ],
+        //     'message'   =>  "Payment status updated successfully!"
+        // ], 200);
     }
 }

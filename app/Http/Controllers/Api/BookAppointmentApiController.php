@@ -59,8 +59,8 @@ class BookAppointmentApiController extends Controller
             if(!empty($bookingFee) && $bookingFee > 0)
             {
                 $redirectUrls = [
-                    'success'   =>  "route('api.paypal.success')",
-                    'cancel'    =>  "route('api.paypal.cancel')"
+                    'success'   =>  route('api.paypal.success'),
+                    'cancel'    =>  route('api.paypal.cancel')
                 ];
 
                 $paymentLinkDetails = $this->paypalService->generatePaymentLink($bookingFee, $bookedAppointment, $redirectUrls);

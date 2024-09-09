@@ -20,19 +20,20 @@
 
 
 
-        <div class="content success-page-cont">
+        <div class="content success-page-cont bg-grey">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
-
-                        <div class="card success-card">
+                        <div class="card summaries">
                             <div class="card-body">
                                 <div class="success-cont">
-                                    <i class="fas fa-check"></i>
-                                    <h3>Appointment booked Successfully!</h3>
-                                    <p>Appointment booked with <strong>Dr.  {{ $doctorName ?? ''}}</strong><br> on <strong>
+                                    {{-- /Users/xonier/Documents/airpal-Technologies/public/assets/img/0de41a3c5953fba1755ebd416ec109dd.gif --}}
+                                   <img src="{{ asset('assets/img/0de41a3c5953fba1755ebd416ec109dd.gif') }}" alt="">
+                                    <h3 class="text-success">Appointment Booked Successfully!</h3>
+                                    <p class="mb-1">Appointment booked with <strong>Dr.  {{ $doctorName ?? ''}}</strong><br>
+                                         <strong> On:
                                         {{$bookingDate ?? ''}},
-                                        {{$bookingSlotTime ?? ''}}
+                                      <p>  {{$bookingSlotTime ?? ''}}</p>
                                {{-- {{ $bookingDate  ?? ''}}  {{ $bookingSlotTime ?? ''}} --}}
                                            </strong></p>
                                     <a href="{{ route('home.index') }}" class="btn btn-primary view-inv-btn">

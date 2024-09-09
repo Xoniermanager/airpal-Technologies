@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Services\BookingServices;
 use Illuminate\Http\Request;
 use App\Http\Services\PaypalService;
 use App\Http\Services\PaymentService;
 use Illuminate\Support\Facades\Crypt;
+use App\Http\Services\BookingServices;
+use Illuminate\Support\Facades\Session;
 
 class PaymentController extends Controller
 {  
@@ -20,6 +21,7 @@ class PaymentController extends Controller
         $this->paymentService  = $paymentService;
         $this->bookingServices = $bookingServices;
     }
+
     /**
      * Capture paypal payment status and other details
      */
@@ -37,17 +39,16 @@ class PaymentController extends Controller
         $paymentDetails = $this->paypalService->getPaymentDetails($paypalToken);
         if($paymentDetails['status'])
         {
-            \Log::info("Start save details : " . json_encode($paymentDetails['paymentDetails']));
             // There was no error and payment details has been retrieved
             // Now lets save the payment details and redirect the user to thanks you page
-            $savedPaymentDetails = $this->paymentService->updatePaymentDetails($paymentDetails['paymentDetails']);
+            $paymentId = Session::get('payment_id');
+            $savedPaymentDetails = $this->paymentService->updatePaymentDetails($paymentDetails['paymentDetails'], $paymentId);
             
             if($savedPaymentDetails)
             {
                 $url = route('booking.success', ['booking' => Crypt::encrypt($savedPaymentDetails->booking_id)]);
 
                 return redirect($url);
-                // ->with('message','Payment has been received successfully and the appointment and book booked!');
             }
         }
         else

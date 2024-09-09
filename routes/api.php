@@ -28,6 +28,7 @@ use App\Http\Controllers\Api\Patient\PatientDashboardController;
 use App\Http\Controllers\Api\DoctorAppointmentConfigApiController;
 use App\Http\Controllers\Api\Patient\PatientFavoriteDoctorController;
 use App\Http\Controllers\Api\Doctor\DoctorAppointmentAndRevenueGraphController;
+use FontLib\Table\Type\post;
 
 Route::controller(MeetingController::class)->group(function () {
     Route::get('get-meeting-Details/{booking_slots:meeting_id}', 'getMeetingDetails');
@@ -217,10 +218,10 @@ Route::middleware('authCheck')->group(function () {
         // Patient booking payment APIs
         Route::controller(PaymentApiController::class)->group(function () {
           Route::post('payment-required','checkPaymentRequiredForBooking');
-          Route::post('get-payment-link','getPaymentLink');
           Route::post('update-payment-details','updatePaymentDetails');
           Route::post('update-payment-status','updatePaymentStatus');
         });
     });
     Route::get('privacy', [AuthController::class, 'privacyPolicy']);
 });
+

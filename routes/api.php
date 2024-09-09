@@ -218,8 +218,8 @@ Route::middleware('authCheck')->group(function () {
         // Patient booking payment APIs
         Route::controller(PaymentApiController::class)->group(function () {
           Route::post('payment-required','checkPaymentRequiredForBooking');
-          Route::post('update-payment-details','updatePaymentDetails');
-          Route::post('update-payment-status','updatePaymentStatus');
+          Route::post('update-payment-details','updatePaymentDetails')->name('api.paypal.success');
+          Route::post('update-payment-status','updatePaymentStatus')->name('api.paypal.cancel');
         });
     });
     Route::get('privacy', [AuthController::class, 'privacyPolicy']);

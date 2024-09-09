@@ -57,13 +57,17 @@ class DoctorAppointmentConfigService
     {
         return $this->doctorAppointmentConfigRepository->with(['user', 'doctorExceptionDays'])->paginate(10);
     }
-    public function getDoctorSlotConfiguration($doctorId)
+
+    public function getDoctorActiveAppointmentConfigDetails($doctorId)
     {
-        return $this->doctorAppointmentConfigRepository->where('user_id', $doctorId)->where(function($query){
-            return $query
-                ->orWhereDate('config_end_date', '>=', date('Y-m-d'))
-                ->orWhere('config_end_date','=',NULL);
-        })->with(['user', 'doctorExceptionDays'])->first();
+        return $this->doctorAppointmentConfigRepository
+            ->where('user_id', $doctorId)
+            ->where('status', 1)
+            ->orWhere(function($query){
+                return $query
+                    ->whereNotNull('config_end_date')
+                    ->where('config_end_date','>=',now());
+            })->with(['user', 'doctorExceptionDays'])->orderBy('config_start_date','asc')->first();
     }
     public function getSlotsBySlotId($id)
     {
@@ -232,8 +236,8 @@ class DoctorAppointmentConfigService
 
         //Step 2 :Getting exception days name and making an array so that we will pass in_array function and if exist
         $exceptionDaysName = [];
-        if (isset($doctorSlotConfigDetails->exception_days)) {
-            $exceptionDays = $doctorSlotConfigDetails->exception_days->toArray();
+        if (isset($doctorSlotConfigDetails->doctorExceptionDays)) {
+            $exceptionDays = $doctorSlotConfigDetails->doctorExceptionDays->toArray();
             if (count($exceptionDays) > 0) {
                 foreach ($exceptionDays as $exceptionDay) {
                     $exceptionDaysName[] =  DayOfWeek::find($exceptionDay['exception_days_id'])->name;
@@ -322,14 +326,14 @@ class DoctorAppointmentConfigService
         $startDate = date_create($doctorSlotConfigDetails->start_slots_from_date);
         $endDate = clone $startDate;
         date_modify($endDate, '+' . $doctorSlotConfigDetails->slots_in_advance . ' days');
-
+        // dd($doctorSlotConfigDetails);
         $formattedStartDate = Carbon::create($startDate, 'Y-m-d')->toDateString();
         $formattedEndDate = Carbon::create($endDate, 'Y-m-d')->toDateString();
 
         //Step 2 : Getting exception days name and making an array so that we will pass in_array function to check if exist
         $exception_days_name = [];
-        if (isset($doctorSlotConfigDetails->user->doctorExceptionDays)) {
-            $exceptionDays = $doctorSlotConfigDetails->user->doctorExceptionDays->toArray();
+        if (isset($doctorSlotConfigDetails->doctorExceptionDays)) {
+            $exceptionDays = $doctorSlotConfigDetails->doctorExceptionDays->toArray();
             if (count($exceptionDays) > 0) {
                 foreach ($exceptionDays as $exceptionDay) {
                     $exception_days_name[] =  DayOfWeek::find($exceptionDay['exception_days_id'])->name;
@@ -481,7 +485,7 @@ class DoctorAppointmentConfigService
     }
 
     /**
-     * It wil; return all active appointment config details for provided doctor id
+     * It will return all active appointment config details for provided doctor id
      */
     public function getAllActiveAppointmentConfigsForDoctor($doctorId)
     {
@@ -492,6 +496,7 @@ class DoctorAppointmentConfigService
         })
         ->orWhereNull('config_end_date')
         ->where('user_id',$doctorId)
+        ->where('status', 1)
         ->where('status',true)->orderBy('config_start_date','asc')->get();
     }
 

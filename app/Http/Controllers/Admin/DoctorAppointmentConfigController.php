@@ -81,7 +81,7 @@ class DoctorAppointmentConfigController extends Controller
 
     public function getDocotorSlotDetails($doctorId)
     {
-        $doctorAppointmentConfigDetails = $this->doctorSlotServices->getDoctorSlotConfiguration($doctorId);
+        $doctorAppointmentConfigDetails = $this->doctorSlotServices->getDoctorActiveAppointmentConfigDetails($doctorId);
         // Check if $doctorAppointmentConfigDetails is null before accessing its properties
         $exceptionIds = $doctorAppointmentConfigDetails ? optional($doctorAppointmentConfigDetails->doctorExceptionDays)->pluck('exception_days_id') ?? collect() : collect();
         if (isset($doctorAppointmentConfigDetails) && !empty($doctorAppointmentConfigDetails)) {

@@ -56,6 +56,7 @@ use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSiteConfigController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController, TestimonialController};
 use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\PaymentController;
 
 // =============================== Login And SignUp Routes ==================================== //
 /**
@@ -68,10 +69,12 @@ Route::controller(AdminAuthController::class)->group(function () {
 });
 
 // Paypal Payment endpoints
-Route::get('paypal', [PayPalController::class, 'index'])->name('paypal');
+// Route::get('paypal', [PayPalController::class, 'index'])->name('paypal');
 Route::get('paypal/payment', [PayPalController::class, 'payment'])->name('paypal.payment');
-Route::get('paypal/payment/success', [PayPalController::class, 'paymentSuccess'])->name('paypal.payment.success');
-Route::get('paypal/payment/cancel', [PayPalController::class, 'paymentCancel'])->name('paypal.payment/cancel');
+Route::get('paypal/payment/success', [PaymentController::class, 'paymentSuccess'])->name('paypal.payment.success');
+Route::get('paypal/payment/cancel', [PaymentController::class, 'paymentCancel'])->name('paypal.payment/cancel');
+Route::get('booking/success', [BookingController::class, 'bookingSuccess'])->name('booking.success');
+Route::get('booking/error', [BookingController::class, 'bookingError'])->name('booking.error');
 
 
 // common file for login Admin, Doctor, Patient

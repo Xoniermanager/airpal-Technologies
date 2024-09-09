@@ -119,14 +119,17 @@ class FrontendDoctorController extends Controller
     }
 
     $doctor = $this->user_services->getDoctorDataById($id);
-    $doctorSlotConfigDetails = $this->doctorSlotServices->getDoctorSlotConfiguration($doctor->id);
-    if (isset($doctorSlotConfigDetails)) {
-      $doctorSlotConfigDetails->exception_days = $doctorSlotConfigDetails->user->doctorExceptionDays;
+
+    $doctorSlotConfigDetails = $this->doctorSlotServices->getDoctorActiveAppointmentConfigDetails($doctor->id);
+    if (isset($doctorSlotConfigDetails)) 
+    {
       $returnCalendar = $this->doctorSlotServices->CreateDoctorSlotCalendar($doctorSlotConfigDetails);
-    } else {
+    }
+    else
+    {
       $returnedSlots = [];
     }
-    return view('website.pages.appointment', ['doctorDetails' => $doctor, 'calender' => $returnCalendar]);
+    return view('website.pages.appointment', ['doctorDetails' => $doctor,'calender' => $returnCalendar, 'booking_price' =>  '10 USD']);
   }
 
   public function search(SearchDoctorRequest $request)
@@ -173,7 +176,7 @@ class FrontendDoctorController extends Controller
   {
     $data = $request->all();
     $doctor = $this->user_services->getDoctorDataById($data['doctor_id']);
-    $doctorSlot = $this->doctorSlotServices->getDoctorSlotConfiguration($doctor->id);
+    $doctorSlot = $this->doctorSlotServices->getDoctorActiveAppointmentConfigDetails($doctor->id);
     if (isset($doctorSlot)) 
     {
       $doctorSlot->exception_days = $doctorSlot->user->doctorExceptionDays;
@@ -199,7 +202,7 @@ class FrontendDoctorController extends Controller
 
     $date = $requestPayload['date'];
 
-    $doctorSlotConfiguration   = $this->doctorSlotServices->getDoctorSlotConfiguration($requestPayload['doctor_id']);
+    $doctorSlotConfiguration   = $this->doctorSlotServices->getDoctorActiveAppointmentConfigDetails($requestPayload['doctor_id']);
     $returnedSlots             = $this->doctorSlotServices->createDoctorSlots($doctorSlotConfiguration);
     $gettingBookedSlots = $this->bookingServices->slotDetails($requestPayload)->get();
 

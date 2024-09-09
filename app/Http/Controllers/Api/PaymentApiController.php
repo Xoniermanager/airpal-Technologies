@@ -56,7 +56,6 @@ class PaymentApiController extends Controller
     public function updatePaymentDetails(Request $request)
     {
         $paypalToken = $request->query('token') ?? '';
-        $paymentId =  Session::get('payment_id') ?? '';
 
         if(empty($paypalToken))
         {
@@ -74,7 +73,7 @@ class PaymentApiController extends Controller
         {
             // There was no error and payment details has been retrieved
             // Now lets save the payment details and redirect the user to thanks you page
-            $savedPaymentDetails = $this->paymentService->updatePaymentDetails($paymentDetails['paymentDetails'], $paymentId);
+            $savedPaymentDetails = $this->paymentService->updatePaymentDetails($paymentDetails['paymentDetails'], $paymentDetails['paypalPaymentId']);
             
             if($savedPaymentDetails)
             {
@@ -117,16 +116,16 @@ class PaymentApiController extends Controller
     
     public function updatePaymentStatus(Request $request)
     {
-        $paypalToken = $request->query('token') ?? '';
+        $paypalPaymentId = $request->query('token') ?? '';
 
-        if(empty($paypalToken))
-        {
-             // Get the payment details based on provided token
-            $paymentDetails = $this->paypalService->getPaymentDetails($paypalToken);
-        }
+        // if(empty($paypalToken))
+        // {
+        //      // Get the payment details based on provided token
+        //     $paymentDetails = $this->paypalService->getPaymentDetails($paypalToken);
+        // }
 
         // Update the payment status as cancelled
-        $updatedPaymentDetails = $this->paymentService->updatePaymentStatus('Cancelled');
+        $updatedPaymentDetails = $this->paymentService->updatePaymentStatus('Cancelled',$paypalPaymentId);
 
         // Now cancel the appointment because the payment has been cancelled
         $updatedBookingDetails = $this->bookingServices->updateStatus('cancelled',$updatedPaymentDetails->booking_id);

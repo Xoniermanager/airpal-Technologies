@@ -48,11 +48,12 @@ class BookingController extends Controller
             ];
 
             $paymentLinkDetails = $this->paypalService->generatePaymentLink($bookingFee, $bookedSlot,$redirectUrls);
+            $paypalPaymentId = $paymentLinkDetails['id'];
 
             // Update the payment required column to be true as the payment is required for this appointment
             $this->bookingServices->updatePaymentRequired($bookedSlot->id,true);
 
-            return $this->paymentService->savePaymentDetailsAndExtractPaymentLink($bookedSlot,$paymentLinkDetails, $bookingFee);
+            return $this->paymentService->savePaymentDetailsAndExtractPaymentLink($bookedSlot,$paymentLinkDetails, $bookingFee, $paypalPaymentId);
 
         }
 

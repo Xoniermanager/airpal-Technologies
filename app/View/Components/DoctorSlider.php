@@ -15,6 +15,7 @@ class DoctorSlider extends Component
     public function __construct($doctorList)
     {
         $this->doctorList = $doctorList;
+
     }
 
     /**

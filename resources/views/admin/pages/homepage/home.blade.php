@@ -1,5 +1,6 @@
 @extends('layouts.admin.main')
 @section('content')
+
     <div class="main-wrapper">
         <div class="page-wrapper">
             <div class="content container-fluid">
@@ -11,7 +12,7 @@
                         <div class="col-sm-12">
                             <h3 class="page-title">Header Banner Section</h3>
                             <div class="card">
-                                <form id="save_home_header_banner_detail" enctype="multipart/form-data">
+                                <form enctype="multipart/form-data">
                                     @csrf
                                     @include('admin.pages.homepage.home_banner')
                                 </form>
@@ -23,7 +24,7 @@
                         <div class="col-sm-12">
                             <h3 class="page-title">How it Work Section</h3>
                             <div class="card">
-                                <form id="save_home_header_banner_detail" method="post" enctype="multipart/form-data">
+                                <form method="post" enctype="multipart/form-data">
                                     @csrf
                                     @include('admin.pages.homepage.how_it_works')
                                 </form>
@@ -35,7 +36,7 @@
                         <div class="col-sm-12">
                             <h3 class="page-title">Why Airpal App</h3>
                             <div class="card">
-                                <form id="save_home_header_banner_detail" method="post" enctype="multipart/form-data">
+                                <form method="post" enctype="multipart/form-data">
                                     @csrf
                                     @include('admin.pages.homepage.why_airpal_app')
                                 </form>
@@ -46,20 +47,25 @@
                         <div class="col-sm-12">
                             <h3 class="page-title">Download App Section</h3>
                             <div class="card">
-                                <form id="save_home_header_banner_detail" enctype="multipart/form-data">
+                                <form enctype="multipart/form-data">
                                     @csrf
                                     @include('admin.pages.homepage.download_app')
                                 </form>
                             </div>
                         </div>
 
-                        {{-- Banner section --}}
+                        {{-- Top Doctros  and Testimonial Section --}}
                         <div class="col-sm-12">
-                            <h3 class="page-title">Top Doctros</h3>
                             <div class="card">
-                                <form id="save_home_header_banner_detail" enctype="multipart/form-data">
+                                <form class="save_extra_page_section" enctype="multipart/form-data">
+                                    <h3 class="page-title">Top Doctros</h3>
                                     @csrf
-                                    @include('admin.pages.homepage.doctor_slider_filter')
+                                    @include('admin.pages.page_extra_section.doctor_slider_filter')
+
+                                    <h3 class="page-title">Testimonials</h3>
+                                    @include('admin.pages.page_extra_section.testimonials')
+                                    <input type="hidden" name="page_id" value="{{ $page->id ?? '' }}">
+                                    <div class="col-md-3"> <button class="btn btn-primary prime-btn mt-3">Save</button></div>
                                 </form>
                             </div>
                         </div>
@@ -205,31 +211,52 @@
             }
         }
     </style>
+
+
     @section('javascript')
         <script>
             $(document).ready(function() {
+                $('.save_extra_page_section').each(function() {
+                    jQuery(this).validate({
+                        submitHandler: function(form) {
+                            var formData = new FormData(form);
+                            $.ajax({
+                                url: "<?= route('admin.save.page.extra.sections') ?>",
+                                type: 'post',
+                                data: formData,
+                                dataType: 'json',
+                                processData: false,
+                                contentType: false,
+                                success: function(response) {
+                                    if (response.status) {
+                                        // console.log(response.data);
+                                        for (var key in response.data) {
+                                            let slug = response.data[key]['slug'];
+                                            let html_data = response.data[key]['data'];
+                                            jQuery('#' + slug).replaceWith(html_data);
+                                        }
+
+                                        swal.fire("Done!", response.message, "success");
+                                    }
+                                },
+                                error: function(error_messages) {
+                                    var errors = error_messages.responseJSON;
+                                    $.each(errors.errors, function(key, value) {
+                                        console.log('#' + key + '_error',
+                                            value);
+                                        $('#' + key + '_error').html(value);
+                                    })
+
+                                }
+                            });
+                        }
+                    });
+                });
+            });
+
+            $(document).ready(function() {
                 $('form').each(function() {
                     jQuery(this).validate({
-                        // rules: {
-                        //     banner_title: {
-                        //         required: true,
-                        //         maxlength: 200
-                        //     },
-                        //     banner_subtitle: {
-                        //         required: true,
-                        //         maxlength: 200
-                        //     }
-                        // },
-                        // messages: {
-                        //     banner_title: {
-                        //         required: "This field is required",
-                        //         maxlength: "Please enter no more than 200 characters"
-                        //     },
-                        //     banner_subtitle: {
-                        //         required: "This field is required",
-                        //         maxlength: "Please enter no more than 200 characters"
-                        //     }
-                        // },
                         submitHandler: function(form) {
                             var formData = new FormData(form);
                             $.ajax({

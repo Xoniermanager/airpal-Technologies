@@ -153,7 +153,9 @@
         <x-doctor-slider :doctorList="$doctorList" :show="true" />
 
 
-        <x-testimonial-slider :show="true" />
+        {{-- <x-testimonial-slider  :show="true" /> --}}
+        <x-testimonial-slider  :testimonials="$testimonials"  :show="true" />
+
 
 
 

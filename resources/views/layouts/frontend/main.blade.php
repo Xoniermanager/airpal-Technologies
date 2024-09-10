@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/feather.css') }}">
     <script src="{{ asset('/assets/js/jquery-3.7.1.min.js') }}"></script>
     <!-- <script src="assets/js/script.js" type="text/javascript"></script> -->
-    <script src="../assets/js/rocket-loader.min.js" data-cf-settings="cd1ed460c5054330c2effc78-|49" defer></script>
+    <script src="../../assets/js/rocket-loader.min.js" data-cf-settings="572446aacaa112e2d4b8af55-|49" defer></script>
     <script src="{{ asset('assets/js/slick.js') }}" type="text/javascript"></script>
 
     {{-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> --}}

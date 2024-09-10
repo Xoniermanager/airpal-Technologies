@@ -176,7 +176,7 @@
         {{-- {!! renderTestimonials() !!} --}}
 
         {{-- this is testimonial section (common section with other pages)--}}
-        <x-testimonial-slider :show="true" />
+        <x-testimonial-slider  :testimonials="$testimonials"  :show="true" />
 
         {{-- this is our partners section (common section with other pages)--}}
         <x-partner-slider :show="true"  />

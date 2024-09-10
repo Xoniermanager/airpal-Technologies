@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->integer('page_id');
             $table->string('model');
-            $table->string('user_type')->nullable();
             $table->enum('order_by',['asc','desc']);
+            $table->string('order_with_column')->nullable();
             $table->string('no_of_records')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();

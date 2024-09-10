@@ -61,11 +61,9 @@ Route::controller(AuthController::class)->prefix('patient')->group(function () {
 
 
 Route::middleware('authCheck')->group(function () {
-
+    Route::post('change-password', [AuthController::class, 'changePassword']);
     Route::prefix('doctor')->group(function () {
-        Route::post('change-password', [AuthController::class, 'changePassword']);
         Route::post('logout', [AuthController::class, 'logout']);
-
         Route::controller(DoctorDashboardController::class)->group(function () {
             Route::get('get-doctor-dashboard-data', 'getDashboardDetails');
         });
@@ -214,15 +212,13 @@ Route::middleware('authCheck')->group(function () {
             Route::get('get-chat-history', 'getChatHistory');
             Route::post('send-message', 'sendMessage');
         });
-
     });
 
-     // Patient booking payment APIs
-     Route::controller(PaymentApiController::class)->group(function () {
-        Route::post('payment-required','checkPaymentRequiredForBooking');
-        Route::get('update-payment-details','updatePaymentDetails')->name('api.paypal.success');
-        Route::get('update-payment-status','updatePaymentStatus')->name('api.paypal.cancel');
-      });
+    // Patient booking payment APIs
+    Route::controller(PaymentApiController::class)->group(function () {
+        Route::post('payment-required', 'checkPaymentRequiredForBooking');
+        Route::get('update-payment-details', 'updatePaymentDetails')->name('api.paypal.success');
+        Route::get('update-payment-status', 'updatePaymentStatus')->name('api.paypal.cancel');
+    });
     Route::get('privacy', [AuthController::class, 'privacyPolicy']);
 });
-

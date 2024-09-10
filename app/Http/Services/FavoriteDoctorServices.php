@@ -26,7 +26,7 @@ class FavoriteDoctorServices
     }
     public function addFavoriteDoctor(array $data)
     {
-        if ($data['liked'] === 'true') {
+        if ($data['liked'] == 'true') {
             return $this->favoriteDoctorRepository->updateOrCreate(
                 [
                     'patient_id' => $data['patient_id'],
@@ -34,11 +34,12 @@ class FavoriteDoctorServices
                 ],
                 $data
             );
-        } else {
+        }
+        else {
            return $this->removeFavoriteDoctor($data);
         }
     }
-    
+
     public function removeFavoriteDoctor($data)
     {
         return $this->favoriteDoctorRepository

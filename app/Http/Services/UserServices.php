@@ -23,7 +23,7 @@ class UserServices
     }
     public function all()
     {
-        return  $this->userRepository->with(['doctorAddress.states.country', 'specializations', 'educations','favoriteDoctor'])->get();
+        return  $this->userRepository->with(['doctorAddress.states.country', 'specializations', 'educations', 'favoriteDoctor'])->get();
     }
 
     public function getAllDoctorsList()
@@ -90,7 +90,7 @@ class UserServices
         if (isset($data['password'])) {
             $payload['password'] = Hash::make($data["password"]);
         }
-        $user = $this->userRepository->where('email',$data["email"])->first();
+        $user = $this->userRepository->where('email', $data["email"])->first();
 
         if ($user) {
             $user->update($payload);
@@ -213,7 +213,7 @@ class UserServices
 
     public function getPatientById($id)
     {
-        return $this->userRepository->where('id', $id)->with(['bookedAppointments','bookedAppointments.prescription','bookedAppointments.doctor'])->first();
+        return $this->userRepository->where('id', $id)->with(['bookedAppointments', 'bookedAppointments.prescription', 'bookedAppointments.doctor'])->first();
     }
 
     public function getPatientByDoctorId($id)
@@ -236,21 +236,23 @@ class UserServices
             "role"         => 3,
             "description"  => $data["description"] ?? '',
         ];
-
         $user = $this->userRepository->find($data['user_id']);
-        if ($user) {
-            if (isset($data['image']) && !empty($data['image'])) {
-                if ($user->image_url != null) {
+        if ($user)
+        {
+            if (isset($data['image']) && !empty($data['image']))
+            {
+                if ($user->image_url != null)
+                {
                     unlinkFileOrImage($user->getRawOriginal('image_url'));
                 }
                 $payload['image_url'] = uploadingImageorFile($data['image'], 'profile-image', $data['first_name']);
             }
-
             // User exists, perform update
             $user->update($payload);
             $message = 'Patient updated successfully.';
             $status = 'updated';
-        } else {
+        }
+        else {
             // User does not exist, perform create
             if (isset($data['image']) && !empty($data['image'])) {
                 $payload['image_url'] = uploadingImageorFile($data['image'], 'profile-image', $data['first_name']);

@@ -44,11 +44,11 @@
                             <td>{{ $paymentDetails->currency }}</td>
                             <td>
                                 @if ($paymentDetails->payment_status == 'COMPLETED')
-                                    <span class="badge badge-success-bg">Completed</span>
+                                    <span class="btn btn-success btn-xs">Completed</span>
                                 @elseif($paymentDetails->payment_status == 'Pending')
-                                    <span class="badge badge-warning-bg">Pending</span>
+                                    <span class="btn btn-warning btn-xs">Pending</span>
                                 @else
-                                    <span class="badge badge-danger-bg">Cancelled</span>
+                                    <span class="btn btn-danger btn-xs">Cancelled</span>
                                 @endif
                             </td>
                         </tr>

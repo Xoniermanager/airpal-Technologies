@@ -32,16 +32,16 @@
 
             <div class="col-lg-6 col-md-6">
                 @php
-                    $health_monitoring_device_section_subtitle = isset($sections['health_monitoring_device']['subtitle'])
-                        ? $sections['health_monitoring_device']['subtitle']
+                    $health_monitoring_device_section_content = isset($sections['health_monitoring_device']['content'])
+                        ? $sections['health_monitoring_device']['content']
                         : '';
                 @endphp
-                {!! getTextInput(
-                    $health_monitoring_device_section_subtitle,
-                    'Subtitle',
-                    'section[subtitle]',
+                {!! getContentInput(
+                    $health_monitoring_device_section_content,
+                    'Content',
+                    'section[content]',
                     ['div' => ['test', 'testing', 'tester']],
-                    ['input' => 'subTitleId'],
+                    ['input' => 'contentId'],
                 ) !!}
             </div>
         </div>
@@ -95,5 +95,5 @@
             </div>
         </div>
     </div>
-    <button>Save</button>
+    <button class="btn btn-primary prime-btn">Save</button>
 </div>

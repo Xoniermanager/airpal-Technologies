@@ -19,7 +19,7 @@
                         <a href="#">
                             <div class="doctor-profile-img">
                                 <a href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">
-                                <img src="{{ $doctor['image_url'] }}" class="img-fluid" alt="Ruby Perrin" 
+                                <img src="{{ $doctor['image_url'] }}" class="img-fluid doctor-slider-image" alt="Ruby Perrin" 
                                 onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" 
                                 >
                                 </a>

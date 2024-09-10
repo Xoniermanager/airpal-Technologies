@@ -3,7 +3,7 @@
 
         {!! getBannerImageInput(
             $sections['download_app']->image ?? '',
-            'homepage_banner_section[image]',
+            'section[image]',
             ['input' => ['test']],
             ['input' => 'uploadBannerImageDownloadApp', 'preview' => 'previewImageDownloadApp'],
         ) !!}
@@ -24,7 +24,7 @@
                 {!! getTextInput(
                     $download_app_section_title,
                     'Title',
-                    'homepage_banner_section[title]',
+                    'section[title]',
                     ['div' => ['test', 'testing', 'tester']],
                     ['input' => 'helloId'],
                 ) !!}
@@ -39,7 +39,7 @@
                 {!! getTextInput(
                     $download_app_section_subtitle,
                     'Subtitle',
-                    'homepage_banner_section[subtitle]',
+                    'section[subtitle]',
                     ['div' => ['test', 'testing', 'tester']],
                     ['input' => 'subTitleId'],
                 ) !!}
@@ -55,13 +55,13 @@
                         $pageId = $sections['download_app']['page_id'] ?? '';
                     }
                 @endphp
-                <input type="hidden" name="homepage_banner_section[section_slug]" value="download_app">
+                <input type="hidden" name="section[section_slug]" value="download_app">
                 <input type="hidden" name="page_id" value="{{ $pageId }}">
 
-                <input type="hidden" name="homepage_banner_section[id]"
+                <input type="hidden" name="section[id]"
                     value="{{ $sections['download_app']['id'] ?? '' }}">
 
-                <input type="hidden" name="homepage_banner_section[button][0][id]"
+                <input type="hidden" name="section[button][0][id]"
                     value="{{ $sections['download_app']->getButtons[0]['id'] ?? '' }}">
 
                 {{-- <div class="col-lg-6">
@@ -73,7 +73,7 @@
                     {!! getTextInput(
                         $download_app_button_text,
                         'button text',
-                        'homepage_banner_section[button][0][text]',
+                        'section[button][0][text]',
                         'Button Text',
                     ) !!}
                 </div> --}}
@@ -86,7 +86,7 @@
                     {!! getTextInput(
                         $download_app_playstore_button_link,
                         'Play Store Link',
-                        'homepage_banner_section[button][0][link]',
+                        'section[button][0][link]',
                         'Button Link',
                     ) !!}
                 </div>
@@ -99,7 +99,7 @@
                     {!! getTextInput(
                         $download_app_store_button_link,
                         'App Store Link',
-                        'homepage_banner_section[button][1][link]',
+                        'section[button][1][link]',
                         'Button Link',
                     ) !!}
                 </div>
@@ -107,5 +107,5 @@
             </div>
         </div>
     </div>
-    <button>Save</button>
+    <button class="btn btn-primary prime-btn">Save</button>
 </div>

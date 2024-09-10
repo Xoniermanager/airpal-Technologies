@@ -333,6 +333,12 @@ Route::prefix('admin')->group(function () {
 
             Route::get('health-monitoring/{page:id}', 'healthMonitoring')->name('admin.health.monitoring.index');
             Route::post('store-health-monitoring-page-detail', 'storeHealthMonitoringPageDetail')->name('admin.store.health.monitoring.page.detail');
+
+            Route::get('instant-consultation/{page:id}', 'instantConsultation')->name('admin.instant.consultation.index');
+            Route::post('store-instant-consultation', 'storeInstantConsultation')->name('admin.store.instant.consultation');
+
+            Route::post('save-page-extra-sections', 'savePageExtraSection')->name('admin.save.page.extra.sections');
+            
         });
 
 
@@ -447,6 +453,14 @@ Route::prefix('admin')->group(function () {
             Route::get('delete/{id}', 'deleteTestimonial')->name('admin.delete.testimonial.form');
             Route::post('save-testimonial', 'saveTestimonial')->name('admin.save.testimonial.form');
         });
+
+
+
+
+
+
+
+
 
         Route::prefix('partners')->controller(PartnerController::class)->group(function () {
             Route::get('/', 'index')->name('admin.partner.index');
@@ -585,6 +599,7 @@ Route::controller(ContactController::class)->group(function () {
 
 Route::get('/health_monitoring', [HealthMonitoringController::class, 'health_monitoring'])->name('health_monitoring.index');
 Route::get('/instant', [InstantController::class, 'instant'])->name('instant.index');
+Route::post('/instant-mail-send', [InstantController::class, 'instantSendMail'])->name('send.instant.mail.index');
 
 Route::controller(FrontController::class)->group(function () {
     Route::get('/privacy', 'privacy')->name('privacy.index');

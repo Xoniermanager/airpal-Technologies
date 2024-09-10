@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PageSection;
 use Illuminate\Http\Request;
+use App\Models\PageExtraSection;
 use App\Http\Services\UserServices;
 
 class AboutController extends Controller
@@ -15,13 +16,24 @@ class AboutController extends Controller
   }
   public function about()
   {
-    $doctors =  $this->user_services->getDoctorDataForFrontend();
+    $pageSections      = PageSection::with('getButtons', 'getContent')->where('page_id', 2)->get();
+    $pageExtraSections = PageExtraSection::where('page_id', 2)->where('status', 1)->get();
 
-    $pageSections = PageSection::where('page_id', 2)->with('getButtons', 'getContent')->get();
     foreach ($pageSections as $getPageSection) {
       $sections[$getPageSection['section_slug']] = $getPageSection;
     }
 
-    return view('website.pages.about', ['doctorList'  => $doctors, 'sections' => $sections]);
+    $extraSections = [];
+    foreach ($pageExtraSections as $pageExtraSection) {
+      $slug = str_replace('\\', '_', $pageExtraSection->model);
+      $slug = strtolower($slug);
+      $extraSections[$slug] = $pageExtraSection->model::orderBy($pageExtraSection->order_with_column, $pageExtraSection->order_by)->take($pageExtraSection->no_of_records)->get();
+    }
+
+    return view('website.pages.about', [
+      'sections' => $sections,
+      'doctorList'    =>  $extraSections['app_models_user'],
+      'testimonials'  =>  $extraSections['app_models_testimonial'],
+    ]);
   }
 }

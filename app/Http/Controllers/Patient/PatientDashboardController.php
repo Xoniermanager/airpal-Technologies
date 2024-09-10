@@ -15,6 +15,7 @@ use App\Http\Services\PatientServices;
 use App\Http\Services\PatientDiaryService;
 use App\Http\Services\MedicalRecordService;
 use App\Http\Services\FavoriteDoctorServices;
+use App\Http\Services\PaymentService;
 
 class PatientDashboardController extends Controller
 {
@@ -24,6 +25,7 @@ class PatientDashboardController extends Controller
     private $invoiceServices;
     private $medicalRecordService;
     private $patientDiaryService;
+    private $paymentService;
 
 
     public function __construct(
@@ -31,13 +33,15 @@ class PatientDashboardController extends Controller
         PatientServices $patientServices,
         InvoiceServices $invoiceServices,
         MedicalRecordService $medicalRecordService,
-        PatientDiaryService $patientDiaryService
+        PatientDiaryService $patientDiaryService,
+        PaymentService $paymentService
     ) {
         $this->patientServices = $patientServices;
         $this->invoiceServices = $invoiceServices;
         $this->favoriteDoctorServices = $favoriteDoctorServices;
         $this->medicalRecordService = $medicalRecordService;
         $this->patientDiaryService = $patientDiaryService;
+        $this->paymentService = $paymentService;
     }
 
     public function patientDashboard()
@@ -333,17 +337,6 @@ class PatientDashboardController extends Controller
         return $result;
     }
 
-
-
-
-
-
-    
-
-    public function patientAccounts()
-    {
-        return view('patients.patient-accounts');
-    }
     public function patientAppointmentDetails()
     {
         return view('patients.patient-appointment-details');

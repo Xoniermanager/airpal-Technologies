@@ -212,13 +212,14 @@ Route::middleware('authCheck')->group(function () {
             Route::get('get-chat-history', 'getChatHistory');
             Route::post('send-message', 'sendMessage');
         });
-    });
 
-    // Patient booking payment APIs
-    Route::controller(PaymentApiController::class)->group(function () {
-        Route::post('payment-required', 'checkPaymentRequiredForBooking');
-        Route::get('update-payment-details', 'updatePaymentDetails')->name('api.paypal.success');
-        Route::get('update-payment-status', 'updatePaymentStatus')->name('api.paypal.cancel');
     });
     Route::get('privacy', [AuthController::class, 'privacyPolicy']);
+});
+
+// Patient booking payment APIs
+Route::controller(PaymentApiController::class)->group(function () {
+    Route::post('payment-required','checkPaymentRequiredForBooking');
+    Route::get('update-payment-details','updatePaymentDetails')->name('api.paypal.success');
+    Route::get('update-payment-status','updatePaymentStatus')->name('api.paypal.cancel');
 });

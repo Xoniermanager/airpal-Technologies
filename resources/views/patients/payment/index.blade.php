@@ -1,4 +1,4 @@
-@extends('layouts.doctor.main')
+@extends('layouts.patient.main')
 @section('content')
     <div class="dashboard-header">
         <h3>Account</h3>
@@ -31,7 +31,7 @@
                 <input type="date" class="form-control" id="date">
             </div>
         </div>
-        @include('doctor.accounts-details.all_list')
+        @include('patients.payment.list')
     </div>
     <script>
         jQuery("#search").on('keyup', function() {
@@ -47,7 +47,7 @@
         function search_filter_results() {
             $.ajax({
                 type: 'GET',
-                url: "{{ route('doctor-accounts.searchFilter') }}",
+                url: "{{ route('patient-accounts.searchFilter') }}",
                 data: {
                     'date': $('#date').val(),
                     'search': $('#search').val(),

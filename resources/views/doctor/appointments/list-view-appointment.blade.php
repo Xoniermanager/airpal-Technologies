@@ -73,6 +73,9 @@
                         Session</a>
                 </div>
             </li>
+            <li>
+                {!! checkPaymentStatusByBookingId($booking->id) !!}
+            </li>
         </ul>
     </div>
     @empty

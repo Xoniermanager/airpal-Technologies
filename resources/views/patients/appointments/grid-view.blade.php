@@ -56,7 +56,10 @@
                                         class="start-link"><i class="fa-solid fa-user-injured"></i>Prescription</a>
                                 </div>
                             @endif
-                            {!! $appointment->getMeetingButton()!!}
+                                <div class="appointment-detail-btn">
+                                   {!! checkPaymentStatusByBookingId($appointment->id) !!}
+                                </div>
+                            {!! $appointment->getMeetingButton() !!}
                         </li>
                     </ul>
                 </div>

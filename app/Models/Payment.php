@@ -19,6 +19,12 @@ class Payment extends Model
         'payment_status',
         'payment_method',
         'purpose',
-        'payment_details'
+        'payment_details',
+        'payer_account_id'
     ];
+
+    public function bookingSlot()
+    {
+        return $this->belongsTo(BookingSlots::class, 'booking_id');
+    }
 }

@@ -16,7 +16,8 @@ class AdminSiteConfigController extends Controller
         $configs = $request->validated();
         $results = [];
 
-        foreach ($configs['config'] as $config) {
+        foreach ($configs['config'] as $config) 
+        {
             $name  = $config['name'];
             $value = $config['value'] ?? '';
 
@@ -42,8 +43,6 @@ class AdminSiteConfigController extends Controller
                     'value' => $value,
                 ];
             }
-
-
 
             if ($existingConfig) {
                 // Update the existing configuration

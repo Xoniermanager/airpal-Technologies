@@ -182,6 +182,79 @@
                                             <span class="text-denger" id="config_ios_store_value_error" style="color: red">
                                     </div>
 
+                            <!-- Start: Save sandbox details for paypal -->
+                                    <div class="col-md-6 mb-3">
+                                        <label class="mb-2">PAYPAL SANDBOX CLIENT ID</label>
+                                        <input type="hidden" value="PAYPAL_SANDBOX_CLIENT_ID" class="form-control"
+                                            name="config[PAYPAL_SANDBOX_CLIENT_ID][name]">
+                                        <input type="text" class="form-control" name="config[PAYPAL_SANDBOX_CLIENT_ID][value]"
+                                            value="{{ $configData['PAYPAL_SANDBOX_CLIENT_ID'] ?? '' }}">
+                                            <span class="text-denger" id="config_PAYPAL_SANDBOX_CLIENT_ID_error" style="color: red">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="mb-2">PAYPAL SANDBOX CLIENT SECRET</label>
+                                        <input type="hidden" value="PAYPAL_SANDBOX_CLIENT_SECRET" class="form-control"
+                                            name="config[PAYPAL_SANDBOX_CLIENT_SECRET][name]">
+                                        <input type="text" class="form-control" name="config[PAYPAL_SANDBOX_CLIENT_SECRET][value]"
+                                            value="{{ $configData['PAYPAL_SANDBOX_CLIENT_SECRET'] ?? '' }}">
+                                            <span class="text-denger" id="config_PAYPAL_SANDBOX_CLIENT_SECRET_value_error" style="color: red">
+                                    </div>
+                            <!-- End: Save sandbox details for paypal -->
+
+                            <!-- Start: Save live details for paypal -->
+                            <div class="col-md-6 mb-3">
+                                        <label class="mb-2">PAYPAL LIVE CLIENT ID</label>
+                                        <input type="hidden" value="PAYPAL_LIVE_CLIENT_ID" class="form-control"
+                                            name="config[PAYPAL_LIVE_CLIENT_ID][name]">
+                                        <input type="text" class="form-control" name="config[PAYPAL_LIVE_CLIENT_ID][value]"
+                                            value="{{ $configData['PAYPAL_LIVE_CLIENT_ID'] ?? '' }}">
+                                            <span class="text-denger" id="config_PAYPAL_LIVE_CLIENT_ID_error" style="color: red">
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="mb-2">PAYPAL LIVE CLIENT SECRET</label>
+                                        <input type="hidden" value="PAYPAL_LIVE_CLIENT_SECRET" class="form-control"
+                                            name="config[PAYPAL_LIVE_CLIENT_SECRET][name]">
+                                        <input type="text" class="form-control" name="config[PAYPAL_LIVE_CLIENT_SECRET][value]"
+                                            value="{{ $configData['PAYPAL_LIVE_CLIENT_SECRET'] ?? '' }}">
+                                            <span class="text-denger" id="config_PAYPAL_LIVE_CLIENT_SECRET_value_error" style="color: red">
+                                    </div>
+                            <!-- End: Save live details for paypal -->
+
+                                    <div class="col-md-6 mb-3">
+                                        <label class="mb-2">PAYPAL LIVE APP ID</label>
+                                        <input type="hidden" value="PAYPAL_LIVE_APP_ID" class="form-control"
+                                            name="config[PAYPAL_LIVE_APP_ID][name]">
+                                        <input type="text" class="form-control" name="config[PAYPAL_LIVE_APP_ID][value]"
+                                            value="{{ $configData['PAYPAL_LIVE_APP_ID'] ?? '' }}">
+                                            <span class="text-denger" id="config_PAYPAL_LIVE_APP_ID_value_error" style="color: red">
+                                    </div>
+
+                                @php
+                                $SANDBOX = 'checked';
+                                $LIVE = '';
+                                if(isset($configData['PAYPAL_MODE']))
+                                {
+                                    if($configData['PAYPAL_MODE'] == 'LIVE')
+                                    {
+                                        $SANDBOX = '';
+                                        $LIVE = 'checked';
+                                    }
+                                }
+                                @endphp
+                                <div class="col-md-6 mb-3">
+                                    <label class="mb-2">PAYPAL PAYMENT MODE</label>
+                                    <input type="hidden" value="PAYPAL_MODE" class="form-control" name="config[PAYPAL_MODE][name]">
+                                    <label class="custom_radio me-4">
+                                        <input type="radio" name="config[PAYPAL_MODE][value]" {!! $SANDBOX !!} value="sandbox">
+                                        <span class="checkmark"></span> SANDBOX
+                                    </label>
+                                    <label class="custom_radio">
+                                        <input type="radio" name="config[PAYPAL_MODE][value]" {!! $LIVE !!} value="live">
+                                        <span class="checkmark"></span> LIVE
+                                    </label>
+                                </div>
 
 
                                     <div class="col-md-12 mb-3">

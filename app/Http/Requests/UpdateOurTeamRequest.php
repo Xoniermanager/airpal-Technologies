@@ -11,7 +11,7 @@ class UpdateOurTeamRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdateOurTeamRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'image' => 'nullable|mimes:jpeg,jpg,bmp,png|max:4096',
+            'name'  => 'required|string|max:100',
+            'designation' => 'required|string|max:100',
+            'description' => 'string|nullable',
+            'id' => 'required|exists:our_teams,id'
         ];
     }
 }

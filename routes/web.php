@@ -463,8 +463,8 @@ Route::prefix('admin')->group(function () {
             Route::get('add', 'showOurTeamForm')->name('admin.show.our.team.form');
             Route::get('edit/{id}', 'editOurTeamForm')->name('admin.edit.our.team.form');
             Route::post('update', 'updateOurTeam')->name('admin.update.our.team.form');
-            Route::get('delete/{id}', 'deleteOurTeam')->name('admin.delete.testimonial.form');
-            Route::post('save-testimonial', 'saveOurTeam')->name('admin.save.our.team.form');
+            Route::get('delete/{id}', 'deleteOurTeam')->name('admin.delete.our.team.form');
+            Route::post('save-our-team', 'saveOurTeam')->name('admin.save.our.team.form');
         });
 
         Route::prefix('partners')->controller(PartnerController::class)->group(function () {

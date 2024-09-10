@@ -10,25 +10,23 @@
                         <h3 class="page-title">Our Team</h3>
                     </div>
                     {{-- <div class="col-sm-5 col">
-                        <a href="#add_ourTeam" data-bs-toggle="modal" class="btn btn-primary float-end mt-2">Add</a>
+                        <a href="#add_ourTeams" data-bs-toggle="modal" class="btn btn-primary float-end mt-2">Add</a>
                     </div> --}}
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card">
-                            <form id="addourTeam"
-                            {{-- method="POST" action="{{ route('admin.save.testimonial.form') }}"  --}}
-                            enctype="multipart/form-data">
+                            <form id="editOurTeam"  enctype="multipart/form-data">
                                 @csrf
                                 <div class="setting-card">
                                     <div class="change-avatar img-upload">
                             
                                         <div class="profile-img">
                             
-                                            @if (isset($singleDoctorDetails->image_url))
-                                                <img src="{{ $singleDoctorDetails->image_url }}" id="blah" class="previewProfile">
+                                            @if (isset($ourTeam->image))
+                                                <img src="{{ $ourTeam->image }}" id="previewImage" >
                                             @else
-                                                <img src="" 
+                                                <img src=""
                                                     onerror="this.src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}';">
                                             @endif
                                         </div>
@@ -39,7 +37,6 @@
                                                     Upload New
                                                     <input type="file" class="upload" name="image" id="imgInp">
                                                 </div>
-                                                {{-- <a href="#" class="upload-remove">Remove</a> --}}
                                             </div>
                                             <p class="form-text">Your Image should Below 2 MB, Accepted format
                                                 jpg,png,svg
@@ -57,22 +54,18 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-wrap">
                                                 <label class="col-form-label">Name <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" name="name"
-                                                    value="{{ $singleDoctorDetails->name ?? '' }}">
-                                                {{-- <input type="text" class="form-control" name="name" value="{{$singleDoctorDetails->name ?? " "}}"> --}}
+                                                <input type="text" class="form-control" name="name" value="{{ $ourTeam->name ?? '' }}">
                                                 <span class="text-danger" id="name_error"></span>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-wrap">
-                                                <label class="col-form-label">Desgination<span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" name="designation"
-                                                    value="{{ $singleDoctorDetails->email ?? '' }}">
+                                                <label class="col-form-label">Designation <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" name="designation" value="{{ $ourTeam->designation ?? '' }}">
                                                 <span class="text-danger" id="designation_error"></span>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             
@@ -86,7 +79,7 @@
                                             <div class="col-lg-12">
                                                 <div class="form-wrap">
                                                     <label class="col-form-label">Description</label>
-                                                    <textarea class="form-control" style="height: 150px;" name="description" id="description">{{ $singleDoctorDetails->description ?? '' }}</textarea>
+                                                    <textarea class="form-control" style="height: 150px;" name="description" id="description" value="{{ $ourTeam->description ?? '' }}">{{ $ourTeam->description ?? '' }}</textarea>
                                                     <span class="text-danger" id="description_error"></span>
                                                     <span id="charCount">0/1000</span>
                                                 </div>
@@ -94,8 +87,9 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="modal-btn text-end">
+                                    <input type="hidden" value="{{ $ourTeam->id ?? '' }}" name="id" >
+                                    <a href="#" class="btn btn-gray">Cancel</a>
                                     <button type="submit" class="btn btn-primary prime-btn">Save Changes</button>
                                 </div>
                             </form>
@@ -107,37 +101,34 @@
     </div>
 @endsection
 
-
 @section('javascript')
 <script>
     $(document).ready(function() {
 
-        jQuery("#addourTeam").validate({
+        jQuery("#editOurTeam").validate({
             rules: {
                 name: "required",
                 designation: "required",
-
             },
             messages: {
-                name: "Please enter the name!",
-                designation: "Please enter the designation!",
+                name: "Please enter the ourTeam title!",
+                designation: "Please enter the username!",
             },
             submitHandler: function(form) {
 
                 var formData = new FormData($(form)[0]); // Use FormData for file uploads
                 $.ajax({
-                    url: "{{ route('admin.save.our.team.form') }}",
+                    url: "{{ route('admin.update.our.team.form') }}",
                     type: 'post',
                     data: formData,
                     processData: false,
                     contentType: false,
                     success: function(response) {
-                        // Handle successful response
                     if(response.success == true)
                     {
-                        swal.fire("Done!", response.message, "success");
-                        $(form).trigger("reset"); // Reset the form
+                        $(form).trigger("reset");
                         window.location.href = "{{ route('admin.our.team.index') }}";
+                        swal.fire("Done!", response.message, "success");
                     }
 
                     },
@@ -148,7 +139,7 @@
                             for (var error_key in errors) {
                                 random_id = error_key + '_' + randon_number;
                                 jQuery('.' + error_key + '_error').remove();
-                                jQuery(document).find('#addourTeam [name=' + error_key + ']')
+                                jQuery(document).find('#addourTeams [name=' + error_key + ']')
                                     .after('<span id="' + random_id + '_error" class="text text-danger ' + error_key + '_error">' + errors[error_key] + '</span>');
                                 remove_error_div(random_id);
                             }
@@ -160,7 +151,8 @@
             }
         });
     });
-    imgInp.onchange = evt => {
+
+            imgInp.onchange = evt => {
             const [file] = imgInp.files
             if (file) {
                 previewImage.src = URL.createObjectURL(file)

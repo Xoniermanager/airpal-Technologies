@@ -169,7 +169,9 @@
                 </div>
             </div>
         </section>
+    
 
+        <x-our-teams :show="true" />
 
         <x-faqs :show="true" />
 

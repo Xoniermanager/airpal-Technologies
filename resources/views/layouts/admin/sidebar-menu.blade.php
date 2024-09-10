@@ -215,6 +215,12 @@
                             data-url="{{ route('admin.index.country') }}"><i class="fe fe-flag"></i>
                             <span>Country</span></a>
                     </li>
+
+                    <li class="menu-item">
+                        <a href="{{ route('admin.our.team.index') }}"
+                            data-url="{{ route('admin.our.team.index') }}"><i class="fe fe-flag"></i>
+                            <span>Our Team</span></a>
+                    </li>
                     
 
                     <li class="submenu">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OurTeamController;
 use App\Jobs\UpdateMeetingIdJob;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -58,6 +59,7 @@ use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSiteConfigController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController, TestimonialController};
+use App\Models\OurTeam;
 
 // =============================== Login And SignUp Routes ==================================== //
 /**
@@ -455,12 +457,15 @@ Route::prefix('admin')->group(function () {
         });
 
 
-
-
-
-
-
-
+        Route::prefix('our-team')->controller(OurTeamController::class)->group(function () {
+            Route::get('/', 'index')->name('admin.our.team.index');
+            Route::get('get', 'getOurTeam')->name('admin.our.team.list');
+            Route::get('add', 'showOurTeamForm')->name('admin.show.our.team.form');
+            Route::get('edit/{id}', 'editOurTeamForm')->name('admin.edit.our.team.form');
+            Route::post('update', 'updateOurTeam')->name('admin.update.our.team.form');
+            Route::get('delete/{id}', 'deleteOurTeam')->name('admin.delete.our.team.form');
+            Route::post('save-our-team', 'saveOurTeam')->name('admin.save.our.team.form');
+        });
 
         Route::prefix('partners')->controller(PartnerController::class)->group(function () {
             Route::get('/', 'index')->name('admin.partner.index');

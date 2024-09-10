@@ -14,7 +14,6 @@
                     </div>
                 </div>
             </div>
-            {{-- {{ dd($allPaymentDetails) }} --}}
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card">
@@ -84,6 +83,7 @@
                             </div>
                         </div>
                     </div>
+                    {{ $allPaymentDetails->links() }}
                 </div>
             </div>
         </div>

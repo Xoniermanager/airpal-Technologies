@@ -426,7 +426,7 @@
             let slot_info = slot.split('-');
             let slot_start_time = slot_info[0].trim();
             let slot_end_time = slot_info[1].trim();
-            console.log();
+            // console.log('Tester : ' + site_base_url);
             $.ajax({
                 url: url,
                 method: 'GET',
@@ -474,7 +474,7 @@
                         showCancelButton: true,
                         confirmButtonColor: "#3085d6",
                         cancelButtonColor: "#d33",
-                        confirmButtonText: "<a href='/login'>Login</a>"
+                        confirmButtonText: "<a href='" + window.site_base_url + "login'>Login</a>"
                     });
                 }
             });

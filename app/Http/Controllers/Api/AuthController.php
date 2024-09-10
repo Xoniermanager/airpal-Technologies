@@ -16,7 +16,7 @@ use App\Http\Requests\StorePatientRegistrationRequest;
 
 class AuthController extends Controller
 {
- 
+
     private $userRepository;
     protected $authService;
     public function __construct(UserRepository $userRepository,AuthServices $authService)
@@ -24,7 +24,7 @@ class AuthController extends Controller
       $this->userRepository = $userRepository;
       $this->authService = $authService;
     }
-  
+
     public function login(AuthCheckRequest $request)
     {
         try {
@@ -126,6 +126,7 @@ class AuthController extends Controller
 
     public function changePassword(ChangePasswordRequest $request)
     {
+        dd($request->all());
         $userDetails = Auth::guard('api')->user();
         if (Hash::check($request->old_password, $userDetails->password)) {
             $this->authService->changePassword($userDetails->id, $request->password);
@@ -174,7 +175,7 @@ class AuthController extends Controller
                 return response()->json([
                     "success"   => true,
                     "message"   => "Patient successfully registered!",
-                    "data"      => $userCreated 
+                    "data"      => $userCreated
                 ]);
             }
         } catch (\Exception $e) {

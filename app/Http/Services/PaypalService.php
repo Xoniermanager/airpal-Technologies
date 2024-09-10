@@ -19,7 +19,6 @@ class PaypalService
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $paypalToken = $provider->getAccessToken();
-        \Log::info('Paypal payment id : ' . json_encode($paypalToken));
         return $response = $provider->createOrder([
             "intent" => "CAPTURE",
             "application_context" =>  [
@@ -50,7 +49,7 @@ class PaypalService
         $provider->getAccessToken();
         $response = $provider->capturePaymentOrder($paypalToken);
         // dd($response);
-        if (isset($response['status']) && $response['status'] == 'COMPLETED') 
+        if (isset($response['status']) && $response['status'] == 'Completed')
         {
             $paypalPaymentId = $response['id'] ?? '';
             $paymentDetails = [];
@@ -59,6 +58,8 @@ class PaypalService
             $payerDetails = $response['payer'];
             $paymentDetails['payer_name'] = $payerDetails['name']['given_name'] . ' ' . $payerDetails['name']['surname'] ?? '';
             $paymentDetails['payer_email'] = $payerDetails['email_address'] ?? '';
+            $paymentDetails['payer_account_id'] = $payerDetails['payer_id'] ?? '';
+            $paymentDetails['payment_method'] = 'paypal';
             // $paymentDetails['payer_address'] = json_encode($payerDetails['address']);
             $paymentDetails['amount'] = $response['purchase_units'][0]['payments']['captures'][0]['amount']['value'] ?? '';
             $paymentDetails['currency'] = $response['purchase_units'][0]['payments']['captures'][0]['amount']['currency_code'] ?? '';
@@ -68,8 +69,8 @@ class PaypalService
                 'paypalPaymentId'   =>  $paypalPaymentId,
                 'paymentDetails'    =>  $paymentDetails
             ];
-        } 
-        else 
+        }
+        else
         {
             return [
                 'status'        =>  false,

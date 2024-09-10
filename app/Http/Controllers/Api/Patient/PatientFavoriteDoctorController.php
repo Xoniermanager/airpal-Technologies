@@ -36,6 +36,7 @@ class PatientFavoriteDoctorController extends Controller
     public function addFavorite(Request $request)
     {
         try {
+            $request['patient_id'] = Auth::guard('api')->user()->id;
             $doctorAdded =  $this->favoriteDoctorServices->addFavoriteDoctor($request->all());
             if ($doctorAdded) {
                 return response()->json([
@@ -54,6 +55,7 @@ class PatientFavoriteDoctorController extends Controller
     public function removeFavorite(Request $request)
     {
         try {
+            $request['patient_id'] = Auth::guard('api')->user()->id;
             if ($this->favoriteDoctorServices->getSingleFavoriteDoctors($request->all())) {
                 $doctorRemoved =  $this->favoriteDoctorServices->removeFavoriteDoctor($request->all());
                 if ($doctorRemoved) {

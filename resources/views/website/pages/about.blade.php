@@ -54,7 +54,7 @@
                         </div>
                         <div class="about-content">
                             <div class="about-content-details">
-                                <p>{{$sections['about_our_company']->subtitle}}</p>
+                                <p>{{ $sections['about_our_company']->content }}</p>
                             </div>
                             <div class="about-contact">
                                 <div class="about-contact-icon">
@@ -153,7 +153,9 @@
         <x-doctor-slider :doctorList="$doctorList" :show="true" />
 
 
-        <x-testimonial-slider :show="true" />
+        {{-- <x-testimonial-slider  :show="true" /> --}}
+        <x-testimonial-slider  :testimonials="$testimonials"  :show="true" />
+
 
 
 

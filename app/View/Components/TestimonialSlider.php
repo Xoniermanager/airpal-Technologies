@@ -12,12 +12,12 @@ class TestimonialSlider extends Component
     /**
      * Create a new component instance.
      */
-    public $testimonialServices;
+    public $testimonials;
     public $show;
 
-    public function __construct(TestimonialServices $testimonialServices, $show = true)
+    public function __construct($testimonials, $show = true)
     {
-        $this->testimonialServices = $testimonialServices;
+        $this->testimonials = $testimonials;
         $this->show = $show;
     }
     /**
@@ -25,6 +25,6 @@ class TestimonialSlider extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.testimonial-slider',['testimonials' => $this->testimonialServices->all()]);
+        return view('components.testimonial-slider',['testimonials' => $this->testimonials]);
     }
 }

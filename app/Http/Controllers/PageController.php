@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Page;
 use Illuminate\Http\Request;
+use App\Models\PageExtraSection;
 use App\Http\Requests\HomePageRequest;
 use App\Http\Services\FrontendPagesServices;
 
@@ -16,6 +17,21 @@ class PageController extends Controller
     {
         $this->frontendPagesServices = $frontendPagesServices;
     }
+
+
+    public function savePageExtraSection(Request $request)
+    {
+        $getPageExtraSections = $this->frontendPagesServices->savePageExtraSection($request->all());
+
+         return response()->json([
+            'success'   => 'Successfully saved',
+            'data'      =>  $getPageExtraSections,
+            'status'    =>  true
+        ]);
+    }
+
+
+
     public function home(Page $page)
     {
         $getPageSections = $this->frontendPagesServices->getPageSectionsWithAttribute($page->id);
@@ -26,15 +42,22 @@ class PageController extends Controller
         foreach ($getPageSections as $getPageSection) {
             $sections[$getPageSection['section_slug']] = $getPageSection;
         }
-    // dd($sections);
+
+        $pageExtraSections = PageExtraSection::where('page_id',1)->get();
+        foreach ($pageExtraSections as $pageExtraSection) 
+        {
+            $slug = str_replace('\\','_',$pageExtraSection->model);
+            $slug = strtolower($slug);
+            $sections['page_extra_sections'][$slug] = $pageExtraSection;
+        }
+
         return view('admin.pages.homepage.home', [
-            'sections'  => $sections,
+            'sections'  =>  $sections,
             'page'      =>  $page
         ]);
     }
     public function storeHomePageDetail(HomePageRequest $request)
     {
-        // dd($request->all());
         $allPageSectionsData = $this->frontendPagesServices->saveHomepageSections($request);
         
         $sectionsHTML = array();
@@ -64,14 +87,21 @@ class PageController extends Controller
         foreach ($getPageSections as $getPageSection) {
             $sections[$getPageSection['section_slug']] = $getPageSection;
         }
-        // dd( $sections);
+
+        $pageExtraSections = PageExtraSection::where('page_id',2)->get();
+        foreach ($pageExtraSections as $pageExtraSection) 
+        {
+            $slug = str_replace('\\','_',$pageExtraSection->model);
+            $slug = strtolower($slug);
+            $sections['page_extra_sections'][$slug] = $pageExtraSection;
+        }
         return view('admin.pages.about_us.about',[
             'sections'  => $sections,
             'page'      =>  $page
         ]);
     }
 
-    public function storeAboutUsPageDetail(HomePageRequest $request)
+    public function storeAboutUsPageDetail(Request $request)
     {
         $allPageSectionsData = $this->frontendPagesServices->saveHomepageSections($request);
         
@@ -129,5 +159,24 @@ class PageController extends Controller
             'status'    =>  true
         ]);
     }
+
+    public function instantConsultation(Page $page)
+    {
+        $getPageSections = $this->frontendPagesServices->getPageSectionsWithAttribute($page->id);
+
+        $sections = [];
+
+        foreach ($getPageSections as $getPageSection) {
+            $sections[$getPageSection['section_slug']] = $getPageSection;
+        }
+        // dd( $sections);
+        return view('admin.pages.instant_consultation.instant',[
+            'sections'  =>  $sections,
+            'page'      =>  $page
+        ]);
+    }
+
+
+    
 
 }

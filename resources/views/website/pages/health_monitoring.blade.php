@@ -26,8 +26,8 @@
         </div>
         <div class="container">
             <div class="section-head-fourteen">
-                <h2>Our Health Monitoring <span> Device</span></h2>
-                <p>More the quantity, higher the discount. Hurry, Buy Now!</p>
+                <h2>{{ $sections['our_health_monitoring']->title }}</h2>
+                <p>{{ $sections['our_health_monitoring']->subtitle }}</p>
             </div>
 
             @php
@@ -45,8 +45,8 @@
                                 </div>
                                 <div class="service-content">
                                     <h4><a href="#">{{ $contentSection->title }}</a></h4>
-                                    <a href="#" class="explore-link">Explore<i
-                                            class="feather-arrow-right-circle"></i></a>
+                                    {{-- <a href="#" class="explore-link">Explore<i
+                                            class="feather-arrow-right-circle"></i></a> --}}
                                 </div>
                             </div>
                         @endforeach
@@ -73,7 +73,7 @@
                         <div class="service-types service-type-right aos-init aos-animate" data-aos="fade-down">
                             <div class="service-content">
                                 <h4><a href="#">{{ $contentSection->title }}</a></h4>
-                                <a href="#" class="explore-link">Explore<i class="feather-arrow-right-circle"></i></a>
+                                {{-- <a href="#" class="explore-link">Explore<i class="feather-arrow-right-circle"></i></a> --}}
                             </div>
                             <div class="doctor-image">
                                 <a href="#"><img src="{{ $contentSection->image }}"
@@ -103,7 +103,7 @@
                                     <div class="doc-info-cont product-cont">
                                         <h4 class="doc-name mb-2">{{ $sections['health_monitoring_device']->title }}</h4>
 
-                                        <p>{!! $sections['health_monitoring_device']->subtitle !!}</p>
+                                        <p>{!! $sections['health_monitoring_device']->content !!}</p>
 
                                         <a class="btn btn-primary custom-components" type="button"
                                             href="{{ $sections['health_monitoring_device']->getButtons[0]->link ?? '' }}"
@@ -254,7 +254,7 @@
                             <div class="service-inner-fourteen-three">
                             </div>
                         </div>
-                        <h2>Product Solution</h2>
+                        <h2>{{ $sections['we_are_solving']->subtitle }}</h2>
                     </div>
                 </div>
             </div>

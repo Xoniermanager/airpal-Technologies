@@ -32,7 +32,7 @@ class ChangePasswordRequest extends FormRequest
             'confirm_password' => 'required|same:password',
             'old_password'     => [
                 'required', function ($attribute, $value, $fail) {
-                    if (!Hash::check($value, Auth::user()->password)) {
+                    if (!Hash::check($value, Auth::user()->password ?? Auth::guard('api')->user()->password)) {
                         $fail('Old Password didn\'t match');
                     }
                 },

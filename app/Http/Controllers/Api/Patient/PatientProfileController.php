@@ -81,5 +81,4 @@ class PatientProfileController extends Controller
             );
         }
     }
-
 }

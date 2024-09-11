@@ -24,6 +24,7 @@ use App\Http\Controllers\Doctor\InvoiceController;
 use App\Http\Controllers\Doctor\PatientController;
 use App\Http\Controllers\Doctor\ReviewsController;
 use App\Http\Controllers\FrontendDoctorController;
+use App\Http\Controllers\Admin\AdminChatController;
 use App\Http\Controllers\Doctor\DoctorNotification;
 use App\Http\Controllers\Patient\BookingController;
 use App\Http\Controllers\Admin\SpecialityController;
@@ -475,6 +476,13 @@ Route::prefix('admin')->group(function () {
             Route::post('update/{id}', 'updatePartner')->name('admin.update.partner.form');
             Route::get('delete/', 'deletePartner')->name('admin.delete.partner.form');
             Route::post('save-partner', 'savePartner')->name('admin.save.partner.form');
+        });
+
+        // Admin Chat with doctors and patients
+        Route::controller(AdminChatController::class)->group(function () {
+            Route::get('chat', 'getChatList')->name('admin.chat');
+            Route::get('search-chat-user', 'searchChatUser')->name('chat.search.user');
+            Route::get('chat-history', 'getChatHistory')->name('chat.history');
         });
     });
 });

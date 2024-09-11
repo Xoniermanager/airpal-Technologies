@@ -26,13 +26,13 @@ class PatientServices
   }
   public function getAllPatientsList()
   {
-    return $this->userRepository->where('role', 3)->paginate(12);
+    return $this->userRepository->where('role', config('airpal.roles.patient'))->paginate(12);
   }
 
 
   public function getPatientsDetailByID($id)
   {
-    return $this->userRepository->where('role', 3)->where('id',$id)->first();
+    return $this->userRepository->where('role', config('airpal.roles.patient'))->where('id',$id)->first();
   }
 
 

@@ -13,14 +13,12 @@
                             </li>
                         </ul>
                     </div>
-                    <figure class="avatar avatar-online">
+                    <figure class="avatar">
                         <img src="{{ $receiverDetails->image_url }}" alt="image">
                     </figure>
                     <div class="mt-1">
                         <h5>{{ $receiverDetails->first_name . ' ' . $receiverDetails->last_name }}</h5>
-                        <small class="last-seen">
-                            Online
-                        </small>
+                        <small class="last-seen"></small>
                     </div>
                 </div>
                 <div class="chat-options ">

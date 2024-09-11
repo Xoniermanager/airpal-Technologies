@@ -21,7 +21,7 @@ class DoctorService
 
     public function getAllDoctorsList()
     {
-        return $this->userRepository->where('role',2)->get();
+        return $this->userRepository->where('role',config('airpal.roles.doctor'))->get();
     }
 
     public function addService($serviceData)
@@ -88,7 +88,7 @@ class DoctorService
     {
     return  $this->userRepository
      ->select('allover_rating', DB::raw('count(*) as total_doctors'))
-     ->where('role',2)
+     ->where('role',config('airpal.roles.doctor'))
      ->orderby('allover_rating','asc')
      ->groupBy('allover_rating')
      ->get();

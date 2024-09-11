@@ -21,7 +21,7 @@ class AdminAuthController extends Controller
             $user        = User::where('email', $credentials['email'])->first();
             $redirectUrl = route('login');
 
-            if ($user && $user->role != 1) {
+            if ($user && $user->role != config('airpal.roles.admin')) {
                 return response()->json([
                     'success' => false,
                     'message' => 'you are not super-admin go to common dashboard.',
@@ -31,7 +31,7 @@ class AdminAuthController extends Controller
             else
             {            
             if (Auth::attempt($credentials)) {
-                if(auth()->user()->role == 1)
+                if(auth()->user()->role == config('airpal.roles.admin'))
                 {
                     return response()->json([
                         "success"  => true,

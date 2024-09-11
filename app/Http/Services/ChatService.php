@@ -8,7 +8,7 @@ use App\Models\BookingSlots;
 use Illuminate\Support\Facades\DB;
 use App\Http\Repositories\DoctorPatientChatRepository;
 
-class DoctorPatientChatService
+class ChatService
 {
     private  $doctorPatientChatRepository;
     private $doctorPatientChatHistoryRepository;
@@ -29,7 +29,7 @@ class DoctorPatientChatService
         'doctor_patient_chats.id as chat_id',
         'doctor_patient_chat_histories.created_at as last_message_date'])
         ->where('users.id','!=',$doctorId)
-        ->where('users.role','=',3)
+        ->where('users.role','!=',config('airpal.roles.doctor'))
         ->when(!empty($searchPatient), function ($query) use($searchPatient){
            return $query->where('users.first_name','like','%'. $searchPatient .'%')
            ->orWhere('users.last_name','like','%'. $searchPatient .'%')
@@ -65,7 +65,7 @@ class DoctorPatientChatService
         'doctor_patient_chats.id as chat_id',
         'doctor_patient_chat_histories.created_at as last_message_date'])
         ->where('users.id','!=',$patientId)
-        ->where('users.role','=',2)
+        ->where('users.role','!=',config('airpal.roles.patient'))
         ->when(!empty($searchDoctor), function ($query) use($searchDoctor){
            return $query->where('users.first_name','like','%'. $searchDoctor .'%')
            ->orWhere('users.last_name','like','%'. $searchDoctor .'%')
@@ -92,6 +92,43 @@ class DoctorPatientChatService
         ];
     }
 
+    /**
+     * Get all users to chat fro admin
+     */
+    public function getAdminChatUsers($adminId, $search='')
+    {
+         // Get all doctors list to allow chat between patient and doctors
+         $chatList = User::select(['users.id',
+         'users.first_name', 'users.last_name', 'users.gender', 'users.image_url',
+         'doctor_patient_chat_histories.body as last_message',
+         'doctor_patient_chats.id as chat_id',
+         'doctor_patient_chat_histories.created_at as last_message_date'])
+         ->where('users.id','!=',$adminId)
+         ->when(!empty($search), function ($query) use($search){
+            return $query->where('users.first_name','like','%'. $search .'%')
+            ->orWhere('users.last_name','like','%'. $search .'%')
+            ->orWhere(DB::raw("CONCAT(`users`.`first_name`, ' ', `users`.`last_name`)"),'like','%'. $search .'%');
+         })
+            ->leftJoin('doctor_patient_chats', function($join) use ($adminId){
+             $join->on('doctor_patient_chats.sender_id','=','users.id')
+             ->where('doctor_patient_chats.receiver_id','=',$adminId)
+             ->orWhere(function($query) use ($adminId){
+                 $query->on('doctor_patient_chats.receiver_id','=','users.id')
+                 ->where('doctor_patient_chats.sender_id','=',$adminId);
+             });
+         })
+         ->leftJoin('doctor_patient_chat_histories','doctor_patient_chat_histories.id','doctor_patient_chats.last_message_id')
+         ->orderBy('doctor_patient_chat_histories.created_at','desc')
+         ->orderBy('doctor_patient_chats.chat_status','asc')
+         ->orderBy('users.first_name','asc')
+         ->get();
+
+        $chatListWithMessageCounter = $this->addUnreadMessageCounter($chatList, $adminId);
+
+        return [
+            'chatUsers'   =>  $chatListWithMessageCounter,
+        ];
+    }
 
     public function addUnreadMessageCounter($chatList, $currentUser)
     {

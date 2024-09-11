@@ -21,6 +21,20 @@ function set_current_chat_user(selected_user) {
     current_chat_user = selected_user;
 }
 
+function check_online_status(online_div_class)
+{
+   let online = jQuery('.'+online_div_class).hasClass('avatar-online');
+   if(online)
+    {
+        jQuery('.chat-header .avatar').addClass('avatar-online');
+        jQuery('.last-seen').text('Online');
+    }
+    else
+    {
+        jQuery('.last-seen').text('Offline');
+    }
+}
+
 // Loading selected chat history
 function load_chat_history(receiver_user_id,read_status=0)
 {
@@ -50,13 +64,13 @@ function load_chat_history(receiver_user_id,read_status=0)
         complete: function () {
             setTimeout(function () {
                 jQuery('#receiver_id').val(receiver_user_id);
-
+                check_online_status('online-'+receiver_user_id);
                 // remove message unread counter from user list
                 if(read_status)
                     {
                         jQuery('.unread-counter-'+receiver_user_id).remove();
                     }
-            },1500);
+            },1200);
         }
     });
 }

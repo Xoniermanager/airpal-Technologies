@@ -42,7 +42,7 @@ class PatientAuthController extends Controller
         'password'   => Hash::make($request->password),
         'email'  => $request->email,
         'gender' => $request->gender,
-        'role'   => 3,
+        'role'   => config('airpal.roles.patient'),
       ]);
 
       if ($userCreated) {

@@ -11,18 +11,18 @@ class DoctorPatientChatHistoryService
 {
     private $doctorPatientChatHistoryRepository;
     private $doctorPatientChatRepository;
-    private $doctorPatientChatService;
+    private $chatService;
     private $userRepository;
 
     public function __construct(DoctorPatientChatHistoryRepository $doctorPatientChatHistoryRepository, 
     DoctorPatientChatRepository $doctorPatientChatRepository,
     UserRepository $userRepository,
-    DoctorPatientChatService $doctorPatientChatService)
+    ChatService $chatService)
     {
         $this->doctorPatientChatHistoryRepository = $doctorPatientChatHistoryRepository;
         $this->doctorPatientChatRepository = $doctorPatientChatRepository;
         $this->userRepository = $userRepository;
-        $this->doctorPatientChatService = $doctorPatientChatService;
+        $this->chatService = $chatService;
     }
 
 
@@ -68,7 +68,7 @@ class DoctorPatientChatHistoryService
         if($chatId == '')
         {
             // check if chat id exists
-            $chatDetails = $this->doctorPatientChatService->getChatDetails($senderId,$receiverId);
+            $chatDetails = $this->chatService->getChatDetails($senderId,$receiverId);
 
             if(!$chatDetails)
             {

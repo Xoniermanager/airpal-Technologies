@@ -13,7 +13,7 @@
 
     <div class="setting-card">
         <div class="row">
-            <div class="col-lg-12 col-md-12">
+            <div class="col-lg-6 col-md-6">
                 @php
                 $we_are_solving_title = isset($sections['we_are_solving']['title'])
                         ? $sections['we_are_solving']['title']
@@ -25,6 +25,20 @@
                     'section[title]',
                     ['div' => ['test', 'testing', 'tester']],
                     ['input' => 'helloId'],
+                ) !!}
+            </div>
+            <div class="col-lg-6 col-md-6">
+                @php
+                    $we_are_solving_section_subtitle = isset($sections['we_are_solving']['subtitle'])
+                        ? $sections['we_are_solving']['subtitle']
+                        : '';
+                @endphp
+                {!! getTextInput(
+                    $we_are_solving_section_subtitle,
+                    'Subtitle',
+                    'section[subtitle]',
+                    ['div' => ['test', 'testing', 'tester']],
+                    ['input' => 'subTitleId'],
                 ) !!}
             </div>
         </div>

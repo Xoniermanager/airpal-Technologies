@@ -32,18 +32,20 @@
 
             <div class="col-lg-6 col-md-6">
                 @php
-                    $about_our_company_section_subtitle = isset($sections['about_our_company']['subtitle'])
-                        ? $sections['about_our_company']['subtitle']
+                    $about_our_company_section_content = isset($sections['about_our_company']['content'])
+                        ? $sections['about_our_company']['content']
                         : '';
                 @endphp
-                {!! getTextInput(
-                    $about_our_company_section_subtitle,
-                    'Subtitle',
-                    'section[subtitle]',
+                {!! getContentInput(
+                    $about_our_company_section_content,
+                    'Content',
+                    'section[content]',
                     ['div' => ['test', 'testing', 'tester']],
-                    ['input' => 'subTitleId'],
+                    ['input' => 'contentId'],
                 ) !!}
             </div>
+
+
         </div>
     </div>
     <div class="setting-card">
@@ -95,5 +97,5 @@
             </div>
         </div>
     </div>
-    <button>Save</button>
+    <button class="btn btn-primary prime-btn">Save</button>
 </div>

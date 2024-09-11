@@ -54740,7 +54740,7 @@ select {
     -webkit-transform: translateZ(0);
     -ms-transform: translateZ(0);
     width: 100%;
-    height: 250px;
+    /* height: 250px; */
 }
 
 .listing-card .listing-content .listing-details .listing-title h3 {
@@ -55865,4 +55865,11 @@ i.fab.fa-youtube-square {
 .active_blur {
     pointer-events: none;
     opacity: 0.5;
+}
+
+
+.doctor-slider-image {
+    display: block;
+    height: 270px !important;
+    width: 100%;
 }

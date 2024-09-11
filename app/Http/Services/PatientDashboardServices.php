@@ -37,17 +37,12 @@ class PatientDashboardServices
     // Initialize period variables
     $daysInMonth = Carbon::now()->month((int)$period)->daysInMonth; // Get days for the specified month
     $bookingByDate = array_fill(1, $daysInMonth, 0);
-
     $appointments = $this->patientServices->patientHealthGraphs($patientId);
-
-
     foreach ($appointments as $appointment) {
       $date = Carbon::parse($appointment->created_at);
-
       if (is_numeric($period)) {
         if ($date->month == $period) { // Check if the appointment is in the specified month
           $day = (int)$date->format('j');
-
           // Use nested if-else to determine which field to sum
           if ($graphName === 'heart_beat') {
             $bookingByDate[$day] += $appointment->avg_heart_beat;
@@ -65,8 +60,6 @@ class PatientDashboardServices
           }
         }
       }
-
-
       $result = [];
       if (is_numeric($period)) { // For specific month
         foreach ($bookingByDate as $day => $count) {

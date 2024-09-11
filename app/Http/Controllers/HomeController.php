@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PageSection;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Testimonials;
 use App\Models\DoctorSpeciality;
+use App\Models\PageExtraSection;
 use Illuminate\Support\Facades\DB;
 use App\Http\Services\FaqsServices;
 use App\Http\Services\UserServices;
-use App\Http\Services\SpecializationServices;
-use App\Http\Services\DoctorSpecialityServices;
 use App\Http\Services\PartnersServices;
 use App\Http\Services\TestimonialServices;
-use App\Models\PageSection;
+use App\Http\Services\SpecializationServices;
+use App\Http\Services\DoctorSpecialityServices;
 
 class HomeController extends Controller
 {
@@ -40,19 +43,29 @@ class HomeController extends Controller
   public function home()
   {
 
-    $specialtiesByDoctorsCount =  $this->doctor_specialty->getSpecialtyGroupByDoctor();
-    $doctors =  $this->user_services->getDoctorDataForFrontend();
-    $allFaqs =  $this->faqsServices->all();
- 
-    $pageSections = PageSection::with('getButtons', 'getContent')->get();
+    $specialtiesByDoctorsCount =  $this->doctor_specialty->getSpecialtyGroupByDoctor(); 
+    $pageSections      = PageSection::with('getButtons', 'getContent')->where('page_id',1)->get();
+    $pageExtraSections = PageExtraSection::where('page_id',1)->where('status',1)->get();
+    
     foreach ($pageSections as $getPageSection) {
       $sections[$getPageSection['section_slug']] = $getPageSection;
     }
 
+    $extraSections = [];
+    foreach ($pageExtraSections as $pageExtraSection) 
+    {
+      $slug = str_replace('\\','_', $pageExtraSection->model);
+      $slug = strtolower($slug);
+      $extraSections[$slug] = $pageExtraSection->model::orderBy($pageExtraSection->order_with_column,$pageExtraSection->order_by)->take($pageExtraSection->no_of_records)->get();
+    }
+
+    
     return view('website.pages.home', [
-      'doctorList'  => $doctors,
-      'specialties' => $specialtiesByDoctorsCount,
-      'sections'    => $sections,
+
+      'specialties'   =>  $specialtiesByDoctorsCount,
+      'sections'      =>  $sections,
+      'doctorList'    =>  $extraSections['app_models_user'],
+      'testimonials'  =>  $extraSections['app_models_testimonial'],
     ]);
   }
 }

@@ -183,7 +183,8 @@
                 width: 100px;
                 height: 100px;
                 position: relative;
-                border-radius: 100%;
+                /* border-radius: 100%; */
+                padding: 10px;
                 border: 6px solid #F8F8F8;
                 box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
 

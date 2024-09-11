@@ -2,20 +2,20 @@
 
 namespace App\View\Components;
 
+use App\Http\Services\OurTeamServices;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class DoctorSlider extends Component
+class OurTeams extends Component
 {
     /**
      * Create a new component instance.
      */
-    private $doctorList;
-    public function __construct($doctorList)
+    private  $ourTeamServices;
+    public function __construct(OurTeamServices $ourTeamServices)
     {
-        $this->doctorList = $doctorList;
-
+        $this->ourTeamServices = $ourTeamServices;
     }
 
     /**
@@ -23,6 +23,6 @@ class DoctorSlider extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.doctor-slider',['doctorList'  => $this->doctorList ]);
+        return view('components.our-teams',['ourTeams' => $this->ourTeamServices->all()]);
     }
 }

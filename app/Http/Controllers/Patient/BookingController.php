@@ -99,7 +99,7 @@ class BookingController extends Controller
     public function checkReviewByPatientId(Request $request)
     {
         $doctorId = $request->doctorId;
-        if (Auth::user()->role == 3) {
+        if (Auth::user()->role == config('airpal.roles.patient')) {
             $checkReview = $this->bookingServices->getAllBookingDetailsByDoctorAndPatientId(Auth::user()->id, $doctorId)->count();
         } else {
             $checkReview = '0';

@@ -32,7 +32,7 @@ class AuthController extends Controller
         $redirectUrl = route('admin.login.index');
 
         // Check if the user exists and if they are a Super Admin (role_id = 1)
-        if ($user && $user->role == 1) {
+        if ($user && $user->role == config('airpal.roles.admin')) {
             return response()->json([
                 'success' => false,
                 'message' => 'Super Admin should log in via the Super Admin login page.',

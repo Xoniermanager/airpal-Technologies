@@ -29,7 +29,7 @@ class ChatService
         'doctor_patient_chats.id as chat_id',
         'doctor_patient_chat_histories.created_at as last_message_date'])
         ->where('users.id','!=',$doctorId)
-        ->where('users.role','=',3)
+        ->where('users.role','!=',config('airpal.roles.doctor'))
         ->when(!empty($searchPatient), function ($query) use($searchPatient){
            return $query->where('users.first_name','like','%'. $searchPatient .'%')
            ->orWhere('users.last_name','like','%'. $searchPatient .'%')
@@ -65,7 +65,7 @@ class ChatService
         'doctor_patient_chats.id as chat_id',
         'doctor_patient_chat_histories.created_at as last_message_date'])
         ->where('users.id','!=',$patientId)
-        ->where('users.role','=',2)
+        ->where('users.role','!=',config('airpal.roles.patient'))
         ->when(!empty($searchDoctor), function ($query) use($searchDoctor){
            return $query->where('users.first_name','like','%'. $searchDoctor .'%')
            ->orWhere('users.last_name','like','%'. $searchDoctor .'%')

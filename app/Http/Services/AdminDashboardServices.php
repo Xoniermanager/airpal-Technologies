@@ -18,8 +18,8 @@ class AdminDashboardServices
     {
 
         // Fetch the data from the repositories
-        $doctorList      = $this->userRepository->where('role', 2)->get();
-        $patientList     = $this->userRepository->where('role', 3)->get();
+        $doctorList      = $this->userRepository->where('role', config('airpal.roles.doctor'))->get();
+        $patientList     = $this->userRepository->where('role', config('airpal.roles.patient'))->get();
         $appointmentList = $this->bookingServices->all();
 
 

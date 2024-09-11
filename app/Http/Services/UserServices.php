@@ -28,7 +28,7 @@ class UserServices
 
     public function getAllDoctorsList()
     {
-        return $this->userRepository->where('role', 2)->get();
+        return $this->userRepository->where('role', config('airpal.roles.doctor'))->get();
     }
 
     public function addDoctorPersonalDetails($data)
@@ -57,12 +57,12 @@ class UserServices
 
     public function getDoctorDataForAdmin()
     {
-        return $this->userRepository->where('role', 2)->with(["educations", "experiences", "workingHour", "specializations", "services", "language"])->orderBy('id', 'desc')->paginate(10);
+        return $this->userRepository->where('role', config('airpal.roles.doctor'))->with(["educations", "experiences", "workingHour", "specializations", "services", "language"])->orderBy('id', 'desc')->paginate(10);
     }
 
     public function getDoctorDataForFrontend()
     {
-        return $this->userRepository->where('role', 2)->with(["experiences", "specializations", "services", 'favoriteDoctor', 'doctorReview'])->paginate(6);
+        return $this->userRepository->where('role', config('airpal.roles.doctor'))->with(["experiences", "specializations", "services", 'favoriteDoctor', 'doctorReview'])->paginate(6);
     }
 
     public function getDoctorDataById($id)
@@ -79,7 +79,7 @@ class UserServices
             "gender"       => $data["gender"] ?? '',
             "email"        => $data["email"],
             "phone"        => $data["phone"],
-            "role"         => 2,
+            "role"         => config('airpal.roles.doctor'),
             "description"  => $data["description"] ?? '',
         ];
 
@@ -124,7 +124,7 @@ class UserServices
         $query = $this->userRepository->with(["specializations", "services", "educations.course", 'favoriteDoctor'])->newQuery();
 
         // Search for doctor roles only
-        $query->where('role', 2);
+        $query->where('role', config('airpal.roles.doctor'));
 
         if (!empty($data['gender'])) {
             $query->whereIn('gender', $data['gender']);
@@ -218,7 +218,7 @@ class UserServices
 
     public function getPatientByDoctorId($id)
     {
-        return $this->userRepository->where('role', 3)->get();
+        return $this->userRepository->where('role', config('airpal.roles.patient'))->get();
     }
 
     public function updatePatient($data)
@@ -233,7 +233,7 @@ class UserServices
             "blood_group"  => $data["blood_group"] ?? '',
             "email"        => $data["email"],
             "phone"        => $data["phone"],
-            "role"         => 3,
+            "role"         => config('airpal.roles.patient'),
             "description"  => $data["description"] ?? '',
         ];
         $user = $this->userRepository->find($data['user_id']);
@@ -274,7 +274,7 @@ class UserServices
         $query = $this->userRepository->newQuery();
 
         // Static condition for role = 2 (assumed to be 'doctor')
-        $query->where('role', 2);
+        $query->where('role', config('airpal.roles.doctor'));
 
         if (!empty($data['searchKey'])) {
             $query->where(function ($q) use ($data) {

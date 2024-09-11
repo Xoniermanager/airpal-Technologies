@@ -52,7 +52,7 @@ class StoreBooking extends FormRequest
                         ->where('slot_start_time', $slotTimes[0])
                         ->where('slot_end_time', $slotTimes[1])
                         ->exists();
-    
+    dd($exists);
                     if ($exists) {
                         $fail('The selected appointment slot is already booked.');
                     }

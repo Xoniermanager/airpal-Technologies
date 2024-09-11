@@ -21,21 +21,19 @@ class BookingServices
     }
     public function store($data)
     {
+
         $slot = $data->booking_slot_time;
         // Split the string and remove "AM" or "PM"
         list($start_time, $end_time) = array_map(function ($time) {
             return str_replace(['AM', 'PM'], '', $time);
         }, explode(' - ', $slot));
 
-        // here uploading image
+        // uploading symptoms image of patient
+        $patient  = User::find($data->patient_id);
         if (isset($data->image) && !empty($data->image)) {
-            $image = $data->image;
-            if ($image instanceof \Illuminate\Http\UploadedFile) {
-                $filename = 'appointment_booking' . time() . '.' . $image->getClientOriginalName();
-                $destinationPath = public_path('appointments_file');
-                $image->move($destinationPath, $filename);
-            }
+            $filePath = uploadingImageorFile($data->image, 'booking-symptoms', $patient->first_name);
         }
+
         $payload = [
             'doctor_id'  => $data->doctor_id,
             'patient_id' => $data->patient_id,
@@ -45,12 +43,11 @@ class BookingServices
             'insurance'  =>  $data->insurance,
             'note' => $data->description,
             'symptoms' => $data->symptoms,
-            'image' => $filename ?? '',
+            'image' => $filePath ?? '',
         ];
 
         $bookedSlot  =  $this->bookingRepository->create($payload);
-        if ($bookedSlot)
-        {
+        if ($bookedSlot) {
             $pdfPath = storage_path('app/public/' . $data->doctor_id . '/invoices/invoice-pdf-' . $bookedSlot->id . '.pdf');
 
 
@@ -436,7 +433,7 @@ class BookingServices
      */
     public function getBookingFee($booking)
     {
-        
+
 
         // Write script here to calculate the booking fee using above details
         $fee = 10;
@@ -446,8 +443,8 @@ class BookingServices
     /**
      * Update payment required to be true/false based on payment is required for booking or not ?
      */
-    public function updatePaymentRequired($bookingId,$requiredStatus)
+    public function updatePaymentRequired($bookingId, $requiredStatus)
     {
-        return $this->bookingRepository->where('id',$bookingId)->update(['payment_required'    =>  $requiredStatus]);
+        return $this->bookingRepository->where('id', $bookingId)->update(['payment_required'    =>  $requiredStatus]);
     }
 }

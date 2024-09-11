@@ -102,7 +102,7 @@ jQuery('document').ready(function(){
         refresh_chat_list();
         
         // If the chat is already opened for the user from where message has received update chat history
-        if(data.message.receiver_id == current_chat_user)
+        if((data.message.receiver_id == '{{ auth()->user()->id }}') && (data.message.sender_id == current_chat_user))
         {
              // Passing second param as 1 means message for opened chat will be marked as read
             load_chat_history(current_chat_user,1);

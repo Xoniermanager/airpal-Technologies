@@ -368,7 +368,6 @@
 </div>
 @endsection
 @section('javascript')
-<script src="http://127.0.0.1:8000/assets/js/jquery-3.7.1.min.js" type="text/javascript"></script>
 <script>
     $('.loaderonload').hide();
     $('input[name="gender"], input[name="langauges"], input[name="experience"] ,input[name="speciality"],input[name="services"],input[name="rating_count"]')

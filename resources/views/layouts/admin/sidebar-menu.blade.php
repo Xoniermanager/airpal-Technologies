@@ -201,6 +201,13 @@
                             <span>Settings</span></a>
                     </li>
 
+                    <li class="{{ request()->routeIs('admin.chat') ? 'active' : '' }}">
+                        <a href="{{ route('admin.chat') }}">
+                            <i class="fa fa-comments"></i>
+                            <span>Chat</span>
+                        </a>
+                    </li>
+
                     <li class="menu-item" data-url="{{ route('admin.service.index') }}">
                         <a href="{{ route('admin.service.index') }}"><i class="fe fe-user-plus"></i>
                             <span>Services</span></a>

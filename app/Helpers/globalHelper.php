@@ -69,7 +69,8 @@ function uploadingImageorFile($file, String $path, $namePrefix = '')
 }
 function unlinkFileOrImage($file)
 {
-    if (file_exists(storage_path('app/public/') . $file)) {
+    if (file_exists(storage_path('app/public/') . $file))
+    {
         unlink(storage_path('app/public/') . $file);
     }
     return true;

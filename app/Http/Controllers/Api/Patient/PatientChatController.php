@@ -5,18 +5,18 @@ namespace App\Http\Controllers\Api\Patient;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SendMessageRequest;
-use App\Http\Services\DoctorPatientChatService;
+use App\Http\Services\ChatService;
 use App\Http\Requests\GetSelectedChatHistoryRequest;
 use App\Http\Services\DoctorPatientChatHistoryService;
 
 class PatientChatController extends Controller
 {
-    private $doctorPatientChatService;
+    private $chatService;
     private $doctorPatientChatHistoryService;
 
-    public function __construct(DoctorPatientChatService $doctorPatientChatService, DoctorPatientChatHistoryService $doctorPatientChatHistoryService)
+    public function __construct(ChatService $chatService, DoctorPatientChatHistoryService $doctorPatientChatHistoryService)
     {
-        $this->doctorPatientChatService = $doctorPatientChatService;
+        $this->chatService = $chatService;
         $this->doctorPatientChatHistoryService = $doctorPatientChatHistoryService;
     }
 
@@ -26,7 +26,7 @@ class PatientChatController extends Controller
         $patientId = Auth()->Guard('api')->user()->id;
         $searchKey = (array_key_exists('search', $request->all())) ? $request->search : '';
 
-        $doctorPatientChatLists = $this->doctorPatientChatService->getPatientsChatList($patientId, $searchKey);
+        $doctorPatientChatLists = $this->chatService->getPatientsChatList($patientId, $searchKey);
 
         return [
             'status'    =>  true,

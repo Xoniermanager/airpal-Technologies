@@ -129,14 +129,17 @@
                                         <div class="col-md-9">
 
                                             <div class="widget about-widget">
-                                                <h4 class="widget-title">Description</h4>
-                                                <p> Lorem Ipsum is simply dummy text of the printing and typesetting
-                                                    industry. Lorem Ipsum has been the industry's standard dummy text ever
-                                                    since the 1500s, when an unknown printer took a galley of type and
-                                                    scrambled
-
+                                                <h4 class="widget-title">Connect Your Wearables with AirPal </h4>
+                                                <p>- AirPal offers a comprehensive health monitoring solution that
+                                                    seamlessly integrates with your wearable devices.
+                                                </p>
+                                                <p>- Our software app connects with wearables to provide real-time
+                                                    monitoring of vital signs, ensuring timely detection of any
+                                                    irregularities.
                                                 </p>
                                             </div>
+
+                                            
                                             @foreach ($sections['product_details'] as $key => $section)
                                             <div class="widget awards-widget">
                                                 
@@ -161,42 +164,29 @@
                                             </div>
                                             @endforeach
 
-                                            
-
-                                            {{-- <div class="widget about-widget">
-                                                <h4 class="widget-title">Directions for use</h4>
-                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting
-                                                    industry.</p>
+                                            <div class="widget about-widget">
+                                                <h4 class="widget-title">Get Started </h4>
+                                                <p>Download our app today and start monitoring your health with ease.
+                                                </p>
+                                                <a href="#" class="btn btn-outline-primary">Download App </a>
                                             </div>
-
+                                            <div class="widget about-widget">
+                                                <h4 class="widget-title">Learn More </h4>
+                                                <p>For more information on our wearable health monitoring solution, please visit our <a class="text-primary" href="contact-us.html"> Contact Us</a> page.</p>
+                                            </div>
 
                                             <div class="widget about-widget">
-                                                <h4 class="widget-title">Storage</h4>
-                                                <p> Lorem Ipsum is simply dummy text of the printing and typesetting
-                                                    industry.</p>
+                                                <h4 class="widget-title">Contact Your Doctor
+                                                </h4>
+                                                <p>Need medical advice or have questions about your health? Contact your doctor through our telemedicine app for personalized guidance and support.
+                                                </p>
+                                                <a href="#" class="btn btn-primary">Telemedicine App</a>
                                             </div>
-
 
                                             <div class="widget about-widget">
-                                                <h4 class="widget-title">Administration Instructions</h4>
-                                                <p> Lorem Ipsum is simply dummy text of the printing and typesetting
-                                                    industry.</p>
+                                                <h4 class="widget-title">Connect Now </h4>
+                                                <p>Don't wait to take control of your health. Subscribe to our wearable health monitoring device today and start monitoring your vital signs with ease.</p>
                                             </div>
-
-
-                                            <div class="widget about-widget">
-                                                <h4 class="widget-title">Warning</h4>
-                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting
-                                                    industry.</p>
-                                            </div>
-
-
-                                            <div class="widget about-widget mb-3">
-                                                <h4 class="widget-title">Precaution</h4>
-                                                <p class="mb-0"> Lorem Ipsum is simply dummy text of the printing and
-                                                    typesetting industry.</p>
-                                            </div> --}}
-
                                         </div>
                                     </div>
                                 </div>

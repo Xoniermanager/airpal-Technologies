@@ -4,6 +4,15 @@
         <h5>Section Info</h5>
     </div>
 
+    {!! getTextInput(
+        // $product_details, 
+        '',
+        'Section Title',
+        'section[inner_section][' . $i . '][title]',
+        ['div' => ['test', 'testing', 'tester']],
+        ['input' => 'helloId'],
+    ) !!}
+
     <div class="row">
         @for ($i = 0; $i < 3; $i++)
             <div class="col-lg-6">
@@ -11,7 +20,6 @@
                     <div class="add-info membership-infos">
                         <div class="row membership-content">
                             <div class="col-lg-12">
-
                                 {{-- <input type="hidden" name="section[ul][{{ $i }}][id]" value="{{ $sections['product_details'][$i]->id ?? '' }}"> --}}
                                 <input type="hidden" name="section[ul][{{ $i }}][id]" value="{{ $sections['product_details'][$i]->id ?? '' }}">
 
@@ -71,15 +79,90 @@
                             </div>
                            
                             <input type="hidden" name="section[ul][{{ $i }}][section_lists_id]]" value="1">
-                            
-                            {{-- <input type="hidden" name="section[inner_section][{{ $i }}][id]"
-                                value="{{ $sections['prodcut_details']->getContent[$i]['id'] ?? '' }}"> --}}
                         </div>
                     </div>
                 </div>
             </div>
         @endfor
     </div>
+
+    <div class="row">
+        @for ($i = 0; $i < 4; $i++)
+            <div class="col-lg-6">
+                <div class="setting-card">
+                    <div class="add-info membership-infos">
+                        <div class="row membership-content">
+                            <div class="col-lg-8">
+                                {{-- @php
+                                    $product_details = isset(
+                                        $sections['product_details']->getContent[$i]['title'],
+                                    )
+                                        ? $sections['product_details']->getContent[$i]['title']
+                                        : '';
+                                @endphp --}}
+                                {!! getTextInput(
+                                    // $product_details, 
+                                    '',
+                                    'Title',
+                                    'section[inner_section][' . $i . '][title]',
+                                    ['div' => ['test', 'testing', 'tester']],
+                                    ['input' => 'helloId'],
+                                ) !!}
+                            </div>
+                            <div class="col-lg-12">
+                                {{-- @php
+                                    $key_features_content = isset($sections['key_features']->getContent[$i]['content'])
+                                        ? $sections['key_features']->getContent[$i]['content']
+                                        : '';
+                                @endphp --}}
+                                {!! getSectionTextArea(
+                                    '',
+                                    'section[inner_section][' . $i . '][content]',
+                                
+                                    'content',
+                                ) !!}
+
+
+                            </div>
+                            <div class="col-lg-6">
+                                {{-- @php
+                                    $home_banner_button_text = isset($sections['home_banner']->getButtons[0]['text'])
+                                        ? $sections['home_banner']->getButtons[0]['text']
+                                        : '';
+                                @endphp --}}
+                                {!! getTextInput(
+                                    // $home_banner_button_text,
+                                    '',
+                                    'button text',
+                                    'section[button][0][text]',
+                                    'Button Text',
+                                ) !!}
+                            </div>
+                            <div class="col-lg-6">
+                                {{-- @php
+                                    $home_banner_button_link = isset($sections['home_banner']->getButtons[0]['link'])
+                                        ? $sections['home_banner']->getButtons[0]['link']
+                                        : '';
+                                @endphp --}}
+                                {!! getTextInput(
+                                    // $home_banner_button_link,
+                                    '',
+                                    'button link',
+                                    'section[button][0][link]',
+                                    'Button Link',
+                                ) !!}
+                            </div>
+                            {{-- <input type="hidden" name="section[inner_section][{{ $i }}][id]"
+                                value="{{ $sections['product_details']->getContent[$i]['id'] ?? '' }}"> --}}
+                            <input type="hidden" name="section[inner_section][{{ $i }}][id]"
+                                value="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endfor
+    </div>
+    
     @php
         $pageId = $page->id ?? '';
         if (empty($pageId) || $pageId == '') {

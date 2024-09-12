@@ -78,7 +78,7 @@ class FrontendPagesServices
 
     public function saveHomepageSections($data)
     {
-
+dd($data->all());
         $pageId = $data['page_id']; 
         if($data['section']['ul'])
         {

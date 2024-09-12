@@ -194,7 +194,7 @@
                         <h2 class="section-title mb-0"> {{ $sections['research']->title ?? '' }}</h2>
                     </div>
                     <div class="accordion-condition" id="accord-parent">
-
+                        @isset($sections['research'])
                         @forelse ($sections['research']->getContent as $index => $contentSection)
                         <div class="accordion-item">
                             <h2 class="accordion-header">
@@ -217,7 +217,8 @@
                             </div>
                         </div>
                     @empty
-                    @endforelse
+                    @endforelse    
+                        @endisset
                     
 
 

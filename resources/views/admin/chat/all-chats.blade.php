@@ -52,6 +52,7 @@
 @endsection
 @section('javascript')
 <script>
+let userOnline = [];
 function refresh_chat_list(search_key = '')
 {
     jQuery.ajax({
@@ -65,7 +66,8 @@ function refresh_chat_list(search_key = '')
         success: function(response){
             if(response.status)
             {
-                jQuery('#chat-users-list').html(response.data)
+                jQuery('#chat-users-list').html(response.data);
+                update_user_online_status(userOnline);
             }
         },
         error: function(error_response){
@@ -76,7 +78,6 @@ function refresh_chat_list(search_key = '')
 
     
 // Receive new chat notification 
-let userOnline = [];
 jQuery('document').ready(function(){
     window.Echo.join('chat.online.0')
     .here((users)   =>  {
@@ -108,7 +109,7 @@ jQuery('document').ready(function(){
             load_chat_history(current_chat_user,1);
         }
     });
-    
+
     window.Echo.private('chat.{{ auth()->user()->id }}')
     .listenForWhisper('typing',(event)   =>  {
         jQuery('.typing-'+event.user_id).show();

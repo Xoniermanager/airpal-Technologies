@@ -189,6 +189,7 @@
         </div>
         <div class="container">
             <div class="row">
+                @isset($sections['research'])
                 <div class="col-lg-6 col-sm-12 aos aos-init aos-animate" data-aos="fade-up">
                     <div class="section-header-one section-header-slider">
                         <h2 class="section-title mb-0"> {{ $sections['research']->title ?? '' }}</h2>
@@ -225,6 +226,7 @@
                         <a href="research.html" class="btn btn-primary mt-1"> Read all</a>
                     </div>
                 </div>
+                @endisset
                 <div class="col-lg-6 col-md-12 aos aos-init aos-animate" data-aos="fade-up">
                     <div class="gallery-box-block">
                         <div class="box-detail">

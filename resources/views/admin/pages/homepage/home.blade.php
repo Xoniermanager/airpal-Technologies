@@ -70,6 +70,21 @@
                             </div>
                         </div>
 
+
+
+                        {{-- Research section --}}
+                        <div class="col-sm-12">
+                            <h3 class="page-title">Research Section</h3>
+                            <div class="card">
+                                <form enctype="multipart/form-data">
+                                    @csrf
+                                    @include('admin.pages.homepage.research')
+                                </form>
+                            </div>
+                        </div>
+                        
+
+
                     </div>
                 </div>
             </div>

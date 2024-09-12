@@ -53,6 +53,18 @@
                             </div>
                         </div>
 
+
+                        {{-- Product Details --}}
+                        <div class="col-sm-12">
+                            <h3 class="page-title">Product Details</h3>
+                            <div class="card">
+                                <form id="save_health_monitoring_header_banner_detail" enctype="multipart/form-data">
+                                    @csrf
+                                    @include('admin.pages.health_monitoring.product_details')
+                                </form>
+                            </div>
+                        </div>
+
                         
 
                     </div>

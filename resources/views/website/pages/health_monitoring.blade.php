@@ -55,7 +55,7 @@
                 <div class="col-lg-4 col-md-6 d-flex">
                     <div class="services-img-col w-100">
                         <div class="sec-img-center">
-                            <img src="{{$sections['our_health_monitoring']->image }}" alt="Img">
+                            <img src="{{ $sections['our_health_monitoring']->image }}" alt="Img">
                         </div>
                         <div class="img-center img-center-one aos-init aos-animate" data-aos="fade-down"
                             data-aos-delay="500">
@@ -68,18 +68,17 @@
                 </div>
                 <div class="col-lg-4 col-md-12 d-flex">
                     <div class="service-type-cards w-100">
-                        
-                    @foreach ($chunks[1] as $contentSection)
-                        <div class="service-types service-type-right aos-init aos-animate" data-aos="fade-down">
-                            <div class="service-content">
-                                <h4><a href="#">{{ $contentSection->title }}</a></h4>
-                                {{-- <a href="#" class="explore-link">Explore<i class="feather-arrow-right-circle"></i></a> --}}
+
+                        @foreach ($chunks[1] as $contentSection)
+                            <div class="service-types service-type-right aos-init aos-animate" data-aos="fade-down">
+                                <div class="service-content">
+                                    <h4><a href="#">{{ $contentSection->title }}</a></h4>
+                                    {{-- <a href="#" class="explore-link">Explore<i class="feather-arrow-right-circle"></i></a> --}}
+                                </div>
+                                <div class="doctor-image">
+                                    <a href="#"><img src="{{ $contentSection->image }}" alt="Img"></a>
+                                </div>
                             </div>
-                            <div class="doctor-image">
-                                <a href="#"><img src="{{ $contentSection->image }}"
-                                        alt="Img"></a>
-                            </div>
-                        </div>
                         @endforeach
 
                     </div>
@@ -138,62 +137,33 @@
 
                                                 </p>
                                             </div>
-
-
+                                            @foreach ($sections['product_details'] as $key => $section)
                                             <div class="widget awards-widget">
-                                                <h4 class="widget-title">Highlights</h4>
-                                                <div class="experience-box">
-                                                    <ul class="experience-list">
-                                                        <li>
-                                                            <div class="experience-user">
-                                                                <div class="before-circle"></div>
-                                                            </div>
-                                                            <div class="experience-content">
-                                                                <div class="timeline-content">
-                                                                    <p>Lorem Ipsum is simply dummy text of the printing and
-                                                                        typesetting industry.</p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="experience-user">
-                                                                <div class="before-circle"></div>
-                                                            </div>
-                                                            <div class="experience-content">
-                                                                <div class="timeline-content">
-                                                                    <p>Lorem Ipsum is simply dummy text of the printing and
-                                                                        typesetting industry.</p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="experience-user">
-                                                                <div class="before-circle"></div>
-                                                            </div>
-                                                            <div class="experience-content">
-                                                                <div class="timeline-content">
-                                                                    <p>Lorem Ipsum is simply dummy text of the printing and
-                                                                        typesetting industry.</p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="experience-user">
-                                                                <div class="before-circle"></div>
-                                                            </div>
-                                                            <div class="experience-content">
-                                                                <div class="timeline-content">
-                                                                    <p>Lorem Ipsum is simply dummy text of the printing and
-                                                                        typesetting industry.</p>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                
+                                                    <h4 class="widget-title">{{ $sections['product_details'][$key]->title }}</h4>
+                                                    <div class="experience-box">
+                                                        <ul class="experience-list">
+                                                            @foreach ($section->listItems as $item)
+                                                                <li>
+                                                                    <div class="experience-user">
+                                                                        <div class="before-circle"></div>
+                                                                    </div>
+                                                                    <div class="experience-content">
+                                                                        <div class="timeline-content">
+                                                                            <p> {{ $item['title'] }} </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                             
                                             </div>
+                                            @endforeach
 
+                                            
 
-                                            <div class="widget about-widget">
+                                            {{-- <div class="widget about-widget">
                                                 <h4 class="widget-title">Directions for use</h4>
                                                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting
                                                     industry.</p>
@@ -225,7 +195,7 @@
                                                 <h4 class="widget-title">Precaution</h4>
                                                 <p class="mb-0"> Lorem Ipsum is simply dummy text of the printing and
                                                     typesetting industry.</p>
-                                            </div>
+                                            </div> --}}
 
                                         </div>
                                     </div>
@@ -249,7 +219,7 @@
                             <div class="service-inner-fourteen-one">
                             </div>
                             <div class="service-inner-fourteen-two">
-                                <h3>{{ $sections['we_are_solving']->title ?? ''}}</h3>
+                                <h3>{{ $sections['we_are_solving']->title ?? '' }}</h3>
                             </div>
                             <div class="service-inner-fourteen-three">
                             </div>
@@ -262,22 +232,21 @@
                 <div class="col-lg-6">
                     <div class="you-get-list">
                         <ul>
-                            
-                        @forelse ($sections['we_are_solving']->getContent as  $contentSection)
-                        <li>
-                            <div class="get-list-content">
-                                <div class="get-icon">
-                                    <i class="fa fa-check fs-40"></i>
-                                </div>
-                                <div class="get-icon-right">
-                                    <h3 class="">{{ $contentSection->title }}</h3>
-                                </div>
-                            </div>
-                        </li>
-                       @empty
-                           
-                       @endforelse
-        
+
+                            @forelse ($sections['we_are_solving']->getContent as  $contentSection)
+                                <li>
+                                    <div class="get-list-content">
+                                        <div class="get-icon">
+                                            <i class="fa fa-check fs-40"></i>
+                                        </div>
+                                        <div class="get-icon-right">
+                                            <h3 class="">{{ $contentSection->title }}</h3>
+                                        </div>
+                                    </div>
+                                </li>
+                            @empty
+                            @endforelse
+
                         </ul>
                     </div>
                 </div>

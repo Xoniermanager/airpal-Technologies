@@ -245,9 +245,9 @@
                                 data-url="{{ route('admin.health.monitoring.index', 3) }}">
                                 <span>Health Monitoring</span></a>
 
-                            <a href="{{ route('admin.health.monitoring.index', 3) }}"
-                                data-url="{{ route('admin.health.monitoring.index', 3) }}">
-                                <span>Health Monitoring</span></a>
+                            <a href="{{ route('admin.instant.consultation.index', 4) }}"
+                                data-url="{{ route('admin.instant.consultation.index', 4) }}">
+                                <span>Instant Consultation</span></a>
                         </ul>
                     </li>
 

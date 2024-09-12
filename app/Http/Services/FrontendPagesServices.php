@@ -10,6 +10,8 @@ use App\Models\SectionContent;
 use App\Models\PageExtraSection;
 use App\Http\Repositories\FavoriteDoctorRepository;
 use App\Models\ExtraSectionFilter;
+use App\Models\ListItem;
+use App\Models\SectionList;
 
 class FrontendPagesServices
 {
@@ -77,8 +79,20 @@ class FrontendPagesServices
     public function saveHomepageSections($data)
     {
 
-        $pageId = $data['page_id'];
-        if (isset($data['section'])) {
+        $pageId = $data['page_id']; 
+        if($data['section']['ul'])
+        {
+            foreach($data['section']['ul'] as $sectionList)
+            {
+                $sectionList['page_id'] = $pageId;
+                $sectionListId = $sectionList['id'];
+                $sectionList   = $this->saveList($sectionList , $sectionListId);
+            }
+
+        }
+        elseif (isset($data['section'])) 
+        {
+
             $sectionId = isset($data['section']['id']) ? $data['section']['id'] : '';
             $sectionBannerImage = '';
 
@@ -208,6 +222,53 @@ class FrontendPagesServices
 
 
         return $this->getPageSectionsWithAttribute($pageId);
+    }
+
+    public function saveList($sectionList ,$sectionListId = null)
+    {
+        // First of all lets check if this request is for create or update of section,
+        if (!empty($sectionListId)) {
+
+
+            $sectionData = SectionList::find($sectionListId);
+            unset($sectionData['section_list_id']);
+            $sectionData->update($sectionList);
+
+            $listItems = $sectionList['li'];
+
+            foreach ($listItems as  $listItem) {
+                
+                // dd($listItem);
+                $listItems = $listItem['id'];
+                $this->saveListItems($listItem, $listItems);
+            }
+        } 
+        else
+        {
+            $sectionData = SectionList::create($sectionList);
+            $listItems   = $sectionList['li'];
+            
+            foreach ($listItems as  $listItem) {
+                $listItem['section_lists_id'] = $sectionData->id;
+                $this->saveListItems($listItem, $listItems);
+            }
+        }
+        return $sectionData;
+    }
+
+    public function saveListItems($listItem , $listItemID= null)
+    {
+
+        if($listItemID)
+        {
+            $item = ListItem::find($listItemID);
+            $item->update($listItem);
+        }
+        else
+        {
+            $item = ListItem::create($listItem);
+        }
+        return $item;
     }
 
 

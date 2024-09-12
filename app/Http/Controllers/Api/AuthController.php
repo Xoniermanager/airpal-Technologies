@@ -73,6 +73,7 @@ class AuthController extends Controller
     {
         try {
             $response = $this->authService->verifyOTP($request->all());
+            
             return response()->json($response);
         } catch (\Exception $e) {
             return response()->json([

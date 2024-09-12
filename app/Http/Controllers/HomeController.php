@@ -65,8 +65,8 @@ class HomeController extends Controller
 
       'specialties'   =>  $specialtiesByDoctorsCount,
       'sections'      =>  $sections,
-      'doctorList'    =>  $extraSections['app_models_user'] ?? '',
-      'testimonials'  =>  $extraSections['app_models_testimonial'] ?? '',
+      'doctorList'    =>  $extraSections['app_models_user'] ?? null,
+      'testimonials'  =>  $extraSections['app_models_testimonial'] ?? null,
     ]);
   }
 }

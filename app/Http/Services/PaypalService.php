@@ -48,8 +48,8 @@ class PaypalService
         $provider->setApiCredentials(config('paypal'));
         $provider->getAccessToken();
         $response = $provider->capturePaymentOrder($paypalToken);
-        // dd($response);
-        if (isset($response['status']) && $response['status'] == 'Completed')
+
+        if (isset($response['status']) && $response['status'] == 'COMPLETED')
         {
             $paypalPaymentId = $response['id'] ?? '';
             $paymentDetails = [];

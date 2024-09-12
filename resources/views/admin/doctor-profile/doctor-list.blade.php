@@ -15,17 +15,8 @@
                         </h2>
                     </td>
                     <td>
-                        @forelse ($doctor->specializations as $specializaion)
-                        <span>{{$specializaion->name}},</span>
-                        @empty
-                        <span>No Specialization available</span>
-                        @endforelse</td>
-                    <?php
-                        $createdAt =  $doctor->created_at;
-                        $date = new DateTime($createdAt);
-                        $formattedDate = $date->format('d M Y');
-                    ?>
-                    <td>{{$formattedDate}} <br></td>
+                        <span>{{ $doctor->specializations->implode('name',', ') }}</span>
+                    <td>{{ getFormattedDate($doctor->created_at) }} <br></td>
                     <td>$3100.00</td>
                     <td>
                         <div class="status-toggle">

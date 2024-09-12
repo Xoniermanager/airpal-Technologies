@@ -96,7 +96,7 @@ class DoctorPatientChatHistoryService
             'last_message_id' =>  $sentMessageDetails->id
         ]);
 
-        // broadcast(new MessageSent($sentMessageDetails));
+        broadcast(new MessageSent($sentMessageDetails));
         return $this->getSelectedChatHistory($senderId, $receiverId,0);
     }
 }

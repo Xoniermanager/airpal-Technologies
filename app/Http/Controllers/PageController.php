@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\PageExtraSection;
 use App\Http\Requests\HomePageRequest;
 use App\Http\Services\FrontendPagesServices;
+use App\Models\SectionList;
 
 class PageController extends Controller
 {
@@ -128,11 +129,13 @@ class PageController extends Controller
         $getPageSections = $this->frontendPagesServices->getPageSectionsWithAttribute($page->id);
 
         $sections = [];
-
         foreach ($getPageSections as $getPageSection) {
             $sections[$getPageSection['section_slug']] = $getPageSection;
         }
-        // dd( $sections);
+
+        $sectionList = SectionList::where('page_id',3)->with('listItems')->get();
+        $sections['product_details']  = $sectionList;
+
         return view('admin.pages.health_monitoring.health',[
             'sections'  =>  $sections,
             'page'      =>  $page
@@ -142,6 +145,7 @@ class PageController extends Controller
     public function storeHealthMonitoringPageDetail(HomePageRequest $request)
     {
         $allPageSectionsData = $this->frontendPagesServices->saveHomepageSections($request);
+
         $sectionsHTML = array();
         foreach ($allPageSectionsData as $pageSectionsData) 
         {

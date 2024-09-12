@@ -142,6 +142,7 @@ class AuthServices
                         "status"  => 200,
                         "user"    => $user->access_token,
                         "user_id" => $user->id,
+                        "role"    => $user->role,
                         "message" => "You have logged in successfully"
                     ];
                 }

@@ -65,6 +65,7 @@ function getRatingHtml($value)
 function uploadingImageorFile($file, String $path, $namePrefix = '')
 {
     $image  = $namePrefix . '-' . time() . '.' . $file->getClientOriginalExtension();
+
     $path = $path . '/' . $image;
     Storage::disk('public')->put($path, file_get_contents($file));
     return  $path;
@@ -285,7 +286,8 @@ function getBannerImageInput($value = '', $name = '', $classList = array(), $ids
                     </div>
                 </div>
             </div>';
-} // In GlobalHelper.php
+} 
+// In GlobalHelper.php
 if (!function_exists('renderTestimonials')) {
     function renderTestimonials()
     {
@@ -345,4 +347,37 @@ function checkPaymentStatusByBookingId($bookingId)
         }
     }
     return false;
+}
+
+
+
+
+
+function getSectionList($listItems = array(), $listClasses = array(), $idsList = array())
+{
+    $ulClasses = '';
+    $liClasses = '';
+    $ulId = (isset($idsList['ul']) && is_string($idsList['ul'])) ? $idsList['ul'] : '';
+
+    // Check for ul classes
+    if (isset($listClasses['ul']) && count($listClasses['ul']) > 0) {
+        $ulClasses = implode(' ', $listClasses['ul']);
+    }
+
+    // Check for li classes
+    if (isset($listClasses['li']) && count($listClasses['li']) > 0) {
+        $liClasses = implode(' ', $listClasses['li']);
+    }
+
+    // Start building the HTML output
+    $output = '<ul class="' . $ulClasses . '" id="' . $ulId . '">';
+
+    // Loop through the list items and add each one as a list item
+    foreach ($listItems as $item) {
+        $output .= '<li class="' . $liClasses . '">' . $item . '</li>';
+    }
+
+    $output .= '</ul>';
+
+    return $output;
 }

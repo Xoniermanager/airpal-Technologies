@@ -228,22 +228,26 @@
                             data-url="{{ route('admin.our.team.index') }}"><i class="fe fe-flag"></i>
                             <span>Our Team</span></a>
                     </li>
-                    
+
 
                     <li class="submenu">
                         <a href="#" class=""><i class="fe fe-question"></i><span>Pages</span> <span
                                 class="menu-arrow"></span></a>
                         <ul style="display: none;">
-                            <a href="{{ route('admin.home.index',1) }}"
-                                data-url="{{ route('admin.home.index',1) }}">
+                            <a href="{{ route('admin.home.index', 1) }}"
+                                data-url="{{ route('admin.home.index', 1) }}">
                                 <span>Home</span></a>
-                            <a href="{{ route('admin.about_us.index',2) }}"
-                                data-url="{{ route('admin.about_us.index',2) }}">
+                            <a href="{{ route('admin.about_us.index', 2) }}"
+                                data-url="{{ route('admin.about_us.index', 2) }}">
                                 <span>About Us</span></a>
 
-                            <a href="{{ route('admin.health.monitoring.index',3) }}"
-                                data-url="{{ route('admin.health.monitoring.index',3) }}">
+                            <a href="{{ route('admin.health.monitoring.index', 3) }}"
+                                data-url="{{ route('admin.health.monitoring.index', 3) }}">
                                 <span>Health Monitoring</span></a>
+
+                            <a href="{{ route('admin.instant.consultation.index', 4) }}"
+                                data-url="{{ route('admin.instant.consultation.index', 4) }}">
+                                <span>Instant Consultation</span></a>
                         </ul>
                     </li>
 

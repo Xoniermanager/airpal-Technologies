@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Patient;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreBooking;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Services\PaypalService;
 use Illuminate\Support\Facades\Auth;
@@ -48,7 +49,15 @@ class BookingController extends Controller
             ];
 
             $paymentLinkDetails = $this->paypalService->generatePaymentLink($bookingFee, $bookedSlot,$redirectUrls);
-            $paypalPaymentId = $paymentLinkDetails['id'];
+            // $paypalPaymentId = $paymentLinkDetails['id'];
+
+            if (isset($paymentLinkDetails['id'])) {
+                $paypalPaymentId = $paymentLinkDetails['id'];
+            } else {
+                // Handle the case when 'id' is missing
+                Log::error('PayPal payment link generation failed: Missing "id" in response.', ['response' => $paymentLinkDetails]);
+                return response()->json(['error' => 'Unable to generate PayPal payment link. Please try again later.']);
+            }
 
             // Update the payment required column to be true as the payment is required for this appointment
             $this->bookingServices->updatePaymentRequired($bookedSlot->id,true);

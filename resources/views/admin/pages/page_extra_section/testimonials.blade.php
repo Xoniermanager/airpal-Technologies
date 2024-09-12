@@ -2,7 +2,6 @@
     <div class="setting-card">
 
         @if (isset($sections['page_extra_sections']['app_models_testimonial']))
-            {{-- @foreach ($sections['page_extra_sections'] as $section) --}}
             @php
             $section =  $sections['page_extra_sections']['app_models_testimonial'];  
             @endphp

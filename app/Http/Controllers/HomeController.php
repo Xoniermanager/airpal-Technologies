@@ -58,14 +58,15 @@ class HomeController extends Controller
       $slug = strtolower($slug);
       $extraSections[$slug] = $pageExtraSection->model::orderBy($pageExtraSection->order_with_column,$pageExtraSection->order_by)->take($pageExtraSection->no_of_records)->get();
     }
+    // dd($sections);
 
     
     return view('website.pages.home', [
 
       'specialties'   =>  $specialtiesByDoctorsCount,
       'sections'      =>  $sections,
-      'doctorList'    =>  $extraSections['app_models_user'],
-      'testimonials'  =>  $extraSections['app_models_testimonial'],
+      'doctorList'    =>  $extraSections['app_models_user'] ?? '',
+      'testimonials'  =>  $extraSections['app_models_testimonial'] ?? '',
     ]);
   }
 }

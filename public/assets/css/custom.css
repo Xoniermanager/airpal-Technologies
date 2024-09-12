@@ -18786,7 +18786,7 @@ header.header.header-custom.header-fixed.header-one {
 }
 
 div#chat-history {
-    height: calc(1100px - 60px) !important;
+    height: calc(770px - 60px) !important;
 }
 
 .main-chat-blk .slimscroll::-webkit-scrollbar-thumb {
@@ -18802,7 +18802,7 @@ ul.user-list .user-list-item.active a {
 }
 
 .main-chat-blk .slimscroll-active-sidebar {
-    height: 1048px !important;
+    height: 710px !important;
     overflow-y: auto !important;
 }
 

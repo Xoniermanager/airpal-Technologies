@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PageSection;
+use App\Models\SectionList;
 use Illuminate\Http\Request;
 use App\Http\Services\UserServices;
 
@@ -12,7 +13,8 @@ class HealthMonitoringController extends Controller
 
 
 
-  public function __construct(UserServices $user_services) {
+  public function __construct(UserServices $user_services)
+  {
     $this->user_services        =  $user_services;
   }
 
@@ -24,6 +26,11 @@ class HealthMonitoringController extends Controller
     foreach ($pageSections as $getPageSection) {
       $sections[$getPageSection['section_slug']] = $getPageSection;
     }
+    $sectionList = SectionList::where(column: 'page_id', operator: 3)
+      ->with('listItems')
+      ->get();
+
+    $sections['product_details'] = $sectionList;
 
     return view('website.pages.health_monitoring', ['sections' => $sections]);
   }

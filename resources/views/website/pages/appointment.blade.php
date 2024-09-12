@@ -17,7 +17,7 @@
     </div>
 
     <div class="container">
-
+ 
     </div>
 
 
@@ -198,6 +198,12 @@
                                             class="btn btn-primary prime-btn justify-content-center align-items-center">
                                             Continue to Book Appointment<i class="feather-arrow-right-circle"></i>
                                         </button>
+                                        <div class="loaderonload">
+                                            <div class="loaderbox1"></div>
+                                            <div class="loaderbox">
+                                                <img src="{{ asset('assets/img/payment.gif') }}" class="search-loader">
+                                            </div>
+                                        </div>
                                     </div>
                                     <span id ="appointment_error" class="text-danger"></span>
                                 </div>
@@ -311,6 +317,7 @@
 @section('javascript')
     <script>
         $(document).ready(function() {
+            $('.loaderonload').hide();
             jQuery("#booking").validate({
                 rules: {
                     description: {
@@ -334,19 +341,34 @@
                         dataType: 'json',
                         processData: false,
                         contentType: false,
+                        beforeSend: function(){
+                            $('.loaderonload').show();
+                            $('#booking-fee-payment').addClass('disabled');
+                        },
                         success: function(response) {
                             if (response.status) {
+                                $('.loaderonload').hide();
+                                $('#booking-fee-payment').removeClass('disabled');
                                 window.location.href = response.payment_link;
                             } else {
-                                Swal.fire("Done!", response.message, "error");
+                                
+                                $('.loaderonload').hide();
+                                $('#booking-fee-payment').removeClass('disabled');
+                                Swal.fire("Done!", response.error, "error");
+                                
                             }
                         },
+
                         error: function(error_messages) {
+                            $('.loaderonload').hide();
                             var errors = error_messages.responseJSON;
-                            $.each(errors.errors, function(key, value) {
-                                console.log('#' + key + '_error', value);
-                                $('#' + key + '_error').html(value);
-                            })
+                            if( errors)
+                            {
+                                $.each(errors.errors, function(key, value) {
+                                    console.log('#' + key + '_error', value);
+                                    $('#' + key + '_error').html(value);
+                                })
+                            }                         
 
                         }
                     });

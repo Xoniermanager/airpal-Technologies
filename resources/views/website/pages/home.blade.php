@@ -220,10 +220,7 @@
                     @empty
                     @endforelse    
                         @endisset
-                    
-
-
-                        <a href="research.html" class="btn btn-primary mt-1"> Read all</a>
+                        <a href="research" class="btn btn-primary mt-1"> Read all</a>
                     </div>
                 </div>
                 @endisset

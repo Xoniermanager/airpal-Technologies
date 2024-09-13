@@ -121,7 +121,6 @@
                             <h3 class="pt-4">Product Details</h3>
                             <hr>
 
-
                             <div class="tab-content pt-3">
 
                                 <div role="tabpanel" id="doc_overview" class="tab-pane fade show active">
@@ -129,21 +128,17 @@
                                         <div class="col-md-9">
 
                                             <div class="widget about-widget">
-                                                <h4 class="widget-title">Connect Your Wearables with AirPal </h4>
-                                                <p>- AirPal offers a comprehensive health monitoring solution that
-                                                    seamlessly integrates with your wearable devices.
+                                                <h4 class="widget-title">{{ $sections['product_details']->title ?? '' }}
+                                                </h4>
+                                                <p>- {{ $sections['product_details']->subtitle ?? '' }}
                                                 </p>
-                                                <p>- Our software app connects with wearables to provide real-time
-                                                    monitoring of vital signs, ensuring timely detection of any
-                                                    irregularities.
+                                                <p>- {{ $sections['product_details']->content ?? '' }}
                                                 </p>
                                             </div>
 
-                                            
-                                            @foreach ($sections['product_details'] as $key => $section)
-                                            <div class="widget awards-widget">
-                                                
-                                                    <h4 class="widget-title">{{ $sections['product_details'][$key]->title }}</h4>
+                                            @foreach ($sections['product_details']->section_list as $key => $section)
+                                                <div class="widget awards-widget">
+                                                    <h4 class="widget-title">{{ $section->title }}</h4>
                                                     <div class="experience-box">
                                                         <ul class="experience-list">
                                                             @foreach ($section->listItems as $item)
@@ -160,33 +155,55 @@
                                                             @endforeach
                                                         </ul>
                                                     </div>
-                                             
-                                            </div>
+                                                </div>
+                                            @endforeach
+                                            @foreach ($sections['product_details']->getContent as $key => $contentSectionData)
+                                                <div class="widget about-widget">
+                                                    <h4 class="widget-title">{{ $contentSectionData->title }}
+                                                        {{ $contentSectionData->id }} </h4>
+                                                    <p>{{ $contentSectionData->content }}</p>
+
+
+                                                    {{-- <a href="" class="btn btn-outline-primary">{{ $sections['product_details']->getButtons[$key]->text }}</a> --}}
+
+                                                    @if (!empty($sections['product_details']->getButtons))
+                                                        @foreach ($sections['product_details']->getButtons as $button)
+                                                            @if (!empty($button->text))
+                                                                <a href="{{ $button->link }}"
+                                                                    class="btn btn-outline-primary">{{ $button->text }}</a>
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                </div>
                                             @endforeach
 
-                                            <div class="widget about-widget">
-                                                <h4 class="widget-title">Get Started </h4>
-                                                <p>Download our app today and start monitoring your health with ease.
-                                                </p>
-                                                <a href="#" class="btn btn-outline-primary">Download App </a>
-                                            </div>
-                                            <div class="widget about-widget">
+
+
+
+
+                                            {{-- <div class="widget about-widget">
                                                 <h4 class="widget-title">Learn More </h4>
-                                                <p>For more information on our wearable health monitoring solution, please visit our <a class="text-primary" href="contact-us.html"> Contact Us</a> page.</p>
+                                                <p>For more information on our wearable health monitoring solution, please
+                                                    visit our <a class="text-primary" href="contact-us.html"> Contact
+                                                        Us</a> page.</p>
                                             </div>
 
                                             <div class="widget about-widget">
                                                 <h4 class="widget-title">Contact Your Doctor
                                                 </h4>
-                                                <p>Need medical advice or have questions about your health? Contact your doctor through our telemedicine app for personalized guidance and support.
+                                                <p>Need medical advice or have questions about your health? Contact your
+                                                    doctor through our telemedicine app for personalized guidance and
+                                                    support.
                                                 </p>
                                                 <a href="#" class="btn btn-primary">Telemedicine App</a>
                                             </div>
 
                                             <div class="widget about-widget">
                                                 <h4 class="widget-title">Connect Now </h4>
-                                                <p>Don't wait to take control of your health. Subscribe to our wearable health monitoring device today and start monitoring your vital signs with ease.</p>
-                                            </div>
+                                                <p>Don't wait to take control of your health. Subscribe to our wearable
+                                                    health monitoring device today and start monitoring your vital signs
+                                                    with ease.</p>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>

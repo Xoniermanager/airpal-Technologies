@@ -17,7 +17,7 @@
                     <td>
                         <span>{{ $doctor->specializations->implode('name',', ') }}</span>
                     <td>{{ getFormattedDate($doctor->created_at) }} <br></td>
-                    <td>$3100.00</td>
+                    <td> {{ $doctor->calculateTotalPayments() }}</td>
                     <td>
                         <div class="status-toggle">
                             <input type="checkbox" id="{{$doctor->id}}" class="check" checked>

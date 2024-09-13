@@ -157,7 +157,7 @@ Route::prefix('doctor')->group(function () {
             Route::get('change-password', 'doctorChangePassword')->name('doctor.doctor-change-password.index');
             Route::get('specialities', 'doctorSpecialities')->name('doctor.doctor-specialities.index');
             Route::post('/update-latest-appointment-request', 'UpdateLatestAppointmentRequestAjax')->name('updateStatus.appointment.request');
-            Route::get('get-appointments-graph-data', 'getAppointmentGraphData')->name('doctor.booking.graphData');
+            Route::get('get-appointments-graph-data', action: 'getAppointmentGraphData')->name('doctor.booking.graphData');
         });
 
         Route::controller(DoctorProfileController::class)->group(function () {
@@ -347,6 +347,11 @@ Route::prefix('admin')->group(function () {
 
         Route::controller(AdminDashboardController::class)->group(function () {
             Route::get('dashboard', 'index')->name('admin.dashboard.index');
+            Route::get('get-appointments-graph-data-for-admin','getAppointmentGraphDataAdmin')->name('doctor.booking.graphData.admin');
+            Route::get('get-revenue-graph-data-for-admin','getRevenueGraphDataAdmin')->name('doctor.revenue.graphData.admin');
+
+
+
         });
         Route::prefix('doctor')->group(function () {
             // AdminDoctorController routes

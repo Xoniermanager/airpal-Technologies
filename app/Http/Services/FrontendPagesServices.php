@@ -27,7 +27,6 @@ class FrontendPagesServices
             $this->saveExtraSectionData($pageExtraSection, $pageId);
         }
         return true;
-
     }
 
 
@@ -42,14 +41,11 @@ class FrontendPagesServices
             'order_with_column' =>  $extraSectionData['order_with_column'] ?? '',
         ];
 
-        if (isset($extraSectionData['id']) && !empty($extraSectionData['id'])) 
-        {
+        if (isset($extraSectionData['id']) && !empty($extraSectionData['id'])) {
 
             $pageExtraSection = PageExtraSection::where('id', $extraSectionData['id'])->update($payload);
             $pageExtraSection = PageExtraSection::find($extraSectionData['id']);
-        }
-        else
-        {
+        } else {
             $pageExtraSection = PageExtraSection::create($payload);
         }
 
@@ -69,8 +65,6 @@ class FrontendPagesServices
     }
 
 
-
-
     public function getPageSectionsWithAttribute($pageId)
     {
         return PageSection::where('page_id', $pageId)->with('getButtons', 'getContent', 'getImages')->get();
@@ -78,20 +72,9 @@ class FrontendPagesServices
 
     public function saveHomepageSections($data)
     {
-dd($data->all());
-        $pageId = $data['page_id']; 
-        if($data['section']['ul'])
-        {
-            foreach($data['section']['ul'] as $sectionList)
-            {
-                $sectionList['page_id'] = $pageId;
-                $sectionListId = $sectionList['id'];
-                $sectionList   = $this->saveList($sectionList , $sectionListId);
-            }
+        $pageId = $data['page_id'];
 
-        }
-        elseif (isset($data['section'])) 
-        {
+        if (isset($data['section'])) {
 
             $sectionId = isset($data['section']['id']) ? $data['section']['id'] : '';
             $sectionBannerImage = '';
@@ -117,11 +100,9 @@ dd($data->all());
                     $this->saveSectionButton($button, $sectionId);
                 }
             }
-
             if (isset($data['section']['inner_section'])) {
 
                 $allContentSections = $data['section']['inner_section'];
-
                 $howItWorksCounter = 0;
 
                 foreach ($allContentSections as $contentSection) {
@@ -132,6 +113,16 @@ dd($data->all());
                     }
                     $this->saveSectionContent($contentSection, $sectionId, $contentInnerImage);
                     $howItWorksCounter++;
+                }
+            }
+
+
+            if ($data['section']['ul']) {
+                foreach ($data['section']['ul'] as $sectionList) {
+
+                    $sectionList['page_id'] = $pageId;
+                    $sectionListId = $sectionList['id'];
+                    $sectionList   = $this->saveList($sectionList, $sectionListId);
                 }
             }
         }
@@ -224,8 +215,9 @@ dd($data->all());
         return $this->getPageSectionsWithAttribute($pageId);
     }
 
-    public function saveList($sectionList ,$sectionListId = null)
+    public function saveList($sectionList, $sectionListId = null)
     {
+        // dd($sectionListId);
         // First of all lets check if this request is for create or update of section,
         if (!empty($sectionListId)) {
 
@@ -237,17 +229,13 @@ dd($data->all());
             $listItems = $sectionList['li'];
 
             foreach ($listItems as  $listItem) {
-                
-                // dd($listItem);
                 $listItems = $listItem['id'];
                 $this->saveListItems($listItem, $listItems);
             }
-        } 
-        else
-        {
+        } else {
             $sectionData = SectionList::create($sectionList);
             $listItems   = $sectionList['li'];
-            
+
             foreach ($listItems as  $listItem) {
                 $listItem['section_lists_id'] = $sectionData->id;
                 $this->saveListItems($listItem, $listItems);
@@ -256,16 +244,13 @@ dd($data->all());
         return $sectionData;
     }
 
-    public function saveListItems($listItem , $listItemID= null)
+    public function saveListItems($listItem, $listItemID = null)
     {
 
-        if($listItemID)
-        {
+        if ($listItemID) {
             $item = ListItem::find($listItemID);
             $item->update($listItem);
-        }
-        else
-        {
+        } else {
             $item = ListItem::create($listItem);
         }
         return $item;
@@ -314,8 +299,9 @@ dd($data->all());
     {
         if (isset($contentSection['id']) && $contentSection['id'] > 0) {
             $contentSectionId = $contentSection['id'];
-            unset($contentSection['id']);
+
             $sectionDetails = SectionContent::find($contentSectionId);
+            unset($contentSection['id']);
             $sectionDetails->update($contentSection);
         } else {
             $contentSection['section_id'] = $sectionId;

@@ -71,6 +71,7 @@ class DoctorDashboardServices
             ->get()
             ->groupBy('booking_date');
     }
+    
     public function gettingAppointmentGraphData($period, $doctorId)
     {
 

@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use App\Http\Services\PaypalService;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Services\PaymentService;
 use App\Http\Services\BookingServices;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\GetBookingFeeAndCheckAuth;
 
 class PaymentApiController extends Controller
@@ -73,17 +75,21 @@ class PaymentApiController extends Controller
             // Now lets save the payment details and redirect the user to thanks you page
             $savedPaymentDetails = $this->paymentService->updatePaymentDetails($paymentDetails['paymentDetails'], $paymentDetails['paypalPaymentId']);
 
-            if ($savedPaymentDetails) {
+            if ($savedPaymentDetails) 
+            {
+                echo '<img src="' . URL::to("payment-processing.gif") . '" alt=""Processing payment...>';
+                return;
                 // Return with booking and payment details and status as true
-                $bookingDetails = $this->bookingServices->getBookingSlotById($savedPaymentDetails->booking_id)->with('doctor')->first();
+                // $bookingDetails = $this->bookingServices->getBookingSlotById($savedPaymentDetails->booking_id)->with('doctor')->first();
 
-                if ($bookingDetails) {
-                    $bookingDate = getFormattedDate($bookingDetails->booking_date);
-                    $bookingSlotTime = 'Slot Time: ' . $bookingDetails->slot_start_time . ' - ' . $bookingDetails->slot_end_time;
-                    $doctorName = $bookingDetails->doctor->first_name . ' ' . $bookingDetails->doctor->last;
-                    $successPageHtml =  view('payment-success', compact('bookingDate', 'bookingSlotTime', 'doctorName'))->render();
-                    return $successPageHtml;
-                }
+                // if ($bookingDetails) 
+                // {
+                //     $bookingDate = getFormattedDate($bookingDetails->booking_date);
+                //     $bookingSlotTime = 'Slot Time: ' . $bookingDetails->slot_start_time . ' - ' . $bookingDetails->slot_end_time;
+                //     $doctorName = $bookingDetails->doctor->first_name . ' ' . $bookingDetails->doctor->last;
+                //     $successPageHtml =  view('payment-success', compact('bookingDate', 'bookingSlotTime', 'doctorName'))->render();
+                //     return  $successPageHtml;
+                // }
             }
         } else {
             // There was some error with provided token
@@ -115,14 +121,18 @@ class PaymentApiController extends Controller
         // Now cancel the appointment because the payment has been cancelled
         $updatedBookingDetails = $this->bookingServices->updateStatus('cancelled', $updatedPaymentDetails->booking_id);
 
-        $bookingDetails = $this->bookingServices->getBookingSlotById($updatedPaymentDetails->booking_id)->with('doctor')->first();
-        if ($bookingDetails) {
-            $bookingDate = getFormattedDate($bookingDetails->booking_date);
-            $bookingSlotTime = 'Slot Time: ' . $bookingDetails->slot_start_time . ' - ' . $bookingDetails->slot_end_time;
-            $doctorName = $bookingDetails->doctor->first_name . ' ' . $bookingDetails->doctor->last;
-            $errorPageHtml = view('payment-error', compact('bookingDate', 'bookingSlotTime', 'doctorName'))->render();
-            return $errorPageHtml;
-        }
+        echo '<img src="' . URL::to("payment-processing.gif") . '" alt=""Processing payment...>';
+        return;
+
+        // $bookingDetails = $this->bookingServices->getBookingSlotById($updatedPaymentDetails->booking_id)->with('doctor')->first();
+        // if ($bookingDetails) 
+        // {
+        //     $bookingDate = getFormattedDate($bookingDetails->booking_date);
+        //     $bookingSlotTime = 'Slot Time: ' . $bookingDetails->slot_start_time . ' - ' . $bookingDetails->slot_end_time;
+        //     $doctorName = $bookingDetails->doctor->first_name . ' ' . $bookingDetails->doctor->last;
+        //     $errorPageHtml = view('payment-error', compact('bookingDate', 'bookingSlotTime', 'doctorName'))->render();
+        //     return $errorPageHtml;
+        // }
     }
     public function getDoctorPaymentDetails(Request $request)
     {
@@ -141,6 +151,7 @@ class PaymentApiController extends Controller
             ], 500);
         }
     }
+
     public function getPatientPaymentDetails(Request $request)
     {
         try {
@@ -149,6 +160,39 @@ class PaymentApiController extends Controller
                 'status' => true,
                 'message' => "Retrieved All Doctor Payment Details",
                 'data' => $allDoctorPaymentDetails
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                "status" => false,
+                "error" =>  $e->getMessage(),
+                "message" => "Unable to find Payment Details"
+            ], 500);
+        }
+    }
+
+    /**
+     * Return the booking details along with payment status
+     */
+    public function getPaymentStatus(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'paypal_payment_id' =>  'required|exists:payments,paypal_payment_id',
+            ]);
+
+            if($validator->fails())
+            {
+                return response()->json([
+                    'status'    =>  false,
+                    'error'     =>  'validator_error',
+                    'message'   =>  $validator->errors(),
+                ], 422);
+            }
+            $paymentStatusWithBookingDetails = $this->paymentService->getPaymentWithBookingUsingPaypalId($request->paypal_payment_id);
+            return response()->json([
+                'status' => true,
+                'message' => "Retrieved All Patient Payment Details",
+                'data' => $paymentStatusWithBookingDetails
             ], 200);
         } catch (Exception $e) {
             return response()->json([

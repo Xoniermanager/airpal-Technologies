@@ -144,4 +144,13 @@ class PaymentService
     {
         return $this->paymentRepository->with(['bookingSlot', 'bookingSlot.user', 'bookingSlot.patient'])->orderBy('id', 'Desc')->paginate(10);
     }
+
+
+    /**
+     * Get payment details along with booking slot details
+     */
+    public function getPaymentWithBookingUsingPaypalId($paypalId)
+    {
+        return $this->paymentRepository->where('paypal_payment_id',$paypalId)->with('bookingSlot.doctor')->get();
+    }
 }

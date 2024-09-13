@@ -18776,7 +18776,7 @@ header.header.header-custom.header-fixed.header-one {
 }
 
 .main-chat-blk .slimscroll {
-    height: calc(1100px - 60px) !important;
+    height: calc(770px - 60px) !important;
     overflow-y: auto !important;
 }
 

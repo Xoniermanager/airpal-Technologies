@@ -3,9 +3,10 @@
 use App\Models\Payment;
 use App\Models\SiteConfig;
 use App\Models\Testimonial;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Crypt;
 
 use function Laravel\Prompts\textarea;
+use Illuminate\Support\Facades\Storage;
 
 function getRatingHtml($value)
 {
@@ -338,11 +339,12 @@ function checkPaymentStatusByBookingId($bookingId)
     $paymentDetails = Payment::where('booking_id', $bookingId)->with('bookingSlot')->first();
     $buttonHtml = '';
     if (isset($paymentDetails) && !empty($paymentDetails)) {
-        if ($paymentDetails->bookingSlot->payment_required == 1) {
-            if ($paymentDetails->payment_status == 'completed') {
+        if ($paymentDetails->bookingSlot->payment_required == 1) 
+        {
+            if (strtolower($paymentDetails->payment_status) == 'completed') {
                 return $buttonHtml = '<a href="" class="btn btn-success text-white"><i class="fa fa-check" aria-hidden="true"></i> Paid</a>';
             } else {
-                return $buttonHtml = '<a href="" class="btn btn-primary text-white">Pay Now</a>';
+                return $buttonHtml = '<a onclick="pay_fee_now('. getEncryptId($bookingId) .')" href="" class="btn btn-primary text-white">Pay Now</a>';
             }
         }
     }
@@ -395,4 +397,28 @@ if (!function_exists('calculateTotalPayments')) {
         // Format with 2 decimal places and add the $ sign
         return '$' . number_format($totalAmount, 2);
     }
+}
+
+/**
+ * Encrypt the id and return the encrypted id
+ */
+function getEncryptId($id)
+{
+    if(!empty($id))
+    {
+        return Crypt::encrypt($id);
+    }
+    return false;
+}
+
+/**
+ * Decrypt the encrypted id and return the original id
+ */
+function getDecryptId()
+{
+    if(!empty($id))
+    {
+        return Crypt::decrypt($id);
+    }
+    return false;
 }

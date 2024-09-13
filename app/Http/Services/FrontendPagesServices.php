@@ -67,6 +67,7 @@ class FrontendPagesServices
 
     public function getPageSectionsWithAttribute($pageId)
     {
+
         return PageSection::where('page_id', $pageId)->with('getButtons', 'getContent', 'getImages')->get();
     }
 
@@ -115,7 +116,6 @@ class FrontendPagesServices
                     $howItWorksCounter++;
                 }
             }
-
 
             if ($data['section']['ul']) {
                 foreach ($data['section']['ul'] as $sectionList) {
@@ -217,10 +217,9 @@ class FrontendPagesServices
 
     public function saveList($sectionList, $sectionListId = null)
     {
-        // dd($sectionListId);
+        dd($sectionList);
         // First of all lets check if this request is for create or update of section,
         if (!empty($sectionListId)) {
-
 
             $sectionData = SectionList::find($sectionListId);
             unset($sectionData['section_list_id']);

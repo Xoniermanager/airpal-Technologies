@@ -106,7 +106,7 @@
 
                                     {!! getTextInput(
                                         $list_item_title ?? '',
-                                        'Li Icon',
+                                        'Li title',
                                         'section[ul][' . $i . '][li][' . $k . '][title]',
                                         ['div' => ['test', 'testing', 'tester']],
                                         ['input' => 'helloId'],
@@ -115,8 +115,7 @@
 
                             </div>
 
-                            <input type="hidden" name="section[ul][{{ $i }}][section_lists_id]]"
-                                value="1">
+                            <input type="hidden" name="section[ul][{{ $i }}][section_id]]" value="123">
                         </div>
                     </div>
                 </div>

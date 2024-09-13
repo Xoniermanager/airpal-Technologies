@@ -148,7 +148,6 @@ class PageController extends Controller
     public function storeHealthMonitoringPageDetail(HomePageRequest $request)
     {
         $allPageSectionsData = $this->frontendPagesServices->saveHomepageSections($request);
-
         $sectionsHTML = array();
         foreach ($allPageSectionsData as $pageSectionsData) 
         {

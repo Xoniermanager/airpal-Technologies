@@ -55986,3 +55986,68 @@ i.fab.fa-youtube-square {
 .need-to-know-section .accordion-button { 
     padding-left: 36px;
 }
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none; /* Initially hidden */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+/* Popup Box */
+.popup-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    height: 70vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-width: 650px;
+}
+/* Close Button */
+#close-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#close-btn:hover {
+    background-color: #0056B3;
+}
+.popup-box img {
+height: 80px;
+}
+.modalfooter {
+    display: block;
+    position: fixed;
+    bottom: 15vh;
+    background: #fff;
+    width: 600px;
+    padding: 10px;
+}
+.popup-box::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  border-radius: 50px;
+  margin: 0 10px;
+}
+.popup-box::-webkit-scrollbar-track {
+  background: transparent !important;
+  border: 1px solid #004CD4 !important;
+  border-radius: 50px;
+  margin: 0;
+}
+.popup-box::-webkit-scrollbar-thumb {
+  background: #004CD4 !important;
+  border-radius: 50px;
+  cursor: grabbing;
+  margin: 1px;
+}

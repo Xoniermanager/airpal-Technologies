@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FrontendPageController;
 use App\Http\Controllers\OurTeamController;
 use App\Jobs\UpdateMeetingIdJob;
 use Illuminate\Support\Facades\Route;
@@ -550,10 +551,6 @@ Route::prefix('patients')->group(function () {
                 Route::get('profile', 'patientProfile')->name('patient-profile.index');
                 Route::post('profile-update', 'patientProfileUpdate')->name('patient-profile.update');
             });
-            Route::controller(TempController::class)->group(function () {
-                Route::get('dependant', 'dependant')->name('patient.dependant.index');
-            });
-
             // Medical Record
             Route::controller(MedicalRecordController::class)->prefix('medical-records')->group(function () {
                 Route::get('list', 'medicalRecordsList')->name('patient.medical-records.index');
@@ -632,6 +629,12 @@ Route::controller(DoctorReviewController::class)->group(function () {
     Route::post('add-doctor-review', 'addDoctorReview')->name('add.doctor.review');
     Route::get('get-all-review', 'getAllReview')->name('get.all.review');
 });
+
+Route::get('/gdpr-policy', action: [FrontendPageController::class, 'gdprPolicy'])->name('gdpr.policy.index');
+Route::get('/cookie-policy', action: [FrontendPageController::class, 'cookiePolicy'])->name('cookie.policy.index');
+Route::get('/insurance-policy', action: [FrontendPageController::class, 'insurancePolicy'])->name('insurance.policy.index');
+
+
 Route::get('job', function () {
     // UpdateDoctorRatingsAverageValue::dispatch();
     UpdateMeetingIdJob::dispatch();
@@ -639,15 +642,12 @@ Route::get('job', function () {
 });
 
 
-
 Route::controller(AdminSiteConfigController::class)->group(function () {
     Route::post('add', 'addWebsiteConfig')->name('add.website.configs');
 });
 
-
 Route::controller(FrontendDoctorController::class)->group(function () {
     Route::get('generateAllInvoices', 'generateAllInvoices')->name('generate.all.invoices');
 });
-
 
 // ============================== End Frontend Website Routes ===================== //

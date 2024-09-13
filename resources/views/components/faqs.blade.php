@@ -1,7 +1,7 @@
 <section class="faq-section">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 mt-5">
                 <div class="section-header-one text-center aos" >
                     <h5>Get Your Answer</h5>
                     <h2 class="section-title">Frequently Asked Questions</h2>

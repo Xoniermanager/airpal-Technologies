@@ -38,7 +38,9 @@
         },
         "files": [
             "app/Helpers/CalculateExperience.php",
-            "app/Helpers/globalHelper.php"
+            "app/Helpers/globalHelper.php",
+            "app/Constants/Constants.php",
+            "app/Helpers/NotificationHelper.php"
         ]
         
     },

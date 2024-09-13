@@ -34,9 +34,9 @@
                             </div>
                         </li>
                         <li class="appointment-info">
-                            <p><i class="fa-solid fa-calendar-check"></i> {{ $appointment->booking_date }}</p>
-                            <p><i class="fa-solid fa-clock"></i> {{ $appointment->slot_start_time }} -
-                                {{ $appointment->slot_end_time }} </p>
+                            <p><i class="fa-solid fa-calendar-check"></i> {{ getFormattedDate($appointment->booking_date) }}</p>
+                            <p><i class="fa-solid fa-clock"></i> {{ date('H:i A', strtotime($appointment->slot_start_time)) }} -
+                                {{ date('H:i A', strtotime($appointment->slot_end_time)) }} </p>
                         </li>
                         <li class="appointment-action">
                             <ul>

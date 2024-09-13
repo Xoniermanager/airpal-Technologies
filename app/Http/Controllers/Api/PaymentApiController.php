@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Services\PaypalService;
 use App\Http\Services\PaymentService;
-use Illuminate\Support\Facades\Crypt;
 use App\Http\Services\BookingServices;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\GetBookingFeeAndCheckAuth;
 
@@ -83,18 +81,9 @@ class PaymentApiController extends Controller
                     $bookingDate = getFormattedDate($bookingDetails->booking_date);
                     $bookingSlotTime = 'Slot Time: ' . $bookingDetails->slot_start_time . ' - ' . $bookingDetails->slot_end_time;
                     $doctorName = $bookingDetails->doctor->first_name . ' ' . $bookingDetails->doctor->last;
-                    $successPageHtml =  view('doctor.success', compact('bookingDate', 'bookingSlotTime', 'doctorName'))->render();
+                    $successPageHtml =  view('payment-success', compact('bookingDate', 'bookingSlotTime', 'doctorName'))->render();
                     return $successPageHtml;
                 }
-
-                // return response()->json([
-                //     'status'    =>  true,
-                //     'data'      =>  [
-                //         'payment'   =>  $savedPaymentDetails,
-                //         'booking'   =>  $this->bookingServices->getBookingSlotById()->first()
-                //     ],
-                //     'message'   =>  "Payment details updated successfully!"
-                // ], 200);
             }
         } else {
             // There was some error with provided token
@@ -131,7 +120,7 @@ class PaymentApiController extends Controller
             $bookingDate = getFormattedDate($bookingDetails->booking_date);
             $bookingSlotTime = 'Slot Time: ' . $bookingDetails->slot_start_time . ' - ' . $bookingDetails->slot_end_time;
             $doctorName = $bookingDetails->doctor->first_name . ' ' . $bookingDetails->doctor->last;
-            $errorPageHtml = view('doctor.error', compact('bookingDate', 'bookingSlotTime', 'doctorName'))->render();
+            $errorPageHtml = view('payment-error', compact('bookingDate', 'bookingSlotTime', 'doctorName'))->render();
             return $errorPageHtml;
         }
     }

@@ -313,3 +313,11 @@ $(document).ready(function () {
     });
 });
 
+
+/**
+ * pay now button to generate payment link and redirect the user to payments page
+ * it will be called from my appointment listing patient panel if in case :
+ * Payment is required &
+ * 
+ */
+

@@ -55,5 +55,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PartnersTableSeeder::class);
         $this->call(SiteConfigsTableSeeder::class);
 
+        $this->call(PageExtraSectionsTableSeeder::class);
+        $this->call(SectionListsTableSeeder::class);
+        $this->call(ListItemsTableSeeder::class);
     }
 }

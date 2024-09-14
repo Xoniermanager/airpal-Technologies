@@ -70,6 +70,7 @@ class QuestionServices
 
    public function getDoctorQuestionById($id)
    {
+//dd($this->questionsRepository->where('doctor_id', $id)->with('options')->get());
       return $this->questionsRepository->where('doctor_id', $id)->with('options')->paginate(10);
    }
 

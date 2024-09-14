@@ -6,14 +6,9 @@
                 <div class="page-header">
                     <div class="row">
                         <div class="col-sm-7 col-auto">
-                            <h3 class="page-title">Country</h3>
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard.index') }}">Dashboard</a>
-                                </li>
-                                <li class="breadcrumb-item active">Country</li>
-                            </ul>
+                            <h3 class="page-title">Services</h3>
                         </div>
-                        <div class="col-sm-5 col">
+                        <div class="col-sm-5 col mb-3">
                             <a href="#add_service" data-bs-toggle="modal"
                                 class="btn btn-primary float-end mt-2">Add</a>
                         </div>
@@ -165,8 +160,7 @@
                         data: formData,
                         success: function(response) {
                             jQuery('#edit_service').modal('hide');
-                            // swal.fire("Done!", response.message, "success");
-                            console.log(response.data);
+                            swal.fire("Done!", response.message, "success");
                             jQuery('#service_list').replaceWith(response.data);
                         },
                         error: function(error_messages) {

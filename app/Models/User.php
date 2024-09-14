@@ -225,4 +225,26 @@ class User extends Authenticatable
 
         return $html;
     }
+
+    public function bookedAppointmentsOfDoctor()
+    {
+        return $this->hasMany(BookingSlots::class, 'doctor_id');
+    }
+
+
+
+    public function calculateTotalPayments()
+    {
+        $totalAmount = $this->bookedAppointmentsOfDoctor()
+            ->whereHas('payments', function ($query) {
+                $query->where('payment_status', 'success');
+            })
+            ->with('payments')
+            ->get()
+            ->pluck('payments') 
+            ->flatten() 
+            ->sum('amount'); 
+
+        return '$' . number_format($totalAmount, 2);
+    }
 }

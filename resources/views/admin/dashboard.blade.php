@@ -7,7 +7,7 @@
             <div class="page-header">
                 <div class="row">
                     <div class="col-sm-9">
-                        <h3 class="page-title">Welcome {{ auth()->user()->fullName ?? 'Admin'}}  !</h3>
+                        <h3 class="page-title">Welcome {{ auth()->user()->fullName ?? 'Admin' }} !</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ul>
@@ -32,7 +32,7 @@
                                     <i class="fe fe-users"></i>
                                 </span>
                                 <div class="dash-count">
-                                    <h3>{{ $dashboardData['total_doctors'] ?? 0 }}</h3>
+                                    <h3>{{ $dashboardData['total_doctors'] ?? 0 }}+</h3>
                                 </div>
                             </div>
                             <div class="dash-widget-info">
@@ -100,6 +100,7 @@
                                 <div class="progress progress-sm">
                                     <div class="progress-bar bg-warning w-50">
 
+
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +116,35 @@
                             <h4 class="card-title">Revenue</h4>
                         </div>
                         <div class="card-body">
-                            <div id="morrisArea"></div>
+                            <div id="morrisArea">
+
+                                <div class="dashboard-card-body">
+                                    <div class="chart-tab">
+                                        <ul class="nav nav-pills product-licence-tab" id="pills-tab2" role="tablist">
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link active" id="pills-revenue-tab" data-bs-toggle="pill"
+                                                    data-bs-target="#pills-revenue" type="button" role="tab"
+                                                    aria-controls="pills-revenue" aria-selected="false">Revenue</button>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content w-100" id="v-pills-tabContent" style="height: 300px;">
+                                            <div class="tab-pane fade show active" id="pills-revenue" role="tabpanel"
+                                                aria-labelledby="pills-revenue-tab">
+                                                <div id="revenue-chart">
+                                                    <div class="search-header">
+                                                        <select id="time-period-revenue" class="">
+                                                            <option value="currentMonth">Current Month</option>
+                                                            <option value="monthly">Monthly</option>
+                                                            <option value="yearly">Yearly</option>
+                                                        </select>
+                                                    </div>
+                                                    <div id="chart_revenue_div" class="mb-4"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -127,7 +156,36 @@
                             <h4 class="card-title">Status</h4>
                         </div>
                         <div class="card-body">
-                            <div id="morrisLine"></div>
+                            <div id="morrisLine">
+
+                                <div class="dashboard-card-body">
+                                    <div class="chart-tab">
+                                        <ul class="nav nav-pills product-licence-tab" id="pills-tab2" role="tablist">
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link active" id="pills-revenue-tab"
+                                                    data-bs-toggle="pill" data-bs-target="#pills-revenue" type="button"
+                                                    role="tab" aria-controls="pills-revenue"
+                                                    aria-selected="false">Appointments</button>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content w-100" id="v-pills-tabContent" style="height: 300px;">
+                                            <div class="tab-pane fade show active" id="pills-revenue" role="tabpanel"
+                                                aria-labelledby="pills-revenue-tab">
+                                                <div id="revenue-chart">
+                                                    <div class="search-header">
+                                                        <select id="time-period-appointments" class="">
+                                                            <option value="currentMonth">Current Month</option>
+                                                            <option value="monthly">Monthly</option>
+                                                            <option value="yearly">Yearly</option>
+                                                        </select>
+                                                    </div>
+                                                    <div id="chart_appointments_div" class="mb-4"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -139,10 +197,10 @@
                     <div class="card card-table flex-fill">
                         <div class="card-header">
                             <h4 class="card-title">Doctors List
-                                <a href="{{ route('admin.index.doctors') }}"
-                                class="btn btn-primary btn-sm float-end">View All</a>
+                                <a href="{{ route('admin.index.doctors') }}" class="btn btn-primary btn-sm float-end">View
+                                    All</a>
                             </h4>
-         
+
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -162,8 +220,7 @@
                                                     <h2 class="table-avatar">
                                                         <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
-                                                                src="{{$doctor->image_url ?? '' }}"
-                                                                alt=""></a>
+                                                                src="{{ $doctor->image_url ?? '' }}" alt=""></a>
                                                         <a href="">Dr. {{ $doctor->fullName }}</a>
                                                     </h2>
                                                 </td>
@@ -177,7 +234,8 @@
                                                         @endforelse
                                                     @endisset
                                                 </td>
-                                                <td>$00.00</td>
+                                                <td>{{ $doctor->calculateTotalPayments() }}</td>
+
                                                 <td>
                                                     {!! getRatingHtml($doctor->allover_rating) !!}
                                                 </td>
@@ -187,7 +245,7 @@
                                                     <td> Not Found</td>
                                                 </tr>
                                             @endforelse
-                                    </tbody>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -200,9 +258,9 @@
                             <div class="card-header">
                                 <h4 class="card-title">Patients List
                                     <a href="{{ route('admin.patient-list.index') }}"
-                                class="btn btn-primary btn-sm float-end">View All</a>
+                                        class="btn btn-primary btn-sm float-end">View All</a>
                                 </h4>
-                                
+
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -217,24 +275,25 @@
                                         </thead>
                                         <tbody>
                                             @forelse ($dashboardData['patient_list'] as $patient)
-                                            <tr>
-                                                <td>
-                                                    <h2 class="table-avatar">
-                                                        <a href="" class="avatar avatar-sm me-2"><img
-                                                                class="avatar-img rounded-circle"
-                                                                src="{{$patient->image_url ?? '' }}" alt=""></a>
-                                                        <a href="">{{ $patient->fullName }} </a>
-                                                    </h2>
-                                                </td>
-                                                <td>{{ $patient->phone }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($patient->created_at)->format('j M Y') ?? '' }}</td>
-                                                <td>$100.00</td>
-                                            </tr>
+                                                <tr>
+                                                    <td>
+                                                        <h2 class="table-avatar">
+                                                            <a href="" class="avatar avatar-sm me-2"><img
+                                                                    class="avatar-img rounded-circle"
+                                                                    src="{{ $patient->image_url ?? '' }}" alt=""></a>
+                                                            <a href="">{{ $patient->fullName }} </a>
+                                                        </h2>
+                                                    </td>
+                                                    <td>{{ $patient->phone }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($patient->created_at)->format('j M Y') ?? '' }}
+                                                    </td>
+                                                    <td>{{ $patient->calculateTotalPayments() }}</td>
+                                                </tr>
                                             @empty
-                                            <tr>
-                                                <td> Not Found</td>
-                                            </tr>
-                                        @endforelse
+                                                <tr>
+                                                    <td> Not Found</td>
+                                                </tr>
+                                            @endforelse
                                         </tbody>
                                     </table>
                                 </div>
@@ -249,8 +308,8 @@
                         <div class="card card-table">
                             <div class="card-header">
                                 <h4 class="card-title">Appointment List <a href="{{ route('admin.appointment-list.index') }}"
-                                    class="btn btn-primary btn-sm float-end">View All</a> </h4>
-                             
+                                        class="btn btn-primary btn-sm float-end">View All</a> </h4>
+
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -266,43 +325,49 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($dashboardData['appointments_list'] as $key =>  $appointment)
-                                            <tr>
-                                                <td>
-                                                    <h2 class="table-avatar">
-                                                        <a href="" class="avatar avatar-sm me-2"><img
-                                                                class="avatar-img rounded-circle"
-                                                                src="{{$appointment->user->image_url ?? '' }}"
-                                                                alt=""></a>
-                                                        <a href="">Dr. {{ $appointment->user->fullName }}</a>
-                                                    </h2>
-                                                </td>
-                                                <td>Dental</td>
-                                                <td>
-                                                    <h2 class="table-avatar">
-                                                        <a href="" class="avatar avatar-sm me-2"><img
-                                                                class="avatar-img rounded-circle"
-                                                                src="{{$appointment->patient->image_url ?? '' }}" alt=""></a>
-                                                        <a href="">{{ $appointment->patient->fullName }} </a>
-                                                    </h2>
-                                                </td>
-                                                <td>{{ \Carbon\Carbon::parse($appointment->booking_date)->format('j M Y') ?? '' }} 
-                                                    <span class="text-primary d-block">{{ date('h:i A', strtotime($appointment->slot_start_time)) ?? '' }}- {{ date('h:i A', strtotime($appointment->slot_end_time)) ?? '' }}</span>
-                                                </td>
-                                                <td>
-                                                    <div class="status-toggle">
-                                                        <input type="checkbox" id="status_{{ $key }}" class="check" {{ $appointment->status == 'confirmed' ? 'checked' : ($appointment->status == 'rejected' ? '' : '') }}>
-                                                        <label for="status_{{ $key }}" class="checktoggle">checkbox</label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    $200.00
-                                                </td>
-                                            </tr>
+                                            @forelse ($dashboardData['appointments_list']->take(3) as $key =>  $appointment)
+                                                <tr>
+                                                    <td>
+                                                        <h2 class="table-avatar">
+                                                            <a href="" class="avatar avatar-sm me-2"><img
+                                                                    class="avatar-img rounded-circle"
+                                                                    src="{{ $appointment->user->image_url ?? '' }}"
+                                                                    alt=""></a>
+                                                            <a href="">Dr. {{ $appointment->user->fullName }}</a>
+                                                        </h2>
+                                                    </td>
+                                                    <td>Dental</td>
+                                                    <td>
+                                                        <h2 class="table-avatar">
+                                                            <a href="" class="avatar avatar-sm me-2"><img
+                                                                    class="avatar-img rounded-circle"
+                                                                    src="{{ $appointment->patient->image_url ?? '' }}"
+                                                                    alt=""></a>
+                                                            <a href="">{{ $appointment->patient->fullName }} </a>
+                                                        </h2>
+                                                    </td>
+                                                    <td>{{ \Carbon\Carbon::parse($appointment->booking_date)->format('j M Y') ?? '' }}
+                                                        <span
+                                                            class="text-primary d-block">{{ date('h:i A', strtotime($appointment->slot_start_time)) ?? '' }}-
+                                                            {{ date('h:i A', strtotime($appointment->slot_end_time)) ?? '' }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <div class="status-toggle">
+                                                            <input type="checkbox" id="status_{{ $key }}"
+                                                                class="check"
+                                                                {{ $appointment->status == 'confirmed' ? 'checked' : ($appointment->status == 'rejected' ? '' : '') }}>
+                                                            <label for="status_{{ $key }}"
+                                                                class="checktoggle">checkbox</label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        ${{ $appointment->payments->amount ?? 0 }}
+                                                    </td>
+                                                </tr>
                                             @empty
-                                            <tr>
-                                                <td> Not Found</td>
-                                            </tr>
+                                                <tr>
+                                                    <td> Not Found</td>
+                                                </tr>
                                             @endforelse
                                         </tbody>
                                     </table>
@@ -317,3 +382,177 @@
 
         </div>
     @endsection
+    <script src="{{ asset('/assets/js/jquery-3.7.1.min.js') }}"></script>
+    <script>
+        // $(document).ready(function() {
+        //     var graphData = [];
+        //     loadGrpahAppointmentData('currentMonth');
+        //     google.charts.load('current', {
+        //         packages: ['corechart', 'line']
+        //     });
+        //     google.charts.setOnLoadCallback(drawLogScales);
+
+        //     $("#time-period").change(function() {
+        //         var period = $(this).val() ?? 'monthly';
+        //         loadGrpahAppointmentData(period);
+        //     });
+
+        //     function loadGrpahAppointmentData(period) {
+        //         period = period ?? 'currentMonth';
+        //         $.ajax({
+        //             url: "<?= route('doctor.booking.graphData.admin') ?>",
+        //             type: 'get',
+        //             data: {
+        //                 'period': period
+        //             },
+        //             success: function(response) {
+        //                 graphData = response;
+        //                 drawLogScales();
+        //             },
+        //             error: function(xhr, status, error) {
+        //                 console.error(error);
+        //             }
+        //         });
+        //     }
+
+        //     // manage graph based on select 
+        //     function drawLogScales() {
+        //         var data = new google.visualization.DataTable();
+        //         data.addColumn('number', 'X');
+        //         data.addColumn('number', 'rate');
+        //         data.addRows(graphData);
+
+        //         var view = new google.visualization.DataView(data);
+        //         view.setColumns([{
+        //                 sourceColumn: 0,
+        //                 type: 'string',
+        //                 calc: function(dt, rowIndex) {
+        //                     return String(dt.getValue(rowIndex, 0));
+        //                 }
+        //             },
+        //             1
+        //         ]);
+
+        //         var options = {
+        //             hAxis: {
+        //                 title: 'Periods',
+        //                 logScale: false
+        //             },
+        //             vAxis: {
+        //                 title: 'Amounts',
+        //                 logScale: false
+        //             },
+        //             colors: ['#004cd4', '#097138']
+        //         };
+
+        //         var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        //         chart.draw(view, options);
+        //     }
+        // });
+
+
+
+
+        $(document).ready(function() {
+            var graphAppointmentData = [];
+            var graphRevenueData = [];
+
+            loadGraphAppointmentData('currentMonth');
+            loadGraphRevenueData('currentMonth');
+
+            google.charts.load('current', {
+                packages: ['corechart', 'line']
+            });
+            google.charts.setOnLoadCallback(function() {
+                drawLogScales('appointments');
+                drawLogScales('revenue');
+            });
+
+            $("#time-period-appointments").change(function() {
+                var period = $(this).val() ?? 'monthly';
+                loadGraphAppointmentData(period);
+            });
+
+            $("#time-period-revenue").change(function() {
+                var period = $(this).val() ?? 'monthly';
+                loadGraphRevenueData(period);
+            });
+
+            function loadGraphAppointmentData(period) {
+                period = period ?? 'currentMonth';
+                $.ajax({
+                    url: "<?= route('doctor.booking.graphData.admin') ?>",
+                    type: 'get',
+                    data: {
+                        'period': period,
+                        'type': 'appointments'
+                    },
+                    success: function(response) {
+                        graphAppointmentData = response;
+                        drawLogScales('appointments');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+
+            function loadGraphRevenueData(period) {
+                period = period ?? 'currentMonth';
+                $.ajax({
+                    url: "<?= route('doctor.revenue.graphData.admin') ?>",
+                    type: 'get',
+                    data: {
+                        'period': period,
+                        'type': 'revenue'
+                    },
+                    success: function(response) {
+                        graphRevenueData = response;
+                        drawLogScales('revenue');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+
+            function drawLogScales(dataType) {
+                var data = new google.visualization.DataTable();
+                data.addColumn('number', 'X');
+
+                // Set column name dynamically based on the type
+                var columnLabel = (dataType === 'appointments') ? 'Appointments' : 'Revenue';
+                data.addColumn('number', columnLabel);
+
+                var graphData = (dataType === 'appointments') ? graphAppointmentData : graphRevenueData;
+                data.addRows(graphData);
+
+                var view = new google.visualization.DataView(data);
+                view.setColumns([{
+                        sourceColumn: 0,
+                        type: 'string',
+                        calc: function(dt, rowIndex) {
+                            return String(dt.getValue(rowIndex, 0));
+                        }
+                    },
+                    1
+                ]);
+
+                var options = {
+                    hAxis: {
+                        title: 'Periods',
+                        logScale: false
+                    },
+                    vAxis: {
+                        title: (dataType === 'appointments') ? 'Appointments' : 'Revenue',
+                        logScale: false
+                    },
+                    colors: (dataType === 'appointments') ? ['#004cd4'] : ['#097138']
+                };
+
+                var chartDiv = (dataType === 'appointments') ? 'chart_appointments_div' : 'chart_revenue_div';
+                var chart = new google.visualization.LineChart(document.getElementById(chartDiv));
+                chart.draw(view, options);
+            }
+        });
+    </script>

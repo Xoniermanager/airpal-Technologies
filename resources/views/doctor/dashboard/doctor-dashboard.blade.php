@@ -4,59 +4,61 @@
         <h3>Revenue</h3>
     </div>
     <div class="row">
-    <div class="col-xl-12 d-flex">
-        <div class="dashboard-chart-col w-100">
-            <div class="dashboard-card w-100">
-                <div class="dashboard-card-head border-0">
-                    <div class="header-title">
-                        <h5>Overview</h5>
+        <div class="col-xl-12 d-flex">
+            <div class="dashboard-chart-col w-100">
+                <div class="dashboard-card w-100">
+                    <div class="dashboard-card-head border-0">
+                        <div class="header-title">
+                            <h5>Overview</h5>
+                        </div>
                     </div>
-                </div>
-                <div class="dashboard-card-body">
-                    <div class="chart-tab">
-                        <ul class="nav nav-pills product-licence-tab" id="pills-tab2" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="pills-revenue-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-revenue" type="button" role="tab"
-                                    aria-controls="pills-revenue" aria-selected="false">Revenue</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-appointment-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-appointment" type="button" role="tab"
-                                    aria-controls="pills-appointment" aria-selected="true">Appointment</button>
-                            </li>
-                        </ul>
-                        <div class="tab-content w-100" id="v-pills-tabContent" style="height: 300px;">
-                            <div class="tab-pane fade show active" id="pills-revenue" role="tabpanel" aria-labelledby="pills-revenue-tab">
-                                <div id="revenue-chart">
-                                    <div class="search-header">
-                                        <select id="time-period-revenue" class="">
+                    <div class="dashboard-card-body">
+                        <div class="chart-tab">
+                            <ul class="nav nav-pills product-licence-tab" id="pills-tab2" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="pills-revenue-tab" data-bs-toggle="pill"
+                                        data-bs-target="#pills-revenue" type="button" role="tab"
+                                        aria-controls="pills-revenue" aria-selected="false">Revenue</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="pills-appointment-tab" data-bs-toggle="pill"
+                                        data-bs-target="#pills-appointment" type="button" role="tab"
+                                        aria-controls="pills-appointment" aria-selected="true">Appointment</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content w-100" id="v-pills-tabContent" style="height: 300px;">
+                                <div class="tab-pane fade show active" id="pills-revenue" role="tabpanel"
+                                    aria-labelledby="pills-revenue-tab">
+                                    <div id="revenue-chart">
+                                        <div class="search-header">
+                                            <select id="time-period-revenue" class="">
+                                                <option value="currentMonth">Current Month</option>
+                                                <option value="monthly">Monthly</option>
+                                                <option value="yearly">Yearly</option>
+                                            </select>
+                                        </div>
+                                        <div id="revenue_chart_div" class="mb-4"></div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade active" id="pills-appointment" role="tabpanel"
+                                    aria-labelledby="pills-appointment-tab">
+                                    <div id="appointment-chart">
+                                        <select id="time-period-appointment" class="">
                                             <option value="currentMonth">Current Month</option>
                                             <option value="monthly">Monthly</option>
                                             <option value="yearly">Yearly</option>
                                         </select>
+                                        <div id="booking_chart_div"></div>
                                     </div>
-                                    <div id="revenue_chart_div" class="mb-4"></div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade active" id="pills-appointment" role="tabpanel" aria-labelledby="pills-appointment-tab">
-                                <div id="appointment-chart">
-                                    <select id="time-period-appointment" class="">
-                                        <option value="currentMonth">Current Month</option>
-                                        <option value="monthly">Monthly</option>
-                                        <option value="yearly">Yearly</option>
-                                    </select>
-                                    <div id="booking_chart_div"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
-</div>
 
 
     <div class="row">
@@ -65,7 +67,7 @@
                 <div class="dashboard-widget-box">
                     <div class="dashboard-content-info">
                         <h6>Total Patients</h6>
-                        <h4>{{ $totalPatientsCounter ?? ''}}</h4>
+                        <h4>{{ $totalPatientsCounter ?? '' }}</h4>
 
                     </div>
                     <div class="dashboard-widget-icon">
@@ -76,7 +78,7 @@
                 <div class="dashboard-widget-box">
                     <div class="dashboard-content-info">
                         <h6>Appointments Today</h6>
-                        <h4>{{ $todayAppointmentCounter ?? ''}}</h4>
+                        <h4>{{ $todayAppointmentCounter ?? '' }}</h4>
                     </div>
                     <div class="dashboard-widget-icon">
                         <span class="dash-icon-box"><i class="fa-solid fa-calendar-days"></i></span>
@@ -112,41 +114,41 @@
             </div>
         </div>
 
-<div class="col-md-5">
-    <div class="dashboard-card w-100">
-        <div class="dashboard-card-head">
-            <div class="header-title">
-                <h5>Recent Patients</h5>
-            </div>
-        </div>
-
-        <div class="dashboard-card-body">
-            <div class="row recent-patient-grid-boxes">
-                @forelse ($recentPatients as $recentPatient)
-                    <div class="col-md-6">
-                        <div class="recent-patient-grid">
-                            <a href="{{$recentPatient->patientProfileUrl()}}" class="patient-img">
-                                <img src="{{ $recentPatient->patient->image_url }}">
-
-                            </a>
-                            <h5><a href="{{$recentPatient->patientProfileUrl()}}"></a>
-                            </h5>
-                            <span>Patient ID : PAT{{ $recentPatient->id }}</span>
-                            <div class="date-info">
-                                <p>Last Appointment </p>
-                                <p>{{ date('j M Y', strtotime($recentPatient->booking_date)) ?? '' }} -
-                                    {{ date('h:i A', strtotime($recentPatient->slot_start_time)) ?? '' }}</p>
-                            </div>
-                        </div>
+        <div class="col-md-5">
+            <div class="dashboard-card w-100">
+                <div class="dashboard-card-head">
+                    <div class="header-title">
+                        <h5>Recent Patients</h5>
                     </div>
-                @empty
-                    <p>Fot found</p>
-                @endforelse
+                </div>
 
+                <div class="dashboard-card-body">
+                    <div class="row recent-patient-grid-boxes">
+                        @forelse ($recentPatients as $recentPatient)
+                            <div class="col-md-6">
+                                <div class="recent-patient-grid">
+                                    <a href="{{ $recentPatient->patientProfileUrl() }}" class="patient-img">
+                                        <img src="{{ $recentPatient->patient->image_url }}">
+
+                                    </a>
+                                    <h5><a href="{{ $recentPatient->patientProfileUrl() }}"></a>
+                                    </h5>
+                                    <span>Patient ID : PAT{{ $recentPatient->id }}</span>
+                                    <div class="date-info">
+                                        <p>Last Appointment </p>
+                                        <p>{{ date('j M Y', strtotime($recentPatient->booking_date)) ?? '' }} -
+                                            {{ date('h:i A', strtotime($recentPatient->slot_start_time)) ?? '' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                            <p>Fot found</p>
+                        @endforelse
+
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
         <div class="col-xl-7 d-flex">
 
             <div class="dashboard-main-col w-100">

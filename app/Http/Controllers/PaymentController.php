@@ -76,7 +76,7 @@ class PaymentController extends Controller
         // }
 
         // Update the payment status as cancelled
-        $updatedPaymentDetails = $this->paymentService->updatePaymentStatus('Cancelled',$paypalPaymentId);
+        $updatedPaymentDetails = $this->paymentService->updatePaymentStatus(PAYMENT_CANCELLED,$paypalPaymentId);
 
         // Now cancel the appointment as well as the payment has been cancelled
         $updatedBookingDetails = $this->bookingServices->updateStatus('cancelled',$updatedPaymentDetails->booking_id);

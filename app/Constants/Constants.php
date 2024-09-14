@@ -1,0 +1,3 @@
+<?php
+define('PAYMENT_SUCCESS','COMPLETED');
+define('PAYMENT_CANCELLED','CANCELLED');

@@ -31,16 +31,17 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/plugins/datatables/datatables.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('admin/assets/css/custom.css') }}" type="text/css">
+
     <link rel="stylesheet" href="{{ asset('/assets/css/custom.css') }}" type="text/css">
 
     <script src="{{ asset('/assets/js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{asset('/assets/js/bootstrap.bundle.min.js')}}" type="text/javascript"></script>
     <link href="https://kendo.cdn.telerik.com/themes/7.2.1/default/default-main.css" rel="stylesheet" />
-    <!-- <script src="https://kendo.cdn.telerik.com/2024.1.319/js/kendo.all.min.js"></script> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="{{ asset('admin/assets/js/jquery-ui.js') }}"></script>
     <script src="{{ asset('admin/assets/js/jquery-ui.css') }}"></script>
     <script src="{{ asset('admin/assets/jquery-validation/dist/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         window.site_admin_base_url = '{{ env('SITE_ADMIN_BASE_URL') }}';
         window.site_base_url = '{{ env('APP_URL') }}';

@@ -63,6 +63,7 @@
                                                 <td>{{ $paymentDetails->currency }} {{ $paymentDetails->amount }}</td>
                                                 <td>{{ getFormattedDate($paymentDetails->created_at) }}</td>
                                                 <td>
+                                                    {{ PAYMENT_SUCCESS }}
                                                     @if ($paymentDetails->payment_status == 'completed')
                                                         <span
                                                             class="badge rounded-pill bg-success inv-badge">Completed</span>

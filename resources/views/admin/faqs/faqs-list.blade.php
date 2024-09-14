@@ -4,9 +4,9 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>name</th>
-                    <th>description</th>
-                    <th>created_at</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Created_at</th>
                     <th>Actions</th>
                 </tr>
             </thead>

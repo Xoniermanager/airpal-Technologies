@@ -447,4 +447,22 @@ class BookingServices
     {
         return $this->bookingRepository->where('id', $bookingId)->update(['payment_required'    =>  $requiredStatus]);
     }
+
+
+    public function getAllAppointmentGraphData()
+    {
+        return $this->bookingRepository
+        ->orderBy('booking_date')
+        ->get()
+        ->groupBy('booking_date');
+    }
+
+    public function getAllRevenueGraphDataAdmin()
+    {
+        return $this->bookingRepository
+        // ->where('booking_date', '<', Carbon::now())
+        ->with('payments')
+        ->get()
+        ->groupBy('booking_date');
+    }
 }

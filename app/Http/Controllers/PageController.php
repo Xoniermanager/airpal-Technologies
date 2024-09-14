@@ -127,14 +127,17 @@ class PageController extends Controller
     public function healthMonitoring(Page $page)
     {
         $getPageSections = $this->frontendPagesServices->getPageSectionsWithAttribute($page->id);
-
         $sections = [];
         foreach ($getPageSections as $getPageSection) {
             $sections[$getPageSection['section_slug']] = $getPageSection;
         }
-
-        $sectionList = SectionList::where('page_id',3)->with('listItems')->get();
-        $sections['product_details']  = $sectionList;
+        
+        $sectionList = SectionList::where('page_id', 3)->with('listItems')->get();
+        if (isset($sections['product_details'])) {
+            $sections['product_details']->section_list = $sectionList;
+        } else {
+            $sections['product_details'] = (object) ['section_list' => $sectionList];
+        }
 
         return view('admin.pages.health_monitoring.health',[
             'sections'  =>  $sections,
@@ -145,7 +148,6 @@ class PageController extends Controller
     public function storeHealthMonitoringPageDetail(HomePageRequest $request)
     {
         $allPageSectionsData = $this->frontendPagesServices->saveHomepageSections($request);
-
         $sectionsHTML = array();
         foreach ($allPageSectionsData as $pageSectionsData) 
         {

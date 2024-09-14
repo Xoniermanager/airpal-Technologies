@@ -60,7 +60,7 @@
                                  {{ date('h:i A', strtotime($invoiceDetail->slot_start_time)) ?? '' }}
                                  {{ date('h:i A', strtotime($invoiceDetail->slot_end_time)) ?? '' }}
                             </td>
-                            <td>$0</td>
+                            <td>${{ $invoiceDetail->payments->amount ?? 0 }}</td>
                             <td>
                                 <div class="action-item">
                                     @if (isset($invoiceDetail->invoice_url))

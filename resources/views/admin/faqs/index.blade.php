@@ -6,12 +6,7 @@
                 <div class="page-header">
                     <div class="row">
                         <div class="col-sm-7 col-auto">
-                            <h3 class="page-title">faqs</h3>
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard.index') }}">Dashboard</a>
-                                </li>
-                                <li class="breadcrumb-item active">faqs</li>
-                            </ul>
+                            <h3 class="page-title">Frequently Asked Questions</h3>
                         </div>
                         <div class="col-sm-5 col">
                             <a href="#add_faqs" data-bs-toggle="modal" class="btn btn-primary float-end mt-2">Add</a>
@@ -34,7 +29,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Add faqs</h5>
+                        <h5 class="modal-title">Add: Frequently Asked Question</h5>
                         <button type="button" class="btn-close close-form-add" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
@@ -72,7 +67,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Edit faqs</h5>
+                        <h5 class="modal-title">Edit: Frequently Asked Question</h5>
                         <button type="button" class="btn-close close-form-add" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
@@ -112,7 +107,7 @@
                     <div class="modal-body">
                         <div class="form-content p-2">
                             <h4 class="modal-title">Delete</h4>
-                            <p class="mb-4">Are you sure want to delete?</p>
+                            <p class="mb-4">Are you sure want to delete ?</p>
                             <input type="hidden" id="delete-faqs-id" name="faqs_id">
                             <button type="button" class="btn btn-primary confirm-delete">Delete </button>
                             <button type="button" class="btn btn-danger " data-bs-dismiss="modal">Close</button>

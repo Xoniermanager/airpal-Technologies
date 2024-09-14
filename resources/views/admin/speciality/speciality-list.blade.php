@@ -1,4 +1,3 @@
-
 <div id="speciality_list" class="card-body">
     <div class="table-responsive">
         <table class=" table table-hover table-center mb-0">

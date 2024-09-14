@@ -99,6 +99,9 @@
 
                         <div class="copyright-menu">
                             <ul class="policy-menu">
+                                <li><a href="{{ route('gdpr.policy.index') }}">GDPR Policy</a></li>
+                                <li><a href="{{ route('cookie.policy.index') }}">Cookies Policy</a></li>
+                                <li><a href="{{ route('insurance.policy.index') }}">Insurance Policy</a></li>
                                 <li><a href="{{ route('privacy.index') }}">Privacy Policy</a></li>
                                 <li><a href="{{ route('term.index') }}">Terms and Conditions</a></li>
                             </ul>
@@ -115,6 +118,19 @@
 <div class="mouse-cursor cursor-outer"></div>
 <div class="mouse-cursor cursor-inner"></div>
 
+<div id="popup-overlay" class="popup-overlay">
+    <!-- Popup Box -->
+    <div class="popup-box">
+        <div class="col-md-12">
+            <x-cookie_policy :show="true" />
+        </div>
+        <div class="modalfooter">
+            <button class="btn btn-sm btn-primary" id="close-btn">I Agree</button>
+            <button class="btn btn-sm btn-dark" id="close-btn">Manage Setting</button>
+        </div>
+    </div>
+</div>
+
 </div>
 <div class="progress-wrap active-progress">
     <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
@@ -123,6 +139,23 @@
         </path>
     </svg>
 </div>
+
+
+<script>
+
+$(document).ready(function() {
+window.onload = function () {
+        // Show the popup on page load
+        document.getElementById('popup-overlay').style.display = 'flex';
+        // Close the popup when the button is clicked
+        document.getElementById('close-btn').addEventListener('click', function () {
+            document.getElementById('popup-overlay').style.display = 'none';
+        });
+    };
+       });
+</script>
+
+
 
 {{-- <script src="{{asset('assets/js/jquery-3.7.1.min.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script> --}}
 

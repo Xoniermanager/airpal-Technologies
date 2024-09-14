@@ -979,9 +979,6 @@
                                                 <tbody>
                                                     @forelse ($patientInvoicesList->take(8) as $patientInvoice)
                                                         <tr>
-                                                            {{-- <td class="text-blue-600"><a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#invoice_view">#Inv-2021</a>
-                                                        </td> --}}
                                                             <td>
                                                                 <h2 class="table-avatar">
                                                                     <a href="{{ $patientInvoice->doctorProfileUrl() }}"
@@ -995,7 +992,6 @@
                                                                 </h2>
                                                             </td>
                                                             <td>{{ date('j M Y', strtotime($patientInvoice->booking_date)) ?? '' }}
-                                                                {{-- {{ date('h:i A', strtotime($patientInvoice->slot_start_time)) ?? '' }} --}}
                                                             </td>
                                                             <td>{{ date('j M Y', strtotime($patientInvoice->created_at)) ?? '' }}
                                                             </td>

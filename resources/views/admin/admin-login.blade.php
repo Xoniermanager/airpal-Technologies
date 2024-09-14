@@ -144,8 +144,6 @@
                         }).then(() => {
                             if (response.success) {
                                 window.location.href = "<?= route('admin.dashboard.index') ?>";
-                            } else {
-                                // window.location.href = response.redirect_url;
                             }
                         });
                     },

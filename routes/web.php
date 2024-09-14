@@ -42,7 +42,6 @@ use App\Http\Controllers\Patient\PatientDiaryController;
 use App\Http\Controllers\Doctor\DiseaseDetailsController;
 use App\Http\Controllers\Patient\MedicalRecordController;
 use App\Http\Controllers\Admin\AdminAppointmentController;
-use App\Http\Controllers\Admin\QuestionsOptionsController;
 use App\Http\Controllers\Doctor\AccountsDetailsController;
 use App\Http\Controllers\Doctor\DoctorDashboardController;
 use App\Http\Controllers\Patient\PatientInvoiceController;
@@ -211,18 +210,6 @@ Route::prefix('doctor')->group(function () {
             Route::get('all-complete-appointment', 'allCompleteAppointment')->name('doctor.all.complete.appointment');
         });
 
-        Route::prefix('questions')->controller(DoctorPanelQuestionController::class)->group(function () {
-            Route::get('/', 'index')->name('doctor.questions.index');
-            Route::post('create', 'store')->name('doctor.add.questions');
-            Route::get('get-question-details', 'getQuestionDetailsHTML')->name('doctor.get.question.html');
-            Route::post('update', 'update')->name('doctor.questions.update');
-            Route::post('delete', 'deleteQuestion')->name('doctor.delete-questions');
-            Route::post('option-delete', 'destroy')->name('doctor.delete-questions-options');
-
-            Route::get('doctor-question-filter', 'doctorQuestionFilter')->name('doctor.question.filter');
-            Route::get('get-question-by-doctor-id', 'getQuestionByDoctorId')->name('get.question.doctor.id');
-        });
-
         // these routes are used for with auth attempt
         Route::controller(DoctorAuthenticationController::class)->group(function () {
             Route::post('change-password', 'changePassword')->name('doctor.change.password');
@@ -268,6 +255,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('specialities')->controller(SpecialityController::class)->group(function () {
         Route::get('/create-speciality', 'storeSpecialityByAjaxCall');
     });
+    
     Route::prefix('slots')->controller(DoctorAppointmentConfigController::class)->group(function () {
         Route::get('getWeekDays', 'getWeekDays');
     });
@@ -315,6 +303,18 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('award')->controller(AwardController::class)->group(function () {
         Route::get('/', 'index')->name('admin.index.award');
         Route::get('ajax-create', 'store')->name('admin.add-award');
+    });
+
+    Route::prefix('questions')->controller(DoctorPanelQuestionController::class)->group(function () {
+        Route::get('/', 'index')->name('doctor.questions.index');
+        Route::post('create', 'store')->name('doctor.add.questions');
+        Route::get('get-question-details', 'getQuestionDetailsHTML')->name('doctor.get.question.html');
+        Route::post('update', 'update')->name('doctor.questions.update');
+        Route::post('delete', 'deleteQuestion')->name('doctor.delete-questions');
+        Route::post('option-delete', 'destroy')->name('doctor.delete-questions-options');
+        
+        Route::get('doctor-question-filter', 'doctorQuestionFilter')->name('doctor.question.filter');
+        Route::get('get-question-by-doctor-id', 'getQuestionByDoctorId')->name('get.question.doctor.id');
     });
 });
 

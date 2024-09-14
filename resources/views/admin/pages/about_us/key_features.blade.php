@@ -14,7 +14,8 @@
     <div class="setting-card">
         <div class="row">
             <div class="col-lg-12 col-md-12">
-                @php$key_features_title = isset($sections['key_features']['title'])
+                @php
+                    $key_features_title = isset($sections['key_features']['title'])
                         ? $sections['key_features']['title']
                         : '';
                 @endphp

@@ -434,7 +434,6 @@
                         console.log(response)
                         swal.fire("Done!", response.message, "success");
                         $('#edit_question').modal().hide();
-
                         $('#question_list').replaceWith(response.data);
                     },
                     error: function(error_messages) {

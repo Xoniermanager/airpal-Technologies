@@ -62,7 +62,7 @@ We offer flexible scheduling options, including same-day appointments and extend
                 'content' => 'At the scheduled time, log in to your account and connect with your doctor for the consultation. Our secure and user-friendly platform ensures a seamless experience.',
                 'section_id' => 103,
                 'created_at' => '2024-09-07 07:33:58',
-                'updated_at' => '2024-09-07 07:36:35',
+                'updated_at' => '2024-09-09 10:22:30',
             ),
             4 => 
             array (
@@ -234,11 +234,11 @@ We offer flexible scheduling options, including same-day appointments and extend
                 'id' => 116,
                 'title' => 'Check Your ECG',
                 'subtitle' => NULL,
-                'image' => 'section-content/116-1725812296.jpg',
+                'image' => 'section-content/116-1726224021.png',
                 'content' => NULL,
                 'section_id' => 120,
                 'created_at' => '2024-09-08 16:18:16',
-                'updated_at' => '2024-09-08 16:18:16',
+                'updated_at' => '2024-09-13 10:40:21',
             ),
             20 => 
             array (
@@ -327,6 +327,83 @@ We offer flexible scheduling options, including same-day appointments and extend
                 'section_id' => 121,
                 'created_at' => '2024-09-08 16:58:38',
                 'updated_at' => '2024-09-08 16:58:38',
+            ),
+            28 => 
+            array (
+                'id' => 125,
+                'title' => 'Limited Access to Healthcare in Rural Areas:',
+                'subtitle' => NULL,
+                'image' => NULL,
+                'content' => 'In Ireland, 68% of medical practices outside major cities are not accepting new patients, reflecting a significant urban-rural divide in healthcare access. This situation is compounded by the fact that 15% of Northern Ireland\'s population lives in the most rural wards, where only 13% of GP practices are located . Telemedicine can connect rural patients with healthcare providers, improving access to necessary services .',
+                'section_id' => 122,
+                'created_at' => '2024-09-11 09:39:14',
+                'updated_at' => '2024-09-11 09:39:14',
+            ),
+            29 => 
+            array (
+                'id' => 126,
+                'title' => 'Long Wait Times for Appointments:',
+                'subtitle' => NULL,
+                'image' => NULL,
+                'content' => 'The average wait time for a GP appointment in rural Ireland can reach up to two weeks, compared to same-day appointments available in urban areas . In Europe, patients in countries like Spain and Italy also experience long wait times, averaging 20-30 days for specialist consultations . Telemedicine can reduce these wait times by facilitating quicker consultations.',
+                'section_id' => 122,
+                'created_at' => '2024-09-11 09:39:14',
+                'updated_at' => '2024-09-11 09:39:14',
+            ),
+            30 => 
+            array (
+                'id' => 127,
+                'title' => 'Lack of Specialized Care in Certain Regions:',
+                'subtitle' => NULL,
+                'image' => NULL,
+                'content' => 'Over 65 million Europeans live in areas with a shortage of healthcare providers, particularly specialists . Telemedicine enables patients to access specialized care without the need to travel long distances, addressing this disparity effectively.',
+                'section_id' => 122,
+                'created_at' => '2024-09-11 09:39:14',
+                'updated_at' => '2024-09-11 09:39:14',
+            ),
+            31 => 
+            array (
+                'id' => 204,
+                'title' => 'Get Started',
+                'subtitle' => NULL,
+                'image' => NULL,
+                'content' => 'Download our app today and start monitoring your health with ease.',
+                'section_id' => 123,
+                'created_at' => '2024-09-12 10:37:52',
+                'updated_at' => '2024-09-12 10:37:52',
+            ),
+            32 => 
+            array (
+                'id' => 205,
+                'title' => 'Learn More',
+                'subtitle' => NULL,
+                'image' => NULL,
+                'content' => 'For more information on our wearable health monitoring solution, please visit our Contact Us page.',
+                'section_id' => 123,
+                'created_at' => '2024-09-12 10:37:52',
+                'updated_at' => '2024-09-12 10:37:52',
+            ),
+            33 => 
+            array (
+                'id' => 206,
+                'title' => 'Contact Your Doctor',
+                'subtitle' => NULL,
+                'image' => NULL,
+                'content' => 'Need medical advice or have questions about your health? Contact your doctor through our telemedicine app for personalized guidance and support.',
+                'section_id' => 123,
+                'created_at' => '2024-09-12 10:37:52',
+                'updated_at' => '2024-09-12 10:37:52',
+            ),
+            34 => 
+            array (
+                'id' => 207,
+                'title' => 'Connect Now',
+                'subtitle' => NULL,
+                'image' => NULL,
+                'content' => 'Don\'t wait to take control of your health. Subscribe to our wearable health monitoring device today and start monitoring your vital signs with ease.',
+                'section_id' => 123,
+                'created_at' => '2024-09-12 10:37:52',
+                'updated_at' => '2024-09-12 10:37:52',
             ),
         ));
         

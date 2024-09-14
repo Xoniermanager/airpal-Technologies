@@ -46,6 +46,15 @@ class PagesTableSeeder extends Seeder
                 'created_at' => '2024-09-08 20:16:18',
                 'updated_at' => '2024-09-08 20:16:18',
             ),
+            3 => 
+            array (
+                'id' => 4,
+                'title' => 'Instant',
+                'meta_title' => 'Instant Consultation',
+                'meta_description' => 'Instant Consultation',
+                'created_at' => '2024-09-10 14:52:48',
+                'updated_at' => '2024-09-10 14:52:48',
+            ),
         ));
         
         

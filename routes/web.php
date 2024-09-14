@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FrontendPageController;
 use App\Http\Controllers\OurTeamController;
 use App\Jobs\UpdateMeetingIdJob;
 use Illuminate\Support\Facades\Route;
@@ -41,7 +42,6 @@ use App\Http\Controllers\Patient\PatientDiaryController;
 use App\Http\Controllers\Doctor\DiseaseDetailsController;
 use App\Http\Controllers\Patient\MedicalRecordController;
 use App\Http\Controllers\Admin\AdminAppointmentController;
-use App\Http\Controllers\Admin\QuestionsOptionsController;
 use App\Http\Controllers\Doctor\AccountsDetailsController;
 use App\Http\Controllers\Doctor\DoctorDashboardController;
 use App\Http\Controllers\Patient\PatientInvoiceController;
@@ -157,7 +157,7 @@ Route::prefix('doctor')->group(function () {
             Route::get('change-password', 'doctorChangePassword')->name('doctor.doctor-change-password.index');
             Route::get('specialities', 'doctorSpecialities')->name('doctor.doctor-specialities.index');
             Route::post('/update-latest-appointment-request', 'UpdateLatestAppointmentRequestAjax')->name('updateStatus.appointment.request');
-            Route::get('get-appointments-graph-data', 'getAppointmentGraphData')->name('doctor.booking.graphData');
+            Route::get('get-appointments-graph-data', action: 'getAppointmentGraphData')->name('doctor.booking.graphData');
         });
 
         Route::controller(DoctorProfileController::class)->group(function () {
@@ -210,18 +210,6 @@ Route::prefix('doctor')->group(function () {
             Route::get('all-complete-appointment', 'allCompleteAppointment')->name('doctor.all.complete.appointment');
         });
 
-        Route::prefix('questions')->controller(DoctorPanelQuestionController::class)->group(function () {
-            Route::get('/', 'index')->name('doctor.questions.index');
-            Route::post('create', 'store')->name('doctor.add.questions');
-            Route::get('get-question-details', 'getQuestionDetailsHTML')->name('doctor.get.question.html');
-            Route::post('update', 'update')->name('doctor.questions.update');
-            Route::post('delete', 'deleteQuestion')->name('doctor.delete-questions');
-            Route::post('option-delete', 'destroy')->name('doctor.delete-questions-options');
-
-            Route::get('doctor-question-filter', 'doctorQuestionFilter')->name('doctor.question.filter');
-            Route::get('get-question-by-doctor-id', 'getQuestionByDoctorId')->name('get.question.doctor.id');
-        });
-
         // these routes are used for with auth attempt
         Route::controller(DoctorAuthenticationController::class)->group(function () {
             Route::post('change-password', 'changePassword')->name('doctor.change.password');
@@ -267,6 +255,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('specialities')->controller(SpecialityController::class)->group(function () {
         Route::get('/create-speciality', 'storeSpecialityByAjaxCall');
     });
+    
     Route::prefix('slots')->controller(DoctorAppointmentConfigController::class)->group(function () {
         Route::get('getWeekDays', 'getWeekDays');
     });
@@ -315,6 +304,18 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', 'index')->name('admin.index.award');
         Route::get('ajax-create', 'store')->name('admin.add-award');
     });
+
+    Route::prefix('questions')->controller(DoctorPanelQuestionController::class)->group(function () {
+        Route::get('/', 'index')->name('doctor.questions.index');
+        Route::post('create', 'store')->name('doctor.add.questions');
+        Route::get('get-question-details', 'getQuestionDetailsHTML')->name('doctor.get.question.html');
+        Route::post('update', 'update')->name('doctor.questions.update');
+        Route::post('delete', 'deleteQuestion')->name('doctor.delete-questions');
+        Route::post('option-delete', 'destroy')->name('doctor.delete-questions-options');
+        
+        Route::get('doctor-question-filter', 'doctorQuestionFilter')->name('doctor.question.filter');
+        Route::get('get-question-by-doctor-id', 'getQuestionByDoctorId')->name('get.question.doctor.id');
+    });
 });
 
 
@@ -347,6 +348,11 @@ Route::prefix('admin')->group(function () {
 
         Route::controller(AdminDashboardController::class)->group(function () {
             Route::get('dashboard', 'index')->name('admin.dashboard.index');
+            Route::get('get-appointments-graph-data-for-admin','getAppointmentGraphDataAdmin')->name('doctor.booking.graphData.admin');
+            Route::get('get-revenue-graph-data-for-admin','getRevenueGraphDataAdmin')->name('doctor.revenue.graphData.admin');
+
+
+
         });
         Route::prefix('doctor')->group(function () {
             // AdminDoctorController routes
@@ -545,10 +551,6 @@ Route::prefix('patients')->group(function () {
                 Route::get('profile', 'patientProfile')->name('patient-profile.index');
                 Route::post('profile-update', 'patientProfileUpdate')->name('patient-profile.update');
             });
-            Route::controller(TempController::class)->group(function () {
-                Route::get('dependant', 'dependant')->name('patient.dependant.index');
-            });
-
             // Medical Record
             Route::controller(MedicalRecordController::class)->prefix('medical-records')->group(function () {
                 Route::get('list', 'medicalRecordsList')->name('patient.medical-records.index');
@@ -627,6 +629,12 @@ Route::controller(DoctorReviewController::class)->group(function () {
     Route::post('add-doctor-review', 'addDoctorReview')->name('add.doctor.review');
     Route::get('get-all-review', 'getAllReview')->name('get.all.review');
 });
+
+Route::get('/gdpr-policy', action: [FrontendPageController::class, 'gdprPolicy'])->name('gdpr.policy.index');
+Route::get('/cookie-policy', action: [FrontendPageController::class, 'cookiePolicy'])->name('cookie.policy.index');
+Route::get('/insurance-policy', action: [FrontendPageController::class, 'insurancePolicy'])->name('insurance.policy.index');
+
+
 Route::get('job', function () {
     // UpdateDoctorRatingsAverageValue::dispatch();
     UpdateMeetingIdJob::dispatch();
@@ -634,15 +642,12 @@ Route::get('job', function () {
 });
 
 
-
 Route::controller(AdminSiteConfigController::class)->group(function () {
     Route::post('add', 'addWebsiteConfig')->name('add.website.configs');
 });
 
-
 Route::controller(FrontendDoctorController::class)->group(function () {
     Route::get('generateAllInvoices', 'generateAllInvoices')->name('generate.all.invoices');
 });
-
 
 // ============================== End Frontend Website Routes ===================== //

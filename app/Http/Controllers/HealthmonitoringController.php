@@ -20,17 +20,19 @@ class HealthMonitoringController extends Controller
 
   public function health_monitoring()
   {
-    // $doctors =  $this->user_services->getDoctorDataForFrontend();
-
     $pageSections = PageSection::where('page_id', 3)->with('getButtons', 'getContent')->get();
+    
     foreach ($pageSections as $getPageSection) {
       $sections[$getPageSection['section_slug']] = $getPageSection;
     }
-    $sectionList = SectionList::where(column: 'page_id', operator: 3)
-      ->with('listItems')
-      ->get();
+    
+    $sectionList = SectionList::where('page_id', 3)->with('listItems')->get();
 
-    $sections['product_details'] = $sectionList;
+    if (isset($sections['product_details'])) {
+        $sections['product_details']->section_list = $sectionList;
+    } else {
+        $sections['product_details'] = (object) ['section_list' => $sectionList];
+    }
 
     return view('website.pages.health_monitoring', ['sections' => $sections]);
   }

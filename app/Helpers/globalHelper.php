@@ -384,6 +384,21 @@ function getSectionList($listItems = array(), $listClasses = array(), $idsList =
     return $output;
 }
 
+if (!function_exists('calculateTotalPayments')) {
+    function calculateTotalPayments($user) {
+        $totalAmount = 0;
+
+        foreach ($user->bookedAppointmentsOfDoctor as $appointment) {
+            if ($appointment->payments && isset($appointment->payments->amount)) {
+                $totalAmount += $appointment->payments->amount;
+            }
+        }
+
+        // Format with 2 decimal places and add the $ sign
+        return '$' . number_format($totalAmount, 2);
+    }
+}
+
 /**
  * Encrypt the id and return the encrypted id
  */

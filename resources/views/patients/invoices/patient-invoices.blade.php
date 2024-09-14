@@ -31,7 +31,7 @@
                             </td>
                             <td>{{ date('j M Y', strtotime($patientInvoice->created_at)) ?? '' }}</td>
                             <td>{{ date('j M Y', strtotime($patientInvoice->booking_date)) ?? '' }}</td>
-                            <td>$300</td>
+                            <td>${{ $patientInvoice->payments->amount ?? 0 }}</td>
                             <td>
                                 @if (isset($patientInvoice->invoice_url))
                                 <div class="action-item">

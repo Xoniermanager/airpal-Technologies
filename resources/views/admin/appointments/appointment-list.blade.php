@@ -37,7 +37,7 @@
                 </div>
             </td>
             <td>
-                $200.00
+                ${{ $appointment->payments->amount ?? 0 }}
             </td>
         </tr>
     @empty

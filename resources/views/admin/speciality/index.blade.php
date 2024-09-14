@@ -14,7 +14,7 @@
                             </ul>
                         </div>
                         <div class="col-sm-5 col">
-                            <a href="#Add_Specialities_details" data-bs-toggle="modal"
+                            <a href="#add_specialities_details" data-bs-toggle="modal"
                                 class="btn btn-primary float-end mt-2">Add</a>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
         </div>
 
         <!-- Start : pop up form to add new speciality  -->
-        <div class="modal fade" id="Add_Specialities_details" aria-hidden="true" role="dialog">
+        <div class="modal fade" id="add_specialities_details" aria-hidden="true" role="dialog">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -151,22 +151,26 @@
                         type: 'post',
                         data: formData,
                         processData: false,
-                        contentType: false, 
+                        contentType: false,
                         success: function(response) {
-                            jQuery('#Add_Specialities_details').modal('hide');
-                            console.log(response);
+                            jQuery('#add_specialities_details').modal('hide');
                             jQuery('#speciality_list').replaceWith(response.data);
+                            $("#addSpecialityForm")[0].reset();
+                            swal.fire("Done!", response.message, "success");
+
                         },
                         error: function(error_messages) {
                             let errors = JSON.parse(error_messages.responseText).errors;
-                            let randon_number = Math.floor((Math.random() * 100)+1);
+                            let randon_number = Math.floor((Math.random() * 100) + 1);
                             for (var error_key in errors) {
                                 random_id = error_key + '_' + randon_number
                                 jQuery('.' + error_key + '_error').remove();
-                                jQuery(document).find('#Add_Specialities_details [name=' + error_key + ']')
+                                jQuery(document).find('#add_specialities_details [name=' +
+                                        error_key + ']')
                                     .after(
                                         '<span id="' + random_id +
-                                        '_error" class="text text-danger '+ error_key +'_error">' + errors[
+                                        '_error" class="text text-danger ' + error_key +
+                                        '_error">' + errors[
                                             error_key] + '</span>');
                                 remove_error_div(random_id);
                             }
@@ -190,23 +194,24 @@
                         type: 'post',
                         data: formData,
                         processData: false,
-                        contentType: false, 
+                        contentType: false,
                         success: function(response) {
                             jQuery('#edit_specialities_details').modal('hide');
-                            // swal.fire("Done!", response.message, "success");
-                            console.log(response);
                             jQuery('#speciality_list').replaceWith(response.data);
+                            swal.fire("Done!", response.message, "success");
                         },
                         error: function(error_messages) {
                             let errors = JSON.parse(error_messages.responseText).errors;
-                            let randon_number = Math.floor((Math.random() * 100)+1);
+                            let randon_number = Math.floor((Math.random() * 100) + 1);
                             for (var error_key in errors) {
                                 random_id = error_key + '_' + randon_number
                                 jQuery('.' + error_key + '_error').remove();
-                                jQuery(document).find('#edit_specialities_details [name=' + error_key + ']')
+                                jQuery(document).find('#edit_specialities_details [name=' +
+                                        error_key + ']')
                                     .after(
                                         '<span id="' + random_id +
-                                        '_error" class="text text-danger '+ error_key +'_error">' + errors[
+                                        '_error" class="text text-danger ' + error_key +
+                                        '_error">' + errors[
                                             error_key] + '</span>');
                                 remove_error_div(random_id);
                             }
@@ -215,13 +220,13 @@
                 }
             });
 
-             /* Remove server erorr messge div */
-             function remove_error_div(error_ele_id) 
-            {
+            /* Remove server erorr messge div */
+            function remove_error_div(error_ele_id) {
                 setTimeout(function() {
                     jQuery("#" + error_ele_id + "_error").remove();
                 }, 5000);
             }
+
             // ajax for delete specialities by id
             $(document).on('click', '.delete-specialities', function() {
                 const id = $(this).attr('data-id');
@@ -234,19 +239,19 @@
                 if (id != '') {
                     $.ajax({
                         type: 'delete',
-                        data : {'_token':'{{ csrf_token() }}'},
-                        url: "{{ route('admin.speciality.index') }}/delete/"+id,
+                        data: {
+                            '_token': '{{ csrf_token() }}'
+                        },
+                        url: "{{ route('admin.speciality.index') }}/delete/" + id,
                         success: function(response) {
                             jQuery('#delete_modal').modal('hide');
-                            // swal.fire("Done!", response.message, "success");
-                            console.log(response);
                             jQuery('#speciality_list').replaceWith(response.data);
+                            swal.fire("Done!", response.message, "success");
+
                         }
                     });
                 }
             });
-
-
         });
 
         function edit_speciality(name, description, image, id) {

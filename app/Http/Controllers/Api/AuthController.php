@@ -127,7 +127,6 @@ class AuthController extends Controller
 
     public function changePassword(ChangePasswordRequest $request)
     {
-        dd($request->all());
         $userDetails = Auth::guard('api')->user();
         if (Hash::check($request->old_password, $userDetails->password)) {
             $this->authService->changePassword($userDetails->id, $request->password);

@@ -38,4 +38,6 @@ class PageSection extends Model
             get: fn($value) => url("storage/" .  $value)
         );
     }
+
+
 }

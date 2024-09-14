@@ -32,7 +32,7 @@
                                              <td>
                                                  <div class="appointment-date-created">
                                                      <span class="paid-text">Amount</span>
-                                                     <h6>$0</h6>
+                                                     <h6>${{ $recentAppointments->payments->amount ?? 0 }}</h6>
                                                  </div>
                                              </td>
                                              <td>

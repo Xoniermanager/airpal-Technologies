@@ -3,7 +3,9 @@
 namespace App\Models;
 
 
+use App\Models\User;
 use App\Models\Payments;
+use App\Models\Prescription;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -40,7 +42,7 @@ class BookingSlots extends Model
     }
     public function payments()
     {
-        return $this->hasOne(Payments::class, 'booking_id');
+        return $this->hasOne(Payment::class, 'booking_id');
     }
 
     public function prescription()

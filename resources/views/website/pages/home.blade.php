@@ -72,6 +72,7 @@
     {{-- this is group by doctor specialty section (common section with other pages) --}}
     <x-specialty-group-by-section :show="true" />
 
+    {{-- how it works section --}}
     <section class="work-section">
         <div class="container">
             <div class="row">
@@ -108,6 +109,8 @@
             </div>
         </div>
     </section>
+
+    {{-- Why airpal section --}}
     <section class="specialities-section-one pt-0">
         <div class="floating-bg">
             <img src="{{ URL::asset('assets/img/bg/health-care.png') }}" alt="heart-image">
@@ -139,6 +142,8 @@
             </div>
         </div>
     </section>
+
+    {{-- Download app section --}}
     <section class="app-section">
         <div class="container">
             <div class="app-bg">
@@ -172,20 +177,18 @@
         </div>
     </section>
 
-
+    {{--  Our Team Section --}}
     <x-our-teams :show="true" />
 
+    {{--  Faq's Section --}}
     <x-faqs :show="true" />
-
-    {{-- {!! renderTestimonials() !!} --}}
 
     {{-- this is testimonial section (common section with other pages) --}}
     <x-testimonial-slider :testimonials="$testimonials" :show="true" />
 
-
+    {{--  Research Section --}}
     <section class="need-to-know-section">
-        <div class="bg-shapes">
-            <img src="assets/img/bg/cardiac-bg.png" alt="image">
+        <div class="bg-shapes mt-5">
         </div>
         <div class="container">
             <div class="row">
@@ -195,7 +198,7 @@
                         <h2 class="section-title mb-0"> {{ $sections['research']->title ?? '' }}</h2>
                     </div>
                     <div class="accordion-condition" id="accord-parent">
-
+                        @isset($sections['research'])
                         @forelse ($sections['research']->getContent as $index => $contentSection)
                         <div class="accordion-item">
                             <h2 class="accordion-header">
@@ -218,11 +221,9 @@
                             </div>
                         </div>
                     @empty
-                    @endforelse
-                    
-
-
-                        <a href="research.html" class="btn btn-primary mt-1"> Read all</a>
+                    @endforelse    
+                        @endisset
+                        <a href="research" class="btn btn-primary mt-1"> Read all</a>
                     </div>
                 </div>
                 @endisset

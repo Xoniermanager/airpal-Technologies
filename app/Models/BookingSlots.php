@@ -80,7 +80,7 @@ class BookingSlots extends Model
     protected function meetingId(): Attribute
     {
         return Attribute::make(
-            get: fn($value) =>  $value ? (env('MEETING_LINK', '') . '/' . $value) : ''
+            get: fn($value) =>  $value ? (env('MEETING_LINK', ''). $value) : ''
         );
     }
 

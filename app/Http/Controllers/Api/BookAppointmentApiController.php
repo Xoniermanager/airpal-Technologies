@@ -52,7 +52,7 @@ class BookAppointmentApiController extends Controller
                 'slotEndTime'   =>  $bookedAppointment->slot_end_time,
                 'bookingDate'   =>  $bookedAppointment->booking_date
             ];
-    
+
             $bookingFee = $this->bookingAppointmentServices->getBookingFee($paramsToGetBookingFee);
 
             // Now confirm if booking fee is required generate payment link
@@ -70,11 +70,11 @@ class BookAppointmentApiController extends Controller
                 $this->bookingAppointmentServices->updatePaymentRequired($bookedAppointment->id,true);
 
                 $paymentLink =  $this->paymentService->savePaymentDetailsAndExtractPaymentLink($bookedAppointment,$paymentLinkDetails, $bookingFee,$paypalPaymentId);
-                
+
                 return response()->json($paymentLink, 200);
             }
 
-            if ($bookedAppointment) 
+            if ($bookedAppointment)
             {
                 return response()->json([
                     'status' => true,
@@ -120,7 +120,7 @@ class BookAppointmentApiController extends Controller
     public function allAppointment()
     {
         try {
-            $allAppointment = $this->bookingAppointmentServices->patientBookings(Auth::guard('api')->user()->id)->with(['user','prescription','user.specializations','user.services','user.doctorReview'])->get();
+            $allAppointment = $this->bookingAppointmentServices->patientBookings(Auth::guard('api')->user()->id)->with(['user','prescription','prescription.prescriptionMedicineDetail','prescription.prescriptionTest','user.specializations','user.services','user.doctorReview','payments'])->paginate(10);
             return response()->json([
                 'status' => true,
                 'message' => "Retrieved All Appointment List",

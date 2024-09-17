@@ -157,7 +157,7 @@
 
     if (cookieValue != '1') {
         document.getElementById('popup-overlay').style.display = 'flex';
-        
+
         document.getElementById('close-btn').addEventListener('click', function() {
             Cookies.set('privacy_policy', '1', { expires: 1 }); // expires in 1 day or as per requirement
             document.getElementById('popup-overlay').style.display = 'none';
@@ -193,7 +193,6 @@
 <script src="{{asset('assets/js/script.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
 <script src="{{ asset('assets/js/rocket-loader.min.js') }}" data-cf-settings="572446aacaa112e2d4b8af55-|49" defer>
 </script>
-
 </body>
 
 </html>

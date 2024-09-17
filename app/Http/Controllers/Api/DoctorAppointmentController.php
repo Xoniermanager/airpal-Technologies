@@ -101,7 +101,7 @@ class DoctorAppointmentController extends Controller
     public function getAllAppointment()
     {
         try {
-            $allAppointments = $this->bookingServices->doctorBookings(Auth::guard('api')->user()->id)->get();
+            $allAppointments = $this->bookingServices->doctorBookings(Auth::guard('api')->user()->id)->paginate(10);
             if ($allAppointments->isNotEmpty()) {
                 return response()->json([
                     'success' => true,

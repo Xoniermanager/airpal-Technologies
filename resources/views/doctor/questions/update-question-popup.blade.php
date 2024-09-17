@@ -7,7 +7,7 @@
         <div class="modal-body">
             <form id="editQuestionForm" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" value="{{ auth()->user()->id }}" name="doctor">
+                <input type="hidden" value="{{ $questionDetails->doctor_id }}" name="doctor">
                 <div class="row">
                     <div class="col-6 col-sm-6">
                         <div class="mb-3">

@@ -92,7 +92,6 @@
                                     <span class="text-danger" id="doctor-error"></span>
                                 </div>
                             </div>
-                            {{-- <input type="hidden" value="{{ auth()->user()->id }}" name="doctor" id="doctor"> --}}
                             <div class="col-6 col-sm-6">
                                 <div class="mb-3">
                                     <label class="mb-2">Specialty</label>
@@ -281,7 +280,7 @@
                         'id': id
                     },
 
-                    url: "{{ route('doctor.delete-questions') }}",
+                    url: "{{ route('admin.delete-questions') }}",
                     success: function(response) {
                         swal.fire("Done!", response.message, "success");
                         $('#delete-question').modal('hide');
@@ -432,9 +431,9 @@
                     data: formData,
                     success: function(response) {
                         console.log(response)
-                        swal.fire("Done!", response.message, "success");
                         $('#edit_question').modal().hide();
                         $('#question_list').replaceWith(response.data);
+                        swal.fire("Done!", response.message, "success");
                     },
                     error: function(error_messages) {
                         var errors = error_messages.responseJSON;

@@ -29,7 +29,7 @@ class DoctorQuestionController extends Controller
   public function index()
   {
 
-    $doctors      =  $this->user_services->all();
+    $doctors      =  $this->user_services->getAllDoctorsList();
     $specialties  =  Specialization::all();
     $allQuestions =  $this->questionServices->all();
 
@@ -67,7 +67,7 @@ class DoctorQuestionController extends Controller
     return response()->json([
       'message'  => 'Created Successfully!',
       'data'     =>  view('doctor.questions.question-list', [
-        'allQuestions' =>   $this->questionServices->getDoctorQuestionById(Auth::user()->id)
+        'allQuestions' =>   $this->questionServices->all()
       ])->render()
     ]);
 
@@ -109,11 +109,10 @@ class DoctorQuestionController extends Controller
         }
       }
     }
-
     return response()->json([
       'message'  => 'Updated Successfully!',
       'data'     =>  view('doctor.questions.question-list', [
-        'allQuestions' =>   $this->questionServices->getDoctorQuestionById(Auth::user()->id)
+        'allQuestions' =>   $this->questionServices->all()
       ])->render()
     ]);
   }
@@ -149,7 +148,7 @@ class DoctorQuestionController extends Controller
       return response()->json([
         'message'     =>  'Delete Successfully!',
         'data'        =>  view('admin.questions.question-list', [
-          'allQuestions'   =>  $this->questionServices->getQuestionByDoctorId(Auth()->user()->id)
+          'allQuestions'   =>  $this->questionServices->all()
         ])->render()
       ]);
     }

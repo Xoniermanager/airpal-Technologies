@@ -42,7 +42,6 @@ use App\Http\Controllers\Patient\PatientDiaryController;
 use App\Http\Controllers\Doctor\DiseaseDetailsController;
 use App\Http\Controllers\Patient\MedicalRecordController;
 use App\Http\Controllers\Admin\AdminAppointmentController;
-use App\Http\Controllers\Admin\QuestionsOptionsController;
 use App\Http\Controllers\Doctor\AccountsDetailsController;
 use App\Http\Controllers\Doctor\DoctorDashboardController;
 use App\Http\Controllers\Patient\PatientInvoiceController;
@@ -90,8 +89,13 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/login', 'index')->name('login.index');
     Route::get('forget-password', 'forgetPasswordIndex')->name('doctor.forget.password.index');
     Route::post('send-otp', 'forgetPasswordSendOtp')->name('forget.password.send.otp');
+    
     Route::get('reset-password', 'resetPasswordIndex')->name('reset.password.index');
     Route::post('reset-password', 'resetPassword')->name('reset.password');
+
+    Route::get('verify-otp', 'verifyOtpIndex')->name('verify.otp.index');
+    Route::post('verify-otp','verifyOtp')->name('verify.otp');
+    Route::post('resend-otp', 'resendOtp')->name('resend.otp');
 });
 
 // patient registration
@@ -211,18 +215,6 @@ Route::prefix('doctor')->group(function () {
             Route::get('all-complete-appointment', 'allCompleteAppointment')->name('doctor.all.complete.appointment');
         });
 
-        Route::prefix('questions')->controller(DoctorPanelQuestionController::class)->group(function () {
-            Route::get('/', 'index')->name('doctor.questions.index');
-            Route::post('create', 'store')->name('doctor.add.questions');
-            Route::get('get-question-details', 'getQuestionDetailsHTML')->name('doctor.get.question.html');
-            Route::post('update', 'update')->name('doctor.questions.update');
-            Route::post('delete', 'deleteQuestion')->name('doctor.delete-questions');
-            Route::post('option-delete', 'destroy')->name('doctor.delete-questions-options');
-            
-            Route::get('doctor-question-filter', 'doctorQuestionFilter')->name('doctor.question.filter');
-            Route::get('get-question-by-doctor-id', 'getQuestionByDoctorId')->name('get.question.doctor.id');
-        });
-
         // these routes are used for with auth attempt
         Route::controller(DoctorAuthenticationController::class)->group(function () {
             Route::post('change-password', 'changePassword')->name('doctor.change.password');
@@ -268,7 +260,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('specialities')->controller(SpecialityController::class)->group(function () {
         Route::get('/create-speciality', 'storeSpecialityByAjaxCall');
     });
-    
+
     Route::prefix('slots')->controller(DoctorAppointmentConfigController::class)->group(function () {
         Route::get('getWeekDays', 'getWeekDays');
     });
@@ -300,6 +292,18 @@ Route::middleware(['auth'])->group(function () {
         Route::controller(DoctorAwardController::class)->group(function () {
             Route::post('award', 'addDoctorAward')->name('admin.add-doctor-award');
             Route::get('delete-award', 'destroy')->name('delete.award');
+        });
+
+        Route::prefix('questions')->controller(DoctorPanelQuestionController::class)->group(function () {
+            Route::get('/', 'index')->name('doctor.questions.index');
+            Route::post('create', 'store')->name('doctor.add.questions');
+            Route::get('get-question-details', 'getQuestionDetailsHTML')->name('doctor.get.question.html');
+            Route::post('update', 'update')->name('doctor.questions.update');
+            Route::post('delete', 'deleteQuestion')->name('doctor.delete-questions');
+            Route::post('option-delete', 'destroy')->name('doctor.delete-questions-options');
+
+            Route::get('doctor-question-filter', 'doctorQuestionFilter')->name('doctor.question.filter');
+            Route::get('get-question-by-doctor-id', 'getQuestionByDoctorId')->name('get.question.doctor.id');
         });
     });
 
@@ -343,17 +347,13 @@ Route::prefix('admin')->group(function () {
             Route::post('store-instant-consultation', 'storeInstantConsultation')->name('admin.store.instant.consultation');
 
             Route::post('save-page-extra-sections', 'savePageExtraSection')->name('admin.save.page.extra.sections');
-            
         });
 
 
         Route::controller(AdminDashboardController::class)->group(function () {
             Route::get('dashboard', 'index')->name('admin.dashboard.index');
-            Route::get('get-appointments-graph-data-for-admin','getAppointmentGraphDataAdmin')->name('doctor.booking.graphData.admin');
-            Route::get('get-revenue-graph-data-for-admin','getRevenueGraphDataAdmin')->name('doctor.revenue.graphData.admin');
-
-
-
+            Route::get('get-appointments-graph-data-for-admin', 'getAppointmentGraphDataAdmin')->name('doctor.booking.graphData.admin');
+            Route::get('get-revenue-graph-data-for-admin', 'getRevenueGraphDataAdmin')->name('doctor.revenue.graphData.admin');
         });
         Route::prefix('doctor')->group(function () {
             // AdminDoctorController routes
@@ -392,14 +392,6 @@ Route::prefix('admin')->group(function () {
             Route::post('update', 'update')->name('admin.questions.update');
             Route::post('delete', 'destroy')->name('admin.delete-questions');
         });
-
-        // Route::prefix('questions-options')->controller(QuestionsOptionsController::class)->group(function () {
-        //     Route::get('/', 'index')->name('admin.questions-options.index');
-        //     Route::post('create', 'store')->name('admin.add.questions-options');
-        //     Route::post('update', 'update')->name('admin.questions-options.update');
-        //     Route::post('delete', 'destroy')->name('admin.delete-questions-options');
-        // });
-
 
         Route::prefix('faqs')->controller(FaqsController::class)->group(function () {
             Route::get('/', 'index')->name('admin.faqs.index');

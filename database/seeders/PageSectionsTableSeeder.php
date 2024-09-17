@@ -182,7 +182,7 @@ class PageSectionsTableSeeder extends Seeder
                 'subtitle' => 'Experts opinion at your comfort Zone',
                 'image' => 'section-banner/health_monitoring-1725808196.png',
                 'content' => '',
-                'section_slug' => 'health_monitoring_banner_banner',
+                'section_slug' => 'health_monitoring_banner',
                 'page_id' => 3,
                 'status' => 1,
                 'created_at' => '2024-09-08 15:05:26',

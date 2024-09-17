@@ -8,14 +8,21 @@
                                     class="avatar-img rounded-circle"
                                     src="{{ $doctor['image_url'] }}"
                                     alt=""
-                                    onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" 
+                                    onerror="this.src='{{ asset('assets/img/user.jpg') }}';"
                                     >
                                 </a>
                             <a href="{{ route('admin.profile.index', ['user' => $doctor->id]) }}">{{$doctor->first_name}} {{$doctor->last_name}}</a>
                         </h2>
                     </td>
                     <td>
-                        <span>{{ $doctor->specializations->implode('name',', ') }}</span>
+                        <span>
+                            @if($doctor->specializations->isNotEmpty())
+                                {{ $doctor->specializations->implode('name', ', ') }}
+                            @else
+                                No specializations added
+                            @endif
+                        </span>
+                        
                     <td>{{ getFormattedDate($doctor->created_at) }} <br></td>
                     <td> {{ $doctor->calculateTotalPayments() }}</td>
                     <td>

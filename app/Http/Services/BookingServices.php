@@ -315,6 +315,14 @@ class BookingServices
             ->groupBy('booking_date');
     }
 
+    public function getAllDoctorRevenueData($doctorId)
+    {
+        return $this->bookingRepository->where('doctor_id', $doctorId)
+        ->with('payments')
+        ->get()
+        ->groupBy('booking_date');
+    }
+
     public function gettingRevenueDetailForChart($period, $doctorId)
     {
         // Initialize variables
@@ -324,9 +332,11 @@ class BookingServices
         $revenueByDate  = array_fill(1, $daysInMonth, 0);
 
         // Fetch recent appointments
-        $appointments = $this->getAllRecentAppointmentsByDoctorId($doctorId);
+        $revenueData = $this->getAllDoctorRevenueData($doctorId);
 
-        foreach ($appointments as $appointment) {
+        // dd(   $revenueData);
+
+        foreach ($revenueData as $appointment) {
             foreach ($appointment as $appointmentData) {
                 $date = Carbon::parse($appointmentData->booking_date);
                 $amount = $appointmentData->payments->amount ?? 0;

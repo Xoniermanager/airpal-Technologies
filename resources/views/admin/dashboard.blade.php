@@ -52,7 +52,7 @@
                                     <i class="fe fe-credit-card"></i>
                                 </span>
                                 <div class="dash-count">
-                                    <h3>{{ $dashboardData['total_patients'] ?? 0 }}</h3>
+                                    <h3>{{ $dashboardData['total_patients'] ?? 0 }}+</h3>
                                 </div>
                             </div>
                             <div class="dash-widget-info">
@@ -72,7 +72,7 @@
                                     <i class="fe fe-money"></i>
                                 </span>
                                 <div class="dash-count">
-                                    <h3>{{ $dashboardData['total_appointments'] ?? 0 }}</h3>
+                                    <h3>{{ $dashboardData['total_appointments'] ?? 0 }}+</h3>
                                 </div>
                             </div>
                             <div class="dash-widget-info">
@@ -220,7 +220,9 @@
                                                     <h2 class="table-avatar">
                                                         <a href="" class="avatar avatar-sm me-2"><img
                                                                 class="avatar-img rounded-circle"
-                                                                src="{{ $doctor->image_url ?? '' }}" alt=""></a>
+                                                                src="{{ $doctor->image_url ?? '' }}"
+                                                                onerror="this.src='{{ asset('assets/img/user.jpg') }}';"
+                                                                 alt=""></a>
                                                         <a href="">Dr. {{ $doctor->fullName }}</a>
                                                     </h2>
                                                 </td>
@@ -280,7 +282,9 @@
                                                         <h2 class="table-avatar">
                                                             <a href="" class="avatar avatar-sm me-2"><img
                                                                     class="avatar-img rounded-circle"
-                                                                    src="{{ $patient->image_url ?? '' }}" alt=""></a>
+                                                                    src="{{ $patient->image_url ?? '' }}"
+                                                                    onerror="this.src='{{ asset('assets/img/user.jpg') }}';"
+                                                                    alt=""></a>
                                                             <a href="">{{ $patient->fullName }} </a>
                                                         </h2>
                                                     </td>
@@ -332,6 +336,7 @@
                                                             <a href="" class="avatar avatar-sm me-2"><img
                                                                     class="avatar-img rounded-circle"
                                                                     src="{{ $appointment->user->image_url ?? '' }}"
+                                                                    onerror="this.src='{{ asset('assets/img/user.jpg') }}';"
                                                                     alt=""></a>
                                                             <a href="">Dr. {{ $appointment->user->fullName }}</a>
                                                         </h2>
@@ -342,6 +347,7 @@
                                                             <a href="" class="avatar avatar-sm me-2"><img
                                                                     class="avatar-img rounded-circle"
                                                                     src="{{ $appointment->patient->image_url ?? '' }}"
+                                                                    onerror="this.src='{{ asset('assets/img/user.jpg') }}';"
                                                                     alt=""></a>
                                                             <a href="">{{ $appointment->patient->fullName }} </a>
                                                         </h2>

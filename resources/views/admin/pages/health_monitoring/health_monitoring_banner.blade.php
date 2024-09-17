@@ -1,6 +1,7 @@
 <div id="health_monitoring_banner">
     <div class="setting-card p-0">
 
+
         {!! getBannerImageInput(
             $sections['health_monitoring_banner']->image ?? '',
             'section[image]',
@@ -55,7 +56,7 @@
                         $pageId = $sections['health_monitoring_banner']['page_id'] ?? '';
                     }
                 @endphp
-                <input type="hidden" name="section[section_slug]" value="health_monitoring_banner_banner">
+                <input type="hidden" name="section[section_slug]" value="health_monitoring_banner">
                 <input type="hidden" name="page_id" value="{{ $pageId }}">
 
                 <input type="hidden" name="section[id]"

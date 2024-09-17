@@ -294,24 +294,24 @@ function remove_medicine_html(this_ele, medicine_detail_id) {
 
 
 
-$(document).ready(function () {
-    // When a submenu anchor is clicked
-    $('.submenu > a').click(function (e) {
-        e.preventDefault();
+// $(document).ready(function () {
+//     // When a submenu anchor is clicked
+//     $('.submenu > a').click(function (e) {
+//         e.preventDefault();
         
-        // Toggle 'subdrop' class for the clicked anchor
-        $(this).toggleClass('subdrop');
+//         // Toggle 'subdrop' class for the clicked anchor
+//         $(this).toggleClass('subdrop');
         
-        // Check if the anchor has the class 'subdrop'
-        if ($(this).hasClass('subdrop')) {
-            // Show the inner ul (submenu) by adding display: block
-            $(this).next('ul').css('display', 'block');
-        } else {
-            // Hide the inner ul (submenu) by removing display: block
-            $(this).next('ul').css('display', 'none');
-        }
-    });
-});
+//         // Check if the anchor has the class 'subdrop'
+//         if ($(this).hasClass('subdrop')) {
+//             // Show the inner ul (submenu) by adding display: block
+//             $(this).next('ul').css('display', 'block');
+//         } else {
+//             // Hide the inner ul (submenu) by removing display: block
+//             $(this).next('ul').css('display', 'none');
+//         }
+//     });
+// });
 
 
 /**

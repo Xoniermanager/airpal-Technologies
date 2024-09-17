@@ -61,7 +61,7 @@
                                             @endif
                                             <td style="border-bottom: 1px solid #000;padding-bottom:10px;">
                                                 <p style="margin: 0;">
-                                                    {{ $prescriptionDetails->bookingSlot->user->getFullAddressAttribute() }}
+                                                    {{ formatDoctorAddress($prescriptionDetails->bookingSlot->user) }}
                                                 </p>
                                                 <p style="margin: 0;"><b>Phone:</b>
                                                     {{ $prescriptionDetails->bookingSlot->user->phone }}</p>
@@ -76,7 +76,7 @@
                                                         {{ $prescriptionDetails->bookingSlot->patient->last_name }}</b>
                                                 </p>
                                                 <p style="margin: 0"> <b></b>
-                                                    {{ $prescriptionDetails->bookingSlot->patient->getFullAddressAttribute() }}
+                                                    {{ formatDoctorAddress($prescriptionDetails->bookingSlot->patient) }}
                                                 </p>
                                                 <p style="margin: 0"> <b>Phone :
                                                     </b>{{ $prescriptionDetails->bookingSlot->patient->phone }}</p>

@@ -39,6 +39,7 @@
                                                         <a class="avatar avatar-sm me-2">
                                                             <img class="avatar-img rounded-3"
                                                                 src="{{ $paymentDetails->bookingSlot->user->image_url }}"
+                                                                  onerror="this.src='{{ asset('assets/img/user.jpg') }}';"
                                                                 alt="">
                                                         </a>
                                                         <span class="fs-6 text-dark"><a
@@ -52,6 +53,7 @@
                                                         <a class="avatar avatar-sm me-2">
                                                             <img class="avatar-img rounded-3"
                                                                 src="{{ $paymentDetails->bookingSlot->patient->image_url }}"
+                                                                  onerror="this.src='{{ asset('assets/img/user.jpg') }}';"
                                                                 alt="">
                                                         </a>
                                                         <span class="fs-6 text-dark"><a>{{ $paymentDetails->bookingSlot->patient->first_name }}
@@ -63,7 +65,6 @@
                                                 <td>{{ $paymentDetails->currency }} {{ $paymentDetails->amount }}</td>
                                                 <td>{{ getFormattedDate($paymentDetails->created_at) }}</td>
                                                 <td>
-                                                    {{ PAYMENT_SUCCESS }}
                                                     @if ($paymentDetails->payment_status == 'completed')
                                                         <span
                                                             class="badge rounded-pill bg-success inv-badge">Completed</span>

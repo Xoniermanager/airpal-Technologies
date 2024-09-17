@@ -88,16 +88,6 @@ class User extends Authenticatable
         );
     }
 
-    public function getFullAddressAttribute()
-    {
-        $address = $this->patientAddress; // Eager load the address relationship if necessary
-        if ($address) {
-            return $address->address . ', ' . $address->city . ', ' . $address->state . ' ' . $address->postal_code;
-        }
-
-        return 'No address available';
-    }
-
     public function specializations()
     {
         return $this->belongsToMany(Specialization::class, 'doctor_specialities', 'user_id', 'speciality_id');

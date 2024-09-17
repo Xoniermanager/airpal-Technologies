@@ -37,15 +37,8 @@
                         </li>
                         <li class="appointment-info">
                               <p>Appointment<i class="fa-solid fa-clock"></i>{{ getFormattedDate($booking->booking_date) }} </p>
-
-                              <p>  {{ date('h:i A', strtotime($booking->slot_start_time)) ?? '' }} -{{ date('h:i A', strtotime($booking->slot_end_time)) ?? '' }}
-                            </p>
-                            {{-- <p class="mb-0"><i class="fa-solid fa-location-dot"></i>
-                                {{ $booking->user->patientAddress->address ?? '' }}
-                                {{ $booking->user->patientAddress->city ?? '' }}
-                                {{ $booking->user->patientAddress->state ?? '' }}
-                                {{ $booking->user->patientAddress->country->name ?? '' }}
-                            </p> --}}
+                              <p> {{ date('h:i A', strtotime($booking->slot_start_time)) ?? '' }} - {{ date('h:i A', strtotime($booking->slot_end_time)) ?? '' }} </p>
+  
                             <ul class="d-flex apponitment-types">
                                 <li>General Visit</li>
                             </ul>

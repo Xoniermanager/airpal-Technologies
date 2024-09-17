@@ -23,7 +23,7 @@
                         <div class="listing-details">
                             <div class="listing-title">
                                 <h3>
-                                    Dr. {{ $ourTeam->name ?? '' }}
+                                    {{ $ourTeam->name ?? '' }}
                                 </h3>
                             </div>
                             <div class="listing-profile-details">

@@ -71,13 +71,17 @@
                             <form method="post" id="adminLogin">
                                 @csrf
                                 <div class="mb-3">
-                                    <input class="form-control" type="text" placeholder="Email" name="email">
+                                    <input class="form-control" type="text" placeholder="Email" name="email" id="email">
                                 </div>
                                 <div class="mb-3">
-                                    <input class="form-control" type="password" placeholder="Password" name="password">
+                                    <input class="form-control" type="password" placeholder="Password" name="password" id="password">
                                 </div>
                                 <div class="mb-3">
-                                    <button class="btn btn-primary w-100" type="submit">Login</button>
+                                    <button class="btn btn-primary w-100" type="submit" id="loginButton">Send Otp </button>
+                                    <span class="position-absolute" id="loaderImage">
+                                        <img src="{{ asset('assets/img/1.webp') }}" class="loadingbtn"> 
+                                    </span>
+                                    
                                 </div>
                             </form>
                             <div class="text-center forgotpass"><a href="forgot-password.html">Forgot Password?</a>
@@ -103,6 +107,7 @@
 
 <script>
     $(document).ready(function() {
+        $("#loaderImage").hide();
         jQuery("#adminLogin").validate({
             rules: {
 
@@ -134,22 +139,29 @@
                     dataType: 'json',
                     processData: false,
                     contentType: false,
+                    beforeSend: function(msg){
+                        $("#loaderImage").show();
+                        $('#loginButton').prop('disabled', true);
+                    },
                     success: function(response) {
-                        Swal.fire({
-                            title: response.success ? "Done!" : "Error!",
-                            text: response.message,
-                            icon: response.success ? "success" : "error",
-                            timer: 2000, // Auto-close after 2 seconds
-                            showConfirmButton: false // Hides the "OK" button
-                        }).then(() => {
-                            if (response.success) {
-                                window.location.href = "<?= route('admin.dashboard.index') ?>";
-                            }
-                        });
+                        let email = encodeURIComponent($('#email').val());
+                        let password = encodeURIComponent($('#password').val());
+                        if (response.status == true) {
+                            $("#loaderImage").hide();
+                            $('#loginButton').prop('disabled', false);
+                            swal.fire("Done!", response.message, "success").then(() => {
+                                window.location.href = "<?= route('verify.otp.index') ?>?email=" + email + "&password=" + password;
+                            });
+                        }
+                        else{
+                            $("#loaderImage").hide();
+                            $('#loginButton').prop('disabled', false);
+                            Swal.fire("Error!", response.message, "error");
+                        }
                     },
                     error: function(error_messages) {
-
-                        Swal.fire("Error!", "Invalid credentials", "error");
+                        $("#loaderImage").hide();
+                        $('#loginButton').prop('disabled', false);
                         var errors = error_messages.responseJSON;
                         $.each(errors.errors, function(key, value) {
                             $('#' + key + '_error').html(value);

@@ -57,6 +57,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.5/js.cookie.min.js"></script>
+
     <style>
         .k-list-item.k-selected,
         .k-selected.k-list-optionlabel {
@@ -69,6 +71,8 @@
             font-weight: 600;
         }
     </style>
+
+
     <script>
         // for active menu script
         $(document).ready(function() {

@@ -56051,3 +56051,11 @@ height: 80px;
   cursor: grabbing;
   margin: 1px;
 }
+.loadingbtn {
+    height: 30px;
+    float: right;
+    background: #fff;
+    padding: 4px;
+    margin-top: 4px;
+    margin-left: 4px;
+}

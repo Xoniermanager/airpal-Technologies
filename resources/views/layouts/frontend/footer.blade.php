@@ -5,8 +5,7 @@
                 <div class="col-lg-3 col-md-4">
                     <div class="footer-widget footer-about">
                         <div class="footer-logo">
-                            <a href="{{ route('home.index') }}"><img src="{{ site('website_logo') }}"
-                                    alt="logo"></a>
+                            <a href="{{ route('home.index') }}"><img src="{{ site('website_logo') }}" alt="logo"></a>
                         </div>
                         <div class="footer-about-content">
                             <p>{{ site('website_description') }}"</p>
@@ -43,10 +42,13 @@
                                         <p><i class="feather-map-pin"></i>{{ site('admin_address') ?? '' }}</p>
                                     </div>
                                     <div class="footer-address">
-                                        <p><i class="feather-phone-call"></i><a href="tel:{{ site('admin_phone') ?? '' }}"> {{ site('admin_phone') ?? '' }}</a></p>
+                                        <p><i class="feather-phone-call"></i><a
+                                                href="tel:{{ site('admin_phone') ?? '' }}">
+                                                {{ site('admin_phone') ?? '' }}</a></p>
                                     </div>
                                     <div class="footer-address mb-0">
-                                        <p><i class="feather-mail"></i> <a href="mailto:{{ site('admin_email') ?? '' }}"
+                                        <p><i class="feather-mail"></i> <a
+                                                href="mailto:{{ site('admin_email') ?? '' }}"
                                                 class="__cf_email__">{{ site('admin_email') ?? '' }}</a>
                                         </p>
                                     </div>
@@ -67,16 +69,20 @@
                         <div class="social-icon">
                             <ul>
                                 <li>
-                                    <a href="{{ site('facebook_link') }}" target="_blank"><i class="fab fa-facebook"></i></a>
+                                    <a href="{{ site('facebook_link') }}" target="_blank"><i
+                                            class="fab fa-facebook"></i></a>
                                 </li>
                                 <li>
-                                    <a href="{{ site('instagram_link') }}" target="_blank"><i class="fab fa-instagram"></i></a>
+                                    <a href="{{ site('instagram_link') }}" target="_blank"><i
+                                            class="fab fa-instagram"></i></a>
                                 </li>
                                 <li>
-                                    <a href="{{ site('twitter_link') }}" target="_blank"><i class="fab fa-twitter"></i></a>
+                                    <a href="{{ site('twitter_link') }}" target="_blank"><i
+                                            class="fab fa-twitter"></i></a>
                                 </li>
                                 <li>
-                                    <a href="{{ site('linkedin_link') }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="{{ site('linkedin_link') }}" target="_blank"><i
+                                            class="fab fa-linkedin-in"></i></a>
                                 </li>
                             </ul>
                         </div>
@@ -125,7 +131,7 @@
             <x-cookie_policy :show="true" />
         </div>
         <div class="modalfooter">
-            <button class="btn btn-sm btn-primary" id="close-btn">I Agree</button>
+            <button class="btn btn-sm btn-primary save_cookie" id="close-btn">I Agree</button>
             <button class="btn btn-sm btn-dark" id="close-btn">Manage Setting</button>
         </div>
     </div>
@@ -142,17 +148,25 @@
 
 
 <script>
+    $(document).ready(function() {
+    // Set the initial cookie if it doesn't exist
+    if (!Cookies.get('privacy_policy')) {
+        Cookies.set('privacy_policy', '0', { expires: 1 }); // expires in 1 day
+    }
+    var cookieValue = Cookies.get('privacy_policy');
 
-$(document).ready(function() {
-window.onload = function () {
-        // Show the popup on page load
+    if (cookieValue != '1') {
         document.getElementById('popup-overlay').style.display = 'flex';
-        // Close the popup when the button is clicked
-        document.getElementById('close-btn').addEventListener('click', function () {
+        
+        document.getElementById('close-btn').addEventListener('click', function() {
+            Cookies.set('privacy_policy', '1', { expires: 1 }); // expires in 1 day or as per requirement
             document.getElementById('popup-overlay').style.display = 'none';
         });
-    };
-       });
+        document.getElementById('close-btn').addEventListener('click', function() {
+            document.getElementById('popup-overlay').style.display = 'none';
+        });
+    }
+});
 </script>
 
 

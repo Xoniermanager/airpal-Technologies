@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBooking;
 use Illuminate\Http\Request;
 use App\Http\Services\PaypalService;
 use App\Http\Services\PaymentService;
@@ -84,5 +85,27 @@ class PaymentController extends Controller
         $url = route('booking.error', ['booking' => Crypt::encrypt($updatedPaymentDetails->booking_id)]);
 
         return redirect($url);
+    }
+
+
+    public function getBookingFeePaymentLink($bookingId)
+    {
+        
+        $bookingDetails =  $this->bookingServices->getBookingSlotById($bookingId);
+        $paymentLinkResponse = $this->paymentService->getBookingFeePaymentLink($bookingDetails);
+
+        if($paymentLinkResponse == 0)
+        {
+            return response()->json([
+                'status'    => false,
+                'data'      => '',
+                'message'   => 'Payment not required'
+
+            ]);
+        }
+        else
+        {
+            return response()->json($paymentLinkResponse);
+        }
     }
 }

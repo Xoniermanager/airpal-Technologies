@@ -502,10 +502,17 @@ Route::get('check-review', [BookingController::class, 'checkReviewByPatientId'])
 Route::prefix('patients')->group(function () {
     Route::middleware(['role:patient'])->group(function () {
         Route::middleware(['auth'])->group(function () {
+
+
             Route::controller(BookingController::class)->group(function () {
                 Route::post('patient-booking', 'patientBooking')->name('patient.booking');
                 Route::get('/check-auth', 'checkAuth')->name('check.auth');
             });
+
+            Route::controller(PaymentController::class)->group(function () {
+                Route::post('get-booking-fee-payment-link', 'getBookingFeePaymentLink')->name('get.booking.fee.payment.link');
+            });
+
             // Patient Dashboard Routes
             Route::controller(PatientDashboardController::class)->group(function () {
                 Route::get('dashboard', 'patientDashboard')->name('patient-dashboard.index');

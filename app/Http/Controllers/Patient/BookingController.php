@@ -28,56 +28,32 @@ class BookingController extends Controller
 
     public function patientBooking(StoreBooking $request)
     {
+
         $data = $request->validated();
 
         $bookedSlot = $this->bookingServices->store((object)$data);
+        $paymentLinkResponse = $this->paymentService->getBookingFeePaymentLink($bookedSlot);
 
-        $paramsToGetBookingFee = [
-            'doctorId'      =>  $bookedSlot->doctor_id,
-            'slotStartTime' =>  $bookedSlot->slot_start_time,
-            'slotEndTime'   =>  $bookedSlot->slot_end_time,
-            'bookingDate'   =>  $bookedSlot->booking_date
-        ];
 
-        $bookingFee = $this->bookingServices->getBookingFee($paramsToGetBookingFee);
-
-        if(!empty($bookingFee) && $bookingFee > 0)
+        if($paymentLinkResponse == 0)
         {
-            $redirectUrls = [
-                'success'   =>  route('paypal.payment.success'),
-                'cancel'    =>  route('paypal.payment/cancel')
-            ];
+            if ($bookedSlot)
+            {
+                return response()->json([
+                    'success' => 'true',
+                    'data'    => $bookedSlot,
+                    'status'  => true
 
-            $paymentLinkDetails = $this->paypalService->generatePaymentLink($bookingFee, $bookedSlot,$redirectUrls);
-            // $paypalPaymentId = $paymentLinkDetails['id'];
-
-            if (isset($paymentLinkDetails['id'])) {
-                $paypalPaymentId = $paymentLinkDetails['id'];
-            } else {
-                // Handle the case when 'id' is missing
-                Log::error('PayPal payment link generation failed: Missing "id" in response.', ['response' => $paymentLinkDetails]);
-                return response()->json(['error' => 'Unable to generate PayPal payment link. Please try again later.']);
+                ]);
             }
-
-            // Update the payment required column to be true as the payment is required for this appointment
-            $this->bookingServices->updatePaymentRequired($bookedSlot->id,true);
-
-            return $this->paymentService->savePaymentDetailsAndExtractPaymentLink($bookedSlot,$paymentLinkDetails, $bookingFee, $paypalPaymentId);
-
-        }
-
-        if ($bookedSlot)
-        {
-            return response()->json([
-                'success' => 'true',
-                'data'    => $bookedSlot,
-                'status'  => 200
-
-            ]);
+            else
+            {
+                return response()->json(['error' => 'Something Went Wrong!! Please try again']);
+            }
         }
         else
         {
-            return response()->json(['error' => 'Something Went Wrong!! Please try again']);
+            return response()->json($paymentLinkResponse);
         }
     }
 

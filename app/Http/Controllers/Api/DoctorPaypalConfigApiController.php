@@ -22,15 +22,23 @@ class DoctorPaypalConfigApiController extends Controller
             $doctorPaypalConfig  =  $this->paypalConfigService->getPaypalConfigByDoctor(Auth::guard('api')->user()->id);
             if ($doctorPaypalConfig) {
                 return response()->json([
-                    'success' => true,
-                    'message' => 'PayPal configuration saved successfully.',
+                    'status' => true,
+                    'message' => 'Doctor paypal detail not retrieved',
                     'data'    => $doctorPaypalConfig
+                ], 200); // HTTP status code 200 for OK
+            }
+            else
+            {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Doctor paypal detail not retrieved',
+                    'data'    => []
                 ], 200); // HTTP status code 200 for OK
             }
         } catch (\Exception $e) {
             // Exception handling and error response
             return response()->json([
-                'success' => false,
+                'status' => false,
                 'message' => 'Failed to save PayPal configuration.',
                 'error' => $e->getMessage() // Return the exception message
             ], 500);

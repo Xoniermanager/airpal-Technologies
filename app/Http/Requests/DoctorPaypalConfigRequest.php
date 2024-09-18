@@ -22,6 +22,7 @@ class DoctorPaypalConfigRequest extends FormRequest
     public function rules(): array
     {
         return [
+             'doctor_id' => 'required|exists:users,id',
              'PAYPAL_LIVE_CLIENT_ID' => 'string|max:200',
              'PAYPAL_LIVE_CLIENT_SECRET' => 'string|max:200',
              'PAYPAL_LIVE_APP_ID' => 'string|max:200',

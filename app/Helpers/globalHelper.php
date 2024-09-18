@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Payment;
+use App\Models\PaypalConfig;
 use App\Models\SiteConfig;
 use App\Models\Testimonial;
 use Illuminate\Support\Facades\Crypt;
@@ -478,6 +479,44 @@ if (!function_exists('formatDoctorEducations')) {
 
         return '(' . $educations->implode(', ') . ')';
     }
+}
+
+/**
+ * Set paypal credentials in a array with dynamic values
+ * @return paypal configuration details
+ */
+function getPaypalConfig($doctorId)
+{
+    $useAdminConfig = SiteConfig::where('name','Paypal_Config')->first();
+
+    if($useAdminConfig->value == 'admin')
+    {
+        $paypalConfigs = SiteConfig::whereIN('name',['PAYPAL_SANDBOX_CLIENT_ID','PAYPAL_SANDBOX_CLIENT_SECRET','PAYPAL_LIVE_CLIENT_ID','PAYPAL_LIVE_CLIENT_SECRET','PAYPAL_MODE','PAYPAL_LIVE_APP_ID'])->get()->pluck('value','name');
+    }
+    else if($useAdminConfig->value == 'doctor')
+    {
+        $paypalConfigs = PaypalConfig::where('doctor_id',$doctorId)->first();
+    }
+    
+    return [
+        'mode'    => $paypalConfigs['PAYPAL_MODE'], // Can only be 'sandbox' Or 'live'. If empty or invalid, 'live' will be used.
+        'sandbox' => [
+            'client_id'         => $paypalConfigs['PAYPAL_SANDBOX_CLIENT_ID'],
+            'client_secret'     => $paypalConfigs['PAYPAL_SANDBOX_CLIENT_SECRET'],
+            'app_id'            => 'APP-80W284485P519543T',
+        ],
+        'live' => [
+            'client_id'         => $paypalConfigs['PAYPAL_LIVE_CLIENT_ID'],
+            'client_secret'     => $paypalConfigs['PAYPAL_LIVE_CLIENT_SECRET'],
+            'app_id'            => $paypalConfigs['PAYPAL_LIVE_APP_ID'],
+        ],
+    
+        'payment_action' => env('PAYPAL_PAYMENT_ACTION', 'Sale'), // Can only be 'Sale', 'Authorization' or 'Order'
+        'currency'       => env('PAYPAL_CURRENCY', 'USD'),
+        'notify_url'     => env('PAYPAL_NOTIFY_URL', ''), // Change this accordingly for your application.
+        'locale'         => env('PAYPAL_LOCALE', 'en_US'), // force gateway language  i.e. it_IT, es_ES, en_US ... (for express checkout only)
+        'validate_ssl'   => env('PAYPAL_VALIDATE_SSL', true), // Validate SSL when creating api client.
+    ];
 }
 
 

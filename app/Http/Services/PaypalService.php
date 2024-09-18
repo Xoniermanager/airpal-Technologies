@@ -16,8 +16,9 @@ class PaypalService
      */
     public function generatePaymentLink($amount, $bookingDetails, $returnUrls)
     {
+        $doctorId = $bookingDetails->doctor_id;
         $provider = new PayPalClient;
-        $provider->setApiCredentials(config('paypal'));
+        $provider->setApiCredentials(getPaypalConfig($doctorId));
         $paypalToken = $provider->getAccessToken();
         return $response = $provider->createOrder([
             "intent" => "CAPTURE",

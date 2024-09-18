@@ -182,6 +182,36 @@
                                             <span class="text-denger" id="config_ios_store_value_error" style="color: red">
                                     </div>
 
+
+                            <!--  -->
+                            <!-- Start: USE ADMIN OR DOCTOR PAYPAL CONFIG -->
+                            @php
+                                $adminConfig = 'checked';
+                                $doctorConfig = '';
+                                if(isset($configData['Paypal_Config']))
+                                {
+                                    if($configData['Paypal_Config'] == 'doctor')
+                                    {
+                                        $adminConfig = '';
+                                        $doctorConfig = 'checked';
+                                    }
+                                }
+                                @endphp
+                                <div class="col-md-6 mb-3">
+                                    <label class="mb-2">Use Paypal Config</label>
+                                    <input type="hidden" value="Paypal_Config" class="form-control" name="config[Paypal_Config][name]">
+                                    <label class="custom_radio me-4">
+                                        <input type="radio" name="config[Paypal_Config][value]" {!! $adminConfig !!} value="admin">
+                                        <span class="checkmark"></span> Admin
+                                    </label>
+                                    <label class="custom_radio">
+                                        <input type="radio" name="config[Paypal_Config][value]" {!! $doctorConfig !!} value="doctor">
+                                        <span class="checkmark"></span> Doctor
+                                    </label>
+                                </div>
+                            <!-- End: Save sandbox details for paypal -->
+
+
                             <!-- Start: Save sandbox details for paypal -->
                                     <div class="col-md-6 mb-3">
                                         <label class="mb-2">PAYPAL SANDBOX CLIENT ID</label>

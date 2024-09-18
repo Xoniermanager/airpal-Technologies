@@ -101,7 +101,7 @@
                                         </a>
                                     </div>
                                     <div class="Appointment-doctor-info mt-3">
-                                        <h4><a href="doctor-profile.html">Dr. {{ $doctorDetails->fullName }}</a>
+                                        <h4>Dr. {{ $doctorDetails->fullName }}
                                         <span class="doc-speciality">{{ formatDoctorEducations($doctorDetails) }}</span>
                                         </h4>
                         

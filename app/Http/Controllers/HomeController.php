@@ -42,7 +42,7 @@ class HomeController extends Controller
   }
   public function home()
   {
-
+    
     $specialtiesByDoctorsCount =  $this->doctor_specialty->getSpecialtyGroupByDoctor(); 
     $pageSections      = PageSection::with('getButtons', 'getContent')->where('page_id',1)->get();
     $pageExtraSections = PageExtraSection::where('page_id',1)->where('status',1)->get();

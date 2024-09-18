@@ -39,7 +39,7 @@ class SiteConfigRequest extends FormRequest
 
             // site configs 
             'config' => 'required|array',
-            'config.*.' => 'array|in:"website_name","website_url","admin_email","admin_phone","website_description","copyright","admin_address"',
+            'config.*.' => 'array|in:"website_name","website_url","admin_email","admin_phone","website_description","copyright","admin_address","Paypal_Config"',
             'config.*.name' => 'required|string',
             'config.*.value' => 'required', 
         

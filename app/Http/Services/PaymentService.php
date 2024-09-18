@@ -10,10 +10,16 @@ use App\Http\Repositories\PaymentRepository;
 class PaymentService
 {
     private $paymentRepository;
+    private $bookingServices;
+    private $paypalService;
+    private $paymentService;
 
-    public function __construct(PaymentRepository $paymentRepository)
+
+    public function __construct(PaymentRepository $paymentRepository, BookingServices $bookingServices, PaypalService $paypalService)
     {
         $this->paymentRepository = $paymentRepository;
+        $this->bookingServices = $bookingServices;
+        $this->paypalService = $paypalService;
     }
 
 
@@ -48,11 +54,16 @@ class PaymentService
         return $this->paymentRepository->create($payload);
     }
 
-    public function savePaymentDetailsAndExtractPaymentLink($bookedSlot, $paymentLinkDetails, $bookingFee, $paypalPaymentId)
+    public function savePaymentDetailsAndExtractPaymentLink($bookedSlot, $paymentLinkDetails, $bookingFee)
     {
-        if (isset($paymentLinkDetails['id']) && $paymentLinkDetails['id'] != null) {
-            foreach ($paymentLinkDetails['links'] as $links) {
-                if ($links['rel'] == 'approve') {
+        if (isset($paymentLinkDetails['id']) && $paymentLinkDetails['id'] != null) 
+        {
+            $paypalPaymentId = $paymentLinkDetails['id'];
+
+            foreach ($paymentLinkDetails['links'] as $links) 
+            {
+                if ($links['rel'] == 'approve')
+                {
                     $paymentDetails = $this->savePaymentDetails([
                         'booking_id'    =>  $bookedSlot->id,
                         'amount'        =>  $bookingFee,
@@ -61,8 +72,6 @@ class PaymentService
                         'payment_status'    =>  'Pending'
                     ]);
 
-                    Session::put('payment_id', $paymentDetails->id);
-
                     return [
                         'status'        =>  true,
                         'message'       =>  'Payment link retrieved successfully!',
@@ -70,19 +79,21 @@ class PaymentService
                     ];
                 }
             }
-
-            return [
-                'status'    =>  false,
-                'message'   =>  'Something went wrong. Please try later',
-                'payment_link'  =>  '',
-            ];
-        } else {
+        }
+        else
+        {
             return [
                 'status'        =>  false,
-                'message'  =>  $paymentLinkDetails['message'] ?? 'Something went wrong.',
+                'message'       =>  $paymentLinkDetails['message'] ?? 'Something went wrong.',
                 'payment_link'  =>  ''
             ];
         }
+
+        return [
+            'status'    =>  false,
+            'message'   =>  'Something went wrong. Please try later',
+            'payment_link'  =>  '',
+        ];
     }
 
     public function getPaymentDetailsByPatientId($patientId, $searchKey = null)
@@ -152,5 +163,34 @@ class PaymentService
     public function getPaymentWithBookingUsingPaypalId($paypalId)
     {
         return $this->paymentRepository->where('paypal_payment_id',$paypalId)->with('bookingSlot.doctor')->get();
+    }
+
+
+    public function getBookingFeePaymentLink($bookedSlotDetails)
+    {
+        $paramsToGetBookingFee = [
+            'doctorId'      =>  $bookedSlotDetails->doctor_id,
+            'slotStartTime' =>  $bookedSlotDetails->slot_start_time,
+            'slotEndTime'   =>  $bookedSlotDetails->slot_end_time,
+            'bookingDate'   =>  $bookedSlotDetails->booking_date
+        ];
+        
+        $bookingFee = $this->bookingServices->getBookingFee($paramsToGetBookingFee);
+        if(!empty($bookingFee) && $bookingFee > 0)
+        {
+            $redirectUrls = [
+                'success'   =>  route('paypal.payment.success'),
+                'cancel'    =>  route('paypal.payment/cancel')
+            ];
+
+            $paymentLinkDetails = $this->paypalService->generatePaymentLink($bookingFee, $bookedSlotDetails,$redirectUrls);
+   
+            // Update the payment required column to be true as the payment is required for this appointment
+            $this->bookingServices->updatePaymentRequired($bookedSlotDetails->id,true);
+
+            return $this->savePaymentDetailsAndExtractPaymentLink($bookedSlotDetails,$paymentLinkDetails, $bookingFee);
+            
+        }
+        return 0;
     }
 }

@@ -55014,6 +55014,7 @@ select {
     border: 1px solid #DFDFDF;
     border-radius: 2px;
     margin-right: 2rem;
+    width:140px
     padding: 1rem;
     padding-right: 2rem;
 }

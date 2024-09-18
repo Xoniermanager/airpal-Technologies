@@ -1,4 +1,3 @@
-
 <section class="doctors-section">
     <div class="container">
         <div class="row">
@@ -23,7 +22,7 @@
                                             href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">
                                             <img src="{{ $doctor['image_url'] }}" class="img-fluid doctor-slider-image"
                                                 alt="Ruby Perrin"
-                                                onerror="this.src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}';">
+                                                onerror="this.src='{{ asset('assets/img/user.jpg') }}';">
                                         </a>
                                     </div>
                                 </a>
@@ -32,46 +31,29 @@
                             <div class="doc-content">
                                 <div class="doc-pro-info">
                                     <div class="doc-pro-name">
-                                        <a
-                                            href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">{{ $doctor->fullName }}</a>
-                                        @forelse ($doctor->specializations as $specializaion)
-                                            <span>{{ $specializaion->name }},</span>
-                                        @empty
-                                            <span>No Specialization available</span>
-                                        @endforelse
+                                        <a href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">{{ $doctor->fullName }}</a>
+                                        {{ formatDoctorSpecializations($doctor) }}
                                     </div>
                                     <div class="reviews-ratings">
                                         <p>
                                             {!! getRatingHtml($doctor->allover_rating) !!}
-                                            {{-- <span><i class="fas fa-star"></i> 4.5</span> (35) --}}
                                         </p>
                                     </div>
                                 </div>
                                 <div class="doc-pro-location">
                                     @if (isset($doctor->doctorAddress))
-                                        @php
-                                            $address = $doctor->doctorAddress->address ?? '';
-                                            $city = $doctor->doctorAddress->city ?? '';
-                                            $fullAddress = $address . ' ' . $city . ' india';
-                                            $encodedAddress = str_replace(' ', '+', $fullAddress);
-                                        @endphp
-
-                                        <a href="https://www.google.com/maps?q={{ $encodedAddress }}" target="_blank">
-                                            <span>
-                                                <i class="fas fa-map-marker-alt"></i><strong>
-                                                    {{ isset($doctor->doctorAddress->address) ? $doctor->doctorAddress->address : '' }}
-                                                    {{ isset($doctor->doctorAddress->city) ? ', ' . $doctor->doctorAddress->city : '' }}
-                                                    {{ isset($doctor->doctorAddress->states->name) ? ', ' . $doctor->doctorAddress->states->name : '' }}
-                                                    {{ isset($doctor->doctorAddress->states->country->name) ? ', ' . $doctor->doctorAddress->states->country->name : '' }}
-                                                </strong>
-                                            </span>
-                                        </a>
-
-                                        {{-- <p class="doc-location"><i class="feather-map-pin"></i>{{$doctor->doctorAddress->city ?? ''}} {{','. $doctor->doctorAddress->states->country->name ??'' }} - 
-                        <a href="javascript:void(0);">Get Directions</a></p>   --}}
+                                        <span>
+                                            <i class="feather-map-pin"></i><strong>
+                                                {{ formatDoctorAddress($doctor) }}
+                                            </strong>
+                                            <a href="https://www.google.com/maps?q={{  encodeAddress($doctor) }}" target="_blank"
+                                                style="color: blue">
+                                                Get Directions </a>
+                                        </span>
                                     @else
-                                        <p class="doc-location"><i class="feather-map-pin"></i> - <a
-                                                href="javascript:void(0);">Get Directions</a></p>
+                                        <p class="doc-location">
+                                            <i class="feather-map-pin"></i> - Address Not Added
+                                        </p>
                                     @endif
                                 </div>
                             </div>

@@ -5,9 +5,9 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="banner-content aos aos-init aos-animate" data-aos="fade-up">
-                        <h1>{{ $sections['health_monitoring_banner']->title }}</h1>
+                        <h1>{{ $sections['health_monitoring_banner']->title ?? '' }}</h1>
                         <img src="{{ URL::asset('assets/img/icons/header-icon.svg') }}" class="header-icon" alt="header-icon">
-                        <p>{{ $sections['health_monitoring_banner']->subtitle }}</p>
+                        <p>{{ $sections['health_monitoring_banner']->subtitle ?? '' }}</p>
                         <a href="{{ $sections['health_monitoring_banner']->getButtons[0]->link ?? '' }}"
                             class="btn">{{ $sections['health_monitoring_banner']->getButtons[0]->text ?? '' }}</a>
                     </div>
@@ -157,53 +157,18 @@
                                                     </div>
                                                 </div>
                                             @endforeach
-                                            @foreach ($sections['product_details']->getContent as $key => $contentSectionData)
+                                            @for ($i = 0; $i < 4; $i++)
                                                 <div class="widget about-widget">
-                                                    <h4 class="widget-title">{{ $contentSectionData->title }}
-                                                        {{ $contentSectionData->id }} </h4>
-                                                    <p>{{ $contentSectionData->content }}</p>
+                                                    <h4 class="widget-title">
+                                                        {{ $sections['product_details']->getContent[$i]['title'] }}</h4>
+                                                    <p>{{ $sections['product_details']->getContent[$i]['content'] }}</p>
 
-
-                                                    {{-- <a href="" class="btn btn-outline-primary">{{ $sections['product_details']->getButtons[$key]->text }}</a> --}}
-
-                                                    @if (!empty($sections['product_details']->getButtons))
-                                                        @foreach ($sections['product_details']->getButtons as $button)
-                                                            @if (!empty($button->text))
-                                                                <a href="{{ $button->link }}"
-                                                                    class="btn btn-outline-primary">{{ $button->text }}</a>
-                                                            @endif
-                                                        @endforeach
+                                                    @if ($sections['product_details']->getButtons[$i]->text)
+                                                        <a href="{{ $sections['product_details']->getButtons[$i]->link }}"
+                                                            class="btn btn-outline-primary">{{ $sections['product_details']->getButtons[$i]->text }}</a>
                                                     @endif
                                                 </div>
-                                            @endforeach
-
-
-
-
-
-                                            {{-- <div class="widget about-widget">
-                                                <h4 class="widget-title">Learn More </h4>
-                                                <p>For more information on our wearable health monitoring solution, please
-                                                    visit our <a class="text-primary" href="contact-us.html"> Contact
-                                                        Us</a> page.</p>
-                                            </div>
-
-                                            <div class="widget about-widget">
-                                                <h4 class="widget-title">Contact Your Doctor
-                                                </h4>
-                                                <p>Need medical advice or have questions about your health? Contact your
-                                                    doctor through our telemedicine app for personalized guidance and
-                                                    support.
-                                                </p>
-                                                <a href="#" class="btn btn-primary">Telemedicine App</a>
-                                            </div>
-
-                                            <div class="widget about-widget">
-                                                <h4 class="widget-title">Connect Now </h4>
-                                                <p>Don't wait to take control of your health. Subscribe to our wearable
-                                                    health monitoring device today and start monitoring your vital signs
-                                                    with ease.</p>
-                                            </div> --}}
+                                            @endfor
                                         </div>
                                     </div>
                                 </div>

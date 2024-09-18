@@ -128,8 +128,9 @@
                             <div class="col-md-6">
                                 <div class="recent-patient-grid">
                                     <a href="{{ $recentPatient->patientProfileUrl() }}" class="patient-img">
-                                        <img src="{{ $recentPatient->patient->image_url }}">
-
+                                        <img src="{{ $recentPatient->patient->image_url }}"
+                                          onerror="this.src='{{ asset('assets/img/user.jpg') }}';"
+                                        >
                                     </a>
                                     <h5><a href="{{ $recentPatient->patientProfileUrl() }}"></a>
                                     </h5>
@@ -160,7 +161,9 @@
                         <div class="upcoming-patient-info">
                             <div class="info-details">
                                 <span class="img-avatar">
-                                    <img src="{{ $upcomingAppointments->patient->image_url }}">
+                                    <img src="{{ $upcomingAppointments->patient->image_url }}"
+                                      onerror="this.src='{{ asset('assets/img/user.jpg') }}'"
+                                    >
                                 </span>
                                 <div class="name-info">
                                     <span>#Apt{{ $upcomingAppointments->id }}</span>

@@ -26,64 +26,42 @@
                         <div class="doc-info-left">
                             <div class="doctor-img">
                                 <img src="{{ $doctor['image_url'] }}" class="img-fluid" alt=""
-                                    src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}'>
+                                    src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}'
+                                    onerror="this.src='{{ asset('assets/img/user.jpg') }}'">
                             </div>
                             <div class="doc-info-cont">
-                                <h4 class="doc-name">{{ $doctor->first_name }} {{ $doctor->last_name }} 
-                                <span class="doc-speciality">
-                                    @forelse ($doctor->educations as $education)
-                                       ( {{ $education->course->name }}
-                                        @if (!$loop->last)
-                                            ,
-                                        @endif
-                                       )
-                                    @empty
-                                        <p>N/A</p>
-                                    @endforelse
-                                </span>
-                            </h4> 
+                                <h4 class="doc-name">{{ $doctor->first_name }} {{ $doctor->last_name }}
+                                    <span class="doc-speciality">
+                                        {{ formatDoctorEducations($doctor) }}
+                                    </span>
+                                </h4>
                                 @php
                                     $slicedSpecializationsArray = $doctor->specializations;
                                 @endphp
                                 {!! $doctor->DoctorSocialMediaAccountsList() !!}
-                                {{-- <p class="doc-department">
-                                    @isset($doctor)
-                                        @forelse ($doctor->specializations as $specialization)
-                                            <span class="badge badge-info text-white">{{ $specialization->name }}</span>
-
-                                        @empty
-                                            <p>N/A</p>
-                                        @endforelse
-                                    @endisset
-
-                                </p> --}}
 
                                 <div class="reviews-ratings">
                                     {!! getRatingHtml($doctor->allover_rating) !!}
                                     ({{ count($doctor->doctorReview) }} Reviews)
                                 </div>
                                 <div class="clinic-details">
-                                    @php
-                                        $address = $doctor->doctorAddress->address ?? '';
-                                        $city = $doctor->doctorAddress->city ?? '';
-                                        $fullAddress = $address . ' ' . $city . ' india';
-                                        $encodedAddress = str_replace(' ', '+', $fullAddress);
-                                    @endphp
                                     @if (isset($doctor->doctorAddress))
-                                        <p><i class="fas fa-map-marker-alt"></i>{{ $doctor->doctorAddress->address ?? '' }}
-                                            {{ ',' . $doctor->doctorAddress->city ?? '' }}
-                                            {{ ',' . $doctor->doctorAddress->states->name ?? '' }}
-                                            {{ ',' . $doctor->doctorAddress->states->country->name ?? '' }}
-                                            <a href="https://www.google.com/maps?q={{ $encodedAddress }}" target="_blank"
-                                                style="color: blue">Get Directions
-                                            </a>
+                                        <p>
+                                            <span>
+                                                <i class="feather-map-pin"></i><strong>
+                                                    {{ formatDoctorAddress($doctor) }}
+                                                </strong>
+                                                <a href="https://www.google.com/maps?q={{ encodeAddress($doctor) }}"
+                                                    target="_blank" style="color: blue">
+                                                    Get Directions </a>
+                                            </span>
 
                                         </p>
                                     @else
-                                        <p class="doc-location"><i class="fas fa-map-marker-alt"></i> - <a
-                                                href="javascript:void(0);">Get Directions</a></p>
+                                        <p class="doc-location">
+                                            <i class="feather-map-pin"></i> - Address Not Added
+                                        </p>
                                     @endif
-
 
                                 </div>
                                 <div class="clinic-services">
@@ -91,21 +69,37 @@
                                         <span>{{ $specializaion->name }}</span>
                                     @empty
                                         <span>No Specialization available</span>
-                                    @endforelse 
+                                    @endforelse
                                 </div>
                             </div>
                         </div>
                         <div class="doc-info-right">
                             <div class="doctor-action">
-                            <!-- Add an ID or unique class to the <a> tag to target it -->
-                            <a href="#" class="btn btn-white fav-btn" id="copyLink" data-url="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">
-                                <i class="fa-solid fa-copy"></i>
-                            </a>                                
-                                <a href="#" class="btn btn-white msg-btn">
+                                <!-- Add an ID or unique class to the <a> tag to target it -->
+                                <div id="copyMessage" class="copy-message">Link copied to clipboard!</div>
+                                <a href="#" class="btn btn-white fav-btn" id="copyLink"
+                                    data-url="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">
+                                    <i class="fa-solid fa-copy"></i>
+                                </a>
+                                @php
+                                    $role = Auth::user()->role; // Assuming you store the user's role in 'role' column
+                                    $chatUrl = '#'; // Default URL
+
+                                    // Set chat URL based on the user's role
+                                    if ($role == 2) {
+                                        $chatUrl = route('doctor.chat');
+                                    } elseif ($role == 3) {
+                                        $chatUrl = route('patient.chat');
+                                    } elseif ($role == 1) {
+                                        $chatUrl = route('admin.chat');
+                                    }
+                                @endphp
+
+                                <a href="{{ $chatUrl }}" class="btn btn-white msg-btn">
                                     <i class="far fa-comment-alt"></i>
                                 </a>
-                                <a href="tel:{{ $doctor->phone ?? '' }}" class="btn btn-white call-btn"
-                                   >
+                                
+                                <a href="tel:{{ $doctor->phone ?? '' }}" class="btn btn-white call-btn">
                                     <i class="fas fa-phone"></i>
                                 </a>
                                 <a href="javascript:void(0)" class="btn btn-white call-btn" data-bs-toggle="modal"
@@ -114,7 +108,9 @@
                                 </a>
                             </div>
                             <div class="clinic-booking mb-2">
-                                <a class="apt-btn" href="{{ route('appointment.index',['id' => Crypt::encrypt($doctor->id)]) }}">Book Appointment</a>
+                                <a class="apt-btn"
+                                    href="{{ route('appointment.index', ['id' => Crypt::encrypt($doctor->id)]) }}">Book
+                                    Appointment</a>
                             </div>
                         </div>
                     </div>
@@ -293,7 +289,7 @@
                             <div class="location-list">
                                 <div class="row">
 
-                                    <iframe src="https://www.google.com/maps?q={{ $encodedAddress }}&output=embed"
+                                    <iframe src="https://www.google.com/maps?q={{ encodeAddress($doctor) }}&output=embed"
                                         width="100%" height="450" frameborder="0" style="border:0"
                                         allowfullscreen></iframe>
 
@@ -418,14 +414,6 @@
                                     <div class="widget business-widget">
                                         <div class="widget-content">
                                             <div class="listing-hours">
-                                                {{-- <div class="listing-day current">
-                                                    <div class="day">Today <span>5 Nov 2024</span></div>
-                                                    <div class="time-items">
-                                                        <span class="open-status"><span
-                                                                class="badge bg-success-light">Open Now</span></span>
-                                                        <span class="time">07:00 AM - 09:00 PM</span>
-                                                    </div>
-                                                </div> --}}
                                                 @forelse ($doctor->workingHour as $workingHour)
                                                     <div class="listing-day">
                                                         <div class="day">{{ $workingHour->daysOfWeek->name }}</div>
@@ -442,14 +430,6 @@
                                                     </div>
                                                 @empty
                                                 @endforelse
-
-                                                {{-- <div class="listing-day closed">
-                                                    <div class="day">Sunday</div>
-                                                    <div class="time-items">
-                                                        <span class="time"><span
-                                                                class="badge bg-danger-light">Closed</span></span>
-                                                    </div>
-                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -638,44 +618,89 @@
             }
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const copyLink = document.getElementById('copyLink');
+            const copyMessage = document.getElementById('copyMessage');
 
-<script>
-    // Wait for the DOM content to be fully loaded before running the script
-    document.addEventListener('DOMContentLoaded', function() {
-        // Select the <a> tag using its ID or class
-        const copyLink = document.getElementById('copyLink');
+            if (copyLink) {
+                copyLink.addEventListener('click', function(event) {
+                    event.preventDefault();
 
-        // Ensure that the copyLink is selected correctly
-        if (copyLink) {
-            // Add a click event listener to the link
-            copyLink.addEventListener('click', function(event) {
-                event.preventDefault(); // Prevent the default action of the link (navigation)
+                    const url = copyLink.getAttribute('data-url');
 
-                // Get the URL from the data attribute
-                const url = copyLink.getAttribute('data-url');
+                    if (url) {
+                        navigator.clipboard.writeText(url).then(() => {
+                            // Show success message
+                            copyMessage.style.display = 'block';
 
-                if (url) {
-                    // Use the Clipboard API to copy the URL
-                    navigator.clipboard.writeText(url).then(() => {
-                        // Show a success message (using alert for simplicity)
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
-                    });
-                } else {
-                    console.error('No URL found to copy.');
-                }
-            });
-        } else {
-            console.error('Copy link element not found.');
-        }
-    });
-</script>
+                            // Hide the message after 2 seconds
+                            setTimeout(() => {
+                                copyMessage.style.display = 'none';
+                            }, 2000);
+                        }).catch(err => {
+                            console.error('Failed to copy: ', err);
+                        });
+                    } else {
+                        console.error('No URL found to copy.');
+                    }
+                });
+            } else {
+                console.error('Copy link element not found.');
+            }
+        });
+    </script>
+    {{-- 
+    <script>
+        // Wait for the DOM content to be fully loaded before running the script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Select the <a> tag using its ID or class
+            const copyLink = document.getElementById('copyLink');
 
+            // Ensure that the copyLink is selected correctly
+            if (copyLink) {
+                // Add a click event listener to the link
+                copyLink.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent the default action of the link (navigation)
+
+                    // Get the URL from the data attribute
+                    const url = copyLink.getAttribute('data-url');
+
+                    if (url) {
+                        // Use the Clipboard API to copy the URL
+                        navigator.clipboard.writeText(url).then(() => {
+                            // Show a success message (using alert for simplicity)
+                        }).catch(err => {
+                            console.error('Failed to copy: ', err);
+                        });
+                    } else {
+                        console.error('No URL found to copy.');
+                    }
+                });
+            } else {
+                console.error('Copy link element not found.');
+            }
+        });
+    </script> --}}
 @endsection
 
 <style>
     .doctor-img img {
-    height: 162px !important;
-    object-fit: cover;
-}
+        height: 162px !important;
+        object-fit: cover;
+    }
+
+    /* Style for the success message */
+    .copy-message {
+        display: none;
+        position: absolute;
+        background-color: #004cd4;
+        color: white;
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 14px;
+        top: -21px;
+        /* right: 10px; */
+        z-index: 1000;
+    }
 </style>

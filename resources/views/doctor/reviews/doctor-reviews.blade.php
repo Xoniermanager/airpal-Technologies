@@ -28,7 +28,9 @@
                         <div class="comment-head">
                             <div class="patinet-information">
                                 <a href="javascript:void(0);">
-                                    <img src="{{ $reviewDetails->patient->image_url }}" alt="">
+                                    <img src="{{ $reviewDetails->patient->image_url }}" alt=""
+                                      onerror="this.src='{{ asset('assets/img/user.jpg') }}'"
+                                    >
                                 </a>
                                 <div class="patient-info">
                                     <h6><a href="javascript:void(0);">{{ $reviewDetails->patient->first_name }}</a>

@@ -422,3 +422,62 @@ function getDecryptId()
     }
     return false;
 }
+
+if (!function_exists('formatDoctorAddress')) {
+    function formatDoctorAddress($doctor) {
+        if (isset($doctor->doctorAddress)) {
+            $addressParts = [];
+
+            if (isset($doctor->doctorAddress->address)) {
+                $addressParts[] = $doctor->doctorAddress->address;
+            }
+            if (isset($doctor->doctorAddress->city)) {
+                $addressParts[] = $doctor->doctorAddress->city;
+            }
+            if (isset($doctor->doctorAddress->states->name)) {
+                $addressParts[] = $doctor->doctorAddress->states->name;
+            }
+            if (isset($doctor->doctorAddress->states->country->name)) {
+                $addressParts[] = $doctor->doctorAddress->states->country->name;
+            }
+
+            return implode(', ', $addressParts);
+        }
+
+        return '';
+    }
+}
+
+if (!function_exists('encodeAddress')) {
+    function encodeAddress($doctor) {
+        $fullAddress = formatDoctorAddress($doctor);
+        // Encode the address (replace spaces with '+')
+        return str_replace(' ', '+', $fullAddress);
+    }
+}
+
+if (!function_exists('formatDoctorSpecializations')) {
+    function formatDoctorSpecializations($doctor) {
+        if ($doctor->specializations->isNotEmpty()) {
+            return $doctor->specializations->implode('name', ', ');
+        } else {
+            return 'Specialty Not Added';
+        }
+    }
+}
+
+if (!function_exists('formatDoctorEducations')) {
+    function formatDoctorEducations($doctor) {
+        if ($doctor->educations->isEmpty()) {
+            return 'N/A';
+        }
+
+        $educations = $doctor->educations->map(function ($education) {
+            return $education->course->name;
+        });
+
+        return '(' . $educations->implode(', ') . ')';
+    }
+}
+
+

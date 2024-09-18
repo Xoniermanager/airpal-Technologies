@@ -18,6 +18,7 @@
                             <a href="" class="avatar avatar-sm me-2"><img
                                     class="avatar-img rounded-circle"
                                     src="{{ $reviews->patient->image_url ?? '' }}"
+                                    onerror="this.src='{{ asset('assets/img/user.jpg') }}';"
                                     alt=""></a>
                             <a href="">{{ $reviews->patient->fullName }} </a>
                         </h2>
@@ -28,6 +29,7 @@
 
                                 <img class="avatar-img rounded-circle"
                                     src="{{ $reviews->doctor->image_url ?? '' }}"
+                                      onerror="this.src='{{ asset('assets/img/user.jpg') }}';"
                                     alt=""></a>
                             <a href="">{{ $reviews->doctor->display_name }} </a>
                         </h2>

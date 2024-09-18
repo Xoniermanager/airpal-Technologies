@@ -19,6 +19,7 @@
                                                      <a href="{{$recentAppointments->patientProfileUrl()}}"
                                                          class="table-avatar">
                                                          <img src="{{ $recentAppointments->patient->image_url }}"
+                                                           onerror="this.src='{{ asset('assets/img/user.jpg') }}';"
                                                              alt="Img">
 
                                                      </a>

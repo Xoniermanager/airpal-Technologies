@@ -24,7 +24,8 @@
                                 <h2 class="table-avatar">
                                     <a href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($patientInvoice->user->id) ]) }}" class="avatar avatar-sm me-2">
                                         <img class="avatar-img rounded-3" src="{{ $patientInvoice->user->image_url }}"
-                                            alt="">
+                                            alt=""
+                                            onerror="this.src='{{ asset('assets/img/user.jpg') }}'">
                                     </a>
                                     <a href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($patientInvoice->user->id) ]) }}">{{ $patientInvoice->user->fullName }}</a>
                                 </h2>

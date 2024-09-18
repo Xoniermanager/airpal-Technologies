@@ -877,7 +877,7 @@ p:last-child  {
 }
 .header .header-left .logo {
   display: inline-block;
-  line-height: 60px;
+  line-height: 60px; 
 }
 @media (max-width: 767.98px) {
   .header .header-left .logo {
@@ -2346,10 +2346,14 @@ a.bg-danger:focus, a.bg-danger:hover, button.bg-danger:focus, button.bg-danger:h
   -ms-transition: all 0.2s ease-in-out 0s;
   transition: all 0.2s ease-in-out 0s;
 }
-
+.sidebar-menu ul li ul a i {
+  font-size: 17px !important;
+  margin-right: 5px;
+}
 .sidebar-menu {
-  padding: 15px;
+  padding: 5px;
   height: 100vh;
+  margin-top: 10px;
   overflow: scroll;
 
 }
@@ -3952,4 +3956,11 @@ select {
 }
 .min-h-100px {
   min-height: 100px !important;
+}
+
+select#time-period-revenue {
+  width: 140px !important;
+}
+select#time-period-appointments {
+  width: 140px;
 }

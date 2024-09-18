@@ -24,7 +24,8 @@
                                     <a href="{{ route('frontend.doctor.profile', Crypt::encrypt($reviewDetails->doctor_id), $reviewDetails) }}"
                                         class="avatar avatar-sm me-2">
                                         <img class="avatar-img rounded-3" src="{{ $reviewDetails->doctor->image_url }}"
-                                            alt="User Image">
+                                            alt="User Image" 
+                                            onerror="this.src='{{ asset('assets/img/user.jpg') }}'">
                                     </a>
                                     <span class="fs-6 text-dark"><a href="{{ route('frontend.doctor.profile', Crypt::encrypt($reviewDetails->doctor_id), $reviewDetails) }}">{{ $reviewDetails->doctor->display_name }}<br></a>
                                         <a href="emailto:{{ $reviewDetails->doctor->email }}">{{ $reviewDetails->doctor->email }}</a>

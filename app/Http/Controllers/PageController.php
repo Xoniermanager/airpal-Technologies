@@ -131,7 +131,6 @@ class PageController extends Controller
         foreach ($getPageSections as $getPageSection) {
             $sections[$getPageSection['section_slug']] = $getPageSection;
         }
-        
         $sectionList = SectionList::where('page_id', 3)->with('listItems')->get();
         if (isset($sections['product_details'])) {
             $sections['product_details']->section_list = $sectionList;
@@ -175,7 +174,6 @@ class PageController extends Controller
         foreach ($getPageSections as $getPageSection) {
             $sections[$getPageSection['section_slug']] = $getPageSection;
         }
-        // dd( $sections);
         return view('admin.pages.instant_consultation.instant',[
             'sections'  =>  $sections,
             'page'      =>  $page

@@ -21,18 +21,53 @@ class SiteConfigRequest extends FormRequest
      */
     public function rules(): array
     {
+        // return [
+
+        //     'config' => 'required|array',
+        //     'config.*.' => 'array|in:"website_name","website_url","admin_email","admin_phone","website_description","copyright","admin_address"',
+        //     'config.*.name' => 'required',
+        //     'config.*.value' => 'required',
+        //     'config.website_logo.name' =>  'string',
+        //     'config.website_logo.value' =>  'nullable|mimes:jpeg,jpg,bmp,png,gif,svg,pdf|max:2048',
+
+        //     'config.website_favicon.name' =>  'string',
+        //     'config.website_favicon.value' =>  'nullable|mimes:jpeg,jpg,bmp,png,gif,svg,pdf|max:2048',
+        // ];
+
+
         return [
 
+            // site configs 
             'config' => 'required|array',
             'config.*.' => 'array|in:"website_name","website_url","admin_email","admin_phone","website_description","copyright","admin_address"',
-            'config.*.name' => 'required',
-            'config.*.value' => 'required',
-            'config.website_logo.name' =>  'string',
-            'config.website_logo.value' =>  'nullable|mimes:jpeg,jpg,bmp,png,gif,svg,pdf|max:2048',
+            'config.*.name' => 'required|string',
+            'config.*.value' => 'required', 
+        
+            // Logo and Favicon validation (optional)
+            'config.website_logo.name' => 'string',
+            'config.website_logo.value' => 'nullable|mimes:jpeg,jpg,bmp,png,gif,svg,pdf|max:2048',
+            'config.website_favicon.name' => 'string',
+            'config.website_favicon.value' => 'nullable|mimes:jpeg,jpg,bmp,png,gif,svg,pdf|max:2048',
+        
+            // PayPal fields - make them nullable if not used
+            'config.PAYPAL_SANDBOX_CLIENT_ID.value' => 'nullable|string', 
+            'config.PAYPAL_SANDBOX_CLIENT_SECRET.value' => 'nullable|string', 
+        
+            'config.PAYPAL_LIVE_CLIENT_ID.value' => 'nullable|string', 
+            'config.PAYPAL_LIVE_CLIENT_SECRET.value' => 'nullable|string', 
+            'config.PAYPAL_LIVE_APP_ID.value' => 'nullable|string', 
 
-            'config.website_favicon.name' =>  'string',
-            'config.website_favicon.value' =>  'nullable|mimes:jpeg,jpg,bmp,png,gif,svg,pdf|max:2048',
+            'config.PAYPAL_MODE.value' => 'required|string|in:sandbox,live',
+
+            // social media links
+            'config.facebook_link.value'  => 'nullable|url',
+            'config.instagram_link.value' => 'nullable|url',
+            'config.twitter_link.value'   => 'nullable|url',
+            'config.linkedin_link.value'  => 'nullable|url',
         ];
+        
+
+
     }
     public function messages()
     {

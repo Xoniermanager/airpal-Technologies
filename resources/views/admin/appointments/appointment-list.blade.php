@@ -4,7 +4,9 @@
             <td>
                 <h2 class="table-avatar">
                     <a href="" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle"
-                            src="{{$appointment->user->image_url ?? '' }}" alt=""></a>
+                            src="{{$appointment->user->image_url ?? '' }}" 
+                            onerror="this.src='{{ asset('assets/img/user.jpg') }}';"
+                            alt=""></a>
                     <a href="">Dr. {{ $appointment->user->fullName }}</a>
                 </h2>
             </td>
@@ -21,7 +23,9 @@
             <td>
                 <h2 class="table-avatar">
                     <a href="" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle"
-                        src="{{$appointment->patient->image_url ?? '' }}" alt=""></a>
+                        src="{{$appointment->patient->image_url ?? '' }}"
+                        onerror="this.src='{{ asset('assets/img/user.jpg') }}';"
+                        alt=""></a>
                     <a href="">{{ $appointment->patient->fullName }} </a>
                 </h2>
             </td>

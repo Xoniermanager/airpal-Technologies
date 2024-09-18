@@ -6,7 +6,7 @@
                 <td>
                     <h2 class="table-avatar">
                         <a href="" class="avatar avatar-sm me-2"><img class="avatar-img rounded-circle"
-                                src="{{ $patient->image_url }}" alt=""></a>
+                                src="{{ $patient->image_url }}"   onerror="this.src='{{ asset('assets/img/user.jpg') }}';" alt=""></a>
                         <a href="">{{ $patient->fullName }}</a>
                     </h2>
                 </td>

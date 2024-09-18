@@ -27,7 +27,9 @@
                                     <a href="{{ route('doctor-patient-profile', Crypt::encrypt($paymentDetails->bookingSlot->patient->id)) }}"
                                         class="avatar avatar-sm me-2">
                                         <img class="avatar-img rounded-3"
-                                            src="{{ $paymentDetails->bookingSlot->patient->image_url }}" alt="">
+                                            src="{{ $paymentDetails->bookingSlot->patient->image_url }}" alt=""
+                                            onerror="this.src='{{ asset('assets/img/user.jpg') }}'"
+                                            >
                                     </a>
                                     <span class="fs-6 text-dark"><a
                                             href="{{ route('doctor-patient-profile', Crypt::encrypt($paymentDetails->bookingSlot->patient->id)) }}">{{ $paymentDetails->bookingSlot->patient->first_name }}

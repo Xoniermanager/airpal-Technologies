@@ -76,15 +76,29 @@
                         <div class="doc-info-right">
                             <div class="doctor-action">
                                 <!-- Add an ID or unique class to the <a> tag to target it -->
-                                    <div id="copyMessage" class="copy-message">Link copied to clipboard!</div>
+                                <div id="copyMessage" class="copy-message">Link copied to clipboard!</div>
                                 <a href="#" class="btn btn-white fav-btn" id="copyLink"
                                     data-url="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">
                                     <i class="fa-solid fa-copy"></i>
                                 </a>
-                            
-                                <a href="#" class="btn btn-white msg-btn">
+                                @php
+                                    $role = Auth::user()->role; // Assuming you store the user's role in 'role' column
+                                    $chatUrl = '#'; // Default URL
+
+                                    // Set chat URL based on the user's role
+                                    if ($role == 2) {
+                                        $chatUrl = route('doctor.chat');
+                                    } elseif ($role == 3) {
+                                        $chatUrl = route('patient.chat');
+                                    } elseif ($role == 1) {
+                                        $chatUrl = route('admin.chat');
+                                    }
+                                @endphp
+
+                                <a href="{{ $chatUrl }}" class="btn btn-white msg-btn">
                                     <i class="far fa-comment-alt"></i>
                                 </a>
+                                
                                 <a href="tel:{{ $doctor->phone ?? '' }}" class="btn btn-white call-btn">
                                     <i class="fas fa-phone"></i>
                                 </a>
@@ -619,7 +633,7 @@
                         navigator.clipboard.writeText(url).then(() => {
                             // Show success message
                             copyMessage.style.display = 'block';
-                            
+
                             // Hide the message after 2 seconds
                             setTimeout(() => {
                                 copyMessage.style.display = 'none';
@@ -636,7 +650,7 @@
             }
         });
     </script>
-{{-- 
+    {{-- 
     <script>
         // Wait for the DOM content to be fully loaded before running the script
         document.addEventListener('DOMContentLoaded', function() {
@@ -679,14 +693,14 @@
     /* Style for the success message */
     .copy-message {
         display: none;
-    position: absolute;
-    background-color: #004cd4;
-    color: white;
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 14px;
-    top: -21px;
-    /* right: 10px; */
-    z-index: 1000;
+        position: absolute;
+        background-color: #004cd4;
+        color: white;
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 14px;
+        top: -21px;
+        /* right: 10px; */
+        z-index: 1000;
     }
 </style>

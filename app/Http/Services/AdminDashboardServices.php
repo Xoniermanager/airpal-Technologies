@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use Carbon\Carbon;
+use App\Models\Payment;
 use App\Http\Repositories\UserRepository;
 
 class AdminDashboardServices
@@ -31,6 +32,8 @@ class AdminDashboardServices
             'doctor_list'        => $doctorList->take(5),
             'patient_list'       => $patientList->take(5),
             'appointments_list'  => $appointmentList->take(5),
+            'totalRevenue'       => Payment::sum('amount')
+
         ];
     }
 

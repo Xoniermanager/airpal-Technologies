@@ -24,7 +24,9 @@
                     <div class="appointment-grid-head">
                         <div class="patinet-information">
                             <a href="{{ route('doctor-patient-profile', ['id' => Crypt::encrypt($booking->patient->id)]) }}">
-                                <img src="{{ $booking->patient->image_url }}" id="blah">
+                                <img src="{{ $booking->patient->image_url }}" id="blah"
+                                  onerror="this.src='{{ asset('assets/img/user.jpg') }}';"
+                                >
                             </a>
                             <div class="patient-info">
                                 <h6><a

@@ -10,9 +10,12 @@
                             <div class="patient-wrap">
                                 <div class="patient-info">
                                     @if ($patientDetail->image_url)
-                                    <img src="{{ $patientDetail->image_url ?? '' }}" alt="img">
+                                    <img src="{{ $patientDetail->image_url ?? '' }}" alt="img"
+                                    onerror="this.src='{{ asset('assets/img/user.jpg') }}'"
+                                    >
                                     @else
-                                    <img class="rounded-circle" src="{{ asset('assets/img/user.jpg')}}" width="31">
+                                    <img class="rounded-circle" src="{{ asset('assets/img/user.jpg')}}" width="31"
+                                    onerror="this.src='{{ asset('assets/img/user.jpg') }}'">
                                     @endif
 
                                     <div class="user-patient">

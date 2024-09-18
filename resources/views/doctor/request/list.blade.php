@@ -5,7 +5,9 @@
                 <li>
                     <div class="patinet-information">
                         <a href="{{ route('doctor.doctor-patients.index') }}">
-                            <img src="{{ $request->patient->image_url }}">
+                            <img src="{{ $request->patient->image_url }}"
+                              onerror="this.src='{{ asset('assets/img/user.jpg') }}'"
+                            >
                         </a>
                         <div class="patient-info">
                             <p>#Apt0001</p>

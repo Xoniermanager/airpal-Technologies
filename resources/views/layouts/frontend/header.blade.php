@@ -136,15 +136,16 @@
                     <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <span class="user-img">
                             <img src="{{ auth()->user()->image_url }}" class="blah avatar-img rounded-circle" 
-                                onerror="this.src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}"
-                             >
+                            onerror="this.src='{{ asset('assets/img/user.jpg') }}'"
+                        >
+                        
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
                         <div class="user-header">
                             <div class="avatar avatar-sm">
-                                <img src="{{ auth()->user()->image_url }}"
-                                    class="blah avatar-img rounded-circle">
+                                <img src="{{ auth()->user()->image_url }}" class="blah avatar-img rounded-circle" 
+                                onerror="this.src='{{ asset('assets/img/user.jpg') }}'" >
                             </div>
                             <div class="user-text">
                                 <h6> 

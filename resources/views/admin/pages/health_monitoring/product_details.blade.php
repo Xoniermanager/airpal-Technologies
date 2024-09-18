@@ -5,7 +5,7 @@
     </div>
 
     @php
-        $product_details = isset($sections['product_details']['title']) ? $sections['product_details']['title'] : '';
+        $product_details = isset($sections['product_details']->title) ? $sections['product_details']->title : '';
     @endphp
 
     {!! getTextInput(
@@ -17,8 +17,8 @@
     ) !!}
 
     @php
-        $product_details = isset($sections['product_details']['subtitle'])
-            ? $sections['product_details']['subtitle']
+        $product_details = isset($sections['product_details']->subtitle)
+            ? $sections['product_details']->subtitle
             : '';
     @endphp
 
@@ -31,8 +31,8 @@
     ) !!}
 
     @php
-        $product_details = isset($sections['product_details']['content'])
-            ? $sections['product_details']['content']
+        $product_details = isset($sections['product_details']->content)
+            ? $sections['product_details']->content
             : '';
     @endphp
 
@@ -129,6 +129,9 @@
                 <div class="setting-card">
                     <div class="add-info membership-infos">
                         <div class="row membership-content">
+                            <input type="hidden" name="section[inner_section][{{ $i }}][id]"
+                            value="{{ $sections['product_details']->getContent[$i]['id'] ?? '' }}">
+                            
                             <div class="col-lg-8">
                                 @php
                                     $section_content_title = isset(
@@ -160,9 +163,6 @@
                                     'content',
                                 ) !!}
                             </div>
-                            <input type="hidden" name="section[inner_section][{{ $i }}][id]"
-                                value="{{ $sections['product_details']->getContent[$i]['id'] }}">
-
 
                             <div class="col-lg-6">
                                 @php
@@ -182,7 +182,7 @@
                             </div>
 
                             <input type="hidden" name="section[button][{{ $i }}][id]"
-                                value="{{ $sections['product_details']->getButtons[$i]['id'] }}">
+                                value="{{ $sections['product_details']->getButtons[$i]['id'] ?? '' }}">
                         </div>
                     </div>
                 </div>
@@ -200,6 +200,6 @@
 
     <input type="hidden" name="page_id" value="{{ $pageId }}">
     <input type="hidden" name="section[section_slug]" value="product_details">
-    <input type="hidden" name="section[id]" value="{{ $sections['product_details']['id'] ?? '' }}">
+    <input type="hidden" name="section[id]" value="{{ $sections['product_details']->id ?? '' }}">
     <button class="btn btn-primary prime-btn">Save</button>
 </div>

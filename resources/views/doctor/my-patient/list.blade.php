@@ -45,7 +45,7 @@
                                             <a href="{{ route('doctor-patient-profile', ['id' => Crypt::encrypt($patientDetails['patient_details']->id)]) }}"">
                                                 <img src="{{ $patientDetails['patient_details']->image_url }}"
                                                     id="blah"
-                                                    onerror="this.src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}">
+                                                    onerror="this.src='{{ asset('assets/img/user.jpg') }}'">
 
                                             </a>
                                             <div class="patient-info">
@@ -124,7 +124,7 @@
                                             <a href="{{ route('doctor-patient-profile', ['id' => Crypt::encrypt($patientDetails['patient_details']->id)]) }}">
                                                 <img src="{{ $patientDetails['patient_details']->image_url }}"
                                                     id="blah"
-                                                    onerror="this.src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}">
+                                                    onerror="this.src='{{ asset('assets/img/user.jpg') }}'">
 
                                             </a>
                                             <div class="patient-info">
@@ -206,7 +206,7 @@
                                             <a href="{{ route('doctor-patient-profile', ['id' => Crypt::encrypt($patientDetails['patient_details']->id)]) }}">
                                                 <img src="{{ $patientDetails['patient_details']->image_url }}"
                                                     id="blah"
-                                                    onerror="this.src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}">
+                                                    onerror="this.src='{{ asset('assets/img/user.jpg') }}'">
 
                                             </a>
                                             <div class="patient-info">

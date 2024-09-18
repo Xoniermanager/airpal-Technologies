@@ -18,7 +18,9 @@
         <li id="chat-user-{{ $chatUser->id }}" class="user-list-item">
         <a  href="javascript:void(0);" onclick="load_chat_history('{{ $chatUser->id }}',1)">
             <div class="avatar online-{{ $chatUser->id }}">
-                <img src="{{ $chatUser->image_url }}" alt="image">
+                <img src="{{ $chatUser->image_url }}" 
+                  onerror="this.src='{{ asset('assets/img/user.jpg') }}';"
+                alt="image">
             </div>
             <div class="users-list-body">
                 <div>

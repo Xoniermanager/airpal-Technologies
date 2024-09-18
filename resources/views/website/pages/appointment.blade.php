@@ -64,7 +64,7 @@
                             <div class="doctors-sidebar">
                                 <div class="form-widget">
                                     <div class="title-box">
-                                        <h3>Select Time</h3>
+                                        <h3>Select Slot Time</h3>
                                     </div>
 
                                     <div class="form-inner">
@@ -86,7 +86,7 @@
                 </div>
                 <div class="col-lg-4 col-md-12">
                     <div class="Appointment-header">
-                        <h4 class="Appointment-title">Appointment Summary</h4>
+                        <h4 class="Appointment-title">Doctor Details</h4>
                     </div>
 
                     <div class="card Appointment-card">
@@ -96,25 +96,49 @@
                                     <div class="Appointment-doctor-img">
                                         <a href="doctor-profile.html">
                                             <img src="{{ $doctorDetails['image_url'] }}"
-                                                onerror="this.src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}';"
+                                                onerror="this.src='{{ asset('assets/img/user.jpg')}}';"
                                                 alt="John Doe">
                                         </a>
                                     </div>
                                     <div class="Appointment-doctor-info mt-3">
                                         <h4><a href="doctor-profile.html">Dr. {{ $doctorDetails->fullName }}</a>
+                                        <span class="doc-speciality">{{ formatDoctorEducations($doctorDetails) }}</span>
                                         </h4>
-                                        @isset($doctorDetails)
-                                            @forelse ($doctorDetails->educations as $education)
-                                                {{ $education->course->name }}
-                                                @if (!$loop->last)
-                                                    ,
-                                                @endif
-                                            @empty
-                                                <p>N/A</p>
-                                            @endforelse
-                                        @endisset
-                                        {{-- <p>MBBS, Dentist</p> --}}
+                        
                                     </div>
+                                    <div>
+                                        @isset($doctorDetails)
+                                        @forelse ($doctorDetails->specializations as $specialization)
+                                        <span class="badge badge-info text-white">{{ $specialization->name }}</span>
+                                        @empty
+                                        <p>N/A</p>
+                                        @endforelse
+                                        @endisset
+                                    </div>
+                                    <div class="reviews-ratings">
+                                        {!! getRatingHtml($doctorDetails->allover_rating) !!}
+                                        ({{ count($doctorDetails->doctorReview) }} Reviews)
+                                    </div>
+                                </div>
+                                <div class="clinic-details">
+                                    @if (isset($doctorDetails->doctorAddress))
+                                        <p>
+                                            <span>
+                                                <i class="feather-map-pin"></i><strong>
+                                                    {{ formatDoctorAddress($doctorDetails) }}
+                                                </strong>
+                                                <a href="https://www.google.com/maps?q={{ encodeAddress($doctorDetails) }}"
+                                                    target="_blank" style="color: blue">
+                                                    Get Directions </a>
+                                            </span>
+
+                                        </p>
+                                    @else
+                                        <p class="doc-location">
+                                            <i class="feather-map-pin"></i> - Address Not Added
+                                        </p>
+                                    @endif
+
                                 </div>
                                 <div class="Appointment-doctor-right">
                                     {{-- <p>

@@ -33,7 +33,6 @@ class HealthMonitoringController extends Controller
     } else {
         $sections['product_details'] = (object) ['section_list' => $sectionList];
     }
-
     return view('website.pages.health_monitoring', ['sections' => $sections]);
   }
 }

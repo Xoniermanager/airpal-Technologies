@@ -102,7 +102,6 @@ class FrontendPagesServices
                 }
             }
             if (isset($data['section']['inner_section'])) {
-
                 $allContentSections = $data['section']['inner_section'];
                 $howItWorksCounter = 0;
 
@@ -117,14 +116,17 @@ class FrontendPagesServices
                 }
             }
 
-            if ($data['section']['ul']) {
-                foreach ($data['section']['ul'] as $sectionList) {
-
-                    $sectionList['page_id'] = $pageId;
-                    $sectionListId = $sectionList['id'];
-                    $sectionList   = $this->saveList($sectionList, $sectionListId);
+                if (isset($data['section']['ul']) && is_array($data['section']['ul'])) {
+                    foreach ($data['section']['ul'] as $sectionList) {
+                        if (isset($sectionList['id'])) {
+                            $sectionList['page_id'] = $pageId; // Ensure $pageId is defined
+                            $sectionListId = $sectionList['id'];
+                            $savedSectionList = $this->saveList($sectionList, $sectionListId); // Use a different variable name to avoid confusion
+                        }
+                    }
                 }
-            }
+
+
         }
 
         // if(isset($data['how_it_works']))
@@ -217,7 +219,6 @@ class FrontendPagesServices
 
     public function saveList($sectionList, $sectionListId = null)
     {
-        dd($sectionList);
         // First of all lets check if this request is for create or update of section,
         if (!empty($sectionListId)) {
 

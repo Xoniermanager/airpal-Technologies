@@ -7,7 +7,7 @@
 <script src="{{asset('/admin/assets/js/moment.min.js')}}" type="cd1ed460c5054330c2effc78-text/javascript"></script>
 <script src="{{asset('/admin/assets/js/bootstrap-datetimepicker.min.js')}}" type="cd1ed460c5054330c2effc78-text/javascript"></script>
 <script src="{{asset('/admin/assets/js/script.js')}}" type="cd1ed460c5054330c2effc78-text/javascript"></script>
-<!-- <script src="{{asset('../assets/js/rocket-loader.min.js')}}" data-cf-settings="cd1ed460c5054330c2effc78-|49" defer></script> -->
+<script src="{{asset('../assets/js/rocket-loader.min.js')}}" data-cf-settings="cd1ed460c5054330c2effc78-|49" defer></script> 
 <script src="{{asset('/assets/common-assets/js/common-script.js')}}"></script>
 <script src="https://kendo.cdn.telerik.com/2024.1.319/js/kendo.all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>

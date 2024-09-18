@@ -1,9 +1,9 @@
     <div class="header">
         <div class="header-left">
-            <a href="{{ route('admin.dashboard.index') }}" class="logo">
+            <a href="{{ route('home.index') }}" class="logo">
                 <img src="{{ asset('assets/img/logo.png') }}" alt="Logo">
             </a>
-            <a href="{{ route('admin.dashboard.index') }}" class="logo logo-small">
+            <a href="{{ route('home.index') }}" class="logo logo-small">
                 <img src="{{ asset('assets/img/favicon.png') }}" alt="Logo" width="30" height="30">
             </a>
         </div>
@@ -114,34 +114,22 @@
 
             <li class="nav-item dropdown has-arrow">
                 <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                    <span class="user-img">
-                        @isset(auth()->user()->image_url)
-                            @if (auth()->user()->image_url)
-                                <img class="rounded-circle" src="{{ auth()->user()->image_url }}" width="31"
-                                    id="blah">
-                            @else
-                                <img class="rounded-circle" src="{{ asset('assets/img/user.jpg') }}" width="31"
-                                    id="blah">
-                            @endif
-                        @endisset
+                    <span class="avatar avatar-sm">
+                        <img src="{{ auth()->user()->image_url }}" class="blah avatar-img rounded-circle" 
+                        onerror="this.src='{{ asset('assets/img/user.jpg') }}'"
+                    >
                     </span>
                 </a>
                 <div class="dropdown-menu">
                     <div class="user-header">
                         <div class="avatar avatar-sm">
-                            @isset(auth()->user()->image_url)
-                                @if (auth()->user()->image_url)
-                                    <img class="rounded-circle" src="{{ auth()->user()->image_url }}" width="31"
-                                        id="blah">
-                                @else
-                                    <img class="rounded-circle" src="{{ asset('assets/img/user.jpg') }}" width="31"
-                                        id="blah">
-                                @endif
-                            @endisset
+                            <img src="{{ auth()->user()->image_url }}" class="blah avatar-img rounded-circle" 
+                            onerror="this.src='{{ asset('assets/img/user.jpg') }}'"
+                        >
                         </div>
                         <div class="user-text">
                             <h6>{{ auth()->user()->fullName ?? '' }}</h6>
-                            <p class="text-muted mb-0">Administrator</p>
+                            <p class="text-muted mb-0">Admiistrator</p>
                         </div>
                     </div>
                     {{-- <a class="dropdown-item" href="">My Profile</a> --}}
@@ -159,6 +147,9 @@
         <div class="sidebar-inner slimscroll">
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
+                    <li class="menu-title">
+                        <span>Main</span>
+                        </li>
                     <li class="menu-item" data-url="{{ route('admin.dashboard.index') }}">
                         <a href="{{ route('admin.dashboard.index') }}"><i class="fe fe-home"></i>
                             <span>Dashboard</span></a>
@@ -170,17 +161,17 @@
 
 
                     <li class="submenu">
-                        <a href="#" class=""><i class="fe fe-question"></i><span>Doctor Management</span> <span
+                        <a href="#" class=""><i class="fa-solid fa-user-doctor"></i></i><span>Doctor Management</span> <span
                                 class="menu-arrow"></span></a>
                         <ul style="display: none;">
-                            <a href="{{ route('admin.index.doctors') }}"><i class="fe fe-user-plus"></i>
+                            <a href="{{ route('admin.index.doctors') }}"><i class="fa-solid fa-user-doctor"></i> 
                                 <span>Doctors</span>
                             </a>
                             <a href="{{ route('admin.service.index') }}" data-url="{{ route('admin.service.index') }}">
                                 <i class="fe fe-user-plus"></i>
                                 <span>Services</span></a>
 
-                            <a href="{{ route('admin.speciality.index') }}" data-url="{{ route('admin.speciality.index') }}"><i class="fe-award"></i>
+                            <a href="{{ route('admin.speciality.index') }}" data-url="{{ route('admin.speciality.index') }}"><i class="fa-solid fa-hand-holding-medical"></i>
                             <span>Specialities</span></a>
 
                             <a href="{{ route('admin.slots.index') }}"><i class="fa-solid fa-calendar-week"></i>
@@ -194,7 +185,8 @@
                     </li>
                     
                     <li class="submenu">
-                        <a href="#" class=""><i class="fe fe-question"></i><span>Pages</span> <span
+                        <a href="#" class=""><i class="fe fe-file"></i>
+                        </i><span>Pages</span> <span
                                 class="menu-arrow"></span></a>
                         <ul style="display: none;">
                             <a href="{{ route('admin.home.index', 1) }}"
@@ -231,7 +223,7 @@
 
 
                     <li class="submenu">
-                        <a href="#" class=""><i class="fe fe-question"></i><span>Settings</span> <span
+                        <a href="#" class=""><i class="fa-solid fa-gear"></i><span>Settings</span> <span
                                 class="menu-arrow"></span></a>
                         <ul style="display: none;">
                             
@@ -239,18 +231,18 @@
                                 <i class="fe fe-vector"></i>
                                 <span>Site Config</span></a>
 
-                            <a href="{{ route('admin.index.country') }}" data-url="{{ route('admin.index.country') }}"><i class="fe fe-flag"></i>
+                            <a href="{{ route('admin.index.country') }}" data-url="{{ route('admin.index.country') }}"><i class="fa-solid fa-flag"></i>
                                 <span>Country</span></a>
 
                             <a href="{{ route('admin.index.state') }}" data-url="{{ route('admin.index.state') }}">
-                                <i class="fe fe-flag"></i>
+                                <i class="fa-regular fa-flag"></i>
                                     <span>State</span></a>
                         </ul>
                     </li>
 
                     <li class="{{ request()->routeIs('admin.chat') ? 'active' : '' }}">
                         <a href="{{ route('admin.chat') }}">
-                            <i class="fa fa-comments"></i>
+                            <i class="fa-solid fa-comment-medical"></i>
                             <span>Chat</span>
                         </a>
                     </li>
@@ -266,13 +258,13 @@
                         <ul style="display: none;">
                             <a href="{{ route('admin.testimonial.index') }}"
                                 data-url="{{ route('admin.testimonial.index') }}">
-                                <span>Testimonials</span></a>
+                                <i class="fa-solid fa-users"></i>  <span>Testimonials</span></a>
                             <a href="{{ route('admin.partner.index') }}"
                                 data-url="{{ route('admin.partner.index') }}">
-                                <span>Our Partners</span></a>
+                                <i class="fa-regular fa-handshake"></i><span>Our Partners</span></a>
                             <a href="{{ route('admin.our.team.index') }}"
-                                data-url="{{ route('admin.our.team.index') }}"><i class="fe fe-flag"></i>
-                                <span>Our Team</span></a>
+                                data-url="{{ route('admin.our.team.index') }}">
+                                <i class="fa-solid fa-people-group"></i>  <span>Our Team</span></a>
                         </ul>
                     </li>
 

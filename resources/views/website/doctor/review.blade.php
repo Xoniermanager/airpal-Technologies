@@ -3,11 +3,12 @@
         <li>
             <div class="comment">
                 <img class="avatar avatar-sm rounded-circle" alt=""
-                    src="{{ $reviewDetails->patient->image_url ?? URL::asset('assets/img/patients/patient.jpg') }}">
+                    src="{{ $reviewDetails->patient->image_url ?? URL::asset('assets/img/patients/patient.jpg') }}"
+                    onerror="this.src='{{ asset('assets/img/user.jpg') }}'"
+                    >
                 <div class="col-md-11 comment-body">
                     <div class="meta-data">
                         <span class="comment-author">{{ $reviewDetails->patient->first_name }}</span>
-                        {{-- <span class="comment-date">Reviewed 2 Days ago</span> --}}
                         <div class="review-count rating">
                             {!! getRatingHtml($reviewDetails->rating) !!}
                         </div>

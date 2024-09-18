@@ -6,7 +6,9 @@
             <td>
                 <div class="patient-info-profile">
                     <a href="{{$appointment->patientProfileUrl()}}" class="table-avatar">
-                        <img src="{{ $appointment->patient->image_url }}">
+                        <img src="{{ $appointment->patient->image_url }}"
+                          onerror="this.src='{{ asset('assets/img/user.jpg') }}';"
+                        >
                     </a>
                     <div class="patient-name-info">
                         <span>#PAT{{ $appointment->id }}</span>

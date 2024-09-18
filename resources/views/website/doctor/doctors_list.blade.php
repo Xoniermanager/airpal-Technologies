@@ -8,7 +8,7 @@
                                                 <a
                                                     href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">
                                                     <img src="{{ $doctor['image_url'] }}"
-                                                        onerror="this.src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}';"
+                                                         onerror="this.src='{{ asset('assets/img/user.jpg') }}';"
                                                         class="img-fluid" alt="John Doe">
                                                 </a>
                                                 <div class="favourite-btn">
@@ -29,63 +29,51 @@
                                                     <i class="fas fa-circle-check"></i>
                                                 </h4>
                                                 <span class="doc-speciality">
-                                                    @forelse ($doctor->educations as $education)
-                                                    ({{ $education->course->name }})
-                                                    @if (!$loop->last)
-                                                    ,
-                                                    @endif
-                                                    @empty
-                                                    @endforelse
-
+                                                    {{ formatDoctorEducations($doctor) }}
                                                 </span>
                                                 <div>
                                                     @isset($doctor)
                                                     @forelse ($doctor->specializations as $specialization)
-                                                    <span
-                                                        class="badge badge-info text-white">{{ $specialization->name }}</span>
-
+                                                    <span class="badge badge-info text-white">{{ $specialization->name }}</span>
                                                     @empty
                                                     <p>N/A</p>
                                                     @endforelse
                                                     @endisset
                                                 </div>
                                                 <div class="clinic-details">
-                                                    <p class="doc-location">
-                                                        @php
-                                                        $address = $doctor->doctorAddress->address ?? '';
-                                                        $city = $doctor->doctorAddress->city ?? '';
-                                                        $fullAddress = $address . ' ' . $city . ' india';
-                                                        $encodedAddress = str_replace(' ', '+', $fullAddress);
-                                                        @endphp
-
+                                                    <div>
                                                         @if (isset($doctor->doctorAddress))
-                                                        <span class="mb-0">
-                                                            <i
-                                                                class="feather-map-pin"></i>{{ $doctor->doctorAddress->city ?? '' }}
-                                                            {{ ',' . $doctor->doctorAddress->states->country->name ?? '' }}
-                                                            <a href="https://www.google.com/maps?q={{ $encodedAddress }}"
-                                                                target="_blank" style="color: blue">Get
-                                                                Directions
-                                                            </a>
-                                                        </span>
+                                                            <p>
+                                                                <span>
+                                                                    <i class="feather-map-pin"></i><strong>
+                                                                        {{ formatDoctorAddress($doctor) }}
+                                                                    </strong>
+                                                                    <a href="https://www.google.com/maps?q={{ encodeAddress($doctor) }}"
+                                                                        target="_blank" style="color: blue">
+                                                                        Get Directions </a>
+                                                                </span>
+                    
+                                                            </p>
                                                         @else
-                                                        <span class="doc-location mb-0"><i
-                                                                class="fas fa-map-marker-alt"></i> - <a
-                                                                href="javascript:void(0);">Get Directions</a>
-                                                        </span>
+                                                            <p class="doc-location">
+                                                                <i class="feather-map-pin"></i> - Address Not Added
+                                                            </p>
                                                         @endif
-                                                    </p>
+                    
+                                                    </div>
+                                             
                                                     <p class="doc-location">
                                                         <i class="feather-award"></i>
                                                         <span>{{ $doctor->experience_years == 0 || $doctor->experience_years == null ? 'Experience Not Added' : $doctor->experience_years . ' Years of Experience' }}</span>
                                                     </p>
                                                     <p class="doc-location">
                                                         <i class="feather-phone"></i>
-                                                        <span>{{ $doctor->phone ?? 'Not available' }}</span>
+                                                        <span>{{ !empty($doctor->phone) ? $doctor->phone : 'Not available' }}</span>
                                                     </p>
                                                     <p class="doc-location">
                                                         <i class="feather-mail"></i>
-                                                        <span>{{ $doctor->email ?? 'Not available' }}</span>
+                                                        <span>{{ !empty($doctor->email) ? $doctor->email : 'Not available' }}</span>
+
                                                     </p>
 
 

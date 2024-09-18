@@ -159,8 +159,14 @@
                     </a>
                 </li>
 
+                <li class="{{ request()->is('doctor/paypal') ? 'active' : '' }}">
+                    <a href="{{ route('paypal.index') }}">
+                        <i class="fa-brands fa-paypal"></i>
+                        <span>Paypal Settings</span>
+                    </a>
+                </li>
+
             </ul>
         </nav>
     </div>
-
 </div>

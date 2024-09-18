@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\FrontendPageController;
-use App\Http\Controllers\OurTeamController;
+use App\Models\OurTeam;
+use App\Models\PaypalConfig;
 use App\Jobs\UpdateMeetingIdJob;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -13,11 +13,13 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\InstantController;
+use App\Http\Controllers\OurTeamController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\PaymentController;
 use App\Jobs\UpdateDoctorRatingsAverageValue;
 use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Admin\PayPalController;
+use App\Http\Controllers\FrontendPageController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\SpecialtyPageController;
@@ -27,6 +29,7 @@ use App\Http\Controllers\Doctor\ReviewsController;
 use App\Http\Controllers\FrontendDoctorController;
 use App\Http\Controllers\Admin\AdminChatController;
 use App\Http\Controllers\Doctor\DoctorNotification;
+use App\Http\Controllers\Doctor\DoctorPaypalConfig;
 use App\Http\Controllers\Patient\BookingController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\HealthmonitoringController;
@@ -51,6 +54,7 @@ use App\Http\Controllers\Doctor\AppointmentConfigController;
 use App\Http\Controllers\Doctor\DoctorAppointmentController;
 use App\Http\Controllers\DoctorPatientChatHistoryController;
 use App\Http\Controllers\Patient\PatientDashboardController;
+use App\Http\Controllers\Doctor\DoctorPaypalConfigController;
 use App\Http\Controllers\Doctor\DoctorPanelQuestionController;
 use App\Http\Controllers\Doctor\DoctorAuthenticationController;
 use App\Http\Controllers\Patient\PatientAppointmentsController;
@@ -60,7 +64,6 @@ use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSiteConfigController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController, TestimonialController};
-use App\Models\OurTeam;
 
 // =============================== Login And SignUp Routes ==================================== //
 /**
@@ -240,6 +243,11 @@ Route::prefix('doctor')->group(function () {
             Route::get('/delete/test-details/{prescription_tests:id}', 'deletePrescriptionTest');
             Route::get('/search/filter', 'searchFilterPrescriptionDetails')->name('prescription.search.filter');
             Route::get('/get-booking-details-patient', 'getAllBookingDetailsByPatient')->name('get.booking.details.patient');
+        });
+
+        Route::prefix('paypal')->controller(DoctorPaypalConfigController::class)->group(function () {
+            Route::get('/', 'index')->name('paypal.index');
+            Route::post('create', 'store')->name('add.doctor.paypal.account.detail');
         });
     });
 });

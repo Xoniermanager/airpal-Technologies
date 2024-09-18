@@ -31,7 +31,6 @@
     
         <!-- Submit Button (Full Width) -->
         <div class="col-md-12">
-            <input type="hidden" name="doctor_id" value="{{ auth()->user()->id }}">
             <button class="btn btn-primary btn-block">Save</button>
         </div>
     </form>

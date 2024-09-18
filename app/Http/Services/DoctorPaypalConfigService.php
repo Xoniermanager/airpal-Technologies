@@ -13,11 +13,10 @@ class DoctorPaypalConfigService
     {
         $this->doctorPaypalConfigRepository = $doctorPaypalConfigRepository;
     }
-    public function storeDoctorPaypalConfigDetail($payload)
+    public function storeDoctorPaypalConfigDetail($doctorId, $payload)
     {
-        $payload =  Arr::except($payload, ['_token']);
         return $this->doctorPaypalConfigRepository->updateOrCreate(
-            ['doctor_id' => $payload['doctor_id']],
+            ['doctor_id' => $doctorId],
             $payload
         );
     }

@@ -39,7 +39,8 @@ class DoctorPaypalConfigApiController extends Controller
     public function store(DoctorPaypalConfigRequest $doctorPaypalConfigRequest)
     {
         try {
-            $doctorPaypalConfig = $this->paypalConfigService->storeDoctorPaypalConfigDetail($doctorPaypalConfigRequest->all());
+            $doctorId = Auth::guard('api')->user()->id;
+            $doctorPaypalConfig = $this->paypalConfigService->storeDoctorPaypalConfigDetail($doctorId, $doctorPaypalConfigRequest->all());
             if ($doctorPaypalConfig) {
                 return response()->json([
                     'success' => true,

@@ -77,7 +77,7 @@
                                     <input class="form-control" type="password" placeholder="Password" name="password" id="password">
                                 </div>
                                 <div class="mb-3">
-                                    <button class="btn btn-primary w-100" type="submit" id="loginButton">Send Otp </button>
+                                    <button class="btn btn-primary w-100" type="submit" id="loginButton">Login </button>
                                     <span class="position-absolute" id="loaderImage">
                                         <img src="{{ asset('assets/img/1.webp') }}" class="loadingbtn"> 
                                     </span>

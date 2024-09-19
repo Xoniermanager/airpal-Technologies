@@ -1,5 +1,6 @@
 <?php
 
+use FontLib\Table\Type\post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\Api\Patient\DoctorChatController;
 use App\Http\Controllers\Api\Patient\PatientChatController;
 use App\Http\Controllers\Api\Patient\DoctorFilterController;
 use App\Http\Controllers\Api\Patient\PatientDiaryController;
+use App\Http\Controllers\Api\DoctorPaypalConfigApiController;
 use App\Http\Controllers\Api\Patient\PatientProfileController;
 use App\Http\Controllers\Api\DoctorAppointmentConfigController;
 use App\Http\Controllers\Api\Patient\MedicalRecordApiController;
@@ -29,7 +31,6 @@ use App\Http\Controllers\Api\DoctorAppointmentConfigApiController;
 use App\Http\Controllers\Api\Patient\PatientFavoriteDoctorController;
 use App\Http\Controllers\Api\Doctor\DoctorAppointmentAndRevenueGraphController;
 use App\Http\Controllers\Api\PushNotificationController;
-use FontLib\Table\Type\post;
 
 Route::controller(MeetingController::class)->group(function () {
     Route::get('get-meeting-Details/{booking_slots:meeting_id}', 'getMeetingDetails');
@@ -154,6 +155,10 @@ Route::middleware('authCheck')->group(function () {
             Route::post('/search/filter', 'searchFilterPrescriptionDetails');
             Route::get('/download/pdf/{prescriptions:id}', 'downloadPdfPrescription');
         });
+        Route::prefix('paypal')->controller(DoctorPaypalConfigApiController::class)->group(function () {
+            Route::get('/', 'index');
+            Route::post('create', 'store')->name('add.doctor.paypal.account.detail');
+        });
     });
 
     // patient routes starts here
@@ -230,5 +235,5 @@ Route::controller(PaymentApiController::class)->group(function () {
     Route::post('payment-required', 'checkPaymentRequiredForBooking');
     Route::get('update-payment-details', 'updatePaymentDetails')->name('api.paypal.success');
     Route::get('update-payment-status', 'updatePaymentStatus')->name('api.paypal.cancel');
-    Route::post('get-payment-status','getPaymentStatus');
+    Route::post('get-payment-status', 'getPaymentStatus');
 });

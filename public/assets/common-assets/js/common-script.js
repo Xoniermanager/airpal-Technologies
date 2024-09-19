@@ -320,4 +320,31 @@ function remove_medicine_html(this_ele, medicine_detail_id) {
  * Payment is required &
  * 
  */
+function pay_fee_now(event,id)
+{
+    console.log("Booking Id : " + id);
+    event.preventDefault();
+    jQuery.ajax({
+        type:'post',
+        url: site_base_url + '/',
+        data: {
+            '_token': jQuery('meta[name="csrf-token"]').attr('content'),
+            'id': id
+        },
+        dataType:JSON,
+        success: function(response){
+            if(response.status)
+            {
 
+            }
+            else
+            {
+                // show error message returned from server in pop up
+            }
+        },
+        error: function(error){
+            // Show error in pop up
+        }
+    });
+    return false;
+}

@@ -284,4 +284,17 @@ class UserServices
         }
         return $query->get();
     }
+
+    /**
+     * Update device token for user using email of the user
+     * @param email
+     * @param deviceToken
+     * @return update status
+     */
+    public function updateDeviceToken($email,$deviceToken)
+    {
+        return $this->userRepository->where('email',$email)->update([
+            'device_token'  =>  $deviceToken
+        ]);
+    }
 }

@@ -38,8 +38,8 @@ class DoctorPatientChatHistoryService
             $chatHistory->update(['read' =>  1]);
         }
 
-        $chatHistory =  $chatHistory->orderBy('message_sent_date','asc')->take(60)->get()->groupBy('message_sent_date');
-
+        $chatHistory =  $chatHistory->orderBy('created_at','desc')->take(60)->get()->groupBy('message_sent_date')->reverse();
+        // dd($chatHistory);
         $senderDetails = $this->userRepository->findOrFail($senderId);
         $receiverDetails = $this->userRepository->findOrFail($receiverId);
         

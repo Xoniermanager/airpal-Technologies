@@ -3,9 +3,6 @@
 namespace App\Http\Services;
 
 use Carbon\Carbon;
-use Illuminate\Http\UploadedFile;
-use App\Helpers\CalculateExperience;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Repositories\UserRepository;
 use App\Http\Repositories\BookingRepository;
 

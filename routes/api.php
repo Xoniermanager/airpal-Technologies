@@ -28,6 +28,7 @@ use App\Http\Controllers\Api\Patient\PatientDashboardController;
 use App\Http\Controllers\Api\DoctorAppointmentConfigApiController;
 use App\Http\Controllers\Api\Patient\PatientFavoriteDoctorController;
 use App\Http\Controllers\Api\Doctor\DoctorAppointmentAndRevenueGraphController;
+use App\Http\Controllers\Api\PushNotificationController;
 use FontLib\Table\Type\post;
 
 Route::controller(MeetingController::class)->group(function () {
@@ -218,6 +219,9 @@ Route::middleware('authCheck')->group(function () {
             Route::post('send-message', 'sendMessage');
         });
     });
+
+    // Send push notifications api's
+    Route::post('/save-device-token', [PushNotificationController::class, 'saveDeviceToken']);
     Route::get('privacy', [AuthController::class, 'privacyPolicy']);
 });
 

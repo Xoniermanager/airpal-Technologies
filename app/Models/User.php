@@ -40,7 +40,8 @@ class User extends Authenticatable
         'image_url',
         'description',
         'experience_years',
-        'allover_rating'
+        'allover_rating',
+        'device_token'
     ];
 
     /**

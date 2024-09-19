@@ -60,6 +60,7 @@ use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSiteConfigController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController, TestimonialController};
+use App\Http\Controllers\Api\PushNotificationController;
 use App\Models\OurTeam;
 
 // =============================== Login And SignUp Routes ==================================== //
@@ -644,3 +645,4 @@ Route::controller(FrontendDoctorController::class)->group(function () {
 });
 
 // ============================== End Frontend Website Routes ===================== //
+Route::get('test-push',[PushNotificationController::class,'send']);

@@ -90,13 +90,20 @@ class DoctorAppointmentConfigApiController extends Controller
         if (isset($doctorSlot)) {
             $doctorSlot->exception_days = $doctorSlot->user->doctorExceptionDays;
             $returnedSlots  = $this->doctorSlotServices->createDoctorSlots($doctorSlot);
-        } else {
-            $returnedSlots = [];
+        } 
+        else 
+        {
+            return response()->json([
+                "status"  => false,
+                "message" => "No slots available for booking.",
+                "data"    => [],
+
+            ]);
         }
         if ($returnedSlots) {
             return response()->json([
-                "status"  => "success",
-                "message" => "Doctor slot retrieve successfully",
+                "status"  => true,
+                "message" => "Doctor slot retrieved successfully",
                 "data"    => $returnedSlots,
 
             ]);

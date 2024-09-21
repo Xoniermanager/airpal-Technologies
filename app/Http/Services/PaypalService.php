@@ -16,9 +16,10 @@ class PaypalService
      */
     public function generatePaymentLink($amount, $bookingDetails, $returnUrls)
     {
+        
         $doctorId = $bookingDetails->doctor_id;
-        $provider = new PayPalClient;
-        $provider->setApiCredentials(getPaypalConfig($doctorId));
+        $provider = new PayPalClient(getPaypalConfig($doctorId));
+        // $provider->setApiCredentials();
         $paypalToken = $provider->getAccessToken();
         return $response = $provider->createOrder([
             "intent" => "CAPTURE",
@@ -45,8 +46,8 @@ class PaypalService
      */
     public function getPaymentDetails($paypalToken)
     {
-        $provider = new PayPalClient;
-        $provider->setApiCredentials(config('paypal'));
+        $provider = new PayPalClient(getPaypalConfig($doctorId));
+        // $provider->setApiCredentials(config('paypal'));
         $provider->getAccessToken();
         $response = $provider->capturePaymentOrder($paypalToken);
 

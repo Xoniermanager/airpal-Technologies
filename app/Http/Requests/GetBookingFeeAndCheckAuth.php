@@ -28,7 +28,7 @@ class GetBookingFeeAndCheckAuth extends FormRequest
             'booking_date'      =>  'required|date',
             'slot_start_time'   =>  'required',
             'slot_end_time'     =>  'required',
-            'doctor_id'         =>  'required|exists:users,id,role,2',
+            'doctor_id'         =>  'required|exists:users,id,role,' . config('airpal.roles.doctor'),
         ];
     }
 }

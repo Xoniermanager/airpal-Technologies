@@ -64,6 +64,16 @@ class BookAppointmentApiController extends Controller
                 ];
 
                 $paymentLinkDetails = $this->paypalService->generatePaymentLink($bookingFee, $bookedAppointment, $redirectUrls);
+                
+                if(isset($paymentLinkDetails['error']))
+                {
+                    \Log::info('Paypal Link not generated for mobile error : ' . json_encode($paymentLinkDetails));
+                    return response()->json([
+                        'status'    =>  false,
+                        'message'   =>  'Your appointment has been booked, however currently we are facing some issue with payment. You can make the payment later'
+                    ], 200);
+                }
+
                 $paypalPaymentId = $paymentLinkDetails['id'];
 
                 // Update the payment required column to be true as the payment is required for this appointment

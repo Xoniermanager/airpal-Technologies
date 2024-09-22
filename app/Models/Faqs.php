@@ -9,5 +9,10 @@ class Faqs extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','description'];
+    protected $fillable = ['name','description','faq_category_id'];
+
+    public function faqCategory()
+    {
+        return $this->belongsTo(FaqCategory::class,'faq_category_id','id');
+    }
 }

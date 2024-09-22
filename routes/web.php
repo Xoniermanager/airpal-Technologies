@@ -413,8 +413,9 @@ Route::prefix('admin')->group(function () {
         Route::prefix('faqs')->controller(FaqsController::class)->group(function () {
             Route::get('/', 'index')->name('admin.faqs.index');
             Route::post('create', 'store')->name('admin.add.faqs');
-            Route::post('update', 'update')->name('admin.faqs.update');
+            Route::post('update/{faq:id}', 'update')->name('admin.faqs.update');
             Route::post('delete', 'destroy')->name('admin.delete-faqs');
+            Route::get('get-faq-details/{faq:id}','getFAQDetails')->name('admin.faq.details');
         });
 
         Route::prefix('country')->controller(CountryController::class)->group(function () {

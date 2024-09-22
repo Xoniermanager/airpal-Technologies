@@ -42,15 +42,25 @@
                                         <label class="mb-2">Name</label>
                                         <input type="text" name="name" class="form-control">
                                         <span class="text-danger" id="name-error"></span>
-
                                     </div>
+
                                     <div class="mb-3" id="faqs-div">
                                         <label class="mb-2">Description</label>
                                        
                                         <textarea name="description"  name="description" class="form-control h-100px"></textarea>
                                         <span class="text-danger" id="description-error"></span>
-
                                     </div>
+
+                                    <div class="mb-3">
+                                        <label class="mb-2">FAQ Category</label>
+                                        <select class="form-select" id="faq-category-id" name="faq_category_id">
+                                            <option value="">Select FAQ Category</option>
+                                            @foreach ($allFaqCategories as $faqCategory)
+                                                <option value="{{ $faqCategory->id }}">{{ $faqCategory->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -80,14 +90,24 @@
                                         <label class="mb-2">Name</label>
                                         <input type="text" name="name" id="name" class="form-control">
                                         <span class="text-danger" id="name-error"></span>
-
                                     </div>
+
                                     <div class="mb-3" id="faqs-div">
                                         <label class="mb-2">Description</label>
                                         <textarea name="description" id="description" class="form-control h-100px"></textarea>
                                         <span class="text-danger" id="description-error"></span>
-
                                     </div>
+
+                                    <div class="mb-3">
+                                        <label class="mb-2">FAQ Category</label>
+                                        <select class="form-select" id="faq-category-id" name="faq_category_id">
+                                            <option value="">Select FAQ Category</option>
+                                            @foreach ($allFaqCategories as $faqCategory)
+                                                <option value="{{ $faqCategory->id }}">{{ $faqCategory->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -128,10 +148,12 @@
 
             jQuery("#addfaqsForm").validate({
                 rules: {
-                    name: "required"
+                    name: "required",
+                    faq_category_id:"required"
                 },
                 messages: {
-                    name: "Please enter FAQ name!",
+                    name: "Please enter faqs name!",
+                    faq_category_id:"Please select FAQ category!"
                 },
                 submitHandler: function(form) {
                     var formData = $(form).serialize();
@@ -174,20 +196,25 @@
 
             jQuery("#editfaqsForm").validate({
                 rules: {
-                    name: "required"
+                    name: "required",
+                    faq_category_id:"required"
                 },
                 messages: {
                     name: "Please enter FAQ name!",
+                    faq_category_id:"Please select FAQ category!"
                 },
                 submitHandler: function(form) {
                     var formData = $(form).serialize();
+                    let faq_id = jQuery('#faqs_id').val();
+                    console.log(site_admin_base_url + 'faqs/update/'+faq_id);
                     $.ajax({
-                        url: "{{ route('admin.faqs.update') }}",
-                        type: 'post',
+                        url: site_admin_base_url + 'faqs/update/'+faq_id,
+                        type: 'POST',
                         data: formData,
+                        dataType:"JSON",
                         success: function(response) {
                             jQuery('#edit_faqs').modal('hide');
-                            // swal.fire("Done!", response.message, "success");
+                            swal.fire("Done!", response.message, "success");
                             jQuery('#faqs_list').replaceWith(response.data);
                         },
                         error: function(error_messages) {
@@ -239,11 +266,30 @@
 
         }); // ready function end
 
-        function edit_faqs(id, name, description) {
-            $('#faqs_id').val(id);
-            $('#name').val(name);
-            $('#description').val(description);
-    }
+        function edit_faqs(id) 
+        {
+            jQuery.ajax({
+                type: 'GET',
+                url: site_admin_base_url + "faqs/get-faq-details/"+id,
+                data:{
+                    '_token': '{{ csrf_token() }}'
+                },
+                dataType: 'JSON',
+                success: function(response){
+                    if(response.status)
+                    {
+                        $('#faqs_id').val(response.data.id);
+                        $('#name').val(response.data.name);
+                        $('#description').val(response.data.description);
+                        jQuery("#faq-category-id option[value='"+ response.data.faq_category_id +"']").attr("selected","selected");
+                    }
+                    console.log(response.data.id);
+                },
+                error: function(error){
+                    console.log(error);
+                }
+            });
+        }
 
 
     </script>

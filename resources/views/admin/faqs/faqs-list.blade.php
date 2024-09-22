@@ -6,6 +6,7 @@
                     <th>#</th>
                     <th>Name</th>
                     <th>Description</th>
+                    <th>Category</th>
                     <th>Created_at</th>
                     <th>Actions</th>
                 </tr>
@@ -16,10 +17,11 @@
                     <td>{{ $faqs['id'] }}</td>
                     <td>{{ $faqs['name'] }}</td>
                     <td>{!! Str::limit($faqs['description'], 40, ' ...') !!}</td>
+                    <td>{{ ($faqs->faqCategory) ? $faqs->faqCategory->name : '' }}</td>
                     <td>{{ $faqs['created_at']->format('d/m/Y') }}</td>
                     <td>
                         <div class="actions">
-                            <a class="btn btn-sm bg-success-light" data-id ="{{$faqs['name']}}" data-bs-toggle="modal"href="#edit_faqs" onclick="edit_faqs('{{ $faqs['id'] }}','{{ $faqs['name']}}','{{ $faqs['description'] }}')">
+                            <a class="btn btn-sm bg-success-light" data-id ="{{$faqs['name']}}" data-bs-toggle="modal"href="#edit_faqs" onclick="edit_faqs('{{ $faqs['id'] }}')">
                                 <i class="fe fe-pencil"></i> Edit
                             </a>
                             <a data-bs-toggle="modal" href="#delete-faqs"

@@ -4,39 +4,42 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Services\FaqsServices;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\CreateFaqRequest;
+use App\Http\Services\FaqCategoryService;
+use App\Models\Faqs;
 
 class FaqsController extends Controller
 {
 
   private $faqsServices;
-  public function __construct(FaqsServices $faqsServices)
+  private $faqCategoryService;
+  
+  public function __construct(FaqsServices $faqsServices, FaqCategoryService $faqCategoryService)
   {
     $this->faqsServices = $faqsServices;
-  }
-  public function index()
-  {
-    $allFaqs =  $this->faqsServices->all();
-    return view("admin.faqs.index", ['allFaqs' => $allFaqs]);
+    $this->faqCategoryService = $faqCategoryService;
   }
 
-  public function store(Request $request)
+  public function index()
   {
-    $validator = Validator::make($request->all(), [
-      'name'        => 'required',
-      'description' => 'required',
+    $allFaqs =  $this->faqsServices->getPaginateData();
+    $allFaqCategories =  $this->faqCategoryService->getAlFaqCategories();
+    return view("admin.faqs.index", [
+      'allFaqs'           => $allFaqs,
+      'allFaqCategories'  =>  $allFaqCategories
     ]);
-    if ($validator->fails()) {
-      return redirect()->back()->withErrors($validator)->withInput();
-    }
-    $addedFaqsDetails = $this->faqsServices->addFaqs($request->all());
+  }
+
+  public function store(CreateFaqRequest $request)
+  {
+    $addedFaqsDetails = $this->faqsServices->addFaqs($request->validated());
 
     if ($addedFaqsDetails) {
       return response()->json([
         'message'  => 'Added Successfully!',
         'success'  => true,
         'data'     =>  view('admin.faqs.faqs-list', [
-          'allFaqs'   =>  $this->faqsServices->all()
+          'allFaqs'   =>  $this->faqsServices->getPaginateData()
         ])->render()
       ]);
     } else {
@@ -46,29 +49,15 @@ class FaqsController extends Controller
       ]);
     }
   }
-  public function update(Request $request)
+  public function update(Faqs $faq ,CreateFaqRequest $request)
   {
-    $id = $request->all()['faqs_id'];
-    $validator = Validator::make($request->all(), [
-      'name'        => 'required',
-      'description' => 'required',
-    ]);
+    $data = $request->validated();
 
-    $data  =
-      [
-        'name'  => $request->name,
-        'description' => $request->description,
-
-      ];
-    if ($validator->fails()) {
-      return redirect()->back()->withErrors($validator)->withInput();
-    }
-
-    if ($this->faqsServices->update($data, $id)) {
+    if ($this->faqsServices->update($data, $faq->id)) {
       return response()->json([
         'message'  => 'Updated Successfully!',
         'data'     =>  view('admin.faqs.faqs-list', [
-          'allFaqs' =>  $this->faqsServices->all()
+          'allFaqs' =>  $this->faqsServices->getPaginateData()
         ])->render()
       ]);
     }
@@ -81,7 +70,7 @@ class FaqsController extends Controller
       return response()->json([
         'message'     =>  'Delete Successfully!',
         'data'        =>  view('admin.faqs.faqs-list', [
-          'allFaqs'   =>  $this->faqsServices->all()
+          'allFaqs'   =>  $this->faqsServices->getPaginateData()
         ])->render()
       ]);
     }
@@ -91,5 +80,16 @@ class FaqsController extends Controller
   {
     $allFaqs =    $this->faqsServices->all();
     return view("pages.faq", ['allFaqs' => $allFaqs]);
+  }
+
+  /**
+   * Get Frequently Asked question Details
+   */
+  public function getFAQDetails(Faqs $faq)
+  {
+    return response()->json([
+      'status'  =>  true,
+      'data'    =>  $faq 
+    ]);
   }
 }

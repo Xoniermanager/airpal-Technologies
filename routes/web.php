@@ -33,6 +33,7 @@ use App\Http\Controllers\Doctor\DoctorPaypalConfig;
 use App\Http\Controllers\Patient\BookingController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\HealthmonitoringController;
+use App\Http\Controllers\Admin\FaqCategoryController;
 use App\Http\Controllers\Admin\PatientListController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\DoctorPatientChatController;
@@ -40,6 +41,7 @@ use App\Http\Controllers\Admin\InvoiceReportController;
 use App\Http\Controllers\Doctor\PrescriptionController;
 use App\Http\Controllers\Patient\PatientAuthController;
 use App\Http\Controllers\Admin\DoctorQuestionController;
+use App\Http\Controllers\Api\PushNotificationController;
 use App\Http\Controllers\Patient\DoctorReviewController;
 use App\Http\Controllers\Patient\PatientDiaryController;
 use App\Http\Controllers\Doctor\DiseaseDetailsController;
@@ -64,7 +66,6 @@ use App\Http\Controllers\Doctor\DoctorSocialMediaAccountsController;
 use App\Http\Controllers\Admin\DoctorController as AdminDoctorController;
 use App\Http\Controllers\Doctor\ProfileController as DoctorProfileController;
 use App\Http\Controllers\Admin\{AdminAuthController, AdminDashboardController, AdminReviewController, AdminSiteConfigController, AdminSocialMediaController, LanguageController, ServiceController, CourseController, HospitalController, AwardController, DoctorAddressController, DoctorAwardController, DoctorEducationController, DoctorExperienceController, DoctorWorkingHourController, TestimonialController};
-use App\Http\Controllers\Api\PushNotificationController;
 
 // =============================== Login And SignUp Routes ==================================== //
 /**
@@ -400,6 +401,13 @@ Route::prefix('admin')->group(function () {
             Route::post('create', 'store')->name('admin.add.questions');
             Route::post('update', 'update')->name('admin.questions.update');
             Route::post('delete', 'destroy')->name('admin.delete-questions');
+        });
+
+        Route::prefix('faq-category')->controller(FaqCategoryController::class)->group(function () {
+            Route::get('/', 'index')->name('admin.faq.category.index');
+            Route::post('create', 'create')->name('admin.add.faq.category');
+            Route::post('update/{faq_category:id}', 'update')->name('admin.faq.category.update');
+            Route::delete('delete/{faq_category}', 'delete')->name('admin.delete-faq.category');
         });
 
         Route::prefix('faqs')->controller(FaqsController::class)->group(function () {

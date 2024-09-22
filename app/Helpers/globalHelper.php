@@ -415,7 +415,7 @@ function getEncryptId($id)
 /**
  * Decrypt the encrypted id and return the original id
  */
-function getDecryptId()
+function getDecryptId($id)
 {
     if(!empty($id))
     {

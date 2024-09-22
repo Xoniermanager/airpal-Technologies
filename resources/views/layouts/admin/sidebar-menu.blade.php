@@ -247,6 +247,11 @@
                         </a>
                     </li>
 
+                    <li class="menu-item" data-url="{{ route('admin.faq.category.index') }}">
+                        <a href="{{ route('admin.faq.category.index') }}"><i class="fe fe-user-plus"></i>
+                            <span>FAQ Category</span></a>
+                    </li>
+
                     <li class="menu-item" data-url="{{ route('admin.faqs.index') }}">
                         <a href="{{ route('admin.faqs.index') }}"><i class="fe fe-user-plus"></i>
                             <span>FaQs</span></a>

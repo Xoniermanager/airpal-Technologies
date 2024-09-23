@@ -83,9 +83,8 @@
                                 </a>
                                 @php
                                 $chatUrl = '#'; // Default URL
-                                // Check if the user is authenticated before accessing the role
                                 if (Auth::check()) {
-                                    $role = Auth::user()->role; // Assuming 'role' is stored in the 'role' column
+                                    $role = Auth::user()->role;
                             
                                     // Set chat URL based on the user's role
                                     if ($role == 2) {

@@ -113,37 +113,37 @@ class SiteConfigsTableSeeder extends Seeder
             array (
                 'id' => 19,
                 'name' => 'facebook_link',
-                'value' => 'www.facebook.com',
+                'value' => 'https://facebook.com',
                 'status' => 1,
                 'created_at' => '2024-09-02 12:41:07',
-                'updated_at' => '2024-09-02 12:41:07',
+                'updated_at' => '2024-09-23 07:44:21',
             ),
             11 => 
             array (
                 'id' => 20,
                 'name' => 'instagram_link',
-                'value' => 'www.instagram.com',
+                'value' => 'https://instagram.com',
                 'status' => 1,
                 'created_at' => '2024-09-02 12:41:07',
-                'updated_at' => '2024-09-02 12:41:07',
+                'updated_at' => '2024-09-23 07:44:21',
             ),
             12 => 
             array (
                 'id' => 21,
                 'name' => 'twitter_link',
-                'value' => 'www.twitter.com',
+                'value' => 'https://twitter.com',
                 'status' => 1,
                 'created_at' => '2024-09-02 12:41:07',
-                'updated_at' => '2024-09-02 12:41:07',
+                'updated_at' => '2024-09-23 07:44:21',
             ),
             13 => 
             array (
                 'id' => 22,
                 'name' => 'linkedin_link',
-                'value' => 'www.linked.com',
+                'value' => 'https://linked.com',
                 'status' => 1,
                 'created_at' => '2024-09-02 12:41:07',
-                'updated_at' => '2024-09-02 12:41:07',
+                'updated_at' => '2024-09-23 07:44:21',
             ),
             14 => 
             array (
@@ -162,6 +162,69 @@ class SiteConfigsTableSeeder extends Seeder
                 'status' => 1,
                 'created_at' => '2024-09-09 14:33:47',
                 'updated_at' => '2024-09-09 14:33:47',
+            ),
+            16 => 
+            array (
+                'id' => 25,
+                'name' => 'PAYPAL_SANDBOX_CLIENT_ID',
+                'value' => 'AcJyJYozKqWGE3gWEWY6Ec7fRmWfnzy3IgSUm64jeqmPpqmyQNMnMct9uYo34aqetqXxnRWj--AgoziI',
+                'status' => 1,
+                'created_at' => '2024-09-23 07:44:21',
+                'updated_at' => '2024-09-23 08:34:24',
+            ),
+            17 => 
+            array (
+                'id' => 26,
+                'name' => 'PAYPAL_SANDBOX_CLIENT_SECRET',
+                'value' => 'EMgP9Yh09BEB7A88sPigus2BF7eBG8qQkkiaavFnLmqZq4_7r7XiNYOwiSOHaQnDmL9X4qghzJ5uUNMv',
+                'status' => 1,
+                'created_at' => '2024-09-23 07:44:21',
+                'updated_at' => '2024-09-23 08:34:24',
+            ),
+            18 => 
+            array (
+                'id' => 27,
+                'name' => 'PAYPAL_LIVE_CLIENT_ID',
+                'value' => '',
+                'status' => 1,
+                'created_at' => '2024-09-23 07:44:21',
+                'updated_at' => '2024-09-23 07:44:21',
+            ),
+            19 => 
+            array (
+                'id' => 28,
+                'name' => 'PAYPAL_LIVE_CLIENT_SECRET',
+                'value' => '',
+                'status' => 1,
+                'created_at' => '2024-09-23 07:44:21',
+                'updated_at' => '2024-09-23 07:44:21',
+            ),
+            20 => 
+            array (
+                'id' => 29,
+                'name' => 'PAYPAL_LIVE_APP_ID',
+                'value' => '',
+                'status' => 1,
+                'created_at' => '2024-09-23 07:44:21',
+                'updated_at' => '2024-09-23 07:44:21',
+            ),
+            21 => 
+            array (
+                'id' => 30,
+                'name' => 'PAYPAL_MODE',
+                'value' => 'sandbox',
+                'status' => 1,
+                'created_at' => '2024-09-23 07:44:21',
+                'updated_at' => '2024-09-23 07:44:21',
+            ),
+            22 => 
+            array (
+                'id' => 31,
+                'name' => 'Paypal_Config',
+                'value' => 'admin',
+                'status' => 1,
+                'created_at' => '2024-09-23 07:44:21',
+                'updated_at' => '2024-09-23 07:44:21',
             ),
         ));
         

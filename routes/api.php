@@ -187,11 +187,13 @@ Route::middleware('authCheck')->group(function () {
             Route::post('search', 'doctorSearch');
             Route::get('get-all-doctor/{users:id}', 'getDoctorDetailsById');
         });
+
         Route::controller(BookAppointmentApiController::class)->group(function () {
             Route::get('all-appointment', 'allAppointment');
             Route::post('book-appointment', 'bookingAppointment');
             Route::post('cancel-appointment/{booking_slots:id}', 'cancelAppointment');
             Route::get('upcoming-all-appointment', 'allUpcomingAppointment');
+            Route::post('get-booking-fee-payment-link', 'getBookingFeePaymentLink');
         });
         Route::controller(DoctorReviewController::class)->group(function () {
             Route::post('add-doctor-review', 'addDoctorReview');

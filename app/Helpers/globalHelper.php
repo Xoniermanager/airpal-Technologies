@@ -335,6 +335,10 @@ function getFormattedDate($date)
     return date('jS M Y', strtotime($date));
 }
 
+/**
+ * Check payment status of booked appointment using booking id
+ * Return paid status od payment link to pay
+ */
 function checkPaymentStatusByBookingId($bookingId)
 {
     $paymentDetails = Payment::where('booking_id', $bookingId)->with('bookingSlot')->first();
@@ -345,7 +349,7 @@ function checkPaymentStatusByBookingId($bookingId)
             if (strtolower($paymentDetails->payment_status) == 'completed') {
                 return $buttonHtml = '<a href="" class="btn btn-success text-white"><i class="fa fa-check" aria-hidden="true"></i> Paid</a>';
             } else {
-                return $buttonHtml = '<a onclick="pay_fee_now(event,'. getEncryptId($bookingId) .')" href="" class="btn btn-primary text-white">Pay Now</a>';
+                return $buttonHtml = '<a onclick="pay_fee_now(event,\''. getEncryptId($bookingId) .'\')" href="" class="btn btn-primary text-white">Pay Now</a>';
             }
         }
     }

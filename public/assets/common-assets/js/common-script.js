@@ -325,24 +325,26 @@ function pay_fee_now(event,id)
     console.log("Booking Id : " + id);
     event.preventDefault();
     jQuery.ajax({
-        type:'post',
-        url: site_base_url + '/',
+        type:'POST',
+        url: site_base_url + '/patients/get-booking-fee-payment-link',
         data: {
             '_token': jQuery('meta[name="csrf-token"]').attr('content'),
             'id': id
         },
-        dataType:JSON,
+        dataType:'JSON',
         success: function(response){
             if(response.status)
             {
-
+                window.open(response.payment_link,'_blank').focus();
             }
             else
             {
                 // show error message returned from server in pop up
+                Swal.fire("Booking error!", "Please try again", "error");
             }
         },
         error: function(error){
+            Swal.fire("Booking error!", "Please try again", "error");
             // Show error in pop up
         }
     });

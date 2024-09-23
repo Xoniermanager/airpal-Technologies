@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBooking;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreBooking;
 use App\Http\Services\PaypalService;
 use App\Http\Services\PaymentService;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Services\BookingServices;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class PaymentController extends Controller
 {  
@@ -87,11 +88,36 @@ class PaymentController extends Controller
         return redirect($url);
     }
 
-
-    public function getBookingFeePaymentLink($bookingId)
+    /**
+     * Generate payment link upon clicking on pay now
+     * @param $booking_id
+     * @return payment link
+     */
+    public function getBookingFeePaymentLink(Request $request)
     {
+        $validator = Validator::make($request->all(),[
+            'id' => 'required|string',
+          ]);
         
-        $bookingDetails =  $this->bookingServices->getBookingSlotById($bookingId);
+        if($validator->fails())
+        {
+            return [
+                'status'    =>  false,
+                'data'      =>  'Invalid booking!'
+            ];
+        }
+
+        $bookingId = getDecryptId($request->id);
+        $bookingDetails =  $this->bookingServices->getBookingSlotById($bookingId)->first();
+
+        if(!$bookingDetails)
+        {
+            return [
+                'status'    =>  false,
+                'data'      =>  'Booking not found!'
+            ];
+        }
+
         $paymentLinkResponse = $this->paymentService->getBookingFeePaymentLink($bookingDetails);
 
         if($paymentLinkResponse == 0)

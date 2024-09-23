@@ -2,9 +2,6 @@
 
 namespace App\Http\Services;
 
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Session;
-use App\Http\Repositories\BookingRepository;
 use App\Http\Repositories\PaymentRepository;
 
 class PaymentService
@@ -12,8 +9,6 @@ class PaymentService
     private $paymentRepository;
     private $bookingServices;
     private $paypalService;
-    private $paymentService;
-
 
     public function __construct(PaymentRepository $paymentRepository, BookingServices $bookingServices, PaypalService $paypalService)
     {

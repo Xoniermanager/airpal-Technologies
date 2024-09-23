@@ -82,9 +82,11 @@
                                     <i class="fa-solid fa-copy"></i>
                                 </a>
                                 @php
-                                    $role = Auth::user()->role; // Assuming you store the user's role in 'role' column
-                                    $chatUrl = '#'; // Default URL
-
+                                $chatUrl = '#'; // Default URL
+                                // Check if the user is authenticated before accessing the role
+                                if (Auth::check()) {
+                                    $role = Auth::user()->role; // Assuming 'role' is stored in the 'role' column
+                            
                                     // Set chat URL based on the user's role
                                     if ($role == 2) {
                                         $chatUrl = route('doctor.chat');
@@ -93,6 +95,7 @@
                                     } elseif ($role == 1) {
                                         $chatUrl = route('admin.chat');
                                     }
+                                }
                                 @endphp
 
                                 <a href="{{ $chatUrl }}" class="btn btn-white msg-btn">

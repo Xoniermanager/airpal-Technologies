@@ -35,6 +35,7 @@ class PatientAppointmentsController extends Controller
     {
 
         $filterParams = $searchPatientAppointments->validated();
+        $filterParams['patientId'] = Auth::id();
         $filtered  = $this->bookingServices->searchDoctorAppointments($filterParams);
         $gridHtml = view("patients.appointments.grid-view", [
             'appointments' =>  $filtered

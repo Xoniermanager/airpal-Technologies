@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Api;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Services\BookingServices;
-use App\Http\Services\PaymentService;
 use App\Http\Services\PaypalService;
-use App\Models\BookingSlots;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Services\PaymentService;
+use App\Http\Services\BookingServices;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\SearchPatientAppointments;
 
 class BookAppointmentApiController extends Controller
 {
@@ -164,47 +164,24 @@ class BookAppointmentApiController extends Controller
     }
 
     /**
-     * Generate payment link based on provided booking id
+     * Get all appointments filtered using today / upcoming
+     * @param $selectedFilter 
      */
-    public function getBookingFeePaymentLink(Request $request)
+    public function getAppointmentsUsingFilters(SearchPatientAppointments $searchPatientAppointments)
     {
         try {
-            $validator = Validator::make($request->all(), [
-                'id'             => ['required', 'exists:booking_slots,id'],
+            $filterParams = $searchPatientAppointments->validated();
+            $filterParams['patientId'] = Auth::guard('api')->user()->id;
+            $filteredAppointments  = $this->bookingAppointmentServices->searchDoctorAppointments($filterParams);
+            return response()->json([
+                'status'    =>  true,
+                'data'      =>  $filteredAppointments
             ]);
-
-            if ($validator->fails())
-            {
-                return response()->json([
-                    "error" => 'validation_error',
-                    "message" => $validator->errors(),
-                ], 422);
-            }
-
-            // Getting booking details and generating payment link
-            $bookingDetails =  $this->bookingAppointmentServices->getBookingSlotById($request->id)->first();
-
-            $paymentLinkResponse = $this->paymentService->getBookingFeePaymentLink($bookingDetails);
-
-            if($paymentLinkResponse == 0)
-            {
-                return response()->json([
-                    'status'    => false,
-                    'data'      => '',
-                    'message'   => 'Payment not required'
-
-                ]);
-            }
-            else
-            {
-                return response()->json($paymentLinkResponse);
-            }
-
         } catch (Exception $e) {
             return response()->json([
                 "status" => false,
                 "error" =>  $e->getMessage(),
-                "message" => "Can not generate payment link!"
+                "message" => "Unable to find Appointment"
             ], 500);
         }
     }

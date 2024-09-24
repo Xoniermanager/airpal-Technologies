@@ -21,7 +21,7 @@ class PaypalService
         $provider = new PayPalClient(getPaypalConfig($doctorId));
         // $provider->setApiCredentials();
         $paypalToken = $provider->getAccessToken();
-        return $response = $provider->createOrder([
+        return $provider->createOrder([
             "intent" => "CAPTURE",
             "application_context" =>  [
                 "return_url" => $returnUrls['success'],

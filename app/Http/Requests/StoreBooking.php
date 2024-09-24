@@ -33,7 +33,7 @@ class StoreBooking extends FormRequest
         //     'image'              => 'image|mimes:jpeg,png,jpg,gif|max:2048|nullable',
         // ];
         return [
-            'patient_id'         => ['required', 'exists:users,id'],
+            // 'patient_id'         => ['required', 'exists:users,id'],
             'doctor_id'          => ['required', 'exists:users,id'],
             'booking_date'       => ['required', 'date'],
             'booking_slot_time'  => ['required'],
@@ -52,7 +52,7 @@ class StoreBooking extends FormRequest
                         ->where('slot_start_time', $slotTimes[0])
                         ->where('slot_end_time', $slotTimes[1])
                         ->exists();
-    dd($exists);
+    // dd($exists);
                     if ($exists) {
                         $fail('The selected appointment slot is already booked.');
                     }

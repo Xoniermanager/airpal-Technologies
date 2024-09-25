@@ -52,7 +52,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="banner-img aos">
-                        <img src="{{ URL::asset('assets/img/banner-img.png') }}" class="img-fluid" alt="patient-image">
+                        <img src="{{ $sections['home_banner']->image ?? '' }}" class="img-fluid" alt="patient-image">
                         <div class="banner-img1">
                             <img src="{{ URL::asset('assets/img/banner-img1.png') }}" class="img-fluid" alt="checkup-image">
                         </div>
@@ -70,7 +70,7 @@
     <x-doctor-slider :doctorList="$doctorList" :show="true" />
 
     {{-- this is group by doctor specialty section (common section with other pages) --}}
-    <x-specialty-group-by-section :show="true" />
+    <x-specialty-group-by-section :specialties="$specialties"  :show="true" />
 
     {{-- how it works section --}}
     <section class="work-section">
@@ -223,7 +223,7 @@
                     @empty
                     @endforelse    
                         @endisset
-                        <a href="research" class="btn btn-primary mt-1"> Read all</a>
+                        <a href="{{ route('home.index')}}" class="btn btn-primary mt-1"> Read all</a>
                     </div>
                 </div>
                 @endisset
@@ -238,11 +238,6 @@
             </div>
         </div>
     </section>
-
-
-
-
-
 
     {{-- this is our partners section (common section with other pages) --}}
     <x-partner-slider :show="true" />

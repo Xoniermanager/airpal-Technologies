@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class SectionList extends Model
 {
     use HasFactory;
-    protected $fillable = ['page_id','title','icon','status'];
+    protected $fillable = ['page_id','title','icon','status','section_id'];
 
     public function listItems()
     {

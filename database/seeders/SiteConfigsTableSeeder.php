@@ -32,55 +32,55 @@ class SiteConfigsTableSeeder extends Seeder
             array (
                 'id' => 9,
                 'name' => 'website_url',
-                'value' => 'www.airpal.ai',
+                'value' => 'https://airpal.xonierconnect.com/',
                 'status' => 1,
                 'created_at' => '2024-09-01 09:26:31',
-                'updated_at' => '2024-09-01 09:26:31',
+                'updated_at' => '2024-09-25 09:26:59',
             ),
             2 => 
             array (
                 'id' => 10,
                 'name' => 'admin_email',
-                'value' => 'airpal@gmail.com',
+                'value' => 'Airpaltechnology@gmail.com',
                 'status' => 1,
                 'created_at' => '2024-09-01 09:26:31',
-                'updated_at' => '2024-09-02 06:01:30',
+                'updated_at' => '2024-09-25 09:26:59',
             ),
             3 => 
             array (
                 'id' => 11,
                 'name' => 'admin_phone',
-                'value' => '1122334455',
+                'value' => '+353861544176',
                 'status' => 1,
                 'created_at' => '2024-09-01 09:26:31',
-                'updated_at' => '2024-09-02 08:50:25',
+                'updated_at' => '2024-09-25 09:26:59',
             ),
             4 => 
             array (
                 'id' => 12,
                 'name' => 'website_logo',
-                'value' => 'siteImages/website_logo-1725270197.png',
+                'value' => 'site-data/siteImages/website_logo-1727256419.png',
                 'status' => 1,
                 'created_at' => '2024-09-01 09:26:31',
-                'updated_at' => '2024-09-02 09:43:17',
+                'updated_at' => '2024-09-25 09:26:59',
             ),
             5 => 
             array (
                 'id' => 13,
                 'name' => 'website_favicon',
-                'value' => 'siteImages/website_logo-1725270197.png',
+                'value' => 'site-data/siteImages/website_favicon-1727256419.png',
                 'status' => 1,
                 'created_at' => '2024-09-01 09:26:31',
-                'updated_at' => '2024-09-02 09:43:17',
+                'updated_at' => '2024-09-25 09:26:59',
             ),
             6 => 
             array (
                 'id' => 14,
                 'name' => 'website_description',
-                'value' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled',
+                'value' => 'Airpal is a remote telemedicine app that leverages wearable tech for real-time patient monitoring and accurate data insights, empowering global health management and making healthcare accessible and personalised for everyone.',
                 'status' => 1,
                 'created_at' => '2024-09-01 09:26:31',
-                'updated_at' => '2024-09-02 08:52:29',
+                'updated_at' => '2024-09-25 09:26:59',
             ),
             7 => 
             array (
@@ -104,10 +104,10 @@ class SiteConfigsTableSeeder extends Seeder
             array (
                 'id' => 18,
                 'name' => 'admin_address',
-                'value' => 'Shipra suncity Indiarapuram Ghaziabad',
+                'value' => 'Cork, Cork T12DN79, IE',
                 'status' => 1,
                 'created_at' => '2024-09-02 09:03:29',
-                'updated_at' => '2024-09-02 09:03:29',
+                'updated_at' => '2024-09-25 09:28:26',
             ),
             10 => 
             array (
@@ -116,7 +116,7 @@ class SiteConfigsTableSeeder extends Seeder
                 'value' => 'https://facebook.com',
                 'status' => 1,
                 'created_at' => '2024-09-02 12:41:07',
-                'updated_at' => '2024-09-23 07:44:21',
+                'updated_at' => '2024-09-18 12:53:56',
             ),
             11 => 
             array (
@@ -125,7 +125,7 @@ class SiteConfigsTableSeeder extends Seeder
                 'value' => 'https://instagram.com',
                 'status' => 1,
                 'created_at' => '2024-09-02 12:41:07',
-                'updated_at' => '2024-09-23 07:44:21',
+                'updated_at' => '2024-09-18 12:53:56',
             ),
             12 => 
             array (
@@ -134,7 +134,7 @@ class SiteConfigsTableSeeder extends Seeder
                 'value' => 'https://twitter.com',
                 'status' => 1,
                 'created_at' => '2024-09-02 12:41:07',
-                'updated_at' => '2024-09-23 07:44:21',
+                'updated_at' => '2024-09-18 12:53:56',
             ),
             13 => 
             array (
@@ -143,7 +143,7 @@ class SiteConfigsTableSeeder extends Seeder
                 'value' => 'https://linked.com',
                 'status' => 1,
                 'created_at' => '2024-09-02 12:41:07',
-                'updated_at' => '2024-09-23 07:44:21',
+                'updated_at' => '2024-09-18 12:53:56',
             ),
             14 => 
             array (
@@ -167,10 +167,10 @@ class SiteConfigsTableSeeder extends Seeder
             array (
                 'id' => 25,
                 'name' => 'PAYPAL_SANDBOX_CLIENT_ID',
-                'value' => 'AcJyJYozKqWGE3gWEWY6Ec7fRmWfnzy3IgSUm64jeqmPpqmyQNMnMct9uYo34aqetqXxnRWj--AgoziI',
+                'value' => 'AcJyJYozKqWGE3gWEWY6Ec7fRmWfnzy3IgSUm64jeqmPpqmyQNMnMct9uYo34aqetqXxnRWj',
                 'status' => 1,
-                'created_at' => '2024-09-23 07:44:21',
-                'updated_at' => '2024-09-23 08:34:24',
+                'created_at' => '2024-09-18 12:53:56',
+                'updated_at' => '2024-09-18 12:53:56',
             ),
             17 => 
             array (
@@ -178,8 +178,8 @@ class SiteConfigsTableSeeder extends Seeder
                 'name' => 'PAYPAL_SANDBOX_CLIENT_SECRET',
                 'value' => 'EMgP9Yh09BEB7A88sPigus2BF7eBG8qQkkiaavFnLmqZq4_7r7XiNYOwiSOHaQnDmL9X4qghzJ5uUNMv',
                 'status' => 1,
-                'created_at' => '2024-09-23 07:44:21',
-                'updated_at' => '2024-09-23 08:34:24',
+                'created_at' => '2024-09-18 12:53:56',
+                'updated_at' => '2024-09-18 12:53:56',
             ),
             18 => 
             array (
@@ -187,8 +187,8 @@ class SiteConfigsTableSeeder extends Seeder
                 'name' => 'PAYPAL_LIVE_CLIENT_ID',
                 'value' => '',
                 'status' => 1,
-                'created_at' => '2024-09-23 07:44:21',
-                'updated_at' => '2024-09-23 07:44:21',
+                'created_at' => '2024-09-18 12:53:56',
+                'updated_at' => '2024-09-18 12:53:56',
             ),
             19 => 
             array (
@@ -196,8 +196,8 @@ class SiteConfigsTableSeeder extends Seeder
                 'name' => 'PAYPAL_LIVE_CLIENT_SECRET',
                 'value' => '',
                 'status' => 1,
-                'created_at' => '2024-09-23 07:44:21',
-                'updated_at' => '2024-09-23 07:44:21',
+                'created_at' => '2024-09-18 12:53:56',
+                'updated_at' => '2024-09-18 12:53:56',
             ),
             20 => 
             array (
@@ -205,8 +205,8 @@ class SiteConfigsTableSeeder extends Seeder
                 'name' => 'PAYPAL_LIVE_APP_ID',
                 'value' => '',
                 'status' => 1,
-                'created_at' => '2024-09-23 07:44:21',
-                'updated_at' => '2024-09-23 07:44:21',
+                'created_at' => '2024-09-18 12:53:56',
+                'updated_at' => '2024-09-18 12:53:56',
             ),
             21 => 
             array (
@@ -214,8 +214,8 @@ class SiteConfigsTableSeeder extends Seeder
                 'name' => 'PAYPAL_MODE',
                 'value' => 'sandbox',
                 'status' => 1,
-                'created_at' => '2024-09-23 07:44:21',
-                'updated_at' => '2024-09-23 07:44:21',
+                'created_at' => '2024-09-18 12:53:56',
+                'updated_at' => '2024-09-18 12:53:56',
             ),
             22 => 
             array (
@@ -223,8 +223,8 @@ class SiteConfigsTableSeeder extends Seeder
                 'name' => 'Paypal_Config',
                 'value' => 'admin',
                 'status' => 1,
-                'created_at' => '2024-09-23 07:44:21',
-                'updated_at' => '2024-09-23 07:44:21',
+                'created_at' => '2024-09-18 12:53:56',
+                'updated_at' => '2024-09-23 07:22:48',
             ),
         ));
         

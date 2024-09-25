@@ -119,7 +119,7 @@ class FrontendPagesServices
                 if (isset($data['section']['ul']) && is_array($data['section']['ul'])) {
                     foreach ($data['section']['ul'] as $sectionList) {
                         if (isset($sectionList['id'])) {
-                            $sectionList['page_id'] = $pageId; // Ensure $pageId is defined
+                            $sectionList['section_id'] = $sectionList->id; // Ensure $pageId is defined
                             $sectionListId = $sectionList['id'];
                             $savedSectionList = $this->saveList($sectionList, $sectionListId); // Use a different variable name to avoid confusion
                         }

@@ -136,12 +136,12 @@
                                                 </p>
                                             </div>
 
-                                            @foreach ($sections['product_details']->section_list as $key => $section)
+                                            @foreach ($sections['product_details']->getListing as $ulSection)
                                                 <div class="widget awards-widget">
-                                                    <h4 class="widget-title">{{ $section->title }}</h4>
+                                                    <h4 class="widget-title">{{ $ulSection->title }}</h4>
                                                     <div class="experience-box">
                                                         <ul class="experience-list">
-                                                            @foreach ($section->listItems as $item)
+                                                            @foreach ($ulSection->listItems as $item)
                                                                 <li>
                                                                     <div class="experience-user">
                                                                         <div class="before-circle"></div>
@@ -157,18 +157,43 @@
                                                     </div>
                                                 </div>
                                             @endforeach
-                                            @for ($i = 0; $i < 4; $i++)
                                                 <div class="widget about-widget">
-                                                    <h4 class="widget-title">
-                                                        {{ $sections['product_details']->getContent[$i]['title'] }}</h4>
-                                                    <p>{{ $sections['product_details']->getContent[$i]['content'] }}</p>
+                                                    @if($sections['product_details']->getContent[0])
+                                                        <h4 class="widget-title">
+                                                            {{ $sections['product_details']->getContent[0]['title'] }}</h4>
+                                                        <p>{{ $sections['product_details']->getContent[0]['content'] }}</p>
+                                                    @endif
+                                                   
 
-                                                    @if ($sections['product_details']->getButtons[$i]->text)
-                                                        <a href="{{ $sections['product_details']->getButtons[$i]->link }}"
-                                                            class="btn btn-outline-primary">{{ $sections['product_details']->getButtons[$i]->text }}</a>
+                                                    @if ($sections['product_details']->getButtons[0])
+                                                        <a href="{{ $sections['product_details']->getButtons[0]->link }}"
+                                                            class="btn btn-outline-primary">{{ $sections['product_details']->getButtons[0]->text }}</a>
+                                                    @endif
+
+                                                    @if($sections['product_details']->getContent[1])
+                                                        <h4 class="widget-title">
+                                                            {{ $sections['product_details']->getContent[1]['title'] }}</h4>
+                                                        <p>{{ $sections['product_details']->getContent[1]['content'] }}</p>
+                                                    @endif
+                                                    
+                                                    @if($sections['product_details']->getContent[2])
+                                                        <h4 class="widget-title">
+                                                            {{ $sections['product_details']->getContent[2]['title'] }}</h4>
+                                                        <p>{{ $sections['product_details']->getContent[2]['content'] }}</p>
+                                                    @endif
+                                                   
+
+                                                    @if ($sections['product_details']->getButtons[1])
+                                                        <a href="{{ $sections['product_details']->getButtons[1]->link }}"
+                                                            class="btn btn-outline-primary">{{ $sections['product_details']->getButtons[1]->text }}</a>
+                                                    @endif
+
+                                                    @if($sections['product_details']->getContent[3])
+                                                        <h4 class="widget-title">
+                                                            {{ $sections['product_details']->getContent[3]['title'] }}</h4>
+                                                        <p>{{ $sections['product_details']->getContent[3]['content'] }}</p>
                                                     @endif
                                                 </div>
-                                            @endfor
                                         </div>
                                     </div>
                                 </div>
@@ -224,7 +249,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="choose-us-right-main">
-                        <img src="{{ URL::asset('assets/img/choose-us-six.png') }}" alt="image" class="img-fluid">
+                        <img src="{{ $sections['we_are_solving']->image }}" alt="image" class="img-fluid">
                         <div class="banner-imgfourteenten">
                             <img src="{{ URL::asset('assets/img/icons/serv-img-icon-1.svg') }}" class="img-fluid"
                                 alt="Icon">

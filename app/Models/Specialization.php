@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Specialization extends Model
 {
@@ -18,8 +19,14 @@ class Specialization extends Model
 
     public function doctor()
     {
-        return $this->hasOne(DoctorSpeciality::class);
+        return $this->belongsToMany(User::class,'doctor_specialities','speciality_id','user_id');
     }
     
+    protected function imageUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => url("storage/" .  $value)
+        );
+    }
 
 }

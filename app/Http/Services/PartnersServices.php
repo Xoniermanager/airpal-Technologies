@@ -30,7 +30,7 @@ class PartnersServices
     public function savePartner($data)
     {
         if (isset($data['image']) && !empty($data['image'])) {
-            $data['image'] = uploadingImageorFile($data['image'], 'partners', $data['image']);
+            $data['image'] = uploadingImageorFile($data['image'], 'partners', '');
         }
         return  $this->partnerRepository->create($data);
     }

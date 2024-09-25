@@ -151,16 +151,6 @@ class SectionButtonsTableSeeder extends Seeder
             ),
             13 => 
             array (
-                'id' => 35,
-                'text' => NULL,
-                'link' => NULL,
-                'section_id' => 123,
-                'status' => 1,
-                'created_at' => '2024-09-12 06:50:22',
-                'updated_at' => '2024-09-13 04:27:38',
-            ),
-            14 => 
-            array (
                 'id' => 36,
                 'text' => 'Telemedicine App',
                 'link' => 'http://127.0.0.1:8000/search-doctor',
@@ -169,15 +159,15 @@ class SectionButtonsTableSeeder extends Seeder
                 'created_at' => '2024-09-12 06:50:22',
                 'updated_at' => '2024-09-13 04:22:50',
             ),
-            15 => 
+            14 => 
             array (
-                'id' => 37,
+                'id' => 38,
                 'text' => NULL,
-                'link' => NULL,
-                'section_id' => 123,
+                'link' => 'https://www.apple.com/in/app-store/',
+                'section_id' => 105,
                 'status' => 1,
-                'created_at' => '2024-09-12 06:50:22',
-                'updated_at' => '2024-09-13 04:28:02',
+                'created_at' => '2024-09-25 09:51:33',
+                'updated_at' => '2024-09-25 09:51:33',
             ),
         ));
         

@@ -66,7 +66,12 @@ function getRatingHtml($value)
 
 function uploadingImageorFile($file, String $path, $namePrefix = '')
 {
-    $image  = $namePrefix . '-' . time() . '.' . $file->getClientOriginalExtension();
+    if(!empty($namePrefix))
+    {
+        $namePrefix = $namePrefix . '-';
+    }
+
+    $image  = $namePrefix . time() . '.' . $file->getClientOriginalExtension();
 
     $path = $path . '/' . $image;
     Storage::disk('public')->put($path, file_get_contents($file));

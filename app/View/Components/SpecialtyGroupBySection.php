@@ -12,10 +12,10 @@ class SpecialtyGroupBySection extends Component
     /**
      * Create a new component instance.
      */
-    private $doctor_specialty;
-    public function __construct(DoctorSpecialityServices $doctor_specialty)
+    private $specialties;
+    public function __construct($specialties)
     {
-        $this->doctor_specialty = $doctor_specialty;
+      $this->specialties = $specialties;
     }
 
     /**
@@ -23,7 +23,7 @@ class SpecialtyGroupBySection extends Component
      */
     public function render(): View|Closure|string
     {
-        $specialtiesByDoctorsCount =  $this->doctor_specialty->getSpecialtyGroupByDoctor();
-        return view('components.specialty-group-by-section',['specialties' => $specialtiesByDoctorsCount]);
+        return view('components.specialty-group-by-section' ,['specialties' => $this->specialties]
+    );
     }
 }

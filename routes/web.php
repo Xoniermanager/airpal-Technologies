@@ -17,6 +17,7 @@ use App\Http\Controllers\OurTeamController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\PaymentController;
 use App\Jobs\UpdateDoctorRatingsAverageValue;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Admin\PayPalController;
 use App\Http\Controllers\FrontendPageController;
@@ -94,12 +95,12 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/login', 'index')->name('login.index');
     Route::get('forget-password', 'forgetPasswordIndex')->name('doctor.forget.password.index');
     Route::post('send-otp', 'forgetPasswordSendOtp')->name('forget.password.send.otp');
-    
+
     Route::get('reset-password', 'resetPasswordIndex')->name('reset.password.index');
     Route::post('reset-password', 'resetPassword')->name('reset.password');
 
     Route::get('verify-otp', 'verifyOtpIndex')->name('verify.otp.index');
-    Route::post('verify-otp','verifyOtp')->name('verify.otp');
+    Route::post('verify-otp', 'verifyOtp')->name('verify.otp');
     Route::post('resend-otp', 'resendOtp')->name('resend.otp');
 });
 
@@ -415,7 +416,7 @@ Route::prefix('admin')->group(function () {
             Route::post('create', 'store')->name('admin.add.faqs');
             Route::post('update/{faq:id}', 'update')->name('admin.faqs.update');
             Route::post('delete', 'destroy')->name('admin.delete-faqs');
-            Route::get('get-faq-details/{faq:id}','getFAQDetails')->name('admin.faq.details');
+            Route::get('get-faq-details/{faq:id}', 'getFAQDetails')->name('admin.faq.details');
         });
 
         Route::prefix('country')->controller(CountryController::class)->group(function () {
@@ -669,4 +670,12 @@ Route::controller(FrontendDoctorController::class)->group(function () {
 });
 
 // ============================== End Frontend Website Routes ===================== //
-Route::get('test-push',[PushNotificationController::class,'send']);
+Route::get('test-push', [PushNotificationController::class, 'send']);
+
+
+Route::controller(NewsletterController::class)->group(function () {
+    Route::post('news-letter', 'store')->name('newsletter');
+    Route::get('/subscriber/verify/{token}', 'verify')->name('newsletter_verify');
+    Route::view('/thank_you', 'newsletter_success')->name('thank.you');
+    Route::view('/error', 'error')->name('error');
+});

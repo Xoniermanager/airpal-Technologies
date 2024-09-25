@@ -61,9 +61,12 @@
                     <div class="footer-widget">
                         <h2 class="footer-title">Join Our Newsletter</h2>
                         <div class="subscribe-form">
-                            <form action="#">
-                                <input type="email" class="form-control" placeholder="Enter Email">
-                                <button type="submit" class="btn">Submit</button>
+                            <form class="" action="{{ route('newsletter') }}" id="newsletter-form"
+                                method="POST">
+                                @csrf
+                                <input class="form-control" type="email" id="email"
+                                    placeholder="Please enter your email" name="email" required>
+                                <button class="btn newsletter" type="submit">Submit</button>
                             </form>
                         </div>
                         <div class="social-icon">
@@ -149,24 +152,28 @@
 
 <script>
     $(document).ready(function() {
-    // Set the initial cookie if it doesn't exist
-    if (!Cookies.get('privacy_policy')) {
-        Cookies.set('privacy_policy', '0', { expires: 1 }); // expires in 1 day
-    }
-    var cookieValue = Cookies.get('privacy_policy');
+        // Set the initial cookie if it doesn't exist
+        if (!Cookies.get('privacy_policy')) {
+            Cookies.set('privacy_policy', '0', {
+                expires: 1
+            }); // expires in 1 day
+        }
+        var cookieValue = Cookies.get('privacy_policy');
 
-    if (cookieValue != '1') {
-        document.getElementById('popup-overlay').style.display = 'flex';
+        if (cookieValue != '1') {
+            document.getElementById('popup-overlay').style.display = 'flex';
 
-        document.getElementById('close-btn').addEventListener('click', function() {
-            Cookies.set('privacy_policy', '1', { expires: 1 }); // expires in 1 day or as per requirement
-            document.getElementById('popup-overlay').style.display = 'none';
-        });
-        document.getElementById('close-btn').addEventListener('click', function() {
-            document.getElementById('popup-overlay').style.display = 'none';
-        });
-    }
-});
+            document.getElementById('close-btn').addEventListener('click', function() {
+                Cookies.set('privacy_policy', '1', {
+                    expires: 1
+                }); // expires in 1 day or as per requirement
+                document.getElementById('popup-overlay').style.display = 'none';
+            });
+            document.getElementById('close-btn').addEventListener('click', function() {
+                document.getElementById('popup-overlay').style.display = 'none';
+            });
+        }
+    });
 </script>
 
 
@@ -192,6 +199,60 @@
 
 <script src="{{asset('assets/js/script.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
 <script src="{{ asset('assets/js/rocket-loader.min.js') }}" data-cf-settings="572446aacaa112e2d4b8af55-|49" defer>
+</script>
+<script>
+    var subform = $('#newsletter-form');
+    $(subform).submit(function(e) {
+        $('.newsletter').prop('disabled', true);
+        e.preventDefault();
+        var formData = subform.serialize();
+        $.ajax({
+            type: 'POST',
+            url: subform.attr('action'),
+            data: formData
+        }).done(function(response) {
+            jQuery('.newsletter').attr('disabled', false);
+            if (response.status == false) {
+                Object.entries(response.data).forEach(([key, value]) => {
+                    jQuery(document).find('#newsletter-form [name=' + key + ']')
+                        .after(
+                            '<span id="' + key +
+                            '_error" class="text text-danger ' + key + '_error">' + value[0] +
+                            '</span>');
+                    setTimeout(function() {
+                        jQuery("#" + key + "_error").remove();
+                    }, 5000);
+                });
+            }
+            if (response.status == true) {
+                Swal.fire({
+                    title: response.message,
+                    showClass: {
+                        popup: `
+                        animate__animated
+                        animate__fadeInUp
+                        animate__faster
+                      `
+                    },
+                    hideClass: {
+                        popup: `
+                        animate__animated
+                        animate__fadeOutDown
+                        animate__faster
+                      `
+                    }
+                });
+                $('#contact-form input,#contact-form textarea').val('');
+            }
+        }).fail(function(data) {
+            jQuery('.newsletter').attr('disabled', false);
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Oops! An error occurred and your message could not be sent.",
+            });
+        });
+    });
 </script>
 </body>
 

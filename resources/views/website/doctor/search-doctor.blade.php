@@ -70,9 +70,17 @@
                                         <div class="filter-collapse">
                                             <ul>
                                                 @forelse ($specialties as $specialty)
+                                                @php
+                                                    $selectedSpeciality  = isset($_GET['specialty']) ? $_GET['specialty'] : '';
+                                                    $checked = '';
+                                                    if($selectedSpeciality == $specialty->id)
+                                                    {
+                                                        $checked = 'checked';
+                                                    }
+                                                @endphp
                                                 <li>
                                                     <label class="custom_check d-inline-flex">
-                                                        <input type="checkbox" name="speciality"
+                                                        <input {{ $checked }} type="checkbox" name="speciality"
                                                             value="{{ $specialty->id }}">
                                                         <span class="checkmark"></span>
                                                         {{ $specialty->name }}

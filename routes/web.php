@@ -652,6 +652,7 @@ Route::controller(DoctorReviewController::class)->group(function () {
 Route::get('/gdpr-policy', action: [FrontendPageController::class, 'gdprPolicy'])->name('gdpr.policy.index');
 Route::get('/cookie-policy', action: [FrontendPageController::class, 'cookiePolicy'])->name('cookie.policy.index');
 Route::get('/insurance-policy', action: [FrontendPageController::class, 'insurancePolicy'])->name('insurance.policy.index');
+Route::post('global-search', [FrontendPageController::class, 'globalSearchHeader'])->name('global.frontend.search.header');
 
 
 Route::get('job', function () {

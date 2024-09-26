@@ -297,4 +297,23 @@ class UserServices
             'device_token'  =>  $deviceToken
         ]);
     }
+
+
+    public function globalSearch($data)
+{
+    $doctorsQuery = null;
+
+        $doctorsQuery = $this->userRepository->newQuery();
+        $doctorsQuery->where('role', config('airpal.roles.doctor'));
+
+        if (!empty($data['searchKey'])) {
+            $doctorsQuery->where(function ($q) use ($data) {
+                $q->where('first_name', 'like', '%' . $data['searchKey'] . '%')
+                    ->orWhere('last_name', 'like', '%' . $data['searchKey'] . '%');
+            });
+        }
+    $doctors = $doctorsQuery ? $doctorsQuery->get() : collect(); // If no doctors query, return empty collection
+    return $doctors;
+}
+
 }

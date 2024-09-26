@@ -6,11 +6,9 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Jobs\BookedSlotMailJob;
 use App\Jobs\GenerateInvoicePdf;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use App\Jobs\DoctorAppointmentQueryMailJob;
 use App\Http\Repositories\BookingRepository;
-use App\Jobs\UpdateMeetingIdJob;
 
 class BookingServices
 {
@@ -219,7 +217,7 @@ class BookingServices
         $bookingDetails = $this->bookingRepository->find($id)->update(['status' => $status]);
         if ($bookingDetails == true) {
             if ($status == 'confirmed') {
-                UpdateMeetingIdJob::dispatch($id);
+                generateMeetingId($id);
             }
         }
     }

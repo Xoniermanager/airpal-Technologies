@@ -1,11 +1,12 @@
 <?php
 
 use App\Models\Payment;
-use App\Models\PaypalConfig;
 use App\Models\SiteConfig;
 use App\Models\Testimonial;
-use Illuminate\Support\Facades\Crypt;
+use App\Models\BookingSlots;
+use App\Models\PaypalConfig;
 
+use Illuminate\Support\Facades\Crypt;
 use function Laravel\Prompts\textarea;
 use Illuminate\Support\Facades\Storage;
 
@@ -293,7 +294,7 @@ function getBannerImageInput($value = '', $name = '', $classList = array(), $ids
                     </div>
                 </div>
             </div>';
-} 
+}
 // In GlobalHelper.php
 if (!function_exists('renderTestimonials')) {
     function renderTestimonials()
@@ -349,7 +350,7 @@ function checkPaymentStatusByBookingId($bookingId)
     $paymentDetails = Payment::where('booking_id', $bookingId)->with('bookingSlot')->first();
     $buttonHtml = '';
     if (isset($paymentDetails) && !empty($paymentDetails)) {
-        if ($paymentDetails->bookingSlot->payment_required == 1) 
+        if ($paymentDetails->bookingSlot->payment_required == 1)
         {
             if (strtolower($paymentDetails->payment_status) == 'completed') {
                 return $buttonHtml = '<a href="" class="btn btn-success text-white"><i class="fa fa-check" aria-hidden="true"></i> Paid</a>';
@@ -506,7 +507,7 @@ function getPaypalConfig($doctorId)
     {
         $paypalConfigs = PaypalConfig::where('doctor_id',$doctorId)->first();
     }
-    
+
     return [
         'mode'    => $paypalConfigs['PAYPAL_MODE'], // Can only be 'sandbox' Or 'live'. If empty or invalid, 'live' will be used.
         'sandbox' => [
@@ -519,13 +520,21 @@ function getPaypalConfig($doctorId)
             'client_secret'     => $paypalConfigs['PAYPAL_LIVE_CLIENT_SECRET'],
             'app_id'            => $paypalConfigs['PAYPAL_LIVE_APP_ID'],
         ],
-    
+
         'payment_action' => env('PAYPAL_PAYMENT_ACTION', 'Sale'), // Can only be 'Sale', 'Authorization' or 'Order'
         'currency'       => env('PAYPAL_CURRENCY', 'USD'),
         'notify_url'     => env('PAYPAL_NOTIFY_URL', ''), // Change this accordingly for your application.
         'locale'         => env('PAYPAL_LOCALE', 'en_US'), // force gateway language  i.e. it_IT, es_ES, en_US ... (for express checkout only)
         'validate_ssl'   => env('PAYPAL_VALIDATE_SSL', true), // Validate SSL when creating api client.
     ];
+}
+
+function generateMeetingId($bookingId)
+{
+    $bookingDetails = BookingSlots::find($bookingId);
+    $timestamp = now()->format('YmdHis');
+    $meeetingId = $bookingDetails->doctor_id . $timestamp . $bookingDetails->patient_id . $bookingId;
+    $bookingDetails->update(['meeting_id' => $meeetingId]);
 }
 
 

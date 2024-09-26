@@ -21,7 +21,7 @@
 
                         <div class="blog">
                             <div class="blog-image"> 
-                                <a href="#"><img class="img-fluid" src="{{ asset('admin/specialization_image/' . $specialty->image_url) }}"
+                                <a href="#"><img class="img-fluid" src="{{ $specialty->image_url }}"
                                         alt="Post Image"></a>
                             </div>
                             <h3 class="blog-title"> {{ $specialty->name}}</h3>
@@ -44,15 +44,15 @@
                                     <li>
                                         <div class="post-thumb">
                                             <a href="{{ route('specialty.detail', ['id' => $speciality->id]) }}">
-                                                <img class="img-fluid" src="{{ asset('admin/specialization_image/' . $speciality->image_url) }}"
+                                                <img class="img-fluid" src="{{ $speciality->image_url  ?? ''}}"
                                                     alt="blog-image">
                                             </a>
                                         </div>
                                         <div class="post-info">
                                             <h4>
-                                                <a href="{{ route('specialty.detail', ['id' => $speciality->id]) }}">{{ $speciality->speciality_name ??  ''}}</a>
+                                                <a href="{{ route('specialty.detail', ['id' => $speciality->id]) }}">{{ $speciality->name ??  ''}}</a>
                                             </h4>
-                                            <p>({{$speciality->doctor_count}})  Doctors</p>
+                                            <p>({{ $speciality->doctor()->count() }})  Doctors</p>
                                         </div>
                                     </li>
                                     @endforeach 

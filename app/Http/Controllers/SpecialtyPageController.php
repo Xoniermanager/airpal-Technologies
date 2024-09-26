@@ -21,14 +21,15 @@ class SpecialtyPageController extends Controller
      }
     public function specialty_list()
     {
-        $specialtiesByDoctorsCount =  $this->doctor_specialty->getSpecialtyGroupByDoctor();
+        $specialtiesByDoctorsCount =    $this->speciliazationServices->all();
         return view('website.pages.specialties_list',['specialties' => $specialtiesByDoctorsCount ]);
     }
     
     public function specialty_detail($id)
     {
         $doctorListBySpecialtyID   =   $this->doctor_specialty->doctorListBySpecialtyID($id);
-        $specialtiesByDoctorsCount =  $this->doctor_specialty->getSpecialtyGroupByDoctor();
+        $specialtiesByDoctorsCount =    $this->speciliazationServices->all();
+
         $specialty =  $this->speciliazationServices->getSpecialtyByID($id);
         return view('website.pages.specialty_detail',
                     ['specialty'=>$specialty ,

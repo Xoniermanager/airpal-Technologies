@@ -25,13 +25,12 @@ class InstantController extends Controller
   public function instant()
   {
 
-    $pageSections      = PageSection::with('getButtons', 'getContent')->where('page_id', 2)->get();
-    $pageExtraSections = PageExtraSection::where('page_id', 2)->where('status', 1)->get();
+    $pageSections      = PageSection::with('getButtons', 'getContent')->where('page_id', 4)->get();
+    $pageExtraSections = PageExtraSection::where('page_id', 4)->where('status', 1)->get();
 
-    // foreach ($pageSections as $getPageSection) {
-    //   $sections[$getPageSection['section_slug']] = $getPageSection;
-    // }
-
+    foreach ($pageSections as $getPageSection) {
+      $sections[$getPageSection['section_slug']] = $getPageSection;
+    }
     $extraSections = [];
     foreach ($pageExtraSections as $pageExtraSection) {
       $slug = str_replace('\\', '_', $pageExtraSection->model);
@@ -44,6 +43,7 @@ class InstantController extends Controller
     return view('website.pages.instant', [
     'doctorList'    =>  $extraSections['app_models_user'],
     'specialties'   =>  $specialtiesByDoctorsCount,
+    'sections'      =>  $sections
   ]);
   }
 

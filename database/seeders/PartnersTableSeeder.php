@@ -21,27 +21,27 @@ class PartnersTableSeeder extends Seeder
         \DB::table('partners')->insert(array (
             0 => 
             array (
-                'id' => 9,
-                'image' => 'partners//private/var/folders/m2/fvm_vtyx647bx0259kphbc700000gn/T/phpzuIrrx-1725711213.png',
+                'id' => 15,
+                'image' => 'site-data/partners/1727259934.png',
                 'status' => 1,
-                'created_at' => '2024-09-07 12:13:33',
-                'updated_at' => '2024-09-07 12:13:33',
+                'created_at' => '2024-09-25 10:25:34',
+                'updated_at' => '2024-09-25 10:25:34',
             ),
             1 => 
             array (
-                'id' => 10,
-                'image' => 'partners//private/var/folders/m2/fvm_vtyx647bx0259kphbc700000gn/T/php3U91Lc-1725711219.png',
+                'id' => 16,
+                'image' => 'site-data/partners/1727259944.png',
                 'status' => 1,
-                'created_at' => '2024-09-07 12:13:39',
-                'updated_at' => '2024-09-07 12:13:39',
+                'created_at' => '2024-09-25 10:25:44',
+                'updated_at' => '2024-09-25 10:25:44',
             ),
             2 => 
             array (
-                'id' => 11,
-                'image' => 'partners//private/var/folders/m2/fvm_vtyx647bx0259kphbc700000gn/T/phpdOWADo-1725711270.png',
+                'id' => 17,
+                'image' => 'site-data/partners/1727259974.png',
                 'status' => 1,
-                'created_at' => '2024-09-07 12:14:30',
-                'updated_at' => '2024-09-07 12:14:30',
+                'created_at' => '2024-09-25 10:26:14',
+                'updated_at' => '2024-09-25 10:26:14',
             ),
         ));
         

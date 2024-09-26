@@ -193,8 +193,12 @@ Route::middleware('authCheck')->group(function () {
             Route::post('book-appointment', 'bookingAppointment');
             Route::post('cancel-appointment/{booking_slots:id}', 'cancelAppointment');
             Route::get('upcoming-all-appointment', 'allUpcomingAppointment');
-            Route::post('get-booking-fee-payment-link', 'getBookingFeePaymentLink');
+            Route::post('get-appointments-using-filters','getAppointmentsUsingFilters');
         });
+
+        // Get payment link to pay booking fee for selected appointment id
+        Route::get('get-booking-fee-payment-link', [PaymentApiController::class, 'getBookingFeePaymentLink']);
+
         Route::controller(DoctorReviewController::class)->group(function () {
             Route::post('add-doctor-review', 'addDoctorReview');
             Route::post('update-doctor-review', 'updateDoctorReview');

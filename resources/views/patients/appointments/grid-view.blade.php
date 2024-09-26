@@ -24,7 +24,7 @@
                                         <h6><a
                                                 href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($appointment->user->id)]) }}">Dr
                                                 {{ $appointment->user->fullName }}</a></h6>
-                                        <p class="visit">General Visit</p>
+                                        <p class="visit"><b>{{ $appointment->user->specializations->pluck('name')->implode(',') }}</b></p>
                                     </div>
                                 </div>
                                 <div class="grid-user-msg">
@@ -39,7 +39,7 @@
                                 {{ date('H:i A', strtotime($appointment->slot_end_time)) }} </p>
                         </li>
                         <li class="appointment-action">
-                            <ul>
+                            <!-- <ul>
                                 <li>
                                     <a href="patient-upcoming-appointment.html"><i class="fa-solid fa-eye"></i></a>
                                 </li>
@@ -49,7 +49,7 @@
                                 <li>
                                     <a href="#"><i class="fa-solid fa-xmark"></i></a>
                                 </li>
-                            </ul>
+                            </ul> -->
                             @if ($appointment->status = 'completed' && isset($appointment->prescription))
                                 <div class="appointment-detail-btn">
                                     <a href="{{ route('patient.prescription.view', Crypt::encrypt($appointment->prescription->id)) }}"

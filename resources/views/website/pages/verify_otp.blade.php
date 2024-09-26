@@ -141,9 +141,11 @@
                             console.log(response);
 
                             if (response.success == true) {
-                                swal.fire("Done!", response.message, "success").then(() => {
+                                setTimeout(function() {
                                     window.location.href = url;
-                                });
+                                }, 2000); // 2000 ms = 2 seconds
+                                swal.fire("Done!", response.message, "success");
+                                
                             } else {
                                 swal.fire('Error!', "Invalid Otp", 'error');
                             }

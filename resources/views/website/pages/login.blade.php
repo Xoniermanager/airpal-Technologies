@@ -98,9 +98,12 @@
                         if (response.status == true) {
                             $("#loaderImage").hide();
                             $('#loginButton').prop('disabled', false);
-                            swal.fire("Done!", response.message, "success").then(() => {
-                                window.location.href = "<?= route('verify.otp.index') ?>?email=" + email + "&password=" + password;
-                            });
+                            setTimeout(function() {
+                                window.location.href =
+                                    "<?= route('verify.otp.index') ?>?email=" +
+                                    email + "&password=" + password;
+                            }, 2000); // 2000 ms = 2 seconds
+                            swal.fire("Done!", response.message, "success");
                         }
                         else{
                             $("#loaderImage").hide();

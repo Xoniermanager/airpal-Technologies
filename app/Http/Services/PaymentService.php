@@ -26,7 +26,9 @@ class PaymentService
         if ($exists) {
             // \Log::info('update data : ' . json_encode($paymentDetails));
             $record = $this->paymentRepository->where('paypal_payment_id', $paypalPaymentId)->update($paymentDetails);
-            return $this->paymentRepository->where('paypal_payment_id', $paypalPaymentId)->first();
+            $paymentUpdatedDetails = $this->paymentRepository->where('paypal_payment_id', $paypalPaymentId)->first();
+            generateMeetingId($paymentUpdatedDetails->booking_id);
+            return $paymentUpdatedDetails;
         } else {
             // Add script to redirect user to error page
         }
@@ -51,14 +53,11 @@ class PaymentService
 
     public function savePaymentDetailsAndExtractPaymentLink($bookedSlot, $paymentLinkDetails, $bookingFee)
     {
-        if (isset($paymentLinkDetails['id']) && $paymentLinkDetails['id'] != null) 
-        {
+        if (isset($paymentLinkDetails['id']) && $paymentLinkDetails['id'] != null) {
             $paypalPaymentId = $paymentLinkDetails['id'];
 
-            foreach ($paymentLinkDetails['links'] as $links) 
-            {
-                if ($links['rel'] == 'approve')
-                {
+            foreach ($paymentLinkDetails['links'] as $links) {
+                if ($links['rel'] == 'approve') {
                     $paymentDetails = $this->savePaymentDetails([
                         'booking_id'    =>  $bookedSlot->id,
                         'amount'        =>  $bookingFee,
@@ -74,9 +73,7 @@ class PaymentService
                     ];
                 }
             }
-        }
-        else
-        {
+        } else {
             return [
                 'status'        =>  false,
                 'message'       =>  $paymentLinkDetails['message'] ?? 'Something went wrong.',
@@ -157,7 +154,7 @@ class PaymentService
      */
     public function getPaymentWithBookingUsingPaypalId($paypalId)
     {
-        return $this->paymentRepository->where('paypal_payment_id',$paypalId)->with('bookingSlot.doctor')->get();
+        return $this->paymentRepository->where('paypal_payment_id', $paypalId)->with('bookingSlot.doctor')->get();
     }
 
 
@@ -169,22 +166,20 @@ class PaymentService
             'slotEndTime'   =>  $bookedSlotDetails->slot_end_time,
             'bookingDate'   =>  $bookedSlotDetails->booking_date
         ];
-        
+
         $bookingFee = $this->bookingServices->getBookingFee($paramsToGetBookingFee);
-        if(!empty($bookingFee) && $bookingFee > 0)
-        {
+        if (!empty($bookingFee) && $bookingFee > 0) {
             $redirectUrls = [
                 'success'   =>  route('paypal.payment.success'),
                 'cancel'    =>  route('paypal.payment/cancel')
             ];
 
-            $paymentLinkDetails = $this->paypalService->generatePaymentLink($bookingFee, $bookedSlotDetails,$redirectUrls);
-   
-            // Update the payment required column to be true as the payment is required for this appointment
-            $this->bookingServices->updatePaymentRequired($bookedSlotDetails->id,true);
+            $paymentLinkDetails = $this->paypalService->generatePaymentLink($bookingFee, $bookedSlotDetails, $redirectUrls);
 
-            return $this->savePaymentDetailsAndExtractPaymentLink($bookedSlotDetails,$paymentLinkDetails, $bookingFee);
-            
+            // Update the payment required column to be true as the payment is required for this appointment
+            $this->bookingServices->updatePaymentRequired($bookedSlotDetails->id, true);
+
+            return $this->savePaymentDetailsAndExtractPaymentLink($bookedSlotDetails, $paymentLinkDetails, $bookingFee);
         }
         return 0;
     }

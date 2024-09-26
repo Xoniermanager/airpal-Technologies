@@ -6,7 +6,6 @@
                   $section =  $sections['page_extra_sections']['app_models_user'];  
         @endphp
 
- 
             {{-- @foreach ($sections['page_extra_sections'] as $section) --}}
                 <div class="row">
                     <input type="hidden" value="{{ $section->model ?? '' }}" name="extraSections[top_doctors][model]">

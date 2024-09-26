@@ -176,6 +176,14 @@ class PageController extends Controller
         foreach ($getPageSections as $getPageSection) {
             $sections[$getPageSection['section_slug']] = $getPageSection;
         }
+ 
+        $pageExtraSections = PageExtraSection::where('page_id',4)->get();
+        foreach ($pageExtraSections as $pageExtraSection) 
+        {
+            $slug = str_replace('\\','_',$pageExtraSection->model);
+            $slug = strtolower($slug);
+            $sections['page_extra_sections'][$slug] = $pageExtraSection;
+        }
         return view('admin.pages.instant_consultation.instant',[
             'sections'  =>  $sections,
             'page'      =>  $page

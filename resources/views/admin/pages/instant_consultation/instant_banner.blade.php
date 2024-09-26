@@ -65,33 +65,6 @@
                     value="{{ $sections['instant_banner']->getButtons[0]['id'] ?? '' }}">
 
 
-
-                {{-- <div class="col-lg-6">
-                    @php
-                        $instant_banner_button_text = isset($sections['instant_banner']->getButtons[0]['text'])
-                            ? $sections['instant_banner']->getButtons[0]['text']
-                            : '';
-                    @endphp
-                    {!! getTextInput(
-                        $instant_banner_button_text,
-                        'button text',
-                        'section[button][0][text]',
-                        'Button Text',
-                    ) !!}
-                </div>
-                <div class="col-lg-6">
-                    @php
-                        $instant_banner_button_link = isset($sections['instant_banner']->getButtons[0]['link'])
-                            ? $sections['instant_banner']->getButtons[0]['link']
-                            : '';
-                    @endphp
-                    {!! getTextInput(
-                        $instant_banner_button_link,
-                        'button link',
-                        'section[button][0][link]',
-                        'Button Link',
-                    ) !!}
-                </div> --}}
             </div>
         </div>
     </div>

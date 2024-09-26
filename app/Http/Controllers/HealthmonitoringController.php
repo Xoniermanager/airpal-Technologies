@@ -24,7 +24,6 @@ class HealthMonitoringController extends Controller
     foreach ($pageSections as $getPageSection) {
       $sections[$getPageSection['section_slug']] = $getPageSection;
     }
-    // dd($sections);
     return view('website.pages.health_monitoring', ['sections' => $sections]);
   }
 }

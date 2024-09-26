@@ -61,7 +61,6 @@ class HomeController extends Controller
       $slug = strtolower($slug);
       $extraSections[$slug] = $pageExtraSection->model::orderBy($pageExtraSection->order_with_column,$pageExtraSection->order_by)->take($pageExtraSection->no_of_records)->get();
     }
-    // dd($sections);
 
   
     return view('website.pages.home', [

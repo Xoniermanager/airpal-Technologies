@@ -288,7 +288,7 @@ class UsersTableSeeder extends Seeder
                 'id' => 13,
                 'first_name' => 'Lee',
                 'last_name' => 'White',
-                'display_name' => 'Jackson White',
+                'display_name' => 'Lee White',
                 'gender' => 'Male',
                 'experience_years' => 0,
                 'role' => 3,

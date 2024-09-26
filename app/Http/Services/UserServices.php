@@ -169,36 +169,32 @@ class UserServices
         }
 
         // Using provided search key to search in doctor name, speciality ans services
-        if (!empty($data['search'])) {
+        if (!empty($data['search'])) 
+        {
             // Search in doctor first name and last name
-            $searchKey = explode(' ', $data['search']);
-
-            if (count($searchKey) > 1) {
-                $query->where('first_name', 'like', "%{$searchKey[0]}%");
-                $query->where('last_name', 'like', "%{$searchKey[1]}%");
-                $query->orWhere('display_name', 'like', "%{$data['search']}%");
-            } else {
-                $query->where('first_name', 'like', "%{$data['search']}%");
-                $query->orWhere('last_name', 'like', "%{$data['search']}%");
-                $query->orWhere('display_name', 'like', "%{$data['search']}%");
-            }
+            $searchKey = $data['search'];
+            $query->where(function($nameQuery) use ($searchKey){
+                return $nameQuery->where('first_name', 'like', "%{$searchKey}%")
+                ->orWhere('last_name', 'like', "%{$searchKey}%");
+            })
+            ->orWhere('display_name','like',"%{$searchKey}%");
 
             // Search in speciality
-            $query->orWhereHas('specializations', function ($q) use ($data) {
-                $q->where('specializations.name', 'like', "%{$data['search']}%");
-            });
+            // $query->orWhereHas('specializations', function ($q) use ($data) {
+            //     $q->where('specializations.name', 'like', "%{$data['search']}%");
+            // });
 
             // Search in specializations
-            $query->orWhereHas('services', function ($q) use ($data) {
-                $q->where('services.name', 'like', "%{$data['search']}%");
-            });
+            // $query->orWhereHas('services', function ($q) use ($data) {
+            //     $q->where('services.name', 'like', "%{$data['search']}%");
+            // });
 
             // Search in eduction
-            $query->orWhereHas('educations', function ($q) use ($data) {
-                $q->where('institute_name', 'like', "%{$data['search']}%");
-            });
+            // $query->orWhereHas('educations', function ($q) use ($data) {
+            //     $q->where('institute_name', 'like', "%{$data['search']}%");
+            // });
         }
-        // return $query->toRawSql();
+        // dd($query->toRawSql());
         $doctorsCount = $query->count();
         return [
             'data'  =>  $query->paginate(6),

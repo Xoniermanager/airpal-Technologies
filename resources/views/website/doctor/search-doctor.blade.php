@@ -269,7 +269,7 @@
                                     </div>
                                 </div>
                                 <div class="doctor-filter-option">
-                                  
+                                  <input name="searchKey" id="search-key" type="text" placeholder="Search By Name">
                                     <div class="doctor-filter-sort">
                                         <ul class="nav">
                                             <li>
@@ -307,6 +307,11 @@
             event.preventDefault();
             search_doctors();
         });
+
+    jQuery('input[name="searchKey"]').on('keyup',function(){
+        event.preventDefault();
+        search_doctors();
+    });
 
     function search_doctors(page_no = 1) {
         genderCheckedValue = [];
@@ -354,6 +359,8 @@
             }
         });
 
+        let searchKey = jQuery('#search-key').val().trim();
+
         $.ajax({
             url: "{{ route('doctors.search') }}",
             type: 'get',
@@ -364,7 +371,8 @@
                 'specialty': specialityCheckedValue,
                 'services': servicesCheckedValue,
                 'rating': ratingCheckedValue,
-                'page': page_no
+                'page': page_no,
+                'searchKey':searchKey
             },
             // beforeSend: function(){
             //     $('.loaderonload').show();

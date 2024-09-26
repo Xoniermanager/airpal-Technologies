@@ -28,7 +28,7 @@ class SearchDoctorRequest extends FormRequest
             'experience'  =>  'sometimes|array|in:"1-5","5-10"',
             'rating'      =>  'sometimes|array|in:1,2,3,4,5',
             'languages'   =>  'sometimes|exists:languages,id',
-            'searchKey'   =>  'sometimes|string',
+            'searchKey'   =>  'sometimes|string|nullable',
         ];
     }
 }

@@ -167,7 +167,7 @@ class SiteConfigsTableSeeder extends Seeder
             array (
                 'id' => 25,
                 'name' => 'PAYPAL_SANDBOX_CLIENT_ID',
-                'value' => 'AcJyJYozKqWGE3gWEWY6Ec7fRmWfnzy3IgSUm64jeqmPpqmyQNMnMct9uYo34aqetqXxnRWj',
+                'value' => 'AcJyJYozKqWGE3gWEWY6Ec7fRmWfnzy3IgSUm64jeqmPpqmyQNMnMct9uYo34aqetqXxnRWj--AgoziI',
                 'status' => 1,
                 'created_at' => '2024-09-18 12:53:56',
                 'updated_at' => '2024-09-18 12:53:56',

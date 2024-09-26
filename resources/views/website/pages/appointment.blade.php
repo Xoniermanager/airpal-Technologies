@@ -198,8 +198,8 @@
                                                 <i class="feather-image"></i>
                                             </div>
                                             <div class="attachment-content">
-                                                <p>Skin Allergy Image</p>
-                                                <span>12.30 mb</span>
+                                                {{-- <p>Skin Allergy Image</p> --}}
+                                                {{-- <span>12.30 mb</span> --}}
                                             </div>
 
                                         </div>

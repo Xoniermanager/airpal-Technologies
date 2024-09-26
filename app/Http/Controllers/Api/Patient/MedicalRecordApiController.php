@@ -91,7 +91,7 @@ class MedicalRecordApiController extends Controller
     public function deleteMedicalRecord($id)
     {
         try {
-            $response = $this->medicalRecordService->deleteDetails($id);
+            $response = $this->medicalRecordService->deleteMedicalRecord($id);
             return response()->json([
                 "status" => true,
                 'message' => 'Deleted successfully',

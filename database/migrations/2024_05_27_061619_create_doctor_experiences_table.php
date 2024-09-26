@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('hospital_id');
             $table->unsignedBigInteger('user_id');
             $table->string('location');
-            $table->string('certificates');
+            $table->string('certificates')->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->text('job_description');

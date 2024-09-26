@@ -277,7 +277,7 @@
                                     </div>
                                 </div>
                                 <div class="doctor-filter-option">
-                                  <input name="searchKey" id="search-key" type="text" placeholder="Search By Name">
+                                  <input value="{{ isset($_GET['query']) ? $_GET['query'] : '' }}" name="searchKey" id="search-key" type="text" placeholder="Search By Name">
                                     <div class="doctor-filter-sort">
                                         <ul class="nav">
                                             <li>
@@ -309,6 +309,11 @@
 @endsection
 @section('javascript')
 <script>
+    // Onvery first page load call the search method to filter records based on provided params in url
+    jQuery(document).ready(function(){
+        search_doctors();
+    });
+
     $('.loaderonload').hide();
     $('input[name="gender"], input[name="langauges"], input[name="experience"] ,input[name="speciality"],input[name="services"],input[name="rating_count"]')
         .on('change', function(event) {

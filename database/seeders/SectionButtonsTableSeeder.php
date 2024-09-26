@@ -23,11 +23,11 @@ class SectionButtonsTableSeeder extends Seeder
             array (
                 'id' => 19,
                 'text' => 'Start a Consult',
-                'link' => 'www.airpal.ai',
+                'link' => '/search-doctor',
                 'section_id' => 102,
                 'status' => 1,
                 'created_at' => '2024-09-07 07:26:56',
-                'updated_at' => '2024-09-09 10:20:00',
+                'updated_at' => '2024-09-26 08:49:39',
             ),
             1 => 
             array (

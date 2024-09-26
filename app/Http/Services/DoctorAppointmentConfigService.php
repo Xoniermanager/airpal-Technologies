@@ -227,7 +227,7 @@ class DoctorAppointmentConfigService
     public function createDoctorSlots($doctorSlotConfigDetails)
     {
         $startDate = date_create($doctorSlotConfigDetails->start_slots_from_date);
-        $endDate = clone $startDate;
+        $endDate = today();
         date_modify($endDate, '+' . $doctorSlotConfigDetails->slots_in_advance . ' days');
 
         $formattedStartDate = date_create(date_format($startDate, 'Y-m-d'));

@@ -31,14 +31,14 @@
                         <div class="listing-card">
                             <div class="listing-img">
                                 <a href="{{ route('specialty.detail', ['id' => $speciality->id]) }}"> 
-                                    <img src="{{ asset('admin/specialization_image/' . $speciality->image_url) }}" class="img-fluid"
+                                    <img src="{{ $speciality->image_url ?? '' }}" class="img-fluid"
                                         alt="surgery-image">
                                 </a> 
                             </div>
                             <div class="listing-content">
                                 <div class="listing-details">
                                     <div class="listing-title">
-                                        <h3><a href="{{ route('specialty.detail', ['id' => $speciality->id]) }}"> {{ $speciality->speciality_name ??  ''}} </a> <span style="font-size: 14px;font-weight:300">(Doctors {{$speciality->doctor_count}}) </span></h3>
+                                        <h3><a href="{{ route('specialty.detail', ['id' => $speciality->id]) }}"> {{ $speciality->speciality_name ??  ''}} </a> <span style="font-size: 14px;font-weight:300">(Doctors {{ $speciality->doctor()->count() }}) </span></h3>
                                         
                                     </div>
                                     <div class="listing-title">

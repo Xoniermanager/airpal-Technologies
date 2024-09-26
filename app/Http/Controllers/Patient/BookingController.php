@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Patient;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreBooking;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Services\PaypalService;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Services\PaymentService;
-use Illuminate\Support\Facades\Crypt;
 use App\Http\Services\BookingServices;
 use App\Http\Requests\GetBookingFeeAndCheckAuth;
 
@@ -30,6 +28,7 @@ class BookingController extends Controller
     {
 
         $data = $request->validated();
+        $data['patient_id'] = Auth::id();
 
         $bookedSlot = $this->bookingServices->store((object)$data);
         $paymentLinkResponse = $this->paymentService->getBookingFeePaymentLink($bookedSlot);
@@ -101,7 +100,7 @@ class BookingController extends Controller
 
         if(!empty($bookingId))
         {
-            $bookingId = Crypt::decrypt($bookingId);
+            $bookingId = getDecryptId($bookingId);
             $bookingDetails = $this->bookingServices->getBookingSlotById($bookingId)->with('doctor')->first();
 
             if($bookingDetails)
@@ -120,7 +119,7 @@ class BookingController extends Controller
 
         if(!empty($bookingId))
         {
-            $bookingId = Crypt::decrypt($bookingId);
+            $bookingId = getDecryptId($bookingId);
             $bookingDetails = $this->bookingServices->getBookingSlotById($bookingId)->with('doctor')->first();
 
             if($bookingDetails)

@@ -202,4 +202,50 @@ class PaymentApiController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * Generate payment link based on provided booking id
+     */
+    public function getBookingFeePaymentLink(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'id'             => ['required', 'exists:booking_slots,id'],
+            ]);
+
+            if ($validator->fails())
+            {
+                return response()->json([
+                    "error" => 'validation_error',
+                    "message" => $validator->errors(),
+                ], 422);
+            }
+
+            // Getting booking details and generating payment link
+            $bookingDetails =  $this->bookingAppointmentServices->getBookingSlotById($request->id)->first();
+
+            $paymentLinkResponse = $this->paymentService->getBookingFeePaymentLink($bookingDetails);
+
+            if($paymentLinkResponse == 0)
+            {
+                return response()->json([
+                    'status'    => false,
+                    'data'      => '',
+                    'message'   => 'Payment not required'
+
+                ]);
+            }
+            else
+            {
+                return response()->json($paymentLinkResponse);
+            }
+
+        } catch (Exception $e) {
+            return response()->json([
+                "status" => false,
+                "error" =>  $e->getMessage(),
+                "message" => "Can not generate payment link!"
+            ], 500);
+        }
+    }
 }

@@ -25,7 +25,7 @@
                 <div class="card summaries bg-lt pt-0">
                     <div class="card-body">
                         <div class="success-cont">
-                            <img src="{{ asset('assets/img/failåed.webp') }}" alt="" class="h-280px">
+                            <img src="{{ asset('assets/img/failed.webp') }}" alt="" class="h-280px">
                             <h3 class="text-danger">Appointment has been Cancelled!</h3>
                             <p class="mb-1">Appointment booked with <strong>Dr. {{ $doctorName ?? ''}}</strong><br>
                                 <strong> On {{$bookingDate ?? ''}},

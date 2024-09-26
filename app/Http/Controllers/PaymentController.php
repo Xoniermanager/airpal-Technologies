@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreBooking;
 use App\Http\Services\PaypalService;
 use App\Http\Services\PaymentService;
 use Illuminate\Support\Facades\Crypt;

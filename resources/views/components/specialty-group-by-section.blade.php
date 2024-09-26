@@ -19,22 +19,24 @@
 
             @foreach ($specialties as $speciality)
                 <div class="col-xl-3 col-lg-4 col-md-6 aos aos-init aos-animate">
-                    <div class="specialist-card d-flex">
-                        <div class="specialist-img">
-                            <img src="{{ $speciality->image_url }}" alt="kidney-image" style="border-radius: 22px; height: 35px; width: 39px;"
-                                class="img-fluid">
+                    <a href="{{ route('specialty.detail', ['id' => $speciality->id]) }}" >
+                        <div class="specialist-card d-flex">
+                            <div class="specialist-img">
+                                <img src="{{ $speciality->image_url }}" alt="kidney-image"
+                                    style="border-radius: 22px; height: 35px; width: 39px;" class="img-fluid">
+                            </div>
+                            <div class="specialist-info">
+                                
+                                    <h4>{{ $speciality->name ?? '' }}</h4>
+                               
+                                <p>{{ $speciality->doctor()->count() }} Doctors</p>
+                            </div>
+                            <div class="specialist-nav ms-auto">
+                                <i
+                                        class="fas fa-long-arrow-alt-right"></i>
+                            </div>
                         </div>
-                        <div class="specialist-info">
-                            <a href="{{ route('specialty.detail', ['id' => $speciality->id]) }}">
-                                <h4>{{ $speciality->name ?? '' }}</h4>
-                            </a>
-                            <p>{{ $speciality->doctor()->count() }} Doctors</p>
-                        </div>
-                        <div class="specialist-nav ms-auto">
-                            <a href="{{ route('specialty.detail', ['id' => $speciality->id]) }}"><i
-                                    class="fas fa-long-arrow-alt-right"></i></a>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             @endforeach
         </div>

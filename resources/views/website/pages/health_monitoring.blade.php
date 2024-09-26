@@ -14,7 +14,7 @@
                 </div>
 
                 <div class="col-lg-6">
-                    <img src="{{ URL::asset('assets/img/service/device.png') }}" class="img-fluid dr-img"
+                    <img src="{{ $sections['health_monitoring_banner']->image ?? '' }}" class="img-fluid dr-img"
                         alt="doctor-image">
                 </div>
             </div>

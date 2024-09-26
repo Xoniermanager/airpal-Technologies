@@ -25,7 +25,7 @@
                                             <div class="doc-info-cont">
                                                 <h4 class="doc-name">
                                                     <a
-                                                        href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">{{ $doctor->first_name }}</a>
+                                                        href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">{{ $doctor->first_name . ' ' . $doctor->last_name }}</a>
                                                     <i class="fas fa-circle-check"></i>
                                                 </h4>
                                                 <span class="doc-speciality">

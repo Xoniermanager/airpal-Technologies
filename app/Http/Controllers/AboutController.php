@@ -27,7 +27,19 @@ class AboutController extends Controller
     foreach ($pageExtraSections as $pageExtraSection) {
       $slug = str_replace('\\', '_', $pageExtraSection->model);
       $slug = strtolower($slug);
-      $extraSections[$slug] = $pageExtraSection->model::orderBy($pageExtraSection->order_with_column, $pageExtraSection->order_by)->take($pageExtraSection->no_of_records)->get();
+      if ($slug == 'app_models_user') {
+        // Filter users by role (assuming role_id is the column in the User model)
+        $extraSections[$slug] = $pageExtraSection->model::where('role', 2) // Filter by role ID 2 (doctor)
+          ->orderBy($pageExtraSection->order_with_column, $pageExtraSection->order_by)
+          ->take($pageExtraSection->no_of_records)
+          ->get();
+      } else {
+        // For other models, keep the original logic
+        $extraSections[$slug] = $pageExtraSection->model::orderBy($pageExtraSection->order_with_column, $pageExtraSection->order_by)
+          ->take($pageExtraSection->no_of_records)
+          ->get();
+      }
+      // $extraSections[$slug] = $pageExtraSection->model::orderBy($pageExtraSection->order_with_column, $pageExtraSection->order_by)->take($pageExtraSection->no_of_records)->get();
     }
 
     return view('website.pages.about', [

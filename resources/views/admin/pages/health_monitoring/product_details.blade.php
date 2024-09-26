@@ -46,6 +46,7 @@
 
 
     <div class="row">
+
         @for ($i = 0; $i < 3; $i++)
             <div class="col-lg-6">
                 <div class="setting-card">
@@ -55,15 +56,15 @@
 
                                 @php
                                     $section_list_title =
-                                        isset($sections['product_details']->section_list[$i]) &&
-                                        isset($sections['product_details']->section_list[$i]->title)
-                                            ? $sections['product_details']->section_list[$i]->title
+                                        isset($sections['product_details']->getListing[$i]) &&
+                                        isset($sections['product_details']->getListing[$i]->title)
+                                            ? $sections['product_details']->getListing[$i]->title
                                             : '';
 
                                     $section_list_icon =
-                                        isset($sections['product_details']->section_list[$i]) &&
-                                        isset($sections['product_details']->section_list[$i]->icon)
-                                            ? $sections['product_details']->section_list[$i]->icon
+                                        isset($sections['product_details']->getListing[$i]) &&
+                                        isset($sections['product_details']->getListing[$i]->icon)
+                                            ? $sections['product_details']->getListing[$i]->icon
                                             : '';
                                 @endphp
 
@@ -84,7 +85,7 @@
                                 ) !!}
 
                                 <input type="hidden" name="section[ul][{{ $i }}][id]"
-                                    value="{{ $sections['product_details']->section_list[$i]->id ?? '' }}">
+                                    value="{{ $sections['product_details']->getListing[$i]->id ?? '' }}">
                             </div>
 
                             <div class="col-lg-10">
@@ -92,16 +93,16 @@
                                 @for ($k = 0; $k < 4; $k++)
                                     @php
                                         $list_item_title =
-                                            isset($sections['product_details']->section_list[$i]) &&
-                                            isset($sections['product_details']->section_list[$i]->listItems[$k]) &&
-                                            isset($sections['product_details']->section_list[$i]->listItems[$k]->title)
-                                                ? $sections['product_details']->section_list[$i]->listItems[$k]->title
+                                            isset($sections['product_details']->getListing[$i]) &&
+                                            isset($sections['product_details']->getListing[$i]->listItems[$k]) &&
+                                            isset($sections['product_details']->getListing[$i]->listItems[$k]->title)
+                                                ? $sections['product_details']->getListing[$i]->listItems[$k]->title
                                                 : '';
                                     @endphp
 
                                     <input type="hidden"
                                         name="section[ul][{{ $i }}][li][{{ $k }}][id]"
-                                        value="{{ $sections['product_details']->section_list[$i]->listItems[$k]->id ?? '' }}">
+                                        value="{{ $sections['product_details']->getListing[$i]->listItems[$k]->id ?? '' }}">
 
 
                                     {!! getTextInput(
@@ -115,7 +116,7 @@
 
                             </div>
 
-                            <input type="hidden" name="section[ul][{{ $i }}][section_id]]" value="123">
+                            <input type="hidden" name="section[ul][{{ $i }}][section_id]]" value="{{ $sections['product_details']->id }}">
                         </div>
                     </div>
                 </div>

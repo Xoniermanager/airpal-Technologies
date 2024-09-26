@@ -70,9 +70,17 @@
                                         <div class="filter-collapse">
                                             <ul>
                                                 @forelse ($specialties as $specialty)
+                                                @php
+                                                    $selectedSpeciality  = isset($_GET['specialty']) ? $_GET['specialty'] : '';
+                                                    $checked = '';
+                                                    if($selectedSpeciality == $specialty->id)
+                                                    {
+                                                        $checked = 'checked';
+                                                    }
+                                                @endphp
                                                 <li>
                                                     <label class="custom_check d-inline-flex">
-                                                        <input type="checkbox" name="speciality"
+                                                        <input {{ $checked }} type="checkbox" name="speciality"
                                                             value="{{ $specialty->id }}">
                                                         <span class="checkmark"></span>
                                                         {{ $specialty->name }}
@@ -269,7 +277,7 @@
                                     </div>
                                 </div>
                                 <div class="doctor-filter-option">
-                                  
+                                  <input value="{{ isset($_GET['query']) ? $_GET['query'] : '' }}" name="searchKey" id="search-key" type="text" placeholder="Search By Name" class="form-control">
                                     <div class="doctor-filter-sort">
                                         <ul class="nav">
                                             <li>
@@ -301,12 +309,22 @@
 @endsection
 @section('javascript')
 <script>
+    // Onvery first page load call the search method to filter records based on provided params in url
+    jQuery(document).ready(function(){
+        search_doctors();
+    });
+
     $('.loaderonload').hide();
     $('input[name="gender"], input[name="langauges"], input[name="experience"] ,input[name="speciality"],input[name="services"],input[name="rating_count"]')
         .on('change', function(event) {
             event.preventDefault();
             search_doctors();
         });
+
+    jQuery('input[name="searchKey"]').on('keyup',function(){
+        event.preventDefault();
+        search_doctors();
+    });
 
     function search_doctors(page_no = 1) {
         genderCheckedValue = [];
@@ -354,6 +372,8 @@
             }
         });
 
+        let searchKey = jQuery('#search-key').val().trim();
+
         $.ajax({
             url: "{{ route('doctors.search') }}",
             type: 'get',
@@ -364,7 +384,8 @@
                 'specialty': specialityCheckedValue,
                 'services': servicesCheckedValue,
                 'rating': ratingCheckedValue,
-                'page': page_no
+                'page': page_no,
+                'searchKey':searchKey
             },
             // beforeSend: function(){
             //     $('.loaderonload').show();

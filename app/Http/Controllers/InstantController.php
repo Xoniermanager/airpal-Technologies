@@ -9,14 +9,18 @@ use App\Http\Services\UserServices;
 use App\Mail\InstantConsultSendMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Services\SpecializationServices;
 
 class InstantController extends Controller
 {
   private $user_services;
+  private $specializationServices;
 
-  public function __construct(UserServices $user_services)
+  public function __construct(UserServices $user_services , SpecializationServices $specializationServices)
   {
     $this->user_services =  $user_services;
+    $this->specializationServices = $specializationServices;
+    
   }
   public function instant()
   {
@@ -36,8 +40,10 @@ class InstantController extends Controller
     }
     
     $doctors =  $this->user_services->getDoctorDataForFrontend();
+    $specialtiesByDoctorsCount =  $this->specializationServices->all(); 
     return view('website.pages.instant', [
     'doctorList'    =>  $extraSections['app_models_user'],
+    'specialties'   =>  $specialtiesByDoctorsCount,
   ]);
   }
 

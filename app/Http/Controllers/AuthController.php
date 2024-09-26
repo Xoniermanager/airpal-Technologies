@@ -51,32 +51,7 @@ class AuthController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
-
-
-
-        // if (Auth::attempt($credentials)) {
-        //     $user = Auth::user();
-        //     $redirectUrl = '';
-
-        //     if ($user->isDoctor()) {
-        //         $redirectUrl = route('doctor.doctor-dashboard.index');
-        //     } elseif ($user->isPatient()) {
-        //         $redirectUrl = route('patient-dashboard.index');
-        //     }
-
-        //     return response()->json([
-        //         'success' => true,
-        //         'message' => 'Login successful',
-        //         'redirect_url' => $redirectUrl,
-        //     ]);
-        // }
-
-        // return response()->json([
-        //     'success' => false,
-        //     'message' => 'Login failed. Please check your credentials and try again.',
-        // ]);
     }
-
 
 
     public function logout(Request $request)
@@ -132,9 +107,9 @@ class AuthController extends Controller
     public function resetPassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email'   => 'required|string',
-            'otp'   => 'required|integer',
-            'new_password' => 'required|string|confirmed',
+            'email'                     => 'required|email|exists:users,email',
+            'otp'                       => 'required|integer|max:4',
+            'new_password'              => 'required|string|confirmed',
             'new_password_confirmation' => 'required|string'
         ]);
         if ($validator->fails()) {

@@ -67,7 +67,8 @@
     <x-doctor-slider :doctorList="$doctorList" :show="true" />
 
     {{-- this is group by doctor specialty section (common section with other pages) --}}
-    <x-specialty-group-by-section :show="true" />
+    <x-specialty-group-by-section :specialties="$specialties"  :show="true" />
+
 @endsection
 
 

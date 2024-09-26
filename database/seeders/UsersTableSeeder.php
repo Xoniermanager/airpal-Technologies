@@ -14,12 +14,12 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('users')->delete();
-        
+
         \DB::table('users')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'first_name' => 'John',
@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 2,
                 'phone' => '1234567890',
                 'email' => 'john@example.com',
-                'image_url' => '1722856234.jpg',
+                'image_url' => 'site-data/profile-image/John-1726723967.jpg',
                 'dob' => NULL,
                 'blood_group' => NULL,
                 'email_verified_at' => '2024-08-01 11:16:00',
@@ -39,9 +39,9 @@ class UsersTableSeeder extends Seeder
                 'allover_rating' => '3.57',
                 'remember_token' => NULL,
                 'created_at' => '2024-08-01 11:16:00',
-                'updated_at' => '2024-08-21 12:46:22',
+                'updated_at' => '2024-09-19 05:32:47',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'first_name' => 'Jane',
@@ -52,7 +52,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 2,
                 'phone' => '9876543210',
                 'email' => 'jane@example.com',
-                'image_url' => 'profile-image/Jane-1724839723.jpg',
+                'image_url' => 'site-data/profile-image/Jane-1726723676.jpg',
                 'dob' => NULL,
                 'blood_group' => NULL,
                 'email_verified_at' => '2024-08-01 11:16:00',
@@ -61,9 +61,9 @@ class UsersTableSeeder extends Seeder
                 'allover_rating' => '2.2',
                 'remember_token' => NULL,
                 'created_at' => '2024-08-01 11:16:00',
-                'updated_at' => '2024-08-28 10:08:43',
+                'updated_at' => '2024-09-19 05:27:56',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'first_name' => 'Eva',
@@ -74,7 +74,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 2,
                 'phone' => '9876540000',
                 'email' => 'eva@example.com',
-                'image_url' => 'profile-image/Eva-1725003158.jpg',
+                'image_url' => 'site-data/profile-image/Eva-1726724055.jpg',
                 'dob' => NULL,
                 'blood_group' => NULL,
                 'email_verified_at' => '2024-08-01 11:16:00',
@@ -83,9 +83,9 @@ class UsersTableSeeder extends Seeder
                 'allover_rating' => '2.8',
                 'remember_token' => NULL,
                 'created_at' => '2024-08-01 11:16:01',
-                'updated_at' => '2024-08-30 07:32:38',
+                'updated_at' => '2024-09-19 05:34:15',
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'first_name' => 'Paul',
@@ -96,7 +96,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 2,
                 'phone' => '9876540000',
                 'email' => 'paul@example.com',
-                'image_url' => '1722855609.jpg',
+                'image_url' => 'site-data/profile-image/Paul-1727088215.jpg',
                 'dob' => NULL,
                 'blood_group' => NULL,
                 'email_verified_at' => '2024-08-01 11:16:01',
@@ -105,9 +105,9 @@ class UsersTableSeeder extends Seeder
                 'allover_rating' => '3',
                 'remember_token' => NULL,
                 'created_at' => '2024-08-01 11:16:01',
-                'updated_at' => '2024-08-21 12:46:22',
+                'updated_at' => '2024-09-23 10:43:35',
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'first_name' => 'Nina',
@@ -118,7 +118,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 2,
                 'phone' => '9876540000',
                 'email' => 'nina@example.com',
-                'image_url' => 'profile-image/Nina-1725007864.jpg',
+                'image_url' => 'site-data/profile-image/Nina-1727087668.png',
                 'dob' => NULL,
                 'blood_group' => NULL,
                 'email_verified_at' => '2024-08-01 11:16:01',
@@ -127,9 +127,9 @@ class UsersTableSeeder extends Seeder
                 'allover_rating' => '3',
                 'remember_token' => NULL,
                 'created_at' => '2024-08-01 11:16:01',
-                'updated_at' => '2024-08-30 08:51:04',
+                'updated_at' => '2024-09-23 10:34:28',
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 6,
                 'first_name' => 'Jack',
@@ -140,7 +140,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 3,
                 'phone' => '1234562890',
                 'email' => 'jack@example.com',
-                'image_url' => '1722854943.jpg',
+                'image_url' => 'site-data/profile-image/Jack-1727090470.jpeg',
                 'dob' => '1992-08-02',
                 'blood_group' => '',
                 'email_verified_at' => '2024-08-01 11:16:01',
@@ -149,9 +149,9 @@ class UsersTableSeeder extends Seeder
                 'allover_rating' => NULL,
                 'remember_token' => NULL,
                 'created_at' => '2024-08-01 11:16:01',
-                'updated_at' => '2024-08-21 12:46:22',
+                'updated_at' => '2024-09-23 11:21:10',
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 7,
                 'first_name' => 'James',
@@ -162,7 +162,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 3,
                 'phone' => '9876543220',
                 'email' => 'James@example.com',
-                'image_url' => 'profile-image/James-1724936990.jpg',
+                'image_url' => 'site-data/profile-image/James-1727090376.jpg',
                 'dob' => '1996-06-02',
                 'blood_group' => '',
                 'email_verified_at' => '2024-08-01 11:16:01',
@@ -171,9 +171,9 @@ class UsersTableSeeder extends Seeder
                 'allover_rating' => NULL,
                 'remember_token' => NULL,
                 'created_at' => '2024-08-01 11:16:02',
-                'updated_at' => '2024-08-29 13:09:50',
+                'updated_at' => '2024-09-23 11:19:36',
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 8,
                 'first_name' => 'Sara',
@@ -184,7 +184,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 3,
                 'phone' => '9876540001',
                 'email' => 'sara@example.com',
-                'image_url' => '1722855070.jpg',
+                'image_url' => 'site-data/profile-image/Sara-1727090654.jpg',
                 'dob' => '1992-08-02',
                 'blood_group' => '',
                 'email_verified_at' => '2024-08-01 11:16:02',
@@ -193,9 +193,9 @@ class UsersTableSeeder extends Seeder
                 'allover_rating' => NULL,
                 'remember_token' => NULL,
                 'created_at' => '2024-08-01 11:16:02',
-                'updated_at' => '2024-08-21 12:46:22',
+                'updated_at' => '2024-09-23 11:24:14',
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 9,
                 'first_name' => 'Albert',
@@ -206,7 +206,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 3,
                 'phone' => '9876540006',
                 'email' => 'albert@example.com',
-                'image_url' => '1722855028.webp',
+                'image_url' => 'site-data/1722855028.webp',
                 'dob' => '1992-08-02',
                 'blood_group' => 'A+',
                 'email_verified_at' => '2024-08-01 11:16:02',
@@ -217,7 +217,7 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2024-08-01 11:16:02',
                 'updated_at' => '2024-08-21 12:46:22',
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 10,
                 'first_name' => 'Ivy',
@@ -228,7 +228,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 3,
                 'phone' => '9876540000',
                 'email' => 'ivy@example.com',
-                'image_url' => '1722854991.jpg',
+                'image_url' => 'site-data/1722854991.jpg',
                 'dob' => '1992-08-02',
                 'blood_group' => 'o+',
                 'email_verified_at' => '2024-08-01 11:16:02',
@@ -239,7 +239,7 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2024-08-01 11:16:03',
                 'updated_at' => '2024-08-21 12:46:22',
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 11,
                 'first_name' => 'Thomas',
@@ -250,7 +250,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 3,
                 'phone' => '9876540000',
                 'email' => 'thomas@example.com',
-                'image_url' => '1722579357.jpeg',
+                'image_url' => 'site-data/1722579357.jpeg',
                 'dob' => '1992-08-02',
                 'blood_group' => '',
                 'email_verified_at' => '2024-08-01 11:16:03',
@@ -261,7 +261,7 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2024-08-01 11:16:03',
                 'updated_at' => '2024-08-21 12:46:22',
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 12,
                 'first_name' => 'Jackson',
@@ -272,7 +272,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 3,
                 'phone' => '9876540000',
                 'email' => 'jackson@example.com',
-                'image_url' => '',
+                'image_url' => 'site-data/profile-image/Sara-1727090654.jpg',
                 'dob' => '1992-08-02',
                 'blood_group' => NULL,
                 'email_verified_at' => '2024-08-01 11:16:03',
@@ -283,7 +283,7 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2024-08-01 11:16:03',
                 'updated_at' => '2024-08-21 12:46:22',
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 13,
                 'first_name' => 'Lee',
@@ -294,7 +294,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 3,
                 'phone' => '9876540110',
                 'email' => 'lee@example.com',
-                'image_url' => '',
+                'image_url' => 'site-data/1724244129.jpg',
                 'dob' => '1992-08-02',
                 'blood_group' => NULL,
                 'email_verified_at' => '2024-08-01 11:16:03',
@@ -305,7 +305,7 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2024-08-01 11:16:04',
                 'updated_at' => '2024-08-21 12:46:22',
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 14,
                 'first_name' => 'Taylor',
@@ -327,7 +327,7 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2024-08-01 11:16:04',
                 'updated_at' => '2024-08-21 12:46:22',
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 15,
                 'first_name' => 'Scott',
@@ -338,7 +338,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 3,
                 'phone' => '9876540110',
                 'email' => 'scott@example.com',
-                'image_url' => '',
+                'image_url' => 'site-data/1724244129.jpg',
                 'dob' => '1992-08-02',
                 'blood_group' => NULL,
                 'email_verified_at' => '2024-08-01 11:16:04',
@@ -349,7 +349,7 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2024-08-01 11:16:04',
                 'updated_at' => '2024-08-21 12:46:22',
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 16,
                 'first_name' => 'mike',
@@ -371,7 +371,7 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2024-08-02 07:39:00',
                 'updated_at' => '2024-08-21 12:46:22',
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 18,
                 'first_name' => 'Rae',
@@ -382,7 +382,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 3,
                 'phone' => '1122334455',
                 'email' => 'zicij@mailinator.com',
-                'image_url' => NULL,
+                'image_url' => 'site-data/1724244129.jpg',
                 'dob' => NULL,
                 'blood_group' => NULL,
                 'email_verified_at' => NULL,
@@ -393,7 +393,7 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2024-08-03 09:59:33',
                 'updated_at' => '2024-08-21 12:46:22',
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 19,
                 'first_name' => 'Hyacinth',
@@ -404,7 +404,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 3,
                 'phone' => '1122334455',
                 'email' => 'vohufihicu@mailinator.com',
-                'image_url' => NULL,
+                'image_url' => 'site-data/1724244129.jpg',
                 'dob' => NULL,
                 'blood_group' => NULL,
                 'email_verified_at' => NULL,
@@ -415,7 +415,7 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2024-08-03 11:25:29',
                 'updated_at' => '2024-08-21 12:46:22',
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 20,
                 'first_name' => 'Lillian',
@@ -426,7 +426,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 3,
                 'phone' => '1122334455',
                 'email' => 'lillian@mailinator.com',
-                'image_url' => NULL,
+                'image_url' => 'site-data/1724244129.jpg',
                 'dob' => NULL,
                 'blood_group' => NULL,
                 'email_verified_at' => NULL,
@@ -437,7 +437,7 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2024-08-04 06:40:14',
                 'updated_at' => '2024-08-21 12:46:22',
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 21,
                 'first_name' => 'super',
@@ -448,7 +448,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 1,
                 'phone' => '1111111111',
                 'email' => 'superadmin@example.com',
-                'image_url' => NULL,
+                'image_url' => 'site-data/1724244129.jpg',
                 'dob' => '1984-08-02',
                 'blood_group' => 'B+',
                 'email_verified_at' => NULL,
@@ -459,7 +459,7 @@ class UsersTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => '2024-08-22 06:39:07',
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 22,
                 'first_name' => 'puneet',
@@ -470,7 +470,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 3,
                 'phone' => '1234567890',
                 'email' => 'xonier.puneet@gmail.com',
-                'image_url' => '1724244129.jpg',
+                'image_url' => 'site-data/1724244129.jpg',
                 'dob' => '1994-05-21',
                 'blood_group' => '',
                 'email_verified_at' => NULL,
@@ -481,7 +481,7 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2024-08-21 09:16:15',
                 'updated_at' => '2024-08-21 12:46:22',
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 23,
                 'first_name' => 'Keely',
@@ -492,7 +492,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 2,
                 'phone' => '9876543210',
                 'email' => 'keely@example.com',
-                'image_url' => '1724323091.jpg',
+                'image_url' => 'site-data/profile-image/Keely-1727089107.jpeg',
                 'dob' => NULL,
                 'blood_group' => NULL,
                 'email_verified_at' => NULL,
@@ -501,9 +501,9 @@ class UsersTableSeeder extends Seeder
                 'allover_rating' => NULL,
                 'remember_token' => NULL,
                 'created_at' => '2024-08-22 10:37:44',
-                'updated_at' => '2024-08-22 10:52:27',
+                'updated_at' => '2024-09-23 10:58:27',
             ),
-            22 => 
+            22 =>
             array (
                 'id' => 24,
                 'first_name' => 'Teegan',
@@ -514,18 +514,18 @@ class UsersTableSeeder extends Seeder
                 'role' => 2,
             'phone' => '+1 (734) 816-2929',
                 'email' => 'finu@mailinator.com',
-                'image_url' => NULL,
+                'image_url' => 'site-data/profile-image/Teegan-1727090013.jpg',
                 'dob' => NULL,
                 'blood_group' => NULL,
                 'email_verified_at' => NULL,
                 'password' => '$2y$12$0P0a9iw0Mf.E8uZuYx0wSeM.XDxz4yPQVlCYqZa08opi4hGdFnGdi',
-                'description' => 'Test',
+                'description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,',
                 'allover_rating' => NULL,
                 'remember_token' => NULL,
                 'created_at' => '2024-08-22 13:47:09',
-                'updated_at' => '2024-08-22 13:55:53',
+                'updated_at' => '2024-09-23 11:13:33',
             ),
-            23 => 
+            23 =>
             array (
                 'id' => 25,
                 'first_name' => 'Kermit',
@@ -536,62 +536,62 @@ class UsersTableSeeder extends Seeder
                 'role' => 2,
                 'phone' => '122345333',
                 'email' => 'bisoreze@mailinator.com',
-                'image_url' => '1724335467.jpg',
+                'image_url' => 'site-data/profile-image/Kermit-1727089782.jpg',
                 'dob' => NULL,
                 'blood_group' => NULL,
                 'email_verified_at' => NULL,
                 'password' => '$2y$12$MVW47qgbh8CrNXSFb4K/l.090DBlIKVYX8dpv0g.SSNLcZAENl5wi',
-                'description' => 'demo',
+                'description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,',
                 'allover_rating' => NULL,
                 'remember_token' => NULL,
                 'created_at' => '2024-08-22 13:55:12',
-                'updated_at' => '2024-08-22 14:08:27',
+                'updated_at' => '2024-09-23 11:09:42',
             ),
-            24 => 
+            24 =>
             array (
                 'id' => 26,
                 'first_name' => 'Hiroko',
                 'last_name' => 'Best',
-                'display_name' => '',
+                'display_name' => 'Hiroko',
                 'gender' => 'Female',
                 'experience_years' => NULL,
                 'role' => 2,
                 'phone' => '1212222112',
                 'email' => 'tylix@mailinator.com',
-                'image_url' => NULL,
+                'image_url' => 'site-data/profile-image/Hiroko-1727089605.jpg',
                 'dob' => NULL,
                 'blood_group' => NULL,
                 'email_verified_at' => NULL,
                 'password' => '$2y$12$TukOwp7fFpleXRucksm0Aup8214AbLlK/u4gfMSqtJePOk.QjokQu',
-                'description' => '',
+                'description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,',
                 'allover_rating' => NULL,
                 'remember_token' => NULL,
                 'created_at' => '2024-08-23 04:24:14',
-                'updated_at' => '2024-08-23 04:24:14',
+                'updated_at' => '2024-09-23 11:06:45',
             ),
-            25 => 
+            25 =>
             array (
                 'id' => 27,
                 'first_name' => 'Raven',
                 'last_name' => 'Browning',
-                'display_name' => '',
+                'display_name' => 'Raven',
                 'gender' => 'Female',
                 'experience_years' => NULL,
                 'role' => 2,
                 'phone' => '1234567899',
                 'email' => 'qunuhicese@mailinator.com',
-                'image_url' => NULL,
+                'image_url' => 'site-data/profile-image/Raven-1727090126.jpg',
                 'dob' => NULL,
                 'blood_group' => NULL,
                 'email_verified_at' => NULL,
                 'password' => '$2y$12$7Sx9M5S1cOMTltzaHJd7Z.8c273LfWoUhx4hDLKF0.WXjzCgKvcJW',
-                'description' => '',
+                'description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,',
                 'allover_rating' => NULL,
                 'remember_token' => NULL,
                 'created_at' => '2024-08-23 05:09:26',
-                'updated_at' => '2024-08-23 05:09:26',
+                'updated_at' => '2024-09-23 11:15:27',
             ),
-            26 => 
+            26 =>
             array (
                 'id' => 28,
                 'first_name' => 'Stephen',
@@ -602,7 +602,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 3,
                 'phone' => '1234567890',
                 'email' => 'ceqi@mailinator.com',
-                'image_url' => NULL,
+                'image_url' => 'site-data/1724244129.jpg',
                 'dob' => NULL,
                 'blood_group' => NULL,
                 'email_verified_at' => NULL,
@@ -613,7 +613,7 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2024-08-23 06:13:19',
                 'updated_at' => '2024-08-23 06:13:19',
             ),
-            27 => 
+            27 =>
             array (
                 'id' => 29,
                 'first_name' => 'Charde',
@@ -624,7 +624,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 3,
                 'phone' => '1122334455',
                 'email' => 'butegan11@mailinator.com',
-                'image_url' => NULL,
+                'image_url' => 'site-data/1724244129.jpg',
                 'dob' => NULL,
                 'blood_group' => NULL,
                 'email_verified_at' => NULL,
@@ -635,7 +635,7 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2024-08-23 06:58:41',
                 'updated_at' => '2024-08-23 06:58:41',
             ),
-            28 => 
+            28 =>
             array (
                 'id' => 30,
                 'first_name' => 'Solar1',
@@ -646,7 +646,7 @@ class UsersTableSeeder extends Seeder
                 'role' => 3,
                 'phone' => '1122334455',
                 'email' => 'kutegan11@mailinator.com',
-                'image_url' => NULL,
+                'image_url' => 'site-data/1724244129.jpg',
                 'dob' => '1992-02-11',
                 'blood_group' => '',
                 'email_verified_at' => NULL,
@@ -657,8 +657,30 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2024-08-23 07:02:04',
                 'updated_at' => '2024-08-29 10:20:37',
             ),
+            29 =>
+            array (
+                'id' => 31,
+                'first_name' => 'D K',
+                'last_name' => '',
+                'display_name' => 'Direndra kumar',
+                'gender' => 'male',
+                'experience_years' => 0,
+                'role' => 1,
+                'phone' => '1234567890',
+                'email' => 'dhirendra@xoniertechnologies.com',
+                'image_url' => 'site-data/1724244129.jpg',
+                'dob' => '1984-08-02',
+                'blood_group' => 'B+',
+                'email_verified_at' => NULL,
+                'password' => '$2y$12$71nS3eJhHUFmO0gcx63jHu9ODYiotiOZskPL/o7HiBB8MN37XZBG.',
+                'description' => NULL,
+                'allover_rating' => NULL,
+                'remember_token' => NULL,
+                'created_at' => NULL,
+                'updated_at' => '2024-08-22 06:39:07',
+            ),
         ));
-        
-        
+
+
     }
 }

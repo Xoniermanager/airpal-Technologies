@@ -20,19 +20,11 @@ class HealthMonitoringController extends Controller
 
   public function health_monitoring()
   {
-    $pageSections = PageSection::where('page_id', 3)->with('getButtons', 'getContent')->get();
-    
+    $pageSections = PageSection::where('page_id', 3)->with('getButtons', 'getContent','getListing.listItems')->get();
     foreach ($pageSections as $getPageSection) {
       $sections[$getPageSection['section_slug']] = $getPageSection;
     }
-    
-    $sectionList = SectionList::where('page_id', 3)->with('listItems')->get();
-
-    if (isset($sections['product_details'])) {
-        $sections['product_details']->section_list = $sectionList;
-    } else {
-        $sections['product_details'] = (object) ['section_list' => $sectionList];
-    }
+    // dd($sections);
     return view('website.pages.health_monitoring', ['sections' => $sections]);
   }
 }

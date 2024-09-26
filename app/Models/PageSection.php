@@ -32,6 +32,11 @@ class PageSection extends Model
         return $this->hasMany(SectionImage::class,'section_id');
     }
 
+    public function getListing()
+    {
+        return $this->hasMany(SectionList::class,'section_id');
+    }
+
     protected function image(): Attribute
     {
         return Attribute::make(

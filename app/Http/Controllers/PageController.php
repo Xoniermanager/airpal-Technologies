@@ -131,7 +131,9 @@ class PageController extends Controller
         foreach ($getPageSections as $getPageSection) {
             $sections[$getPageSection['section_slug']] = $getPageSection;
         }
-        $sectionList = SectionList::where('page_id', 3)->with('listItems')->get();
+        // dd(    $sections );
+
+        $sectionList = SectionList::where('section_id', 3)->with('listItems')->get();
         if (isset($sections['product_details'])) {
             $sections['product_details']->section_list = $sectionList;
         } else {
@@ -177,6 +179,29 @@ class PageController extends Controller
         return view('admin.pages.instant_consultation.instant',[
             'sections'  =>  $sections,
             'page'      =>  $page
+        ]);
+    }
+
+
+    public function storeInstantConsultation(Request $request)
+    {
+
+        $allPageSectionsData = $this->frontendPagesServices->saveHomepageSections($request);
+        $sectionsHTML = array();
+        foreach ($allPageSectionsData as $pageSectionsData) 
+        {
+            $slug = $pageSectionsData->section_slug;
+            $sectionsHTML[$slug]['data'] = view('admin.pages.instant_consultation.'.$slug ,[
+                'sections' =>  [
+                    $slug   =>  $pageSectionsData
+                ]
+            ])->render();
+            $sectionsHTML[$slug]['slug'] = $slug; 
+        }
+        return response()->json([
+            'success'   => 'Successfully saved',
+            'data'      =>  $sectionsHTML,
+            'status'    =>  true
         ]);
     }
 

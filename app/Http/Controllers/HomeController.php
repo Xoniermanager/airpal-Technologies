@@ -25,6 +25,7 @@ class HomeController extends Controller
   private $faqsServices;
   private $testimonialServices;
   private $partnersServices;
+  private $specializationServices;
 
 
   public function __construct(
@@ -32,18 +33,20 @@ class HomeController extends Controller
     DoctorSpecialityServices $doctor_specialty,
     FaqsServices $faqsServices,
     TestimonialServices $testimonialServices,
-    PartnersServices $partnersServices
+    PartnersServices $partnersServices,
+    SpecializationServices $specializationServices
   ) {
     $this->user_services        =  $user_services;
     $this->doctor_specialty     =  $doctor_specialty;
     $this->faqsServices         =  $faqsServices;
     $this->testimonialServices  =  $testimonialServices;
     $this->partnersServices    =  $partnersServices;
+    $this->specializationServices = $specializationServices;
   }
   public function home()
   {
     
-    $specialtiesByDoctorsCount =  $this->doctor_specialty->getSpecialtyGroupByDoctor(); 
+    $specialtiesByDoctorsCount =  $this->specializationServices->all(); 
     $pageSections      = PageSection::with('getButtons', 'getContent')->where('page_id',1)->get();
     $pageExtraSections = PageExtraSection::where('page_id',1)->where('status',1)->get();
     
@@ -60,7 +63,7 @@ class HomeController extends Controller
     }
     // dd($sections);
 
-    
+  
     return view('website.pages.home', [
 
       'specialties'   =>  $specialtiesByDoctorsCount,

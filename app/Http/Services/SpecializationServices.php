@@ -16,13 +16,10 @@ class SpecializationServices
         $data['name']= $storeSpecialitiesRequest->name;
         $data['description']= $storeSpecialitiesRequest->description;
         
-        if($storeSpecialitiesRequest->hasFile('image')){
-          $file = $storeSpecialitiesRequest->file('image');
-          $filename = time() . '.' . $file->getClientOriginalExtension();
-          $destinationPath = public_path('admin/specialization_image'); 
-          $file->move($destinationPath, $filename);
-          $data['image_url'] = $filename;
+        if($storeSpecialitiesRequest->hasFile('image') && !empty($storeSpecialitiesRequest->image)){
+          $data['image_url'] = uploadingImageorFile($storeSpecialitiesRequest->image, 'specialties', $storeSpecialitiesRequest->name);
         }
+        dd( $data);
         return  $this->SpeciliazationRepository->create($data);
       } catch (\Throwable $th) {
         //throw $th;
@@ -32,15 +29,11 @@ class SpecializationServices
       try {
         $imageUrl = Specialization::find($updateSpecialitiesRequest->id)->image_url;
         $destinationPath = public_path('admin/specialization_image/') . $imageUrl; 
-      if($updateSpecialitiesRequest->hasFile('image')){
-          if (File::exists($destinationPath)) {
-            File::delete($destinationPath);
-          } 
-          $image = $updateSpecialitiesRequest->file('image');
-          $imageName = time() . '.' . $image->getClientOriginalExtension();  
-          $image->move(public_path('admin/specialization_image'), $imageName);
-          $data['image_url'] = $imageName;
+
+      if($updateSpecialitiesRequest->hasFile('image') && !empty($updateSpecialitiesRequest->image)){
+        $data['image_url'] = uploadingImageorFile($updateSpecialitiesRequest->image,'specialties',$updateSpecialitiesRequest->name);
       }
+
       $data['name'] = $updateSpecialitiesRequest->name;
       $data['description']=$updateSpecialitiesRequest->description;
       return $this->SpeciliazationRepository->find($updateSpecialitiesRequest->id)->update($data);

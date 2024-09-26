@@ -21,14 +21,14 @@
                 <div class="col-xl-3 col-lg-4 col-md-6 aos aos-init aos-animate">
                     <div class="specialist-card d-flex">
                         <div class="specialist-img">
-                            <img src="{{ URL::asset('assets/img/category/1.png') }}" alt="kidney-image"
+                            <img src="{{ $speciality->image_url }}" alt="kidney-image" style="border-radius: 22px; height: 35px; width: 39px;"
                                 class="img-fluid">
                         </div>
                         <div class="specialist-info">
                             <a href="{{ route('specialty.detail', ['id' => $speciality->id]) }}">
-                                <h4>{{ $speciality->speciality_name ?? '' }}</h4>
+                                <h4>{{ $speciality->name ?? '' }}</h4>
                             </a>
-                            <p>{{ $speciality->doctor_count }} Doctors</p>
+                            <p>{{ $speciality->doctor()->count() }} Doctors</p>
                         </div>
                         <div class="specialist-nav ms-auto">
                             <a href="{{ route('specialty.detail', ['id' => $speciality->id]) }}"><i

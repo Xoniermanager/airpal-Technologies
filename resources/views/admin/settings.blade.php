@@ -35,7 +35,7 @@
                                             name="config[website_name][name]">
                                         <input type="text" class="form-control" name="config[website_name][value]"
                                             value="{{ $configData['website_name'] ?? '' }}">
-                                            <span class="text-denger" id="config_website_name_value_error" style="color: red">
+                                        <span class="text-denger" id="config_website_name_value_error" style="color: red">
 
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -44,7 +44,7 @@
                                             name="config[website_url][name]">
                                         <input type="text" class="form-control" name="config[website_url][value]"
                                             value="{{ $configData['website_url'] ?? '' }}">
-                                            <span class="text-denger" id="config_website_url_value_error" style="color: red">
+                                        <span class="text-denger" id="config_website_url_value_error" style="color: red">
 
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -53,7 +53,7 @@
                                             name="config[admin_email][name]">
                                         <input type="text" class="form-control" name="config[admin_email][value]"
                                             value="{{ $configData['admin_email'] ?? '' }}">
-                                            <span class="text-denger" id="config_admin_email_value_error" style="color: red">
+                                        <span class="text-denger" id="config_admin_email_value_error" style="color: red">
 
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -62,7 +62,7 @@
                                             name="config[admin_phone][name]">
                                         <input type="text" class="form-control" name="config[admin_phone][value]"
                                             value="{{ $configData['admin_phone'] ?? '' }}">
-                                            <span class="text-denger" id="config_admin_phone_value_error" style="color: red">
+                                        <span class="text-denger" id="config_admin_phone_value_error" style="color: red">
 
                                     </div>
 
@@ -72,36 +72,39 @@
                                         <input type="hidden" value="website_logo" class="form-control"
                                             name="config[website_logo][name]">
                                         <input type="file" class="form-control" name="config[website_logo][value]"
-                                            value="{{ $configData['website_logo'] ?? '' }}" id="imgInp">
-                                            <span class="text-denger" id="config_website_logo_value_error" style="color: red">
+                                            value="{{ $configData['website_logo'] ?? '' }}" id="websiteLogo">
+                                        <span class="text-denger" id="config_website_logo_value_error" style="color: red">
 
-                                        <small class="text-secondary">Recommended image size is <b>150px x 150px</b></small>
+                                            <small class="text-secondary">Recommended image size is <b>150px x
+                                                    150px</b></small>
 
 
                                     </div>
                                     <div class="col-md-2 mb-3">
                                         @if (isset($configData['website_logo']))
-                                            <img src="{{ $configData['website_logo'] }}" alt="Current Logo"
-                                                style="width: 150px;" id="blah">
+                                            <img src="{{ $configData['website_logo'] }}" style="width: 150px;"
+                                                id="previewWebsiteLogo">
                                         @endif
                                     </div>
                                     <div class="col-md-4 mb-0">
                                         <label class="mb-2">Favicon</label>
                                         <input type="hidden" value="website_favicon" class="form-control"
                                             name="config[website_favicon][name]">
+
                                         <input type="file" class="form-control" name="config[website_favicon][value]"
-                                            value="{{ $configData['website_favicon'] ?? '' }}">
-                                            <span class="text-denger" id="config_website_favicon_value_error" style="color: red">
+                                            value="{{ $configData['website_favicon'] ?? '' }} " id="websiteFavicon">
+                                        <span class="text-denger" id="config_website_favicon_value_error"
+                                            style="color: red">
 
 
 
-                                        <small class="text-secondary">Recommended image size is <b>16px x 16px</b> or
-                                            <b>32px x 32px</b></small><br>
+                                            <small class="text-secondary">Recommended image size is <b>16px x 16px</b> or
+                                                <b>32px x 32px</b></small><br>
                                     </div>
                                     <div class="col-md-2 mb-3">
                                         @if (isset($configData['website_favicon']))
-                                            <img src="{{ asset($configData['website_favicon']) }}" alt="Current Favicon"
-                                                style="width: 150px;">
+                                            <img src="{{ asset($configData['website_favicon']) }}" style="width: 150px;"
+                                                id="previewWebsiteFaviconIcon">
                                         @endif
                                     </div>
                                     <div class="col-md-6 mb-3">
@@ -110,7 +113,7 @@
                                             name="config[copyright][name]">
                                         <input type="text" class="form-control" name="config[copyright][value]"
                                             value="{{ $configData['copyright'] ?? '' }}">
-                                            <span class="text-denger" id="config_copyright_value_error" style="color: red">
+                                        <span class="text-denger" id="config_copyright_value_error" style="color: red">
 
                                     </div>
 
@@ -120,7 +123,8 @@
                                             name="config[admin_address][name]">
                                         <input type="text" class="form-control" name="config[admin_address][value]"
                                             value="{{ $configData['admin_address'] ?? '' }}">
-                                            <span class="text-denger" id="config_admin_address_value_error" style="color: red">
+                                        <span class="text-denger" id="config_admin_address_value_error"
+                                            style="color: red">
                                     </div>
 
                                     <!-- Facebook Link -->
@@ -130,7 +134,8 @@
                                             name="config[facebook_link][name]">
                                         <input type="text" class="form-control" name="config[facebook_link][value]"
                                             value="{{ $configData['facebook_link'] ?? '' }}">
-                                            <span class="text-denger" id="config_facebook_link_value_error" style="color: red">
+                                        <span class="text-denger" id="config_facebook_link_value_error"
+                                            style="color: red">
 
                                     </div>
 
@@ -141,7 +146,8 @@
                                             name="config[instagram_link][name]">
                                         <input type="text" class="form-control" name="config[instagram_link][value]"
                                             value="{{ $configData['instagram_link'] ?? '' }}">
-                                            <span class="text-denger" id="config_instagram_link_value_error" style="color: red">
+                                        <span class="text-denger" id="config_instagram_link_value_error"
+                                            style="color: red">
 
                                     </div>
 
@@ -152,7 +158,8 @@
                                             name="config[twitter_link][name]">
                                         <input type="text" class="form-control" name="config[twitter_link][value]"
                                             value="{{ $configData['twitter_link'] ?? '' }}">
-                                            <span class="text-denger" id="config_twitter_link_value_error" style="color: red">
+                                        <span class="text-denger" id="config_twitter_link_value_error"
+                                            style="color: red">
 
                                     </div>
 
@@ -163,15 +170,18 @@
                                             name="config[linkedin_link][name]">
                                         <input type="text" class="form-control" name="config[linkedin_link][value]"
                                             value="{{ $configData['linkedin_link'] ?? '' }}">
-                                            <span class="text-denger" id="config_linkedin_link_value_error" style="color: red">
+                                        <span class="text-denger" id="config_linkedin_link_value_error"
+                                            style="color: red">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="mb-2">Google Play Store</label>
                                         <input type="hidden" value="google_play_store" class="form-control"
                                             name="config[google_play_store][name]">
-                                        <input type="text" class="form-control" name="config[google_play_store][value]"
+                                        <input type="text" class="form-control"
+                                            name="config[google_play_store][value]"
                                             value="{{ $configData['google_play_store'] ?? '' }}">
-                                            <span class="text-denger" id="config_google_play_store_value_error" style="color: red">
+                                        <span class="text-denger" id="config_google_play_store_value_error"
+                                            style="color: red">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="mb-2">IOS Store</label>
@@ -179,112 +189,124 @@
                                             name="config[ios_store][name]">
                                         <input type="text" class="form-control" name="config[ios_store][value]"
                                             value="{{ $configData['ios_store'] ?? '' }}">
-                                            <span class="text-denger" id="config_ios_store_value_error" style="color: red">
+                                        <span class="text-denger" id="config_ios_store_value_error" style="color: red">
                                     </div>
 
 
-                            <!--  -->
-                            <!-- Start: USE ADMIN OR DOCTOR PAYPAL CONFIG -->
-                            @php
-                                $adminConfig = 'checked';
-                                $doctorConfig = '';
-                                if(isset($configData['Paypal_Config']))
-                                {
-                                    if($configData['Paypal_Config'] == 'doctor')
-                                    {
-                                        $adminConfig = '';
-                                        $doctorConfig = 'checked';
-                                    }
-                                }
-                                @endphp
-                                <div class="col-md-6 mb-3">
-                                    <label class="mb-2">Use Paypal Config</label>
-                                    <input type="hidden" value="Paypal_Config" class="form-control" name="config[Paypal_Config][name]">
-                                    <label class="custom_radio me-4">
-                                        <input type="radio" name="config[Paypal_Config][value]" {!! $adminConfig !!} value="admin">
-                                        <span class="checkmark"></span> Admin
-                                    </label>
-                                    <label class="custom_radio">
-                                        <input type="radio" name="config[Paypal_Config][value]" {!! $doctorConfig !!} value="doctor">
-                                        <span class="checkmark"></span> Doctor
-                                    </label>
-                                </div>
-                            <!-- End: Save sandbox details for paypal -->
+                                    <!--  -->
+                                    <!-- Start: USE ADMIN OR DOCTOR PAYPAL CONFIG -->
+                                    @php
+                                        $adminConfig = 'checked';
+                                        $doctorConfig = '';
+                                        if (isset($configData['Paypal_Config'])) {
+                                            if ($configData['Paypal_Config'] == 'doctor') {
+                                                $adminConfig = '';
+                                                $doctorConfig = 'checked';
+                                            }
+                                        }
+                                    @endphp
+                                    <div class="col-md-6 mb-3">
+                                        <label class="mb-2">Use Paypal Config</label>
+                                        <input type="hidden" value="Paypal_Config" class="form-control"
+                                            name="config[Paypal_Config][name]">
+                                        <label class="custom_radio me-4">
+                                            <input type="radio" name="config[Paypal_Config][value]"
+                                                {!! $adminConfig !!} value="admin">
+                                            <span class="checkmark"></span> Admin
+                                        </label>
+                                        <label class="custom_radio">
+                                            <input type="radio" name="config[Paypal_Config][value]"
+                                                {!! $doctorConfig !!} value="doctor">
+                                            <span class="checkmark"></span> Doctor
+                                        </label>
+                                    </div>
+                                    <!-- End: Save sandbox details for paypal -->
 
 
-                            <!-- Start: Save sandbox details for paypal -->
+                                    <!-- Start: Save sandbox details for paypal -->
                                     <div class="col-md-6 mb-3">
                                         <label class="mb-2">PAYPAL SANDBOX CLIENT ID</label>
                                         <input type="hidden" value="PAYPAL_SANDBOX_CLIENT_ID" class="form-control"
                                             name="config[PAYPAL_SANDBOX_CLIENT_ID][name]">
-                                        <input type="text" class="form-control" name="config[PAYPAL_SANDBOX_CLIENT_ID][value]"
+                                        <input type="text" class="form-control"
+                                            name="config[PAYPAL_SANDBOX_CLIENT_ID][value]"
                                             value="{{ $configData['PAYPAL_SANDBOX_CLIENT_ID'] ?? '' }}">
-                                            <span class="text-denger" id="config_PAYPAL_SANDBOX_CLIENT_ID_error" style="color: red">
+                                        <span class="text-denger" id="config_PAYPAL_SANDBOX_CLIENT_ID_error"
+                                            style="color: red">
                                     </div>
 
                                     <div class="col-md-6 mb-3">
                                         <label class="mb-2">PAYPAL SANDBOX CLIENT SECRET</label>
                                         <input type="hidden" value="PAYPAL_SANDBOX_CLIENT_SECRET" class="form-control"
                                             name="config[PAYPAL_SANDBOX_CLIENT_SECRET][name]">
-                                        <input type="text" class="form-control" name="config[PAYPAL_SANDBOX_CLIENT_SECRET][value]"
+                                        <input type="text" class="form-control"
+                                            name="config[PAYPAL_SANDBOX_CLIENT_SECRET][value]"
                                             value="{{ $configData['PAYPAL_SANDBOX_CLIENT_SECRET'] ?? '' }}">
-                                            <span class="text-denger" id="config_PAYPAL_SANDBOX_CLIENT_SECRET_value_error" style="color: red">
+                                        <span class="text-denger" id="config_PAYPAL_SANDBOX_CLIENT_SECRET_value_error"
+                                            style="color: red">
                                     </div>
-                            <!-- End: Save sandbox details for paypal -->
+                                    <!-- End: Save sandbox details for paypal -->
 
-                            <!-- Start: Save live details for paypal -->
-                            <div class="col-md-6 mb-3">
+                                    <!-- Start: Save live details for paypal -->
+                                    <div class="col-md-6 mb-3">
                                         <label class="mb-2">PAYPAL LIVE CLIENT ID</label>
                                         <input type="hidden" value="PAYPAL_LIVE_CLIENT_ID" class="form-control"
                                             name="config[PAYPAL_LIVE_CLIENT_ID][name]">
-                                        <input type="text" class="form-control" name="config[PAYPAL_LIVE_CLIENT_ID][value]"
+                                        <input type="text" class="form-control"
+                                            name="config[PAYPAL_LIVE_CLIENT_ID][value]"
                                             value="{{ $configData['PAYPAL_LIVE_CLIENT_ID'] ?? '' }}">
-                                            <span class="text-denger" id="config_PAYPAL_LIVE_CLIENT_ID_error" style="color: red">
+                                        <span class="text-denger" id="config_PAYPAL_LIVE_CLIENT_ID_error"
+                                            style="color: red">
                                     </div>
 
                                     <div class="col-md-6 mb-3">
                                         <label class="mb-2">PAYPAL LIVE CLIENT SECRET</label>
                                         <input type="hidden" value="PAYPAL_LIVE_CLIENT_SECRET" class="form-control"
                                             name="config[PAYPAL_LIVE_CLIENT_SECRET][name]">
-                                        <input type="text" class="form-control" name="config[PAYPAL_LIVE_CLIENT_SECRET][value]"
+                                        <input type="text" class="form-control"
+                                            name="config[PAYPAL_LIVE_CLIENT_SECRET][value]"
                                             value="{{ $configData['PAYPAL_LIVE_CLIENT_SECRET'] ?? '' }}">
-                                            <span class="text-denger" id="config_PAYPAL_LIVE_CLIENT_SECRET_value_error" style="color: red">
+                                        <span class="text-denger" id="config_PAYPAL_LIVE_CLIENT_SECRET_value_error"
+                                            style="color: red">
                                     </div>
-                            <!-- End: Save live details for paypal -->
+                                    <!-- End: Save live details for paypal -->
 
                                     <div class="col-md-6 mb-3">
                                         <label class="mb-2">PAYPAL LIVE APP ID</label>
                                         <input type="hidden" value="PAYPAL_LIVE_APP_ID" class="form-control"
                                             name="config[PAYPAL_LIVE_APP_ID][name]">
-                                        <input type="text" class="form-control" name="config[PAYPAL_LIVE_APP_ID][value]"
+                                        <input type="text" class="form-control"
+                                            name="config[PAYPAL_LIVE_APP_ID][value]"
                                             value="{{ $configData['PAYPAL_LIVE_APP_ID'] ?? '' }}">
-                                            <span class="text-denger" id="config_PAYPAL_LIVE_APP_ID_value_error" style="color: red">
+                                        <span class="text-denger" id="config_PAYPAL_LIVE_APP_ID_value_error"
+                                            style="color: red">
                                     </div>
 
-                                @php
-                                $SANDBOX = 'checked';
-                                $LIVE = '';
-                                if(isset($configData['PAYPAL_MODE']))
-                                {
-                                    if($configData['PAYPAL_MODE'] == 'LIVE')
-                                    {
-                                        $SANDBOX = '';
-                                        $LIVE = 'checked';
-                                    }
-                                }
-                                @endphp
-                                <div class="col-md-6 mb-3">
-                                    <label class="mb-2">PAYPAL PAYMENT MODE</label>
-                                    <input type="hidden" value="PAYPAL_MODE" class="form-control" name="config[PAYPAL_MODE][name]">
-                                    <label class="custom_radio me-4">
-                                        <input type="radio" name="config[PAYPAL_MODE][value]" {!! $SANDBOX !!} value="sandbox">
-                                        <span class="checkmark"></span> SANDBOX
-                                    </label>
-                                    <label class="custom_radio">
-                                        <input type="radio" name="config[PAYPAL_MODE][value]" {!! $LIVE !!} value="live">
-                                        <span class="checkmark"></span> LIVE
-                                    </label>
-                                </div>
+                                    @php
+                                        $SANDBOX = 'checked';
+                                        $LIVE = '';
+                                        if (isset($configData['PAYPAL_MODE'])) {
+                                            if ($configData['PAYPAL_MODE'] == 'LIVE') {
+                                                $SANDBOX = '';
+                                                $LIVE = 'checked';
+                                            }
+                                        }
+                                    @endphp
+                                    <div class="col-md-6 mb-3">
+                                        <label class="mb-2">PAYPAL PAYMENT MODE</label>
+                                        <input type="hidden" value="PAYPAL_MODE" class="form-control"
+                                            name="config[PAYPAL_MODE][name]">
+                                        <label class="custom_radio me-4">
+                                            <input type="radio" name="config[PAYPAL_MODE][value]"
+                                                {!! $SANDBOX !!} value="sandbox">
+                                            <span class="checkmark"></span> SANDBOX
+                                        </label>
+                                        <label class="custom_radio">
+                                            <input type="radio" name="config[PAYPAL_MODE][value]"
+                                                {!! $LIVE !!} value="live">
+                                            <span class="checkmark"></span> LIVE
+                                        </label>
+                                    </div>
 
 
                                     <div class="col-md-12 mb-3">
@@ -334,20 +356,36 @@
                             }
                         },
                         error: function(xhr, status, error) {
-                        var errors = xhr.responseJSON;
-                        if (errors && errors.errors) {
-                            $.each(errors.errors, function(key, value) {
-                                $('#' + key.replace(/\./g, '_') + '_error').html(value[0]);
-                            });
-                        } else {
-                            // Optionally handle other types of errors or show a generic error message
-                            Swal.fire("Error!", "An unexpected error occurred.", "error");
+                            var errors = xhr.responseJSON;
+                            if (errors && errors.errors) {
+                                $.each(errors.errors, function(key, value) {
+                                    $('#' + key.replace(/\./g, '_') + '_error')
+                                        .html(value[0]);
+                                });
+                            } else {
+                                // Optionally handle other types of errors or show a generic error message
+                                Swal.fire("Error!", "An unexpected error occurred.",
+                                    "error");
+                            }
                         }
-                    }
 
                     });
                 }
             });
         });
+
+        websiteLogo.onchange = evt => {
+            const [file] = websiteLogo.files
+            if (file) {
+                previewWebsiteLogo.src = URL.createObjectURL(file)
+            }
+        }
+
+        websiteFavicon.onchange = evt => {
+            const [file] = websiteFavicon.files
+            if (file) {
+                previewWebsiteFaviconIcon.src = URL.createObjectURL(file)
+            }
+        }
     </script>
 @endsection

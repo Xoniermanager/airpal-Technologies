@@ -103,7 +103,7 @@ class FrontendPagesServices
             }
             if (isset($data['section']['inner_section'])) {
                 $allContentSections = $data['section']['inner_section'];
-                $howItWorksCounter = 0;
+                $howItWorksCounter  = 0;
 
                 foreach ($allContentSections as $contentSection) {
                     $contentInnerImage = '';
@@ -116,103 +116,17 @@ class FrontendPagesServices
                 }
             }
 
-                if (isset($data['section']['ul']) && is_array($data['section']['ul'])) {
-                    foreach ($data['section']['ul'] as $sectionList) {
-                        if (isset($sectionList['id'])) {
-                            $sectionList['section_id'] = $sectionList->id; // Ensure $pageId is defined
-                            $sectionListId = $sectionList['id'];
-                            $savedSectionList = $this->saveList($sectionList, $sectionListId); // Use a different variable name to avoid confusion
-                        }
+            if (isset($data['section']['ul']) && is_array($data['section']['ul'])) {
+                foreach ($data['section']['ul'] as $sectionList) {
+                    if (isset($sectionList['id'])) {
+                        $sectionListId = $sectionList['id'];
+                        $savedSectionList = $this->saveList($sectionList, $sectionListId); // Use a different variable name to avoid confusion
                     }
                 }
+            }
 
 
         }
-
-        // if(isset($data['how_it_works']))
-        // {
-
-        //     $sectionId = isset($data['how_it_works']['id']) ? $data['how_it_works']['id'] : '';
-        //     $sectionBannerImage = '';
-
-        //     if($data->hasFile('how_it_works.image'))
-        //     {
-
-        //         $sectionBannerImage = $data->file('how_it_works')['image'];
-        //     }
-
-        //     $pageSectionData = [
-        //         'title'             => $data['how_it_works']['title'],
-        //         'subtitle'          => $data['how_it_works']['subtitle'] ?? '',
-        //         'section_slug'      => $data['how_it_works']['section_slug'],
-        //         'page_id'           => $pageId
-        //     ];
-
-        //     $sectionDetails  =  $this->saveSection($pageSectionData,$sectionBannerImage,$sectionId);
-        //     $sectionId       =  $sectionDetails->id;
-
-        //     $allContentSections = $data['how_it_works']['inner_section'];
-
-        //     $howItWorksCounter = 0;
-
-        //     foreach($allContentSections as $contentSection)
-        //     {
-        //         $contentInnerImage = '';
-        //         if($data->hasFile("how_it_works.inner_section.{$howItWorksCounter}.image"))
-        //         {
-        //             $contentInnerImage = 'tester';
-        //             $contentInnerImage = $data->file('how_it_works')['inner_section'][$howItWorksCounter]['image'];
-
-        //         }
-        //         $this->saveSectionContent($contentSection,$sectionId,$contentInnerImage);
-        //         $howItWorksCounter++;
-        //     }
-
-
-        // }
-
-        // if(isset($data['why_airpal_app']))
-        // {
-
-        //     $sectionId = isset($data['why_airpal_app']['id']) ? $data['why_airpal_app']['id'] : '';
-        //     $sectionBannerImage = '';
-
-        //     if($data->hasFile('why_airpal_app.image'))
-        //     {
-
-        //         $sectionBannerImage = $data->file('why_airpal_app')['image'];
-        //     }
-
-        //     $pageSectionData = [
-        //         'title'             => $data['why_airpal_app']['title'],
-        //         'subtitle'          => $data['why_airpal_app']['subtitle'] ?? '',
-        //         'section_slug'      => $data['why_airpal_app']['section_slug'],
-        //         'page_id'           => $pageId
-        //     ];
-
-        //     $sectionDetails  =  $this->saveSection($pageSectionData,$sectionBannerImage,$sectionId);
-        //     $sectionId       =  $sectionDetails->id;
-
-        //     $allContentSections = $data['why_airpal_app']['inner_section'];
-
-        //     $whyAirpalAppCounter = 0;
-
-        //     foreach($allContentSections as $contentSection)
-        //     {
-        //         $contentInnerImage = '';
-        //         if($data->hasFile("why_airpal_app.inner_section.{$whyAirpalAppCounter}.image"))
-        //         {
-        //             $contentInnerImage = 'tester';
-        //             $contentInnerImage = $data->file('why_airpal_app')['inner_section'][$whyAirpalAppCounter]['image'];
-
-        //         }
-        //         $this->saveSectionContent($contentSection,$sectionId,$contentInnerImage);
-        //         $whyAirpalAppCounter++;
-        //     }
-
-
-        // }
-
 
         return $this->getPageSectionsWithAttribute($pageId);
     }
@@ -229,8 +143,8 @@ class FrontendPagesServices
             $listItems = $sectionList['li'];
 
             foreach ($listItems as  $listItem) {
-                $listItems = $listItem['id'];
-                $this->saveListItems($listItem, $listItems);
+                $listItemId = $listItem['id'];
+                $this->saveListItems($listItem, $listItemId);
             }
         } else {
             $sectionData = SectionList::create($sectionList);

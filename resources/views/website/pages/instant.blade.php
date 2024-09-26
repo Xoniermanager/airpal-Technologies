@@ -13,7 +13,7 @@
                 <div class="col-lg-6 aos" data-aos="fade-up">
                     <div class="doctor-search">
                         <div class="banner-header">
-                            <h2>Find Doctor, <br> For Instant Consultation</h2>
+                            <h2>{{ $sections['instant_banner']->title }}</h2>
                         </div>
                         <div class="doctor-form">
                             <form id="instant_consult"  class="doctor-search-form">
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 aos" data-aos="fade-up">
-                    <img src="{{ URL::asset('assets/img/banner-fifteen-ryt.png') }}" class="img-fluid dr-img"
+                    <img src="{{ $sections['instant_banner']->image }}" class="img-fluid dr-img"
                         alt="doctor-image">
                 </div>
             </div>

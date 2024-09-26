@@ -204,7 +204,7 @@ Route::middleware('authCheck')->group(function () {
             Route::post('update-doctor-review', 'updateDoctorReview');
             Route::get('get-all-review', 'getAllReview');
             Route::get('get-review-details/{doctor_reviews:id}', 'getReviewDetailById');
-            Route::get('get-all-reviewby-doctor-id', 'getAllReviewByDoctorId');
+            Route::get('get-review-by-patient', 'getAllReviewByPatientId');
         });
         Route::controller(PatientDiaryController::class)->group(function () {
             Route::get('all-patient-diary', 'getAllPatientDiary');

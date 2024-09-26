@@ -180,13 +180,13 @@ class PageSectionsTableSeeder extends Seeder
                 'id' => 118,
                 'title' => 'Wearable Medical Device & Health Monitoring Technology',
                 'subtitle' => 'Experts opinion at your comfort Zone',
-                'image' => 'site-data/section-banner/health_monitoring-1725808196.png',
+                'image' => 'section-banner/health_monitoring_banner-1727289589.png',
                 'content' => '',
                 'section_slug' => 'health_monitoring_banner',
                 'page_id' => 3,
                 'status' => 1,
                 'created_at' => '2024-09-08 15:05:26',
-                'updated_at' => '2024-09-13 13:05:06',
+                'updated_at' => '2024-09-25 18:39:49',
             ),
             13 => 
             array (
@@ -256,6 +256,19 @@ when an unknown printer took a galley of type and scrambled',
                 'status' => 1,
                 'created_at' => '2024-09-12 06:50:22',
                 'updated_at' => '2024-09-13 04:40:22',
+            ),
+            18 => 
+            array (
+                'id' => 124,
+                'title' => 'Find Doctor, For Instant Consultation',
+                'subtitle' => '',
+                'image' => 'site-data/section-banner/instant_banner-1727325256.png',
+                'content' => '',
+                'section_slug' => 'instant_banner',
+                'page_id' => 4,
+                'status' => 1,
+                'created_at' => '2024-09-25 19:33:21',
+                'updated_at' => '2024-09-26 04:34:16',
             ),
         ));
         

@@ -23,21 +23,6 @@
     @endphp
 
     <div class="breadcrumb-bar-two">
-        <div class="container">
-            <div class="row align-items-center inner-banner">
-                <div class="col-md-12 col-12 text-center">
-                    <h2 class="breadcrumb-title">Doctor Profile </h2>
-                    <nav aria-label="breadcrumb" class="page-breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
-
-                            </li>
-                            <li class="breadcrumb-item" aria-current="page">Doctor Profile </li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="content doctor-content">
         <div class="container">
@@ -655,7 +640,8 @@
                 transport: {
                     read: {
                         url: site_base_url + "specialities/get-speciality",
-                        dataType: "json"
+                        dataType: "json",
+                        type: "get",
                     },
                     create: {
                         url: site_base_url + "specialities/create-speciality",

@@ -33,7 +33,7 @@ class AdminAppointmentController extends Controller
     $filtered  = $this->bookingServices->searchDoctorAppointments($request->all());
     return response()->json([
       'message' => 'Retrieved Successfully!',
-      'data'   =>  view('admin.appointments.appointment-list', [
+      'data'   =>  view('admin.appointments.all-appointments', [
         'appointments_list' =>  $filtered
       ])->render()
   ]);

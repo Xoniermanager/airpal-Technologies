@@ -1,5 +1,5 @@
 <tbody id="appointmentList">
-    @forelse ($appointments_list as $key =>  $appointment)
+
         <tr>
             <td>
                 <h2 class="table-avatar">
@@ -35,18 +35,12 @@
             </td>
             <td>
                 <div class="status-toggle">
-                    <input type="checkbox" id="status_{{ $key }}" class="check"
-                        {{ $appointment->status == 'confirmed' ? 'checked' : ($appointment->status == 'rejected' ? '' : '') }}>
-                    <label for="status_{{ $key }}" class="checktoggle">checkbox</label>
+                    {!! getAppointmentColoredStatus($appointment->status) !!}
                 </div>
             </td>
             <td>
                 ${{ $appointment->payments->amount ?? 0 }}
             </td>
         </tr>
-    @empty
-        <tr>
-            <td> Not Found</td>
-        </tr>
-    @endforelse
+
 </tbody>

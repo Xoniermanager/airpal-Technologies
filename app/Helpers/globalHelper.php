@@ -529,3 +529,22 @@ function getPaypalConfig($doctorId)
 }
 
 
+
+function getAppointmentColoredStatus($status) {
+
+    switch (trim($status)) {
+        case 'cancelled':
+            return '<span style="color: red; font-weight: bold;" class="badge badge-danger text-white"  >Canceled</span>';
+        case 'requested':
+            return '<span style="color: yellow; font-weight: bold;" class="badge badge-warning text-white" >Requested</span>';
+        case 'confirmed':
+            return '<span style="color: green; font-weight: bold;" class="badge badge-success text-white" >Confirmed</span>';
+        case 'completed':
+            return '<span style="color: blue; font-weight: bold;" class="badge badge-primary text-white">Completed</span>';
+        default:
+            return '<span style="color: gray;">Unknown Status</span>';
+    }
+}
+
+
+

@@ -105,7 +105,7 @@ class PageController extends Controller
     public function storeAboutUsPageDetail(Request $request)
     {
         $allPageSectionsData = $this->frontendPagesServices->saveHomepageSections($request);
-        
+        $pageDetails = Page::find($request->page_id);
         $sectionsHTML = array();
         foreach ($allPageSectionsData as $pageSectionsData) 
         {
@@ -113,7 +113,8 @@ class PageController extends Controller
             $sectionsHTML[$slug]['data'] = view('admin.pages.about_us.'.$slug ,[
                 'sections' =>  [
                     $slug   =>  $pageSectionsData
-                ]
+                ],
+                'page'      =>  $pageDetails,
             ])->render();
             $sectionsHTML[$slug]['slug'] = $slug; 
         }
@@ -131,8 +132,6 @@ class PageController extends Controller
         foreach ($getPageSections as $getPageSection) {
             $sections[$getPageSection['section_slug']] = $getPageSection;
         }
-        // dd(    $sections );
-
         $sectionList = SectionList::where('section_id', 3)->with('listItems')->get();
         if (isset($sections['product_details'])) {
             $sections['product_details']->section_list = $sectionList;

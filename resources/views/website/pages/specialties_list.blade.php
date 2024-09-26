@@ -38,7 +38,7 @@
                             <div class="listing-content">
                                 <div class="listing-details">
                                     <div class="listing-title">
-                                        <h3><a href="{{ route('specialty.detail', ['id' => $speciality->id]) }}"> {{ $speciality->speciality_name ??  ''}} </a> <span style="font-size: 14px;font-weight:300">(Doctors {{ $speciality->doctor()->count() }}) </span></h3>
+                                        <h3><a href="{{ route('specialty.detail', ['id' => $speciality->id]) }}"> {{ $speciality->speciality_name ??  ''}} </a> <span style="font-size: 14px;font-weight:300">Doctors ({{ $speciality->doctor()->count() }}) </span></h3>
                                         
                                     </div>
                                     <div class="listing-title">

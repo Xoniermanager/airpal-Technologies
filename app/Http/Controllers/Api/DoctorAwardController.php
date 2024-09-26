@@ -9,7 +9,7 @@ use App\Http\Requests\StoreDoctorAwardRequest;
 
 class DoctorAwardController extends Controller
 {
-    
+
     private $doctor_award_services;
     public function __construct(DoctorAwardServices $doctor_award_services,)
     {
@@ -18,14 +18,14 @@ class DoctorAwardController extends Controller
     public function createOrUpdateAward(StoreDoctorAwardRequest $request)
     {
         $userId = $this->doctor_award_services->addDoctorAward($request->all());
-
         if ($userId) {
             return response()->json([
                 'success' => true,
                 'message' => 'Award records added successfully',
                 'user_id' => $userId
             ]);
-        } else {
+        }
+         else {
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to add Award records'

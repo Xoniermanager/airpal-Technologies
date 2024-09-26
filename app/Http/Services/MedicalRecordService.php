@@ -42,7 +42,7 @@ class MedicalRecordService
         try {
             $medicalRecordDetails = $this->medicalRecordRepository->find($id);
             if (isset($data['file']) && !empty($data['file'])) {
-                if ($medicalRecordDetails->file != null) {
+                if ($medicalRecordDetails->getRawOriginal('file') != null) {
                     unlinkFileOrImage($medicalRecordDetails->getRawOriginal('file'));
                 }
                 $data['file'] = uploadingImageorFile($data['file'], 'medical_record', $data['name']);
@@ -55,14 +55,16 @@ class MedicalRecordService
             return $response;
         }
     }
-    public function deleteDetails($id)
+    public function deleteMedicalRecord($id)
     {
         try {
             $medicalRecordDetails = $this->medicalRecordRepository->find($id);
-            if ($medicalRecordDetails->file != null) {
+            if ($medicalRecordDetails->getRawOriginal('file') != null)
+            {
                 unlinkFileOrImage($medicalRecordDetails->getRawOriginal('file'));
             }
-            return ['status' => true, 'data' => $medicalRecordDetails->delete()];
+            $data = $medicalRecordDetails->delete();
+            return ['status' => true, 'data' => $data];
         }
         catch (Exception $e) {
             return ['status' => false, 'data' => $e->getmessage()];

@@ -38,30 +38,7 @@
                 <div class="row">
                     <div class="col-md-12">
 
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover table-center mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th>Doctor Name</th>
-                                                <th>Speciality</th>
-                                                <th>Patient Name</th>
-                                                <th>Appointment Time</th>
-                                                <th>Status</th>
-                                                <th>Amount</th>
-                                            </tr>
-                                        </thead>
-                                        @include('admin.appointments.appointment-list')
-                                    </table>
-
-
-                                    <div class="mt-3 d-flex justify-content-end">
-                                        {{ $appointments_list->links() }}
-                                    </div>     
-                                </div>
-                            </div>
-                        </div>
+                        @include('admin.appointments.all-appointments')
 
                     </div>
                 </div>
@@ -118,8 +95,8 @@
             },
             success: function(response) {
                 console.log(response);
-                jQuery('#appointmentList').replaceWith(response.data);
-                jQuery('#appointmentList').hide().delay(200).fadeIn();
+                jQuery('#all-appointments').replaceWith(response.data);
+                jQuery('#all-appointments').hide().delay(200).fadeIn();
             },
             error: function(xhr, status, error) {
                 // Handle any errors

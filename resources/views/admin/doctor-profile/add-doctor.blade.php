@@ -17,27 +17,11 @@
             $userAddressDetails = $singleDoctorDetails->address;
             $userAwardsDetails = $singleDoctorDetails['awards'];
             $userId = $singleDoctorDetails->id;
-      
         }
 
     @endphp
 
     <div class="breadcrumb-bar-two">
-        <div class="container">
-            <div class="row align-items-center inner-banner">
-                <div class="col-md-12 col-12 text-center">
-                    <h2 class="breadcrumb-title">Doctor Profile </h2>
-                    <nav aria-label="breadcrumb" class="page-breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
-
-                            </li>
-                            <li class="breadcrumb-item" aria-current="page">Doctor Profile </li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="content doctor-content">
         <div class="container">
@@ -97,27 +81,53 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('admin/assets/custom-js/add_doctor.js') }}"></script>
     <script>
+        
         $(document).ready(function() {
+            $('#country').on('change', function() {
+                let countyId = this.value
+                $.ajax({
+                    url: "{{ route('get.state.by.country.id') }}",
+                    type: 'get',
+                    data: {
+                        'country_id': countyId
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        var states = response.data;
+                        var options = '';
+                        //options += "<option>Select State</option>";
+                        $.each(states, function(index, item) {
 
+                            options += "<option value='" + item.id + "'>" + item.name +
+                                "</option>";
+                        });
+                        $("#states").html(options);
+
+                    },
+                    error: function(error) {
+                        console.log("Error fetching data:", error);
+                    }
+                });
+            })
 
             function updateCharCount() {
-        var length = $("#description").val().length;
-        var remaining = 1000 - length;
+                var length = $("#description").val().length;
+                var remaining = 1000 - length;
 
-        $('#charCount').text(length + '/1000');
+                $('#charCount').text(length + '/1000');
 
-        if (remaining < 0) {
-            $('#charCount').css('color', 'red');
-        } else {
-            $('#charCount').css('color', 'green');
-        }
-    }
+                if (remaining < 0) {
+                    $('#charCount').css('color', 'red');
+                } else {
+                    $('#charCount').css('color', 'green');
+                }
+            }
 
-    updateCharCount();
+            updateCharCount();
 
-    $("#description").on('input', function() {
-        updateCharCount();
-    });
+            $("#description").on('input', function() {
+                updateCharCount();
+            });
 
             var site_base_url = "{{ env('SITE_BASE_URL') }}";
 
@@ -227,7 +237,7 @@
                             var errors = error_messages.responseJSON;
                             $.each(errors.errors, function(key, value) {
                                 $('#' + key + '_error').html(value)
-                            .show(); // Show the error message
+                                    .show(); // Show the error message
                             });
                             if (errorTimeout) {
                                 clearTimeout(errorTimeout);
@@ -321,7 +331,7 @@
 
                             }
 
-                            
+
                             if (errors) {
                                 $.each(errors, function(key, value) {
                                     var id = key.replace(/\./g, '_');
@@ -526,32 +536,6 @@
                 }
             });
 
-            $('#country').on('change', function() {
-                let countyId = this.value
-                $.ajax({
-                    url: "{{ route('get.state.by.country.id') }}",
-                    type: 'get',
-                    data: {
-                        'country_id': countyId
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        var states = response.data;
-                        var options = '';
-                        //options += "<option>Select State</option>";
-                        $.each(states, function(index, item) {
-
-                            options += "<option value='" + item.id + "'>" + item.name +
-                                "</option>";
-                        });
-                        $("#states").html(options);
-
-                    },
-                    error: function(error) {
-                        console.log("Error fetching data:", error);
-                    }
-                });
-            })
 
             jQuery("#doctorWorkingHourFormData").validate({
                 // rules: {
@@ -655,7 +639,8 @@
                 transport: {
                     read: {
                         url: site_base_url + "specialities/get-speciality",
-                        dataType: "json"
+                        dataType: "json",
+                        type: "get",
                     },
                     create: {
                         url: site_base_url + "specialities/create-speciality",

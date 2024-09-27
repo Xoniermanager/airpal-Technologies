@@ -30,12 +30,12 @@ class StoreDoctorPersonalDetailRequest extends FormRequest
             'display_name' => 'sometimes|required',
             'gender'       => 'sometimes|required',
             'phone'        => 'required',
-            'email'        => [
+            'email' => [
                 'required',
                 'string',
                 'email',
                 'max:255',
-                Rule::unique('users', 'email')->ignore($this->doctor_id),
+                Rule::unique('users')->ignore($this->doctor_id), 
             ],
             'languages'    => 'sometimes|required',
             'password'     => 'sometimes|required|string',
@@ -47,3 +47,4 @@ class StoreDoctorPersonalDetailRequest extends FormRequest
         ];
     }
 }
+ 

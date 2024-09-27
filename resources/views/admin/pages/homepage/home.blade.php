@@ -11,52 +11,48 @@
                         {{-- Banner section --}}
                         <div class="col-sm-12">
                             <h3 class="page-title">Header Banner Section</h3>
-                            <div class="card">
                                 <form enctype="multipart/form-data">
                                     @csrf
                                     @include('admin.pages.homepage.home_banner')
                                 </form>
-                            </div>
                         </div>
 
 
                         {{-- How it Work Section --}}
                         <div class="col-sm-12">
                             <h3 class="page-title">How it Work Section</h3>
-                            <div class="card">
                                 <form method="post" enctype="multipart/form-data">
                                     @csrf
                                     @include('admin.pages.homepage.how_it_works')
                                 </form>
-                            </div>
                         </div>
 
 
                         {{-- Why Airpal App --}}
                         <div class="col-sm-12">
-                            <h3 class="page-title">Why Airpal App</h3>
-                            <div class="card">
+                            <h3 class="page-title pb-4">Why Airpal App</h3>
+
                                 <form method="post" enctype="multipart/form-data">
                                     @csrf
                                     @include('admin.pages.homepage.why_airpal_app')
                                 </form>
-                            </div>
+                     
                         </div>
 
                         {{-- Banner section --}}
                         <div class="col-sm-12">
-                            <h3 class="page-title">Download App Section</h3>
-                            <div class="card">
+                            <h3 class="page-title mt-5">Download App Section</h3>
+
                                 <form enctype="multipart/form-data">
                                     @csrf
                                     @include('admin.pages.homepage.download_app')
                                 </form>
-                            </div>
+                   
                         </div>
 
                         {{-- Top Doctros  and Testimonial Section --}}
                         <div class="col-sm-12">
-                            <div class="card">
+
                                 <form class="save_extra_page_section" enctype="multipart/form-data">
                                     <h3 class="page-title">Top Doctros</h3>
                                     @csrf
@@ -67,7 +63,7 @@
                                     <input type="hidden" name="page_id" value="{{ $page->id ?? '' }}">
                                     <div class="col-md-3"> <button class="btn btn-primary prime-btn mt-3">Save</button></div>
                                 </form>
-                            </div>
+                
                         </div>
 
 
@@ -75,12 +71,12 @@
                         {{-- Research section --}}
                         <div class="col-sm-12">
                             <h3 class="page-title">Research Section</h3>
-                            <div class="card">
+
                                 <form enctype="multipart/form-data">
                                     @csrf
                                     @include('admin.pages.homepage.research')
                                 </form>
-                            </div>
+        
                         </div>
                     </div>
                 </div>
@@ -89,9 +85,9 @@
     @endsection
 
     <style>
-        .setting-card {
+        /* .setting-card {
             margin: 12px !important;
-        }
+        } */
 
         .avatar-upload {
             position: relative;
@@ -142,9 +138,9 @@
 
         .avatar-preview {
             width: 100%;
-            height: 192px;
+            height: 500px;
             position: relative;
-            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+            /* box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1); */
 
             >div {
                 width: 100%;

@@ -201,7 +201,7 @@
 
 
         <div class="modal-btn text-end">
-            <input type="hidden" value="{{ auth()->user()->id }}" name="doctor_id">
+            <input type="hidden" value="{{ $singleDoctorDetails->id ?? '' }}" name="doctor_id">
             <a href="#" class="btn btn-gray">Cancel</a>
             <button type="submit" class="btn btn-primary prime-btn">Save Changes</button>
         </div>

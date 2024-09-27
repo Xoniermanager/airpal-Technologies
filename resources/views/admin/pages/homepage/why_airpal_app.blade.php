@@ -1,7 +1,6 @@
 <div id="why_airpal_app">
-    <div class="setting-title">
-        <h5>Section Info</h5>
-    </div>
+
+    <div class="row align-items-start setting-card p-3 d-flex flex-wrap align-items-center">
 
     <div class="setting-card">
         <div class="row">
@@ -73,5 +72,8 @@
     <input type="hidden" name="page_id" value="{{ $pageId }}">
     <input type="hidden" name="section[section_slug]" value="why_airpal_app">
     <input type="hidden" name="section[id]" value="{{ $sections['why_airpal_app']['id'] ?? '' }}">
-    <button class="btn btn-primary prime-btn">Save</button>
+    <div class="col-lg-3 col-md-6">
+        <button class="btn btn-primary prime-btn mt-4">Save</button>
+    </div>
+</div>
 </div>

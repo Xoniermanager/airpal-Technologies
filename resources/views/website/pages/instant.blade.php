@@ -62,7 +62,9 @@
             </div>
         </div>
     </section>
-
+    @php 
+    //dd($doctorList); 
+    @endphp
     {{-- this is top doctor section (common section with other pages) --}}
     <x-doctor-slider :doctorList="$doctorList" :show="true" />
 

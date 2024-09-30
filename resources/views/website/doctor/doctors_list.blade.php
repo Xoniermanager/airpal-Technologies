@@ -83,10 +83,10 @@
                                         </div>
                                         <div class="doc-info-right">
                                             <div class="clinic-booking book-appoint">
-                                                <a class="btn btn-primary"
-                                                    href="{{ route('appointment.index', ['id' => Crypt::encrypt($doctor->id)]) }}">Book
+                                                <a class="btn btn-primary" onclick="return bookings_available({{ checkBookingAvailable($doctor->id) ? 1 : 0 }})"
+                                                    href="{{ (checkBookingAvailable($doctor->id)) ? route('appointment.index', ['id' => Crypt::encrypt($doctor->id)]) : '#' }}">Book
                                                     Appointment</a>
-                                                <a class="btn btn-primary-light" href="#">Book Online
+                                                <a class="btn btn-primary-light" onclick="return bookings_available({{ checkBookingAvailable($doctor->id) ? 1 : 0 }})" href="#">Book Online
                                                     Consultation</a>
                                                 <div class="reviews-ratings mt-4">
                                                     {!! getRatingHtml($doctor->allover_rating) !!}

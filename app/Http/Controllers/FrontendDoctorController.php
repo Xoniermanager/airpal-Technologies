@@ -96,17 +96,12 @@ class FrontendDoctorController extends Controller
     $user = User::findOrFail($decryptedId);
     $doctor = $user->load('specializations', 'services', 'educations.course', 'experiences', 'workingHour.daysOfWeek', 'awards.award', 'doctorAddress.states.country', 'doctorReview.patient');
 
-    $doctorSpecializations = ($doctor->specializations)->toArray();
-    $specializationNames = [];
-    foreach ($doctorSpecializations as $specialization) {
-      $specializationNames[] = $specialization['name'];
-    }
+    // Using custom global helper method check if booking are open for current doctor
+    $bookingOpen = checkBookingAvailable($doctor->id);
 
-    $topSpecializations = array_slice($specializationNames, 0, 2);
-    $specializationsString = implode(', ', $topSpecializations);
     return view('website.doctor.doctor-profile')
       ->with('doctor', $doctor)
-      ->with('specializationsString', $specializationsString)
+      ->with('bookingOpen', $bookingOpen)
       ->with('allReviewDetails', $this->doctorReviewService->getAllReviewByDoctorId($user->id));
   }
 
@@ -121,14 +116,13 @@ class FrontendDoctorController extends Controller
     $doctor = $this->user_services->getDoctorDataById($id);
 
     $doctorSlotConfigDetails = $this->doctorSlotServices->getDoctorActiveAppointmentConfigDetails($doctor->id);
+
+    $returnCalendar = '';
     if (isset($doctorSlotConfigDetails)) 
     {
       $returnCalendar = $this->doctorSlotServices->CreateDoctorSlotCalendar($doctorSlotConfigDetails);
     }
-    else
-    {
-      $returnedSlots = [];
-    }
+
     return view('website.pages.appointment', ['doctorDetails' => $doctor,'calender' => $returnCalendar, 'booking_price' =>  '10 USD']);
   }
 

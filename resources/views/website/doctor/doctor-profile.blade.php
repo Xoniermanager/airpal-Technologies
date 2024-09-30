@@ -26,18 +26,15 @@
                         <div class="doc-info-left">
                             <div class="doctor-img">
                                 <img src="{{ $doctor['image_url'] }}" class="img-fluid" alt=""
-                                    src='{{ asset('assets/img/doctors/doctor-thumb-01.jpg') }}'
                                     onerror="this.src='{{ asset('assets/img/user.jpg') }}'">
                             </div>
                             <div class="doc-info-cont">
-                                <h4 class="doc-name">{{ $doctor->first_name }} {{ $doctor->last_name }}
+                                <h4 class="doc-name">{{ $doctor->fullName }}
                                     <span class="doc-speciality">
                                         {{ formatDoctorEducations($doctor) }}
                                     </span>
                                 </h4>
-                                @php
-                                    $slicedSpecializationsArray = $doctor->specializations;
-                                @endphp
+                                <h6 class="category">{{ formatDoctorSpecializations($doctor) }}</h6>
                                 {!! $doctor->DoctorSocialMediaAccountsList() !!}
 
                                 <div class="reviews-ratings">
@@ -101,17 +98,17 @@
                                     <i class="far fa-comment-alt"></i>
                                 </a>
                                 
-                                <a href="tel:{{ $doctor->phone ?? '' }}" class="btn btn-white call-btn">
+                                <!-- <a href="tel:{{ $doctor->phone ?? '' }}" class="btn btn-white call-btn">
                                     <i class="fas fa-phone"></i>
                                 </a>
                                 <a href="javascript:void(0)" class="btn btn-white call-btn" data-bs-toggle="modal"
                                     data-bs-target="#video_call">
                                     <i class="fas fa-video"></i>
-                                </a>
+                                </a> -->
                             </div>
                             <div class="clinic-booking mb-2">
-                                <a class="apt-btn"
-                                    href="{{ route('appointment.index', ['id' => Crypt::encrypt($doctor->id)]) }}">Book
+                                <a class="apt-btn" onclick="return bookings_available({{ $bookingOpen ? 1 : 0 }})"
+                                    href="{{ ($bookingOpen) ? route('appointment.index', ['id' => getEncryptId($doctor->id)]) : '#' }}">Book
                                     Appointment</a>
                             </div>
                         </div>
@@ -551,6 +548,39 @@
 @endsection
 @section('javascript')
     <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+            const copyLink = document.getElementById('copyLink');
+            const copyMessage = document.getElementById('copyMessage');
+
+            if (copyLink) {
+                copyLink.addEventListener('click', function(event) {
+                    event.preventDefault();
+
+                    const url = copyLink.getAttribute('data-url');
+
+                    if (url) {
+                        navigator.clipboard.writeText(url).then(() => {
+                            // Show success message
+                            copyMessage.style.display = 'block';
+
+                            // Hide the message after 2 seconds
+                            setTimeout(() => {
+                                copyMessage.style.display = 'none';
+                            }, 2000);
+                        }).catch(err => {
+                            console.error('Failed to copy: ', err);
+                        });
+                    } else {
+                        console.error('No URL found to copy.');
+                    }
+                });
+            } else {
+                console.error('Copy link element not found.');
+            }
+        });
+
+
         function getReviewDetailsByPatientId(id, rating, title, review) {
             $(".rating-" + rating.replace(/\./g, "_")).prop('checked', true);
             $("#review").val(review);
@@ -620,70 +650,6 @@
             }
         });
     </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const copyLink = document.getElementById('copyLink');
-            const copyMessage = document.getElementById('copyMessage');
-
-            if (copyLink) {
-                copyLink.addEventListener('click', function(event) {
-                    event.preventDefault();
-
-                    const url = copyLink.getAttribute('data-url');
-
-                    if (url) {
-                        navigator.clipboard.writeText(url).then(() => {
-                            // Show success message
-                            copyMessage.style.display = 'block';
-
-                            // Hide the message after 2 seconds
-                            setTimeout(() => {
-                                copyMessage.style.display = 'none';
-                            }, 2000);
-                        }).catch(err => {
-                            console.error('Failed to copy: ', err);
-                        });
-                    } else {
-                        console.error('No URL found to copy.');
-                    }
-                });
-            } else {
-                console.error('Copy link element not found.');
-            }
-        });
-    </script>
-    {{-- 
-    <script>
-        // Wait for the DOM content to be fully loaded before running the script
-        document.addEventListener('DOMContentLoaded', function() {
-            // Select the <a> tag using its ID or class
-            const copyLink = document.getElementById('copyLink');
-
-            // Ensure that the copyLink is selected correctly
-            if (copyLink) {
-                // Add a click event listener to the link
-                copyLink.addEventListener('click', function(event) {
-                    event.preventDefault(); // Prevent the default action of the link (navigation)
-
-                    // Get the URL from the data attribute
-                    const url = copyLink.getAttribute('data-url');
-
-                    if (url) {
-                        // Use the Clipboard API to copy the URL
-                        navigator.clipboard.writeText(url).then(() => {
-                            // Show a success message (using alert for simplicity)
-                        }).catch(err => {
-                            console.error('Failed to copy: ', err);
-                        });
-                    } else {
-                        console.error('No URL found to copy.');
-                    }
-                });
-            } else {
-                console.error('Copy link element not found.');
-            }
-        });
-    </script> --}}
 @endsection
 
 <style>

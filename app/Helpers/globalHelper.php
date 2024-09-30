@@ -4,7 +4,9 @@ use App\Models\Payment;
 use App\Models\SiteConfig;
 use App\Models\Testimonial;
 use App\Models\BookingSlots;
+use App\Models\DoctorAppointmentConfig;
 use App\Models\PaypalConfig;
+use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Crypt;
 use function Laravel\Prompts\textarea;
@@ -555,5 +557,22 @@ function getAppointmentColoredStatus($status) {
     }
 }
 
+/**
+ * Checking if booking is allowed for the current doctor.
+ * Step 1: Check if booking configurations are added and it is in active status
+ * Step 2: Check if stop_slots_date is set and it has not passed yet
+ */
+ function checkBookingAvailable($doctorId)
+ {
+    $appointmentDetails = DoctorAppointmentConfig::where('user_id',$doctorId)->where('status',1)->whereDate('stop_slots_date','<=', Carbon::today())->first();
 
+    if($appointmentDetails)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+ }
 

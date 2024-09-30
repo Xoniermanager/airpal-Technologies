@@ -200,6 +200,7 @@
 <script src="{{asset('assets/js/script.js')}}" type="572446aacaa112e2d4b8af55-text/javascript"></script>
 <script src="{{ asset('assets/js/rocket-loader.min.js') }}" data-cf-settings="572446aacaa112e2d4b8af55-|49" defer>
 </script>
+<script src="{{asset('/assets/common-assets/js/frontend-backend-common-script.js')}}"></script>
 <script>
     var subform = $('#newsletter-form');
     $(subform).submit(function(e) {

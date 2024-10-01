@@ -170,7 +170,7 @@
                                         @endisset
                                     </div>
                                 </div>
-                                <a href="{{ route('appointment.index', ['id' => Crypt::encrypt($favoriteDoctor->doctor->id) ]) }}"
+                                <a onclick="return bookings_available({{ checkBookingAvailable($favoriteDoctor->doctor->id) ? 1 : 0 }})" href="{{ (checkBookingAvailable($favoriteDoctor->doctor->id)) ? route('appointment.index', ['id' => getEncryptId($favoriteDoctor->doctor->id)]) : '#' }}"
                                     class="cal-plus-icon"><i class="fa-solid fa-calendar-plus"></i></a>
                             </div>
                             @empty
@@ -474,8 +474,8 @@
                                     </div>
                                 </div>
                                <div>
-                                {!! $patientPastBookings->patient->profileButton() !!}
-                                {!! $patientPastBookings->patient->bookNowButton() !!}
+                                {!! $patientPastBookings->user->profileButton() !!}
+                                {!! $patientPastBookings->user->bookNowButton() !!}
                                </div>
                                 
                             </div>

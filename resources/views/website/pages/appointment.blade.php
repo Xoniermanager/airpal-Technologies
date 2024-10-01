@@ -341,6 +341,12 @@
 @section('javascript')
     <script>
         $(document).ready(function() {
+
+            // Show today date appointments of first page load
+            setTimeout(function(){
+                checkSlotsByDate('{{ date("Y-m-d") }}','{{ $doctorDetails->id }}');
+            }, 300);
+
             $('.loaderonload').hide();
             jQuery("#booking").validate({
                 rules: {
@@ -436,7 +442,7 @@
                     date: date,
                     doctor_id: doctorId,
                 },
-                // dataType: "json",
+                dataType: "json",
                 cache: false,
                 success: function(response) {
                     // console.log('show', response);

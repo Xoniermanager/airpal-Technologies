@@ -162,9 +162,18 @@ class User extends Authenticatable
 
     public function bookNowButton()
     {
+        $slotAvailable = checkBookingAvailable($this->id);
+        $bookingOpen = 0;
+        $endPoint = '#';
+        if($slotAvailable)
+        {
+            $bookingOpen = 1;
+            $endPoint = route('appointment.index', ['id' => getEncryptId($this->id)]);
+        }
+
         $bookNowButton = '';
         $bookNowButton .= '<div class="mb-2">';
-        $bookNowButton .= '<a href="' . route('appointment.index', ['id' => Crypt::encrypt($this->id)]) . '" class="btn book-btn">Book Now</a>';
+       $bookNowButton .= '<a onclick="return bookings_available('.$bookingOpen.')" href="' . $endPoint . '" class="btn book-btn">Book Now</a>';
         $bookNowButton .= '</div>';
 
         return $bookNowButton;

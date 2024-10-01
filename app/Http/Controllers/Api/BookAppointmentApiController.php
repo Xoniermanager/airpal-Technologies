@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Services\PaymentService;
 use App\Http\Services\BookingServices;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\GetValidDoctorIdRequest;
 use App\Http\Requests\SearchPatientAppointments;
 
 class BookAppointmentApiController extends Controller
@@ -24,6 +25,30 @@ class BookAppointmentApiController extends Controller
         $this->paymentService = $paymentService;
         $this->paypalService = $paypalService;
     }
+
+    /**
+     * Check if booking is open for provided doctor
+     */
+    public function checkBookingIsOpen(GetValidDoctorIdRequest $request)
+    {
+        try{
+            $doctorId = $request->validated();
+            $openStatus = checkBookingAvailable($doctorId);
+            return response()->json([
+                'status' => true,
+                'message' => 'Appointment open status retrieved successfully!',
+                'openStatus' => $openStatus
+            ]);
+        } catch(\Exception $e){
+            return response()->json([
+                'status' => false,
+                'message' => 'Failed to retrieve booking open status',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    
     public function bookingAppointment(Request $request)
     {
         try {

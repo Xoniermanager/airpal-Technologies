@@ -194,6 +194,8 @@ Route::middleware('authCheck')->group(function () {
             Route::post('cancel-appointment/{booking_slots:id}', 'cancelAppointment');
             Route::get('upcoming-all-appointment', 'allUpcomingAppointment');
             Route::post('get-appointments-using-filters','getAppointmentsUsingFilters');
+            // API to check if slot booking is open now
+            Route::get('check-booking-open', 'checkBookingIsOpen');
         });
 
         // Get payment link to pay booking fee for selected appointment id

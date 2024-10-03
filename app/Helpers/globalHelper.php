@@ -564,7 +564,12 @@ function getAppointmentColoredStatus($status) {
  */
  function checkBookingAvailable($doctorId)
  {
-    $appointmentDetails = DoctorAppointmentConfig::where('user_id',$doctorId)->where('status',1)->whereDate('stop_slots_date','<=', Carbon::today())->first();
+    $appointmentDetails = DoctorAppointmentConfig::where('user_id',$doctorId)
+                        ->where('status',1)
+                        ->where(function($query){
+                            return $query->whereNull('stop_slots_date')
+                            ->orWhere('stop_slots_date','>=',Carbon::today());
+                        })->first();
 
     if($appointmentDetails)
     {

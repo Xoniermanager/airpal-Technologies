@@ -174,7 +174,6 @@ class FrontendDoctorController extends Controller
     if (isset($doctorSlot)) 
     {
       $doctorSlot->exception_days = $doctorSlot->user->doctorExceptionDays;
-      // $returnedSlots = $this->doctorSlotServices->createDoctorSlots($doctorSlot);
       return $this->doctorSlotServices->CreateDoctorSlotCalendar($doctorSlot, $data['month'], $data['year']);
     } else {
       echo "something went wrong";
@@ -189,81 +188,19 @@ class FrontendDoctorController extends Controller
       'doctor_id'   =>  'required|integer|exists:users,id,role,2'
     ]);
 
-    if ($validator->fails()) {
+    if ($validator->fails()) 
+    {
       return redirect()->back()->withErrors($validator)->withInput();
     }
+
     $requestPayload = $validator->validated();
 
-    $date = $requestPayload['date'];
+    $slotInfo = $this->doctorSlotServices->createSlotsForSelectedDoctorAndDate($requestPayload);
 
-    $doctorSlotConfiguration   = $this->doctorSlotServices->getDoctorActiveAppointmentConfigDetails($requestPayload['doctor_id']);
-    $returnedSlots             = $this->doctorSlotServices->createDoctorSlots($doctorSlotConfiguration);
-    $gettingBookedSlots = $this->bookingServices->slotDetails($requestPayload)->get();
-
-    $startDateTime = collect($returnedSlots)->map(function ($item, $key) use ($date) {
-      $item['date'] = $date;
-      return $item;
-    })->values()->first();
-
-
-    $date = $date ? $date : $startDateTime['date'];
-
-    // Collect booked slots for the given date
-    $bookedSlotTimes = $gettingBookedSlots->filter(function ($item) use ($date) {
-      return $item['booking_date'] == $date;
-    })->map(function ($item) {
-      return [
-        'start_time' => $item['slot_start_time'],
-        'end_time' => $item['slot_end_time']
-      ];
-    });
-    // dd($bookedSlotTimes);
-
-    // Prepare HTML for slots with indication of booked slots
-    $html = '<div>';
-    // foreach ($startDateTime as $day) {
-    foreach ($startDateTime['slotsTime'] as $slot) {
-      $isBooked = false;
-      list($startTime, $endTime) = explode(' - ', $slot);
-
-      $startDateTime = DateTime::createFromFormat('H:i', $startTime);
-      $endDateTime = DateTime::createFromFormat('H:i', $endTime);
-
-      if (!$startDateTime || !$endDateTime) {
-        throw new \Exception("Failed to create DateTime object from '$startTime' or '$endTime'");
-      }
-      if (isset($bookedSlotTimes)) {
-
-        // Check if slot is booked
-        foreach ($bookedSlotTimes as $bookedSlot) {
-          $bookedStartTime = DateTime::createFromFormat('H:i:s', $bookedSlot['start_time']);
-          $bookedEndTime = DateTime::createFromFormat('H:i:s', $bookedSlot['end_time']);
-
-          // Check for overlapping times
-          if ($startDateTime < $bookedEndTime && $endDateTime > $bookedStartTime) {
-            $isBooked = true;
-            break;
-          }
-        }
-
-        // Add booked class if the slot is booked
-        $slotClass = $isBooked ? ' booked' : '';
-
-        $html .= '<div class="slot-group">';
-        $html .= '<button class="btn btn-outline-primary mb-2 w-100' . $slotClass;
-        $html .= $isBooked ? ' disabled' : '';
-        $html .= '" onclick="splitButton(this)">' . htmlspecialchars($slot) . '</button>';
-        $html .= '<div class="additional-buttons hidden mb-2">';
-        $html .= '<button id="button1" onclick="showContent(\'myDIV\')">' . htmlspecialchars(explode(' - ', $slot)[0]) . '</button>';
-        $html .= '<button id="button2" onclick="showContent(\'content2\', \'' . htmlspecialchars($slot) . '\', \'' . $date . '\', \'' . $requestPayload['doctor_id'] . '\')">Next</button>';
-        $html .= '</div>';
-        $html .= '</div>';
-      }
-    }
-
-    $html .= '</div>';
-
-    return response()->json(['html' => $html]);
+    return response()->json([
+      'html'        =>  $slotInfo['slots_html'],
+      'slot_status' =>  $slotInfo['slot_status']
+    ]);
   }
 
   public function success(Request $request)

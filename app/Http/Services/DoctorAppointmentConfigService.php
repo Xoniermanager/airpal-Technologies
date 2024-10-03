@@ -11,6 +11,7 @@ use Carbon\CarbonInterval;
 use Illuminate\Support\Facades\DB;
 use App\Http\Repositories\DoctorAppointmentConfigRepository;
 use App\Http\Repositories\AppointmentConfigExceptionDayRepository;
+use App\Models\BookingSlots;
 
 class DoctorAppointmentConfigService
 {
@@ -226,120 +227,167 @@ class DoctorAppointmentConfigService
 
     public function createDoctorSlots($doctorSlotConfigDetails)
     {
-        $startDate = date_create($doctorSlotConfigDetails->start_slots_from_date);
-        $endDate = today();
-        date_modify($endDate, '+' . $doctorSlotConfigDetails->slots_in_advance . ' days');
-
-        $formattedStartDate = date_create(date_format($startDate, 'Y-m-d'));
-        $formattedEndDate   = date_create(date_format($endDate, 'Y-m-d'));
-        $interval = new DateInterval('P1D');
-
-        //Step 2 :Getting exception days name and making an array so that we will pass in_array function and if exist
-        $exceptionDaysName = [];
-        if (isset($doctorSlotConfigDetails->doctorExceptionDays)) {
-            $exceptionDays = $doctorSlotConfigDetails->doctorExceptionDays->toArray();
-            if (count($exceptionDays) > 0) {
-                foreach ($exceptionDays as $exceptionDay) {
-                    $exceptionDaysName[] =  DayOfWeek::find($exceptionDay['exception_days_id'])->name;
-                }
-            }
-        }
+        // Called from api
+        $startEndDate       = $this->getStartAndEndDateToCreateSlots($doctorSlotConfigDetails);
+        $formattedStartDate = $startEndDate['formattedStartDate'];
+        $formattedEndDate   = $startEndDate['formattedEndDate'];
+        $exceptionDaysName  = $startEndDate['exception_days_name'];
 
         //Step 3 : Getting date range between start slot date from and advance date (future date)
+        $interval   = new DateInterval('P1D');
         $date_range = new DatePeriod($formattedStartDate, $interval, $formattedEndDate);
 
         $allDaySlots = [];
 
-        foreach ($date_range as $date) {
+        foreach ($date_range as $date)
+        {
             $dayName = $date->format('l');
             $dateFormatted = $date->format('Y-m-d');
-
-            // Check if exception_days exist and are not empty, then skip that day of slot creation
-            if (isset($exceptionDaysName) && count($exceptionDaysName) > 0) {
-                if (in_array($dayName, $exceptionDaysName)) {
-                    continue;
-                }
-            }
-
-            // start date of month date modification integer to date the compare
-            if (isset($doctorSlotConfigDetails->start_month)) {
-                $dayNumber = $date->format('j');
-                if ($dayNumber < $doctorSlotConfigDetails->start_month) {
-                    continue;
-                }
-            }
-
-            // end date of month date modification integer to date the compare
-            if (isset($doctorSlotConfigDetails->end_month)) {
-                $dayNumber = $date->format('j');
-                if ($dayNumber > $doctorSlotConfigDetails->end_month) {
-                    continue;
-                }
-            }
+            
+            // Here we are checking multiple conditions based on doctor provided configuration to confirm 
+            // If slots will be created for current loop date or not ?
+            $appointmentsForCurrentDate = $this->checkIfCurrentDateAvailableForBooking($dateFormatted, $exceptionDaysName, $doctorSlotConfigDetails);
+            if(!$appointmentsForCurrentDate)
+                continue;
 
             // Checking if current date is greater than stop_slots_date exit the loop
-            if (isset($doctorSlotConfigDetails->stop_slots_date)) {
-                if ($dateFormatted >= $doctorSlotConfigDetails->stop_slots_date) {
+            if (isset($doctorSlotConfigDetails->stop_slots_date))
+            {
+                $slotEndDate = date_format(date_create($doctorSlotConfigDetails->stop_slots_date),'Y-m-d');
+                if ($dateFormatted >= $slotEndDate) 
+                {
                     break;
                 }
             }
 
-            //Step 4 : Applying condition inside day for slot creation with time and interval
-            $start = new DateTime('09:00'); // statically set but later do it dynamic
-            $end   = new DateTime('19:00');
-
-            $meetingTime      = CarbonInterval::minutes($doctorSlotConfigDetails->slot_duration);
-            $breakInterval = CarbonInterval::minutes($doctorSlotConfigDetails->cleanup_interval);
-
-
-
-            // $interval = new DateInterval("PT" . $doctorSlotConfigDetails->slot_duration . "M");
-            // $breakInterval = new DateInterval("PT" . $doctorSlotConfigDetails->cleanup_interval . "M");
-
-            // $start = $start->format('H:i');
-            // $end   = $end->format('H:i');
-
-            $daySlots = []; // Array to hold slots for the current day
-
-            // This for loop making slot for a day
-            for ($startTime = $start; $startTime < $end; $startTime->add($meetingTime)->add($breakInterval)) {
-                $endPeriod = clone $startTime;
-                $endPeriod->add($meetingTime); // Here making end time with adding interval and continue with new value
-                if ($endPeriod > $end) {
-                    break;
-                }
-
-                $daySlots[] = $startTime->format('H:i') . ' - ' . $endPeriod->format('H:i');
-            }
+           $todaySlots = $this->getSelectedDateSlotsInArray($doctorSlotConfigDetails, $dateFormatted);
 
             $allDaySlots[$dateFormatted] = [
-                'day' => $dayName,
-                'slotsTime' => $daySlots
+                'day'       => $dayName,
+                'slotsTime' => $todaySlots
             ];
         }
         return $allDaySlots;
     }
 
+    /**
+     * Get selected date slots array.
+     * This array can be used for web version as well as api version
+     */
+    public function getSelectedDateSlotsInArray($doctorSlotConfig, $currentDate)
+    {
+        $doctorId = $doctorSlotConfig->user_id;
+         //Step 4 : Applying condition inside day for slot creation with time and interval
+         $start = new DateTime('09:00'); // statically set but later do it dynamic
+         $end   = new DateTime('19:00');
+         $meetingTime   = CarbonInterval::minutes($doctorSlotConfig->slot_duration);
+         $breakInterval = CarbonInterval::minutes($doctorSlotConfig->cleanup_interval);
+
+         $daySlots = []; // Array to hold slots for the current day
+
+         // This for loop making slot for a day
+         for ($startTime = $start; $startTime < $end; $startTime->add($meetingTime)->add($breakInterval)) 
+         {
+             // If date is today, then skip the slots to show where time has been passed for the day
+             if(date('Y-m-d') === $currentDate)
+             {
+                 if(now() > $startTime)
+                 {
+                    continue;
+                 }
+             }
+
+             $endPeriod = clone $startTime;
+             $endPeriod->add($meetingTime); // Here making end time with adding interval and continue with new value
+             if ($endPeriod > $end) 
+             {
+                 break;
+             }
+             $slotStartTime = $startTime->format('H:i');
+             $slotEndTime = $endPeriod->format('H:i');
+            // Check if current slot is already booked
+            $bookedStatus = BookingSlots::where('doctor_id',$doctorId)
+                            ->where('slot_start_time',$slotStartTime)
+                            ->where('slot_end_time',$slotEndTime)
+                            ->whereDate('booking_date',$currentDate)
+                            ->whereIn('status',['requested','confirmed'])
+                            ->count();
+            $booked = false;
+            if($bookedStatus > 0)
+            {
+                $booked = true;
+            }
+            $currentSlot['slot'] = $slotStartTime . ' - ' . $slotEndTime;
+            $currentSlot['booked_status'] = $booked;
+            $daySlots[] = $currentSlot;
+         }
+        return $daySlots;
+    }
+
+    /**
+     * For web version 
+     * create slots for selected doctor and for the selected date
+     */
+    public function createSlotsForSelectedDoctorAndDate($payload)
+    {
+        $doctorId = $payload['doctor_id'];
+        $selectedDate = $payload['date'];
+        $doctorSlotConfiguration   = $this->getDoctorActiveAppointmentConfigDetails($doctorId);
+        $slots = $this->getSelectedDateSlotsInArray($doctorSlotConfiguration, $selectedDate);
+
+        $html = '<div>';
+        $slotsStatus = true;
+        if(count($slots) > 0)
+        {
+            foreach($slots as $slot)
+            {
+                // Add booked class if the slot is booked
+                $slotClass = $slot['booked_status'] ? ' booked' : '';
+                $isBooked = $slot['booked_status'];
+                $bookedText = $isBooked ? ' (Slot Booked)' : '';
+    
+                $html .= '<div class="slot-group">';
+                $html .= '<button class="btn btn-outline-primary mb-2 w-100 slot-btn' . $slotClass;
+                $html .= ($isBooked ? ' disabled' : '') . '"';
+    
+                if(!$isBooked)
+                {
+                    $html .= ' onclick="splitButton(this)"';
+                }
+    
+                $html .= ' >' . htmlspecialchars($slot['slot']) . $bookedText . '</button>';
+    
+                if(!$isBooked)
+                {
+                    $html .= '<div class="additional-buttons hidden mb-2">';
+                    $html .= '<button id="button1" onclick="showContent(\'myDIV\')">' . htmlspecialchars($slot['slot']) . '</button>';
+                    $html .= '<button id="button2" onclick="showContent(\'content2\', \'' . htmlspecialchars($slot['slot']) . '\', \'' . $selectedDate . '\', \'' . $doctorId . '\')">Next</button>';
+                }
+                $html .= '</div>';
+                $html .= '</div>';
+            }
+        }
+        else
+        {
+            $slotsStatus = false;
+            $html .= '<p>No slots available for selected date!</p>';
+        }
+        $html .= '</div>';
+        
+        return [
+            'slots_html'          =>  $html,
+            'slot_status'  =>  $slotsStatus
+        ];
+    }
+
     public function CreateDoctorSlotCalendar($doctorSlotConfigDetails, $month = '', $year = '')
     {
         $doctorId = $doctorSlotConfigDetails->user->id;
-        $startDate = date_create($doctorSlotConfigDetails->start_slots_from_date);
-        $endDate = clone $startDate;
-        date_modify($endDate, '+' . $doctorSlotConfigDetails->slots_in_advance . ' days');
-        // dd($doctorSlotConfigDetails);
-        $formattedStartDate = Carbon::create($startDate, 'Y-m-d')->toDateString();
-        $formattedEndDate = Carbon::create($endDate, 'Y-m-d')->toDateString();
 
-        //Step 2 : Getting exception days name and making an array so that we will pass in_array function to check if exist
-        $exception_days_name = [];
-        if (isset($doctorSlotConfigDetails->doctorExceptionDays)) {
-            $exceptionDays = $doctorSlotConfigDetails->doctorExceptionDays->toArray();
-            if (count($exceptionDays) > 0) {
-                foreach ($exceptionDays as $exceptionDay) {
-                    $exception_days_name[] =  DayOfWeek::find($exceptionDay['exception_days_id'])->name;
-                }
-            }
-        }
+        $startEndDate = $this->getStartAndEndDateToCreateSlots($doctorSlotConfigDetails);
+        $formattedStartDate = $startEndDate['formattedStartDate'];
+        $formattedEndDate = $startEndDate['formattedEndDate'];
+        $exception_days_name = $startEndDate['exception_days_name'];
 
         // First of all, lets create an array containing the names of all days in a week
         $daysOfWeek = array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
@@ -349,20 +397,13 @@ class DoctorAppointmentConfigService
 
         // Create a Carbon instance for the first day of the month
         $firstDayOfMonth = Carbon::create($year, $month, 1, 0, 0, 0);
-
+        
         // Now getting the number of days this month contains
         $number_of_days = Carbon::now()->month($month)->daysInMonth;
-
+        
         // Get the name of the month
         $monthName = $firstDayOfMonth->format('F');  // e.g., "July"
-
-        // Get the index value (0-6) of the first day of the month
-        $dayOfWeek = $firstDayOfMonth->dayOfWeek;
-
-
-        // Getting some information about the first day of this month
-        $dateToday = Carbon::now()->toDateString();  // e.g., "2024-07-03"
-
+        
         // Create the HTML table
         $calendar = "<div class='calendar'><table class='table table-bordered' id='appointment-request'>";
 
@@ -397,42 +438,66 @@ class DoctorAppointmentConfigService
 
         // Calculate the number of empty cells before the first day of the month
         $start_day_of_week = date('w', strtotime("$year-$month-01"));
+        
         for ($k = 0; $k < $start_day_of_week; $k++) {
             $calendar .= "<td class='empty'></td>";
         }
 
         $month = str_pad($month, 2, "0", STR_PAD_LEFT);
 
-
-        while ($current_day <= $number_of_days) {
-            if ($start_day_of_week == 7) {
+        $noSlotsFormThisDate = false;
+        while ($current_day <= $number_of_days) 
+        {
+            if ($start_day_of_week == 7)
+            {
                 $start_day_of_week = 0;
                 $calendar .= "</tr><tr>";
             }
 
             $current_day_rel = str_pad($current_day, 2, "0", STR_PAD_LEFT);
-            $date = "$year-$month-$current_day_rel";
 
+            $date = "$year-$month-$current_day_rel";
+            $formattedCurrentDate = date_create($date);
             $today_date = date('Y-m-d');
 
             $is_today = ($date == $today_date) ? "today" : "";
 
-            $dayName = Carbon::parse($date)->format('l');
-
-
-            if ($date < $formattedStartDate || $date < $today_date || $date > $formattedEndDate) {
-                // 1. if current date is less than create slot start date
-                // 2. if current date is pass date
-                // 3. if current date is greater than create slot end date
-                if ($date >= $formattedStartDate && $date <= $formattedEndDate) {
-                    $calendar .= "<td><button class='$is_today btn not-btn'><h4>$current_day</h4> <span class='na'></span></button></td>";
-                } else {
-                    $calendar .= "<td class='$is_today date'><h4>$current_day</h4></td>";
+            if (($formattedCurrentDate < $formattedStartDate) || ($date < $today_date) || ($formattedCurrentDate >= $formattedEndDate))
+            {
+                $calendar .= "<td><button class='$is_today btn not-btn'><h4>$current_day</h4></button></td>";
+            }
+            else
+            {
+                // Here we are checking multiple conditions based on doctor provided configuration to confirm 
+                // If slots will be created for current loop date or not ?
+                $appointmentsForCurrentDate = $this->checkIfCurrentDateAvailableForBooking($formattedCurrentDate, $exception_days_name, $doctorSlotConfigDetails);
+                if($appointmentsForCurrentDate)
+                {
+                    // Check if doctor has set to stop for creating slots from specific date
+                    if (isset($doctorSlotConfigDetails->stop_slots_date))
+                    {
+                        $slotEndDate = date_format(date_create($doctorSlotConfigDetails->stop_slots_date),'Y-m-d');
+                        $formattedCurrentDate = $formattedCurrentDate->format('Y-m-d');
+                        if ($formattedCurrentDate >= $slotEndDate)
+                        {
+                            $noSlotsFormThisDate = true;
+                            $calendar .= "<td><button class='$is_today btn not-btn'><h4>$current_day</h4></button></td>";
+                        }
+                        else
+                        {
+                            $calendar .= "<td class='$is_today date '><button onclick='checkSlotsByDate(\"$date\", $doctorId)' type='button' class='btn avail-btn' selected_date='$date'><h4>$current_day</h4></button></td>";
+                        }
+                    }
+                    else
+                    {
+                        $calendar .= "<td class='$is_today date '><button onclick='checkSlotsByDate(\"$date\", $doctorId)' type='button' class='btn avail-btn' selected_date='$date'><h4>$current_day</h4></button></td>";
+                    }
                 }
-            } elseif (in_array($dayName, $exception_days_name)) {
-                $calendar .= "<td><button class='$is_today btn notAvail'><h4>$current_day</h4></button></td>";
-            } else {
-                $calendar .= "<td class='$is_today date '><button onclick='checkSlotsByDate(\"$date\", $doctorId)' type='button' class='btn avail-btn' selected_date='$date'><h4>$current_day</h4></button></td>";
+                else
+                {
+                    $btnClass = ($noSlotsFormThisDate) ? 'not-btn' : 'notAvail';
+                    $calendar .= "<td><button class='$is_today btn {$btnClass}'><h4>$current_day</h4></button></td>";
+                }                
             }
 
             $current_day++;
@@ -451,6 +516,78 @@ class DoctorAppointmentConfigService
         $calendar .= "</table></div>";
         return $calendar;
     }
+
+
+    /**
+     * Uses doctor slot configuration to get the start date of slot creation and end date of slot creation
+     */
+    public function getStartAndEndDateToCreateSlots($doctorSlotConfigDetails)
+    {
+        $slotStartDate = date_create($doctorSlotConfigDetails->start_slots_from_date);
+        if($slotStartDate > today())
+        {
+            $startDate = $slotStartDate;
+        }
+        else
+        {
+            $startDate = today();
+        }
+
+        $endDate = clone today();
+        date_modify($endDate, '+' . $doctorSlotConfigDetails->slots_in_advance . ' days');
+        $formattedStartDate = date_create(date_format($startDate, 'Y-m-d'));
+        $formattedEndDate   = date_create(date_format($endDate, 'Y-m-d'));
+
+        $exception_days_name = $doctorSlotConfigDetails->doctorExceptionDays->pluck('name')->toArray();
+
+        return [
+            'formattedStartDate'    =>  $formattedStartDate,
+            'formattedEndDate'      =>  $formattedEndDate,
+            'exception_days_name'   =>  $exception_days_name
+        ];
+    }
+
+    /**
+     * Checking if current date is in the list to show appointments
+     * Check 1: Check if today date's day name is added in doctor exception list
+     * Check 2:  if current date's day number is greater than or equals to start day of month for creating slots
+     * Check 3:  if current date's day number is less than or equals to end day of month for creating slots
+     */
+    public function checkIfCurrentDateAvailableForBooking($date, $exceptionDaysNames, $doctorAppointmentConfig)
+    {
+        $dayName = Carbon::parse($date)->format('l');
+        $dayNumber = Carbon::parse($date)->format('j');
+        $status = true;
+        
+        // Check 1: Check if today date's day name is added in doctor exception list
+        if (isset($exceptionDaysNames) && count($exceptionDaysNames) > 0) {
+            if (in_array($dayName, $exceptionDaysNames)) 
+            {
+                $status = false;
+            }
+        }
+        
+        // Check 2:  if current date's day number is greater than or equals to start day of month for creating slots
+        if (isset($doctorAppointmentConfig->start_month)) 
+        {
+            if ((int)$dayNumber < $doctorAppointmentConfig->start_month) 
+            {
+                $status = false;
+            }
+        }
+    
+        // Check 3:  if current date's day number is less than or equals to end day of month for creating slots
+        if (isset($doctorAppointmentConfig->end_month)) 
+        {
+            if ((int)$dayNumber > (int)$doctorAppointmentConfig->end_month)
+            {
+                $status = false;
+            }
+        }
+        return $status;
+    }
+
+    
     public function getSlotConfig($doctorId)
     {
         return $this->doctorAppointmentConfigRepository->where('user_id', $doctorId)->first();

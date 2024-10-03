@@ -456,9 +456,12 @@
             });
         }
 
-        function splitButton(button) {
+        function splitButton(button) 
+        {
+            jQuery('.slot-btn').removeClass('selected-slot');
             var $button = $(button);
             var $allSlots = $('.slot-group');
+            jQuery($button).addClass('selected-slot');
 
             // Toggle visibility for the clicked slot's additional buttons
             var $additionalButtons = $button.siblings('.additional-buttons');

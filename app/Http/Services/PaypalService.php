@@ -3,6 +3,8 @@
 namespace App\Http\Services;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\App;
+use App\Http\Services\PaymentService;
 use App\Http\Repositories\BookingRepository;
 use Srmklive\PayPal\Services\PayPal as PaypalClient;
 
@@ -16,7 +18,6 @@ class PaypalService
      */
     public function generatePaymentLink($amount, $bookingDetails, $returnUrls)
     {
-        
         $doctorId = $bookingDetails->doctor_id;
         $provider = new PayPalClient(getPaypalConfig($doctorId));
         // $provider->setApiCredentials();
@@ -46,7 +47,9 @@ class PaypalService
      */
     public function getPaymentDetails($paypalToken)
     {
-        $provider = new PayPalClient(getPaypalConfig($doctorId));
+        // Get doctor id using paypal token of payments table
+        $bookingDetails = App::make(PaymentService::class)->getPaymentWithBookingUsingPaypalId($paypalToken)->first();
+        $provider = new PayPalClient(getPaypalConfig($bookingDetails->bookingSlot->doctor_id));
         // $provider->setApiCredentials(config('paypal'));
         $provider->getAccessToken();
         $response = $provider->capturePaymentOrder($paypalToken);

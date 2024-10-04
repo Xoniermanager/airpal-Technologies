@@ -109,7 +109,6 @@ Route::middleware('authCheck')->group(function () {
             Route::post('slots/update', 'update');
             Route::get('slots/delete', 'delete');
             Route::get('slots/showSlots/{id}', 'showSlotsByDoctorId');
-            // Route::post('slots/get-doctor-slots-by-date', 'getDoctorSlotsByDate');
         });
 
         Route::controller(DoctorAppointmentController::class)->group(function () {

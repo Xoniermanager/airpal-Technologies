@@ -95,12 +95,12 @@ class BookingServices
         return $this->bookingRepository->all();
     }
 
-    public function slotDetails($data)
-    {
-        return $this->bookingRepository
-            ->where('doctor_id', $data['doctor_id'])
-            ->where('booking_date', $data['date']);
-    }
+    // public function slotDetails($data)
+    // {
+    //     return $this->bookingRepository
+    //         ->where('doctor_id', $data['doctor_id'])
+    //         ->where('booking_date', $data['date']);
+    // }
 
     public function doctorBookings($id, $searchKey = null)
     {

@@ -2,10 +2,8 @@
 
 namespace App\Http\Services;
 
-use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use App\Http\Services\PaymentService;
-use App\Http\Repositories\BookingRepository;
 use Srmklive\PayPal\Services\PayPal as PaypalClient;
 
 

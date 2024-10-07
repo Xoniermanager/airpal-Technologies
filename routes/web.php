@@ -511,13 +511,15 @@ Route::prefix('admin')->group(function () {
 Route::get('check-review', [BookingController::class, 'checkReviewByPatientId'])->name('check.review')->middleware('auth');
 
 Route::prefix('patients')->group(function () {
+
+    Route::controller(BookingController::class)->group(function () {
+        Route::get('/check-auth', 'checkAuth')->name('check.auth');
+    });
+
     Route::middleware(['role:patient'])->group(function () {
         Route::middleware(['auth'])->group(function () {
-
-
             Route::controller(BookingController::class)->group(function () {
                 Route::post('patient-booking', 'patientBooking')->name('patient.booking');
-                Route::get('/check-auth', 'checkAuth')->name('check.auth');
             });
 
             Route::controller(PaymentController::class)->group(function () {

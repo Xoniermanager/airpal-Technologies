@@ -13,6 +13,7 @@ use App\Http\Services\DoctorService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Services\BookingServices;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\SearchDoctorRequest;
 use App\Http\Services\DoctorReviewService;
@@ -123,7 +124,15 @@ class FrontendDoctorController extends Controller
       $returnCalendar = $this->doctorSlotServices->CreateDoctorSlotCalendar($doctorSlotConfigDetails);
     }
 
-    return view('website.pages.appointment', ['doctorDetails' => $doctor,'calender' => $returnCalendar, 'booking_price' =>  '10 USD']);
+    $preSelectPatientSlotFromSession = Session::get('slot_booking');
+    session()->forget('slot_booking');
+
+    return view('website.pages.appointment', [
+      'doctorDetails'     =>  $doctor,
+      'calender'          =>  $returnCalendar,
+      'booking_price'     =>  '10 USD',
+      'preSelectPatientSlotFromSession'  =>  $preSelectPatientSlotFromSession
+    ]);
   }
 
   public function search(SearchDoctorRequest $request)

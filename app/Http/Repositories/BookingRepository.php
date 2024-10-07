@@ -28,7 +28,7 @@ class BookingRepository extends BaseRepository
     public function searchDoctorAppointments($filterParams)
     {
         // $query = $this->model->with('patient')->newQuery();
-        $query = $this->model->with('patient','doctor.specializations','doctor.services')->newQuery();
+        $query = $this->model->with('patient','doctor.specializations','doctor.services','payments')->newQuery();
         $key   = $filterParams['key'] ?? '';
 
         /*

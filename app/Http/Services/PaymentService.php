@@ -183,4 +183,12 @@ class PaymentService
         }
         return 0;
     }
+
+    /**
+     * Get total revenue earned by booking from all sources
+     */
+    public function getTotalRevenue()
+    {
+        return $this->paymentRepository->where('payment_status','COMPLETED')->sum('amount');
+    }
 }

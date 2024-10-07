@@ -485,12 +485,12 @@ class DoctorAppointmentConfigService
                         }
                         else
                         {
-                            $calendar .= "<td class='$is_today date '><button onclick='checkSlotsByDate(\"$date\", $doctorId)' type='button' class='btn avail-btn' selected_date='$date'><h4>$current_day</h4></button></td>";
+                            $calendar .= "<td class='$is_today date '><button id='". $date. "' onclick='checkSlotsByDate(\"$date\", $doctorId)' type='button' class='btn avail-btn' selected_date='$date'><h4>$current_day</h4></button></td>";
                         }
                     }
                     else
                     {
-                        $calendar .= "<td class='$is_today date '><button onclick='checkSlotsByDate(\"$date\", $doctorId)' type='button' class='btn avail-btn' selected_date='$date'><h4>$current_day</h4></button></td>";
+                        $calendar .= "<td class='$is_today date '><button id='". $date. "' onclick='checkSlotsByDate(\"$date\", $doctorId)' type='button' class='btn avail-btn' selected_date='$date'><h4>$current_day</h4></button></td>";
                     }
                 }
                 else

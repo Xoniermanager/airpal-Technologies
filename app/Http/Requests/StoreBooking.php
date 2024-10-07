@@ -2,11 +2,12 @@
 
 namespace App\Http\Requests;
 
-use DB;
+use App\Traits\ExceptionHandle;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreBooking extends FormRequest
 {
+    use ExceptionHandle;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -46,11 +47,11 @@ class StoreBooking extends FormRequest
                 function ($attribute, $value, $fail) {
                     $slotTimes = explode(' - ', request('booking_slot_time'));
                     $exists = \DB::table('booking_slots')
-                        ->where('patient_id', request('patient_id'))
                         ->where('doctor_id', request('doctor_id'))
                         ->where('booking_date', request('booking_date'))
                         ->where('slot_start_time', $slotTimes[0])
                         ->where('slot_end_time', $slotTimes[1])
+                        ->where('status','!=','status')
                         ->exists();
     // dd($exists);
                     if ($exists) {

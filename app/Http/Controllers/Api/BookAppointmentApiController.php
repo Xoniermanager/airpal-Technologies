@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Exception;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreBooking;
 use App\Http\Controllers\Controller;
 use App\Http\Services\PaypalService;
 use Illuminate\Support\Facades\Auth;
@@ -49,25 +50,12 @@ class BookAppointmentApiController extends Controller
     }
 
     
-    public function bookingAppointment(Request $request)
+    public function bookingAppointment(StoreBooking $request)
     {
         try {
-            $validator = Validator::make($request->all(), [
-                'patient_id'         => ['required', 'exists:users,id'],
-                'doctor_id'          => ['required', 'exists:users,id'],
-                'booking_date'       => ['required', 'date'],
-                'booking_slot_time'  => ['required'],
-                'insurance'          => ['boolean'],
-                'description'        => ['required'],
-                'symptoms'           => ['string'],
-                'image'              => ['mimes:jpeg,png,jpg,gif,svg|max:2048'],
-            ]);
-            if ($validator->fails()) {
-                return response()->json([
-                    "error" => 'validation_error',
-                    "message" => $validator->errors(),
-                ], 422);
-            }
+            
+            $payload = $request->validated();
+            $payload['patient_id'] = Auth::guard('api')->user()->id;
             $bookedAppointment = $this->bookingAppointmentServices->store($request);
 
             // Check if booking fee is required
@@ -155,7 +143,7 @@ class BookAppointmentApiController extends Controller
     public function allAppointment()
     {
         try {
-            $allAppointment = $this->bookingAppointmentServices->patientBookings(Auth::guard('api')->user()->id)->with(['user','prescription','prescription.prescriptionMedicineDetail','prescription.prescriptionTest','user.specializations','user.services','user.doctorReview','payments'])->paginate(10);
+            $allAppointment = $this->bookingAppointmentServices->patientBookings(Auth::guard('api')->user()->id)->with(['doctor','prescription','prescription.prescriptionMedicineDetail','prescription.prescriptionTest','doctor.specializations','doctor.services','doctor.doctorReview','payments'])->paginate(10);
             return response()->json([
                 'status' => true,
                 'message' => "Retrieved All Appointment List",

@@ -9,6 +9,7 @@ use App\Http\Services\PaypalService;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Services\PaymentService;
 use App\Http\Services\BookingServices;
+use Illuminate\Support\Facades\Session;
 use App\Http\Requests\GetBookingFeeAndCheckAuth;
 
 class BookingController extends Controller
@@ -63,20 +64,21 @@ class BookingController extends Controller
         $slotEndTime = $request->slot_end_time;
         $doctorId = $request->doctor_id;
 
+        $paramsToGetBookingFee = [
+            'doctorId'      =>  $doctorId,
+            'slotStartTime' =>  $slotStartTime,
+            'slotEndTime'   =>  $slotEndTime,
+            'bookingDate'   =>  $bookingDate
+        ];
+
         if (Auth::check())
         {
             $bookingFee = '';
-            $paramsToGetBookingFee = [
-                'doctorId'      =>  $doctorId,
-                'slotStartTime' =>  $slotStartTime,
-                'slotEndTime'   =>  $slotEndTime,
-                'bookingDate'   =>  $bookingDate
-            ];
-
             $amount = $this->bookingServices->getBookingFee($paramsToGetBookingFee);
             $bookingFee = $amount . ' USD';
             return response()->json(['authenticated' => true, 'bookingFee' => $bookingFee,'gobalDate' => getFormattedDate($bookingDate)]);
         } else {
+            Session::put('slot_booking',$paramsToGetBookingFee);
             return response()->json(['authenticated' => false]);
         }
     }

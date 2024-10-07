@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Services\AuthServices;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AuthCheckRequest;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\ChangePasswordRequest;
 
@@ -160,8 +161,19 @@ class AuthController extends Controller
                     $redirectUrl =  route('admin.dashboard.index');
                 } elseif ($user->role == 2) {
                     $redirectUrl =  route('doctor.doctor-dashboard.index');
-                } elseif ($user->role == 3) {
-                    $redirectUrl =  route('patient-dashboard.index');
+                } elseif ($user->role == 3) 
+                {
+                     // Checking if user has reached login page from slot booking page
+                    // If yes redirect user to slot booking page again after login
+                    $redirectSlotBooking = Session::get('slot_booking');
+                    if($redirectSlotBooking)
+                    {
+                        $redirectUrl = route('appointment.index',['id' =>  getEncryptId($redirectSlotBooking['doctorId'])]);
+                    }
+                    else
+                    {
+                        $redirectUrl =  route('patient-dashboard.index');
+                    }
                 } 
                 return response()->json([
                     'success' => true,

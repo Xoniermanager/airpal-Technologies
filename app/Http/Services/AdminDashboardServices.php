@@ -3,18 +3,20 @@
 namespace App\Http\Services;
 
 use Carbon\Carbon;
-use App\Models\Payment;
+use App\Http\Services\PaymentService;
 use App\Http\Repositories\UserRepository;
 
 class AdminDashboardServices
 {
     private $userRepository;
     private $bookingServices;
+    private $paymentService;
 
-    public function __construct(UserRepository $userRepository, BookingServices $bookingServices)
+    public function __construct(UserRepository $userRepository, BookingServices $bookingServices, PaymentService $paymentService)
     {
         $this->userRepository = $userRepository;
         $this->bookingServices = $bookingServices;
+        $this->paymentService = $paymentService;
     }
     public function getDashboardData()
     {
@@ -25,15 +27,16 @@ class AdminDashboardServices
         $patientList     = $this->userRepository->where('role', config('airpal.roles.patient'))->get();
         $appointmentList = $this->bookingServices->all();
 
+        $totalRevenue = $this->paymentService->getTotalRevenue();
+
         return [
             'total_doctors'      => $doctorList->count(),
             'total_patients'     => $patientList->count(),
             'total_appointments' => $appointmentList->count(),
+            'totalRevenue'       => $totalRevenue,
             'doctor_list'        => $doctorList->take(5),
             'patient_list'       => $patientList->take(5),
-            'appointments_list'  => $appointmentList->take(5),
-            'totalRevenue'       => Payment::sum('amount')
-
+            'appointments_list'  => $appointmentList->take(5)
         ];
     }
 

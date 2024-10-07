@@ -336,17 +336,36 @@
             </div>
         </div>
     </div>
+@if($preSelectPatientSlotFromSession)
+<script>
+    let selected_slot = '{{ $preSelectPatientSlotFromSession["slotStartTime"] }} - {{ $preSelectPatientSlotFromSession["slotEndTime"] }}';
+    setTimeout(function(){
+    checkSlotsByDate('{{ $preSelectPatientSlotFromSession["bookingDate"] }}','{{ $preSelectPatientSlotFromSession["doctorId"] }}');
+    setTimeout(function(){
+        jQuery('.slot-btn').each(function(key,value){
+            let currentSlotTiming = jQuery(value).text();
+
+            if(currentSlotTiming == selected_slot)
+            {
+                jQuery(value).addClass('selected-slot');
+            }
+    });
+    },600);
+}, 300);
+</script>
+@else
+<script>
+// Show today date appointments of first page load
+setTimeout(function(){
+    checkSlotsByDate('{{ date("Y-m-d") }}','{{ $doctorDetails->id }}');
+}, 300);
+</script>
+@endif
 @endsection
 
 @section('javascript')
     <script>
         $(document).ready(function() {
-
-            // Show today date appointments of first page load
-            setTimeout(function(){
-                checkSlotsByDate('{{ date("Y-m-d") }}','{{ $doctorDetails->id }}');
-            }, 300);
-
             $('.loaderonload').hide();
             jQuery("#booking").validate({
                 rules: {
@@ -433,6 +452,8 @@
         }
 
         function checkSlotsByDate(date, doctorId) {
+            jQuery('.avail-btn').removeClass('selected_date');
+            jQuery('#'+date).addClass('selected_date');
             var url = "{{ route('getDoctorSlots.byId') }}";
             jQuery.ajax({
                 type: "post",
@@ -511,13 +532,14 @@
                         var content = document.getElementById(contentId);
                         content.classList.remove("hidden-content");
                     } else {
-                        Swal.fire({
+                            Swal.fire({
                             title: "Oops...",
-                            text: "Since! You are doctor you can't book the appointment",
+                            text: "To Continue! Please Sign in First.",
                             icon: "error",
-                            showCancelButton: false,
+                            showCancelButton: true,
                             confirmButtonColor: "#3085d6",
                             cancelButtonColor: "#d33",
+                            confirmButtonText: "<a href='" + window.site_base_url + "login'>Login</a>"
                         });
                     }
                 },

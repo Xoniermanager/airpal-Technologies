@@ -16,9 +16,11 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->string('category');
+            $table->unsignedBigInteger('send_to')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamp('read_at')->nullable();
             $table->timestamps();
+            $table->foreign('send_to')->references('id')->on('users');
         });
     }
 

@@ -17,36 +17,29 @@ class BookingServices
     {
         $this->bookingRepository = $bookingRepository;
     }
-    public function store($data)
+    public function store($payload)
     {
 
-        $slot = $data->booking_slot_time;
+        $slot = $payload['booking_slot_time'];
         // Split the string and remove "AM" or "PM"
         list($start_time, $end_time) = array_map(function ($time) {
             return str_replace(['AM', 'PM'], '', $time);
         }, explode(' - ', $slot));
 
         // uploading symptoms image of patient
-        $patient  = User::find($data->patient_id);
-        if (isset($data->image) && !empty($data->image)) {
-            $filePath = uploadingImageorFile($data->image, 'booking-symptoms', $patient->first_name);
+        $patient  = User::find($payload['patient_id']);
+        if (isset($payload['image']) && !empty($payload['image'])) {
+            $filePath = uploadingImageorFile($payload['image'], 'booking-symptoms', $patient->first_name);
         }
 
-        $payload = [
-            'doctor_id'  => $data->doctor_id,
-            'patient_id' => $data->patient_id,
-            'booking_date'   =>  $data->booking_date,
-            'slot_start_time' =>  $start_time,
-            'slot_end_time'  =>  $end_time,
-            'insurance'  =>  $data->insurance,
-            'note' => $data->description,
-            'symptoms' => $data->symptoms,
-            'image' => $filePath ?? '',
-        ];
+        $payload['slot_start_time'] = $start_time;
+        $payload['slot_end_time'] = $end_time;
+        $payload['note'] = $payload['description'];
+        $payload['image'] = $filePath ?? '';
 
         $bookedSlot  =  $this->bookingRepository->create($payload);
         if ($bookedSlot) {
-            $pdfPath = storage_path('app/public/' . $data->doctor_id . '/invoices/invoice-pdf-' . $bookedSlot->id . '.pdf');
+            $pdfPath = storage_path('app/public/' . $payload->doctor_id . '/invoices/invoice-pdf-' . $bookedSlot->id . '.pdf');
 
 
             // generating invoice against booking

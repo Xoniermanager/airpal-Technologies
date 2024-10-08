@@ -23,18 +23,7 @@ class StoreBooking extends FormRequest
      */
     public function rules(): array
     {
-        // return [
-        //     'patient_id'         => ['required', 'exists:users,id'],
-        //     'doctor_id'          => ['required', 'exists:users,id'],
-        //     'booking_date'       => ['required', 'date'],
-        //     'booking_slot_time'  => ['required'],
-        //     'insurance'          => ['boolean'],
-        //     'description'        => ['required','max:255'],
-        //     'symptoms'           => ['string','nullable'],
-        //     'image'              => 'image|mimes:jpeg,png,jpg,gif|max:2048|nullable',
-        // ];
         return [
-            // 'patient_id'         => ['required', 'exists:users,id'],
             'doctor_id'          => ['required', 'exists:users,id'],
             'booking_date'       => ['required', 'date'],
             'booking_slot_time'  => ['required'],
@@ -42,25 +31,26 @@ class StoreBooking extends FormRequest
             'description'        => ['required', 'max:255'],
             'symptoms'           => ['string', 'nullable'],
             'image'              => 'image|mimes:jpeg,png,jpg,gif|max:2048|nullable',
-            // Custom rule to prevent duplicate entries
-            'appointment'       => [
-                function ($attribute, $value, $fail) {
-                    $slotTimes = explode(' - ', request('booking_slot_time'));
-                    $exists = \DB::table('booking_slots')
-                        ->where('doctor_id', request('doctor_id'))
-                        ->where('booking_date', request('booking_date'))
-                        ->where('slot_start_time', $slotTimes[0])
-                        ->where('slot_end_time', $slotTimes[1])
-                        ->where('status','!=','status')
-                        ->exists();
-    // dd($exists);
-                    if ($exists) {
-                        $fail('The selected appointment slot is already booked.');
-                    }
-                },
-            ],
-    
         ];
-        
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function($validator){
+            if(!$validator->failed()){
+                $data = $validator->getData();
+                $slotTimes = explode(' - ', $data['booking_slot_time']);
+                $exists = \DB::table('booking_slots')
+                    ->where('doctor_id', $data['doctor_id'])
+                    ->where('booking_date', $data['booking_date'])
+                    ->where('slot_start_time', $slotTimes[0])
+                    ->where('slot_end_time', $slotTimes[1])
+                    ->where('status','!=','cancelled')
+                    ->exists();
+                if ($exists) {
+                    $validator->errors()->add('appointment','The selected appointment slot is already booked.');
+                }
+            }
+        });
     }
 }

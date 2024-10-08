@@ -31,7 +31,7 @@ class BookingController extends Controller
         $data = $request->validated();
         $data['patient_id'] = Auth::id();
 
-        $bookedSlot = $this->bookingServices->store((object)$data);
+        $bookedSlot = $this->bookingServices->store($data);
         $paymentLinkResponse = $this->paymentService->getBookingFeePaymentLink($bookedSlot);
 
 

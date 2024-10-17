@@ -1,15 +1,17 @@
 <?php
 
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Payment;
 use App\Models\SiteConfig;
 use App\Models\Testimonial;
 use App\Models\BookingSlots;
-use App\Models\DoctorAppointmentConfig;
 use App\Models\PaypalConfig;
-use Carbon\Carbon;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use function Laravel\Prompts\textarea;
+use App\Models\DoctorAppointmentConfig;
 use Illuminate\Support\Facades\Storage;
 
 function getRatingHtml($value)
@@ -581,3 +583,140 @@ function getAppointmentColoredStatus($status) {
     }
  }
 
+/**
+ * Check doctor profile completeness
+ */
+function checkDoctorProfileCompleteStatus($doctorId)
+{
+    $doctorDetails = User::where('id',$doctorId)->with([
+        'specializations','services','doctorAddress','educations',
+        'experiences','awards','workingHour','language','socialMediaAccounts'
+    ])->first();
+    $percentage = 0;
+    $pendingProfiles = [];
+    $completedProfiles = [];
+
+    if ($doctorDetails->role === 2)
+    {
+        // Check if basic details is added
+        if (!empty($doctorDetails->first_name) && !empty($doctorDetails->last_name)) 
+        {
+            $percentage += 10;
+            $completedProfiles['basic_profile'] = 'Basic Details';
+        }
+        else
+        {
+            $pendingProfiles['basic_profile'] = 'Basic Details';
+        }
+
+        // Check if profile picture and about description is added
+        if (!empty($doctorDetails->image_url) && !empty($doctorDetails->description)) 
+        {
+            if(!empty($doctorDetails->image_url))
+            {
+                $percentage += 5;
+            }
+
+            if(!empty($doctorDetails->description))
+            {
+                $percentage += 5;
+            }
+            $completedProfiles['profile_picture_and_description'] = 'Profile Picture & About';
+        }
+        else
+        {
+            $pendingProfiles['profile_and_description'] = 'Profile Picture & About';
+        }
+
+        // Now create a list of all relationship methods
+        // To check if additional profiles details has been added by doctor or not ?
+        $profileChecks = [
+            'specializations'  =>  'Specialities',
+            'services'         =>  'Services',
+            'doctorAddress'    =>  'Address',
+            'educations'       =>  'Education',
+            'experiences'      =>  'Experience',
+            'awards'           =>  'Awards',
+            'workingHour'      =>  'Working Hours',
+            'language'         =>  'Languages',
+            'socialMediaAccounts'  =>  'Social Media'
+        ];
+
+        foreach ($profileChecks as $profileCheck => $profileText) {
+            if (!empty($doctorDetails->$profileCheck) && $doctorDetails->$profileCheck()->exists()) 
+            {
+                $value = 10;
+                if ($profileCheck == 'socialMediaAccounts' || $profileCheck == 'language') {
+                    $value = 5;
+                }
+                $percentage += $value;
+                $completedProfiles[$profileCheck] = $profileText;
+            }
+            else
+            {
+                $pendingProfiles[$profileCheck] = $profileText;
+            }
+        }
+    }
+
+    $profileStatus = [
+        'doctor_id' =>  $doctorId,
+        'total'     =>  $percentage,
+        'completed' =>  $completedProfiles,
+        'pending'   =>  $pendingProfiles
+    ];
+
+    $updated = $doctorDetails->update(['profile_status' =>  $percentage]);
+    return $profileStatus;
+}
+
+/**
+ * Create HTML for doctor profile complete status
+ */
+function createDoctorProfileStatus($profileStatus)
+{
+    $doctorLoggedIn = false;
+    $doctorId = $profileStatus['doctor_id'];
+    if(Auth::user()->role === 2)
+    {
+        $doctorLoggedIn = true;
+    }
+
+    $completed = $profileStatus['completed'];
+    $pending = $profileStatus['pending'];
+    $profileStatusHtml = '<div id="doctor-profile-progress-status"><ul id="progressbar">';
+
+    foreach($completed as $key  =>  $value)
+    {
+        $profileStatusHtml .= '<li class="active">';
+        $profileStatusHtml .= $value;
+        $profileStatusHtml .= '</li>';
+    }
+
+    foreach($pending as $key  =>  $value)
+    {
+        if($doctorLoggedIn)
+        {
+            $profileUrl = route('doctor.doctor-profile.index') . '?update='.$key;
+        }
+        else
+        {
+            $profileUrl = route('admin.edit-doctor',$doctorId) . '?update='.$key;
+        }
+        $profileStatusHtml .= '<li><a href="'. $profileUrl .'">';
+        $profileStatusHtml .= $value;
+        $profileStatusHtml .= '</a></li>';
+    }
+
+    $profileStatusHtml .= '</ul>';
+
+    $profileStatusHtml .=   '<div class="container">';
+    $profileStatusHtml .=   '<div class="progress">';
+    $profileStatusHtml .=   '<div class="progress-bar" data-complete="0">0%</div>';
+    $profileStatusHtml .=   '</div>';
+    $profileStatusHtml .=   '</div>';
+    $profileStatusHtml .=   '</div>';
+    $profileStatusHtml .=   '<script>jQuery(document).ready(function(){ update_profile_progress_animation('. $profileStatus['total'] .'); })</script>';
+
+    return $profileStatusHtml;    
+}

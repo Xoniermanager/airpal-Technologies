@@ -7,6 +7,7 @@ use App\Models\Specialization;
 use App\Http\Controllers\Controller;
 use App\Models\{Service, DayOfWeek};
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreDoctorPersonalDetailRequest;
 use App\Http\Services\{BookingServices, CountryServices, UserServices, DoctorLanguageServices, SpecializationServices, DoctorSpecialityServices, DoctorServiceAddServices, StateServices};
 
@@ -129,5 +130,32 @@ class DoctorController extends Controller
               'doctors' =>  $filtered
             ])->render()
         ]);
+    }
+
+    /**
+     * Get doctor profile status html to update the profile update progress
+     */
+    public function getDoctorProfileProgressHtml(Request $request)
+    {
+        
+        $data = Validator::make($request->all(),[
+            'doctor_id'     =>  'required|exists:users,id,role,2'
+        ]);
+
+        $profileStatusHTML = '';
+        $status = false;
+            
+        $profileCompleteStatus = checkDoctorProfileCompleteStatus($request->doctor_id);
+        if($profileCompleteStatus)
+        {
+            $profileStatusHTML = createDoctorProfileStatus($profileCompleteStatus);
+            $status = true;
+        }
+            
+        
+        return [
+            'status'    =>  $status,
+            'html'      =>  $profileStatusHTML
+        ];
     }
 }

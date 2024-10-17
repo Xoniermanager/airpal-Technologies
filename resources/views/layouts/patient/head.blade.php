@@ -39,7 +39,7 @@
 
 <script>
     window.site_admin_base_url = '{{ env('SITE_ADMIN_BASE_URL') }}';
-    window.site_base_url = '{{ env('APP_URL') }}';
+    window.site_base_url = '{{ env('SITE_BASE_URL') }}';
 </script>
 
 <title>Airpal Technology</title>

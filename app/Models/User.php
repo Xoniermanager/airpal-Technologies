@@ -41,7 +41,8 @@ class User extends Authenticatable
         'description',
         'experience_years',
         'allover_rating',
-        'device_token'
+        'device_token',
+        'profile_status'
     ];
 
     /**

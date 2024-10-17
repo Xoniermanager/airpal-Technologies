@@ -15,20 +15,14 @@
                         </h2>
                     </td>
                     <td>
-                        <span>
-                            @if($doctor->specializations->isNotEmpty())
-                                {{ $doctor->specializations->implode('name', ', ') }}
-                            @else
-                                No specializations added
-                            @endif
-                        </span>
-                        
+                    <span>{{ $doctor->specializations->implode('name',', ') }}</span>
                     <td>{{ getFormattedDate($doctor->created_at) }} <br></td>
                     <td> {{ $doctor->calculateTotalPayments() }}</td>
                     <td>
                         <div class="status-toggle">
-                            <input type="checkbox" id="{{$doctor->id}}" class="check" checked>
-                            <label for="{{$doctor->id}}" class="checktoggle">checkbox</label>
+                            <!-- <input type="checkbox" id="{{$doctor->id}}" class="check" checked>
+                            <label for="{{$doctor->id}}" class="checktoggle">checkbox</label> -->
+                            {{ $doctor->profile_status }} %
                         </div>
                     </td>
                     <td>

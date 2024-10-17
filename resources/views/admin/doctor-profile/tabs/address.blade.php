@@ -3,6 +3,23 @@
     <div class="dashboard-header border-0 mb-0">
         <h3>Address</h3>
     </div>
+    @php
+        $address = '';
+        $cityName = '';
+        $stateName = '';
+        $countryName = '';
+        $pinCode = '';
+        $encodedAddress = '';
+
+        if(isset($userAddressDetails) && !empty($userAddressDetails))
+        {
+            $address = $userAddressDetails->address ?? '';
+            $cityName    = $userAddressDetails->city ?? '';
+            $stateName   = $userAddressDetails->state->name ?? '';
+            $countryName = $userAddressDetails->country->name ?? '';
+            $pinCode = $userAddressDetails->pin_code ?? '';
+        }
+    @endphp
     <form id="doctorAddressform" method="post" enctype="multipart/form-data">
         @csrf 
         <div class="accordions address-infos" id="addressAccordion">
@@ -15,23 +32,22 @@
                         <div class="add-service-info">
                             <div class="add-info">
                                 <div class="row align-items-center">
+
                                     <div class="col-md-6">
                                         <div class="form-wrap">
                                             <label class="col-form-label">Street</label>
-                                            <input type="text" class="form-control" name="street" placeholder="eg.'hudson 11' " value="{{$singleDoctorDetails->doctorAddress->address ?? ''}}"> 
+                                            <input type="text" class="form-control" name="street" placeholder="eg.'hudson 11' " value="{{ $address }}"> 
                                             <span class="text-danger" id="street_error"></span>
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
                                         <div class="form-wrap">
                                             <label class="col-form-label">Country</label>  
                                             <select class="form-control select" name="country" id="country">
                                                 <option value="">Select Country </option>
                                                 @forelse ($countries as $country )
-                                                <option value="{{ $country->id }}"
-                                                    @if(isset($singleDoctorDetails) && isset($singleDoctorDetails->doctorAddress) && $singleDoctorDetails->doctorAddress->country_id == $country->id)
-                                                        selected
-                                                    @endif>
+                                                <option value="{{ $country->id }}" {{ $countryName == $country->name }} >
                                                     {{ $countryName = $country->name }}
                                                 </option>
                                                 @empty
@@ -50,10 +66,7 @@
                                                 <select  class="form-control select" id="states" name="states">
                                                     <option value=" ">Select State </option>
                                                     @forelse ($states as $state )
-                                                    <option value="{{ $state->id }}"
-                                                        @if(isset($singleDoctorDetails) && isset($singleDoctorDetails->doctorAddress) && $singleDoctorDetails->doctorAddress->state_id == $state->id)
-                                                            selected
-                                                        @endif>
+                                                    <option value="{{ $state->id }}" {{ ($stateName == $state->name) ? 'selected' : '' }} >
                                                         {{ $state->name }}
                                                     </option>
                                                      @empty
@@ -64,13 +77,14 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form-wrap">
                                             <label class="col-form-label">City<span
                                                     class="text-danger">*</span></label>
                                             <div class="form-icon">
                                                 <input type="text"
-                                                class="form-control" name="city" autocomplete="off" id="city"  placeholder="eg.'Vanaras' " value = "{{$singleDoctorDetails->doctorAddress->city ?? ''}}">
+                                                class="form-control" name="city" autocomplete="off" id="city"  placeholder="eg.'Vanaras' " value = "{{ $cityName }}">
                                                     <span class="text-danger" id="city_error"></span>
                                             </div>
                                         </div>
@@ -78,11 +92,11 @@
 
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form-wrap">
-                                            <label class="col-form-label">pincode<span
+                                            <label class="col-form-label">Pincode<span
                                                     class="text-danger">*</span></label>
                                             <div class="form-icon">
                                                 <input type="number"
-                                                    class="form-control" name="pincode" id="pincode" placeholder="eg.'11312' "  value="{{$singleDoctorDetails->doctorAddress->pin_code ?? ''}}">
+                                                    class="form-control" name="pincode" id="pincode" placeholder="eg.'11312' "  value="{{ $pinCode }}">
                                                     <span class="text-danger" id="pincode_error"></span>
                                             </div>
                                         </div>

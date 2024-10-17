@@ -38,7 +38,7 @@
 
 <script>
     window.site_admin_base_url = '{{ env('SITE_ADMIN_BASE_URL') }}';
-    window.site_base_url = '{{ env('APP_URL') }}';
+    window.site_base_url = '{{ env('SITE_BASE_URL') }}';
 </script>
 <script src="{{ asset('admin/assets/custom-js/add_doctor.js') }}"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

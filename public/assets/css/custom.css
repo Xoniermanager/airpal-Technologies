@@ -56061,3 +56061,170 @@ height: 80px;
     margin-top: 4px;
     margin-left: 4px;
 }
+
+/* Style to show the profile completion status in doctor profile */
+#progressbar {
+    margin: 2em 0 30px 0;
+    padding: 0;
+    overflow: hidden;
+    /*counter-reset: step;*/
+
+}
+
+#progressbar li {
+    font-family: 'Roboto', Helvetica;
+    list-style-type: none;
+    color: #797979;
+    text-transform: uppercase;
+    font-size: 12px;
+    width: 9%;
+    float: left;
+    position: relative;
+    font-weight: 600;
+    text-align: center;
+
+    z-index: 1;
+}
+
+#progressbar li p {
+    font-family: 'Roboto', Helvetica;
+    font-size: 11px;
+    font-weight: 500;
+    color: #797979;
+    line-height: 2;
+    padding: 0;
+    margin: 0;
+}
+
+#progressbar li:first-child:before {
+    content: " ";
+}
+
+#progressbar li:nth-child(2):before {
+    content: " ";
+
+}
+
+#progressbar li:nth-child(3):before {
+    content: " ";
+}
+
+#progressbar li:nth-child(4):before {
+    content: " ";
+}
+
+#progressbar li:nth-child(5):before {
+    content: " ";
+}
+
+#progressbar li:nth-child(6):before {
+    content: " ";
+}
+
+#progressbar li:nth-child(7):before {
+    content: " ";
+}
+
+#progressbar li:nth-child(8):before {
+    content: " ";
+}
+
+#progressbar li:nth-child(9):before {
+    content: " ";
+}
+
+#progressbar li:nth-child(10):before {
+    content: " ";
+}
+
+#progressbar li:last-child:before {
+    content: " ";
+}
+
+#progressbar li:before {
+    /*content: counter(step);*/
+    /*counter-increment: step;*/
+    width: 40px;
+    height: 40px;
+    font-family: Ionicons;
+    font-size: 25px;
+    line-height: 40px;
+    border-radius: 50%;
+    border: 2px solid #797979;
+    background-color: white;
+    display: block;
+    margin: 0 auto 5px auto;
+    z-index: 1;
+}
+
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background-color: #797979;
+    position: absolute;
+    top: 20px;
+    z-index: -1;
+    left: -22px;
+}
+
+#progressbar li:first-child:after {
+    content: none;
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after,
+#progressbar li.active {
+    border-color: #293991;
+    color: #293991;
+}
+
+#progressbar li.active+li:after {
+    background-color: #293991;
+    content: '';
+}
+
+#progressbar li.active:before {
+    content: '\f3fd';
+    background: #293991;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* CSS for showing doctor profile completion in progress percentage */
+.progress {
+  height: 3rem;
+  width: 100%;
+  border-radius: 10rem;
+}
+
+.progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 3rem;
+  background: linear-gradient(to right, #00f260, #11998e);
+  color: var(--light-color);
+  border-radius: 10rem;
+  opacity: 0;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+}
+.product-sliderss-container .product-item .product-thumb img {
+    height: 100px !important;
+    width: auto;
+    border: 1px solid #eee;
+}
+.product-sliderss-container .product-item .product-thumb {
+    margin: auto;
+    text-align: center; 
+}
+.loaderonload {
+    /* position: absolute; */
+    z-index: 99999;
+    display: block;
+}

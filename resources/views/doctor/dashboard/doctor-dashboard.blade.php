@@ -3,6 +3,11 @@
     <div class="dashboard-header">
         <h3>Revenue</h3>
     </div>
+    @php
+        $profileCompleteStatus = checkDoctorProfileCompleteStatus(Auth::id());
+        $profileStatusHTML = createDoctorProfileStatus($profileCompleteStatus);
+        echo $profileStatusHTML;
+    @endphp
     <div class="row">
         <div class="col-xl-12 d-flex">
             <div class="dashboard-chart-col w-100">

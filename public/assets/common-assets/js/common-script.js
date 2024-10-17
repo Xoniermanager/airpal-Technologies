@@ -350,3 +350,45 @@ function pay_fee_now(event,id)
     });
     return false;
 }
+
+function update_profile_completion_status(doctor_id)
+{
+    setTimeout(function(){
+        jQuery.ajax({
+            type: 'POST',
+            url: site_base_url + 'update-doctor-profile-status',
+            data:{
+                'doctor_id':doctor_id,
+                '_token': jQuery('meta[name=csrf-token]').attr('content')
+            },
+            // dataType: 'json',
+            success:function(response){
+                if(response.status)
+                {
+                    jQuery('#doctor-profile-progress-status').replaceWith(response.html);
+                }
+                console.log(response);
+            },
+            error: function(error_message){
+                console.log(error_message);
+            }
+        });
+    },500);
+}
+
+// Function to update profile progress percentage using animation
+function update_profile_progress_animation(progressComplete) 
+{
+    const progressBar = document.querySelector(".progress-bar");
+    let width = 0;
+    const count = setInterval(() => {
+    if (width != progressComplete) {
+      width++;
+      progressBar.style.opacity = "1";
+      progressBar.style.width = width + "%";
+      progressBar.innerHTML = width + "%";
+    } else {
+      clearInterval(count);
+    }
+  }, 10);
+}

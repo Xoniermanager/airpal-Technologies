@@ -19,35 +19,50 @@
             $userId = $singleDoctorDetails->id;
         }
 
+        // Check if user has reached this page to update specific section, if yes redirect to that section
+        $update = isset($_GET['update']) ? $_GET['update'] : '';
+        if(isset($update) && !empty($update))
+        {
+            echo '<script> jQuery(document).ready(function(){
+                setTimeout(function(){
+                jQuery(".'.$update.'").find("a").tab("show");
+                },300);
+            }); </script>';
+        }
     @endphp
 
                     <div class="dashboard-header">
                         <h3>Profile Settings</h3>
                     </div>
+                    @php
+                        $profileCompleteStatus = checkDoctorProfileCompleteStatus(Auth::id());
+                        $profileStatusHTML = createDoctorProfileStatus($profileCompleteStatus);
+                        echo $profileStatusHTML;
+                    @endphp
                     <div class="setting-tab">
                         <div class="appointment-tabs">
                             <ul class="nav  nav-dynamic">
-                                <li class="nav-item">
+                                <li class="nav-item profile_picture_and_description specializations services">
                                     <a class="nav-link active" href="#personal_details_tab" data-bs-toggle="tab">Personal
                                         Details</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item doctorAddress">
                                     <a class="nav-link" href="#address_tab" data-bs-toggle="tab"
                                         {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Address</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item educations">
                                     <a class="nav-link" href="#education_tab" data-bs-toggle="tab"
                                         {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Education</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item experiences">
                                     <a class="nav-link" href="#experience_tab" data-bs-toggle="tab"
                                         {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Experience</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item awards">
                                     <a class="nav-link" href="#awards" data-bs-toggle="tab"
                                         {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Awards</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item workingHour">
                                     <a class="nav-link" href="#working_hours_tab" data-bs-toggle="tab"
                                         {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Working Hours</a>
                                 </li>

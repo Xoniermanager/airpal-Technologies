@@ -147,6 +147,9 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(PrescriptionController::class)->group(function () {
         Route::get('/download-pdf/{prescriptions:id}', 'downloadPrescriptionPdf')->name('prescription.pdf.download');
     });
+    
+    // Get the doctor profile status
+    Route::POST('update-doctor-profile-status',[AdminDoctorController::class,'getDoctorProfileProgressHtml'])->name('get.doctor.profile.status>html');
 });
 
 Route::controller(DiseaseDetailsController::class)->group(function () {

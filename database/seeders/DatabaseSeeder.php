@@ -61,5 +61,16 @@ class DatabaseSeeder extends Seeder
         $this->call(FaqCategoriesTableSeeder::class);
         $this->call(OurTeamsTableSeeder::class);
         $this->call(SectionImagesTableSeeder::class);
+        $this->performAdditionalTask();
+    }
+
+    protected function performAdditionalTask()
+    {
+        $doctorList = User::where('role',2)->get();
+        foreach($doctorList as $doctor)
+        {
+            checkDoctorProfileCompleteStatus($doctor->id);
+            \Log::info(message: 'User data seeded and custom task executed.');
+        }
     }
 }

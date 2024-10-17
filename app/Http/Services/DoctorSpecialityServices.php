@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Services;
+use App\Models\User;
 use App\Models\Country;
 use App\Models\DoctorSpeciality;
 use Illuminate\Support\Facades\DB;
@@ -12,23 +13,8 @@ class DoctorSpecialityServices {
      }
     public function addOrUpdateDoctorSpecialities($userId, $specialities) {
 
-      $currentSpecialities = $this->doctor_speciality_repository->where('user_id', $userId)->pluck('speciality_id')->toArray();
-
-      $specialitiesToAddOrUpdate = array_diff($specialities, $currentSpecialities);
-      $specialitiesToRemove = array_diff($currentSpecialities, $specialities);
-  
-      // Remove specialities that are no longer associated with the user
-      if (!empty($specialitiesToRemove)) {
-          $this->doctor_speciality_repository->where('user_id', $userId)
-              ->whereIn('speciality_id', $specialitiesToRemove)
-              ->delete();
-      }
-      foreach ($specialitiesToAddOrUpdate as $speciality) {
-        $this->doctor_speciality_repository->updateOrCreate(
-              ['user_id' => $userId, 'speciality_id' => $speciality],
-              ['user_id' => $userId, 'speciality_id' => $speciality]
-          );
-      }
+      $userDetails = User::find($userId);
+      $userDetails->specializations()->sync($specialities);
       return true;
   }
 

@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Patient;
 
 use Illuminate\Http\Request;
+use App\Mail\WelcomeMailForDoctor;
 use App\Http\Services\AuthServices;
+use App\Mail\WelcomeMailForPatient;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Repositories\UserRepository;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\ChangePasswordRequest;
@@ -46,6 +49,10 @@ class PatientAuthController extends Controller
       ]);
 
       if ($userCreated) {
+        if($userCreated->role == 3)
+        {
+            Mail::to($request->email)->send(new WelcomeMailForPatient($userCreated));
+        }
         return response()->json([
           "success"   => true,
           "redirect_url" => route('login.index'),

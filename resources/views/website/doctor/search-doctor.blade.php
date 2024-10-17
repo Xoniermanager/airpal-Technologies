@@ -278,7 +278,7 @@
                                 </div>
                                 <div class="doctor-filter-option">
                                   <input value="{{ isset($_GET['query']) ? $_GET['query'] : '' }}" name="searchKey" id="search-key" type="text" placeholder="Search By Name" class="form-control">
-                                    <div class="doctor-filter-sort">
+                                    {{-- <div class="doctor-filter-sort">
                                         <ul class="nav">
                                             <li>
                                                 <a href="#">
@@ -291,7 +291,7 @@
                                                 </a>
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

@@ -43,7 +43,7 @@
                                         <label class="focus-label">Mobile Number</label>
                                         <span class="text-danger" id="phone_error"></span>
                                     </div>
-                                   
+
                                     <div class="row">
                                         <div class="col-md-6 mb-4">
                                             <div>
@@ -54,11 +54,11 @@
                                                 </select>
                                                 <span class="text-danger" id="gender_error"></span>
                                             </div>
-        
+
                                         </div>
-                                        <div class="col-md-6 mb-4">  
-                                             <div class="k-justify-content-center">
-                                                <div class="k-w-300"> 
+                                        <div class="col-md-6 mb-4">
+                                            <div class="k-justify-content-center">
+                                                <div class="k-w-300">
                                                     <select id="languages" class="form-control" name="languages[]"></select>
                                                 </div>
                                             </div>
@@ -67,8 +67,9 @@
                                             <div class="mb-4 form-focus">
                                                 <div class="k-justify-content-center">
                                                     <div class="k-w-300">
-                                                   
-                                                        <select id="services" class="form-control"  name="services[]"></select>
+
+                                                        <select id="services" class="form-control"
+                                                            name="services[]"></select>
                                                     </div>
                                                 </div>
                                                 <span class="text-danger" id="last_name_error"></span>
@@ -79,8 +80,9 @@
                                             <div class="mb-4 form-focus">
                                                 <div class="k-justify-content-center">
                                                     <div class="k-w-300">
-                                              
-                                                        <select id="specialty" class="form-control" name="specialities[]"></select>
+
+                                                        <select id="specialty" class="form-control"
+                                                            name="specialities[]"></select>
                                                     </div>
                                                 </div>
                                                 <span class="text-danger" id="last_name_error"></span>
@@ -91,7 +93,17 @@
                                         <a class="forgot-link" href="{{ route('login.index') }}">Already have an
                                             account?</a>
                                     </div>
-                                    <button class="btn btn-primary w-100 btn-lg login-btn" type="submit">Signup</button>
+                                    {{-- <button class="btn btn-primary w-100 btn-lg login-btn" type="submit">Signup</button> --}}
+                                    <div class="btn-style-3">
+                                        <button class="btn btn-primary btn-lg register-btn" type="submit"
+                                            style="width:94%">Signup
+                                        </button>
+                                        <span class="btn-style-3">
+                                            <span class="position-absolute" id="loaderImage">
+                                                <img src="{{ asset('assets/img/1.webp') }}" class="loadingbtn">
+                                            </span>
+                                        </span>
+                                    </div>
                                 </form>
 
 
@@ -109,113 +121,117 @@
 @endsection
 
 @section('javascript')
-
     <script>
+        $("#loaderImage").hide();
         var site_base_url = "{{ env('SITE_BASE_URL') }}";
 
-            $("#register").validate({
-                rules: {
-                    first_name: {
-                        required: true
-                    },
-                    last_name: {
-                        required: true
-                    },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    phone_number: {
-                        required: true,
-                        digits: true,
-                        minlength: 8,
-                        maxlength: 12
-                    },
-                    password: {
-                        required: true,
-                        minlength: 8,
-                        maxlength: 30
-                    },
-                    gender: {
-                        required: true
-                    },
-                    'languages[]': {
-                        required: true
-                    },
-                    'services[]': {
-                        required: true
-                    },
-                    'specialities[]': {
-                        required: true
-                    }
+        $("#register").validate({
+            rules: {
+                first_name: {
+                    required: true
                 },
-                messages: {
-                    first_name: {
-                        required: "Please enter your first name"
-                    },
-                    last_name: {
-                        required: "Please enter your last name"
-                    },
-                    email: {
-                        required: "Please enter a valid email address",
-                        email: "Please enter a valid email address"
-                    },
-                    phone_number: {
-                        required: "Please enter your phone number",
-                        digits: "Please enter only digits",
-                        minlength: "Phone number must be at least 8 digits long",
-                        maxlength: "Phone number must be no more than 12 digits long"
-                    },
-                    password: {
-                        required: "Please enter your password",
-                        minlength: "Password must be at least 8 characters long",
-                        maxlength: "Password must be no more than 30 characters long"
-                    },
-                    gender: {
-                        required: "Please select your gender"
-                    },
-                    'languages[]': {
-                        required: "Please select your languages"
-                    },
-                    'services[]': {
-                        required: "Please select your services"
-                    },
-                    'specialities[]': {
-                        required: "Please select your specialties"
-                    }
+                last_name: {
+                    required: true
                 },
-                submitHandler: function(form) {
-                    var formData = new FormData(form);
-                    console.log(formData);
-                    $.ajax({
-                        url: "{{ route('admin.add-personal-details')}}",
-                        type: 'post',
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        dataType: 'json',
-                        success: function(response) {
-                            if (response.success) {
-                                Swal.fire("Done!", response.message, "success").then(() => {
-                                    window.location.href = response.redirect_url;
-                                });
-                            } else {
-                                Swal.fire("Error!", response.message, "error");
-                            }
-                        },
-                        error: function(error_messages) {
-                            var errors = error_messages.responseJSON.errors;
-                            $.each(errors, function(key, value) {
-                                $('#' + key + '_error').html(value);
-                            });
-                        }
-                    });
+                email: {
+                    required: true,
+                    email: true
+                },
+                phone_number: {
+                    required: true,
+                    digits: true,
+                    minlength: 8,
+                    maxlength: 12
+                },
+                password: {
+                    required: true,
+                    minlength: 8,
+                    maxlength: 30
+                },
+                gender: {
+                    required: true
+                },
+                'languages[]': {
+                    required: true
+                },
+                'services[]': {
+                    required: true
+                },
+                'specialities[]': {
+                    required: true
                 }
-            });
-  
+            },
+            messages: {
+                first_name: {
+                    required: "Please enter your first name"
+                },
+                last_name: {
+                    required: "Please enter your last name"
+                },
+                email: {
+                    required: "Please enter a valid email address",
+                    email: "Please enter a valid email address"
+                },
+                phone_number: {
+                    required: "Please enter your phone number",
+                    digits: "Please enter only digits",
+                    minlength: "Phone number must be at least 8 digits long",
+                    maxlength: "Phone number must be no more than 12 digits long"
+                },
+                password: {
+                    required: "Please enter your password",
+                    minlength: "Password must be at least 8 characters long",
+                    maxlength: "Password must be no more than 30 characters long"
+                },
+                gender: {
+                    required: "Please select your gender"
+                },
+                'languages[]': {
+                    required: "Please select your languages"
+                },
+                'services[]': {
+                    required: "Please select your services"
+                },
+                'specialities[]': {
+                    required: "Please select your specialties"
+                }
+            },
+            submitHandler: function(form) {
+                var formData = new FormData(form);
+                console.log(formData);
+                $.ajax({
+                    url: "{{ route('admin.add-personal-details') }}",
+                    type: 'post',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    dataType: 'json',
+                    beforeSend: function(msg) {
+                        $("#loaderImage").show();
+                        $('.register-btn').prop('disabled', true);
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire("Done!", response.message, "success").then(() => {
+                                window.location.href = response.redirect_url;
+                            });
+                        } else {
+                            Swal.fire("Error!", response.message, "error");
+                        }
+                    },
+                    error: function(error_messages) {
+                        $("#loaderImage").hide();
+                        var errors = error_messages.responseJSON.errors;
+                        $.each(errors, function(key, value) {
+                            $('#' + key + '_error').html(value);
+                        });
+                    }
+                });
+            }
+        });
     </script>
 
     <base href="https://demos.telerik.com/kendo-ui/multiselect/serverfiltering">
@@ -254,96 +270,96 @@
             });
         });
 
-        var languagesDataSource= new kendo.data.DataSource({
-        batch: true,
-        transport: {
-            read: {
-                url: site_base_url + "language",
-                dataType: "json"
-            },
-            parameterMap: function(options, operation) {
-                if (operation !== "read" && options.models) {
-                    return {
-                        models: kendo.stringify(options.models)
-                    };
+        var languagesDataSource = new kendo.data.DataSource({
+            batch: true,
+            transport: {
+                read: {
+                    url: site_base_url + "language",
+                    dataType: "json"
+                },
+                parameterMap: function(options, operation) {
+                    if (operation !== "read" && options.models) {
+                        return {
+                            models: kendo.stringify(options.models)
+                        };
+                    }
                 }
-            }
-        },
-        schema: {
-            model: {
-                id: "id",
-                fields: {
-                    id: {
-                        type: "number"
-                    },
-                    name: {
-                        type: "string"
+            },
+            schema: {
+                model: {
+                    id: "id",
+                    fields: {
+                        id: {
+                            type: "number"
+                        },
+                        name: {
+                            type: "string"
+                        }
                     }
                 }
             }
-        }
-    });
+        });
 
 
-        var specialityDataSource= new kendo.data.DataSource({
-        batch: true,
-        transport: {
-            read: {
-                 url: site_base_url + "specialities/get-speciality",
-             dataType: "json"
-            },
-            parameterMap: function(options, operation) {
-                if (operation !== "read" && options.models) {
-                    return {
-                        models: kendo.stringify(options.models)
-                    };
+        var specialityDataSource = new kendo.data.DataSource({
+            batch: true,
+            transport: {
+                read: {
+                    url: site_base_url + "specialities/get-speciality",
+                    dataType: "json"
+                },
+                parameterMap: function(options, operation) {
+                    if (operation !== "read" && options.models) {
+                        return {
+                            models: kendo.stringify(options.models)
+                        };
+                    }
                 }
-            }
-        },
-        schema: {
-            model: {
-                id: "id",
-                fields: {
-                    id: {
-                        type: "number"
-                    },
-                    name: {
-                        type: "string"
+            },
+            schema: {
+                model: {
+                    id: "id",
+                    fields: {
+                        id: {
+                            type: "number"
+                        },
+                        name: {
+                            type: "string"
+                        }
                     }
                 }
             }
-        }
-    });
+        });
 
 
-        var servicesDataSource= new kendo.data.DataSource({
-        batch: true,
-        transport: {
-            read: {
-             url: site_base_url + "service/get-service",
-                        dataType: "json"
-            },
-            parameterMap: function(options, operation) {
-                if (operation !== "read" && options.models) {
-                    return {
-                        models: kendo.stringify(options.models)
-                    };
+        var servicesDataSource = new kendo.data.DataSource({
+            batch: true,
+            transport: {
+                read: {
+                    url: site_base_url + "service/get-service",
+                    dataType: "json"
+                },
+                parameterMap: function(options, operation) {
+                    if (operation !== "read" && options.models) {
+                        return {
+                            models: kendo.stringify(options.models)
+                        };
+                    }
                 }
-            }
-        },
-        schema: {
-            model: {
-                id: "id",
-                fields: {
-                    id: {
-                        type: "number"
-                    },
-                    name: {
-                        type: "string"
+            },
+            schema: {
+                model: {
+                    id: "id",
+                    fields: {
+                        id: {
+                            type: "number"
+                        },
+                        name: {
+                            type: "string"
+                        }
                     }
                 }
             }
-        }
-    });
+        });
     </script>
 @endsection

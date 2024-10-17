@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Services;
+use App\Models\User;
 use App\Models\State;
 use App\Models\Country;
 use App\Http\Repositories\DoctorLanguageRepository;
@@ -37,23 +38,9 @@ class DoctorLanguageServices
   
       public function addOrUpdateDoctorLanguage($userId, $languages) {
 
-         $currentLanguages  = $this->doctorLanguageRepository->where('user_id', $userId)->pluck('language_id')->toArray();
-         $languagesToAddOrUpdate  = array_diff($languages, $currentLanguages);
-         $languagesToRemove   = array_diff($currentLanguages, $languages);
-   
-         if (!empty($languagesToRemove)) {
-             $this->doctorLanguageRepository->where('user_id', $userId)
-                 ->whereIn('language_id', $languagesToRemove)
-                 ->delete();
-         }
-         foreach ($languagesToAddOrUpdate as $language) {
-             $this->doctorLanguageRepository->updateOrCreate(
-                 ['user_id' => $userId, 'language_id' => $language],
-                 ['user_id' => $userId, 'language_id' => $language]
-             );
-         }
-     
-         return true;
+        $userDetails = User::find($userId);
+        $userDetails->language()->sync($languages);
+        return true;
      }
      
   

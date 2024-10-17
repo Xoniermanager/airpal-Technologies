@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Specialization;
+use App\Mail\WelcomeMailForDoctor;
 use App\Http\Controllers\Controller;
 use App\Models\{Service, DayOfWeek};
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreDoctorPersonalDetailRequest;
@@ -75,6 +77,13 @@ class DoctorController extends Controller
                     $addedLanguages    = $this->doctor_language_services->addOrUpdateDoctorLanguage($userId, $request->languages);
                     $addedSpecialties  = $this->doctor_speciality_services->addOrUpdateDoctorSpecialities($userId, $request->specialities);
                     $addedServices     = $this->doctor_service_add_services->addOrUpdateDoctorServices($userId, $request->services);
+                    $userName = json_decode($user->content())->data->first_name;
+                    if(json_decode($user->content())->data->role == 2)
+                    {
+                        $userCreated = json_decode($user->content())->data;
+                        Mail::to($request->email)->send(new WelcomeMailForDoctor($userName));
+                    }
+
                     if ($addedLanguages && $addedSpecialties && $addedServices) {
                         // return  json_decode($user->content());
                         return response()->json([

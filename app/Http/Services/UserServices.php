@@ -105,7 +105,8 @@ class UserServices
             [
                 'message' => $message,
                 'status'  => $status,
-                'id'      => $user->id
+                'id'      => $user->id,
+                'data'    => $user
             ]
         );
     }

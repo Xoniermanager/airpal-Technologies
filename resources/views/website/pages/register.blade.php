@@ -59,7 +59,17 @@
                                         <a class="forgot-link" href="{{ route('login.index') }}">Already have an
                                             account?</a>
                                     </div>
-                                    <button class="btn btn-primary w-100 btn-lg login-btn" type="submit">Signup</button>
+                                    {{-- <button class="btn btn-primary w-100 btn-lg login-btn" type="submit">Signup</button> --}}
+                                    <div class="btn-style-3">
+                                        <button class="btn btn-primary btn-lg register-btn" type="submit"
+                                            style="width:94%">Signup
+                                        </button>
+                                        <span class="btn-style-3">
+                                            <span class="position-absolute" id="loaderImage">
+                                                <img src="{{ asset('assets/img/1.webp') }}" class="loadingbtn">
+                                            </span>
+                                        </span>
+                                    </div>
                                 </form>
 
                             </div>
@@ -76,6 +86,7 @@
 @section('javascript')
     <script>
         $(document).ready(function() {
+            $("#loaderImage").hide();
             $("#register").validate({
                 rules: {
                     first_name: {
@@ -141,6 +152,10 @@
                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
                         },
                         dataType: 'json',
+                        beforeSend: function(msg) {
+                        $("#loaderImage").show();
+                        $('.register-btn').prop('disabled', true);
+                    },
                         success: function(response) {
                             if (response.success) {
                                 Swal.fire("Done!", response.message, "success").then(() => {
@@ -151,6 +166,7 @@
                             }
                         },
                         error: function(error_messages) {
+                            $("#loaderImage").hide();
                             var errors = error_messages.responseJSON.errors;
                             $.each(errors, function(key, value) {
                                 $('#' + key + '_error').html(value);

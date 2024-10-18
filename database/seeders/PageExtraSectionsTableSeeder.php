@@ -26,10 +26,10 @@ class PageExtraSectionsTableSeeder extends Seeder
                 'model' => 'App\\Models\\User',
                 'order_by' => 'desc',
                 'order_with_column' => 'experience_years',
-                'no_of_records' => '4',
+                'no_of_records' => '6',
                 'status' => 1,
                 'created_at' => '2024-09-10 05:37:37',
-                'updated_at' => '2024-09-10 09:15:53',
+                'updated_at' => '2024-09-27 04:20:25',
             ),
             1 => 
             array (
@@ -41,7 +41,7 @@ class PageExtraSectionsTableSeeder extends Seeder
                 'no_of_records' => '5',
                 'status' => 1,
                 'created_at' => '2024-09-10 07:05:48',
-                'updated_at' => '2024-09-10 09:15:53',
+                'updated_at' => '2024-09-27 04:20:25',
             ),
             2 => 
             array (
@@ -53,7 +53,7 @@ class PageExtraSectionsTableSeeder extends Seeder
                 'no_of_records' => '8',
                 'status' => 1,
                 'created_at' => '2024-09-10 09:15:15',
-                'updated_at' => '2024-09-10 09:21:41',
+                'updated_at' => '2024-09-26 11:50:34',
             ),
             3 => 
             array (
@@ -65,7 +65,7 @@ class PageExtraSectionsTableSeeder extends Seeder
                 'no_of_records' => '3',
                 'status' => 1,
                 'created_at' => '2024-09-10 09:15:15',
-                'updated_at' => '2024-09-10 09:21:41',
+                'updated_at' => '2024-09-26 11:50:34',
             ),
             4 => 
             array (

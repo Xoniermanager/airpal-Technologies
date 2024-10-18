@@ -22,11 +22,11 @@ class ListItemsTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 81,
-                'title' => 'hello Real-time Monitoring: Track your vital signs, including heart rate, blood pressure, and oxygen levels, and more in real-time.',
+                'title' => 'Real-time Monitoring: Track your vital signs, including heart rate, blood pressure, and oxygen levels, and more in real-time.',
                 'status' => 1,
                 'section_lists_id' => 53,
                 'created_at' => '2024-09-11 13:33:55',
-                'updated_at' => '2024-09-12 16:24:40',
+                'updated_at' => '2024-10-18 10:04:00',
             ),
             1 => 
             array (
@@ -49,11 +49,11 @@ class ListItemsTableSeeder extends Seeder
             3 => 
             array (
                 'id' => 84,
-                'title' => 'Adipisicing culpa e',
+                'title' => NULL,
                 'status' => 1,
                 'section_lists_id' => 53,
                 'created_at' => '2024-09-11 13:33:55',
-                'updated_at' => '2024-09-11 13:33:55',
+                'updated_at' => '2024-10-18 10:14:48',
             ),
             4 => 
             array (
@@ -85,11 +85,11 @@ class ListItemsTableSeeder extends Seeder
             7 => 
             array (
                 'id' => 88,
-                'title' => 'Magnam ullam ullamco',
+                'title' => NULL,
                 'status' => 1,
                 'section_lists_id' => 54,
                 'created_at' => '2024-09-11 13:33:55',
-                'updated_at' => '2024-09-11 13:33:55',
+                'updated_at' => '2024-10-18 10:16:51',
             ),
             8 => 
             array (

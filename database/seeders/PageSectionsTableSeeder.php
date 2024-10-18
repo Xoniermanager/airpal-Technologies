@@ -35,7 +35,7 @@ class PageSectionsTableSeeder extends Seeder
             1 => 
             array (
                 'id' => 103,
-                'title' => '4 easy steps to get your solution d',
+                'title' => '4 easy steps to get your solution',
                 'subtitle' => '',
                 'image' => 'site-data/section-banner/how_it_works-1727257615.png',
                 'content' => '',
@@ -43,7 +43,7 @@ class PageSectionsTableSeeder extends Seeder
                 'page_id' => 1,
                 'status' => 1,
                 'created_at' => '2024-09-07 07:33:58',
-                'updated_at' => '2024-09-25 09:46:55',
+                'updated_at' => '2024-10-18 07:27:29',
             ),
             2 => 
             array (
@@ -61,7 +61,7 @@ class PageSectionsTableSeeder extends Seeder
             3 => 
             array (
                 'id' => 105,
-                'title' => 'Download the Airpal App today!',
+                'title' => 'Download the Airpal Technology App today!',
                 'subtitle' => 'Working for Your Better Health.',
                 'image' => 'site-data/section-banner/download_app-1727257893.png',
                 'content' => '',
@@ -69,7 +69,7 @@ class PageSectionsTableSeeder extends Seeder
                 'page_id' => 1,
                 'status' => 1,
                 'created_at' => '2024-09-07 13:00:48',
-                'updated_at' => '2024-09-25 09:51:33',
+                'updated_at' => '2024-10-18 07:38:38',
             ),
             4 => 
             array (
@@ -180,30 +180,30 @@ class PageSectionsTableSeeder extends Seeder
                 'id' => 118,
                 'title' => 'Wearable Medical Device & Health Monitoring Technology',
                 'subtitle' => 'Experts opinion at your comfort Zone',
-                'image' => 'site-data/section-banner/health_monitoring_banner-1727289589.png',
+                'image' => 'section-banner/health_monitoring_banner-1729245601.png',
                 'content' => '',
                 'section_slug' => 'health_monitoring_banner',
                 'page_id' => 3,
                 'status' => 1,
                 'created_at' => '2024-09-08 15:05:26',
-                'updated_at' => '2024-09-25 18:39:49',
+                'updated_at' => '2024-10-18 10:00:01',
             ),
             13 => 
             array (
                 'id' => 119,
-                'title' => 'Health Monitoring Device',
+                'title' => 'Wearable Health Monitoring',
                 'subtitle' => '',
                 'image' => 'site-data/section-banner/health_monitoring_device-1727266199.jpg',
-                'content' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                'content' => 'Connect Your Wearables with AirPal
 
-Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s,
+- AirPal offers a comprehensive health monitoring solution that seamlessly integrates with your wearable devices.
 
-when an unknown printer took a galley of type and scrambled',
+- Our software app connects with wearables to provide real-time monitoring of vital signs, ensuring timely detection of any irregularities.',
                 'section_slug' => 'health_monitoring_device',
                 'page_id' => 3,
                 'status' => 1,
                 'created_at' => '2024-09-08 15:47:09',
-                'updated_at' => '2024-09-25 12:09:59',
+                'updated_at' => '2024-10-18 10:02:03',
             ),
             14 => 
             array (

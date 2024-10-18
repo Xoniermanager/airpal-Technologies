@@ -22,12 +22,12 @@ class SectionListsTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 53,
-                'title' => 'Key Features hello',
+                'title' => 'Key Features',
                 'icon' => 'Ut eaque omnis et ob',
                 'section_id' => 123,
                 'status' => 1,
                 'created_at' => '2024-09-11 13:33:55',
-                'updated_at' => '2024-09-12 16:23:29',
+                'updated_at' => '2024-10-18 10:04:00',
             ),
             1 => 
             array (

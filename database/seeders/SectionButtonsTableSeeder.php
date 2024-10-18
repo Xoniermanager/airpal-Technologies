@@ -63,11 +63,11 @@ class SectionButtonsTableSeeder extends Seeder
             array (
                 'id' => 25,
                 'text' => 'Contact With Us',
-                'link' => 'https://play.google.com/store/games',
+                'link' => '/contact',
                 'section_id' => 111,
                 'status' => 1,
                 'created_at' => '2024-09-08 11:23:05',
-                'updated_at' => '2024-09-09 05:47:11',
+                'updated_at' => '2024-10-18 10:25:33',
             ),
             5 => 
             array (
@@ -168,6 +168,66 @@ class SectionButtonsTableSeeder extends Seeder
                 'status' => 1,
                 'created_at' => '2024-09-25 09:51:33',
                 'updated_at' => '2024-09-25 09:51:33',
+            ),
+            15 => 
+            array (
+                'id' => 39,
+                'text' => NULL,
+                'link' => NULL,
+                'section_id' => 123,
+                'status' => 1,
+                'created_at' => '2024-09-26 11:29:26',
+                'updated_at' => '2024-09-26 11:29:26',
+            ),
+            16 => 
+            array (
+                'id' => 40,
+                'text' => NULL,
+                'link' => NULL,
+                'section_id' => 123,
+                'status' => 1,
+                'created_at' => '2024-09-26 11:29:26',
+                'updated_at' => '2024-09-26 11:29:26',
+            ),
+            17 => 
+            array (
+                'id' => 41,
+                'text' => NULL,
+                'link' => 'https://www.apple.com/in/app-store/',
+                'section_id' => 105,
+                'status' => 1,
+                'created_at' => '2024-09-26 15:47:46',
+                'updated_at' => '2024-09-26 15:47:46',
+            ),
+            18 => 
+            array (
+                'id' => 42,
+                'text' => NULL,
+                'link' => 'https://www.apple.com/in/app-store/',
+                'section_id' => 105,
+                'status' => 1,
+                'created_at' => '2024-09-26 15:47:53',
+                'updated_at' => '2024-09-26 15:47:53',
+            ),
+            19 => 
+            array (
+                'id' => 43,
+                'text' => NULL,
+                'link' => 'https://www.apple.com/in/app-store/',
+                'section_id' => 105,
+                'status' => 1,
+                'created_at' => '2024-09-26 15:47:58',
+                'updated_at' => '2024-09-26 15:47:58',
+            ),
+            20 => 
+            array (
+                'id' => 44,
+                'text' => NULL,
+                'link' => 'https://www.apple.com/in/app-store/',
+                'section_id' => 105,
+                'status' => 1,
+                'created_at' => '2024-10-18 07:38:38',
+                'updated_at' => '2024-10-18 07:38:38',
             ),
         ));
         

@@ -33,13 +33,13 @@ class SectionContentsTableSeeder extends Seeder
             1 => 
             array (
                 'id' => 98,
-                'title' => 'doctor-profile-icon Describe Your Needs',
+                'title' => 'Describe Your Needs',
                 'subtitle' => NULL,
                 'image' => 'site-data/section-content/98-1727257615.svg',
                 'content' => 'Tell us about your healthcare needs and concerns. Provide details about your symptoms, medical history, and any specific questions you have for the doctor.',
                 'section_id' => 103,
                 'created_at' => '2024-09-07 07:33:58',
-                'updated_at' => '2024-09-25 09:46:55',
+                'updated_at' => '2024-10-18 07:29:42',
             ),
             2 => 
             array (
@@ -47,11 +47,10 @@ class SectionContentsTableSeeder extends Seeder
                 'title' => 'Schedule Appointment',
                 'subtitle' => NULL,
                 'image' => 'site-data/section-content/99-1727257615.svg',
-                'content' => 'Schedule Appointment
-We offer flexible scheduling options, including same-day appointments and extended hours, to accommodate your busy schedule.',
+                'content' => 'We offer flexible scheduling options, including same-day appointments and extended hours, to accommodate your busy schedule.',
                 'section_id' => 103,
                 'created_at' => '2024-09-07 07:33:58',
-                'updated_at' => '2024-09-25 09:46:55',
+                'updated_at' => '2024-10-18 07:29:42',
             ),
             3 => 
             array (
@@ -100,13 +99,13 @@ We offer flexible scheduling options, including same-day appointments and extend
             7 => 
             array (
                 'id' => 104,
-                'title' => 'Treatment ForComplex Conditions',
+                'title' => 'Treatment For Complex Conditions',
                 'subtitle' => NULL,
                 'image' => 'site-data/section-content/104-1727257822.svg',
                 'content' => NULL,
                 'section_id' => 104,
                 'created_at' => '2024-09-07 11:47:45',
-                'updated_at' => '2024-09-25 09:50:22',
+                'updated_at' => '2024-10-18 07:35:32',
             ),
             8 => 
             array (
@@ -158,21 +157,21 @@ We offer flexible scheduling options, including same-day appointments and extend
                 'title' => 'Patient Diary',
                 'subtitle' => NULL,
                 'image' => 'site-data/section-content/109-1727332259.png',
-                'content' => 'Our platform includes a patient diary feature, allowing users to track symptoms, record vital information, and monitor their health progress over time.s',
+                'content' => 'Our platform includes a patient diary feature, allowing users to track symptoms, record vital information, and monitor their health progress over time',
                 'section_id' => 112,
                 'created_at' => '2024-09-08 12:24:41',
-                'updated_at' => '2024-09-26 06:30:59',
+                'updated_at' => '2024-10-18 10:22:15',
             ),
             13 => 
             array (
                 'id' => 110,
-                'title' => 'Airpal Portal',
+                'title' => 'Telemedicine Portal',
                 'subtitle' => NULL,
                 'image' => 'site-data/section-content/110-1727332259.png',
-                'content' => 'We offer a Airpal portal for remote consultations, enabling patients to connect with healthcare providers virtually from the comfort of their homes.',
+                'content' => 'We offer a telemedicine portal for remote consultations, enabling patients to connect with healthcare providers virtually from the comfort of their homes.',
                 'section_id' => 112,
                 'created_at' => '2024-09-08 12:24:41',
-                'updated_at' => '2024-09-26 06:30:59',
+                'updated_at' => '2024-10-18 10:24:02',
             ),
             14 => 
             array (
@@ -276,57 +275,57 @@ We offer flexible scheduling options, including same-day appointments and extend
             23 => 
             array (
                 'id' => 120,
-                'title' => 'Monitors Users Health Remotely',
+                'title' => 'Secure Video Consultation',
                 'subtitle' => NULL,
                 'image' => NULL,
                 'content' => NULL,
                 'section_id' => 121,
                 'created_at' => '2024-09-08 16:58:38',
-                'updated_at' => '2024-09-08 16:58:38',
+                'updated_at' => '2024-10-18 10:19:00',
             ),
             24 => 
             array (
                 'id' => 121,
-                'title' => 'Connects Patients with Medical Staff',
+            'title' => 'Integrated Electronic Health Records (EHR)',
                 'subtitle' => NULL,
                 'image' => NULL,
                 'content' => NULL,
                 'section_id' => 121,
                 'created_at' => '2024-09-08 16:58:38',
-                'updated_at' => '2024-09-08 16:58:38',
+                'updated_at' => '2024-10-18 10:19:37',
             ),
             25 => 
             array (
                 'id' => 122,
-                'title' => 'Helps People with Mental Health Problems',
+                'title' => 'Appointment Scheduling and Reminders',
                 'subtitle' => NULL,
                 'image' => NULL,
                 'content' => NULL,
                 'section_id' => 121,
                 'created_at' => '2024-09-08 16:58:38',
-                'updated_at' => '2024-09-08 16:58:38',
+                'updated_at' => '2024-10-18 10:19:37',
             ),
             26 => 
             array (
                 'id' => 123,
-                'title' => 'Calms people who have panic attacks',
+                'title' => 'Prescription Management',
                 'subtitle' => NULL,
                 'image' => NULL,
                 'content' => NULL,
                 'section_id' => 121,
                 'created_at' => '2024-09-08 16:58:38',
-                'updated_at' => '2024-09-08 16:58:38',
+                'updated_at' => '2024-10-18 10:19:37',
             ),
             27 => 
             array (
                 'id' => 124,
-                'title' => 'Quality Mentoring benefits',
+                'title' => 'Health Monitoring and Wearable Integration',
                 'subtitle' => NULL,
                 'image' => NULL,
                 'content' => NULL,
                 'section_id' => 121,
                 'created_at' => '2024-09-08 16:58:38',
-                'updated_at' => '2024-09-08 16:58:38',
+                'updated_at' => '2024-10-18 10:19:37',
             ),
             28 => 
             array (

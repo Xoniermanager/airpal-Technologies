@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('list_items', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->boolean('status');
             $table->unsignedBigInteger('section_lists_id');
             $table->foreign('section_lists_id')->references('id')->on('section_lists');

@@ -585,7 +585,7 @@
             batch: true,
             transport: {
                 read: {
-                    url: "/slots/getWeekDays",
+                    url: window.site_base_url + "slots/getWeekDays",
                     dataType: "json"
                 },
                 // create: {

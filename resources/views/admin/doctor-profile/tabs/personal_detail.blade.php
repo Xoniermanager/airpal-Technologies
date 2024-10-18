@@ -126,7 +126,7 @@
                 </div>
             </div>
         </div>
-        <div class="setting-title">
+        {{-- <div class="setting-title">
             <h5>Speciality & Services </h5>
         </div>
         <div class="setting-card">
@@ -175,7 +175,7 @@
                 </div>
             </div>
 
-        </div>
+        </div> --}}
 
 
         <div class="setting-title">

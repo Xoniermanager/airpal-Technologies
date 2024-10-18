@@ -17,6 +17,7 @@ use App\Http\Controllers\OurTeamController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\PaymentController;
 use App\Jobs\UpdateDoctorRatingsAverageValue;
+use App\Models\Admin\DoctorServiceController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\Admin\StateController;
 use App\Http\Controllers\Admin\PayPalController;
@@ -196,13 +197,15 @@ Route::prefix('doctor')->group(function () {
         Route::controller(ReviewsController::class)->group(function () {
             Route::get('reviews', 'doctorReviews')->name('doctor.doctor-reviews.index');
         });
-        Route::controller(DoctorSocialMediaAccountsController::class)->group(function () {
-            Route::get('social', 'doctorSocial')->name('doctor.doctor-social.index');
-            Route::post('add-account', 'addSocialMedia')->name('add.social.media.account');
-            Route::post('update-account', 'updateSocialMediaAccount')->name('update.social.media.account');
-            Route::post('delete-account', 'deleteSocialMediaAccount')->name('delete.social.media.account');
-            Route::get('get-social-media-accounts', 'getAllSocialMediaAccounts')->name('get.social.media.account');
-        });
+        
+        // Route::controller(DoctorSocialMediaAccountsController::class)->group(function () {
+        //     Route::get('social', 'doctorSocial')->name('doctor.doctor-social.index');
+        //     Route::post('add-account', 'addSocialMedia')->name('add.social.media.account');
+        //     Route::post('update-account', 'updateSocialMediaAccount')->name('update.social.media.account');
+        //     Route::post('delete-account', 'deleteSocialMediaAccount')->name('delete.social.media.account');
+        //     Route::get('get-social-media-accounts', 'getAllSocialMediaAccounts')->name('get.social.media.account');
+        // });
+
         Route::controller(AppointmentConfigController::class)->group(function () {
             Route::get('/appointment-config', 'appointmentConfig')->name('doctor.appointment.config');
             Route::post('/add-appointment-config', 'addAppointmentConfig')->name('doctor.add.appointment.config');
@@ -263,6 +266,18 @@ Route::prefix('doctor')->group(function () {
 // common route for doctor and admin
 Route::middleware(['auth'])->group(function () {
 
+    Route::controller(DoctorSocialMediaAccountsController::class)->group(function () {
+        Route::get('social', 'doctorSocial')->name('doctor.doctor-social.index');
+        Route::post('add-social-media-profile', 'addSocialMedia')->name('add.social.media.account');
+        Route::post('update-account', 'updateSocialMediaAccount')->name('update.social.media.account');
+        Route::post('delete-account', 'deleteSocialMediaAccount')->name('delete.social.media.account');
+        Route::get('get-social-media-accounts', 'getAllSocialMediaAccounts')->name('get.social.media.account');
+    });
+
+    Route::prefix('state')->controller(StateController::class)->group(function () {
+        Route::get('get-state-by-country-id', 'getStateByCountryID')->name('get.state.by.country.id');
+    });
+
     Route::prefix('language')->controller(LanguageController::class)->group(function () {
         Route::get('ajax-create', 'store')->name('admin.language.add');
     });
@@ -319,6 +334,12 @@ Route::middleware(['auth'])->group(function () {
             Route::get('doctor-question-filter', 'doctorQuestionFilter')->name('doctor.question.filter');
             Route::get('get-question-by-doctor-id', 'getQuestionByDoctorId')->name('get.question.doctor.id');
         });
+        
+        // Doctor Service Specialities Common Concern routes
+        Route::controller(DoctorServiceController::class)->group(function () {
+            Route::post('service-specialities', 'addDoctorServiceSpecialities')->name('admin.add-doctor-service');
+        });
+        
     });
 
     Route::prefix('course')->controller(CourseController::class)->group(function () {
@@ -434,7 +455,6 @@ Route::prefix('admin')->group(function () {
             Route::post('create', 'store')->name('admin.state.add');
             Route::post('update/{state:id}', 'update')->name('admin.state.update');
             Route::delete('delete/{state:id}', 'deleteState')->name('admin.delete-state');
-            Route::get('get-state-by-country-id', 'getStateByCountryID')->name('get.state.by.country.id');
         });
 
         Route::prefix('social-media')->controller(AdminSocialMediaController::class)->group(function () {

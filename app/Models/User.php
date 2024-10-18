@@ -211,9 +211,8 @@ class User extends Authenticatable
     // Method to generate the HTML list of social media accounts
     public function DoctorSocialMediaAccountsList()
     {
-
-
         $html = '<ul class="social-media-list d-flex mt-2 mb-1">';
+        if (!isset($this->socialMediaAccounts)) {
         foreach ($this->socialMediaAccounts as $account) {
             $platform = $account->socialMediaAccountType->name;
             $url = $account->link;
@@ -221,6 +220,11 @@ class User extends Authenticatable
             $iconClass = ($platform) ? "fab fa-" . strtolower($platform) . "-square" : "fab fa-globe";
             $html .= '<li class="mr-1"><a href="' . $url . '" target="_blank"><i class="' . $iconClass . '"></i></a></li>';
         }
+    }else
+    {
+        $html .= '<li>No social media accounts found.</li>';
+
+    }
 
         $html .= '</ul>';
 

@@ -79,7 +79,7 @@
                 <div class="col-lg-8 col-md-12 work-details">
                     <div class="section-header-one aos">
                         <h5>How it Works</h5>
-                        <h2 class="section-title">{!! $sections['how_it_works']->title ?? '' !!}</h2>
+                        <h3 class="section-title">{!! $sections['how_it_works']->title ?? '' !!}</h3>
                     </div>
                     <div class="row">
                         @forelse ($sections['how_it_works']->getContent as  $contentSection)

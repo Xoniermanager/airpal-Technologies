@@ -9,6 +9,7 @@
         $userLanguageIds = [];
         $userCourse = [];
         $userSpeciality = [];
+        $userSocialMediaAccounts = [];
 
         if (isset($singleDoctorDetails) && !empty($singleDoctorDetails)) {
             $userEducationDetails = $singleDoctorDetails['educations'];
@@ -16,9 +17,9 @@
             $userWorkingHourDetails = $singleDoctorDetails['workingHour'];
             $userAddressDetails = $singleDoctorDetails->address;
             $userAwardsDetails = $singleDoctorDetails['awards'];
+            $userSocialMediaAccounts  = $singleDoctorDetails['socialMediaAccounts']->pluck('link','social_media_type_id');
             $userId = $singleDoctorDetails->id;
         }
-
     @endphp
 
     <div class="breadcrumb-bar-two">
@@ -60,6 +61,10 @@
                                     <a class="nav-link active" href="#personal_details_tab" data-bs-toggle="tab">Doctor
                                         Details</a>
                                 </li>
+                                <li class="nav-item specializations services">
+                                    <a class="nav-link" href="#service_details_tab" data-bs-toggle="tab"
+                                        {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Services Specialization</a>
+                                </li>
                                 <li class="nav-item doctorAddress">
                                     <a class="nav-link" href="#address_tab" data-bs-toggle="tab"
                                         {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Address</a>
@@ -80,6 +85,10 @@
                                     <a class="nav-link" href="#working_hours_tab" data-bs-toggle="tab"
                                         {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Working Hours</a>
                                 </li>
+                                <li class="nav-item socialMediaAccounts">
+                                    <a class="nav-link" href="#social_media_details_tab" data-bs-toggle="tab"
+                                        {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Social Media</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -90,6 +99,7 @@
                         @include('admin.doctor-profile.tabs.education')
                         @include('admin.doctor-profile.tabs.working-hour')
                         @include('admin.doctor-profile.tabs.awards')
+                        @include('admin.doctor-profile.tabs.social-media')
                     </div>
                 </div>
             </div>
@@ -847,6 +857,47 @@
 
             // Call the function to set up event listeners
             handleFileInputChange();
+        });
+
+        jQuery("#add_social_media_option").validate({
+            rules: {
+                //   "name[]" : "required",
+            },
+            messages: {
+                // "name[]": "Please ",
+            },
+            submitHandler: function(form) {
+                event.preventDefault();
+                var formData = new FormData(form);
+                $.ajax({
+                    url: "{{ route('add.social.media.account') }}",
+                    type: 'post',
+                    data: formData,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.status == true) {
+                            swal.fire("Done!", response.message, "success");
+                            setTimeout(function() {
+                                    window.location.href =
+                                        "{{ route('admin.index.doctors') }}"
+                                }, 1500);
+                        }
+                    },
+                    error: function(error_messages) {
+                        var errors = error_messages.responseJSON.errors;
+                        if (errors) {
+                            // Display validation errors
+                            $.each(errors, function(key, value) {
+                                // var id = key.replace('.', '_')
+                                var id = key.replace(/\./g, '_');
+                                $("#" + id + "_error").html(value[0]);
+                            });
+                        }
+                    }
+                });
+            }
         });
     </script>
 @endsection

@@ -79,17 +79,13 @@
                 </div>
                 <div class="row doctor-slider-one" data-="fade-up">
 
-                    @foreach ($doctorLists as $doctor)
-
-      
-                        
-               
+                    @forelse($doctorLists as $doctor)
                     <div class="col-md-3">
                         <div class="doctor-profile-widget">
                             <div class="doc-pro-img">
                                 <a href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">
                                     <div class="doctor-profile-img">
-                                        <img src="{{ $doctor->user->image_url}}" class="img-fluid"
+                                        <img src="{{ $doctor->user->image_url ?? ''}}" class="img-fluid"
                                         alt=""
                                         onerror="this.src='{{asset('assets/img/doctors/doctor-thumb-01.jpg')}}';" 
                                             >
@@ -104,6 +100,7 @@
                                         <h4>Dr. {{$doctor->user->first_name ?? ''}} {{$doctor->user->last_name ?? ''}} </h4>
                                     </a>
                                     <p>
+                                        @if (isset($doctor->user->educations))
                                         @forelse ($doctor->user->educations as $education)
                                         {{$education->course->name}}
                                         @if( !$loop->last)
@@ -111,8 +108,21 @@
                                         @endif
                                         @empty
                                         <p>N/A</p>
+                                        @endforelse 
+                                        @else
+                                        <p>N/A</p>       
+                                        @endif
+      
+                                    </p>
+                                        {{-- {{$doctor->specialty->name ?? ''}} --}}
+                                        @isset($doctor->user->specializations)
+                                        @forelse ($doctor->user->specializations as $specialty)
+                                          <span class="badge badge-info text-white">  {{ $specialty->name }}</span>
+                                        @empty
+                                            <p>N/A</p>
                                         @endforelse
-                                         <p>Specialty - <span class="badge badge-info text-white">{{$doctor->specialty->name ?? ''}}</span></p>
+                                    @endisset
+                                    </span></p>
                                         <div class="location border-top pt-3">
                                         {{-- <p><i class="fas fa-map-marker-alt"></i> San Diego, USA</p> --}}
 
@@ -137,8 +147,12 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    @endforeach
+                    </div>   
+                    @empty
+                      <p>Doctors Not Found</p>  
+                    @endforelse
+    
+   
 
                 </div>
             </div>

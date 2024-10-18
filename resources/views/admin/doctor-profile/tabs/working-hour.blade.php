@@ -3,20 +3,15 @@
         <h3>Business Hours</h3>
     </div>
     @php
-        $oldDay = [];
-        $dayId = [];
+        $activeDayIds = [];
 
         if (isset($userWorkingHourDetails) && !empty($userWorkingHourDetails)) {
-            $workingHour = $userWorkingHourDetails->toArray();
-            $oldDay = [];
-            $oldDayId = [];
-            foreach ($workingHour as $workingHour) {
-                $oldDay[] = $workingHour['days_of_week']['name'];
-                $dayId[] = $workingHour['day_id'];
+            foreach ($userWorkingHourDetails as $workingDay) {
+                if (!empty($workingDay->start_time) && !empty($workingDay->end_time)) {
+                    $activeDayIds[] = $workingDay->day_id;
+                }
             }
         }
-         //dd('workingids',$workingHour['start_time']);
-        // $daydetails = $userWorkingHourDetails->toArray();
     @endphp
     <form id="doctorWorkingHourFormData" method="post" enctype="multipart/form-data">
         @csrf
@@ -25,8 +20,8 @@
             <ul class="business-nav">
                 @foreach ($dayOfWeeks as $key => $day)
                     <li>
-                        <a day-id='day-{{ strtolower($day->name) }}'
-                            id='tab-{{ strtolower($day->name) }}'class="tab-link {{ (array_search($day->name, $oldDay) === false) ? (isset($oldDay) ? '' : 'active') ?? 'active' : 'active' }}"
+                        <a day-id='day-{{ strtolower($day->name) }}' id='tab-{{ strtolower($day->name) }}'
+                            class="tab-link {{ in_array($key, $activeDayIds) ? 'active' : '' }}"
                             data-tab="day-{{ strtolower($day->name) }}">{{ $day->name }}</a>
                     </li>
                 @endforeach
@@ -44,70 +39,74 @@
                                 <div class="col-md-1">
                                     <label for="" class="col-form-label">Available</label>
                                     @php
-                                            if($dayId)
-                                                { $checked  = array_search($day->id, $dayId) === false ? isset($dayId) ? '' : 'checked' ?? 'checked' : 'checked' ;
-                                            }else {
-                                                $checked  = array_search($day->id, $dayId) === false ? isset($dayId) ? 'checked' : '' ?? 'checked' : 'checked' ;
-                                            }
+                                        if (in_array($day->id, $activeDayIds)) {
+                                            $checked = 'checked';
+                                        } else {
+                                            $checked = '';
+                                        }
                                     @endphp
                                     <input
                                         onchange='unavailable_for_the_day("checkbox-{{ strtolower($day->name) }}","{{ strtolower($day->name) }}")'
                                         type="checkbox" id="checkbox-{{ strtolower($day->name) }}"
-                                        name="day[{{ $day->id }}][available]" value="1" {{$checked}} >
+                                        name="day[{{ $day->id }}][available]" value="1" {{ $checked }}>
                                 </div>
                                 <div class="col-md-5">
                                     <div class="form-wrap">
-                                        <label class="col-form-label">From 
-                                            @php 
-                                            $userWorkingHour = collect($userWorkingHourDetails)->firstWhere('day_id', $day->id);  
-                                            $startTime = ($userWorkingHour) ? \Carbon\Carbon::parse($userWorkingHour['start_time'])->format('H:i') : '';
-                                            $endTime = ($userWorkingHour) ? \Carbon\Carbon::parse($userWorkingHour['end_time'])->format('H:i') : '';
-                                        @endphp
-                                            
-                                            <span class="text-danger">*</span></label>
-                                        <div class="form-icon">
-                                            @php  
-                                                $startTime = array_search($day->id, $dayId) === false ? '' : $startTime;
-                                                $endTime   = array_search($day->id, $dayId) === false ? '' : $endTime;
-                                                if($dayId)
-                                                { $disabled  = array_search($day->id, $dayId) === false ? (isset($dayId) ? 'disabled' : 'disabled') : '';
-                                            }else {
-                                                $disabled = '';
-                                            }
-                                            
+                                        <label class="col-form-label">From
+                                            @php
+                                                $userWorkingHour = false;
+                                                if (in_array($day->id, $activeDayIds)) {
+                                                    $userWorkingHour = collect($userWorkingHourDetails)->firstWhere(
+                                                        'day_id',
+                                                        $day->id,
+                                                    );
+                                                }
+                                                $startTime = '';
+                                                $endTime = '';
+                                                if ($userWorkingHour) {
+                                                    $startTime = $userWorkingHour
+                                                        ? \Carbon\Carbon::parse($userWorkingHour['start_time'])->format(
+                                                            'H:i',
+                                                        )
+                                                        : '';
+                                                    $endTime = $userWorkingHour
+                                                        ? \Carbon\Carbon::parse($userWorkingHour['end_time'])->format(
+                                                            'H:i',
+                                                        )
+                                                        : '';
+                                                }
                                             @endphp
 
-                                            <input id='{{ strtolower($day->name) }}_start_time' type="time"  value="{{ $startTime }}"
-                                                class="form-control" name="day[{{ $day->id }}][start_time]" 
-                                                {{ $disabled}}
-                                                {{-- {{ (array_search($day->id, $dayId) === false ? (isset($dayId) ? 'disabled' : 'disabled') : '') ?? '' }} --}}
-                                                
-                                                >
+                                            <span class="text-danger">*</span></label>
+                                        <div class="form-icon">
 
-            
+
+                                            <input id='{{ strtolower($day->name) }}_start_time' type="time"
+                                                value="{{ $startTime ?? '' }}" class="form-control"
+                                                name="day[{{ $day->id }}][start_time]">
+
                                             <span class="text-danger"
                                                 id="{{ strtolower($day->name) }}_start_time_error"></span>
 
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-5">
                                     <div class="form-wrap">
                                         <label class="col-form-label">To <span class="text-danger">*</span></label>
                                         <div class="form-icon">
-                                            <input id='{{ strtolower($day->name) }}_end_time' type="time"   value="{{  $endTime}}" 
-                                                class="form-control timepicker1"
-                                                name="day[{{ $day->id }}][end_time]"
-                                                {{$disabled}}
-                                                >
+                                            <input id='{{ strtolower($day->name) }}_end_time' type="time"
+                                                value="{{ $endTime ?? '' }}" class="form-control timepicker1"
+                                                name="day[{{ $day->id }}][end_time]">
                                             <span class="text-danger"
                                                 id="{{ strtolower($day->name) }}_end_time_error"></span>
                                         </div>
                                     </div>
                                 </div>
-                                <input id='{{ strtolower($day->name) }}_start_time' type="hidden"  value="{{$day->id}}"
-                                class="form-control" name="day[{{ $day->id }}][day_id]" {{ $disabled}}>
+                                <input id='{{ strtolower($day->name) }}_start_time' type="hidden"
+                                    value="{{ $day->id }}" class="form-control"
+                                    name="day[{{ $day->id }}][day_id]">
                             </div>
                         </div>
                     </div>
@@ -117,15 +116,12 @@
 
 
         <div class="modal-btn text-end">
-            @if (isset($userWorkingHourDetails))
-            <input type="hidden" value="{{$userWorkingHourDetails[0]->user_id ?? ''}}" name="user_id" id="doctor_user_id">  
+            @if (isset($userId))
+                <input type="hidden" value="{{ $userId ?? '' }}" name="user_id" id="doctor_user_id">
             @else
-            <input type="hidden" value="{{Request::segment(4)}}" name="user_id" id="doctor_user_id"> 
+                <input type="hidden" value="{{ Request::segment(4) }}" name="user_id" id="doctor_user_id">
             @endif
             <button class="btn btn-primary prime-btn">Save Changes</button>
-            {{-- <a href="#" class="btn btn-gray">Cancel</a>
-            <input type="hidden" value="{{ Auth::user() ? Auth::user()->id : Request::segment(4)}}" name="user_id" id="doctor_user_id">
-            <button type="submit" class="btn btn-primary prime-btn">Save Changes</button> --}}
         </div>
     </form>
 </div>

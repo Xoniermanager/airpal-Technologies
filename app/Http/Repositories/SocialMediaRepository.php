@@ -17,4 +17,10 @@ class SocialMediaRepository extends BaseRepository
     {
         return DoctorSocialMediaAccounts::class;
     }
+    public function findByDoctorAndAccountType($doctorId, $accountType)
+    {
+        return DoctorSocialMediaAccounts::where('doctor_id', $doctorId)
+                        ->where('social_media_type_id', $accountType)
+                        ->first();
+    }
 }

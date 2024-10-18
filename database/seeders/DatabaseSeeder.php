@@ -62,6 +62,7 @@ class DatabaseSeeder extends Seeder
         $this->call(OurTeamsTableSeeder::class);
         $this->call(SectionImagesTableSeeder::class);
         $this->performAdditionalTask();
+        $this->call(SocialMediaTypesTableSeeder::class);
     }
 
     protected function performAdditionalTask()

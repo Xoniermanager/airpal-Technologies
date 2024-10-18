@@ -15,9 +15,11 @@
         {
             $address = $userAddressDetails->address ?? '';
             $cityName    = $userAddressDetails->city ?? '';
-            $stateName   = $userAddressDetails->state->name ?? '';
+            $stateName   = $userAddressDetails->states->name ?? '';
             $countryName = $userAddressDetails->country->name ?? '';
             $pinCode = $userAddressDetails->pin_code ?? '';
+            $fullAddress = $address . ' ' . $cityName . ' ' .$stateName.' '.$countryName;
+            $encodedAddress = str_replace(' ', '+', $fullAddress);
         }
     @endphp
     <form id="doctorAddressform" method="post" enctype="multipart/form-data">
@@ -46,12 +48,12 @@
                                             <label class="col-form-label">Country</label>  
                                             <select class="form-control select" name="country" id="country">
                                                 <option value="">Select Country </option>
-                                                @forelse ($countries as $country )
-                                                <option value="{{ $country->id }}" {{ $countryName == $country->name }} >
-                                                    {{ $countryName = $country->name }}
-                                                </option>
+                                                @forelse ($countries as $country)
+                                                    <option value="{{ $country->id }}" {{ ($countryName == $country->name) ? 'selected' : '' }}>
+                                                        {{ $country->name }}
+                                                    </option>
                                                 @empty
-                                                <option>Not avaiable please create it first</option>  
+                                                    <option>Not available, please create it first</option>  
                                                 @endforelse
                                             </select> 
                                             <span class="text-danger" id="country_error"></span>

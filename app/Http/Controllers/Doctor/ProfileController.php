@@ -6,6 +6,7 @@ use App\Models\Service;
 use App\Models\DayOfWeek;
 use Illuminate\Http\Request;
 use App\Models\Specialization;
+use App\Models\SocialMediaType;
 use App\Http\Services\UserServices;
 use App\Http\Controllers\Controller;
 use App\Http\Services\StateServices;
@@ -36,7 +37,7 @@ class ProfileController extends Controller
 
         $countries  = $this->countryServices->all();
         $states     = $this->stateServices->all();
-
+        $socialMediaTypes = SocialMediaType::all()->pluck('name','id');
         $specialty  = Specialization::all();
         $services   = Service::all();
         $dayOfWeeks = DayOfWeek::all();
@@ -51,6 +52,7 @@ class ProfileController extends Controller
             'states'      => $states,
             'dayOfWeeks'  => $dayOfWeeks,
             'singleDoctorDetails' => $singleDoctorDetails,
+            'socialMediaTypes'  =>  $socialMediaTypes,
             // 'doctorDetails' => $singleDoctorDetails
         ]);
     }

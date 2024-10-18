@@ -24,12 +24,11 @@ class StoreDoctorWorkingHourRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'day'               => 'required|array|max:7',
             'day.*'             => 'required|array',
             'day.*.day_id'      => 'required|integer',
-            'day.*.available'   => 'required|in:1',
-            'day.*.start_time'  => 'required|date_format:H:i',
-            'day.*.end_time'    => 'required|date_format:H:i|after:day.*.start_time'
+            'day.*.available'   => 'sometimes|in:1',
+            'day.*.start_time'  => 'nullable|date_format:H:i',
+            'day.*.end_time'    => 'nullable|date_format:H:i|after:day.*.start_time'
         ];
           
     }

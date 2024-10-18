@@ -43,9 +43,9 @@
                                 <div class="doc-pro-location">
                                     @if (isset($doctor->doctorAddress))
                                         <span>
-                                            <i class="feather-map-pin"></i><strong>
+                                            <i class="feather-map-pin"></i><p>
                                                 {{ formatDoctorAddress($doctor) }}
-                                            </strong>
+                                            </p>
                                             <a href="https://www.google.com/maps?q={{  encodeAddress($doctor) }}" target="_blank"
                                                 style="color: blue">
                                                 Get Directions </a>

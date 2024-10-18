@@ -178,7 +178,7 @@ const addAward = (function () {
 
                                                             <div class="col-lg-6 col-md-6">
                                                                 <div class="form-wrap" id="award_preview${awardCount}">
-                                                                        <img src="" alt="certificate image" width="300" height="200" style="border-radius:20px;">
+                                                                        <img src="" alt="certificate image" width="140" height="200" style="border-radius:20px;" onerror="this.src='${site_base_url}assets/img/award1.png'">
                                                                 </div>
                                                             </div>
 
@@ -222,11 +222,11 @@ function createAwardDataSource() {
         batch: true,
         transport: {
             read: {
-                url: site_base_url + "/award",
+                url: site_base_url + "award",
                 dataType: "json",
             },
             create: {
-                url: site_base_url + "/award/ajax-create",
+                url: site_base_url + "award/ajax-create",
                 dataType: "json",
             },
             parameterMap: function (options, operation) {
@@ -299,7 +299,7 @@ function deleteAwards(awardId = "", button) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: site_base_url + "/doctor/delete-award", // Adjust this URL to your route
+                url: site_base_url + "doctor/delete-award", // Adjust this URL to your route
                 type: "get",
                 data: {
                     id: awardId,
@@ -432,7 +432,8 @@ const addEducation = (function () {
 
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="form-wrap" id="education_preview${educationCount}">
-                                                                <img src="" alt="certificate image" width="300" height="200" style="border-radius:20px;">
+                                                                <img src="" alt="certificate image" width="140" height="200" style="border-radius:20px;"
+                                                                onerror="this.src='${site_base_url}assets/img/demo-edu.png'">
                                                 
                                                         </div>
                                                 </div>
@@ -472,11 +473,11 @@ function createCourseDataSource() {
         batch: true,
         transport: {
             read: {
-                url: site_base_url + "/course",
+                url: site_base_url + "course",
                 dataType: "json",
             },
             create: {
-                url: site_base_url + "/course/ajax-create",
+                url: site_base_url + "course/ajax-create",
                 dataType: "json",
             },
             parameterMap: function (options, operation) {
@@ -543,7 +544,7 @@ function deleteEducation(educationId = "", button) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: site_base_url + "/doctor/delete-education", // Adjust this URL to your route
+                url: site_base_url + "doctor/delete-education", // Adjust this URL to your route
                 type: "get",
                 data: {
                     id: educationId,
@@ -714,7 +715,8 @@ const addExperience = (function () {
 
                                        <div class="col-lg-6 col-md-6">
                                                     <div class="form-wrap" id="exp_preview${experienceCount}">
-                                                            <img src="" alt="certificate image" width="300" height="200" style="border-radius:20px;">
+                                                            <img src="" alt="certificate image" width="140" height="200" style="border-radius:20px;"
+                                                            onerror="this.src='${site_base_url}assets/img/exp_certificate.png'">
                                             
                                                     </div>
 
@@ -746,11 +748,11 @@ function hospitalDataSource() {
         batch: true,
         transport: {
             read: {
-                url: site_base_url + "/hospital",
+                url: site_base_url + "hospital",
                 dataType: "json",
             },
             create: {
-                url: site_base_url + "/hospital/ajax-create",
+                url: site_base_url + "hospital/ajax-create",
                 dataType: "json",
             },
             parameterMap: function (options, operation) {
@@ -845,7 +847,7 @@ function deleteExperience(experienceId = "", button) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: site_base_url + "/doctor/delete-experience", // Adjust this URL to your route
+                url: site_base_url + "doctor/delete-experience", // Adjust this URL to your route
                 type: "get",
                 data: {
                     id: experienceId,

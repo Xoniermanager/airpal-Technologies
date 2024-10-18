@@ -67,7 +67,7 @@ class UserServices
 
     public function getDoctorDataById($id)
     {
-        return $this->userRepository->where('id', $id)->with(["educations.course", "experiences.hospital", "workingHour", "specializations", "services", "workingHour.daysOfWeek", "language", 'awards.award', 'doctorAddress.country', 'doctorAddress.states', 'favoriteDoctor', 'doctorReview'])->first();
+        return $this->userRepository->where('id', $id)->with(["educations.course", "experiences.hospital", "workingHour", "specializations", "services", "workingHour.daysOfWeek", "language", 'awards.award', 'doctorAddress.country', 'doctorAddress.states', 'favoriteDoctor', 'doctorReview','socialMediaAccounts'])->first();
     }
     public function updateOrCreateDoctor($data)
     {

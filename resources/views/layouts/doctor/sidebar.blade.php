@@ -145,12 +145,12 @@
                         <span>Invoices</span>
                     </a>
                 </li>
-                <li class="{{ request()->routeIs('doctor.doctor-social.index') ? 'active' : '' }}">
+                {{-- <li class="{{ request()->routeIs('doctor.doctor-social.index') ? 'active' : '' }}">
                     <a href="{{ route('doctor.doctor-social.index') }}">
                         <i class="fa-solid fa-shield-halved"></i>
                         <span>Social Media</span>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="{{ request()->is('doctor/prescription/*') ? 'active' : '' }}">
                     <a href="{{ route('prescription.index') }}">

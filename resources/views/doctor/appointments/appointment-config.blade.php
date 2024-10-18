@@ -45,13 +45,12 @@
             </div>
         </div>
         </div>
-
         <div class="row">
             <div class="col-6">
                 <div class="mb-3">
                     <label class="mb-2">Select the days on which you are not avaialble</label>
                     <select id="exceptionDaysAdd" class="form-control" name="exception_day_ids[]"> </select>
-                    <p id="exceptionDaysID" style="display: none"> {{ $exceptionIds ?? '' }}</p>
+                    <p id="exceptionDaysID" style="display: none"> {{ $exceptionIds }}</p>
                 </div>
             </div>
 
@@ -319,6 +318,7 @@
     var exceptionDaysIDArrs;
 
     exceptionDaysID = jQuery('p#exceptionDaysID').text();
+    console.log(exceptionDaysID);
 
     if (exceptionDaysID.length > 1) {
         var arrayexceptionDaysID = JSON.parse(exceptionDaysID);
@@ -353,7 +353,7 @@
         batch: true,
         transport: {
             read: {
-                url: "slots/getWeekDays",
+                url: window.site_base_url + "slots/getWeekDays",
                 dataType: "json"
             },
             parameterMap: function(options, operation) {

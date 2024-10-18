@@ -83,7 +83,7 @@ class DoctorAppointmentConfigController extends Controller
     {
         $doctorAppointmentConfigDetails = $this->doctorSlotServices->getDoctorActiveAppointmentConfigDetails($doctorId);
         // Check if $doctorAppointmentConfigDetails is null before accessing its properties
-        $exceptionIds = $doctorAppointmentConfigDetails ? optional($doctorAppointmentConfigDetails->doctorExceptionDays)->pluck('exception_days_id') ?? collect() : collect();
+        $exceptionIds = $doctorAppointmentConfigDetails ? $doctorAppointmentConfigDetails->doctorExceptionDays->pluck('pivot.exception_days_id') : collect();
         if (isset($doctorAppointmentConfigDetails) && !empty($doctorAppointmentConfigDetails)) {
             return response()->json(['status' => true, 'config_details' => $doctorAppointmentConfigDetails, 'exceptionIds' => $exceptionIds]);
         }

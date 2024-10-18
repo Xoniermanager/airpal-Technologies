@@ -10,7 +10,7 @@ class DoctorSocialMediaAccounts extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['doctor_id','account_type','link','status'];
+    protected $fillable = ['doctor_id','social_media_type_id','link','status'];
 
     public function user()
     {

@@ -28,19 +28,27 @@ class DoctorSocialMediaAccountsController extends Controller
             'socialMediaTypes'   => $socialMediaTypes
          ]);
     }
-    public function addSocialMedia(StoreSocialMedia $storeSocialMedia)
+    public function addSocialMedia(StoreSocialMedia $request)
     {
+        $payload = $request->validated();
+        if(Auth::user()->role == 1)
+        {
+            $doctorId = $payload['doctor_id'];
+        }
+        else
+        {
+            $doctorId = Auth::id();
+        }
+
         try {
-            $data = $storeSocialMedia->validated();
-            $this->socialMediaService->addSocialMediaAccount($data);
-            $socialMediaAccounts = $this->socialMediaService->getSocialMediaAccountsByDoctorId(Auth::id());
-            return response()->json([
-                'message'  => 'Social media account added successfully!',
-                'data'     =>  view('doctor.social-media-accounts.list', [
-                  'socialMediaAccounts' => $socialMediaAccounts
-                ])->render()
-              ]);
-            
+            $updatedValue = $this->socialMediaService->addSocialMediaAccount($request->all(),$doctorId);
+            if($updatedValue)
+            {
+                return response()->json([
+                    'message'  => 'Social media account added successfully!',
+                    'status'   =>  true,
+                  ]);
+            }
         } catch (\Exception $e) {
             return response()->json(['message' => 'Failed to add social media account', 'error' => $e->getMessage()], 500);
         }

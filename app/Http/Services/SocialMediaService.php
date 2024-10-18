@@ -13,9 +13,37 @@ class SocialMediaService {
      {
         return $this->socialMediaRepository->all();
      } 
-     public function addSocialMediaAccount($socialMediaData)    
+     public function addSocialMediaAccount($socialMediaData,$doctorId)
      {
-      return $this->socialMediaRepository->create($socialMediaData);
+            foreach ($socialMediaData['social'] as $socialAccount) 
+            {
+              $link = $socialAccount['link'];
+              $accountType = $socialAccount['social_media_type_id'];
+              
+              // If social medial link value is not provided, so not do anything
+              if(!empty($link))
+              {
+                 $existingRecord = $this->socialMediaRepository->findByDoctorAndAccountType($doctorId, $accountType);
+                 if ($existingRecord) 
+                 {
+                    // If the record exists, update it
+                    $this->socialMediaRepository->update([
+                       'link' => $link,
+                       'social_media_type_id' => $accountType
+                    ], $existingRecord->id);
+                 }
+                 else
+                 {
+                    // If the record doesn't exist, create a new one
+                    $this->socialMediaRepository->create([
+                       'doctor_id' => $doctorId,
+                       'link' => $link,
+                       'social_media_type_id' => $accountType
+                    ]);
+                 }  
+              }
+        }
+        return true;
      }
      public function updateSocialMediaAccount($data)    
      {

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreSocialMedia extends FormRequest
+class StoreDoctorServiceDetailRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,10 @@ class StoreSocialMedia extends FormRequest
     public function rules(): array
     {
         return [
-            'doctor_id'             => 'sometimes|exists:users,id,role,2',
-            'social'                =>  'array',
-            'social.*.link'         =>  'nullable|url',
-            'social.*.social_media_type_id' =>  'required|exists:social_media_types,id'
+            'specialities'                 => 'sometimes|exists:specializations,id',
+            'services'                     => 'sometimes|exists:services,id',
+            'common_health_concern'        => 'sometimes|exists:common_health_concerns,id',
+            'user_id'                    => 'sometimes|exists:users,id'
         ];
     }
 }

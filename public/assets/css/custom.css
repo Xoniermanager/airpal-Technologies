@@ -12178,7 +12178,7 @@ header.header.header-custom.header-fixed.header-one {
 }
 
 .banner-content h1 {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 48px;
     margin-bottom: 25px;
 }
@@ -12679,7 +12679,7 @@ header.header.header-custom.header-fixed.header-one {
 }
 
 .specialities-section-one .specialities-item p {
-    font-weight: 600;
+    /* font-weight: 600; */
     font-size: 16px;
     color: #2F353C;
     margin-bottom: 0;
@@ -12748,8 +12748,8 @@ header.header.header-custom.header-fixed.header-one {
 }
 
 .section-header-one h2 {
-    font-size: 40px;
-    font-weight: 600;
+    font-size: 30px;
+    /* font-weight: 600; */
     color: #1F2937;
     margin-bottom: 0;
 }
@@ -12791,7 +12791,7 @@ header.header.header-custom.header-fixed.header-one {
 }
 
 .section-header-one h5 {
-    font-weight: 600;
+    /* font-weight: 600; */
     font-size: 18px;
     color: #004cd4;
     margin-bottom: 10px;
@@ -13230,7 +13230,6 @@ header.header.header-custom.header-fixed.header-one {
 }
 
 .work-info .work-content h5 {
-    font-weight: 600;
     font-size: 18px;
     color: #1F2937;
     margin-bottom: 14px;
@@ -13386,7 +13385,7 @@ header.header.header-custom.header-fixed.header-one {
 }
 
 .work-info .work-content h5 {
-    font-weight: 600;
+    /* font-weight: 600; */
     font-size: 18px;
     color: #1F2937;
     margin-bottom: 14px;
@@ -13656,7 +13655,7 @@ header.header.header-custom.header-fixed.header-one {
 
 .app-header h5 {
     font-size: 24px;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: #ffffff;
     margin-bottom: 10px;
 }
@@ -13675,7 +13674,7 @@ header.header.header-custom.header-fixed.header-one {
 
 .app-header h2 {
     font-size: 40px;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: #ffffff;
     margin-bottom: 0;
     max-width: 565px;
@@ -28385,7 +28384,7 @@ span.refund {
 .doctor-search-section .banner-header h2 {
     color: #186DB5;
     font-size: 32px;
-    font-weight: 600;
+    /* font-weight: 600; */
     line-height: 54px;
 }
 
@@ -30337,7 +30336,7 @@ span.refund {
 }
 
 .specialities-section-one .specialities-block ul li .specialities-item p {
-    font-weight: 600;
+    /* font-weight: 600; */
     font-size: 16px;
     color: #2F353C;
     margin-bottom: 0;
@@ -49501,7 +49500,7 @@ ul li {
 
 .section-head-fourteen h2 {
     font-size: 36px;
-    font-weight: 600;
+    /* font-weight: 600; */
     margin-bottom: 10px;
 }
 
@@ -54746,7 +54745,7 @@ select {
 
 .listing-card .listing-content .listing-details .listing-title h3 {
     font-size: 20px;
-    font-weight: 600;
+    /* font-weight: 600; */
     margin-bottom: 10px;
 }
 

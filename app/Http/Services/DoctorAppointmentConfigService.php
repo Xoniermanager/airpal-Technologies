@@ -176,8 +176,27 @@ class DoctorAppointmentConfigService
                 else
                 {
                     $updatedAppointmentConfigDetails = $this->doctorAppointmentConfigRepository->find($currentAppointmentConfigDetails->id)->update($payload);
-                    DB::commit();
                     // Write additional script to remove existing exception days if required
+
+                    // Load current appointment config record to update relationship data
+                    $updatedAppointmentConfigDetails = $this->doctorAppointmentConfigRepository
+                    ->find($currentAppointmentConfigDetails->id);
+
+                    if (isset($updatedAppointmentConfigDetails))
+                    {
+                        // Remove all existing non-availability dates
+                        // AppointmentNonAvailabilityDates::where('doctor_appt_config_id', $currentAppointmentConfigDetails->id)->delete();
+
+                        // foreach ($data['non_availability_dates'] as $date) {
+                        //     AppointmentNonAvailabilityDates::create([
+                        //         'doctor_appt_config_id' => $currentAppointmentConfigDetails->id,
+                        //         'date' => $date,
+                        //     ]);
+                        // }
+                        // Update exception days on which doctor is not available
+                        $updatedAppointmentConfigDetails->doctorExceptionDays()->sync($data['exception_day_ids']);
+                    }
+                    DB::commit();
                     return [
                         'status'    =>  true,
                         'data'      =>  $updatedAppointmentConfigDetails,

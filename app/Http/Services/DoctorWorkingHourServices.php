@@ -19,119 +19,45 @@ class DoctorWorkingHourServices
       $this->day_of_week_repository = $day_of_week_repository;
    }
 
-
-   // public function addDoctorWorkingHour($data, $userId)
-   // {
-   //     $user_id = $userId;
-   //     $currentDayIds = [];
-
-   //     try {
-   //         // Step 1: Fetch existing records
-   //         $existingRecords = $this->doctor_working_hour_repository->where('user_id', $user_id)->get();
-
-   //         // Step 2: Update or Create records
-   //         foreach ($data['day'] as $value) {
-   //             $available  = isset($value['available']) ? $value['available']   : 0;
-   //             $start_time = isset($value['start_time']) ? $value['start_time'] : null;
-   //             $end_time   = isset($value['end_time']) ? $value['end_time']     : null;
-
-   //             $payload = [
-   //                 'available'   => $available,
-   //                 'start_time'  => $start_time,
-   //                 'end_time'    => $end_time,
-   //             ];
-
-   //             $this->doctor_working_hour_repository->updateOrCreate(
-   //             [
-   //                 'user_id'   => $user_id,
-   //                 'day_id'    => $value['day_id']
-   //             ], $payload);
-
-   //             // Collect current day IDs
-   //             $currentDayIds[] = $value['day_id'];
-   //         }
-
-   //         // Step 3: Remove obsolete records
-   //         foreach ($existingRecords as $record) {
-   //             if (!in_array($record->day_id, $currentDayIds)) {
-   //                 $record->delete();
-   //             }
-   //         }
-   //     } catch (Exception $e) {
-   //         // Handle exception
-   //         Log::error('Error in addDoctorWorkingHour:', ['message' => $e->getMessage()]);
-   //     }
-   // }
-
-
    public function addDoctorWorkingHour($data,  $userId)
    {
-
       $user_id =  $userId;
-      $currentDayIds = [];
-      $existingRecords = $this->doctor_working_hour_repository->where('user_id', $user_id)->get();
+      $notAvailableDaysIds = [];
       try {
-         foreach ($data['day'] as $value) {
+         foreach ($data['day'] as $value) 
+         {
+            if(isset($value['available']) && $value['available'] == 1 && !empty($value['start_time']) && !empty($value['end_time']))
+            {
+               $available  = 1;
+               $start_time = isset($value['start_time']) ? $value['start_time'] : null;
+               $end_time   = isset($value['end_time']) ? $value['end_time']     : null;
 
-            $available  = isset($value['available']) ? $value['available']   : 0;
-            $start_time = isset($value['start_time']) ? $value['start_time'] : null;
-            $end_time   = isset($value['end_time']) ? $value['end_time']     : null;
+               $payload = [
+                  'available'   => $available,
+                  'start_time'  => $start_time,
+                  'end_time'    => $end_time,
+               ];
 
-            $payload = [
-               'available'   => $available,
-               'start_time'  => $start_time,
-               'end_time'    => $end_time,
-            ];
-
-            $this->doctor_working_hour_repository->updateOrCreate(
-               [
-                  'user_id'   => $user_id,
-                  'day_id'    => $value['day_id']
-               ],
-               $payload
-            );
-            // Collect current day IDs
-            $currentDayIds[] = $value['day_id'];
-         }
-
-         foreach ($existingRecords as $record) {
-            if (!in_array($record->day_id, $currentDayIds)) {
-               $record->delete();
+               $this->doctor_working_hour_repository->updateOrCreate(
+                  [
+                     'user_id'   => $user_id,
+                     'day_id'    => $value['day_id']
+                  ],
+                  $payload
+               );
+            }
+            else
+            {
+               // Days with available value = 0, should be deleted from database if exists.
+               $notAvailableDaysIds[] = $value['day_id'];
+               continue;
             }
          }
+
+         $this->doctor_working_hour_repository->whereIn('day_id',$notAvailableDaysIds)->delete();
          return true;
       } catch (Exception $e) {
           $e->getMessage();
       }
    }
-
-   //    // try
-   //    //  {
-   //    //    foreach ($data['day'] as $day_id => $value)
-   //    //    {
-   //    //       $available  = isset($value['available']) ? $value['available']   : 0;
-   //    //       $start_time = isset($value['start_time']) ? $value['start_time'] : null;
-   //    //       $end_time   = isset($value['end_time']) ? $value['end_time']     : null;
-
-   //    //       $payload = 
-   //    //       [
-   //    //          'available'   => $available,
-   //    //          'start_time'  => $start_time,
-   //    //          'end_time'    => $end_time,
-   //    //       ];
-   //    //       $this->doctor_working_hour_repository->updateOrCreate(
-   //    //       [
-   //    //          'user_id'   => $user_id,
-   //    //          'day_id'    => $data['day_id']
-   //    //       ],$payload);
-   //    //    }
-   //    //  } 
-   //    catch (\Exception $e) 
-   //    {
-   //       $e->getMessage();
-   //    }
-
-   //   return true;
-   //   }
-
 }

@@ -221,7 +221,7 @@
                                 @empty
                                 @endforelse
                             @endisset
-                            <a href="{{ route('home.index') }}" class="btn btn-primary mt-1"> Read all</a>
+                            <a href="{{ route('research') }}" class="btn btn-primary mt-1"> Read all</a>
                         </div>
                     </div>
                 @endisset

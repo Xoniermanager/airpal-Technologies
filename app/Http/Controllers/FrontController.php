@@ -38,11 +38,8 @@ class FrontController extends Controller
     return view('website.pages.checkout');
   }
 
-
-  public function testing()
+  public function research()
   {
-
-    $bookingDetail = BookingSlots::find(107);
-    return view('invoice.invoice-template',compact('bookingDetail'));
-  }
+    return view('website.pages.research');
+  }  
 }

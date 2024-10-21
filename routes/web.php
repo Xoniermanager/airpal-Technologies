@@ -670,6 +670,7 @@ Route::controller(FrontController::class)->group(function () {
     Route::get('/invoice', 'invoice')->name('invoice.index');
     Route::get('/patient_details', 'patient_details')->name('patient_details.index');
     Route::get('/checkout', 'checkout')->name('checkout.index');
+    Route::get('/research', 'research')->name('research');
 });
 
 Route::controller(DoctorReviewController::class)->group(function () {

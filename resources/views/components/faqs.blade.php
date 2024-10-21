@@ -47,7 +47,7 @@
                             </div>
                         </div>
                         @endforeach
-                        <h5 class="text-center"> <a href="faq.html" class="fw-bold text-primary">Read All
+                        <h5 class="text-center"> <a href="{{ route('faqs.index') }}" class="fw-bold text-primary">Read All
                                         FAQ's</a></h5>
                     </div>
 

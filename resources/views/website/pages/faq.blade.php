@@ -33,7 +33,7 @@
                             <div class="accordion" id="faq-details">
 
 
-                                @foreach ( $allFaqs->slice(0, 6) as  $key => $allFaq)
+                                @foreach ( $allFaqs as  $key => $allFaq)
                                     
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="heading{{$key}}">

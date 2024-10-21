@@ -79,7 +79,7 @@ class FaqsController extends Controller
   public function faqPageIndex()
   {
     $allFaqs =    $this->faqsServices->all();
-    return view("pages.faq", ['allFaqs' => $allFaqs]);
+    return view("website.pages.faq", ['allFaqs' => $allFaqs]);
   }
 
   /**

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('doctor_social_media_accounts', function (Blueprint $table) {
             $table->id();
             $table->integer('doctor_id');
-            $table->string('account_type');            
+            $table->string('social_media_type_id');            
             $table->string('link');
             $table->boolean('status')->default(1);
             $table->timestamps();

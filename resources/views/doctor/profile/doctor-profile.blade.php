@@ -505,10 +505,22 @@
                         success: function(response) {
                             if (response.success == true) {
                                 swal.fire("Done!", response.message, "success");
-                                // setTimeout(function() {
-                                //     window.location.href =
-                                //         "{{ route('admin.index.doctors') }}"
-                                // }, 1500);
+                                $('#working_hours_tab').removeClass('active').attr('aria-selected',
+                                    'false');
+                                $('#working_hours_tab').removeClass('show active');
+
+                                var tabLink = document.querySelector('a[href="#working_hours_tab"]');
+                                if (tabLink) {
+                                    tabLink.classList.remove('active');
+                                    tabLink.setAttribute('aria-selected', 'false');
+                                }
+
+                                var exTabLink = document.querySelector(
+                                    'a[href="#service_details_tab"]');
+                                exTabLink.classList.add('active');
+                                $('#service_details_tab').addClass('active').attr(
+                                    'aria-selected', 'true');
+                                $('#service_details_tab').addClass('show active');
                             }
 
 

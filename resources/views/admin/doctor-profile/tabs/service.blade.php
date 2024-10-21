@@ -90,11 +90,23 @@
                 contentType: false, // Important!
                 success: function(response) {
                     if (response.status == true) {
-                        swal.fire("Done!", response.message, "success").then(() => {
-                            switchTab('#service_details_tab', '#address_tab');
-                            // Redirect to another URL after the user closes the alert
-                            // window.location.href = response.redirect_url; // replace with your URL
-                        });
+                            swal.fire("Done!", response.message, "success");
+                                $('#service_details_tab').removeClass('active').attr('aria-selected',
+                                    'false');
+                                $('#service_details_tab').removeClass('show active');
+
+                                var tabLink = document.querySelector('a[href="#service_details_tab"]');
+                                if (tabLink) {
+                                    tabLink.classList.remove('active');
+                                    tabLink.setAttribute('aria-selected', 'false');
+                                }
+
+                                var exTabLink = document.querySelector(
+                                    'a[href="#social_media_details_tab"]');
+                                exTabLink.classList.add('active');
+                                $('#social_media_details_tab').addClass('active').attr(
+                                    'aria-selected', 'true');
+                                $('#social_media_details_tab').addClass('show active');
                     }
                 },
                 error: function(error_messages) {

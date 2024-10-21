@@ -43,6 +43,22 @@ class PartnersTableSeeder extends Seeder
                 'created_at' => '2024-09-25 10:26:14',
                 'updated_at' => '2024-09-25 10:26:14',
             ),
+            3 => 
+            array (
+                'id' => 18,
+                'image' => 'site-data/partners/1729509978.png',
+                'status' => 1,
+                'created_at' => '2024-10-21 11:26:18',
+                'updated_at' => '2024-10-21 11:26:18',
+            ),
+            4 => 
+            array (
+                'id' => 19,
+                'image' => 'site-data/partners/1729509992.png',
+                'status' => 1,
+                'created_at' => '2024-10-21 11:26:32',
+                'updated_at' => '2024-10-21 11:26:32',
+            ),
         ));
         
         

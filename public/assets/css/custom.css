@@ -51763,7 +51763,7 @@ ul li {
     color: #334155;
     padding: 6px 15px;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
     display: inline-flex;
     display: -webkit-inline-flex;
     align-items: center;
@@ -54332,7 +54332,7 @@ ul li {
 
 .setting-tab .appointment-tabs ul li .nav-link {
     background: #ffffff;
-    padding: 7px 20px;
+    padding: 7px 12px;
 }
 
 .setting-tab .appointment-tabs ul li .nav-link:hover,
@@ -56203,10 +56203,11 @@ height: 80px;
 }
 
 #progressbar li.active:before {
-    content: '\f3fd';
+    content: '\f105';
     background: #293991;
     color: #fff;
     font-weight: bold;
+    font-family: 'FontAwesome';
 }
 
 /* CSS for showing doctor profile completion in progress percentage */

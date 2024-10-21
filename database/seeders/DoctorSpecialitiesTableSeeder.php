@@ -29,21 +29,13 @@ class DoctorSpecialitiesTableSeeder extends Seeder
             ),
             1 => 
             array (
-                'id' => 2,
-                'user_id' => 2,
-                'speciality_id' => 1,
-                'created_at' => '2024-08-01 11:16:01',
-                'updated_at' => '2024-08-01 11:16:01',
-            ),
-            2 => 
-            array (
                 'id' => 3,
                 'user_id' => 3,
                 'speciality_id' => 1,
                 'created_at' => '2024-08-01 11:16:01',
                 'updated_at' => '2024-08-01 11:16:01',
             ),
-            3 => 
+            2 => 
             array (
                 'id' => 4,
                 'user_id' => 4,
@@ -51,7 +43,7 @@ class DoctorSpecialitiesTableSeeder extends Seeder
                 'created_at' => '2024-08-01 11:16:01',
                 'updated_at' => '2024-08-01 11:16:01',
             ),
-            4 => 
+            3 => 
             array (
                 'id' => 5,
                 'user_id' => 5,
@@ -59,7 +51,7 @@ class DoctorSpecialitiesTableSeeder extends Seeder
                 'created_at' => '2024-08-01 11:16:01',
                 'updated_at' => '2024-08-01 11:16:01',
             ),
-            5 => 
+            4 => 
             array (
                 'id' => 6,
                 'user_id' => 4,
@@ -67,13 +59,29 @@ class DoctorSpecialitiesTableSeeder extends Seeder
                 'created_at' => '2024-08-01 12:25:48',
                 'updated_at' => '2024-08-01 12:25:48',
             ),
-            6 => 
+            5 => 
             array (
                 'id' => 7,
                 'user_id' => 1,
                 'speciality_id' => 2,
                 'created_at' => '2024-08-02 09:22:24',
                 'updated_at' => '2024-08-02 09:22:24',
+            ),
+            6 => 
+            array (
+                'id' => 8,
+                'user_id' => 2,
+                'speciality_id' => 1,
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
+            7 => 
+            array (
+                'id' => 9,
+                'user_id' => 2,
+                'speciality_id' => 2,
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
         ));
         

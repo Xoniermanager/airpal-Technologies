@@ -160,8 +160,6 @@
                 updateCharCount();
             });
 
-            var site_base_url = "{{ env('SITE_BASE_URL') }}";
-
             var skillId = jQuery('#doctorlanguageID').text();
             if (skillId.length > 1) {
                 var arraySkillId = JSON.parse(skillId);

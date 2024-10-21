@@ -661,6 +661,9 @@ Route::get('/health_monitoring', [HealthMonitoringController::class, 'health_mon
 Route::get('/instant', [InstantController::class, 'instant'])->name('instant.index');
 Route::post('/instant-mail-send', [InstantController::class, 'instantSendMail'])->name('send.instant.mail.index');
 
+Route::post('/connect-wearable-mail', [InstantController::class, 'connectWearableMail'])->name('connect.wearable.mail');
+
+
 Route::controller(FrontController::class)->group(function () {
     Route::get('/privacy', 'privacy')->name('privacy.index');
     Route::get('/term', 'term')->name('term.index');

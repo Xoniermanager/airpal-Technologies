@@ -301,30 +301,35 @@
                     <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" data-bs-original-title="" title=""></button>
                 </div>
                 <div class="modal-body">
-                    <form action="#">
+                    <form  id="connect_waearable_mail">
+                        @csrf
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="mb-2">Name</label>
-                                    <input type="text" class="form-control" placeholder="Enter Your Name">
+                                    <input type="text" class="form-control" name="name" placeholder="Enter Your Name">
+                                    <span class="text-danger" id="name_error"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="mb-2">Phone Number</label>
-                                    <input type="text" class="form-control" placeholder="Enter Phone Number">
+                                    <input type="text" class="form-control" name="phone"  placeholder="Enter Phone Number">
+                                    <span class="text-danger" id="phone_error"></span>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label class="mb-2">Email Address</label>
-                                    <input type="text" class="form-control" placeholder="Enter Email Address">
+                                    <input type="text" class="form-control" name="email" placeholder="Enter Email Address">
+                                    <span class="text-danger" id="email_error"></span>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label class="mb-2">Message</label>
-                                    <textarea class="form-control h-100px" placeholder="Enter your comments"></textarea>
+                                    <textarea class="form-control h-100px" name="message" placeholder="Enter your comments"></textarea>
+                                    <span class="text-danger" id="message_error"></span>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -339,4 +344,75 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+
+@section('javascript')
+
+    <script>
+        $(document).ready(function() {
+            $('.loaderonload').hide();
+            jQuery("#connect_waearable_mail").validate({
+                rules: {
+                    name: 'required',
+                    phone: {
+                        required: true,
+                        digits: true,
+                        minlength: 10,
+                        maxlength: 15
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    message: 'required',
+                },
+                messages: {
+                    name: "Please enter your name",
+                    phone: {
+                        required: "Please enter your phone number",
+                        digits: "Please enter a valid phone number with digits only",
+                        minlength: "Your phone number must be at least 10 digits long",
+                        maxlength: "Your phone number must not exceed 15 digits"
+                    },
+                    disease: "Please select a service",
+
+                },
+                submitHandler: function(form) {
+                    var formData = new FormData(form);
+                    console.log(formData);
+                    $.ajax({
+                        url: "<?= route('connect.wearable.mail') ?>",
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        dataType: "json",
+                        beforeSend: function() {
+                            $('.loaderonload').show();
+                        },
+                        success: function(response) {
+
+                            if (response.success == true) {
+                                $('.loaderonload').hide();
+                                $('#connect_waearable_mail')[0].reset();
+                                // Swal.fire("Done!", response.message, "success");
+                                window.location.href = "<?= route('thank.you') ?>";
+                            }
+                        },
+                        error: function(error_messages) {
+                            $('.loaderonload').hide();
+                            var errors = error_messages.responseJSON;
+                            $.each(errors.errors, function(key, value) {
+                                var id = key.replace(/\./g, '_');
+                                console.log('#' + id + '_error');
+                                $('#' + id + '_error').html(value);
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 @endsection

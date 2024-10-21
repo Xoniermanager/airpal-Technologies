@@ -24,6 +24,7 @@
                                             <label class="mb-2">Name</label>
                                             <div class="form-custom">
                                                 <input type="text" class="form-control" name="name">
+                                                <span class="text-danger" id="name_error"></span>
                                                 <i class="far fa-user"></i>
 
                                             </div>
@@ -34,6 +35,7 @@
                                             <label class="mb-2">Number</label>
                                             <div class="form-custom">
                                                 <input type="text" class="form-control"  name="phone">
+                                                <span class="text-danger" id="phone_error"></span>
                                                 <i class="fa fa-mobile"></i>
                                             </div>
                                         </div>
@@ -43,6 +45,7 @@
                                             <label class="mb-2">Disease</label>
                                             <div class="form-custom">
                                                 <input type="text" class="form-control" name="disease">
+                                                <span class="text-danger" id="disease_error"></span>
                                                 <i class="fas fa-fa fa-wheelchair"></i>
                                             </div>
                                         </div>
@@ -125,6 +128,7 @@
                             }
                         },
                         error: function(error_messages) {
+                            $('.loaderonload').hide();
                             var errors = error_messages.responseJSON;
                             $.each(errors.errors, function(key, value) {
                                 var id = key.replace(/\./g, '_');

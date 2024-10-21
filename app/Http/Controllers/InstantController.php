@@ -10,6 +10,7 @@ use App\Mail\InstantConsultSendMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Services\SpecializationServices;
+use App\Mail\ConnectWearableDeviceMail;
 
 class InstantController extends Controller
 {
@@ -68,10 +69,11 @@ class InstantController extends Controller
 
     // If validation fails, return error response
     if ($validator->fails()) {
-      return redirect()->back()
-        ->withErrors($validator)  // Send validation errors back to the form
-        ->withInput();            // Keep old input values
-    }
+      return response()->json([
+          'status' => 'error',
+          'errors' => $validator->errors()
+      ], 400);
+  }
 
     // If validation passes, send the email
     $sendMail = Mail::to('xonier.puneet@gmail.com')->send(new InstantConsultSendMail($validator->validate()));
@@ -87,5 +89,39 @@ class InstantController extends Controller
         'message' => 'Something went wrong'
       ], 500);
     }
+  }
+
+  public function connectWearableMail(Request $request)
+  {
+        // Validator for custom validation
+        $validator  = Validator::make($request->all(), [
+          'name'    => 'required|string|max:255',
+          'phone'   => 'required|digits:10',
+          'email'   => 'required|email',
+          'message' => 'required|string',
+        ]);
+    
+        // If validation fails, return error response
+          if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors()
+            ], 400);
+        }
+        // If validation passes, send the email
+        $sendMail = Mail::to('xonier.puneet@gmail.com')->send(new ConnectWearableDeviceMail($validator->validate()));
+    
+        if ($sendMail) {
+          return response()->json([
+            'success' => true,
+            'message' => 'Mail send successfully'
+          ], 200);
+        } else {
+          return response()->json([
+            'success' => false,
+            'message' => 'Something went wrong'
+          ], 500);
+        }
+
   }
 }

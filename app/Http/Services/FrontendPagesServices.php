@@ -118,10 +118,9 @@ class FrontendPagesServices
 
             if (isset($data['section']['ul']) && is_array($data['section']['ul'])) {
                 foreach ($data['section']['ul'] as $sectionList) {
-                    if (isset($sectionList['id'])) {
                         $sectionListId = $sectionList['id'];
+                        $sectionList['section_id'] = $sectionId ?? '' ;
                         $savedSectionList = $this->saveList($sectionList, $sectionListId); // Use a different variable name to avoid confusion
-                    }
                 }
             }
 
@@ -141,18 +140,18 @@ class FrontendPagesServices
             $sectionData->update($sectionList);
 
             $listItems = $sectionList['li'];
-
             foreach ($listItems as  $listItem) {
-                $listItemId = $listItem['id'];
-                $this->saveListItems($listItem, $listItemId);
+                $listItemsID = $listItem['id'];
+                $listItem['section_lists_id'] = $sectionListId ;
+                $this->saveListItems($listItem, $listItemsID);
             }
         } else {
             $sectionData = SectionList::create($sectionList);
             $listItems   = $sectionList['li'];
-
             foreach ($listItems as  $listItem) {
-                $listItem['section_lists_id'] = $sectionData->id;
-                $this->saveListItems($listItem, $listItems);
+                $listItemsID = $listItem['id'];
+                $listItem['section_lists_id'] = $sectionListId ;
+                $this->saveListItems($listItem, $listItemsID);
             }
         }
         return $sectionData;

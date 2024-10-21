@@ -12,7 +12,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-5">
                     <div class="row">
                         <div class="col-lg-3 col-md-4">
                             <div class="footer-widget footer-menu">
@@ -26,7 +26,7 @@
                         </div>
                         <div class="col-lg-3 col-md-4">
                             <div class="footer-widget footer-menu">
-                                <h2 class="footer-title">For Doctors</h2>
+                                <h2 class="footer-title"> Doctors</h2>
                                 <ul>
                                     <li><a href="{{ route('doctors.index') }}">Appointments</a></li>
                                     <li><a href="{{ route('choose') }}">Register</a></li>
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-7">
+                <div class="col-lg-4 col-md-7">
                     <div class="footer-widget">
                         <h2 class="footer-title">Join Our Newsletter</h2>
                         <div class="subscribe-form">
@@ -109,7 +109,7 @@
                         <div class="copyright-menu">
                             <ul class="policy-menu">
                                 <li><a href="{{ route('gdpr.policy.index') }}">GDPR Policy</a></li>
-                                <li><a href="{{ route('cookie.policy.index') }}">Cookies Policy</a></li>
+                                <li><a href="{{ route('cookie.policy.index') }}">Cookie Policy</a></li>
                                 <li><a href="{{ route('insurance.policy.index') }}">Insurance Policy</a></li>
                                 <li><a href="{{ route('privacy.index') }}">Privacy Policy</a></li>
                                 <li><a href="{{ route('term.index') }}">Terms and Conditions</a></li>

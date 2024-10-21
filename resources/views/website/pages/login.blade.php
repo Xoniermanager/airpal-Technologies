@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-md-8 offset-md-2">
 
-                    <div class="account-content">
+                    <div class="account-content pt-2 pb-2">
                         <div class="row align-items-center justify-content-center">
                             <div class="col-md-7 col-lg-6 login-left">
                                 <img src="{{ URL::asset('assets/img/login-banner.png') }}" class="img-fluid" alt="Login">

@@ -102,9 +102,31 @@
                                     <div class="doc-info-cont product-cont">
                                         <h4 class="doc-name mb-2">{{ $sections['health_monitoring_device']->title }}</h4>
 
-                                        <p>{!! $sections['health_monitoring_device']->content !!}</p>
+                                        <p><b>{!! $sections['health_monitoring_device']->content !!}</b></p>
 
-                                        <a class="btn btn-primary custom-components" type="button"
+                                        @foreach ($sections['health_monitoring_device']->getListing as $ulSection)
+                                        <div class="widget awards-widget">
+                                            {{-- <h4 class="widget-title">{{ $ulSection->title }}</h4> --}}
+                                            <div class="experience-box">
+                                                <ul class="">
+                                                    @foreach ($ulSection->listItems as $item)
+                                                        <li class="mb-3">
+                                                            {{-- <div class="experience-user">
+                                                                <div class="before-circle"></div>
+                                                            </div> --}}
+                                                            <div class="experience-content">
+                                                                <div class="timeline-content">
+                                                                    <p> {{ $item['title'] }} </p>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    @endforeach
+ 
+                                        <a class="btn btn-primary custom-components" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModalCenter"
                                             href="{{ $sections['health_monitoring_device']->getButtons[0]->link ?? '' }}"
                                             data-bs-original-title="" title="">
                                             {{ $sections['health_monitoring_device']->getButtons[0]->text ?? '' }}</a>
@@ -137,26 +159,32 @@
                                             </div>
 
                                             @foreach ($sections['product_details']->getListing as $ulSection)
+                                            @if ($ulSection && $ulSection->listItems->isNotEmpty()) <!-- Check if $ulSection exists and has list items -->
                                                 <div class="widget awards-widget">
                                                     <h4 class="widget-title">{{ $ulSection->title }}</h4>
                                                     <div class="experience-box">
                                                         <ul class="experience-list">
                                                             @foreach ($ulSection->listItems as $item)
-                                                                <li>
-                                                                    <div class="experience-user">
-                                                                        <div class="before-circle"></div>
-                                                                    </div>
-                                                                    <div class="experience-content">
-                                                                        <div class="timeline-content">
-                                                                            <p> {{ $item['title'] }} </p>
+                                                                @if (!empty($item['title'])) <!-- Ensure $item['title'] is not empty -->
+                                                                    <li>
+                                                                        <div class="experience-user">
+                                                                            <div class="before-circle"></div>
                                                                         </div>
-                                                                    </div>
-                                                                </li>
+                                                                        <div class="experience-content">
+                                                                            <div class="timeline-content">
+                                                                                <p> {{ $item['title'] }} </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                @endif
                                                             @endforeach
                                                         </ul>
                                                     </div>
                                                 </div>
-                                            @endforeach
+                                            @endif
+                                        @endforeach
+                                        
+
                                                 <div class="widget about-widget">
                                                     @if($sections['product_details']->getContent[0])
                                                         <h4 class="widget-title">
@@ -169,6 +197,8 @@
                                                         <a href="{{ $sections['product_details']->getButtons[0]->link }}"
                                                             class="btn btn-outline-primary">{{ $sections['product_details']->getButtons[0]->text }}</a>
                                                     @endif
+                                                </div>
+                                                <div class="widget about-widget">
 
                                                     @if($sections['product_details']->getContent[1])
                                                         <h4 class="widget-title">
@@ -181,18 +211,22 @@
                                                             {{ $sections['product_details']->getContent[2]['title'] }}</h4>
                                                         <p>{{ $sections['product_details']->getContent[2]['content'] }}</p>
                                                     @endif
-                                                   
+                                                
+                                                <div class="widget about-widget">
 
                                                     @if ($sections['product_details']->getButtons[1])
                                                         <a href="{{ $sections['product_details']->getButtons[1]->link }}"
-                                                            class="btn btn-outline-primary">{{ $sections['product_details']->getButtons[1]->text }}</a>
+                                                            class="btn btn-primary">{{ $sections['product_details']->getButtons[1]->text }}</a>
                                                     @endif
+                                                </div>
+                                                <div class="widget about-widget">
 
                                                     @if($sections['product_details']->getContent[3])
                                                         <h4 class="widget-title">
                                                             {{ $sections['product_details']->getContent[3]['title'] }}</h4>
                                                         <p>{{ $sections['product_details']->getContent[3]['content'] }}</p>
                                                     @endif
+                                                </div>
                                                 </div>
                                         </div>
                                     </div>
@@ -259,4 +293,50 @@
             </div>
         </div>
     </section>
+    <div class="modal" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenter" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Product Enquiry</h5>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" data-bs-original-title="" title=""></button>
+                </div>
+                <div class="modal-body">
+                    <form action="#">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="mb-2">Name</label>
+                                    <input type="text" class="form-control" placeholder="Enter Your Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="mb-2">Phone Number</label>
+                                    <input type="text" class="form-control" placeholder="Enter Phone Number">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label class="mb-2">Email Address</label>
+                                    <input type="text" class="form-control" placeholder="Enter Email Address">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label class="mb-2">Message</label>
+                                    <textarea class="form-control h-100px" placeholder="Enter your comments"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group-btn mb-0">
+                                    <button type="submit" class="btn btn-primary prime-btn">Submit </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
 @endsection

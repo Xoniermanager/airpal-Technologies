@@ -56,7 +56,8 @@ class OurTeamsTableSeeder extends Seeder
             array (
                 'id' => 4,
                 'image' => 'site-data/our_teams/Ricardo Florez-1727258159.jpg',
-                'name' => 'Ricardo Florez',
+                'name' => 'Rickard Erwinson
+',
                 'designation' => 'Chief Business Officer',
                 'description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
                 'status' => 1,

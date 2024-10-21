@@ -44,6 +44,86 @@
                     ['input' => 'contentId'],
                 ) !!}
             </div>
+
+            <div class="row">
+
+                @for ($i = 0; $i < 1; $i++)
+                    <div class="col-lg-6">
+                        <div class="setting-card">
+                            <div class="add-info membership-infos">
+                                <div class="row membership-content">
+                                    <div class="col-lg-12">
+        
+                                        @php
+                                            $section_list_title =
+                                                isset($sections['health_monitoring_device']->getListing[$i]) &&
+                                                isset($sections['health_monitoring_device']->getListing[$i]->title)
+                                                    ? $sections['health_monitoring_device']->getListing[$i]->title
+                                                    : '';
+        
+                                            $section_list_icon =
+                                                isset($sections['health_monitoring_device']->getListing[$i]) &&
+                                                isset($sections['health_monitoring_device']->getListing[$i]->icon)
+                                                    ? $sections['health_monitoring_device']->getListing[$i]->icon
+                                                    : '';
+                                        @endphp
+        
+                                        {!! getTextInput(
+                                            $section_list_title ?? '',
+                                            'UL Title',
+                                            'section[ul][' . $i . '][title]',
+                                            ['div' => ['test', 'testing', 'tester']],
+                                            ['input' => 'helloId'],
+                                        ) !!}
+        
+                                        {!! getTextInput(
+                                            $section_list_icon ?? '',
+                                            'UL Icon',
+                                            'section[ul][' . $i . '][icon]',
+                                            ['div' => ['test', 'testing', 'tester']],
+                                            ['input' => 'helloId'],
+                                        ) !!}
+        
+                                        <input type="hidden" name="section[ul][{{ $i }}][id]"
+                                            value="{{ $sections['health_monitoring_device']->getListing[$i]->id ?? '' }}">
+                                    </div>
+        
+                                    <div class="col-lg-10">
+        
+                                        @for ($k = 0; $k < 2; $k++)
+                                            @php
+                                                $list_item_title =
+                                                    isset($sections['health_monitoring_device']->getListing[$i]) &&
+                                                    isset($sections['health_monitoring_device']->getListing[$i]->listItems[$k]) &&
+                                                    isset($sections['health_monitoring_device']->getListing[$i]->listItems[$k]->title)
+                                                        ? $sections['health_monitoring_device']->getListing[$i]->listItems[$k]->title
+                                                        : '';
+                                            @endphp
+        
+                                            <input type="hidden"
+                                                name="section[ul][{{ $i }}][li][{{ $k }}][id]"
+                                                value="{{ $sections['health_monitoring_device']->getListing[$i]->listItems[$k]->id ?? '' }}">
+        
+        
+                                            {!! getTextInput(
+                                                $list_item_title ?? '',
+                                                'Li title',
+                                                'section[ul][' . $i . '][li][' . $k . '][title]',
+                                                ['div' => ['test', 'testing', 'tester']],
+                                                ['input' => 'helloId'],
+                                            ) !!}
+                                        @endfor
+        
+                                    </div>
+        
+                                    <input type="hidden" name="section[ul][{{ $i }}][section_id]]" value="{{ $sections['health_monitoring_device']->id }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endfor
+            </div>
+
         </div>
     </div>
     <div class="setting-card">
@@ -60,6 +140,7 @@
 
                 <input type="hidden" name="section[id]"
                     value="{{ $sections['health_monitoring_device']['id'] ?? '' }}">
+
 
                 <input type="hidden" name="section[button][0][id]"
                     value="{{ $sections['health_monitoring_device']->getButtons[0]['id'] ?? '' }}">

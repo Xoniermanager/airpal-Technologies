@@ -34,7 +34,7 @@
                             <div class="search-input search-calendar-line">
                                 {{-- <i class="feather-calendar"></i> --}}
                                 <div class=" mb-0">
-                                    <select class="form-control" id="select_services">
+                                    <select class="form-control custom-search-select" id="select_services">
                                         <option value="">Select Specialty</option>
                                         @forelse ($specialties as $specialty)
                                             <option value="{{ $specialty->id }}">{{ $specialty->name }}</option>
@@ -79,7 +79,7 @@
                 <div class="col-lg-8 col-md-12 work-details">
                     <div class="section-header-one aos">
                         <h5>How it Works</h5>
-                        <h3 class="section-title">{!! $sections['how_it_works']->title ?? '' !!}</h3>
+                        <h2 class="section-title">{!! $sections['how_it_works']->title ?? '' !!}</h2>
                     </div>
                     <div class="row">
                         @forelse ($sections['how_it_works']->getContent as  $contentSection)

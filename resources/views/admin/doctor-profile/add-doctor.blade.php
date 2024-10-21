@@ -15,7 +15,7 @@
             $userEducationDetails = $singleDoctorDetails['educations'];
             $userExperiencesDetails = $singleDoctorDetails['experiences'];
             $userWorkingHourDetails = $singleDoctorDetails['workingHour'];
-            $userAddressDetails = $singleDoctorDetails->address;
+            $userAddressDetails = $singleDoctorDetails->doctorAddress;
             $userAwardsDetails = $singleDoctorDetails['awards'];
             $userSocialMediaAccounts  = $singleDoctorDetails['socialMediaAccounts']->pluck('link','social_media_type_id');
             $userId = $singleDoctorDetails->id;
@@ -61,10 +61,6 @@
                                     <a class="nav-link active" href="#personal_details_tab" data-bs-toggle="tab">Doctor
                                         Details</a>
                                 </li>
-                                <li class="nav-item specializations services">
-                                    <a class="nav-link" href="#service_details_tab" data-bs-toggle="tab"
-                                        {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Services Specialization</a>
-                                </li>
                                 <li class="nav-item doctorAddress">
                                     <a class="nav-link" href="#address_tab" data-bs-toggle="tab"
                                         {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Address</a>
@@ -85,6 +81,10 @@
                                     <a class="nav-link" href="#working_hours_tab" data-bs-toggle="tab"
                                         {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Working Hours</a>
                                 </li>
+                                <li class="nav-item specializations">
+                                    <a class="nav-link" href="#service_details_tab" data-bs-toggle="tab"
+                                        {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Services Specialization</a>
+                                </li>
                                 <li class="nav-item socialMediaAccounts">
                                     <a class="nav-link" href="#social_media_details_tab" data-bs-toggle="tab"
                                         {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Social Media</a>
@@ -95,6 +95,7 @@
                     <div class="tab-content">
                         @include('admin.doctor-profile.tabs.personal_detail')
                         @include('admin.doctor-profile.tabs.address')
+                        @include('admin.doctor-profile.tabs.service')
                         @include('admin.doctor-profile.tabs.experience')
                         @include('admin.doctor-profile.tabs.education')
                         @include('admin.doctor-profile.tabs.working-hour')

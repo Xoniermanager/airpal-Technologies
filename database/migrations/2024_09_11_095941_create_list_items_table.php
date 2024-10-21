@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('list_items', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
-            $table->boolean('status');
+            $table->boolean('status')->default(true);
             $table->unsignedBigInteger('section_lists_id');
             $table->foreign('section_lists_id')->references('id')->on('section_lists');
             $table->timestamps();

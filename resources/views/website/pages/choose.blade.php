@@ -49,7 +49,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #e9ecef;
+    background-color: #ddf6fa;
     border: 2px solid #004cd4;
     border-radius: 10px;
     text-align: center;

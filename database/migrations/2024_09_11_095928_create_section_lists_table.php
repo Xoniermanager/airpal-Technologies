@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('section_lists', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('icon');
-            $table->boolean('status');
+            $table->string('icon')->nullable();
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

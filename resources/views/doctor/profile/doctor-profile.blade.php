@@ -49,10 +49,6 @@
                                     <a class="nav-link active" href="#personal_details_tab" data-bs-toggle="tab">Personal
                                         Details</a>
                                 </li>
-                                <li class="nav-item specializations services">
-                                    <a class="nav-link" href="#service_details_tab" data-bs-toggle="tab"
-                                        {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Services Specialization</a>
-                                </li>
                                 <li class="nav-item doctorAddress">
                                     <a class="nav-link" href="#address_tab" data-bs-toggle="tab"
                                         {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Address</a>
@@ -72,6 +68,10 @@
                                 <li class="nav-item workingHour">
                                     <a class="nav-link" href="#working_hours_tab" data-bs-toggle="tab"
                                         {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Working Hours</a>
+                                </li>
+                                <li class="nav-item specializations services">
+                                    <a class="nav-link" href="#service_details_tab" data-bs-toggle="tab"
+                                        {{ isset($singleDoctorDetails->id) ? '' : 'disabled' }}>Services Specialization</a>
                                 </li>
                                 <li class="nav-item socialMediaAccounts">
                                     <a class="nav-link" href="#social_media_details_tab" data-bs-toggle="tab"

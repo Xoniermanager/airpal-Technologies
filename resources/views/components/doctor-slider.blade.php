@@ -31,29 +31,42 @@
                             <div class="doc-content">
                                 <div class="doc-pro-info">
                                     <div class="doc-pro-name">
-                                        <a href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">{{ $doctor->fullName }}</a>
-                                        {{ formatDoctorSpecializations($doctor) }}
+                                        <a href="{{ route('frontend.doctor.profile', ['user' => Crypt::encrypt($doctor->id)]) }}">Dr.&nbsp;{{ $doctor->fullName }}</a>
+                                        <p>          {{ formatDoctorSpecializations($doctor) }}</p>
                                     </div>
                                     <div class="reviews-ratings">
                                         <p>
-                                            {!! getRatingHtml($doctor->allover_rating) !!}
+                                            <span><i class="fas fa-star"></i> {{ $doctor->allover_rating ?? 0 }}</span>
+                                            
+                                            ({{ count($doctor->getAllDoctorReviews()) }})
+
                                         </p>
                                     </div>
+                                    {{-- <div class="reviews-ratings">
+                                        <p>
+                                            {!! getRatingHtml($doctor->allover_rating) !!}
+                                        </p>
+                                    </div> --}}
                                 </div>
+                                {{-- <div class="doc-pro-info">
+                          
+                                </div> --}}
+
                                 <div class="doc-pro-location">
                                     @if (isset($doctor->doctorAddress))
                                         <span>
-                                            <i class="feather-map-pin"></i><p>
+                                            <i class="feather-map-pin"></i>
+                                     
                                                 {{ formatDoctorAddress($doctor) }}
-                                            </p>
+                                           
                                             <a href="https://www.google.com/maps?q={{  encodeAddress($doctor) }}" target="_blank"
                                                 style="color: blue">
                                                 Get Directions </a>
                                         </span>
                                     @else
-                                        <p class="doc-location">
+                                        <span class="doc-location">
                                             <i class="feather-map-pin"></i> - Address Not Added
-                                        </p>
+                                        </span>
                                     @endif
                                 </div>
                             </div>

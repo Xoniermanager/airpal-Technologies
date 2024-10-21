@@ -72,7 +72,7 @@ class User extends Authenticatable
     protected function fullName(): Attribute
     {
         return new Attribute(
-            get: fn() => $this->first_name . ' ' . $this->last_name
+            get: fn() => ucwords(strtolower($this->first_name . ' ' . $this->last_name))
         );
     }
 
@@ -251,5 +251,13 @@ class User extends Authenticatable
             ->sum('amount'); 
 
         return '$' . number_format($totalAmount, 2);
+    }
+
+    public function getAllDoctorReviews()
+    {
+        // Assuming 'status' indicates completed, and completed status is 'completed'
+        return $this->doctorReview()
+                    ->with('patient')
+                    ->get();       
     }
 }

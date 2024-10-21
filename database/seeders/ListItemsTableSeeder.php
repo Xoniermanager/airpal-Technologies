@@ -127,6 +127,24 @@ class ListItemsTableSeeder extends Seeder
                 'created_at' => '2024-09-11 13:33:55',
                 'updated_at' => '2024-09-12 05:18:04',
             ),
+            12 => 
+            array (
+                'id' => 93,
+                'title' => '- AirPal offers a comprehensive health monitoring solution that seamlessly integrates with your wearable devices.',
+                'status' => 1,
+                'section_lists_id' => 56,
+                'created_at' => '2024-10-21 06:21:22',
+                'updated_at' => '2024-10-21 06:21:22',
+            ),
+            13 => 
+            array (
+                'id' => 94,
+                'title' => '- Our software app connects with wearables to provide real-time monitoring of vital signs, ensuring timely detection of any irregularities.',
+                'status' => 1,
+                'section_lists_id' => 56,
+                'created_at' => '2024-10-21 06:21:22',
+                'updated_at' => '2024-10-21 06:21:22',
+            ),
         ));
         
         

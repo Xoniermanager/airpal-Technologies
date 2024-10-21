@@ -12,7 +12,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 aos" data-aos="fade-up">
                     <div class="doctor-search">
-                        <div class="banner-header">
+                        <div class="banner-header col-md-7">
                             <h2>{{ $sections['instant_banner']->title }}</h2>
                         </div>
                         <div class="doctor-form">
@@ -65,11 +65,12 @@
     @php 
     //dd($doctorList); 
     @endphp
-    {{-- this is top doctor section (common section with other pages) --}}
-    <x-doctor-slider :doctorList="$doctorList" :show="true" />
 
     {{-- this is group by doctor specialty section (common section with other pages) --}}
     <x-specialty-group-by-section :specialties="$specialties"  :show="true" />
+
+    {{-- this is top doctor section (common section with other pages) --}}
+    <x-doctor-slider :doctorList="$doctorList" :show="true" />
 
 @endsection
 

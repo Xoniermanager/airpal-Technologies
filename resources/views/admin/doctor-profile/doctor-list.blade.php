@@ -15,7 +15,17 @@
                         </h2>
                     </td>
                     <td>
-                    <span>{{ $doctor->specializations->implode('name',', ') }}</span>
+                 
+                            @isset($doctor)
+                                @forelse ($doctor->specializations as $specialization)
+                                    <span
+                                        class="badge badge-info text-white">{{ $specialization->name }}</span>
+                                @empty
+                                    <p>Speciality Not Added</p>
+                                @endforelse
+                            @endisset
+                    </td>
+                    {{-- <span>{{ $doctor->specializations->implode('name',', ') }}</span> --}}
                     <td>{{ getFormattedDate($doctor->created_at) }} <br></td>
                     <td> {{ $doctor->calculateTotalPayments() }}</td>
                     <td>

@@ -102,7 +102,7 @@
             <a href="{{ $filePath }}" target="_blank" class="btn btn-primary prime-btn">Click to download PDF</a>
         @else
             <img src="{{ $filePath }}" alt="certificate image" width="140" height="200" style="border-radius:20px;"
-            onerror="this.src='${site_base_url}assets/img/award1.png'"
+            onerror="this.src='{{ asset('assets/img/award1.png') }}'"
             >
         @endif
     </div>
@@ -215,7 +215,7 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="form-wrap" id="award_preview">
                                                     <img src="" alt="certificate image" width="140" height="200" style="border-radius:20px;"
-                                                    onerror="this.src='{{ asset('assets/img/demo-edu.png') }}'">
+                                                    onerror="this.src='{{ asset('assets/img/award1.png') }}'">
                                             </div>
                                         </div>
                                     </div>

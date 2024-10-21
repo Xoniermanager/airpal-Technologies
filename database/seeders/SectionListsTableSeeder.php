@@ -49,6 +49,16 @@ class SectionListsTableSeeder extends Seeder
                 'created_at' => '2024-09-11 13:33:55',
                 'updated_at' => '2024-09-11 13:49:49',
             ),
+            3 => 
+            array (
+                'id' => 56,
+                'title' => 'Wearable Health Monitoring',
+                'icon' => NULL,
+                'section_id' => 119,
+                'status' => 1,
+                'created_at' => '2024-10-21 06:20:41',
+                'updated_at' => '2024-10-21 06:20:41',
+            ),
         ));
         
         

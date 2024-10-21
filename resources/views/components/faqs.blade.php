@@ -47,8 +47,8 @@
                             </div>
                         </div>
                         @endforeach
-                        {{-- <h5 class="text-center"> <a href="faq.html" class="fw-bold text-primary">Read All
-                                        FAQ's</a></h5> --}}
+                        <h5 class="text-center"> <a href="faq.html" class="fw-bold text-primary">Read All
+                                        FAQ's</a></h5>
                     </div>
 
                 </div>

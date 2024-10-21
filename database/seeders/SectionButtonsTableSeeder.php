@@ -82,7 +82,7 @@ class SectionButtonsTableSeeder extends Seeder
             6 => 
             array (
                 'id' => 28,
-                'text' => 'Book Now',
+                'text' => 'Connect Wearable',
                 'link' => 'http://127.0.0.1:8000/search-doctor',
                 'section_id' => 118,
                 'status' => 1,
@@ -92,7 +92,7 @@ class SectionButtonsTableSeeder extends Seeder
             7 => 
             array (
                 'id' => 29,
-                'text' => 'Order Now',
+                'text' => 'Connect Wearable',
                 'link' => 'http://127.0.0.1:8000',
                 'section_id' => 119,
                 'status' => 1,

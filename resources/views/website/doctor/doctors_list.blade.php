@@ -40,39 +40,34 @@
                                                     @endforelse
                                                     @endisset
                                                 </div>
-                                                <div class="clinic-details">
-                                                    <div>
+                                                <div class="clinic-details"> 
                                                         @if (isset($doctor->doctorAddress))
-                                                            <p>
-                                                                <span>
-                                                                    <i class="feather-map-pin"></i><strong>
+                                                            <p class="doc-location"> 
+                                                                    <i class="feather-map-pin"></i>
                                                                         {{ formatDoctorAddress($doctor) }}
-                                                                    </strong>
+                                                                    
                                                                     <a href="https://www.google.com/maps?q={{ encodeAddress($doctor) }}"
                                                                         target="_blank" style="color: blue">
-                                                                        Get Directions </a>
-                                                                </span>
+                                                                        Get Directions </a> 
                     
                                                             </p>
                                                         @else
                                                             <p class="doc-location">
                                                                 <i class="feather-map-pin"></i> - Address Not Added
                                                             </p>
-                                                        @endif
-                    
-                                                    </div>
+                                                        @endif 
                                              
                                                     <p class="doc-location">
                                                         <i class="feather-award"></i>
-                                                        <span>{{ $doctor->experience_years == 0 || $doctor->experience_years == null ? 'Experience Not Added' : $doctor->experience_years . ' Years of Experience' }}</span>
+                                                    {{ $doctor->experience_years == 0 || $doctor->experience_years == null ? 'Experience Not Added' : $doctor->experience_years . ' Years of Experience' }}
                                                     </p>
                                                     <p class="doc-location">
                                                         <i class="feather-phone"></i>
-                                                        <span>{{ !empty($doctor->phone) ? $doctor->phone : 'Not available' }}</span>
+                                                        {{ !empty($doctor->phone) ? $doctor->phone : 'Not available' }}
                                                     </p>
                                                     <p class="doc-location">
                                                         <i class="feather-mail"></i>
-                                                        <span>{{ !empty($doctor->email) ? $doctor->email : 'Not available' }}</span>
+                                                        {{ !empty($doctor->email) ? $doctor->email : 'Not available' }}
 
                                                     </p>
 

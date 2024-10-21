@@ -180,7 +180,7 @@ class PageSectionsTableSeeder extends Seeder
                 'id' => 118,
                 'title' => 'Wearable Medical Device & Health Monitoring Technology',
                 'subtitle' => 'Experts opinion at your comfort Zone',
-                'image' => 'section-banner/health_monitoring_banner-1729245601.png',
+                'image' => 'site-data/section-banner/health_monitoring_banner-1729245601.png',
                 'content' => '',
                 'section_slug' => 'health_monitoring_banner',
                 'page_id' => 3,
@@ -194,16 +194,12 @@ class PageSectionsTableSeeder extends Seeder
                 'title' => 'Wearable Health Monitoring',
                 'subtitle' => '',
                 'image' => 'site-data/section-banner/health_monitoring_device-1727266199.jpg',
-                'content' => 'Connect Your Wearables with AirPal
-
-- AirPal offers a comprehensive health monitoring solution that seamlessly integrates with your wearable devices.
-
-- Our software app connects with wearables to provide real-time monitoring of vital signs, ensuring timely detection of any irregularities.',
+                'content' => 'Connect Your Wearables with AirPal',
                 'section_slug' => 'health_monitoring_device',
                 'page_id' => 3,
                 'status' => 1,
                 'created_at' => '2024-09-08 15:47:09',
-                'updated_at' => '2024-10-18 10:02:03',
+                'updated_at' => '2024-10-20 08:24:19',
             ),
             14 => 
             array (

@@ -76,7 +76,7 @@ class InstantController extends Controller
   }
 
     // If validation passes, send the email
-    $sendMail = Mail::to('xonier.puneet@gmail.com')->send(new InstantConsultSendMail($validator->validate()));
+    $sendMail = Mail::to(site('admin_email'))->send(new InstantConsultSendMail($validator->validate()));
 
     if ($sendMail) {
       return response()->json([
@@ -109,7 +109,7 @@ class InstantController extends Controller
             ], 400);
         }
         // If validation passes, send the email
-        $sendMail = Mail::to('xonier.puneet@gmail.com')->send(new ConnectWearableDeviceMail($validator->validate()));
+        $sendMail = Mail::to(site('admin_email'))->send(new ConnectWearableDeviceMail($validator->validate()));
     
         if ($sendMail) {
           return response()->json([

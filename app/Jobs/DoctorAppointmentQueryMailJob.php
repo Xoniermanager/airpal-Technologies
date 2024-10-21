@@ -27,6 +27,6 @@ class DoctorAppointmentQueryMailJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to("xonier.puneet@gmail.com")->send(new SendMailForAppointmentDoctorQuery($this->mailDataAndLink));
+        Mail::to(site('admin_email'))->send(new SendMailForAppointmentDoctorQuery($this->mailDataAndLink));
     }
 }

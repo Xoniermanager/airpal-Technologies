@@ -17,7 +17,7 @@ class ContactController extends Controller
   }
   public function contactUs(ContactUsRequest $request)
   {
-    $sendMail = Mail::to("xonier.puneet@gmail.com")->send(new ContactUs($request->all()));
+    $sendMail = Mail::to(site('admin_email'))->send(new ContactUs($request->all()));
     if ($sendMail) {
       return response()->json([
         'success' => true,

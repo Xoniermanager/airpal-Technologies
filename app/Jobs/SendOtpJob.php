@@ -18,7 +18,6 @@ class SendOtpJob implements ShouldQueue
     private $mailData;
     public function __construct($mailData) {
         $this->mailData   = $mailData;
-
     }
 
     /**
@@ -26,6 +25,6 @@ class SendOtpJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to("yashxoniertechnologies@gmail.com")->send(new SendMailToUser($this->mailData));
+        Mail::to($this->mailData['email'])->send(new SendMailToUser($this->mailData));
     }
 }

@@ -56,7 +56,7 @@ class BookAppointmentApiController extends Controller
             
             $payload = $request->validated();
             $payload['patient_id'] = Auth::guard('api')->user()->id;
-            $bookedAppointment = $this->bookingAppointmentServices->store($request);
+            $bookedAppointment = $this->bookingAppointmentServices->store($payload);
 
             // Check if booking fee is required
             $paramsToGetBookingFee = [

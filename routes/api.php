@@ -72,6 +72,7 @@ Route::middleware('authCheck')->group(function () {
         Route::controller(DoctorDashboardController::class)->group(function () {
             Route::get('get-doctor-dashboard-data', 'getDashboardDetails');
         });
+        Route::get('get-all-review-doctor', [DoctorReviewController::class, 'getAllReviewByDoctorId']);
 
         Route::controller(DoctorProfileController::class)->group(function () {
             Route::post('profile', 'profile');
@@ -205,7 +206,7 @@ Route::middleware('authCheck')->group(function () {
             Route::post('update-doctor-review', 'updateDoctorReview');
             Route::get('get-all-review', 'getAllReview');
             Route::get('get-review-details/{doctor_reviews:id}', 'getReviewDetailById');
-            Route::get('get-review-by-patient', 'getAllReviewByPatientId');
+            Route::get('get-all-review-patient', 'getAllReviewByPatientId');
         });
         Route::controller(PatientDiaryController::class)->group(function () {
             Route::get('all-patient-diary', 'getAllPatientDiary');

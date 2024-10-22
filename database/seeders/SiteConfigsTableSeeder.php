@@ -226,6 +226,15 @@ class SiteConfigsTableSeeder extends Seeder
                 'created_at' => '2024-09-18 12:53:56',
                 'updated_at' => '2024-09-23 07:22:48',
             ),
+            23 => 
+            array (
+                'id' => 32,
+                'name' => 'profile_status',
+                'value' => '85',
+                'status' => 1,
+                'created_at' => '2024-10-22 07:44:13',
+                'updated_at' => '2024-10-22 07:44:13',
+            ),
         ));
         
         

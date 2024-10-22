@@ -28,8 +28,7 @@
                             <div class="specialist-info">
                                 
                                     <h4>{{ $speciality->name ?? '' }}</h4>
-                               
-                                <p>{{ $speciality->doctor()->count() }} Doctors</p>
+                            <p>({{ $speciality->doctor()->where('profile_status', '>=', site('profile_status'))->count() }}) Doctors</p>
                             </div>
                             <div class="specialist-nav ms-auto">
                                 <i

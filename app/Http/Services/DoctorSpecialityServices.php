@@ -36,7 +36,12 @@ public function getSpecialtyGroupByDoctor()
 
 public function doctorListBySpecialtyID($id)
   {
-    return $this->doctor_speciality_repository->where('speciality_id', $id)->with('user')->get();
+    // return $this->doctor_speciality_repository->where('speciality_id', $id)->with('user')->get();
+    return $this->doctor_speciality_repository
+    ->where('speciality_id', $id)
+    ->whereHas('user', function ($query) {
+        $query->where('profile_status', '>=', site('profile_status'));
+    })->with('user')->get();
   }
 }
 

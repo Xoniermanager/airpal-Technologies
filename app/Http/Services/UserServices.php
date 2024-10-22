@@ -127,6 +127,9 @@ class UserServices
         // Search for doctor roles only
         $query->where('role', config('airpal.roles.doctor'));
 
+        // Get profile of doctor whose profile status is completed at least 80%
+        $query->where('profile_status', '>=', site('profile_status'));
+
         if (!empty($data['gender'])) {
             $query->whereIn('gender', $data['gender']);
         }

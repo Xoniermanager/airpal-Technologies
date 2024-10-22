@@ -59,10 +59,23 @@ class HomeController extends Controller
     {
       $slug = str_replace('\\','_', $pageExtraSection->model);
       $slug = strtolower($slug);
-      $extraSections[$slug] = $pageExtraSection->model::orderBy($pageExtraSection->order_with_column,$pageExtraSection->order_by)->take($pageExtraSection->no_of_records)->get();
-    }
+      // $extraSections[$slug] = $pageExtraSection->model::orderBy($pageExtraSection->order_with_column,$pageExtraSection->order_by)
+      // ->take($pageExtraSection->no_of_records)->get();
 
-  
+      if ($pageExtraSection->model == User::class) {
+        // If the model is User, filter by role_id = 2 (doctors)
+        $extraSections[$slug] = User::where('role', 2) // Add simple where condition for role_id
+            ->where('profile_status','>=',site('profile_status')) 
+            ->orderBy($pageExtraSection->order_with_column, $pageExtraSection->order_by)
+            ->take($pageExtraSection->no_of_records)
+            ->get();
+    } else {
+        // For other models, proceed as normal
+        $extraSections[$slug] = $pageExtraSection->model::orderBy($pageExtraSection->order_with_column, $pageExtraSection->order_by)
+            ->take($pageExtraSection->no_of_records)
+            ->get();
+    }
+    }
     return view('website.pages.home', [
 
       'specialties'   =>  $specialtiesByDoctorsCount,

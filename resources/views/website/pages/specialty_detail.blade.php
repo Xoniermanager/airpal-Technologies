@@ -52,7 +52,7 @@
                                             <h4>
                                                 <a href="{{ route('specialty.detail', ['id' => $speciality->id]) }}">{{ $speciality->name ??  ''}}</a>
                                             </h4>
-                                            <p>({{ $speciality->doctor()->count() }})  Doctors</p>
+                                            <p>({{ $speciality->doctor()->where('profile_status', '>=', site('profile_status'))->count() }}) Doctors</p>
                                         </div>
                                     </li>
                                     @endforeach 

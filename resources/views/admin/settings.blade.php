@@ -126,6 +126,15 @@
                                         <span class="text-denger" id="config_admin_address_value_error"
                                             style="color: red">
                                     </div>
+                                    
+                                    <div class="col-md-6 mb-3">
+                                        <label class="mb-2">Want to show profile on completion(%)</label>
+                                        <input type="hidden" value="profile_status" class="form-control"
+                                            name="config[profile_status][name]">
+                                        <input type="text" class="form-control" name="config[profile_status][value]"
+                                            value="{{ $configData['profile_status'] ?? '' }}">
+                                            <span class="text-denger" id="config_profile_status_value_error" style="color: red">
+                                    </div>
 
                                     <!-- Facebook Link -->
                                     <div class="col-md-6 mb-3">

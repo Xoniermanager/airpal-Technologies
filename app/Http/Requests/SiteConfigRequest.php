@@ -48,6 +48,9 @@ class SiteConfigRequest extends FormRequest
             'config.website_logo.value' => 'nullable|mimes:jpeg,jpg,bmp,png,gif,svg,pdf|max:2048',
             'config.website_favicon.name' => 'string',
             'config.website_favicon.value' => 'nullable|mimes:jpeg,jpg,bmp,png,gif,svg,pdf|max:2048',
+
+            'config.profile_status.name' => 'string',
+            'config.profile_status.value' => 'nullable',
         
             // PayPal fields - make them nullable if not used
             'config.PAYPAL_SANDBOX_CLIENT_ID.value' => 'nullable|string', 

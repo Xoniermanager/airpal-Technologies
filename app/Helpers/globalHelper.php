@@ -538,7 +538,7 @@ function generateMeetingId($bookingId)
     $bookingDetails = BookingSlots::find($bookingId);
     $timestamp = now()->format('YmdHis');
     $meeetingId = $bookingDetails->doctor_id . $timestamp . $bookingDetails->patient_id . $bookingId;
-    $bookingDetails->update(['meeting_id' => $meeetingId]);
+    return $bookingDetails->update(['meeting_id' => $meeetingId]);
 }
 
 
@@ -599,7 +599,7 @@ function checkDoctorProfileCompleteStatus($doctorId)
     if ($doctorDetails->role === 2)
     {
         // Check if basic details is added
-        if (!empty($doctorDetails->first_name) && !empty($doctorDetails->last_name)) 
+        if (!empty($doctorDetails->first_name) && !empty($doctorDetails->last_name))
         {
             $percentage += 10;
             $completedProfiles['basic_profile'] = 'Basic Details';
@@ -610,7 +610,7 @@ function checkDoctorProfileCompleteStatus($doctorId)
         }
 
         // Check if profile picture and about description is added
-        if (!empty($doctorDetails->image_url) && !empty($doctorDetails->description)) 
+        if (!empty($doctorDetails->image_url) && !empty($doctorDetails->description))
         {
             if(!empty($doctorDetails->image_url))
             {
@@ -643,7 +643,7 @@ function checkDoctorProfileCompleteStatus($doctorId)
         ];
 
         foreach ($profileChecks as $profileCheck => $profileText) {
-            if (!empty($doctorDetails->$profileCheck) && $doctorDetails->$profileCheck()->exists()) 
+            if (!empty($doctorDetails->$profileCheck) && $doctorDetails->$profileCheck()->exists())
             {
                 $value = 10;
                 if ($profileCheck == 'socialMediaAccounts' || $profileCheck == 'language') {
@@ -718,5 +718,5 @@ function createDoctorProfileStatus($profileStatus)
     $profileStatusHtml .=   '</div>';
     $profileStatusHtml .=   '<script>jQuery(document).ready(function(){ update_profile_progress_animation('. $profileStatus['total'] .'); })</script>';
 
-    return $profileStatusHtml;    
+    return $profileStatusHtml;
 }

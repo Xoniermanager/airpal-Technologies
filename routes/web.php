@@ -148,7 +148,7 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(PrescriptionController::class)->group(function () {
         Route::get('/download-pdf/{prescriptions:id}', 'downloadPrescriptionPdf')->name('prescription.pdf.download');
     });
-    
+
     // Get the doctor profile status
     Route::POST('update-doctor-profile-status',[AdminDoctorController::class,'getDoctorProfileProgressHtml'])->name('get.doctor.profile.status>html');
 });
@@ -197,7 +197,7 @@ Route::prefix('doctor')->group(function () {
         Route::controller(ReviewsController::class)->group(function () {
             Route::get('reviews', 'doctorReviews')->name('doctor.doctor-reviews.index');
         });
-        
+
         // Route::controller(DoctorSocialMediaAccountsController::class)->group(function () {
         //     Route::get('social', 'doctorSocial')->name('doctor.doctor-social.index');
         //     Route::post('add-account', 'addSocialMedia')->name('add.social.media.account');
@@ -334,12 +334,12 @@ Route::middleware(['auth'])->group(function () {
             Route::get('doctor-question-filter', 'doctorQuestionFilter')->name('doctor.question.filter');
             Route::get('get-question-by-doctor-id', 'getQuestionByDoctorId')->name('get.question.doctor.id');
         });
-        
+
         // Doctor Service Specialities Common Concern routes
         Route::controller(DoctorServiceController::class)->group(function () {
             Route::post('service-specialities', 'addDoctorServiceSpecialities')->name('admin.add-doctor-service');
         });
-        
+
     });
 
     Route::prefix('course')->controller(CourseController::class)->group(function () {
@@ -709,3 +709,4 @@ Route::controller(NewsletterController::class)->group(function () {
     Route::view('/thank_you', 'newsletter_success')->name('thank.you');
     Route::view('/error', 'error')->name('error');
 });
+https://bhm-video-app.onrender.com/meeting?obj=eyJtZWV0aW5nX2lkIjoiNDMyMDI0MTAyMzEwNTMxNTQyMzQiLCJzdGFydERhdGVUaW1lIjoiMjAyNC0xMC0yMyAxMTowMDowMCIsImVuZERhdGVUaW1lIjoiMjAyNC0xMC0yMyAxMTo1MDowMCIsInN0YXJ0VGltZSI6IjExOjAwOjAwIiwiZW5kVGltZSI6IjExOjUwOjAwIiwiYm9va2luZ19kYXRlIjoiMjAyNC0xMC0yMyJ9

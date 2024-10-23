@@ -95,7 +95,7 @@ class DoctorAppointmentController extends Controller
     public function UpdateAppointmentStatus(Request $request)
     {
         try {
-            $updateRequest   = $this->bookingServices->update($request->all(), $request->patientId);
+            $updateRequest   = $this->bookingServices->updateStatus($request->status, $request->booking_id);
             $allAppointments = $this->bookingServices->requestedAppointment(Auth::id())->paginate(10)->setPath(route('doctor.doctor-request.index'));
             if ($updateRequest) {
                 return response()->json([

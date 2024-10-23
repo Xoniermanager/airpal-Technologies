@@ -8,9 +8,12 @@ use Illuminate\Http\Request;
 use App\Http\Services\UserServices;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Services\BookingServices;
+use App\Mail\ConfirmAppointmentByDoctor;
 use App\Http\Services\DoctorDashboardServices;
 use App\Http\Requests\SearchAppointmentsRequest;
+use App\Jobs\ConfirmAppointmentByDoctorJob;
 
 class DoctorAppointmentController extends Controller
 {
@@ -98,6 +101,12 @@ class DoctorAppointmentController extends Controller
             $updateRequest   = $this->bookingServices->updateStatus($request->status, $request->booking_id);
             $allAppointments = $this->bookingServices->requestedAppointment(Auth::id())->paginate(10)->setPath(route('doctor.doctor-request.index'));
             if ($updateRequest) {
+
+                $bookingDetails  =  $this->bookingServices->getBookingSlotById($request->booking_id)->first();
+
+                // Sending mail to user when doctor confirm their status
+                ConfirmAppointmentByDoctorJob::dispatch($bookingDetails);
+                
                 return response()->json([
                     'success'    =>  'Update successfully',
                     'requestCounter' => count($allAppointments),

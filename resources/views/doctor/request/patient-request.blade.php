@@ -8,57 +8,63 @@
 
 @section('javascript')
     <script>
-        function updateAppointment(status, requestId) {
-            Swal.fire({
-                title: "Are you sure?",
-                // text: "You won't be able to revert this!",
-                icon: "done",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, proceed!"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: "{{ route('doctor.status.appointment') }}", // Adjust this URL to your route
-                        method: 'POST',
-                        data: {
-                            _token: '{{ csrf_token() }}',
-                            booking_id: requestId,
-                            status: status
-                        },
-                        success: function(response) {
-                            console.log(response.data);
-                            $('#appointment-request-list').replaceWith(response.data);
-                            $('#appointmentRequestCounter').text(response.requestCounter);
-                            jQuery('#appointment-request-list').hide().delay(200).fadeIn();
+function updateAppointment(status, requestId) {
+    Swal.fire({
+        title: "Are you sure?",
+        icon: "question",  // Ensure it's a valid icon
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, proceed!",
+        cancelButtonText: "Cancel",  // Explicitly add cancel text
+    }).then((result) => {
+        console.log('Swal result:', result);  // Log the result object for debugging
+        if (result.value) {  // Check for result.value instead of result.isConfirmed
+            console.log('Confirmed, sending request...'); // Log that we are proceeding
 
-                            if (status === 'canceled') {
-                                Swal.fire({
-                                    icon: 'warning',
-                                    title: 'Appointment Canceled',
-                                    text: response.message,
-                                });
-                            } else {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Done!',
-                                    text: response.message,
-                                });
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(error);
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: 'An error occurred while updating the appointment status.',
-                            });
-                        }
+            $.ajax({
+                url: "{{ route('doctor.status.appointment') }}", // Adjust this URL to your route
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    booking_id: requestId,
+                    status: status
+                },
+                success: function(response) {
+                    console.log('Request successful:', response);  // Log the response
+                    $('#appointment-request-list').replaceWith(response.data);  // Update list
+                    $('#appointmentRequestCounter').text(response.requestCounter);  // Update counter
+                    jQuery('#appointment-request-list').hide().delay(200).fadeIn();
+
+                    if (status === 'canceled') {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Appointment Canceled',
+                            text: response.message,
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Done!',
+                            text: response.message,
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Request failed:', error);  // Log the error
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred while updating the appointment status.',
                     });
                 }
             });
+        } else {
+            console.log('Action canceled or modal dismissed');  // Handle dismiss case
         }
+    });
+}
+
 
         $(document).ready(function() {
             $('.dropdown-item').on('click', function() {

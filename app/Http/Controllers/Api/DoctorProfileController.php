@@ -15,7 +15,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Services\DoctorService;
 use App\Http\Services\StateServices;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Services\BookingServices;
 use App\Http\Services\CountryServices;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Services\DoctorAddressServices;
 use App\Http\Services\DoctorLanguageServices;
 use App\Http\Services\SpecializationServices;
@@ -24,7 +26,6 @@ use App\Http\Services\DoctorSpecialityServices;
 use App\Http\Requests\StoreDoctorAddressRequest;
 use App\Http\Requests\StoreDoctorRegistrationRequest;
 use App\Http\Requests\StoreDoctorPersonalDetailRequest;
-use App\Http\Services\BookingServices;
 
 class DoctorProfileController extends Controller
 {
@@ -235,6 +236,26 @@ class DoctorProfileController extends Controller
                 'success' => false,
                 'message' => $th->getMessage()
             ], 500);
+        }
+    }
+
+    public function doctorProfileStatus()
+    {
+        try {
+            $doctorId = Auth::guard('api')->user()->id;
+            // Get the doctor's profile status
+            $profileStatus = checkDoctorProfileCompleteStatus($doctorId);
+    
+            // Return the profile status as a JSON response
+                return response()->json([
+                    'success' => true,
+                    'message' => "Personal detail Retrieved",
+                    'data'    => $profileStatus
+                ], 200);
+    
+        } catch (\Exception $e) {
+            // Catch any exceptions and return an error response
+            return response()->json(['error' => 'Something went wrong.', 'message' => $e->getMessage()], 500);
         }
     }
 }

@@ -80,6 +80,7 @@ Route::middleware('authCheck')->group(function () {
             Route::post('address/update', 'updateAddress');
             Route::get('get-my-patient', 'getMyPatientByDoctorId');
             Route::get('get-patient-profile/{id}', 'getPatientBookingJourney');
+            Route::get('doctor_profile_status', 'doctorProfileStatus');
         });
 
         Route::controller(DoctorEducationController::class)->group(function () {

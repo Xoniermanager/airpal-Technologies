@@ -24,7 +24,7 @@
                         method: 'POST',
                         data: {
                             _token: '{{ csrf_token() }}',
-                            patientId: requestId,
+                            booking_id: requestId,
                             status: status
                         },
                         success: function(response) {

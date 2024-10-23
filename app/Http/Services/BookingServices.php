@@ -213,6 +213,7 @@ class BookingServices
                 generateMeetingId($id);
             }
         }
+        return $bookingDetails;
     }
 
     public function filterOnMyPatient($filterData)

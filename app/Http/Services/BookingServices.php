@@ -39,7 +39,7 @@ class BookingServices
 
         $bookedSlot  =  $this->bookingRepository->create($payload);
         if ($bookedSlot) {
-            $pdfPath = storage_path('app/public/' . $payload->doctor_id . '/invoices/invoice-pdf-' . $bookedSlot->id . '.pdf');
+            $pdfPath = storage_path('app/public/' . $payload['doctor_id'] . '/invoices/invoice-pdf-' . $bookedSlot->id . '.pdf');
 
 
             // generating invoice against booking

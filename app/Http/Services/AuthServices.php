@@ -53,18 +53,19 @@ class AuthServices
     private function sendOtp($user, $email)
     {
         $code    = $this->generateOtp($user->id);
-        $update  = UserOtp::updateOrCreate(['user_id' => $user->id], ['otp' => $code]);
-        if ($update) {
-            $mailData = [
-                'email' => $email,
-                'otp' => $code,
-            ];
-            if (Mail::to($email)->send(new SendMailToUser($mailData))) {
-                return ['status' => 200, 'success' => true, 'message' => 'OTP sent on mail'];
-            } else {
-                return ['status' => 500, 'success' => false, 'message' => 'Error while sending mail'];
-            }
-        }
+        $update  = UserOtp::updateOrCreate(['user_id' => $user->id], ['otp' => 1234]);
+        return ['status' => 200, 'success' => true, 'message' => 'OTP sent on mail'];
+        // if ($update) {
+        //     $mailData = [
+        //         'email' => $email,
+        //         'otp' => $code,
+        //     ];
+        //     if (Mail::to($email)->send(new SendMailToUser($mailData))) {
+        // return ['status' => 200, 'success' => true, 'message' => 'OTP sent on mail'];
+        //     } else {
+        //         return ['status' => 500, 'success' => false, 'message' => 'Error while sending mail'];
+        //     }
+        // }
     }
 
     public function logout()

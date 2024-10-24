@@ -208,6 +208,11 @@ class User extends Authenticatable
         return $this->hasMany(DoctorSocialMediaAccounts::class, 'doctor_id');
     }
 
+    public function socialMediaAccountsSync()
+    {
+        return $this->belongsToMany(SocialMediaType::class, 'doctor_social_media_accounts','doctor_id','social_media_type_id');
+    }
+
     // Method to generate the HTML list of social media accounts
     public function DoctorSocialMediaAccountsList()
     {

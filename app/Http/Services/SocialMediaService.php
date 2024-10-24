@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Services;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Repositories\SocialMediaRepository;
 
@@ -13,36 +14,18 @@ class SocialMediaService {
      {
         return $this->socialMediaRepository->all();
      } 
-     public function addSocialMediaAccount($socialMediaData,$doctorId)
+     public function addSocialMediaAccount($socialMediaData, $doctorId)
      {
-            foreach ($socialMediaData['social'] as $socialAccount) 
-            {
-              $link = $socialAccount['link'];
-              $accountType = $socialAccount['social_media_type_id'];
-              
-              // If social medial link value is not provided, so not do anything
-              if(!empty($link))
-              {
-                 $existingRecord = $this->socialMediaRepository->findByDoctorAndAccountType($doctorId, $accountType);
-                 if ($existingRecord) 
-                 {
-                    // If the record exists, update it
-                    $this->socialMediaRepository->update([
-                       'link' => $link,
-                       'social_media_type_id' => $accountType
-                    ], $existingRecord->id);
-                 }
-                 else
-                 {
-                    // If the record doesn't exist, create a new one
-                    $this->socialMediaRepository->create([
-                       'doctor_id' => $doctorId,
-                       'link' => $link,
-                       'social_media_type_id' => $accountType
-                    ]);
-                 }  
-              }
+        $socialMediaSyncData = [];
+        foreach ($socialMediaData['social'] as $socialAccount) {
+           if (isset($socialAccount['link']) && $socialAccount['link'] !== null) {
+              $socialMediaSyncData[$socialAccount['social_media_type_id']] = [
+                 'link' => $socialAccount['link']
+              ];
+           }
         }
+        $doctor = User::find($doctorId);
+        $doctor->socialMediaAccountsSync()->sync($socialMediaSyncData);
         return true;
      }
      public function updateSocialMediaAccount($data)    

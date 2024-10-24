@@ -1,18 +1,6 @@
 <div class="tab-pane fade" id="social_media_details_tab">
 <div class="container">
 
-    @php
-    $socialMediaAccounts = [
-        ['name' => 'Facebook',  'icon' => 'facebook',  'account_type' => 1],
-        ['name' => 'Twitter',   'icon' => 'twitter',   'account_type' => 2],
-        ['name' => 'YouTube',   'icon' => 'youtube',   'account_type' => 3],
-        ['name' => 'Instagram', 'icon' => 'instagram', 'account_type' => 4],
-        ['name' => 'LinkedIn',  'icon' => 'linkedin',  'account_type' => 5],
-        ['name' => 'Pinterest', 'icon' => 'pinterest', 'account_type' => 6],
-    ];
-    $userAccountCount = count($userSocialMediaAccounts);
-    @endphp
-
     <form id="add_social_media_option" method="post" enctype="multipart/form-data"> 
     @csrf
     <div class="box-container">

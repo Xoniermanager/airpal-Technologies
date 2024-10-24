@@ -707,5 +707,5 @@ Route::controller(NewsletterController::class)->group(function () {
     Route::post('news-letter', 'store')->name('newsletter');
     Route::get('/subscriber/verify/{token}', 'verify')->name('newsletter_verify');
     Route::view('/thank_you', 'newsletter_success')->name('thank.you');
-    Route::view('/error', 'error')->name('error'); d
+    Route::view('/error', 'error')->name('error');
 });

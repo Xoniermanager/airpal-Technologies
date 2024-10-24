@@ -28,6 +28,7 @@ use App\Http\Controllers\Api\DoctorAppointmentConfigController;
 use App\Http\Controllers\Api\Patient\MedicalRecordApiController;
 use App\Http\Controllers\Api\Patient\PatientDashboardController;
 use App\Http\Controllers\Api\DoctorAppointmentConfigApiController;
+use App\Http\Controllers\Api\DoctorSocialMediaAccountsApiController;
 use App\Http\Controllers\Api\Patient\PatientFavoriteDoctorController;
 use App\Http\Controllers\Api\Doctor\DoctorAppointmentAndRevenueGraphController;
 use App\Http\Controllers\Api\PushNotificationController;
@@ -159,6 +160,10 @@ Route::middleware('authCheck')->group(function () {
         Route::prefix('paypal')->controller(DoctorPaypalConfigApiController::class)->group(function () {
             Route::get('/', 'index');
             Route::post('create', 'store')->name('add.doctor.paypal.account.detail');
+        });
+
+        Route::controller(DoctorSocialMediaAccountsApiController::class)->group(function () {
+            Route::post('add-social-media-accounts', 'addSocialMedia');
         });
     });
 

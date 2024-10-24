@@ -12332,7 +12332,7 @@ header.header.header-custom.header-fixed.header-one {
 }
 
 .search-input {
-    width: 40%;
+    width: 25%;
     float: left;
     display: table-cell;
     vertical-align: middle;
@@ -12340,7 +12340,7 @@ header.header.header-custom.header-fixed.header-one {
 }
 
 .search-input.search-line {
-    width: 42%;
+    width: 35%;
 }
 .custom-search-select {
     border-top: none;

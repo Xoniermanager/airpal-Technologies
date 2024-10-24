@@ -26,13 +26,12 @@
                                 <i class="feather-search bficon"></i>
                                 <div class=" mb-0">
                                     <input type="text" class="form-control" id="header_search"
-                                        placeholder="Search doctors">
+                                        placeholder="Search doctors, clinics, hospitals, etc">
                                 </div>
                                 <div id="searchedItems"></div>
                             </div>
-
+{{-- 
                             <div class="search-input search-calendar-line">
-                                {{-- <i class="feather-calendar"></i> --}}
                                 <div class=" mb-0">
                                     <select class="form-control custom-search-select" id="select_services">
                                         <option value="">Select Specialty</option>
@@ -43,7 +42,23 @@
                                         @endforelse
                                     </select>
                                 </div>
+                            </div> --}}
+                            <div class="search-input search-map-line">
+                                <i class="feather-map-pin"></i>
+                                <div class=" mb-0">
+                                    <input type="text" class="form-control" placeholder="Location">
+                                    <a class="current-loc-icon current_location" href="javascript:void(0);">
+                                        <i class="feather-crosshair"></i>
+                                    </a>
+                                </div>
                             </div>
+                            <div class="search-input search-calendar-line">
+                                <i class="feather-calendar"></i>
+                                <div class=" mb-0">
+                                    <input type="text" class="form-control datetimepicker" placeholder="Date">
+                                </div>
+                            </div>
+
                             <div class="form-search-btn">
                                 <button class="btn" onclick="return searchdoctor()" type="submit">Search</button>
                             </div>

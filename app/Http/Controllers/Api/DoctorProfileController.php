@@ -26,6 +26,7 @@ use App\Http\Services\DoctorSpecialityServices;
 use App\Http\Requests\StoreDoctorAddressRequest;
 use App\Http\Requests\StoreDoctorRegistrationRequest;
 use App\Http\Requests\StoreDoctorPersonalDetailRequest;
+use App\Models\SocialMediaType;
 
 class DoctorProfileController extends Controller
 {
@@ -88,6 +89,7 @@ class DoctorProfileController extends Controller
                 $hospital   = Hospital::all();
                 $awards     = Award::all();
                 $course     = Course::all();
+                $socialMediaTypes = SocialMediaType::all();
 
                 $data = [
                     'doctor'          => $doctor,
@@ -105,6 +107,7 @@ class DoctorProfileController extends Controller
                     'hospital_list'   => $hospital,
                     'award_list'      => $awards,
                     'course_list'     => $course,
+                    'socialMediaTypes'  => $socialMediaTypes,
 
                 ];
 

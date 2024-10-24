@@ -17,7 +17,7 @@ class BookingSlots extends Model
 
     use HasFactory;
     protected $table = 'booking_slots';
-    protected $fillable = ['doctor_id', 'patient_id', 'booking_date', 'slot_start_time', 'slot_end_time', 'attachment', 'insurance', 'note', 'status', 'image', 'symptoms', 'meeting_id'];
+    protected $fillable = ['doctor_id', 'patient_id', 'booking_date', 'slot_start_time', 'slot_end_time', 'attachment', 'insurance', 'note', 'status', 'image', 'symptoms', 'meeting_id','mail_sent'];
 
     public function user()
     {
@@ -89,11 +89,12 @@ class BookingSlots extends Model
     public function getMeetingButton()
     {
         $buttonHtml = '';
+
         if ($this->status = 'confirmed') {
             if ($this->booking_date == date('Y-m-d')) {
                 if (strtotime($this->slot_start_time) - 900 <= time() && strtotime($this->slot_end_time) >= time()) {
                     $buttonHtml .= '<div class="appointment-detail-btn">
-                    <a href="' . $this->meeting_id . '" class="start-link"><i
+                    <a href="' . $this->meeting_id . '" class="start-link button"><i
                             class="fa-solid fa-calendar-check me-1"></i>Attend</a></div>';
                 }
             }

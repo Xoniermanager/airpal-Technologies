@@ -707,6 +707,5 @@ Route::controller(NewsletterController::class)->group(function () {
     Route::post('news-letter', 'store')->name('newsletter');
     Route::get('/subscriber/verify/{token}', 'verify')->name('newsletter_verify');
     Route::view('/thank_you', 'newsletter_success')->name('thank.you');
-    Route::view('/error', 'error')->name('error');
+    Route::view('/error', 'error')->name('error'); d
 });
-https://bhm-video-app.onrender.com/meeting?obj=eyJtZWV0aW5nX2lkIjoiNDMyMDI0MTAyMzEwNTMxNTQyMzQiLCJzdGFydERhdGVUaW1lIjoiMjAyNC0xMC0yMyAxMTowMDowMCIsImVuZERhdGVUaW1lIjoiMjAyNC0xMC0yMyAxMTo1MDowMCIsInN0YXJ0VGltZSI6IjExOjAwOjAwIiwiZW5kVGltZSI6IjExOjUwOjAwIiwiYm9va2luZ19kYXRlIjoiMjAyNC0xMC0yMyJ9
